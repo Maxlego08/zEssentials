@@ -1,0 +1,4 @@
+name: Essentials
+version: '${version}'
+main: fr.maxlego08.zessentials.Essentials
+api-version: '1.20'

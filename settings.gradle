@@ -1,0 +1,10 @@
+rootProject.name = 'zEssentials'
+
+include('EssentialsApi')
+project(':EssentialsApi').projectDir = file("EssentialsApi")
+
+include('Essentials')
+project(':Essentials').projectDir = file("Essentials")
+
+include('EssentialsChat')
+project(':EssentialsChat').projectDir = file("EssentialsChat")

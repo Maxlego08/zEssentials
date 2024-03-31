@@ -1,0 +1,15 @@
+plugins {
+    id 'java'
+}
+
+dependencies {
+    compileOnly project(':EssentialsApi')
+}
+
+jar {
+    from(project(':EssentialsApi').sourceSets.main.output)
+}
+
+java {
+    withSourcesJar()
+}

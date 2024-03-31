@@ -1,0 +1,55 @@
+plugins {
+    id 'java'
+}
+
+group = 'fr.maxlego08.essentials'
+version = '1.0.0'
+
+def targetJavaVersion = 17
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        options.release = targetJavaVersion
+    }
+}
+
+processResources {
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand props
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+
+    group = 'fr.maxlego08.essentials'
+    version = '1.0.0'
+
+    repositories {
+        mavenCentral()
+        maven { url = 'https://repo.papermc.io/repository/maven-public/' }
+        maven {
+            name = "devmart-other"
+            url = "https://nexuslite.gcnt.net/repos/other/"
+        }
+    }
+
+    dependencies {
+        implementation "com.tcoded:FoliaLib:0.3.1"
+
+        compileOnly 'io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT'
+
+        testImplementation 'junit:junit:4.12'
+    }
+}
