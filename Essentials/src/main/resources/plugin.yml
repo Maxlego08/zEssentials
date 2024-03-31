@@ -1,4 +1,6 @@
 name: Essentials
 version: '${version}'
-main: fr.maxlego08.zessentials.Essentials
+main: fr.maxlego08.essentials.ZEssentialsPlugin
+folia-supported: true
+description: Essentials plugins
 api-version: '1.20'

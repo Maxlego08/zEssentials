@@ -13,3 +13,10 @@ jar {
 java {
     withSourcesJar()
 }
+
+processResources {
+    filesMatching('**/*.yml') {
+        expand(project.properties)
+    }
+}
+

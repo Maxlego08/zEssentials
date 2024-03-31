@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'fr.maxlego08.essentials'
-version = '1.0.0'
+version = property('version')
 
 def targetJavaVersion = 17
 java {
@@ -34,7 +34,7 @@ subprojects {
     apply plugin: 'java'
 
     group = 'fr.maxlego08.essentials'
-    version = '1.0.0'
+    version = property('version')
 
     repositories {
         mavenCentral()
