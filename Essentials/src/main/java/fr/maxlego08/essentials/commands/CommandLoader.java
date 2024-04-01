@@ -3,7 +3,11 @@ package fr.maxlego08.essentials.commands;
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandManager;
-import fr.maxlego08.essentials.commands.commands.CommandGameMode;
+import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameMode;
+import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeAdventure;
+import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeCreative;
+import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeSpectator;
+import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeSurvival;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -24,6 +28,10 @@ public class CommandLoader {
     public void loadCommands(CommandManager commandManager) {
 
         register("gamemode", CommandGameMode.class, "gm");
+        register("gmc", CommandGameModeCreative.class, "creat");
+        register("gma", CommandGameModeAdventure.class, "advent");
+        register("gms", CommandGameModeSurvival.class, "survi");
+        register("gmsp", CommandGameModeSpectator.class, "spec");
 
         File file = new File(plugin.getDataFolder(), "commands.yml");
         if (!file.exists()) this.plugin.saveResource("commands.yml", false);

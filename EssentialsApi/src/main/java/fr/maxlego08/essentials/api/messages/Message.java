@@ -40,6 +40,10 @@ public enum Message {
 
     DESCRIPTION_RELOAD("Reload configuration files"),
     DESCRIPTION_GAMEMODE("Change player gamemode"),
+    DESCRIPTION_GAMEMODE_CREATIVE("Change player gamemode to creative"),
+    DESCRIPTION_GAMEMODE_SURVIVAL("Change player gamemode to survival"),
+    DESCRIPTION_GAMEMODE_ADVENTURE("Change player gamemode to adventure"),
+    DESCRIPTION_GAMEMODE_SPECTATOR("Change player gamemode to spectator"),
 
     YOU("you");
 

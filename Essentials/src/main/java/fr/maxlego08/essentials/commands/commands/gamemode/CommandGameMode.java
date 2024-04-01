@@ -1,4 +1,4 @@
-package fr.maxlego08.essentials.commands.commands;
+package fr.maxlego08.essentials.commands.commands.gamemode;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
@@ -12,12 +12,12 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class CommandGameMode extends VCommand {
+public class CommandGameMode extends GameModeCommand {
 
     public CommandGameMode(EssentialsPlugin plugin) {
         super(plugin);
         this.setPermission(Permission.ESSENTIALS_GAMEMODE);
-        this.setDescription(Message.DESCRIPTION_RELOAD);
+        this.setDescription(Message.DESCRIPTION_GAMEMODE);
         this.addRequireArg("gamemode", (a, b) -> Arrays.stream(GameMode.values()).map(e -> e.name().toLowerCase()).collect(Collectors.toList()));
         this.addOptionalArg("player");
     }
@@ -37,19 +37,6 @@ public class CommandGameMode extends VCommand {
         if (optional.isEmpty()) return CommandResultType.SYNTAX_ERROR;
 
         GameMode gameMode = optional.get();
-        if (player == this.player) {
-
-            player.setGameMode(gameMode);
-            message(sender, Message.COMMAND_GAMEMODE, "%gamemode%", name(gameMode.name()), "%player%", Message.YOU.getMessage());
-
-        } else {
-
-            if (!hasPermission(sender, Permission.ESSENTIALS_GAMEMODE_OTHER)) return CommandResultType.NO_PERMISSION;
-
-            player.setGameMode(gameMode);
-            message(sender, Message.COMMAND_GAMEMODE, "%gamemode%", name(gameMode.name()), "%player%", player.getName());
-        }
-
-        return CommandResultType.SUCCESS;
+        return changeGameMode(this.sender, gameMode, player);
     }
 }
