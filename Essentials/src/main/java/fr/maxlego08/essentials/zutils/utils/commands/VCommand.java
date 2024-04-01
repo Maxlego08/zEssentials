@@ -95,7 +95,7 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
     }
 
     public void setPermission(Permission permission) {
-        this.permission = permission.name().toLowerCase().replace("_", ".");
+        this.permission = permission.asPermission();
     }
 
     @Override
@@ -186,6 +186,30 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
         return Optional.ofNullable(this.tabCompletions.getOrDefault(index, null));
     }
 
+    protected void addRequireArg(String message) {
+        this.requireArgs.add(message);
+        this.ignoreParent = this.parent == null;
+        this.ignoreArgs = true;
+    }
+
+    protected void addRequireArg(String message, TabCompletion runnable) {
+        this.addRequireArg(message);
+        int index = this.requireArgs.size();
+        this.addCompletion(index - 1, runnable);
+    }
+
+    protected void addOptionalArg(String message) {
+        this.optionalArgs.add(message);
+        this.ignoreParent = this.parent == null;
+        this.ignoreArgs = true;
+    }
+
+    protected void addOptionalArg(String message, TabCompletion runnable) {
+        this.addOptionalArg(message);
+        int index = this.requireArgs.size() + this.optionalArgs.size();
+        this.addCompletion(index - 1, runnable);
+    }
+
     private String generateDefaultSyntax(String syntax) {
         boolean update = syntax.isEmpty();
 
@@ -193,9 +217,9 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
         if (update) {
             appendRequiredArguments(syntaxBuilder);
             appendOptionalArguments(syntaxBuilder);
-            syntax = syntaxBuilder.toString().trim();
+            syntax = syntaxBuilder.toString();
         }
-
+        System.out.println(syntax);
         String tmpString = subCommands.get(0) + syntax;
         return parent == null ? "/" + tmpString : parent.generateDefaultSyntax(" " + tmpString);
     }
@@ -205,7 +229,7 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
     }
 
     private void appendOptionalArguments(StringBuilder syntaxBuilder) {
-        optionalArgs.forEach(arg -> syntaxBuilder.append(" [<").append(arg).append(">"));
+        optionalArgs.forEach(arg -> syntaxBuilder.append(" [<").append(arg).append(">]"));
     }
 
     private int parentCount(int defaultParent) {
@@ -293,7 +317,7 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
     private void setPlayerIfApplicable() {
         if (this.sender instanceof Player) {
             this.player = (Player) this.sender;
-        }
+        } else this.player = null;
     }
 
     private CommandResultType safelyPerformCommand(EssentialsPlugin plugin) {

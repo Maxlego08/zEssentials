@@ -32,7 +32,7 @@ public class MessageLoader implements ConfigurationFile {
             this.plugin.getLogger().log(Level.SEVERE, "Messages were not loaded correctly.");
             for (Message value : Message.values()) {
                 if (!this.loadedMessages.contains(value)) {
-                    this.plugin.getLogger().log(Level.INFO, value + " was not loaded.");
+                    this.plugin.getLogger().log(Level.SEVERE, value + " was not loaded.");
                 }
             }
         }

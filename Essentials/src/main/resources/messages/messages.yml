@@ -1,14 +1,19 @@
-prefix: "#03fcb6zEssentials#353535• "
+prefix: "#03fcb6zEssentials #656665• "
+you: "you"
 
 # Commands
-command-syntax-error: "#ff0000You must execute the command like this#353535: &f%syntax%"
-command-no-permission: "&cYou do not have permission to run this command."
-command-no-console: "&cOnly one player can execute this command."
-command-no-arg: "&cImpossible to find the command with its arguments."
-command-syntaxe-help: "&f%syntax% &7» &7%description%"
+command-syntax-error: "#ff0000You must execute the command like this#656665: &f%syntax%"
+command-no-permission: "#ff0000You do not have permission to run this command."
+command-no-console: "#ff0000Only one player can execute this command."
+command-no-arg: "#ff0000Impossible to find the command with its arguments."
+command-syntaxe-help: "&f%syntax% #656665» &7%description%"
 
-command-reload: "&aYou have just reloaded the configuration files."
+command-reload: "#00ff40You have just reloaded the configuration files."
 command-essentials: "&ezEssentials&8, &eVersion &f%version%"
+
+# Command /gamemode
+command-gamemode: "&fSet game mode&e %gamemode%&f for &b%player%&f."
+command-gamemode-invalid: "#ff0000You need to specify a valid player."
 
 description-reload: "Reload configuration files"
 

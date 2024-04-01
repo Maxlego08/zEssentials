@@ -1,4 +1,4 @@
-package fr.maxlego08.essentials.commands.commands;
+package fr.maxlego08.essentials.commands.commands.essentials;
 
 import fr.maxlego08.essentials.api.ConfigurationFile;
 import fr.maxlego08.essentials.api.EssentialsPlugin;

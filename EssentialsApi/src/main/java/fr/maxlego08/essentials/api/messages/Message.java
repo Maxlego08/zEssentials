@@ -35,10 +35,13 @@ public enum Message {
 
     COMMAND_RELOAD("§aYou have just reloaded the configuration files."),
     COMMAND_ESSENTIALS("zEssentials, version %version%"),
+    COMMAND_GAMEMODE("&fSet game mode&e %gamemode% &ffor &b%player%&f."),
+    COMMAND_GAMEMODE_INVALID("&cYou need to specify a valid player."),
 
     DESCRIPTION_RELOAD("Reload configuration files"),
+    DESCRIPTION_GAMEMODE("Change player gamemode"),
 
-    ;
+    YOU("you");
 
     private String message;
     private List<String> messages;
