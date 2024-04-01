@@ -104,7 +104,7 @@ public class ZCommandManager extends ZUtils implements CommandManager {
 
             CommandResultType returnType = command.prePerform(this.plugin, sender, strings);
             if (returnType == CommandResultType.SYNTAX_ERROR) {
-                message(sender, Message.COMMAND_SYNTAXE_ERROR, "%syntax%", command.getSyntax());
+                message(sender, Message.COMMAND_SYNTAX_ERROR, "%syntax%", command.getSyntax());
             }
             return returnType;
         }

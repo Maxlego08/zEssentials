@@ -27,21 +27,22 @@ public enum Message {
     FORMAT_DAY("d"),
     FORMAT_DAYS("days"),
 
-    COMMAND_SYNTAXE_ERROR("§cYou must execute the command like this§7: §a%syntax%"),
+    COMMAND_SYNTAX_ERROR("§cYou must execute the command like this§7: §a%syntax%"),
     COMMAND_NO_PERMISSION("§cYou do not have permission to run this command."),
     COMMAND_NO_CONSOLE("§cOnly one player can execute this command."),
     COMMAND_NO_ARG("§cImpossible to find the command with its arguments."),
     COMMAND_SYNTAXE_HELP("§f%syntax% §7» §7%description%"),
 
-    RELOAD("§aYou have just reloaded the configuration files."),
+    COMMAND_RELOAD("§aYou have just reloaded the configuration files."),
+    COMMAND_ESSENTIALS("zEssentials, version %version%"),
 
     DESCRIPTION_RELOAD("Reload configuration files"),
 
     ;
 
-    private final String message;
-    private final List<String> messages;
-    private final MessageType messageType = MessageType.TCHAT;
+    private String message;
+    private List<String> messages;
+    private MessageType messageType = MessageType.TCHAT;
 
     Message(String message) {
         this.message = message;
@@ -63,5 +64,17 @@ public enum Message {
 
     public MessageType getMessageType() {
         return messageType;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setMessages(List<String> messages) {
+        this.messages = messages;
+    }
+
+    public void setMessageType(MessageType messageType) {
+        this.messageType = messageType;
     }
 }

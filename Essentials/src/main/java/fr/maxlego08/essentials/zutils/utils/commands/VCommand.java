@@ -3,8 +3,10 @@ package fr.maxlego08.essentials.zutils.utils.commands;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.EssentialsCommand;
+import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.commands.Tab;
 import fr.maxlego08.essentials.api.commands.TabCompletion;
+import fr.maxlego08.essentials.api.messages.Message;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -92,6 +94,10 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
         this.permission = permission;
     }
 
+    public void setPermission(Permission permission) {
+        this.permission = permission.name().toLowerCase().replace("_", ".");
+    }
+
     @Override
     public String getSyntax() {
         return syntax == null ? syntax = generateDefaultSyntax("") : syntax;
@@ -107,6 +113,10 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setDescription(Message description) {
+        this.description = description.getMessage();
     }
 
     public int getArgsMinLength() {
