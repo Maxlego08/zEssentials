@@ -32,6 +32,25 @@ command-speed-walk: "&7You have just set your &nwalk&r&7 speed to &f%speed%&7 fo
 command-speed-error: "&cYou must enter a number between &60&c and &610&c. &8(&f2 &7by default&8)"
 
 
+# Teleport commands
+command-tpa-error: "&cYou have already sent a request to #34cfe0%player%&c."
+command-tpa-error-same: "&cYou cannot teleport to yourself."
+command-tpa-error-to-late-empty: "&cYou do not have a teleport request."
+command-tpa-error-to-late-expire: "&cThe teleport request has expired."
+command-tpa-sender: "&7You have just sent a teleport request to #34cfe0%player%&7."
+command-tpa-receiver:
+  - "&7You have just received a teleport request from #34cfe0%player%&7."
+  - "&7You have &c60 seconds&7 to accept the teleport request."
+  - ""
+  - "<click:run_command:/tpaccept>#00ff00ᴀᴄᴄᴇᴘᴛ</click>     <click:run_command:/tpdeny>#ff0000ᴅᴇɴʏ</click>"
+command-tpa-accept-receiver: "&aYou have just accepted the teleport request from #34cfe0%player%&a."
+command-tpa-accept-sender: "#34cfe0%player%&a has just accepted your teleport request."
+command-teleport-ignore-player: "&cYou cannot send a teleport request to #34cfe0%player%&c they are ignoring you."
+command-teleport-world: "&cYou need to be in the same world to teleport."
+command-tpa-error-to-late: "&cYou do not have a teleport request."
+command-tpa-error-to-late-2: "&cThe request has expired."
+
+
 # Command description
 description-reload: "Reload configuration files"
 description-gamemode: "Change player gamemode"
@@ -46,7 +65,9 @@ description-top: "Teleporting to top"
 description-speed: "Change player speed"
 description-enderchest: "Open your enderchest"
 description-endersee: "Open a player enderchest"
-
+description-tpa: "Teleport to a player"
+description-tpa-accept: "Accept a teleportation request"
+description-tpa-deny: "Denied a teleportation request"
 
 # Time format
 time-day: "%02d day %02d hour %02d minute %02d second"
@@ -61,3 +82,11 @@ format-hour: "hour"
 format-hours: "hours"
 format-day: "d"
 format-days: "days"
+
+# Teleportation
+teleport-move: "&cYou must not move!"
+teleport-message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
+teleport-error: "&cYou already have a teleportation in progress!"
+teleport-success: "&eYou have just teleported successfully!"
+teleport-damage: "&cYou must not take damage during teleportation."
+teleport-error-location: "&cUnable to teleport you safely."

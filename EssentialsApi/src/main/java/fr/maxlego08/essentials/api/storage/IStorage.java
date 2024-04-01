@@ -1,9 +1,8 @@
 package fr.maxlego08.essentials.api.storage;
 
-import fr.maxlego08.essentials.api.User;
+import fr.maxlego08.essentials.api.user.User;
 
 import java.util.UUID;
-import java.util.function.Consumer;
 
 public interface IStorage {
 
@@ -11,5 +10,9 @@ public interface IStorage {
 
     void onDisable();
 
-    void createOrLoad(UUID uniqueId, String playerName);
+    User createOrLoad(UUID uniqueId, String playerName);
+
+    void onPlayerQuit(UUID uniqueId);
+
+    User getUser(UUID uniqueId);
 }

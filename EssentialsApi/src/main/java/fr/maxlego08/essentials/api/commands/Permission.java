@@ -14,7 +14,7 @@ public enum Permission {
 
     DAY_USE,
     NIGHT_USE,
-    SUN_USE, ENDERCHEST_USE, ENDERSEE_USE, TOP_USE, SPEED_USE;
+    SUN_USE, ENDERCHEST_USE, ENDERSEE_USE, TOP_USE, SPEED_USE, TPA_USE, TPA_ACCEPT_USE;
 
 
     public String asPermission() {

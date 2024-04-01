@@ -7,6 +7,7 @@ import fr.maxlego08.essentials.api.storage.StorageType;
 import fr.maxlego08.essentials.storage.storages.JsonStorage;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.UUID;
 
@@ -18,14 +19,6 @@ public class ZStorageManager implements StorageManager {
     public ZStorageManager(EssentialsPlugin plugin) {
         this.plugin = plugin;
         this.iStorage = new JsonStorage(plugin);
-    }
-
-    @EventHandler
-    public void onLogin(AsyncPlayerPreLoginEvent event) {
-        UUID playerUuid = event.getUniqueId();
-        String playerName = event.getPlayerProfile().getName();
-
-        this.iStorage.createOrLoad(playerUuid, playerName);
     }
 
     @Override
@@ -46,5 +39,18 @@ public class ZStorageManager implements StorageManager {
     @Override
     public StorageType getType() {
         return StorageType.JSON;
+    }
+
+    @EventHandler
+    public void onLogin(AsyncPlayerPreLoginEvent event) {
+        UUID playerUuid = event.getUniqueId();
+        String playerName = event.getPlayerProfile().getName();
+
+        this.iStorage.createOrLoad(playerUuid, playerName);
+    }
+
+    @EventHandler
+    public void onDisconnect(PlayerQuitEvent event) {
+        this.iStorage.onPlayerQuit(event.getPlayer().getUniqueId());
     }
 }

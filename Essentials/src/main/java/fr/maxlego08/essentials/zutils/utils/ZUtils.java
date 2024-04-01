@@ -32,4 +32,60 @@ public abstract class ZUtils extends MessageUtils {
 
     }
 
+    protected boolean same(Location l1, Location l2) {
+        return (l1.getBlockX() == l2.getBlockX()) && (l1.getBlockY() == l2.getBlockY()) && (l1.getBlockZ() == l2.getBlockZ()) && l1.getWorld().getName().equals(l2.getWorld().getName());
+    }
+
+    protected Location toSafeLocation(Location location) {
+
+        Location defaultLocation = location.clone();
+
+        if (isValid(defaultLocation)) {
+            return defaultLocation;
+        }
+
+        location = findMeSafeLocation(defaultLocation, BlockFace.UP, 1);
+
+        return location;
+    }
+
+    protected Location findMeSafeLocation(Location location, BlockFace blockFace, int distance) {
+
+        if (distance > location.getWorld().getMaxHeight() * 2) {
+            return null;
+        }
+
+        Location location2 = relative(location, blockFace, distance);
+        if (isValid(location2)) {
+            return location2;
+        }
+
+        return findMeSafeLocation(location2, blockFace.equals(BlockFace.UP) ? BlockFace.DOWN : BlockFace.UP,
+                distance + 1);
+    }
+
+    protected boolean isValid(Location location) {
+        return !location.getBlock().getType().isSolid()
+                && !relative(location, BlockFace.UP).getBlock().getType().isSolid()
+                && relative(location, BlockFace.DOWN).getBlock().getType().isSolid();
+    }
+
+    protected Location relative(Location location, BlockFace face) {
+        return relative(location, face, 1.0d);
+    }
+
+    protected Location relative(Location location, BlockFace face, double distance) {
+
+        Location cloneLocation = location.clone();
+        switch (face) {
+            case UP -> cloneLocation.setY(cloneLocation.getY() + distance);
+            case DOWN -> cloneLocation.setY(cloneLocation.getY() - distance);
+            default -> {
+            }
+        }
+
+        return cloneLocation;
+
+    }
+
 }

@@ -47,6 +47,25 @@ public enum Message {
     COMMAND_SPEED_WALK("&7You have just set your &nwalk&r&7 speed to &f%speed%&7 for &f%player%&7. &8(&f2 &7by default&8)"),
     COMMAND_SPEED_ERROR("&cYou must enter a number between &60&c and &610&c. &8(&f2 &7by default&8)"),
 
+    // Teleport Command
+    COMMAND_TPA_ERROR("&cYou have already sent a request to #34cfe0%player%&c."),
+    COMMAND_TPA_ERROR_SAME("&cYou cannot teleport to yourself."),
+    COMMAND_TPA_ERROR_TO_LATE_EMPTY("&cYou do not have a teleport request."),
+    COMMAND_TPA_ERROR_TO_LATE_EXPIRE("&cThe teleport request has expired."),
+    COMMAND_TPA_SENDER("&7You have just sent a teleport request to #34cfe0%player%&7."),
+    COMMAND_TPA_RECEIVER(
+            "&7You have just received a teleport request from #34cfe0%player%&7.",
+            "&7You have &c60 &6seconds&e to accept the teleport request.",
+            "&7To accept the request do #0EEA93/tpaccept&7."
+    ),
+    COMMAND_TPA_ACCEPT_RECEIVER("&aYou have just accepted the teleport request from #34cfe0%player%&a."),
+    COMMAND_TPA_ACCEPT_SENDER("#34cfe0%player%&a has just accepted your teleport request."),
+    COMMAND_TELEPORT_IGNORE_PLAYER("&cYou cannot send a teleport request to #34cfe0%player%&c they are ignoring you."),
+    COMMAND_TELEPORT_WORLD("&cYou need to be in the same world to teleport."),
+    COMMAND_TPA_ERROR_TO_LATE("&cYou do not have a teleport request."),
+    COMMAND_TPA_ERROR_TO_LATE_2("&cThe request has expired."),
+
+
 
     DESCRIPTION_RELOAD("Reload configuration files"),
     DESCRIPTION_GAMEMODE("Change player gamemode"),
@@ -61,8 +80,23 @@ public enum Message {
     DESCRIPTION_ENDERSEE("Open a player enderchest"),
     DESCRIPTION_TOP("Teleporting to top"),
     DESCRIPTION_SPEED("Change player speed"),
+    DESCRIPTION_TPA("Teleport to a player"),
+    DESCRIPTION_TPA_ACCEPT("Accept a teleportation request"),
+    DESCRIPTION_TPA_DENY("Denied a teleportation request"),
 
-    YOU("you");
+    YOU("you"),
+
+    // Teleportation
+
+    TELEPORT_MOVE("&cYou must not move!"),
+    TELEPORT_MESSAGE(MessageType.ACTION, "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."),
+    TELEPORT_ERROR("&cYou already have a teleportation in progress!"),
+    TELEPORT_SUCCESS("&eYou have just teleported successfully!"),
+    TELEPORT_DAMAGE("&cYou must not take damage during teleportation."),
+    TELEPORT_ERROR_LOCATION("&cUnable to teleport you safely."),
+
+
+    ;
 
     private String message;
     private List<String> messages;
@@ -71,6 +105,12 @@ public enum Message {
     Message(String message) {
         this.message = message;
         this.messages = new ArrayList<>();
+    }
+
+    Message(MessageType messageType, String message) {
+        this.message = message;
+        this.messages = new ArrayList<>();
+        this.messageType = messageType;
     }
 
     Message(String... message) {

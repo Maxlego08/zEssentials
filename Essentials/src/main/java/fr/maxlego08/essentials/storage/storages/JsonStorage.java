@@ -1,7 +1,7 @@
 package fr.maxlego08.essentials.storage.storages;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
-import fr.maxlego08.essentials.api.User;
+import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.event.UserEvent;
 import fr.maxlego08.essentials.api.event.events.UserFirstJoinEvent;
 import fr.maxlego08.essentials.api.storage.IStorage;
@@ -48,7 +48,7 @@ public class JsonStorage implements IStorage {
     }
 
     @Override
-    public void createOrLoad(UUID uniqueId, String playerName) {
+    public User createOrLoad(UUID uniqueId, String playerName) {
 
         this.createFolder();
 
@@ -60,16 +60,27 @@ public class JsonStorage implements IStorage {
         // If user is null, we need to create a new user
         if (user == null) {
 
-            user = new ZUser(uniqueId);
+            user = new ZUser(plugin, uniqueId);
             user.setName(playerName);
 
             this.plugin.getLogger().info(String.format("%s (%s) is a new player !", playerName, uniqueId));
             UserEvent event = new UserFirstJoinEvent(user);
             this.plugin.getScheduler().runNextTick(wrappedTask -> event.callEvent());
 
-            persist.save(user, file);
+            persist.save((User)user, file);
         }
 
         this.users.put(uniqueId, user);
+        return user;
+    }
+
+    @Override
+    public void onPlayerQuit(UUID uniqueId) {
+        this.users.remove(uniqueId);
+    }
+
+    @Override
+    public User getUser(UUID uniqueId) {
+        return this.users.get(uniqueId);
     }
 }

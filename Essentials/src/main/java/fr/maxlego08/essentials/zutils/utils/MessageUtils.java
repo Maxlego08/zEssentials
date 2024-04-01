@@ -2,6 +2,7 @@ package fr.maxlego08.essentials.zutils.utils;
 
 import fr.maxlego08.essentials.api.messages.DefaultFontInfo;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.user.User;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -9,6 +10,10 @@ import org.bukkit.entity.Player;
 public abstract class MessageUtils extends PlaceholderUtils {
 
     protected final ComponentMessage componentMessage = new ComponentMessage();
+
+    protected void message(User sender, Message message, Object... args) {
+        message(sender.getPlayer(), message, args);
+    }
 
     protected void message(CommandSender sender, Message message, Object... args) {
 
@@ -41,7 +46,7 @@ public abstract class MessageUtils extends PlaceholderUtils {
 
     private void sendTchatMessage(CommandSender sender, Message message, Object... args) {
         if (message.getMessages().size() > 0) {
-            message.getMessages().forEach(msg -> this.componentMessage.sendMessage(sender, Message.PREFIX.getMessage() + getMessage(msg, args)));
+            message.getMessages().forEach(msg -> this.componentMessage.sendMessage(sender, getMessage(msg, args)));
         } else {
             this.componentMessage.sendMessage(sender, Message.PREFIX.getMessage() + getMessage(message, args));
         }

@@ -3,13 +3,20 @@ package fr.maxlego08.essentials.storage.adapter;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import fr.maxlego08.essentials.api.User;
+import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.storage.ZUser;
 
 import java.io.IOException;
 import java.util.UUID;
 
 public class UserTypeAdapter extends TypeAdapter<User> {
+
+    private final EssentialsPlugin plugin;
+
+    public UserTypeAdapter(EssentialsPlugin plugin) {
+        this.plugin = plugin;
+    }
 
     @Override
     public void write(JsonWriter out, User value) throws IOException {
@@ -33,7 +40,7 @@ public class UserTypeAdapter extends TypeAdapter<User> {
         }
         in.endObject();
 
-        User user = new ZUser(uniqueId);
+        User user = new ZUser(this.plugin, uniqueId);
         user.setName(name);
         return user;
     }

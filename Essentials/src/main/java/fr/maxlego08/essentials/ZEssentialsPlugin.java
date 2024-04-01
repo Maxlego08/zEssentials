@@ -6,7 +6,7 @@ import com.tcoded.folialib.FoliaLib;
 import com.tcoded.folialib.impl.ServerImplementation;
 import fr.maxlego08.essentials.api.ConfigurationFile;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
-import fr.maxlego08.essentials.api.User;
+import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.commands.CommandManager;
 import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.essentials.api.storage.StorageManager;
@@ -16,6 +16,7 @@ import fr.maxlego08.essentials.commands.ZCommandManager;
 import fr.maxlego08.essentials.commands.commands.essentials.CommandEssentials;
 import fr.maxlego08.essentials.messages.MessageLoader;
 import fr.maxlego08.essentials.storage.ZStorageManager;
+import fr.maxlego08.essentials.storage.ZUser;
 import fr.maxlego08.essentials.storage.adapter.UserTypeAdapter;
 import fr.maxlego08.essentials.zutils.ZPlugin;
 import org.bukkit.Location;
@@ -98,7 +99,8 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         return new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().serializeNulls()
                 .excludeFieldsWithModifiers(Modifier.TRANSIENT, Modifier.VOLATILE)
                 .registerTypeAdapter(Location.class, new LocationAdapter(this))
-                .registerTypeAdapter(User.class, new UserTypeAdapter())
+                .registerTypeAdapter(User.class, new UserTypeAdapter(this))
+                .registerTypeAdapter(ZUser.class, new UserTypeAdapter(this))
                 ;
     }
 }

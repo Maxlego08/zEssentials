@@ -10,3 +10,5 @@ enderchest: true
 endersee: true
 top: true
 speed: true
+tpa: true
+tpaccept: true

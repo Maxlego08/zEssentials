@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.zutils.utils.commands;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.EssentialsCommand;
 import fr.maxlego08.essentials.api.commands.Permission;
@@ -28,6 +29,7 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
     protected VCommand parent;
     protected CommandSender sender;
     protected Player player;
+    protected User user;
     private boolean consoleCanUse = true;
     private boolean ignoreParent = false;
     private boolean ignoreArgs = false;
@@ -322,9 +324,13 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
     }
 
     private void setPlayerIfApplicable() {
-        if (this.sender instanceof Player) {
-            this.player = (Player) this.sender;
-        } else this.player = null;
+        if (this.sender instanceof Player player) {
+            this.player = player;
+            this.user = this.plugin.getStorageManager().getStorage().getUser(player.getUniqueId());
+        } else {
+            this.player = null;
+            this.user = null;
+        }
     }
 
     private CommandResultType safelyPerformCommand(EssentialsPlugin plugin) {

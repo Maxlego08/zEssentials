@@ -1,7 +1,6 @@
 package fr.maxlego08.essentials.api.event;
 
-import fr.maxlego08.essentials.api.User;
-import org.bukkit.Bukkit;
+import fr.maxlego08.essentials.api.user.User;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
