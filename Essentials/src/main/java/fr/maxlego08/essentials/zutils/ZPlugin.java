@@ -1,8 +1,15 @@
 package fr.maxlego08.essentials.zutils;
 
+import com.google.gson.Gson;
+import com.tcoded.folialib.FoliaLib;
+import com.tcoded.folialib.impl.ServerImplementation;
 import fr.maxlego08.essentials.api.ConfigurationFile;
 import fr.maxlego08.essentials.api.commands.CommandManager;
+import fr.maxlego08.essentials.api.storage.Persist;
+import fr.maxlego08.essentials.api.storage.StorageManager;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
+import org.bukkit.Bukkit;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -19,6 +26,10 @@ public class ZPlugin extends JavaPlugin {
 
     protected final List<ConfigurationFile> configurationFiles = new ArrayList<>();
     protected CommandManager commandManager;
+    protected StorageManager storageManager;
+    protected Gson gson;
+    protected Persist persist;
+    protected ServerImplementation serverImplementation;
 
     protected void registerCommand(String command, VCommand vCommand, String... aliases) {
         this.commandManager.registerCommand(this, command, vCommand, Arrays.asList(aliases));
@@ -26,6 +37,10 @@ public class ZPlugin extends JavaPlugin {
 
     protected void registerConfiguration(ConfigurationFile configurationFile) {
         this.configurationFiles.add(configurationFile);
+    }
+
+    protected void registerListener(Listener listener) {
+        Bukkit.getPluginManager().registerEvents(listener, this);
     }
 
     public void saveResource(String resourcePath, String toPath, boolean replace) {

@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.0'
 }
 
 dependencies {
@@ -20,3 +21,11 @@ processResources {
     }
 }
 
+shadowJar {
+
+    from(project(':EssentialsApi').sourceSets.main.output)
+
+    relocate 'com.tcoded.folialib', 'fr.maxlego08.essentials.folialib'
+}
+
+assemble.dependsOn shadowJar

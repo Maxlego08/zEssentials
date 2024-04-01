@@ -23,6 +23,15 @@ command-night: "&fYou have just brought &enightfall&f into the world &a%world%&f
 command-sun: "&fYou have just brought the &esun&f into the world &a%world%&f."
 
 
+# Admins commands
+command-top: "&7You've just been teleported to &etop&7."
+command-top-error: "&cUnable to find a position to transport you safely."
+command-speed-invalid: "&cYou need to specify a valid player."
+command-speed-fly: "&7You have just set your &nfly&r&7 speed to &f%speed%&7 for &f%player%&7. &8(&f2 &7by default&8)"
+command-speed-walk: "&7You have just set your &nwalk&r&7 speed to &f%speed%&7 for &f%player%&7. &8(&f2 &7by default&8)"
+command-speed-error: "&cYou must enter a number between &60&c and &610&c. &8(&f2 &7by default&8)"
+
+
 # Command description
 description-reload: "Reload configuration files"
 description-gamemode: "Change player gamemode"
@@ -33,6 +42,10 @@ description-gamemode-spectator: "Change player gamemode to spectator"
 description-day: "Set the day in your world"
 description-night: "Set the night in your world"
 description-sun: "Set the sun in your world"
+description-top: "Teleporting to top"
+description-speed: "Change player speed"
+description-enderchest: "Open your enderchest"
+description-endersee: "Open a player enderchest"
 
 
 # Time format
