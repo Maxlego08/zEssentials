@@ -42,6 +42,11 @@ public enum Message {
     COMMAND_SUN("&fYou have just brought the &esun&f into the world &a%world%&f."),
     COMMAND_TOP("§7You've just been teleported to &etop§7."),
     COMMAND_TOP_ERROR("&cUnable to find a position to transport you safely."),
+    COMMAND_SPEED_INVALID("&cYou need to specify a valid player."),
+    COMMAND_SPEED_FLY("&7You have just set your &nfly&r&7 speed to &f%speed%&7 for &f%player%&7. &8(&f2 &7by default&8)"),
+    COMMAND_SPEED_WALK("&7You have just set your &nwalk&r&7 speed to &f%speed%&7 for &f%player%&7. &8(&f2 &7by default&8)"),
+    COMMAND_SPEED_ERROR("&cYou must enter a number between &60&c and &610&c. &8(&f2 &7by default&8)"),
+
 
     DESCRIPTION_RELOAD("Reload configuration files"),
     DESCRIPTION_GAMEMODE("Change player gamemode"),
@@ -55,6 +60,7 @@ public enum Message {
     DESCRIPTION_ENDERCHEST("Open your enderchest"),
     DESCRIPTION_ENDERSEE("Open a player enderchest"),
     DESCRIPTION_TOP("Teleporting to top"),
+    DESCRIPTION_SPEED("Change player speed"),
 
     YOU("you");
 

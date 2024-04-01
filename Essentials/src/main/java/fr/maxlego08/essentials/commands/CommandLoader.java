@@ -10,6 +10,7 @@ import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeAdventu
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeCreative;
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeSpectator;
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeSurvival;
+import fr.maxlego08.essentials.commands.commands.utils.CommandSpeed;
 import fr.maxlego08.essentials.commands.commands.utils.CommandTop;
 import fr.maxlego08.essentials.commands.commands.weather.CommandDay;
 import fr.maxlego08.essentials.commands.commands.weather.CommandNight;
@@ -47,6 +48,7 @@ public class CommandLoader {
         register("endersee", CommandEnderSee.class, "ecsee");
 
         register("top", CommandTop.class);
+        register("speed", CommandSpeed.class);
 
         File file = new File(plugin.getDataFolder(), "commands.yml");
         if (!file.exists()) this.plugin.saveResource("commands.yml", false);
