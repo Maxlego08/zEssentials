@@ -50,6 +50,8 @@ public enum Message {
     DESCRIPTION_DAY("Set the day in your world"),
     DESCRIPTION_NIGHT("Set the night in your world"),
     DESCRIPTION_SUN("Set the sun in your world"),
+    DESCRIPTION_ENDERCHEST("Open your enderchest"),
+    DESCRIPTION_ENDERSEE("Open a player enderchest"),
 
     YOU("you");
 

@@ -25,10 +25,10 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
     private final List<String> requireArgs = new ArrayList<>();
     private final List<String> optionalArgs = new ArrayList<>();
     private final Map<Integer, TabCompletion> tabCompletions = new HashMap<>();
-    private final boolean consoleCanUse = true;
     protected VCommand parent;
     protected CommandSender sender;
     protected Player player;
+    private boolean consoleCanUse = true;
     private boolean ignoreParent = false;
     private boolean ignoreArgs = false;
     private String permission;
@@ -167,6 +167,10 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
 
     public void setIgnoreArgs(boolean ignoreArgs) {
         this.ignoreArgs = ignoreArgs;
+    }
+
+    protected void onlyPlayers() {
+        this.consoleCanUse = false;
     }
 
     @Override

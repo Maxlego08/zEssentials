@@ -6,3 +6,5 @@ gmsp: true
 day: true
 night: true
 sun: true
+enderchest: true
+endersee: true

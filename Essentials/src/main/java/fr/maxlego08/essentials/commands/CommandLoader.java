@@ -3,6 +3,8 @@ package fr.maxlego08.essentials.commands;
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandManager;
+import fr.maxlego08.essentials.commands.commands.enderchest.CommandEnderChest;
+import fr.maxlego08.essentials.commands.commands.enderchest.CommandEnderSee;
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameMode;
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeAdventure;
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeCreative;
@@ -39,6 +41,9 @@ public class CommandLoader {
         register("day", CommandDay.class);
         register("night", CommandNight.class);
         register("sun", CommandSun.class);
+
+        register("enderchest", CommandEnderChest.class, "ec");
+        register("endersee", CommandEnderSee.class, "ecsee");
 
         File file = new File(plugin.getDataFolder(), "commands.yml");
         if (!file.exists()) this.plugin.saveResource("commands.yml", false);

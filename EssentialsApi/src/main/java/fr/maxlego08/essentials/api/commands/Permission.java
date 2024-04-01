@@ -10,7 +10,12 @@ public enum Permission {
     ESSENTIALS_GAMEMODE_CREATIVE,
     ESSENTIALS_GAMEMODE_SURVIVAL,
     ESSENTIALS_GAMEMODE_SPECTATOR,
-    ESSENTIALS_GAMEMODE_ADVENTURE, DAY_USE, NIGHT_USE, SUN_USE;
+    ESSENTIALS_GAMEMODE_ADVENTURE,
+
+    DAY_USE,
+    NIGHT_USE,
+    SUN_USE, ENDERCHEST_USE, ENDERSEE_USE;
+
 
     public String asPermission() {
         return name().toLowerCase().replace("_", ".");

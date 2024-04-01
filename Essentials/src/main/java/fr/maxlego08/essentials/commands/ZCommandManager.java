@@ -188,4 +188,9 @@ public class ZCommandManager extends ZUtils implements CommandManager {
             exception.printStackTrace();
         }
     }
+
+    @Override
+    public int countCommands() {
+        return this.commands.size();
+    }
 }

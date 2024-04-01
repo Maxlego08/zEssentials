@@ -14,4 +14,5 @@ public interface CommandManager extends CommandExecutor, TabCompleter {
 
     void registerCommand(Plugin plugin, String string, EssentialsCommand vCommand, List<String> aliases);
 
+    int countCommands();
 }

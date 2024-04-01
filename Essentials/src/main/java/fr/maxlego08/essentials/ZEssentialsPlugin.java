@@ -30,6 +30,8 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
         CommandLoader commandLoader = new CommandLoader(this);
         commandLoader.loadCommands(this.commandManager);
+
+        this.getLogger().info("Create " + this.commandManager.countCommands() +" commands.");
     }
 
     @Override
