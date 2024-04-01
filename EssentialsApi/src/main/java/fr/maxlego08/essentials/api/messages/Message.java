@@ -37,6 +37,9 @@ public enum Message {
     COMMAND_ESSENTIALS("zEssentials, version %version%"),
     COMMAND_GAMEMODE("&fSet game mode&e %gamemode% &ffor &b%player%&f."),
     COMMAND_GAMEMODE_INVALID("&cYou need to specify a valid player."),
+    COMMAND_DAY("&fYou have just brought &edaylight&f into the world &a%world%&f."),
+    COMMAND_NIGHT("&fYou have just brought &enightfall&f into the world &a%world%&f."),
+    COMMAND_SUN("&fYou have just brought the &esun&f into the world &a%world%&f."),
 
     DESCRIPTION_RELOAD("Reload configuration files"),
     DESCRIPTION_GAMEMODE("Change player gamemode"),
@@ -44,6 +47,9 @@ public enum Message {
     DESCRIPTION_GAMEMODE_SURVIVAL("Change player gamemode to survival"),
     DESCRIPTION_GAMEMODE_ADVENTURE("Change player gamemode to adventure"),
     DESCRIPTION_GAMEMODE_SPECTATOR("Change player gamemode to spectator"),
+    DESCRIPTION_DAY("Set the day in your world"),
+    DESCRIPTION_NIGHT("Set the night in your world"),
+    DESCRIPTION_SUN("Set the sun in your world"),
 
     YOU("you");
 

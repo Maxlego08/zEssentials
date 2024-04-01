@@ -11,26 +11,40 @@ command-syntaxe-help: "&f%syntax% #656665» &7%description%"
 command-reload: "#00ff40You have just reloaded the configuration files."
 command-essentials: "&ezEssentials&8, &eVersion &f%version%"
 
-# Command /gamemode
+
+# GameMode commands
 command-gamemode: "&fSet game mode&e %gamemode%&f for &b%player%&f."
 command-gamemode-invalid: "#ff0000You need to specify a valid player."
 
+
+# Weather commands
+command-day: "&fYou have just brought &edaylight&f into the world &a%world%&f."
+command-night: "&fYou have just brought &enightfall&f into the world &a%world%&f."
+command-sun: "&fYou have just brought the &esun&f into the world &a%world%&f."
+
+
+# Command description
 description-reload: "Reload configuration files"
+description-gamemode: "Change player gamemode"
+description-gamemode-creative: "Change player gamemode to creative"
+description-gamemode-survival: "Change player gamemode to survival"
+description-gamemode-adventure: "Change player gamemode to adventure"
+description-gamemode-spectator: "Change player gamemode to spectator"
+description-day: "Set the day in your world"
+description-night: "Set the night in your world"
+description-sun: "Set the sun in your world"
+
 
 # Time format
 time-day: "%02d day %02d hour %02d minute %02d second"
 time-hour: "%02d hour %02d minute(s) %02d second"
 time-minute: "%02d minute %02d second"
 time-second: "%02d second"
-
 format-second: "second"
 format-seconds: "seconds"
-
 format-minute: "minute"
 format-minutes: "minutes"
-
 format-hour: "hour"
 format-hours: "hours"
-
 format-day: "d"
 format-days: "days"

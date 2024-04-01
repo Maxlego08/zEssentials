@@ -8,6 +8,9 @@ import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeAdventu
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeCreative;
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeSpectator;
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeSurvival;
+import fr.maxlego08.essentials.commands.commands.weather.CommandDay;
+import fr.maxlego08.essentials.commands.commands.weather.CommandNight;
+import fr.maxlego08.essentials.commands.commands.weather.CommandSun;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -32,6 +35,10 @@ public class CommandLoader {
         register("gma", CommandGameModeAdventure.class, "advent");
         register("gms", CommandGameModeSurvival.class, "survi");
         register("gmsp", CommandGameModeSpectator.class, "spec");
+
+        register("day", CommandDay.class);
+        register("night", CommandNight.class);
+        register("sun", CommandSun.class);
 
         File file = new File(plugin.getDataFolder(), "commands.yml");
         if (!file.exists()) this.plugin.saveResource("commands.yml", false);

@@ -151,10 +151,6 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
         return player;
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
     @Override
     public boolean isIgnoreParent() {
         return ignoreParent;
@@ -219,7 +215,6 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
             appendOptionalArguments(syntaxBuilder);
             syntax = syntaxBuilder.toString();
         }
-        System.out.println(syntax);
         String tmpString = subCommands.get(0) + syntax;
         return parent == null ? "/" + tmpString : parent.generateDefaultSyntax(" " + tmpString);
     }
@@ -239,6 +234,14 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
     @Override
     public boolean isConsoleCanUse() {
         return consoleCanUse;
+    }
+
+    protected boolean isPlayer() {
+        return this.player != null;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
     @Override
