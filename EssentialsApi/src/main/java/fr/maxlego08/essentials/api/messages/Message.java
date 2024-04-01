@@ -40,6 +40,8 @@ public enum Message {
     COMMAND_DAY("&fYou have just brought &edaylight&f into the world &a%world%&f."),
     COMMAND_NIGHT("&fYou have just brought &enightfall&f into the world &a%world%&f."),
     COMMAND_SUN("&fYou have just brought the &esun&f into the world &a%world%&f."),
+    COMMAND_TOP("§7You've just been teleported to &etop§7."),
+    COMMAND_TOP_ERROR("&cUnable to find a position to transport you safely."),
 
     DESCRIPTION_RELOAD("Reload configuration files"),
     DESCRIPTION_GAMEMODE("Change player gamemode"),
@@ -52,6 +54,7 @@ public enum Message {
     DESCRIPTION_SUN("Set the sun in your world"),
     DESCRIPTION_ENDERCHEST("Open your enderchest"),
     DESCRIPTION_ENDERSEE("Open a player enderchest"),
+    DESCRIPTION_TOP("Teleporting to top"),
 
     YOU("you");
 
