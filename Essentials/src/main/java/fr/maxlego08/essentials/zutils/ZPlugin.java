@@ -1,7 +1,6 @@
 package fr.maxlego08.essentials.zutils;
 
 import com.google.gson.Gson;
-import com.tcoded.folialib.FoliaLib;
 import com.tcoded.folialib.impl.ServerImplementation;
 import fr.maxlego08.essentials.api.ConfigurationFile;
 import fr.maxlego08.essentials.api.commands.CommandManager;
@@ -11,6 +10,7 @@ import fr.maxlego08.essentials.api.storage.StorageManager;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -82,6 +82,12 @@ public class ZPlugin extends JavaPlugin {
 
             }
         } else throw new IllegalArgumentException("ResourcePath cannot be null or empty");
+    }
+
+    protected <T> T getProvider(Class<T> classz) {
+        RegisteredServiceProvider<T> provider = getServer().getServicesManager().getRegistration(classz);
+        if (provider == null) return null;
+        return provider.getProvider();
     }
 
 }

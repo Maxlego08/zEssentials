@@ -24,6 +24,7 @@ public class ZUser extends ZUtils implements User {
     private final UUID uniqueId;
     private String name;
     private TeleportRequest teleportRequest;
+    private User targetUser;
 
     public ZUser(EssentialsPlugin plugin, UUID uniqueId) {
         this.plugin = plugin;
@@ -63,7 +64,10 @@ public class ZUser extends ZUtils implements User {
     @Override
     public void sendTeleportRequest(User targetUser) {
 
-        if (targetUser == null) return;
+        if (targetUser == null || !targetUser.isOnline()){
+            message(this, Message.COMMAND_TPA_ERROR_SAME);
+            return;
+        }
 
         if (targetUser.getUniqueId().equals(this.uniqueId)) {
             message(this, Message.COMMAND_TPA_ERROR_SAME);
@@ -138,5 +142,15 @@ public class ZUser extends ZUtils implements User {
     @Override
     public boolean hasPermission(Permission permission) {
         return getPlayer().hasPermission(permission.asPermission());
+    }
+
+    @Override
+    public User getTargetUser() {
+        return targetUser;
+    }
+
+    @Override
+    public void setTargetUser(User targetUser) {
+        this.targetUser = targetUser;
     }
 }

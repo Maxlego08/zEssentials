@@ -37,4 +37,8 @@ public interface User {
     void teleport(Location location);
 
     boolean hasPermission(Permission permission);
+
+    User getTargetUser();
+
+    void setTargetUser(User user);
 }

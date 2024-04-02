@@ -50,6 +50,7 @@ public enum Message {
     // Teleport Command
     COMMAND_TPA_ERROR("&cYou have already sent a request to #34cfe0%player%&c."),
     COMMAND_TPA_ERROR_SAME("&cYou cannot teleport to yourself."),
+    COMMAND_TPA_ERROR_OFFLINE("&cUnable to find player, must be offline."),
     COMMAND_TPA_ERROR_TO_LATE_EMPTY("&cYou do not have a teleport request."),
     COMMAND_TPA_ERROR_TO_LATE_EXPIRE("&cThe teleport request has expired."),
     COMMAND_TPA_SENDER("&7You have just sent a teleport request to #34cfe0%player%&7."),

@@ -3,6 +3,8 @@ package fr.maxlego08.essentials.module.modules;
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.modules.Loadable;
 import fr.maxlego08.essentials.module.ZModule;
+import fr.maxlego08.menu.api.InventoryManager;
+import fr.maxlego08.menu.exceptions.InventoryException;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -16,9 +18,23 @@ public class TeleportationModule extends ZModule {
     private int teleportDelay;
     private int teleportTpaExpire;
     private boolean teleportDelayBypass;
+    private boolean openConfirmInventoryForTpa;
 
     public TeleportationModule(ZEssentialsPlugin plugin) {
         super(plugin, "teleportation");
+    }
+
+    @Override
+    public void loadConfiguration() {
+        super.loadConfiguration();
+
+        InventoryManager inventoryManager = this.plugin.getInventoryManager();
+
+        try {
+            inventoryManager.loadInventoryOrSaveResource(this.plugin, "modules/teleportation/confirm_request_inventory.yml");
+        } catch (InventoryException exception) {
+            exception.printStackTrace();
+        }
     }
 
     public boolean isTeleportSafety() {
@@ -45,8 +61,16 @@ public class TeleportationModule extends ZModule {
         return teleportTpaExpire;
     }
 
+    public boolean isOpenConfirmInventoryForTpa() {
+        return openConfirmInventoryForTpa;
+    }
+
     public int getTeleportationDelay(Player player) {
         return this.teleportDelayPermissions.stream().filter(teleportPermission -> player.hasPermission(teleportPermission.permission)).mapToInt(TeleportPermission::delay).min().orElse(this.teleportDelay);
+    }
+
+    public void openConfirmInventory(Player player) {
+        this.plugin.getInventoryManager().openInventory(player, this.plugin, "confirm_request_inventory");
     }
 
     public record TeleportPermission(String permission, int delay) implements Loadable {

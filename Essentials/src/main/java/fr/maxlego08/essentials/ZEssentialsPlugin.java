@@ -6,12 +6,13 @@ import com.tcoded.folialib.FoliaLib;
 import com.tcoded.folialib.impl.ServerImplementation;
 import fr.maxlego08.essentials.api.ConfigurationFile;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
-import fr.maxlego08.essentials.api.modules.ModuleManager;
-import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.commands.CommandManager;
+import fr.maxlego08.essentials.api.modules.ModuleManager;
 import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.essentials.api.storage.StorageManager;
 import fr.maxlego08.essentials.api.storage.adapter.LocationAdapter;
+import fr.maxlego08.essentials.api.user.User;
+import fr.maxlego08.essentials.buttons.ButtonTeleportationConfirm;
 import fr.maxlego08.essentials.commands.CommandLoader;
 import fr.maxlego08.essentials.commands.ZCommandManager;
 import fr.maxlego08.essentials.commands.commands.essentials.CommandEssentials;
@@ -21,12 +22,21 @@ import fr.maxlego08.essentials.storage.ZStorageManager;
 import fr.maxlego08.essentials.storage.ZUser;
 import fr.maxlego08.essentials.storage.adapter.UserTypeAdapter;
 import fr.maxlego08.essentials.zutils.ZPlugin;
+import fr.maxlego08.menu.api.ButtonManager;
+import fr.maxlego08.menu.api.InventoryManager;
+import fr.maxlego08.menu.api.pattern.PatternManager;
+import fr.maxlego08.menu.button.loader.NoneLoader;
 import org.bukkit.Location;
 
 import java.lang.reflect.Modifier;
 import java.util.List;
 
 public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin {
+
+    private InventoryManager inventoryManager;
+    private ButtonManager buttonManager;
+    private PatternManager patternManager;
+
 
     @Override
     public void onEnable() {
@@ -35,6 +45,11 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
         FoliaLib foliaLib = new FoliaLib(this);
         this.serverImplementation = foliaLib.getImpl();
+
+        this.inventoryManager = this.getProvider(InventoryManager.class);
+        this.buttonManager = this.getProvider(ButtonManager.class);
+        this.patternManager = this.getProvider(PatternManager.class);
+        this.registerButtons();
 
         this.moduleManager = new ZModuleManager(this);
 
@@ -71,6 +86,12 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.storageManager.onDisable();
     }
 
+    private void registerButtons(){
+
+        this.buttonManager.register(new NoneLoader(this, ButtonTeleportationConfirm.class, "essentials_teleportation_confirm"));
+
+    }
+
     @Override
     public CommandManager getCommandManager() {
         return this.commandManager;
@@ -99,6 +120,21 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     @Override
     public ModuleManager getModuleManager() {
         return this.moduleManager;
+    }
+
+    @Override
+    public InventoryManager getInventoryManager() {
+        return this.inventoryManager;
+    }
+
+    @Override
+    public ButtonManager getButtonManager() {
+        return this.buttonManager;
+    }
+
+    @Override
+    public PatternManager getPatternManager() {
+        return this.patternManager;
     }
 
     @Override

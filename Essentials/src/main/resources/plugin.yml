@@ -3,4 +3,6 @@ version: '${version}'
 main: fr.maxlego08.essentials.ZEssentialsPlugin
 folia-supported: true
 description: Essentials plugins
+depend:
+  - zMenu
 api-version: '1.20'

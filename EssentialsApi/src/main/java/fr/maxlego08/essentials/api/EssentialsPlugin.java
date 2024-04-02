@@ -6,6 +6,9 @@ import fr.maxlego08.essentials.api.commands.CommandManager;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
 import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.essentials.api.storage.StorageManager;
+import fr.maxlego08.menu.api.ButtonManager;
+import fr.maxlego08.menu.api.InventoryManager;
+import fr.maxlego08.menu.api.pattern.PatternManager;
 import org.bukkit.plugin.Plugin;
 
 import java.util.List;
@@ -25,4 +28,10 @@ public interface EssentialsPlugin extends Plugin {
     ServerImplementation getScheduler();
 
     ModuleManager getModuleManager();
+
+    InventoryManager getInventoryManager();
+
+    ButtonManager getButtonManager();
+
+    PatternManager getPatternManager();
 }
