@@ -49,4 +49,4 @@ compact-materials:
   - from: COPPER_INGOT
     to: COPPER_BLOCK
   - from: NETHERITE_INGOT
-    to: NETHERITE_BLOCk
+    to: NETHERITE_BLOCK
