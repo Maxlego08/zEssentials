@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.tcoded.folialib.impl.ServerImplementation;
 import fr.maxlego08.essentials.api.commands.CommandManager;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
+import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.essentials.api.storage.StorageManager;
 import fr.maxlego08.menu.api.ButtonManager;
@@ -34,4 +35,6 @@ public interface EssentialsPlugin extends Plugin {
     ButtonManager getButtonManager();
 
     PatternManager getPatternManager();
+
+    Placeholder getPlaceholder();
 }

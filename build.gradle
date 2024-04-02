@@ -44,6 +44,7 @@ subprojects {
             url = "https://nexuslite.gcnt.net/repos/other/"
         }
         maven { url 'https://jitpack.io' }
+        maven {url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/'}
     }
 
     dependencies {
@@ -51,6 +52,7 @@ subprojects {
 
         compileOnly 'io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT'
         compileOnly 'com.github.Maxlego08:zMenu-API:1.0.2.9'
+        compileOnly 'me.clip:placeholderapi:2.11.5'
 
         testImplementation 'junit:junit:4.12'
     }

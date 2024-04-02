@@ -5,6 +5,7 @@ import com.tcoded.folialib.impl.ServerImplementation;
 import fr.maxlego08.essentials.api.ConfigurationFile;
 import fr.maxlego08.essentials.api.commands.CommandManager;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
+import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.essentials.api.storage.StorageManager;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
@@ -29,6 +30,7 @@ public class ZPlugin extends JavaPlugin {
     protected CommandManager commandManager;
     protected StorageManager storageManager;
     protected ModuleManager moduleManager;
+    protected Placeholder placeholder;
     protected Gson gson;
     protected Persist persist;
     protected ServerImplementation serverImplementation;

@@ -8,6 +8,8 @@ import fr.maxlego08.essentials.api.ConfigurationFile;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandManager;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
+import fr.maxlego08.essentials.api.placeholders.Placeholder;
+import fr.maxlego08.essentials.api.placeholders.PlaceholderRegister;
 import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.essentials.api.storage.StorageManager;
 import fr.maxlego08.essentials.api.storage.adapter.LocationAdapter;
@@ -18,9 +20,12 @@ import fr.maxlego08.essentials.commands.ZCommandManager;
 import fr.maxlego08.essentials.commands.commands.essentials.CommandEssentials;
 import fr.maxlego08.essentials.messages.MessageLoader;
 import fr.maxlego08.essentials.module.ZModuleManager;
+import fr.maxlego08.essentials.placeholders.DistantPlaceholder;
+import fr.maxlego08.essentials.placeholders.LocalPlaceholder;
 import fr.maxlego08.essentials.storage.ZStorageManager;
 import fr.maxlego08.essentials.storage.ZUser;
 import fr.maxlego08.essentials.storage.adapter.UserTypeAdapter;
+import fr.maxlego08.essentials.user.UserPlaceholders;
 import fr.maxlego08.essentials.zutils.ZPlugin;
 import fr.maxlego08.menu.api.ButtonManager;
 import fr.maxlego08.menu.api.InventoryManager;
@@ -37,7 +42,6 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     private ButtonManager buttonManager;
     private PatternManager patternManager;
 
-
     @Override
     public void onEnable() {
 
@@ -45,6 +49,10 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
         FoliaLib foliaLib = new FoliaLib(this);
         this.serverImplementation = foliaLib.getImpl();
+
+        this.placeholder = new LocalPlaceholder(this);
+        DistantPlaceholder distantPlaceholder = new DistantPlaceholder(this, this.placeholder);
+        distantPlaceholder.register();
 
         this.inventoryManager = this.getProvider(InventoryManager.class);
         this.buttonManager = this.getProvider(ButtonManager.class);
@@ -77,6 +85,8 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.storageManager.onEnable();
 
         this.moduleManager.loadModules();
+
+        this.registerPlaceholder(UserPlaceholders.class);
     }
 
     @Override
@@ -86,7 +96,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.storageManager.onDisable();
     }
 
-    private void registerButtons(){
+    private void registerButtons() {
 
         this.buttonManager.register(new NoneLoader(this, ButtonTeleportationConfirm.class, "essentials_teleportation_confirm"));
 
@@ -138,6 +148,11 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     }
 
     @Override
+    public Placeholder getPlaceholder() {
+        return this.placeholder;
+    }
+
+    @Override
     public StorageManager getStorageManager() {
         return this.storageManager;
     }
@@ -147,7 +162,15 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
                 .excludeFieldsWithModifiers(Modifier.TRANSIENT, Modifier.VOLATILE)
                 .registerTypeAdapter(Location.class, new LocationAdapter(this))
                 .registerTypeAdapter(User.class, new UserTypeAdapter(this))
-                .registerTypeAdapter(ZUser.class, new UserTypeAdapter(this))
-                ;
+                .registerTypeAdapter(ZUser.class, new UserTypeAdapter(this));
+    }
+
+    private void registerPlaceholder(Class<? extends PlaceholderRegister> placeholderClass) {
+        try {
+            PlaceholderRegister placeholderRegister = placeholderClass.getConstructor().newInstance();
+            placeholderRegister.register(this.placeholder, this);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
     }
 }

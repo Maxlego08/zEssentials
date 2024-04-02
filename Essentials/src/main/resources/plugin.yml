@@ -5,4 +5,5 @@ folia-supported: true
 description: Essentials plugins
 depend:
   - zMenu
+  - PlaceholderAPI
 api-version: '1.20'
