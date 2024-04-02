@@ -24,5 +24,12 @@ teleport-to-center: true
 # The delay, in seconds, before a user actually teleports. If the user moves or gets attacked in this timeframe, the teleport is cancelled.
 teleport-delay: 5
 
+# The delay, in seconds, before a user actually teleports. If the user has one or more permissions, the minimum delay will be taken.
+teleport-delay-permissions:
+  - permission: "essentials.teleport.delay.vip"
+    delay: 4
+  - permission: "essentials.teleport.delay.staff"
+    delay: 2
+
 # Enable bypass of teleport delay on player to essentials.teleport.bypass permission
 teleport-delay-bypass: false

@@ -62,7 +62,7 @@ public class ZTeleportRequest extends ZUtils implements TeleportRequest {
         }
 
         Location playerLocation = fromUser.getPlayer().getLocation();
-        AtomicInteger atomicInteger = new AtomicInteger(teleportationModule.getTeleportDelay());
+        AtomicInteger atomicInteger = new AtomicInteger(teleportationModule.getTeleportationDelay(fromUser.getPlayer()));
 
         ServerImplementation serverImplementation = this.plugin.getScheduler();
         serverImplementation.runAtLocationTimer(this.toUser.getPlayer().getLocation(), wrappedTask -> {
