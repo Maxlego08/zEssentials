@@ -80,7 +80,6 @@ public class CommandLoader {
         register("tpaccept", CommandTeleportAccept.class, "tpyes");
         register("tpdeny", CommandTeleportDeny.class, "tpno");
         register("tpacancel", CommandTeleportCancel.class);
-        register("tpacancel", CommandTeleportCancel.class);
 
 
         File file = new File(plugin.getDataFolder(), "commands.yml");
