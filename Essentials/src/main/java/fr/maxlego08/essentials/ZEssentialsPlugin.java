@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tcoded.folialib.FoliaLib;
 import com.tcoded.folialib.impl.ServerImplementation;
+import fr.maxlego08.essentials.api.Configuration;
 import fr.maxlego08.essentials.api.ConfigurationFile;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandManager;
@@ -66,6 +67,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
         // Configurations files
         this.registerConfiguration(new MessageLoader(this));
+        this.registerConfiguration(this.configuration = new MainConfiguration(this));
 
         // Load configuration files
         this.configurationFiles.forEach(ConfigurationFile::load);
@@ -172,5 +174,10 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         } catch (Exception exception) {
             exception.printStackTrace();
         }
+    }
+
+    @Override
+    public Configuration getConfiguration() {
+        return this.configuration;
     }
 }

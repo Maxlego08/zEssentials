@@ -37,4 +37,6 @@ public interface EssentialsPlugin extends Plugin {
     PatternManager getPatternManager();
 
     Placeholder getPlaceholder();
+
+    Configuration getConfiguration();
 }

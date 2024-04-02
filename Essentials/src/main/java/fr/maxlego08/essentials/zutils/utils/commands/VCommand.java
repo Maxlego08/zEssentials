@@ -1,13 +1,13 @@
 package fr.maxlego08.essentials.zutils.utils.commands;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
-import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.EssentialsCommand;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.commands.Tab;
 import fr.maxlego08.essentials.api.commands.TabCompletion;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.user.User;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -337,7 +337,9 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
         try {
             return perform(plugin);
         } catch (Exception exception) {
-            exception.printStackTrace();
+            if (plugin.getConfiguration().isEnableDebug()) {
+                exception.printStackTrace();
+            }
             return CommandResultType.SYNTAX_ERROR;
         }
     }

@@ -2,6 +2,7 @@ package fr.maxlego08.essentials.zutils;
 
 import com.google.gson.Gson;
 import com.tcoded.folialib.impl.ServerImplementation;
+import fr.maxlego08.essentials.api.Configuration;
 import fr.maxlego08.essentials.api.ConfigurationFile;
 import fr.maxlego08.essentials.api.commands.CommandManager;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
@@ -31,6 +32,7 @@ public class ZPlugin extends JavaPlugin {
     protected StorageManager storageManager;
     protected ModuleManager moduleManager;
     protected Placeholder placeholder;
+    protected Configuration configuration;
     protected Gson gson;
     protected Persist persist;
     protected ServerImplementation serverImplementation;
