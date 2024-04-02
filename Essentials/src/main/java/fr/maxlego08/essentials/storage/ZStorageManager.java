@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.storage.StorageManager;
 import fr.maxlego08.essentials.api.storage.StorageType;
 import fr.maxlego08.essentials.storage.storages.JsonStorage;
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -24,6 +25,8 @@ public class ZStorageManager implements StorageManager {
     @Override
     public void onEnable() {
         this.iStorage.onEnable();
+
+        Bukkit.getOnlinePlayers().forEach(player -> this.iStorage.createOrLoad(player.getUniqueId(), player.getName()));
     }
 
     @Override

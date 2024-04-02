@@ -69,14 +69,14 @@ public class ZUser extends ZUtils implements User {
         }
 
         if (targetUser.isIgnore(this.uniqueId)) {
-            message(this, Message.COMMAND_TELEPORT_IGNORE_PLAYER, "%player%", targetUser.getName());
+            message(this, Message.COMMAND_TELEPORT_IGNORE_PLAYER, targetUser);
             return;
         }
 
         this.teleports.entrySet().removeIf(next -> !next.getValue().isValid());
 
         if (this.teleports.containsKey(targetUser.getUniqueId())) {
-            message(this, Message.COMMAND_TPA_ERROR, "%player%", targetUser.getName());
+            message(this, Message.COMMAND_TPA_ERROR, targetUser);
             return;
         }
 
@@ -85,8 +85,8 @@ public class ZUser extends ZUtils implements User {
         targetUser.setTeleportRequest(teleportRequest);
         this.teleports.put(targetUser.getUniqueId(), teleportRequest);
 
-        message(this, Message.COMMAND_TPA_SENDER, "%player%", targetUser.getName());
-        message(targetUser, Message.COMMAND_TPA_RECEIVER, "%player%", this.name);
+        message(this, Message.COMMAND_TPA_SENDER, targetUser);
+        message(targetUser, Message.COMMAND_TPA_RECEIVER, getPlayer());
     }
 
     @Override

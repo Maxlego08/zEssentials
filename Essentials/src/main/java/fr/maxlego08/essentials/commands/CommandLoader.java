@@ -53,7 +53,7 @@ public class CommandLoader {
         register("speed", CommandSpeed.class);
 
         register("tpa", CommandTeleportTo.class);
-        register("tpaccept", CommandTeleportAccept.class);
+        register("tpaccept", CommandTeleportAccept.class, "tpyes");
 
         File file = new File(plugin.getDataFolder(), "commands.yml");
         if (!file.exists()) this.plugin.saveResource("commands.yml", false);

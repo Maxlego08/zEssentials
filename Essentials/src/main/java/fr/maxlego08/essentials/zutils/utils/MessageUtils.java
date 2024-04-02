@@ -7,6 +7,9 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class MessageUtils extends PlaceholderUtils {
 
     protected final ComponentMessage componentMessage = new ComponentMessage();
@@ -58,23 +61,43 @@ public abstract class MessageUtils extends PlaceholderUtils {
 
     protected String getMessage(String message, Object... args) {
 
-        if (args.length % 2 != 0) {
+        List<Object> modifiedArgs = new ArrayList<>();
+        for (Object arg : args) handleArg(arg, modifiedArgs);
+        Object[] newArgs = modifiedArgs.toArray();
+
+        if (newArgs.length % 2 != 0) {
             throw new IllegalArgumentException("Number of invalid arguments. Arguments must be in pairs.");
         }
 
-        for (int i = 0; i < args.length; i += 2) {
-            if (args[i] == null || args[i + 1] == null) {
+        for (int i = 0; i < newArgs.length; i += 2) {
+            if (newArgs[i] == null || newArgs[i + 1] == null) {
                 throw new IllegalArgumentException("Keys and replacement values must not be null.");
             }
-            message = message.replace(args[i].toString(), args[i + 1].toString());
+            message = message.replace(newArgs[i].toString(), newArgs[i + 1].toString());
         }
         return message;
     }
 
+    private void handleArg(Object arg, List<Object> modifiedArgs) {
+        if (arg instanceof Player player) {
+            addPlayerDetails(modifiedArgs, player.getName(), player.getDisplayName());
+        } else if (arg instanceof User user) {
+            addPlayerDetails(modifiedArgs, user.getName(), user.getPlayer().getDisplayName());
+        } else {
+            modifiedArgs.add(arg);
+        }
+    }
+
+    private void addPlayerDetails(List<Object> modifiedArgs, String name, String displayName) {
+        modifiedArgs.add("%player%");
+        modifiedArgs.add(name);
+        modifiedArgs.add("%displayName%");
+        modifiedArgs.add(displayName);
+    }
+
     // ToDo, rework with componrent
     protected String getCenteredMessage(String message) {
-        if (message == null || message.equals(""))
-            return "";
+        if (message == null || message.equals("")) return "";
 
         int CENTER_PX = 154;
 

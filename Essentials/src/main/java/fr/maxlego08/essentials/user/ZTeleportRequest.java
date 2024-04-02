@@ -49,8 +49,8 @@ public class ZTeleportRequest extends ZUtils implements TeleportRequest {
     @Override
     public void accept() {
 
-        message(this.fromUser, Message.COMMAND_TPA_ACCEPT_SENDER, "%player%", this.toUser.getName());
-        message(this.toUser, Message.COMMAND_TPA_ACCEPT_RECEIVER, "%player%", this.fromUser.getName());
+        message(this.fromUser, Message.COMMAND_TPA_ACCEPT_SENDER, this.toUser);
+        message(this.toUser, Message.COMMAND_TPA_ACCEPT_RECEIVER, this.fromUser);
 
         // ToDo, Add configuration and bypass permission
 

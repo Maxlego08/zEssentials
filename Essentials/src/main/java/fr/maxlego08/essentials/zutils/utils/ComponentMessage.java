@@ -98,22 +98,21 @@ public class ComponentMessage extends PlaceholderUtils {
     }
 
     private String colorMiniMessage(String message) {
+        StringBuilder stringBuilder = new StringBuilder();
 
-        String newMessage = message;
-
-        Pattern pattern = Pattern.compile("(?<!<)(?<!:)#[a-fA-F0-9]{6}");
+        Pattern pattern = Pattern.compile("(?<!<)(?<!:)#([a-fA-F0-9]{6})");
         Matcher matcher = pattern.matcher(message);
+
         while (matcher.find()) {
-            String color = message.substring(matcher.start(), matcher.end());
-            newMessage = newMessage.replace(color, "<" + color + ">");
-            message = message.replace(color, "");
-            matcher = pattern.matcher(message);
+            matcher.appendReplacement(stringBuilder, "<$0>");
         }
+        matcher.appendTail(stringBuilder);
+
+        String newMessage = stringBuilder.toString();
 
         for (Entry<String, String> entry : this.COLORS_MAPPINGS.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
-
             newMessage = newMessage.replace("&" + key, "<" + value + ">");
             newMessage = newMessage.replace("§" + key, "<" + value + ">");
             newMessage = newMessage.replace("&" + key.toUpperCase(), "<" + value + ">");
