@@ -7,12 +7,12 @@ import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.user.TeleportRequest;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 
-public class CommandTeleportAccept extends VCommand {
+public class CommandTeleportDeny extends VCommand {
 
-    public CommandTeleportAccept(EssentialsPlugin plugin) {
+    public CommandTeleportDeny(EssentialsPlugin plugin) {
         super(plugin);
-        this.setPermission(Permission.ESSENTIALS_TPA_ACCEPT);
-        this.setDescription(Message.DESCRIPTION_TPA_ACCEPT);
+        this.setPermission(Permission.ESSENTIALS_TPA_DENY);
+        this.setDescription(Message.DESCRIPTION_TPA_DENY);
         this.onlyPlayers();
     }
 
@@ -31,7 +31,7 @@ public class CommandTeleportAccept extends VCommand {
             return CommandResultType.DEFAULT;
         }
 
-        teleportRequest.accept();
+        teleportRequest.deny();
         this.user.setTeleportRequest(null);
 
         return CommandResultType.SUCCESS;

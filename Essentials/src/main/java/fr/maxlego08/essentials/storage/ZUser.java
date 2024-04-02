@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.user.TeleportRequest;
 import fr.maxlego08.essentials.api.user.User;
+import fr.maxlego08.essentials.module.modules.TeleportationModule;
 import fr.maxlego08.essentials.user.ZTeleportRequest;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import org.bukkit.Bukkit;
@@ -81,13 +82,32 @@ public class ZUser extends ZUtils implements User {
             return;
         }
 
-        long expired = System.currentTimeMillis() + (60 * 1000); // ToDo, add configuration
+        TeleportationModule teleportationModule = this.plugin.getModuleManager().getModule(TeleportationModule.class);
+        long expired = System.currentTimeMillis() + (teleportationModule.getTeleportTpaExpire() * 1000L);
         TeleportRequest teleportRequest = new ZTeleportRequest(this.plugin, targetUser, this, expired);
         targetUser.setTeleportRequest(teleportRequest);
         this.teleports.put(targetUser.getUniqueId(), teleportRequest);
 
         message(this, Message.COMMAND_TPA_SENDER, targetUser);
         message(targetUser, Message.COMMAND_TPA_RECEIVER, getPlayer());
+    }
+
+    @Override
+    public void cancelTeleportRequest(User targetUser) {
+
+        if (!this.teleports.containsKey(targetUser.getUniqueId())) {
+            message(this, Message.COMMAND_TP_CANCEL_ERROR, targetUser);
+            return;
+        }
+
+        this.teleports.remove(targetUser.getUniqueId());
+
+        if (targetUser.getTeleportRequest() != null && targetUser.getTeleportRequest().getFromUser() == this) {
+            targetUser.setTeleportRequest(null);
+        }
+
+        message(this, Message.COMMAND_TP_CANCEL_SENDER, targetUser);
+        message(targetUser, Message.COMMAND_TP_CANCEL_RECEIVER, this);
     }
 
     @Override

@@ -18,6 +18,8 @@ public interface User {
 
     void sendTeleportRequest(User targetUser);
 
+    void cancelTeleportRequest(User targetUser);
+
     Player getPlayer();
 
     boolean isOnline();

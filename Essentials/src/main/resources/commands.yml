@@ -12,3 +12,5 @@ top: true
 speed: true
 tpa: true
 tpaccept: true
+tpdeny: true
+tpacancel: true

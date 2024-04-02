@@ -39,12 +39,12 @@ command-tpa-error-to-late-empty: "#ff0000You do not have a teleport request."
 command-tpa-error-to-late-expire: "#ff0000The teleport request has expired."
 command-tpa-sender:
   - "#00FF00✔ #99E0FFSent &f%displayName% #99E0FFa teleport request."
-  - "  #99E0FFType#00FF00/tpacencel %player%#99E0FF to cancel your request."
+  - "  <hover:show_text:'#ff0000✘ Cancel teleportation'><click:run_command:/tpacancel %player%>#99E0FFType#00FF00/tpacencel %player%#99E0FF to cancel your request.</click></hover>"
 command-tpa-receiver:
   - ""
   - "#F8F327⚠ &f%displayName% #99E0FFhas requested to teleport to you!"
-  - "  <hover:show_text:'#00FF00✔ Accept teleportation'><click:run_command:/tpaccept>#99E0FFType #00FF00/tpaccept #99E0FFto #00FF00<u>accept</u>#99E0FF.</click>"
-  - "  <hover:show_text:'#ff0000✘ Deny teleportation'><click:run_command:/tpdeny>#99E0FFType #ff0000/tpdeny #99E0FFto #ff0000<u>deny</u>#99E0FF.</click>"
+  - "  <hover:show_text:'#00FF00✔ Accept teleportation'><click:run_command:/tpaccept>#99E0FFType #00FF00/tpaccept #99E0FFto #00FF00<u>accept</u>#99E0FF.</click></hover>"
+  - "  <hover:show_text:'#ff0000✘ Deny teleportation'><click:run_command:/tpdeny>#99E0FFType #ff0000/tpdeny #99E0FFto #ff0000<u>deny</u>#99E0FF.</click></hover>"
   - ""
   - "&7&oYou have 60 seconds to accept the teleport request."
 command-tpa-accept-receiver: "#99E0FFYou have just #00FF00accepted #99E0FFthe teleport request from #34cfe0%player%&a."
@@ -53,6 +53,12 @@ command-teleport-ignore-player: "#ff0000You cannot send a teleport request to #3
 command-teleport-world: "#ff0000You need to be in the same world to teleport."
 command-tpa-error-to-late: "#ff0000You do not have a teleport request."
 command-tpa-error-to-late-2: "#ff0000The request has expired."
+command-tp-deny-sender: "#00FF00✔ Denied &f%player% #00FF00teleport request."
+command-tp-deny-receiver: "#ff0000✘ &f%player% #ff0000has denied your teleport request."
+command-tp-cancel-error: "#ff0000You did not send a teleport request at &f%player%#ff0000."
+command-tp-cancel-sender: "#ff0000Cancelled #99E0FFyour teleport request to %player%."
+command-tp-cancel-receiver: "&f%player% #ff0000cancelled their teleport request to you."
+
 
 
 # Command description
@@ -72,6 +78,7 @@ description-endersee: "Open a player enderchest"
 description-tpa: "Teleport to a player"
 description-tpa-accept: "Accept a teleportation request"
 description-tpa-deny: "Denied a teleportation request"
+description-tpa-cancel: "Cancel a teleportation request"
 
 # Time format
 time-day: "%02d day %02d hour %02d minute %02d second"
@@ -93,6 +100,8 @@ teleport-message:
   type: ACTION
   message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
 teleport-error: "#ff0000You already have a teleportation in progress!"
-teleport-success: "&#99E0FFeYou have just teleported successfully!"
+teleport-success:
+  type: ACTION
+  message: "#99E0FFYou have just teleported successfully!"
 teleport-damage: "#ff0000You must not take damage during teleportation."
 teleport-error-location: "#ff0000Unable to teleport you safely."

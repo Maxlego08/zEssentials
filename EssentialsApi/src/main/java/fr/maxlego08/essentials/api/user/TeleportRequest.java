@@ -12,4 +12,5 @@ public interface TeleportRequest {
 
     void accept();
 
+    void deny();
 }

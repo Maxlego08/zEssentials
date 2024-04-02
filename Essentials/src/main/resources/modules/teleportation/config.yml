@@ -33,3 +33,6 @@ teleport-delay-permissions:
 
 # Enable bypass of teleport delay on player to essentials.teleport.bypass permission
 teleport-delay-bypass: false
+
+# The delay, in seconds, for the teleport request to expire.
+teleport-tpa-expire: 60

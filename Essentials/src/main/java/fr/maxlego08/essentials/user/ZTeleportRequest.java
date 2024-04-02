@@ -110,4 +110,13 @@ public class ZTeleportRequest extends ZUtils implements TeleportRequest {
         message(this.fromUser, Message.TELEPORT_SUCCESS);
         this.isTeleport = true;
     }
+
+    @Override
+    public void deny() {
+
+        message(this.fromUser, Message.COMMAND_TP_DENY_RECEIVER, this.toUser);
+        message(this.toUser, Message.COMMAND_TP_DENY_SENDER, this.fromUser);
+        this.isTeleport = true;
+
+    }
 }

@@ -20,6 +20,7 @@ public class CommandEssentialsReload extends VCommand {
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
         plugin.getConfigurationFiles().forEach(ConfigurationFile::load);
+        plugin.getModuleManager().loadConfigurations();
         message(sender, Message.COMMAND_RELOAD);
 
         return CommandResultType.SUCCESS;

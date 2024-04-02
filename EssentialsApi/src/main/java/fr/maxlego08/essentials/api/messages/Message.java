@@ -64,6 +64,11 @@ public enum Message {
     COMMAND_TELEPORT_WORLD("&cYou need to be in the same world to teleport."),
     COMMAND_TPA_ERROR_TO_LATE("&cYou do not have a teleport request."),
     COMMAND_TPA_ERROR_TO_LATE_2("&cThe request has expired."),
+    COMMAND_TP_DENY_SENDER("Denied %player% teleport request."),
+    COMMAND_TP_DENY_RECEIVER("%player% has denied your teleport request"),
+    COMMAND_TP_CANCEL_ERROR("#ff0000You did not send a teleport request at &f%player%#ff0000."),
+    COMMAND_TP_CANCEL_SENDER("#ff0000Cancelled #99E0FFyour teleport request to %player%."),
+    COMMAND_TP_CANCEL_RECEIVER("&f%player% #ff0000cancelled their teleport request to you."),
 
 
 
@@ -83,6 +88,7 @@ public enum Message {
     DESCRIPTION_TPA("Teleport to a player"),
     DESCRIPTION_TPA_ACCEPT("Accept a teleportation request"),
     DESCRIPTION_TPA_DENY("Denied a teleportation request"),
+    DESCRIPTION_TPA_CANCEL("Cancel a teleportation request"),
 
     YOU("you"),
 

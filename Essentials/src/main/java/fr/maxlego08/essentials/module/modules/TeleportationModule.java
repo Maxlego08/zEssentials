@@ -14,6 +14,7 @@ public class TeleportationModule extends ZModule {
     private boolean teleportSafety;
     private boolean teleportToCenter;
     private int teleportDelay;
+    private int teleportTpaExpire;
     private boolean teleportDelayBypass;
 
     public TeleportationModule(ZEssentialsPlugin plugin) {
@@ -38,6 +39,10 @@ public class TeleportationModule extends ZModule {
 
     public List<TeleportPermission> getTeleportDelayPermissions() {
         return teleportDelayPermissions;
+    }
+
+    public int getTeleportTpaExpire() {
+        return teleportTpaExpire;
     }
 
     public int getTeleportationDelay(Player player) {

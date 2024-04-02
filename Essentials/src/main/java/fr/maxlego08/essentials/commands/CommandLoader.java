@@ -11,6 +11,8 @@ import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeCreativ
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeSpectator;
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeSurvival;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportAccept;
+import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportCancel;
+import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportDeny;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportTo;
 import fr.maxlego08.essentials.commands.commands.utils.CommandSpeed;
 import fr.maxlego08.essentials.commands.commands.utils.CommandTop;
@@ -54,6 +56,8 @@ public class CommandLoader {
 
         register("tpa", CommandTeleportTo.class);
         register("tpaccept", CommandTeleportAccept.class, "tpyes");
+        register("tpdeny", CommandTeleportDeny.class, "tpno");
+        register("tpacancel", CommandTeleportCancel.class);
 
         File file = new File(plugin.getDataFolder(), "commands.yml");
         if (!file.exists()) this.plugin.saveResource("commands.yml", false);
