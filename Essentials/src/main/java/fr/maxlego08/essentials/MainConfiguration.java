@@ -2,6 +2,7 @@ package fr.maxlego08.essentials;
 
 import fr.maxlego08.essentials.api.Configuration;
 import fr.maxlego08.essentials.api.commands.CommandCooldown;
+import fr.maxlego08.essentials.api.utils.CompactMaterial;
 import fr.maxlego08.essentials.zutils.utils.YamlLoader;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.permissions.Permissible;
@@ -14,6 +15,7 @@ public class MainConfiguration extends YamlLoader implements Configuration {
 
     private final ZEssentialsPlugin plugin;
     private final List<CommandCooldown> commandCooldowns = new ArrayList<>();
+    private final List<CompactMaterial> compactMaterials = new ArrayList<>();
     private boolean enableDebug;
     private boolean enableCooldownBypass;
     private int trashSize;
@@ -54,5 +56,10 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     @Override
     public int getTrashSize() {
         return this.trashSize;
+    }
+
+    @Override
+    public List<CompactMaterial> getCompactMaterials() {
+        return this.compactMaterials;
     }
 }

@@ -23,3 +23,4 @@ feed: true
 craft: true
 enchanting: true
 invsee: true
+compact: true

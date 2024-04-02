@@ -15,6 +15,7 @@ import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportCancel;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportDeny;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportTo;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportWorld;
+import fr.maxlego08.essentials.commands.commands.utils.CommandCompact;
 import fr.maxlego08.essentials.commands.commands.utils.CommandCraft;
 import fr.maxlego08.essentials.commands.commands.utils.CommandEnchanting;
 import fr.maxlego08.essentials.commands.commands.utils.CommandFeed;
@@ -71,6 +72,7 @@ public class CommandLoader {
         register("craft", CommandCraft.class);
         register("enchanting", CommandEnchanting.class);
         register("invsee", CommandInvsee.class);
+        register("compact", CommandCompact.class, "blocks");
 
         register("tpa", CommandTeleportTo.class);
         register("tpaccept", CommandTeleportAccept.class, "tpyes");

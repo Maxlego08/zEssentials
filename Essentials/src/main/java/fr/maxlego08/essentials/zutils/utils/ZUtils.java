@@ -2,9 +2,14 @@ package fr.maxlego08.essentials.zutils.utils;
 
 import fr.maxlego08.essentials.api.commands.Permission;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 public abstract class ZUtils extends MessageUtils {
@@ -85,7 +90,33 @@ public abstract class ZUtils extends MessageUtils {
         }
 
         return cloneLocation;
+    }
 
+    protected int count(Inventory inventory, Material material) {
+        return Arrays.stream(inventory.getContents()).filter(itemStack -> itemStack != null && itemStack.isSimilar(new ItemStack(material))).mapToInt(ItemStack::getAmount).sum();
+    }
+
+
+    protected void removeItems(org.bukkit.inventory.Inventory inventory, ItemStack removeItemStack, int amount) {
+        for (ItemStack itemStack : inventory.getContents()) {
+            if (itemStack != null && itemStack.isSimilar(removeItemStack) && amount > 0) {
+                int currentAmount = itemStack.getAmount() - amount;
+                amount -= itemStack.getAmount();
+                if (currentAmount <= 0) {
+                    inventory.removeItem(itemStack);
+                } else {
+                    itemStack.setAmount(currentAmount);
+                }
+            }
+        }
+    }
+
+    protected void give(Player player, ItemStack itemStack) {
+        /*if (!player.isOnline() || hasInventoryFull(player)) {
+            MailManager.getInstance().addItems(player, itemStack);
+        } else {
+        }*/
+        player.getInventory().addItem(itemStack);
     }
 
 }

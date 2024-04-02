@@ -85,6 +85,11 @@ public enum Message {
     COMMAND_WORLD_TELEPORT_SELF("&aYou have just been teleported into the world &f%world%&a."),
     COMMAND_WORLD_TELEPORT_OTHER("&aYou just teleported the player &f%player% &ain the world &f%world%&a."),
 
+    COMMAND_COMPACT_TYPE("&cImpossible to compact the material &f%material%&c."),
+    COMMAND_COMPACT_ERROR("&cYou have no &f%item%&c in your inventory."),
+    COMMAND_COMPACT_SUCCESS("&7You have just transformed #0EEA93x%amount% #34cfe0%item% &7en #0EEA93x%toAmount% #34cfe0%toItem%&7."),
+
+
     DESCRIPTION_RELOAD("Reload configuration files"),
     DESCRIPTION_GAMEMODE("Change player gamemode"),
     DESCRIPTION_GAMEMODE_CREATIVE("Change player gamemode to creative"),
@@ -111,6 +116,7 @@ public enum Message {
     DESCRIPTION_CRAFT("Open workbrench"),
     DESCRIPTION_ENCHANTING("Open enchantment table"),
     DESCRIPTION_INVSEE("Open player's inventory"),
+    DESCRIPTION_COMPACT("Compact material"),
 
     YOU("you"),
     TRASH("&8Trash"),

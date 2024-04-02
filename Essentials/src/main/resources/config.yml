@@ -26,3 +26,27 @@ command-cooldowns:
         cooldown: 20
 
 trash-size: 27
+
+compact-materials:
+  - from: COAL
+    to: COAL_BLOCK
+  - from: REDSTONE
+    to: REDSTONE_BLOCK
+  - from: LAPIS_LAZULI
+    to: LAPIS_BLOCK
+  - from: IRON_INGOT
+    to: IRON_BLOCK
+  - from: GOLD_INGOT
+    to: GOLD_BLOCK
+  - from: IRON_NUGGET
+    to: IRON_INGOT
+  - from: GOLD_NUGGET
+    to: GOLD_INGOT
+  - from: DIAMOND
+    to: DIAMOND_BLOCK
+  - from: EMERALD
+    to: EMERALD_BLOCK
+  - from: COPPER_INGOT
+    to: COPPER_BLOCK
+  - from: NETHERITE_INGOT
+    to: NETHERITE_BLOCk

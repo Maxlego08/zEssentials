@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.zutils.utils;
 
 import fr.maxlego08.essentials.api.modules.Loadable;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.lang.reflect.Constructor;
@@ -56,8 +57,14 @@ public abstract class YamlLoader {
             Object[] arguments = new Object[constructor.getParameterCount()];
             java.lang.reflect.Parameter[] parameters = constructor.getParameters();
             for (int i = 0; i < parameters.length; i++) {
+                Class<?> paramType = parameters[i].getType();
                 String paramName = parameters[i].getName();
                 Object value = map.get(paramName);
+                if (paramType.isEnum()) {
+                    @SuppressWarnings("unchecked")
+                    Class<? extends Enum> enumType = (Class<? extends Enum>) paramType;
+                    value = Enum.valueOf(enumType, (String) value);
+                }
                 arguments[i] = value;
             }
             return constructor.newInstance(arguments);
