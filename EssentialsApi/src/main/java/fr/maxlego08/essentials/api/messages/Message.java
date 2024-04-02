@@ -88,7 +88,8 @@ public enum Message {
     COMMAND_COMPACT_TYPE("&cImpossible to compact the material &f%material%&c."),
     COMMAND_COMPACT_ERROR("&cYou have no &f%item%&c in your inventory."),
     COMMAND_COMPACT_SUCCESS("&7You have just transformed #0EEA93x%amount% #34cfe0%item% &7en #0EEA93x%toAmount% #34cfe0%toItem%&7."),
-
+    COMMAND_HAT_SUCCESS("&7You just put #0ef0ce%item% &7on your head."),
+    COMMAND_HAT_ERROR("&cYou cannot put air on your head."),
 
     DESCRIPTION_RELOAD("Reload configuration files"),
     DESCRIPTION_GAMEMODE("Change player gamemode"),
@@ -117,6 +118,7 @@ public enum Message {
     DESCRIPTION_ENCHANTING("Open enchantment table"),
     DESCRIPTION_INVSEE("Open player's inventory"),
     DESCRIPTION_COMPACT("Compact material"),
+    DESCRIPTION_HAT("Create your custom hat !"),
 
     YOU("you"),
     TRASH("&8Trash"),

@@ -41,10 +41,15 @@ command-more-success: "&7You just put your item to &f64&7."
 command-feed-sender: "&7You just feed the player &f%player%&7."
 command-feed-receiver: "&aYou have been feed."
 command-feed-error: "&cYou cannot feed someone who is dead !"
+command-compact-type: "&cImpossible to compact the material &f%material%&c."
+command-compact-error: "&cYou have no &f%item%&c in your inventory."
+command-compact-success: "&7You have just transformed #0EEA93x%amount% #99E0FF%item% &7en #0EEA93x%toAmount% #99E0FF%toItem%&7."
+command-hat-success: "&7You just put #0ef0ce%item% &7on your head."
+command-hat-error: "&cYou cannot put air on your head."
 
 
 # Teleport commands
-command-tpa-error: "#ff0000You have already sent a request to #34cfe0%player%#ff0000."
+command-tpa-error: "#ff0000You have already sent a request to #99E0FF%player%#ff0000."
 command-tpa-error-same: "#ff0000You cannot teleport to yourself."
 command-tpa-error-offline: "#ff0000Unable to find player, must be offline."
 command-tpa-error-to-late-empty: "#ff0000You do not have a teleport request."
@@ -59,9 +64,9 @@ command-tpa-receiver:
   - "  <hover:show_text:'#ff0000✘ Deny teleportation'><click:run_command:/tpdeny>#99E0FFType #ff0000/tpdeny #99E0FFto #ff0000<u>deny</u>#99E0FF.</click></hover>"
   - ""
   - "&7&oYou have 60 seconds to accept the teleport request."
-command-tpa-accept-receiver: "#99E0FFYou have just #00FF00accepted #99E0FFthe teleport request from #34cfe0%player%&a."
-command-tpa-accept-sender: "#34cfe0%player%&a has just accepted your teleport request."
-command-teleport-ignore-player: "#ff0000You cannot send a teleport request to #34cfe0%player%#ff0000 they are ignoring you."
+command-tpa-accept-receiver: "#99E0FFYou have just #00FF00accepted #99E0FFthe teleport request from #99E0FF%player%&a."
+command-tpa-accept-sender: "#99E0FF%player%&a has just accepted your teleport request."
+command-teleport-ignore-player: "#ff0000You cannot send a teleport request to #99E0FF%player%#ff0000 they are ignoring you."
 command-teleport-world: "#ff0000You need to be in the same world to teleport."
 command-tpa-error-to-late: "#ff0000You do not have a teleport request."
 command-tpa-error-to-late-2: "#ff0000The request has expired."
@@ -102,7 +107,8 @@ description-feed: "Feed a player"
 description-craft: "Open workbench"
 description-enchanting: "Open enchantment table"
 description-invsee: "Open player's inventory"
-
+description-compact: "Compact material"
+description-hat: "Create yourself a pretty hat"
 
 
 # Time format
