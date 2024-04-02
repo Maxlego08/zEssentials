@@ -353,7 +353,7 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
 
             // Check for cooldown
             if (user != null && (!this.user.hasPermission(Permission.ESSENTIALS_BYPASS_COOLDOWN) || !configuration.isEnableCooldownBypass())) {
-                Optional<Integer> optional = configuration.getCooldown(key);
+                Optional<Integer> optional = configuration.getCooldown(this.sender, key);
                 if (optional.isPresent()) {
                     cooldownSeconds = optional.get();
                     if (this.user.isCooldown(key)) {

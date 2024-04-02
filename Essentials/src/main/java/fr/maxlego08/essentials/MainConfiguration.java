@@ -4,6 +4,7 @@ import fr.maxlego08.essentials.api.Configuration;
 import fr.maxlego08.essentials.api.commands.CommandCooldown;
 import fr.maxlego08.essentials.zutils.utils.YamlLoader;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.permissions.Permissible;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +37,8 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     }
 
     @Override
-    public Optional<Integer> getCooldown(String command) {
-        return this.commandCooldowns.stream().filter(e -> e.command().equalsIgnoreCase(command)).map(CommandCooldown::cooldown).findFirst();
+    public Optional<Integer> getCooldown(Permissible permissible, String command) {
+        return this.commandCooldowns.stream().filter(e -> e.command().equalsIgnoreCase(command)).map(commandCooldown -> commandCooldown.permissions().stream().filter(e -> permissible.hasPermission((String) e.get("permission"))).mapToInt(e -> ((Number) e.get("cooldown")).intValue()).min().orElse(commandCooldown.cooldown())).findFirst();
     }
 
     @Override

@@ -14,8 +14,13 @@
 
 enable-debug: false
 
-enable-cooldown-bypass: true
+enable-cooldown-bypass: false
 
 command-cooldowns:
   - command: heal
     cooldown: 60
+    permissions:
+      - permission: "essentials.cooldown.heal.vip"
+        cooldown: 40
+      - permission: "essentials.cooldown.heal.staff"
+        cooldown: 20
