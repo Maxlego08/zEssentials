@@ -15,3 +15,4 @@ tpaccept: true
 tpdeny: true
 tpacancel: true
 god: true
+heal: true

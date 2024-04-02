@@ -13,3 +13,9 @@
 ########################################################################################################################
 
 enable-debug: false
+
+enable-cooldown-bypass: true
+
+command-cooldowns:
+  - command: heal
+    cooldown: 60

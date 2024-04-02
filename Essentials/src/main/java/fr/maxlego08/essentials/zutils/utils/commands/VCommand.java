@@ -1,5 +1,6 @@
 package fr.maxlego08.essentials.zutils.utils.commands;
 
+import fr.maxlego08.essentials.api.Configuration;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.EssentialsCommand;
@@ -8,6 +9,7 @@ import fr.maxlego08.essentials.api.commands.Tab;
 import fr.maxlego08.essentials.api.commands.TabCompletion;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.user.User;
+import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -30,6 +32,7 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
     protected CommandSender sender;
     protected Player player;
     protected User user;
+    protected Configuration configuration;
     private boolean consoleCanUse = true;
     private boolean ignoreParent = false;
     private boolean ignoreArgs = false;
@@ -271,9 +274,13 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
         return this;
     }
 
-    public void addCompletion(int index, TabCompletion runnable) {
+    protected void addCompletion(int index, TabCompletion runnable) {
         this.tabCompletions.put(index, runnable);
         this.setTabCompleter();
+    }
+
+    private String getMainCommand() {
+        return this.subCommands.get(0);
     }
 
     @Override
@@ -339,7 +346,31 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
 
     private CommandResultType safelyPerformCommand(EssentialsPlugin plugin) {
         try {
-            return perform(plugin);
+
+            int cooldownSeconds = 0;
+            String key = this.getMainCommand();
+            configuration = this.plugin.getConfiguration();
+
+            // Check for cooldown
+            if (user != null && (!this.user.hasPermission(Permission.ESSENTIALS_BYPASS_COOLDOWN) || !configuration.isEnableCooldownBypass())) {
+                Optional<Integer> optional = configuration.getCooldown(key);
+                if (optional.isPresent()) {
+                    cooldownSeconds = optional.get();
+                    if (this.user.isCooldown(key)) {
+                        long milliSeconds = this.user.getCooldown(key) - System.currentTimeMillis();
+                        message(this.sender, Message.COOLDOWN, "%cooldown%", TimerBuilder.getStringTime(milliSeconds));
+                        return CommandResultType.COOLDOWN;
+                    }
+                }
+            }
+
+            CommandResultType commandResultType = perform(plugin);
+
+            if (commandResultType != CommandResultType.SYNTAX_ERROR && cooldownSeconds != 0 && this.user != null && (!this.user.hasPermission(Permission.ESSENTIALS_BYPASS_COOLDOWN) || !configuration.isEnableCooldownBypass())) {
+                this.user.addCooldown(key, cooldownSeconds);
+            }
+
+            return commandResultType;
         } catch (Exception exception) {
             if (plugin.getConfiguration().isEnableDebug()) {
                 exception.printStackTrace();

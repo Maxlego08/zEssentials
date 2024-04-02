@@ -5,10 +5,8 @@ public enum CommandResultType {
 	SUCCESS,
 	SYNTAX_ERROR,
 	NO_PERMISSION,
-	EXCEPTION_ERROR,
 	DEFAULT,
 	CONTINUE,
-	
-	;
+    COOLDOWN;
 	
 }

@@ -6,7 +6,7 @@ import fr.maxlego08.essentials.api.event.events.UserFirstJoinEvent;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.essentials.api.user.User;
-import fr.maxlego08.essentials.storage.ZUser;
+import fr.maxlego08.essentials.user.ZUser;
 import org.bukkit.Bukkit;
 
 import java.io.File;

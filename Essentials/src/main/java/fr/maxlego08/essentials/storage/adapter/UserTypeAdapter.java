@@ -6,10 +6,9 @@ import com.google.gson.stream.JsonWriter;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
-import fr.maxlego08.essentials.storage.ZUser;
+import fr.maxlego08.essentials.user.ZUser;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -29,7 +28,15 @@ public class UserTypeAdapter extends TypeAdapter<User> {
 
         out.name("options").beginObject();
         for (Map.Entry<Option, Boolean> entry : value.getOptions().entrySet()) {
-            out.name(entry.getKey().name()).value(entry.getValue());
+            if (entry.getValue()) {
+                out.name(entry.getKey().name()).value(entry.getValue());
+            }
+        }
+        out.endObject();
+
+        out.name("cooldowns").beginObject();
+        for (Map.Entry<String, Long> entry : value.getCooldowns().entrySet()) {
+            out.name(entry.getKey()).value(entry.getValue());
         }
         out.endObject();
 
@@ -40,27 +47,28 @@ public class UserTypeAdapter extends TypeAdapter<User> {
     public User read(JsonReader in) throws IOException {
         UUID uniqueId = null;
         String name = null;
-        Map<Option, Boolean> options = new HashMap<>();
+        User user = new ZUser(this.plugin, UUID.randomUUID());
 
         in.beginObject();
         while (in.hasNext()) {
             switch (in.nextName()) {
-                case "uniqueId" -> uniqueId = UUID.fromString(in.nextString());
+                case "uniqueId" -> new ZUser(this.plugin, UUID.fromString(in.nextString()));
                 case "name" -> name = in.nextString();
                 case "options" -> {
                     in.beginObject();
-                    while (in.hasNext()) {
-                        options.put(Option.valueOf(in.nextName()), in.nextBoolean());
-                    }
+                    while (in.hasNext()) user.setOption(Option.valueOf(in.nextName()), in.nextBoolean());
+                    in.endObject();
+                }
+                case "cooldowns" -> {
+                    in.beginObject();
+                    while (in.hasNext()) user.setCooldown(in.nextName(), in.nextLong());
                     in.endObject();
                 }
             }
         }
         in.endObject();
 
-        User user = new ZUser(this.plugin, uniqueId);
         user.setName(name);
-        options.forEach(user::setOption);
         return user;
     }
 }

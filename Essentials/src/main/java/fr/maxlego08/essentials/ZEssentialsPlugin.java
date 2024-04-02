@@ -25,7 +25,7 @@ import fr.maxlego08.essentials.module.ZModuleManager;
 import fr.maxlego08.essentials.placeholders.DistantPlaceholder;
 import fr.maxlego08.essentials.placeholders.LocalPlaceholder;
 import fr.maxlego08.essentials.storage.ZStorageManager;
-import fr.maxlego08.essentials.storage.ZUser;
+import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.storage.adapter.UserTypeAdapter;
 import fr.maxlego08.essentials.user.UserPlaceholders;
 import fr.maxlego08.essentials.zutils.ZPlugin;
