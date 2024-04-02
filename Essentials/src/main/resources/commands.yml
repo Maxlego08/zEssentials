@@ -14,3 +14,4 @@ tpa: true
 tpaccept: true
 tpdeny: true
 tpacancel: true
+god: true

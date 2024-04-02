@@ -1,12 +1,13 @@
 package fr.maxlego08.essentials.storage.storages;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
-import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.event.UserEvent;
 import fr.maxlego08.essentials.api.event.events.UserFirstJoinEvent;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.storage.Persist;
+import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.storage.ZUser;
+import org.bukkit.Bukkit;
 
 import java.io.File;
 import java.util.HashMap;
@@ -41,6 +42,12 @@ public class JsonStorage implements IStorage {
     @Override
     public void onDisable() {
         this.createFolder();
+        Bukkit.getOnlinePlayers().forEach(player -> {
+            UUID uniqueId = player.getUniqueId();
+            User user = getUser(uniqueId);
+            Persist persist = this.plugin.getPersist();
+            persist.save(user, getUserFile(uniqueId));
+        });
     }
 
     private File getUserFile(UUID uniqueId) {
@@ -66,15 +73,25 @@ public class JsonStorage implements IStorage {
             UserEvent event = new UserFirstJoinEvent(user);
             this.plugin.getScheduler().runNextTick(wrappedTask -> event.callEvent());
 
-            persist.save((User)user, file);
+            persist.save(user, file);
         }
 
         this.users.put(uniqueId, user);
         return user;
     }
 
+    private void saveFileAsync(UUID uniqueId) {
+        User user = getUser(uniqueId);
+        if (user == null) return;
+        this.plugin.getScheduler().runAsync(wrappedTask -> {
+            Persist persist = this.plugin.getPersist();
+            persist.save(user, getUserFile(uniqueId));
+        });
+    }
+
     @Override
     public void onPlayerQuit(UUID uniqueId) {
+        this.saveFileAsync(uniqueId);
         this.users.remove(uniqueId);
     }
 

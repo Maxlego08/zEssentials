@@ -19,6 +19,7 @@ import fr.maxlego08.essentials.buttons.ButtonTeleportationConfirm;
 import fr.maxlego08.essentials.commands.CommandLoader;
 import fr.maxlego08.essentials.commands.ZCommandManager;
 import fr.maxlego08.essentials.commands.commands.essentials.CommandEssentials;
+import fr.maxlego08.essentials.listener.PlayerListener;
 import fr.maxlego08.essentials.messages.MessageLoader;
 import fr.maxlego08.essentials.module.ZModuleManager;
 import fr.maxlego08.essentials.placeholders.DistantPlaceholder;
@@ -88,6 +89,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
         this.moduleManager.loadModules();
 
+        this.registerListener(new PlayerListener(this));
         this.registerPlaceholder(UserPlaceholders.class);
     }
 

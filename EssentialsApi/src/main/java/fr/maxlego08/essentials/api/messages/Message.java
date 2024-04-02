@@ -47,6 +47,9 @@ public enum Message {
     COMMAND_SPEED_WALK("&7You have just set your &nwalk&r&7 speed to &f%speed%&7 for &f%player%&7. &8(&f2 &7by default&8)"),
     COMMAND_SPEED_ERROR("&cYou must enter a number between &60&c and &610&c. &8(&f2 &7by default&8)"),
 
+    COMMAND_GOD_ENABLE("&7God mode &aenable &7for &f%player%&a."),
+    COMMAND_GOD_DISABLE("&7God mode &cdisable &7for &f%player%&a."),
+
     // Teleport Command
     COMMAND_TPA_ERROR("&cYou have already sent a request to #34cfe0%player%&c."),
     COMMAND_TPA_ERROR_SAME("&cYou cannot teleport to yourself."),
@@ -81,6 +84,7 @@ public enum Message {
     DESCRIPTION_GAMEMODE_SPECTATOR("Change player gamemode to spectator"),
     DESCRIPTION_DAY("Set the day in your world"),
     DESCRIPTION_NIGHT("Set the night in your world"),
+    DESCRIPTION_GOD("Toggle god mode"),
     DESCRIPTION_SUN("Set the sun in your world"),
     DESCRIPTION_ENDERCHEST("Open your enderchest"),
     DESCRIPTION_ENDERSEE("Open a player enderchest"),

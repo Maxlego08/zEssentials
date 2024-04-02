@@ -87,6 +87,10 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
         this.parent = parent;
     }
 
+    protected User getUser(Player player) {
+        return this.plugin.getStorageManager().getStorage().getUser(player.getUniqueId());
+    }
+
     @Override
     public String getPermission() {
         return permission;

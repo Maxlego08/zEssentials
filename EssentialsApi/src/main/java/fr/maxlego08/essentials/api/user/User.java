@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public interface User {
@@ -41,4 +42,10 @@ public interface User {
     User getTargetUser();
 
     void setTargetUser(User user);
+
+    boolean getOption(Option option);
+
+    void setOption(Option option, boolean value);
+
+    Map<Option, Boolean> getOptions();
 }

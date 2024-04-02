@@ -13,7 +13,7 @@ public class CommandTop extends VCommand {
     public CommandTop(EssentialsPlugin plugin) {
         super(plugin);
         this.setPermission(Permission.ESSENTIALS_TOP);
-        this.setDescription(Message.DESCRIPTION_NIGHT);
+        this.setDescription(Message.DESCRIPTION_TOP);
         this.onlyPlayers();
     }
 

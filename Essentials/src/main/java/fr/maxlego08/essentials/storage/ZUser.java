@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.storage;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.TeleportRequest;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.modules.TeleportationModule;
@@ -22,6 +23,7 @@ public class ZUser extends ZUtils implements User {
     private final EssentialsPlugin plugin;
     private final Map<UUID, TeleportRequest> teleports = new HashMap<>();
     private final UUID uniqueId;
+    private final Map<Option, Boolean> options = new HashMap<>();
     private String name;
     private TeleportRequest teleportRequest;
     private User targetUser;
@@ -64,7 +66,7 @@ public class ZUser extends ZUtils implements User {
     @Override
     public void sendTeleportRequest(User targetUser) {
 
-        if (targetUser == null || !targetUser.isOnline()){
+        if (targetUser == null || !targetUser.isOnline()) {
             message(this, Message.COMMAND_TPA_ERROR_SAME);
             return;
         }
@@ -152,5 +154,20 @@ public class ZUser extends ZUtils implements User {
     @Override
     public void setTargetUser(User targetUser) {
         this.targetUser = targetUser;
+    }
+
+    @Override
+    public boolean getOption(Option option) {
+        return options.getOrDefault(option, false);
+    }
+
+    @Override
+    public void setOption(Option option, boolean value) {
+        this.options.put(option, value);
+    }
+
+    @Override
+    public Map<Option, Boolean> getOptions() {
+        return this.options;
     }
 }

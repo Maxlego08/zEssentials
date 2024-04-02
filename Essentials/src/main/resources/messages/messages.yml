@@ -30,6 +30,8 @@ command-speed-invalid: "#ff0000You need to specify a valid player."
 command-speed-fly: "&7You have just set your &nfly&r&7 speed to &f%speed%&7 for &f%player%&7. &8(&f2 &7by default&8)"
 command-speed-walk: "&7You have just set your &nwalk&r&7 speed to &f%speed%&7 for &f%player%&7. &8(&f2 &7by default&8)"
 command-speed-error: "#ff0000You must enter a number between &60#ff0000 and &610#ff0000. &8(&f2 &7by default&8)"
+command-god-enable: "&7God mode &aenable &7for &f%player%&a."
+command-god-disable: "&7God mode &cdisable &7for &f%player%&a."
 
 
 # Teleport commands
@@ -80,6 +82,8 @@ description-tpa: "Teleport to a player"
 description-tpa-accept: "Accept a teleportation request"
 description-tpa-deny: "Denied a teleportation request"
 description-tpa-cancel: "Cancel a teleportation request"
+description-god: "Toggle god mode"
+
 
 # Time format
 time-day: "%02d day %02d hour %02d minute %02d second"
