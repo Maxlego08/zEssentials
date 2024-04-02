@@ -8,7 +8,7 @@ public enum Message {
 
     // Rework message for a better system
 
-    PREFIX("§8(§6zEssentials§8) "),
+    PREFIX("&8(&6zEssentials&8) "),
 
     TIME_DAY("%02d %day% %02d %hour% %02d %minute% %02d %second%"),
     TIME_HOUR("%02d %hour% %02d minute(s) %02d %second%"),
@@ -27,20 +27,20 @@ public enum Message {
     FORMAT_DAY("d"),
     FORMAT_DAYS("days"),
 
-    COMMAND_SYNTAX_ERROR("§cYou must execute the command like this§7: §a%syntax%"),
-    COMMAND_NO_PERMISSION("§cYou do not have permission to run this command."),
-    COMMAND_NO_CONSOLE("§cOnly one player can execute this command."),
-    COMMAND_NO_ARG("§cImpossible to find the command with its arguments."),
-    COMMAND_SYNTAXE_HELP("§f%syntax% §7» §7%description%"),
+    COMMAND_SYNTAX_ERROR("&cYou must execute the command like this&7: &a%syntax%"),
+    COMMAND_NO_PERMISSION("&cYou do not have permission to run this command."),
+    COMMAND_NO_CONSOLE("&cOnly one player can execute this command."),
+    COMMAND_NO_ARG("&cImpossible to find the command with its arguments."),
+    COMMAND_SYNTAXE_HELP("&f%syntax% &7» &7%description%"),
 
-    COMMAND_RELOAD("§aYou have just reloaded the configuration files."),
+    COMMAND_RELOAD("&aYou have just reloaded the configuration files."),
     COMMAND_ESSENTIALS("zEssentials, version %version%"),
     COMMAND_GAMEMODE("&fSet game mode&e %gamemode% &ffor &b%player%&f."),
     COMMAND_GAMEMODE_INVALID("&cYou need to specify a valid player."),
     COMMAND_DAY("&fYou have just brought &edaylight&f into the world &a%world%&f."),
     COMMAND_NIGHT("&fYou have just brought &enightfall&f into the world &a%world%&f."),
     COMMAND_SUN("&fYou have just brought the &esun&f into the world &a%world%&f."),
-    COMMAND_TOP("§7You've just been teleported to &etop§7."),
+    COMMAND_TOP("&7You've just been teleported to &etop&7."),
     COMMAND_TOP_ERROR("&cUnable to find a position to transport you safely."),
     COMMAND_SPEED_INVALID("&cYou need to specify a valid player."),
     COMMAND_SPEED_FLY("&7You have just set your &nfly&r&7 speed to &f%speed%&7 for &f%player%&7. &8(&f2 &7by default&8)"),
@@ -77,7 +77,10 @@ public enum Message {
     COMMAND_TP_CANCEL_SENDER("#ff0000Cancelled #99E0FFyour teleport request to %player%."),
     COMMAND_TP_CANCEL_RECEIVER("&f%player% #ff0000cancelled their teleport request to you."),
 
-
+    COMMAND_MORE_ERROR("&cYou cannot make this order in item in hand."),
+    COMMAND_MORE_SUCCESS("&7You just put your item to &f64&7."),
+    COMMAND_WORLD_TELEPORT_SELF("&aYou have just been teleported into the world &f%world%&a."),
+    COMMAND_WORLD_TELEPORT_OTHER("&aYou just teleported the player &f%player% &ain the world &f%world%&a."),
 
     DESCRIPTION_RELOAD("Reload configuration files"),
     DESCRIPTION_GAMEMODE("Change player gamemode"),
@@ -98,6 +101,8 @@ public enum Message {
     DESCRIPTION_TPA_ACCEPT("Accept a teleportation request"),
     DESCRIPTION_TPA_DENY("Denied a teleportation request"),
     DESCRIPTION_TPA_CANCEL("Cancel a teleportation request"),
+    DESCRIPTION_MORE("Get more items"),
+    DESCRIPTION_TP_WORLD("Teleport to another world"),
 
     YOU("you"),
 

@@ -14,8 +14,10 @@ import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportAccept;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportCancel;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportDeny;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportTo;
+import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportWorld;
 import fr.maxlego08.essentials.commands.commands.utils.CommandGod;
 import fr.maxlego08.essentials.commands.commands.utils.CommandHeal;
+import fr.maxlego08.essentials.commands.commands.utils.CommandMore;
 import fr.maxlego08.essentials.commands.commands.utils.CommandSpeed;
 import fr.maxlego08.essentials.commands.commands.utils.CommandTop;
 import fr.maxlego08.essentials.commands.commands.weather.CommandDay;
@@ -57,10 +59,13 @@ public class CommandLoader {
         register("speed", CommandSpeed.class);
         register("god", CommandGod.class);
         register("heal", CommandHeal.class);
+        register("more", CommandMore.class);
+        register("worldtp", CommandTeleportWorld.class, "wtp");
 
         register("tpa", CommandTeleportTo.class);
         register("tpaccept", CommandTeleportAccept.class, "tpyes");
         register("tpdeny", CommandTeleportDeny.class, "tpno");
+        register("tpacancel", CommandTeleportCancel.class);
         register("tpacancel", CommandTeleportCancel.class);
 
 
