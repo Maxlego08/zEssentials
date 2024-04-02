@@ -1,0 +1,28 @@
+########################################################################################################################
+#
+# ████████╗███████╗██╗░░░░░███████╗██████╗░░█████╗░██████╗░████████╗░█████╗░████████╗██╗░█████╗░███╗░░██╗
+# ╚══██╔══╝██╔════╝██║░░░░░██╔════╝██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗╚══██╔══╝██║██╔══██╗████╗░██║
+# ░░░██║░░░█████╗░░██║░░░░░█████╗░░██████╔╝██║░░██║██████╔╝░░░██║░░░███████║░░░██║░░░██║██║░░██║██╔██╗██║
+# ░░░██║░░░██╔══╝░░██║░░░░░██╔══╝░░██╔═══╝░██║░░██║██╔══██╗░░░██║░░░██╔══██║░░░██║░░░██║██║░░██║██║╚████║
+# ░░░██║░░░███████╗███████╗███████╗██║░░░░░╚█████╔╝██║░░██║░░░██║░░░██║░░██║░░░██║░░░██║╚█████╔╝██║░╚███║
+# ░░░╚═╝░░░╚══════╝╚══════╝╚══════╝╚═╝░░░░░░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░╚════╝░╚═╝░░╚══╝
+#
+#
+#
+########################################################################################################################
+
+enable: true
+
+# If the teleport destination is unsafe, should players be teleported to the nearest safe location?
+# If this is set to true, zEssentials will attempt to teleport players close to the intended destination. The destination will be on the same x and z, only the y will change.
+# If this is set to false, attempted teleports to unsafe locations will be cancelled with a warning.
+teleport-safety: true
+
+# Whether to make all teleportations go to the center of the block; where the x and z coordinates decimal become .5
+teleport-to-center: true
+
+# The delay, in seconds, before a user actually teleports. If the user moves or gets attacked in this timeframe, the teleport is cancelled.
+teleport-delay: 5
+
+# Enable bypass of teleport delay on player to essentials.teleport.bypass permission
+teleport-delay-bypass: false

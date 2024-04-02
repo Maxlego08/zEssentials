@@ -12,7 +12,7 @@ import java.util.Optional;
 public class CommandTop extends VCommand {
     public CommandTop(EssentialsPlugin plugin) {
         super(plugin);
-        this.setPermission(Permission.TOP_USE);
+        this.setPermission(Permission.ESSENTIALS_TOP);
         this.setDescription(Message.DESCRIPTION_NIGHT);
         this.onlyPlayers();
     }

@@ -15,7 +15,7 @@ public class CommandSun extends VCommand {
 
     public CommandSun(EssentialsPlugin plugin) {
         super(plugin);
-        this.setPermission(Permission.SUN_USE);
+        this.setPermission(Permission.ESSENTIALS_SUN);
         this.setDescription(Message.DESCRIPTION_SUN);
         this.addOptionalArg("world", (a, b) -> Bukkit.getWorlds().stream().map(WorldInfo::getName).collect(Collectors.toList()));
     }

@@ -15,7 +15,7 @@ public class CommandNight extends VCommand {
 
     public CommandNight(EssentialsPlugin plugin) {
         super(plugin);
-        this.setPermission(Permission.NIGHT_USE);
+        this.setPermission(Permission.ESSENTIALS_NIGHT);
         this.setDescription(Message.DESCRIPTION_NIGHT);
         this.addOptionalArg("world", (a, b) -> Bukkit.getWorlds().stream().map(WorldInfo::getName).collect(Collectors.toList()));
     }

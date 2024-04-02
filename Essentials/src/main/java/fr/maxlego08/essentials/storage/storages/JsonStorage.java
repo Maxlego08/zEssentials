@@ -55,7 +55,6 @@ public class JsonStorage implements IStorage {
         File file = getUserFile(uniqueId);
         Persist persist = this.plugin.getPersist();
         User user = persist.load(User.class, file);
-        System.out.println(user);
 
         // If user is null, we need to create a new user
         if (user == null) {

@@ -11,7 +11,7 @@ public class CommandEnderSee extends VCommand {
 
     public CommandEnderSee(EssentialsPlugin plugin) {
         super(plugin);
-        this.setPermission(Permission.ENDERSEE_USE);
+        this.setPermission(Permission.ESSENTIALS_ENDERSEE);
         this.setDescription(Message.DESCRIPTION_ENDERSEE);
         this.addRequireArg("player");
         this.onlyPlayers();

@@ -15,7 +15,7 @@ public class CommandDay extends VCommand {
 
     public CommandDay(EssentialsPlugin plugin) {
         super(plugin);
-        this.setPermission(Permission.DAY_USE);
+        this.setPermission(Permission.ESSENTIALS_DAY);
         this.setDescription(Message.DESCRIPTION_DAY);
         this.addOptionalArg("world", (a, b) -> Bukkit.getWorlds().stream().map(WorldInfo::getName).collect(Collectors.toList()));
     }

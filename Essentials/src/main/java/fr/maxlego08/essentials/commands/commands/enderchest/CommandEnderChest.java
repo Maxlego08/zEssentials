@@ -10,7 +10,7 @@ public class CommandEnderChest extends VCommand {
 
     public CommandEnderChest(EssentialsPlugin plugin) {
         super(plugin);
-        this.setPermission(Permission.ENDERCHEST_USE);
+        this.setPermission(Permission.ESSENTIALS_ENDERCHEST);
         this.setDescription(Message.DESCRIPTION_DAY);
         this.onlyPlayers();
     }

@@ -12,7 +12,7 @@ import java.util.Arrays;
 public class CommandSpeed extends VCommand {
     public CommandSpeed(EssentialsPlugin plugin) {
         super(plugin);
-        this.setPermission(Permission.SPEED_USE);
+        this.setPermission(Permission.ESSENTIALS_SPEED);
         this.setDescription(Message.DESCRIPTION_SPEED);
         this.addRequireArg("speed", (a, b) -> Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10"));
         this.addOptionalArg("player");

@@ -11,7 +11,7 @@ public class CommandTeleportTo extends VCommand {
 
     public CommandTeleportTo(EssentialsPlugin plugin) {
         super(plugin);
-        this.setPermission(Permission.TPA_USE);
+        this.setPermission(Permission.ESSENTIALS_TPA);
         this.setDescription(Message.DESCRIPTION_TPA);
         this.addRequireArg("player");
         this.onlyPlayers();

@@ -11,7 +11,7 @@ public class CommandTeleportAccept extends VCommand {
 
     public CommandTeleportAccept(EssentialsPlugin plugin) {
         super(plugin);
-        this.setPermission(Permission.TPA_ACCEPT_USE);
+        this.setPermission(Permission.ESSENTIALS_TPA_ACCEPT);
         this.setDescription(Message.DESCRIPTION_TPA_ACCEPT);
         this.onlyPlayers();
     }

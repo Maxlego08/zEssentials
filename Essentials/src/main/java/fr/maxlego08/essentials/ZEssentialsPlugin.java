@@ -6,6 +6,7 @@ import com.tcoded.folialib.FoliaLib;
 import com.tcoded.folialib.impl.ServerImplementation;
 import fr.maxlego08.essentials.api.ConfigurationFile;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.modules.ModuleManager;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.commands.CommandManager;
 import fr.maxlego08.essentials.api.storage.Persist;
@@ -15,6 +16,7 @@ import fr.maxlego08.essentials.commands.CommandLoader;
 import fr.maxlego08.essentials.commands.ZCommandManager;
 import fr.maxlego08.essentials.commands.commands.essentials.CommandEssentials;
 import fr.maxlego08.essentials.messages.MessageLoader;
+import fr.maxlego08.essentials.module.ZModuleManager;
 import fr.maxlego08.essentials.storage.ZStorageManager;
 import fr.maxlego08.essentials.storage.ZUser;
 import fr.maxlego08.essentials.storage.adapter.UserTypeAdapter;
@@ -33,6 +35,8 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
         FoliaLib foliaLib = new FoliaLib(this);
         this.serverImplementation = foliaLib.getImpl();
+
+        this.moduleManager = new ZModuleManager(this);
 
         this.gson = getGsonBuilder().create();
         this.persist = new Persist(this);
@@ -56,6 +60,8 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.storageManager = new ZStorageManager(this);
         this.registerListener(this.storageManager);
         this.storageManager.onEnable();
+
+        this.moduleManager.loadModules();
     }
 
     @Override
@@ -88,6 +94,11 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     @Override
     public ServerImplementation getScheduler() {
         return this.serverImplementation;
+    }
+
+    @Override
+    public ModuleManager getModuleManager() {
+        return this.moduleManager;
     }
 
     @Override

@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.api;
 import com.google.gson.Gson;
 import com.tcoded.folialib.impl.ServerImplementation;
 import fr.maxlego08.essentials.api.commands.CommandManager;
+import fr.maxlego08.essentials.api.modules.ModuleManager;
 import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.essentials.api.storage.StorageManager;
 import org.bukkit.plugin.Plugin;
@@ -22,4 +23,6 @@ public interface EssentialsPlugin extends Plugin {
     Persist getPersist();
 
     ServerImplementation getScheduler();
+
+    ModuleManager getModuleManager();
 }
