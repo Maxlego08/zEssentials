@@ -18,3 +18,8 @@ god: true
 heal: true
 more: true
 worldtp: true
+trash: true
+feed: true
+craft: true
+enchanting: true
+invsee: true

@@ -1,5 +1,6 @@
 prefix: "#03fcb6zEssentials #656665• "
 you: "you"
+trash: "&8Trash"
 
 # Commands
 command-syntax-error: "#ff0000You must execute the command like this#656665: &f%syntax%"
@@ -35,6 +36,11 @@ command-god-disable: "&7God mode &cdisable &7for &f%player%&a."
 command-heal-sender: "&7You just healed the player &f%player%&7."
 command-heal-receiver: "&aYou have been healed."
 command-heal-error: "&cYou cannot heal someone who is dead !"
+command-more-error: "&cYou cannot make this order in item in hand."
+command-more-success: "&7You just put your item to &f64&7."
+command-feed-sender: "&7You just feed the player &f%player%&7."
+command-feed-receiver: "&aYou have been feed."
+command-feed-error: "&cYou cannot feed someone who is dead !"
 
 
 # Teleport commands
@@ -64,6 +70,8 @@ command-tp-deny-receiver: "#ff0000✘ &f%player% #ff0000has denied your teleport
 command-tp-cancel-error: "#ff0000You did not send a teleport request at &f%player%#ff0000."
 command-tp-cancel-sender: "#ff0000Cancelled #99E0FFyour teleport request to %player%."
 command-tp-cancel-receiver: "&f%player% #ff0000cancelled their teleport request to you."
+command-world-teleport-self: "&aYou have just been teleported into the world &f%world%&a."
+command-world-teleport-other: "&aYou just teleported the player &f%player% &ain the world &f%world%&a."
 
 
 
@@ -87,6 +95,14 @@ description-tpa-deny: "Denied a teleportation request"
 description-tpa-cancel: "Cancel a teleportation request"
 description-god: "Toggle god mode"
 description-heal: "Heal a player"
+description-more: "Get more items"
+description-tp-world: "Teleport to another world"
+description-trash: "Open a trash can"
+description-feed: "Feed a player"
+description-craft: "Open workbench"
+description-enchanting: "Open enchantment table"
+description-invsee: "Open player's inventory"
+
 
 
 # Time format

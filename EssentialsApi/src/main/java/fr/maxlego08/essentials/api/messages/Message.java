@@ -52,6 +52,9 @@ public enum Message {
     COMMAND_HEAL_SENDER("&7You just healed the player &f%player%&7."),
     COMMAND_HEAL_RECEIVER("&aYou have been healed."),
     COMMAND_HEAL_ERROR("&cYou cannot heal someone who is dead !"),
+    COMMAND_FEED_SENDER("&7You just feed the player &f%player%&7."),
+    COMMAND_FEED_RECEIVER("&aYou have been feed."),
+    COMMAND_FEED_ERROR("&cYou cannot feed someone who is dead !"),
 
     // Teleport Command
     COMMAND_TPA_ERROR("&cYou have already sent a request to #34cfe0%player%&c."),
@@ -103,8 +106,14 @@ public enum Message {
     DESCRIPTION_TPA_CANCEL("Cancel a teleportation request"),
     DESCRIPTION_MORE("Get more items"),
     DESCRIPTION_TP_WORLD("Teleport to another world"),
+    DESCRIPTION_TRASH("Open a trash can"),
+    DESCRIPTION_FEED("Feed a player"),
+    DESCRIPTION_CRAFT("Open workbrench"),
+    DESCRIPTION_ENCHANTING("Open enchantment table"),
+    DESCRIPTION_INVSEE("Open player's inventory"),
 
     YOU("you"),
+    TRASH("&8Trash"),
 
     // Teleportation
 

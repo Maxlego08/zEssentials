@@ -8,11 +8,11 @@ import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 
-public class CommandHeal extends VCommand {
-    public CommandHeal(EssentialsPlugin plugin) {
+public class CommandFeed extends VCommand {
+    public CommandFeed(EssentialsPlugin plugin) {
         super(plugin);
-        this.setPermission(Permission.ESSENTIALS_HEAL);
-        this.setDescription(Message.DESCRIPTION_HEAL);
+        this.setPermission(Permission.ESSENTIALS_FEED);
+        this.setDescription(Message.DESCRIPTION_FEED);
         this.addOptionalArg("player");
     }
 
@@ -23,25 +23,19 @@ public class CommandHeal extends VCommand {
 
         if (this.player == null) return CommandResultType.SYNTAX_ERROR;
 
-        if (player != this.player && !hasPermission(sender, Permission.ESSENTIALS_HEAL_OTHER)) {
+        if (player != this.player && !hasPermission(sender, Permission.ESSENTIALS_FEED_OTHER)) {
             player = this.player;
         }
 
-        if (!player.isValid()){
-            message(sender, Message.COMMAND_HEAL_ERROR);
-            return CommandResultType.DEFAULT;
-        }
-
-        player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue());
         player.setFoodLevel(20);
 
         if (player == sender) {
 
-            message(sender, Message.COMMAND_HEAL_RECEIVER);
+            message(sender, Message.COMMAND_FEED_RECEIVER);
         } else {
 
-            message(sender, Message.COMMAND_HEAL_SENDER, "%player%", player.getName());
-            message(player, Message.COMMAND_HEAL_RECEIVER);
+            message(sender, Message.COMMAND_FEED_SENDER, "%player%", player.getName());
+            message(player, Message.COMMAND_FEED_RECEIVER);
         }
 
         return CommandResultType.SUCCESS;

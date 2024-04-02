@@ -24,3 +24,5 @@ command-cooldowns:
         cooldown: 40
       - permission: "essentials.cooldown.heal.staff"
         cooldown: 20
+
+trash-size: 27

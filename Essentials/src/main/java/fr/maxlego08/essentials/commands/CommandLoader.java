@@ -15,11 +15,16 @@ import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportCancel;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportDeny;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportTo;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportWorld;
+import fr.maxlego08.essentials.commands.commands.utils.CommandCraft;
+import fr.maxlego08.essentials.commands.commands.utils.CommandEnchanting;
+import fr.maxlego08.essentials.commands.commands.utils.CommandFeed;
 import fr.maxlego08.essentials.commands.commands.utils.CommandGod;
 import fr.maxlego08.essentials.commands.commands.utils.CommandHeal;
+import fr.maxlego08.essentials.commands.commands.utils.CommandInvsee;
 import fr.maxlego08.essentials.commands.commands.utils.CommandMore;
 import fr.maxlego08.essentials.commands.commands.utils.CommandSpeed;
 import fr.maxlego08.essentials.commands.commands.utils.CommandTop;
+import fr.maxlego08.essentials.commands.commands.utils.CommandTrash;
 import fr.maxlego08.essentials.commands.commands.weather.CommandDay;
 import fr.maxlego08.essentials.commands.commands.weather.CommandNight;
 import fr.maxlego08.essentials.commands.commands.weather.CommandSun;
@@ -61,6 +66,11 @@ public class CommandLoader {
         register("heal", CommandHeal.class);
         register("more", CommandMore.class);
         register("worldtp", CommandTeleportWorld.class, "wtp");
+        register("trash", CommandTrash.class, "poubelle");
+        register("feed", CommandFeed.class);
+        register("craft", CommandCraft.class);
+        register("enchanting", CommandEnchanting.class);
+        register("invsee", CommandInvsee.class);
 
         register("tpa", CommandTeleportTo.class);
         register("tpaccept", CommandTeleportAccept.class, "tpyes");

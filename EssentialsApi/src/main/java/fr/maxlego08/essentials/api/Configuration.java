@@ -15,4 +15,6 @@ public interface Configuration extends ConfigurationFile {
 
     Optional<Integer> getCooldown(Permissible permissible, String command);
 
+    int getTrashSize();
+
 }

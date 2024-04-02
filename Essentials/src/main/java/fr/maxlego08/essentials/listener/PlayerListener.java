@@ -1,8 +1,10 @@
 package fr.maxlego08.essentials.listener;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.EventHandler;
@@ -10,6 +12,8 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 
 public class PlayerListener implements Listener {
 
@@ -19,7 +23,7 @@ public class PlayerListener implements Listener {
         this.plugin = plugin;
     }
 
-    private User getUser(Player player) {
+    private User getUser(Entity player) {
         return this.plugin.getStorageManager().getStorage().getUser(player.getUniqueId());
     }
 
@@ -42,6 +46,20 @@ public class PlayerListener implements Listener {
         if (event.getEntity() instanceof Player player) {
             cancelGoldEvent(player, event);
         }
+    }
+
+    @EventHandler
+    public void onClick(InventoryClickEvent event) {
+        User user = getUser(event.getWhoClicked());
+        if (user.getOption(Option.INVSEE) && !user.hasPermission(Permission.ESSENTIALS_INVSEE_INTERACT)) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onClose(InventoryCloseEvent event) {
+        User user = getUser(event.getPlayer());
+        if (user.getOption(Option.INVSEE)) user.setOption(Option.INVSEE, false);
     }
 
 }

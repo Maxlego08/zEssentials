@@ -16,6 +16,7 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     private final List<CommandCooldown> commandCooldowns = new ArrayList<>();
     private boolean enableDebug;
     private boolean enableCooldownBypass;
+    private int trashSize;
 
     public MainConfiguration(ZEssentialsPlugin plugin) {
         this.plugin = plugin;
@@ -48,5 +49,10 @@ public class MainConfiguration extends YamlLoader implements Configuration {
 
         YamlConfiguration configuration = (YamlConfiguration) this.plugin.getConfig();
         this.loadYamlConfirmation(configuration);
+    }
+
+    @Override
+    public int getTrashSize() {
+        return this.trashSize;
     }
 }
