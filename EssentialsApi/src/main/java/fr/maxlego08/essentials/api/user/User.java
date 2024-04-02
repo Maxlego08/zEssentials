@@ -1,5 +1,6 @@
 package fr.maxlego08.essentials.api.user;
 
+import fr.maxlego08.essentials.api.commands.Permission;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -32,4 +33,6 @@ public interface User {
     void removeTeleportRequest(User user);
 
     void teleport(Location location);
+
+    boolean hasPermission(Permission permission);
 }

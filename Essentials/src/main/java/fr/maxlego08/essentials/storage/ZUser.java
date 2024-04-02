@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.storage;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.user.TeleportRequest;
 import fr.maxlego08.essentials.api.user.User;
@@ -112,5 +113,10 @@ public class ZUser extends ZUtils implements User {
     @Override
     public void teleport(Location location) {
         this.plugin.getScheduler().teleportAsync(this.getPlayer(), location);
+    }
+
+    @Override
+    public boolean hasPermission(Permission permission) {
+        return getPlayer().hasPermission(permission.asPermission());
     }
 }

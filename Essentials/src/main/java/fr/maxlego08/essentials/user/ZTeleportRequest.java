@@ -2,9 +2,11 @@ package fr.maxlego08.essentials.user;
 
 import com.tcoded.folialib.impl.ServerImplementation;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.user.TeleportRequest;
 import fr.maxlego08.essentials.api.user.User;
+import fr.maxlego08.essentials.module.modules.TeleportationModule;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import org.bukkit.Location;
 
@@ -52,22 +54,28 @@ public class ZTeleportRequest extends ZUtils implements TeleportRequest {
         message(this.fromUser, Message.COMMAND_TPA_ACCEPT_SENDER, this.toUser);
         message(this.toUser, Message.COMMAND_TPA_ACCEPT_RECEIVER, this.fromUser);
 
-        // ToDo, Add configuration and bypass permission
+        TeleportationModule teleportationModule = this.plugin.getModuleManager().getModule(TeleportationModule.class);
+
+        if (teleportationModule.isTeleportDelayBypass() && this.fromUser.hasPermission(Permission.ESSENTIALS_TELEPORT_BYPASS)) {
+            this.teleport(teleportationModule);
+            return;
+        }
 
         Location playerLocation = fromUser.getPlayer().getLocation();
-        AtomicInteger verif = new AtomicInteger(2);
+        AtomicInteger atomicInteger = new AtomicInteger(teleportationModule.getTeleportDelay());
 
         ServerImplementation serverImplementation = this.plugin.getScheduler();
         serverImplementation.runAtLocationTimer(this.toUser.getPlayer().getLocation(), wrappedTask -> {
 
             if (!same(playerLocation, fromUser.getPlayer().getLocation())) {
+
                 message(this.fromUser, Message.TELEPORT_MOVE);
                 wrappedTask.cancel();
                 this.fromUser.removeTeleportRequest(this.toUser);
                 return;
             }
 
-            int currentSecond = verif.getAndDecrement();
+            int currentSecond = atomicInteger.getAndDecrement();
 
             if (!this.toUser.isOnline() || !this.fromUser.isOnline()) {
                 wrappedTask.cancel();
@@ -77,20 +85,29 @@ public class ZTeleportRequest extends ZUtils implements TeleportRequest {
             if (currentSecond == 0) {
 
                 wrappedTask.cancel();
-
-                Location location = fromUser.getPlayer().isFlying() ? toUser.getPlayer().getLocation() : toSafeLocation(toUser.getPlayer().getLocation());
-
-                this.fromUser.teleport(location);
-                this.fromUser.removeTeleportRequest(this.toUser);
-
-                message(this.fromUser, Message.TELEPORT_SUCCESS);
-                this.isTeleport = true;
-
+                this.teleport(teleportationModule);
             } else {
+
                 message(this.fromUser, Message.TELEPORT_MESSAGE, "%seconds%", currentSecond);
             }
 
         }, 0, 1, TimeUnit.SECONDS);
+    }
 
+    private void teleport(TeleportationModule teleportationModule) {
+        Location playerLocation = toUser.getPlayer().getLocation();
+        Location location = fromUser.getPlayer().isFlying() ? playerLocation : teleportationModule.isTeleportSafety() ? toSafeLocation(playerLocation) : playerLocation;
+
+        if (teleportationModule.isTeleportToCenter()) {
+            location = location.getBlock().getLocation().add(0.5, 0, 0.5);
+            location.setYaw(playerLocation.getYaw());
+            location.setPitch(playerLocation.getPitch());
+        }
+
+        this.fromUser.teleport(location);
+        this.fromUser.removeTeleportRequest(this.toUser);
+
+        message(this.fromUser, Message.TELEPORT_SUCCESS);
+        this.isTeleport = true;
     }
 }
