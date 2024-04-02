@@ -73,7 +73,7 @@ public class MessageLoader implements ConfigurationFile {
                     }
 
                 } else {
-
+                    message.setMessageType(MessageType.TCHAT);
                     List<String> messages = configuration.getStringList(key);
                     if (messages.isEmpty()) {
                         message.setMessage(configuration.getString(key));

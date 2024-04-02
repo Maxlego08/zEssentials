@@ -25,30 +25,34 @@ command-sun: "&fYou have just brought the &esun&f into the world &a%world%&f."
 
 # Admins commands
 command-top: "&7You've just been teleported to &etop&7."
-command-top-error: "&cUnable to find a position to transport you safely."
-command-speed-invalid: "&cYou need to specify a valid player."
+command-top-error: "#ff0000Unable to find a position to transport you safely."
+command-speed-invalid: "#ff0000You need to specify a valid player."
 command-speed-fly: "&7You have just set your &nfly&r&7 speed to &f%speed%&7 for &f%player%&7. &8(&f2 &7by default&8)"
 command-speed-walk: "&7You have just set your &nwalk&r&7 speed to &f%speed%&7 for &f%player%&7. &8(&f2 &7by default&8)"
-command-speed-error: "&cYou must enter a number between &60&c and &610&c. &8(&f2 &7by default&8)"
+command-speed-error: "#ff0000You must enter a number between &60#ff0000 and &610#ff0000. &8(&f2 &7by default&8)"
 
 
 # Teleport commands
-command-tpa-error: "&cYou have already sent a request to #34cfe0%player%&c."
-command-tpa-error-same: "&cYou cannot teleport to yourself."
-command-tpa-error-to-late-empty: "&cYou do not have a teleport request."
-command-tpa-error-to-late-expire: "&cThe teleport request has expired."
-command-tpa-sender: "&7You have just sent a teleport request to #34cfe0%player%&7."
+command-tpa-error: "#ff0000You have already sent a request to #34cfe0%player%#ff0000."
+command-tpa-error-same: "#ff0000You cannot teleport to yourself."
+command-tpa-error-to-late-empty: "#ff0000You do not have a teleport request."
+command-tpa-error-to-late-expire: "#ff0000The teleport request has expired."
+command-tpa-sender:
+  - "#00FF00✔ #99E0FFSent &f%displayName% #99E0FFa teleport request."
+  - "  #99E0FFType#00FF00/tpacencel %player%#99E0FF to cancel your request."
 command-tpa-receiver:
-  - "&7You have just received a teleport request from #34cfe0%player%&7."
-  - "&7You have &c60 seconds&7 to accept the teleport request."
   - ""
-  - "<click:run_command:/tpaccept>#00ff00ᴀᴄᴄᴇᴘᴛ</click>     <click:run_command:/tpdeny>#ff0000ᴅᴇɴʏ</click>"
-command-tpa-accept-receiver: "&aYou have just accepted the teleport request from #34cfe0%player%&a."
+  - "#F8F327⚠ &f%displayName% #99E0FFhas requested to teleport to you!"
+  - "  <hover:show_text:'#00FF00✔ Accept teleportation'><click:run_command:/tpaccept>#99E0FFType #00FF00/tpaccept #99E0FFto #00FF00<u>accept</u>#99E0FF.</click>"
+  - "  <hover:show_text:'#ff0000✘ Deny teleportation'><click:run_command:/tpdeny>#99E0FFType #ff0000/tpdeny #99E0FFto #ff0000<u>deny</u>#99E0FF.</click>"
+  - ""
+  - "&7&oYou have 60 seconds to accept the teleport request."
+command-tpa-accept-receiver: "#99E0FFYou have just #00FF00accepted #99E0FFthe teleport request from #34cfe0%player%&a."
 command-tpa-accept-sender: "#34cfe0%player%&a has just accepted your teleport request."
-command-teleport-ignore-player: "&cYou cannot send a teleport request to #34cfe0%player%&c they are ignoring you."
-command-teleport-world: "&cYou need to be in the same world to teleport."
-command-tpa-error-to-late: "&cYou do not have a teleport request."
-command-tpa-error-to-late-2: "&cThe request has expired."
+command-teleport-ignore-player: "#ff0000You cannot send a teleport request to #34cfe0%player%#ff0000 they are ignoring you."
+command-teleport-world: "#ff0000You need to be in the same world to teleport."
+command-tpa-error-to-late: "#ff0000You do not have a teleport request."
+command-tpa-error-to-late-2: "#ff0000The request has expired."
 
 
 # Command description
@@ -84,9 +88,11 @@ format-day: "d"
 format-days: "days"
 
 # Teleportation
-teleport-move: "&cYou must not move!"
-teleport-message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
-teleport-error: "&cYou already have a teleportation in progress!"
-teleport-success: "&eYou have just teleported successfully!"
-teleport-damage: "&cYou must not take damage during teleportation."
-teleport-error-location: "&cUnable to teleport you safely."
+teleport-move: "#ff0000You must not move!"
+teleport-message:
+  type: ACTION
+  message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
+teleport-error: "#ff0000You already have a teleportation in progress!"
+teleport-success: "&#99E0FFeYou have just teleported successfully!"
+teleport-damage: "#ff0000You must not take damage during teleportation."
+teleport-error-location: "#ff0000Unable to teleport you safely."
