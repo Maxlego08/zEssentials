@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.storage.StorageManager;
 import fr.maxlego08.essentials.api.storage.StorageType;
 import fr.maxlego08.essentials.storage.storages.JsonStorage;
+import fr.maxlego08.essentials.storage.storages.SqlStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
@@ -19,7 +20,12 @@ public class ZStorageManager implements StorageManager {
 
     public ZStorageManager(EssentialsPlugin plugin) {
         this.plugin = plugin;
-        this.iStorage = new JsonStorage(plugin);
+        StorageType storageType = plugin.getConfiguration().getStorageType();
+        if (storageType == StorageType.MYSQL) {
+            this.iStorage = new SqlStorage(plugin);
+        } else {
+            this.iStorage = new JsonStorage(plugin);
+        }
     }
 
     @Override
@@ -41,7 +47,7 @@ public class ZStorageManager implements StorageManager {
 
     @Override
     public StorageType getType() {
-        return StorageType.JSON;
+        return this.plugin.getStorageManager().getType();
     }
 
     @EventHandler

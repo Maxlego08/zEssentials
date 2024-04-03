@@ -1,13 +1,14 @@
 package fr.maxlego08.essentials.zutils.utils;
 
 import fr.maxlego08.essentials.api.modules.Loadable;
-import org.bukkit.Material;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -27,6 +28,9 @@ public abstract class YamlLoader {
                     field.setInt(this, configuration.getInt(configKey));
                 } else if (field.getType().equals(String.class)) {
                     field.set(this, configuration.getString(configKey));
+                } else if (field.getType().isEnum()) {
+                    Class<? extends Enum> enumType = (Class<? extends Enum>) field.getType();
+                    field.set(this, Enum.valueOf(enumType, configuration.getString(configKey).toUpperCase()));
                 } else if (field.getType().equals(List.class)) {
 
                     Type genericFieldType = field.getGenericType();
@@ -40,6 +44,12 @@ public abstract class YamlLoader {
                     }
 
                     field.set(this, configuration.getStringList(configKey));
+                } else {
+                    ConfigurationSection configurationSection = configuration.getConfigurationSection(configKey);
+                    if (configurationSection == null) continue;
+                    Map<String, Object> map = new HashMap<>();
+                    configurationSection.getKeys(false).forEach(key -> map.put(key, configurationSection.get(key)));
+                    field.set(this, createInstanceFromMap(((Class<?>) field.getGenericType()).getConstructors()[0], map));
                 }
             } catch (Exception exception) {
                 exception.printStackTrace();

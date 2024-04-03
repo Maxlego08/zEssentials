@@ -25,9 +25,9 @@ import fr.maxlego08.essentials.module.ZModuleManager;
 import fr.maxlego08.essentials.placeholders.DistantPlaceholder;
 import fr.maxlego08.essentials.placeholders.LocalPlaceholder;
 import fr.maxlego08.essentials.storage.ZStorageManager;
-import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.storage.adapter.UserTypeAdapter;
 import fr.maxlego08.essentials.user.UserPlaceholders;
+import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.ZPlugin;
 import fr.maxlego08.menu.api.ButtonManager;
 import fr.maxlego08.menu.api.InventoryManager;
@@ -97,7 +97,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     public void onDisable() {
 
         // Storage
-        this.storageManager.onDisable();
+        if (this.storageManager != null) this.storageManager.onDisable();
     }
 
     private void registerButtons() {

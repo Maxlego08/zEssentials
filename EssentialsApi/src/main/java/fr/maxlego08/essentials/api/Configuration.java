@@ -1,12 +1,12 @@
 package fr.maxlego08.essentials.api;
 
 import fr.maxlego08.essentials.api.commands.CommandCooldown;
+import fr.maxlego08.essentials.api.storage.DatabaseConfiguration;
+import fr.maxlego08.essentials.api.storage.StorageType;
 import fr.maxlego08.essentials.api.utils.CompactMaterial;
-import org.bukkit.Material;
 import org.bukkit.permissions.Permissible;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 public interface Configuration extends ConfigurationFile {
@@ -22,5 +22,9 @@ public interface Configuration extends ConfigurationFile {
     int getTrashSize();
 
     List<CompactMaterial> getCompactMaterials();
+
+    StorageType getStorageType();
+
+    DatabaseConfiguration getDatabaseConfiguration();
 
 }

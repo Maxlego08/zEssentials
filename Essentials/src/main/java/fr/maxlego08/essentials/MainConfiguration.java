@@ -2,6 +2,8 @@ package fr.maxlego08.essentials;
 
 import fr.maxlego08.essentials.api.Configuration;
 import fr.maxlego08.essentials.api.commands.CommandCooldown;
+import fr.maxlego08.essentials.api.storage.DatabaseConfiguration;
+import fr.maxlego08.essentials.api.storage.StorageType;
 import fr.maxlego08.essentials.api.utils.CompactMaterial;
 import fr.maxlego08.essentials.zutils.utils.YamlLoader;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -16,9 +18,11 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     private final ZEssentialsPlugin plugin;
     private final List<CommandCooldown> commandCooldowns = new ArrayList<>();
     private final List<CompactMaterial> compactMaterials = new ArrayList<>();
+    private final StorageType storageType = StorageType.JSON;
     private boolean enableDebug;
     private boolean enableCooldownBypass;
     private int trashSize;
+    private DatabaseConfiguration databaseConfiguration;
 
     public MainConfiguration(ZEssentialsPlugin plugin) {
         this.plugin = plugin;
@@ -61,5 +65,15 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     @Override
     public List<CompactMaterial> getCompactMaterials() {
         return this.compactMaterials;
+    }
+
+    @Override
+    public StorageType getStorageType() {
+        return this.storageType;
+    }
+
+    @Override
+    public DatabaseConfiguration getDatabaseConfiguration() {
+        return this.databaseConfiguration;
     }
 }
