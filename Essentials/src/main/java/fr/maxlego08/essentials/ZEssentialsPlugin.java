@@ -8,6 +8,7 @@ import fr.maxlego08.essentials.api.Configuration;
 import fr.maxlego08.essentials.api.ConfigurationFile;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandManager;
+import fr.maxlego08.essentials.api.database.MigrationManager;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.placeholders.PlaceholderRegister;
@@ -19,6 +20,7 @@ import fr.maxlego08.essentials.buttons.ButtonTeleportationConfirm;
 import fr.maxlego08.essentials.commands.CommandLoader;
 import fr.maxlego08.essentials.commands.ZCommandManager;
 import fr.maxlego08.essentials.commands.commands.essentials.CommandEssentials;
+import fr.maxlego08.essentials.database.ZMigrationManager;
 import fr.maxlego08.essentials.listener.PlayerListener;
 import fr.maxlego08.essentials.messages.MessageLoader;
 import fr.maxlego08.essentials.module.ZModuleManager;
@@ -51,6 +53,9 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
         FoliaLib foliaLib = new FoliaLib(this);
         this.serverImplementation = foliaLib.getImpl();
+
+        this.migrationManager = new ZMigrationManager(this);
+        this.migrationManager.registerMigration();
 
         this.placeholder = new LocalPlaceholder(this);
         DistantPlaceholder distantPlaceholder = new DistantPlaceholder(this, this.placeholder);
@@ -181,5 +186,10 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     @Override
     public Configuration getConfiguration() {
         return this.configuration;
+    }
+
+    @Override
+    public MigrationManager getMigrationManager() {
+        return this.migrationManager;
     }
 }

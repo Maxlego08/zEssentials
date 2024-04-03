@@ -8,24 +8,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public abstract class Table {
+public abstract class Repository {
 
-    private final MySqlConnection connection;
+    private final SqlConnection connection;
     private final String tableName;
 
-    public Table(MySqlConnection connection, String tableName) {
+    public Repository(SqlConnection connection, String tableName) {
         this.connection = connection;
         this.tableName = tableName;
-    }
-
-    protected abstract String getCreate();
-
-    public void create() {
-        try (PreparedStatement statement = this.connection.getConnection().prepareStatement(String.format(this.getCreate(), getTableName(), this.connection.getDatabaseConfiguration().prefix() + "players"))) {
-            statement.execute();
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        }
     }
 
     protected Connection getConnection() {

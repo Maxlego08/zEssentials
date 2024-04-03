@@ -1,27 +1,20 @@
-package fr.maxlego08.essentials.storage.requests;
+package fr.maxlego08.essentials.storage.requests.repositeries;
+
+import fr.maxlego08.essentials.storage.requests.Repository;
+import fr.maxlego08.essentials.storage.requests.SqlConnection;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class UserCooldownsDatabase extends Table {
+public class UserCooldownsRepository extends Repository {
 
-    public UserCooldownsDatabase(MySqlConnection connection) {
+    public UserCooldownsRepository(SqlConnection connection) {
         super(connection, "player_cooldowns");
     }
 
-    @Override
-    protected String getCreate() {
-        return "CREATE TABLE IF NOT EXISTS %s (" +
-                "uuid VARCHAR(36) NOT NULL," +
-                "cooldown_name VARCHAR(255) NOT NULL," +
-                "cooldown_value BIGINT NOT NULL," +
-                "PRIMARY KEY (uuid, cooldown_name)," +
-                "FOREIGN KEY (uuid) REFERENCES %s(uuid) ON DELETE CASCADE)";
-    }
-
     public void upsert(UUID uuid, String cooldownName, long cooldownValue) {
-        String sql = "INSERT INTO %s (uuid, cooldown_name, cooldown_value) VALUES (?, ?, ?) " +
+        String sql = "INSERT INTO %s (unique_id, cooldown_name, cooldown_value) VALUES (?, ?, ?) " +
                 "ON DUPLICATE KEY UPDATE cooldown_value = VALUES(cooldown_value)";
 
         this.update(sql, preparedStatement -> {
@@ -33,7 +26,7 @@ public class UserCooldownsDatabase extends Table {
 
     public Map<String, Long> selectCooldowns(UUID uuid) {
         Map<String, Long> cooldowns = new HashMap<>();
-        String sql = "SELECT cooldown_name, cooldown_value FROM %s WHERE uuid = ?";
+        String sql = "SELECT cooldown_name, cooldown_value FROM %s WHERE unique_id = ?";
 
         this.query(sql, preparedStatement -> preparedStatement.setString(1, uuid.toString()), resultSet -> {
             while (resultSet.next()) {

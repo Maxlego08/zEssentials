@@ -8,12 +8,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class MySqlConnection {
+public class SqlConnection {
 
     private final DatabaseConfiguration databaseConfiguration;
     private Connection connection;
 
-    public MySqlConnection(DatabaseConfiguration databaseConfiguration) {
+    public SqlConnection(DatabaseConfiguration databaseConfiguration) {
         this.databaseConfiguration = databaseConfiguration;
     }
 

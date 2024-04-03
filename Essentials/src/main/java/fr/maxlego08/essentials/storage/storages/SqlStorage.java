@@ -4,11 +4,11 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
-import fr.maxlego08.essentials.storage.requests.MySqlConnection;
-import fr.maxlego08.essentials.storage.requests.Tables;
-import fr.maxlego08.essentials.storage.requests.UserCooldownsDatabase;
-import fr.maxlego08.essentials.storage.requests.UserDatabase;
-import fr.maxlego08.essentials.storage.requests.UserOptionDatabase;
+import fr.maxlego08.essentials.storage.requests.SqlConnection;
+import fr.maxlego08.essentials.storage.requests.Repositories;
+import fr.maxlego08.essentials.storage.requests.repositeries.UserCooldownsRepository;
+import fr.maxlego08.essentials.storage.requests.repositeries.UserRepository;
+import fr.maxlego08.essentials.storage.requests.repositeries.UserOptionRepository;
 import fr.maxlego08.essentials.user.ZUser;
 import org.bukkit.Bukkit;
 
@@ -18,14 +18,14 @@ import java.util.UUID;
 
 public class SqlStorage implements IStorage {
 
-    private final MySqlConnection connection;
+    private final SqlConnection connection;
     private final EssentialsPlugin plugin;
     private final Map<UUID, User> users = new HashMap<>();
-    private final Tables tables;
+    private final Repositories repositories;
 
     public SqlStorage(EssentialsPlugin plugin) {
         this.plugin = plugin;
-        this.connection = new MySqlConnection(plugin.getConfiguration().getDatabaseConfiguration());
+        this.connection = new SqlConnection(plugin.getConfiguration().getDatabaseConfiguration());
 
         if (!this.connection.isValid()) {
             plugin.getLogger().severe("Unable to connect to database !");
@@ -34,13 +34,14 @@ public class SqlStorage implements IStorage {
             plugin.getLogger().info("The database connection is valid ! (" + connection.getDatabaseConfiguration().host() + ")");
         }
 
-        this.tables = new Tables(this.connection);
-        this.tables.register(UserDatabase.class);
-        this.tables.register(UserOptionDatabase.class);
-        this.tables.register(UserCooldownsDatabase.class);
 
-        this.tables.create();
-        this.tables.getTable(UserCooldownsDatabase.class).deleteExpiredCooldowns();
+        this.repositories = new Repositories(this.connection);
+        this.repositories.register(UserRepository.class);
+        this.repositories.register(UserOptionRepository.class);
+        this.repositories.register(UserCooldownsRepository.class);
+
+        plugin.getMigrationManager().execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration());
+        this.repositories.getTable(UserCooldownsRepository.class).deleteExpiredCooldowns();
     }
 
     @Override
@@ -64,9 +65,9 @@ public class SqlStorage implements IStorage {
         this.users.put(uniqueId, user);
 
         this.plugin.getScheduler().runAsync(wrappedTask -> {
-            this.tables.getTable(UserDatabase.class).upsert(uniqueId, playerName);
-            user.setOptions(this.tables.getTable(UserOptionDatabase.class).selectOptions(uniqueId));
-            user.setCooldowns(this.tables.getTable(UserCooldownsDatabase.class).selectCooldowns(uniqueId));
+            this.repositories.getTable(UserRepository.class).upsert(uniqueId, playerName);
+            user.setOptions(this.repositories.getTable(UserOptionRepository.class).selectOptions(uniqueId));
+            user.setCooldowns(this.repositories.getTable(UserCooldownsRepository.class).selectCooldowns(uniqueId));
         });
 
         return user;
@@ -84,11 +85,11 @@ public class SqlStorage implements IStorage {
 
     @Override
     public void updateOption(UUID uniqueId, Option option, boolean value) {
-        this.plugin.getScheduler().runAsync(wrappedTask -> this.tables.getTable(UserOptionDatabase.class).upsert(uniqueId, option, value));
+        this.plugin.getScheduler().runAsync(wrappedTask -> this.repositories.getTable(UserOptionRepository.class).upsert(uniqueId, option, value));
     }
 
     @Override
     public void updateCooldown(UUID uniqueId, String key, long expiredAt) {
-        this.plugin.getScheduler().runAsync(wrappedTask -> this.tables.getTable(UserCooldownsDatabase.class).upsert(uniqueId, key, expiredAt));
+        this.plugin.getScheduler().runAsync(wrappedTask -> this.repositories.getTable(UserCooldownsRepository.class).upsert(uniqueId, key, expiredAt));
     }
 }
