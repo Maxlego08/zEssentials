@@ -12,11 +12,9 @@ public class UserRepository extends Repository {
     }
 
     public void upsert(UUID uuid, String name) {
-        String sql = "INSERT INTO %s (unique_id, name) VALUES (?, ?) ON DUPLICATE KEY UPDATE name = VALUES(`name`)";
-
-        this.update(sql, preparedStatement -> {
-            preparedStatement.setString(1, uuid.toString());
-            preparedStatement.setString(2, name);
+        upsert(table -> {
+            table.uuid("unique_id", uuid);
+            table.string("name", name);
         });
     }
 

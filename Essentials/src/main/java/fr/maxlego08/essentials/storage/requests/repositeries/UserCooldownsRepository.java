@@ -14,13 +14,10 @@ public class UserCooldownsRepository extends Repository {
     }
 
     public void upsert(UUID uuid, String cooldownName, long cooldownValue) {
-        String sql = "INSERT INTO %s (unique_id, cooldown_name, cooldown_value) VALUES (?, ?, ?) " +
-                "ON DUPLICATE KEY UPDATE cooldown_value = VALUES(cooldown_value)";
-
-        this.update(sql, preparedStatement -> {
-            preparedStatement.setString(1, uuid.toString());
-            preparedStatement.setString(2, cooldownName);
-            preparedStatement.setLong(3, cooldownValue);
+        upsert(table -> {
+            table.uuid("unique_id", uuid);
+            table.string("cooldown_name", cooldownName);
+            table.bigInt("cooldown_value", cooldownValue);
         });
     }
 
