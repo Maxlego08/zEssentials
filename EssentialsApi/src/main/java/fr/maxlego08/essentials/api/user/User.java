@@ -47,11 +47,15 @@ public interface User {
 
     void setOption(Option option, boolean value);
 
+    void setOptions(Map<Option, Boolean> options);
+
     Map<Option, Boolean> getOptions();
 
     Map<String, Long> getCooldowns();
 
     void setCooldown(String key, long expiredAt);
+
+    void setCooldowns(Map<String, Long> cooldowns);
 
     boolean isCooldown(String key);
 

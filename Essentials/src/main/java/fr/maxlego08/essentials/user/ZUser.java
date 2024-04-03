@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.user;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.TeleportRequest;
 import fr.maxlego08.essentials.api.user.User;
@@ -31,6 +32,10 @@ public class ZUser extends ZUtils implements User {
     public ZUser(EssentialsPlugin plugin, UUID uniqueId) {
         this.plugin = plugin;
         this.uniqueId = uniqueId;
+    }
+
+    private IStorage getStorage() {
+        return this.plugin.getStorageManager().getStorage();
     }
 
     @Override
@@ -164,11 +169,17 @@ public class ZUser extends ZUtils implements User {
     @Override
     public void setOption(Option option, boolean value) {
         this.options.put(option, value);
+        this.getStorage().updateOption(this.uniqueId, option, value);
     }
 
     @Override
     public Map<Option, Boolean> getOptions() {
         return this.options;
+    }
+
+    @Override
+    public void setOptions(Map<Option, Boolean> options) {
+        this.options.putAll(options);
     }
 
     @Override
@@ -179,8 +190,16 @@ public class ZUser extends ZUtils implements User {
     }
 
     @Override
+    public void setCooldowns(Map<String, Long> cooldowns) {
+        long currentTime = System.currentTimeMillis();
+        cooldowns.entrySet().removeIf(entry -> entry.getValue() <= currentTime);
+        this.cooldowns.putAll(cooldowns);
+    }
+
+    @Override
     public void setCooldown(String key, long expiredAt) {
         this.cooldowns.put(key, expiredAt);
+        this.getStorage().updateCooldown(this.uniqueId, key, expiredAt);
     }
 
     @Override
@@ -201,6 +220,6 @@ public class ZUser extends ZUtils implements User {
 
     @Override
     public void addCooldown(String key, long seconds) {
-        this.cooldowns.put(key, System.currentTimeMillis() + (1000L * seconds));
+        setCooldown(key, System.currentTimeMillis() + (1000L * seconds));
     }
 }

@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.event.UserEvent;
 import fr.maxlego08.essentials.api.event.events.UserFirstJoinEvent;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.storage.Persist;
+import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.user.ZUser;
 import org.bukkit.Bukkit;
@@ -98,5 +99,15 @@ public class JsonStorage implements IStorage {
     @Override
     public User getUser(UUID uniqueId) {
         return this.users.get(uniqueId);
+    }
+
+    @Override
+    public void updateOption(UUID uniqueId, Option option, boolean value) {
+        this.saveFileAsync(uniqueId);
+    }
+
+    @Override
+    public void updateCooldown(UUID uniqueId, String key, long expiredAt) {
+        this.saveFileAsync(uniqueId);
     }
 }
