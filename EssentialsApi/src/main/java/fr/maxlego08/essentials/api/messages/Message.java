@@ -79,6 +79,8 @@ public enum Message {
     COMMAND_TP_CANCEL_ERROR("#ff0000You did not send a teleport request at &f%player%#ff0000."),
     COMMAND_TP_CANCEL_SENDER("#ff0000Cancelled #99E0FFyour teleport request to %player%."),
     COMMAND_TP_CANCEL_RECEIVER("&f%player% #ff0000cancelled their teleport request to you."),
+    COMMAND_TP("&7You just teleport to the player #34cfe0%player%&f."),
+    COMMAND_TP_SELF("&7You just teleported #34cfe0%player%&7 to your position."),
 
     COMMAND_MORE_ERROR("&cYou cannot make this order in item in hand."),
     COMMAND_MORE_SUCCESS("&7You just put your item to &f64&7."),
@@ -90,6 +92,10 @@ public enum Message {
     COMMAND_COMPACT_SUCCESS("&7You have just transformed #0EEA93x%amount% #34cfe0%item% &7en #0EEA93x%toAmount% #34cfe0%toItem%&7."),
     COMMAND_HAT_SUCCESS("&7You just put #0ef0ce%item% &7on your head."),
     COMMAND_HAT_ERROR("&cYou cannot put air on your head."),
+    COMMAND_PLAYER_WEATHER_RESET("&7You just changed the weather to that of the server."),
+    COMMAND_PLAYER_WEATHER_DOWNFALL("&7You just put the rain on for yourself."),
+    COMMAND_PLAYER_TIME_RESET("&7You just changed the time to that of the server."),
+    COMMAND_PLAYER_TIME_CHANGE("&7You’re here to change your time."),
 
     DESCRIPTION_RELOAD("Reload configuration files"),
     DESCRIPTION_GAMEMODE("Change player gamemode"),
@@ -107,6 +113,8 @@ public enum Message {
     DESCRIPTION_TOP("Teleporting to top"),
     DESCRIPTION_SPEED("Change player speed"),
     DESCRIPTION_TPA("Teleport to a player"),
+    DESCRIPTION_TP("Teleport to a player"),
+    DESCRIPTION_TP_SELF("Teleport a player to your location"),
     DESCRIPTION_TPA_ACCEPT("Accept a teleportation request"),
     DESCRIPTION_TPA_DENY("Denied a teleportation request"),
     DESCRIPTION_TPA_CANCEL("Cancel a teleportation request"),
@@ -119,6 +127,8 @@ public enum Message {
     DESCRIPTION_INVSEE("Open player's inventory"),
     DESCRIPTION_COMPACT("Compact material"),
     DESCRIPTION_HAT("Create your custom hat !"),
+    DESCRIPTION_PLAYER_WEATHER("Change your weather"),
+    DESCRIPTION_PLAYER_TIME("Change your time"),
 
     YOU("you"),
     TRASH("&8Trash"),

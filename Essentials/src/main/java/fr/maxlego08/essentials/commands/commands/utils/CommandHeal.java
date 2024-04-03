@@ -34,6 +34,7 @@ public class CommandHeal extends VCommand {
 
         player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue());
         player.setFoodLevel(20);
+        player.setFireTicks(0);
 
         if (player == sender) {
 

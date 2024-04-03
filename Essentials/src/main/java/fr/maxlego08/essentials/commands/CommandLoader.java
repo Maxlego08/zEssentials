@@ -10,9 +10,11 @@ import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeAdventu
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeCreative;
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeSpectator;
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeSurvival;
+import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleport;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportAccept;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportCancel;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportDeny;
+import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportS;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportTo;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportWorld;
 import fr.maxlego08.essentials.commands.commands.utils.CommandCompact;
@@ -29,6 +31,8 @@ import fr.maxlego08.essentials.commands.commands.utils.CommandTop;
 import fr.maxlego08.essentials.commands.commands.utils.CommandTrash;
 import fr.maxlego08.essentials.commands.commands.weather.CommandDay;
 import fr.maxlego08.essentials.commands.commands.weather.CommandNight;
+import fr.maxlego08.essentials.commands.commands.weather.CommandPlayerTime;
+import fr.maxlego08.essentials.commands.commands.weather.CommandPlayerWeather;
 import fr.maxlego08.essentials.commands.commands.weather.CommandSun;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -58,6 +62,8 @@ public class CommandLoader {
         register("day", CommandDay.class);
         register("night", CommandNight.class);
         register("sun", CommandSun.class);
+        register("player-weather", CommandPlayerWeather.class, "pweather");
+        register("player-time", CommandPlayerTime.class, "ptime");
 
         register("enderchest", CommandEnderChest.class, "ec");
         register("endersee", CommandEnderSee.class, "ecsee");
@@ -76,6 +82,8 @@ public class CommandLoader {
         register("compact", CommandCompact.class, "blocks");
         register("hat", CommandHat.class);
 
+        register("tp", CommandTeleport.class);
+        register("s", CommandTeleportS.class);
         register("tpa", CommandTeleportTo.class);
         register("tpaccept", CommandTeleportAccept.class, "tpyes");
         register("tpdeny", CommandTeleportDeny.class, "tpno");
