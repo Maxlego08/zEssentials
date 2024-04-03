@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.storage.requests;
 
 
+import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.storage.DatabaseConfiguration;
 
 import java.sql.Connection;
@@ -10,11 +11,17 @@ import java.util.Properties;
 
 public class SqlConnection {
 
+    private final EssentialsPlugin plugin;
     private final DatabaseConfiguration databaseConfiguration;
     private Connection connection;
 
-    public SqlConnection(DatabaseConfiguration databaseConfiguration) {
-        this.databaseConfiguration = databaseConfiguration;
+    public SqlConnection(EssentialsPlugin plugin) {
+        this.plugin = plugin;
+        this.databaseConfiguration = plugin.getConfiguration().getDatabaseConfiguration();
+    }
+
+    public EssentialsPlugin getPlugin() {
+        return plugin;
     }
 
     public DatabaseConfiguration getDatabaseConfiguration() {

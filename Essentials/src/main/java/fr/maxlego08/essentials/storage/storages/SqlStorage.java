@@ -25,7 +25,7 @@ public class SqlStorage implements IStorage {
 
     public SqlStorage(EssentialsPlugin plugin) {
         this.plugin = plugin;
-        this.connection = new SqlConnection(plugin.getConfiguration().getDatabaseConfiguration());
+        this.connection = new SqlConnection(plugin);
 
         if (!this.connection.isValid()) {
             plugin.getLogger().severe("Unable to connect to database !");

@@ -9,10 +9,15 @@ public class ColumnDefinition {
     private boolean isPrimaryKey = false;
     private boolean is = false;
     private String referenceTable;
+    private Object object;
 
     public ColumnDefinition(String name, String type) {
         this.name = name;
         this.type = type;
+    }
+
+    public ColumnDefinition(String name) {
+        this.name = name;
     }
 
     public String build() {
@@ -90,5 +95,35 @@ public class ColumnDefinition {
 
     public void setReferenceTable(String referenceTable) {
         this.referenceTable = referenceTable;
+    }
+
+    public ColumnDefinition setLength(int length) {
+        this.length = length;
+        return this;
+    }
+
+    public boolean isNullable() {
+        return nullable;
+    }
+
+    public void setNullable(boolean nullable) {
+        this.nullable = nullable;
+    }
+
+    public boolean isIs() {
+        return is;
+    }
+
+    public void setIs(boolean is) {
+        this.is = is;
+    }
+
+    public Object getObject() {
+        return object;
+    }
+
+    public ColumnDefinition setObject(Object object) {
+        this.object = object;
+        return this;
     }
 }

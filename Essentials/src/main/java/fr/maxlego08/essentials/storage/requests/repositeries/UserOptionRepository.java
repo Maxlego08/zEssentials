@@ -15,14 +15,13 @@ public class UserOptionRepository extends Repository {
     }
 
     public void upsert(UUID uuid, Option option, boolean optionValue) {
-        String sql = "INSERT INTO %s (unique_id, option_name, option_value) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE option_value = VALUES(option_value)";
-
-        this.update(sql, preparedStatement -> {
-            preparedStatement.setString(1, uuid.toString());
-            preparedStatement.setString(2, option.name());
-            preparedStatement.setBoolean(3, optionValue);
+        upsert(table -> {
+            table.uuid("unique_id", uuid);
+            table.string("option_name", option.name());
+            table.bool("option_value", optionValue);
         });
     }
+
 
     public Map<Option, Boolean> selectOptions(UUID uuid) {
         Map<Option, Boolean> options = new HashMap<>();

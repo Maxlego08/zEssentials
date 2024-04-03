@@ -2,11 +2,13 @@ package fr.maxlego08.essentials.storage.requests;
 
 import fr.maxlego08.essentials.api.functionnals.ResultSetConsumer;
 import fr.maxlego08.essentials.api.functionnals.StatementConsumer;
+import fr.maxlego08.essentials.database.SchemaBuilder;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.function.Consumer;
 
 public abstract class Repository {
 
@@ -31,6 +33,14 @@ public abstract class Repository {
             consumer.accept(statement);
             statement.executeUpdate();
         } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    protected void upsert(Consumer<SchemaBuilder> consumer) {
+        try {
+            SchemaBuilder.upsert(getTableName(), consumer).execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), this.connection.getPlugin().getLogger());
+        } catch (SQLException exception) {
             exception.printStackTrace();
         }
     }
