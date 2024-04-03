@@ -2,8 +2,10 @@ name: Essentials
 version: '${version}'
 main: fr.maxlego08.essentials.ZEssentialsPlugin
 folia-supported: true
-description: Essentials plugins
+description: Provides an essential, core set of commands for Bukkit.
 depend:
   - zMenu
   - PlaceholderAPI
+softdepend:
+  - Vault
 api-version: '1.20'

@@ -5,6 +5,7 @@ plugins {
 
 dependencies {
     compileOnly project(':EssentialsApi')
+    compileOnly project(':Hooks:Vault')
 }
 
 jar {
@@ -15,12 +16,14 @@ java {
     withSourcesJar()
 }
 
+compileJava.options.encoding = 'UTF-8'
+
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
 processResources {
-    filesMatching('**/*.yml') {
+    filesMatching('plugin.yml') {
         expand(project.properties)
     }
 }
@@ -28,6 +31,7 @@ processResources {
 shadowJar {
 
     from(project(':EssentialsApi').sourceSets.main.output)
+    from(project(':Hooks:Vault').sourceSets.main.output)
 
     relocate 'com.tcoded.folialib', 'fr.maxlego08.essentials.folialib'
 }

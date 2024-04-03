@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.tcoded.folialib.impl.ServerImplementation;
 import fr.maxlego08.essentials.api.commands.CommandManager;
 import fr.maxlego08.essentials.api.database.MigrationManager;
+import fr.maxlego08.essentials.api.economy.EconomyProvider;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.storage.Persist;
@@ -42,4 +43,8 @@ public interface EssentialsPlugin extends Plugin {
     Configuration getConfiguration();
 
     MigrationManager getMigrationManager();
+
+    boolean isEconomyEnable();
+
+    EconomyProvider getEconomyProvider();
 }

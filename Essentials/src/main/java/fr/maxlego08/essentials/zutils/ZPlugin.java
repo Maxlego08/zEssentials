@@ -6,6 +6,7 @@ import fr.maxlego08.essentials.api.Configuration;
 import fr.maxlego08.essentials.api.ConfigurationFile;
 import fr.maxlego08.essentials.api.commands.CommandManager;
 import fr.maxlego08.essentials.api.database.MigrationManager;
+import fr.maxlego08.essentials.api.economy.EconomyProvider;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.storage.Persist;
@@ -35,6 +36,7 @@ public class ZPlugin extends JavaPlugin {
     protected Placeholder placeholder;
     protected Configuration configuration;
     protected MigrationManager migrationManager;
+    protected EconomyProvider economyProvider;
     protected Gson gson;
     protected Persist persist;
     protected ServerImplementation serverImplementation;

@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.module;
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.modules.Module;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
+import fr.maxlego08.essentials.economy.EconomyManager;
 import fr.maxlego08.essentials.module.modules.TeleportationModule;
 
 import java.io.File;
@@ -30,6 +31,7 @@ public class ZModuleManager implements ModuleManager {
         if (!folder.exists()) folder.mkdirs();
 
         this.modules.put(TeleportationModule.class, new TeleportationModule(this.plugin));
+        this.modules.put(EconomyManager.class, plugin.getEconomyProvider());
 
         this.loadConfigurations();
     }

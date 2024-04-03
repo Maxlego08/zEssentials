@@ -9,6 +9,7 @@ import fr.maxlego08.essentials.api.ConfigurationFile;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandManager;
 import fr.maxlego08.essentials.api.database.MigrationManager;
+import fr.maxlego08.essentials.api.economy.EconomyProvider;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.placeholders.PlaceholderRegister;
@@ -21,6 +22,8 @@ import fr.maxlego08.essentials.commands.CommandLoader;
 import fr.maxlego08.essentials.commands.ZCommandManager;
 import fr.maxlego08.essentials.commands.commands.essentials.CommandEssentials;
 import fr.maxlego08.essentials.database.ZMigrationManager;
+import fr.maxlego08.essentials.economy.EconomyManager;
+import fr.maxlego08.essentials.hooks.VaultEconomy;
 import fr.maxlego08.essentials.listener.PlayerListener;
 import fr.maxlego08.essentials.messages.MessageLoader;
 import fr.maxlego08.essentials.module.ZModuleManager;
@@ -61,6 +64,8 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         DistantPlaceholder distantPlaceholder = new DistantPlaceholder(this, this.placeholder);
         distantPlaceholder.register();
 
+        this.economyProvider = new EconomyManager(this);
+
         this.inventoryManager = this.getProvider(InventoryManager.class);
         this.buttonManager = this.getProvider(ButtonManager.class);
         this.patternManager = this.getProvider(PatternManager.class);
@@ -96,6 +101,19 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
         this.registerListener(new PlayerListener(this));
         this.registerPlaceholder(UserPlaceholders.class);
+    }
+
+    @Override
+    public void onLoad() {
+
+        try {
+            Class.forName("net.milkbowl.vault.economy.Economy");
+            new VaultEconomy(this);
+            getLogger().info("Register Vault Economy.");
+        } catch (final ClassNotFoundException ignored) {
+            ignored.printStackTrace();
+        }
+
     }
 
     @Override
@@ -191,5 +209,15 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     @Override
     public MigrationManager getMigrationManager() {
         return this.migrationManager;
+    }
+
+    @Override
+    public boolean isEconomyEnable() {
+        return this.economyProvider.isEnable();
+    }
+
+    @Override
+    public EconomyProvider getEconomyProvider() {
+        return this.economyProvider;
     }
 }
