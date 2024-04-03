@@ -14,6 +14,17 @@
 
 enable-debug: false
 
+storage-type: MYSQL
+
+database-configuration:
+  prefix: "zessentials_"
+  host: 192.168.10.10
+  port: 3306
+  user: homestead
+  password: 'secret'
+  database: zessentials
+  debug: false
+
 enable-cooldown-bypass: false
 
 command-cooldowns:

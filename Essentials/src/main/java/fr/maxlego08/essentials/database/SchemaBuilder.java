@@ -9,13 +9,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.logging.Logger;
 
 public class SchemaBuilder implements Schema {
     private final String tableName;
-    private final List<String> columnDefinitions = new ArrayList<>();
-    private final List<String> foreignKeys = new ArrayList<>();
+    private final List<ColumnDefinition> columns = new ArrayList<>();
     private final List<String> primaryKeys = new ArrayList<>();
-    private String lastColumnName;
+    private final List<String> foreignKeys = new ArrayList<>();
 
     public SchemaBuilder(String tableName) {
         this.tableName = tableName;
@@ -35,51 +35,68 @@ public class SchemaBuilder implements Schema {
 
     @Override
     public Schema string(String columnName, int length) {
-        columnDefinitions.add(columnName + " VARCHAR(" + length + ")");
-        lastColumnName = columnName;
-        return this;
+        return addColumn(new ColumnDefinition(columnName, "VARCHAR").setLength(length));
     }
 
     @Override
     public Schema bigInt(String columnName) {
-        columnDefinitions.add(columnName + " BIGINT");
-        lastColumnName = columnName;
-        return this;
+        return addColumn(new ColumnDefinition(columnName, "BIGINT"));
     }
 
     @Override
     public Schema bool(String columnName) {
-        columnDefinitions.add(columnName + " BOOLEAN");
-        lastColumnName = columnName;
-        return this;
-    }
-
-    @Override
-    public Schema primary() {
-        if (lastColumnName == null) throw new IllegalStateException("No column defined for primary key.");
-        this.primaryKeys.add(lastColumnName);
-        return this;
+        return addColumn(new ColumnDefinition(columnName, "BOOLEAN"));
     }
 
     @Override
     public Schema foreignKey(String referenceTable) {
-        if (this.lastColumnName == null) throw new IllegalStateException("No column defined for foreign key.");
-        String foreignKey = "FOREIGN KEY (" + this.lastColumnName + ") REFERENCES " + referenceTable + "(" + this.lastColumnName + ") ON DELETE CASCADE";
-        this.foreignKeys.add(foreignKey);
+        if (this.columns.isEmpty()) throw new IllegalStateException("No column defined to apply foreign key.");
+        ColumnDefinition lastColumn = this.columns.get(this.columns.size() - 1);
+
+        String fkDefinition = String.format("FOREIGN KEY (%s) REFERENCES %s(%s) ON DELETE CASCADE", lastColumn.getName(), referenceTable, lastColumn.getName());
+        this.foreignKeys.add(fkDefinition);
         return this;
     }
 
+
     @Override
     public Schema createdAt() {
-        this.columnDefinitions.add("created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP");
-        this.lastColumnName = "created_at";
+        ColumnDefinition column = new ColumnDefinition("created_at", "TIMESTAMP");
+        column.setDefaultValue("CURRENT_TIMESTAMP");
+        this.columns.add(column);
         return this;
     }
 
     @Override
     public Schema updatedAt() {
-        columnDefinitions.add("updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
-        this.lastColumnName = "updated_at";
+        ColumnDefinition column = new ColumnDefinition("updated_at", "TIMESTAMP");
+        column.setDefaultValue("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
+        this.columns.add(column);
+        return this;
+    }
+
+    @Override
+    public Schema nullable() {
+        getLastColumn().setNullable(true);
+        return this;
+    }
+
+    @Override
+    public Schema defaultValue(String value) {
+        getLastColumn().setDefaultValue(value);
+        return this;
+    }
+
+    @Override
+    public Schema primary() {
+        ColumnDefinition lastColumn = getLastColumn();
+        lastColumn.setPrimaryKey(true);
+        primaryKeys.add(lastColumn.getName());
+        return this;
+    }
+
+    private Schema addColumn(ColumnDefinition column) {
+        columns.add(column);
         return this;
     }
 
@@ -91,28 +108,41 @@ public class SchemaBuilder implements Schema {
     }
 
     @Override
-    public void execute(Connection connection, DatabaseConfiguration databaseConfiguration) throws SQLException {
-        StringBuilder sql = new StringBuilder("CREATE TABLE IF NOT EXISTS " + this.tableName + " (");
-        sql.append(String.join(", ", this.columnDefinitions));
+    public void execute(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
+        StringBuilder createTableSQL = new StringBuilder("CREATE TABLE IF NOT EXISTS ");
+        createTableSQL.append(this.tableName).append(" (");
+
+        List<String> columnSQLs = new ArrayList<>();
+        for (ColumnDefinition column : this.columns) {
+            columnSQLs.add(column.build());
+        }
+        createTableSQL.append(String.join(", ", columnSQLs));
 
         if (!this.primaryKeys.isEmpty()) {
-            sql.append(", PRIMARY KEY (").append(String.join(", ", this.primaryKeys)).append(")");
+            createTableSQL.append(", PRIMARY KEY (").append(String.join(", ", this.primaryKeys)).append(")");
         }
 
-        if (!this.foreignKeys.isEmpty()) {
-            for (String foreignKey : this.foreignKeys) {
-                sql.append(", ").append(foreignKey);
-            }
+        for (String fk : this.foreignKeys) {
+            createTableSQL.append(", ").append(fk);
         }
-        sql.append(")");
 
-        String sqlRequest = databaseConfiguration.replacePrefix(sql.toString());
+        createTableSQL.append(")");
 
-        System.out.println("OUI ?");
-        System.out.println(sql);
-        System.out.println(sqlRequest);
-        try (PreparedStatement statement = connection.prepareStatement(sqlRequest)) {
+        String finalSQL = databaseConfiguration.replacePrefix(createTableSQL.toString());
+        if (databaseConfiguration.debug()) {
+            logger.info("Executing SQL: " + finalSQL);
+        }
+
+        try (PreparedStatement statement = connection.prepareStatement(finalSQL)) {
             statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Failed to execute schema creation: " + e.getMessage(), e);
         }
+    }
+
+    private ColumnDefinition getLastColumn() {
+        if (columns.isEmpty()) throw new IllegalStateException("No columns defined.");
+        return columns.get(columns.size() - 1);
     }
 }

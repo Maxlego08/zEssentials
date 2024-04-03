@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class ZMigrationManager implements MigrationManager {
 
@@ -36,14 +37,14 @@ public class ZMigrationManager implements MigrationManager {
     }
 
     @Override
-    public void execute(Connection connection, DatabaseConfiguration databaseConfiguration) {
+    public void execute(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) {
         this.migrations.forEach(migration -> {
             migration.setPrefix(databaseConfiguration.prefix());
             migration.up();
         });
         schemas.forEach(schema -> {
             try {
-                schema.execute(connection, databaseConfiguration);
+                schema.execute(connection, databaseConfiguration, logger);
             } catch (SQLException exception) {
                 exception.printStackTrace();
             }

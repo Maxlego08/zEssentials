@@ -4,6 +4,7 @@ import fr.maxlego08.essentials.api.storage.DatabaseConfiguration;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
 public interface Schema {
     Schema uuid(String columnName);
@@ -24,6 +25,10 @@ public interface Schema {
 
     Schema timestamps();
 
-    void execute(Connection connection, DatabaseConfiguration databaseConfiguration) throws SQLException;
+    Schema nullable();
+
+    Schema defaultValue(String value);
+
+    void execute(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException;
 }
 

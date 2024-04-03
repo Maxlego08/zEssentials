@@ -40,7 +40,7 @@ public class SqlStorage implements IStorage {
         this.repositories.register(UserOptionRepository.class);
         this.repositories.register(UserCooldownsRepository.class);
 
-        plugin.getMigrationManager().execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration());
+        plugin.getMigrationManager().execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), this.plugin.getLogger());
         this.repositories.getTable(UserCooldownsRepository.class).deleteExpiredCooldowns();
     }
 
