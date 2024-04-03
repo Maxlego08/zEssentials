@@ -1,11 +1,11 @@
 package fr.maxlego08.essentials.storage.requests.repositeries;
 
 import fr.maxlego08.essentials.api.user.Option;
+import fr.maxlego08.essentials.api.database.dto.OptionDTO;
 import fr.maxlego08.essentials.storage.requests.Repository;
 import fr.maxlego08.essentials.storage.requests.SqlConnection;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import java.util.UUID;
 
 public class UserOptionRepository extends Repository {
@@ -23,16 +23,7 @@ public class UserOptionRepository extends Repository {
     }
 
 
-    public Map<Option, Boolean> selectOptions(UUID uuid) {
-        Map<Option, Boolean> options = new HashMap<>();
-        String sql = "SELECT option_name, option_value FROM %s WHERE unique_id = ?";
-
-        this.query(sql, preparedStatement -> preparedStatement.setString(1, uuid.toString()), resultSet -> {
-            while (resultSet.next()) {
-                options.put(Option.valueOf(resultSet.getString("option_name")), resultSet.getBoolean("option_value"));
-            }
-        });
-
-        return options;
+    public List<OptionDTO> selectOptions(UUID uuid) {
+        return select(OptionDTO.class, table -> table.where("unique_id", uuid.toString()));
     }
 }

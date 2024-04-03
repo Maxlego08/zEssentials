@@ -1,6 +1,8 @@
 package fr.maxlego08.essentials.api.user;
 
 import fr.maxlego08.essentials.api.commands.Permission;
+import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
+import fr.maxlego08.essentials.api.database.dto.OptionDTO;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -47,7 +49,7 @@ public interface User {
 
     void setOption(Option option, boolean value);
 
-    void setOptions(Map<Option, Boolean> options);
+    void setOptions(List<OptionDTO> options);
 
     Map<Option, Boolean> getOptions();
 
@@ -55,7 +57,7 @@ public interface User {
 
     void setCooldown(String key, long expiredAt);
 
-    void setCooldowns(Map<String, Long> cooldowns);
+    void setCooldowns(List<CooldownDTO> cooldowns);
 
     boolean isCooldown(String key);
 

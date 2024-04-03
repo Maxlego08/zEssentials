@@ -1,13 +1,12 @@
 package fr.maxlego08.essentials.storage.requests;
 
-import fr.maxlego08.essentials.api.functionnals.ResultSetConsumer;
-import fr.maxlego08.essentials.api.functionnals.StatementConsumer;
+import fr.maxlego08.essentials.api.database.Schema;
 import fr.maxlego08.essentials.database.SchemaBuilder;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
 public abstract class Repository {
@@ -28,16 +27,7 @@ public abstract class Repository {
         return this.connection.getDatabaseConfiguration().prefix() + tableName;
     }
 
-    protected void update(String request, StatementConsumer consumer) {
-        try (PreparedStatement statement = getConnection().prepareStatement(String.format(request, getTableName()))) {
-            consumer.accept(statement);
-            statement.executeUpdate();
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        }
-    }
-
-    protected void upsert(Consumer<SchemaBuilder> consumer) {
+    protected void upsert(Consumer<Schema> consumer) {
         try {
             SchemaBuilder.upsert(getTableName(), consumer).execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), this.connection.getPlugin().getLogger());
         } catch (SQLException exception) {
@@ -45,14 +35,22 @@ public abstract class Repository {
         }
     }
 
-    protected void query(String request, StatementConsumer statementConsumer, ResultSetConsumer resultSetConsumer) {
-        try (PreparedStatement preparedStatement = this.connection.getConnection().prepareStatement(String.format(request, getTableName()))) {
+    protected <T> List<T> select(Class<T> clazz, Consumer<Schema> consumer) {
+        Schema schema = SchemaBuilder.select(getTableName());
+        consumer.accept(schema);
+        try {
+            return schema.executeSelect(clazz, this.connection.getConnection(), this.connection.getDatabaseConfiguration(), this.connection.getPlugin().getLogger());
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return new ArrayList<>();
+    }
 
-            statementConsumer.accept(preparedStatement);
-
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                resultSetConsumer.accept(resultSet);
-            }
+    protected void delete(Consumer<Schema> consumer) {
+        Schema schema = SchemaBuilder.delete(getTableName());
+        consumer.accept(schema);
+        try {
+            schema.execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), this.connection.getPlugin().getLogger());
         } catch (SQLException exception) {
             exception.printStackTrace();
         }

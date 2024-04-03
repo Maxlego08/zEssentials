@@ -1,10 +1,10 @@
 package fr.maxlego08.essentials.storage.requests.repositeries;
 
+import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
 import fr.maxlego08.essentials.storage.requests.Repository;
 import fr.maxlego08.essentials.storage.requests.SqlConnection;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import java.util.UUID;
 
 public class UserCooldownsRepository extends Repository {
@@ -21,22 +21,11 @@ public class UserCooldownsRepository extends Repository {
         });
     }
 
-    public Map<String, Long> selectCooldowns(UUID uuid) {
-        Map<String, Long> cooldowns = new HashMap<>();
-        String sql = "SELECT cooldown_name, cooldown_value FROM %s WHERE unique_id = ?";
-
-        this.query(sql, preparedStatement -> preparedStatement.setString(1, uuid.toString()), resultSet -> {
-            while (resultSet.next()) {
-                cooldowns.put(resultSet.getString("cooldown_name"), resultSet.getLong("cooldown_value"));
-            }
-        });
-
-        return cooldowns;
+    public List<CooldownDTO> selectCooldowns(UUID uuid) {
+        return select(CooldownDTO.class, schema -> schema.where("unique_id", uuid.toString()));
     }
 
     public void deleteExpiredCooldowns() {
-        String sql = "DELETE FROM %s WHERE cooldown_value < ?";
-        long currentTime = System.currentTimeMillis();
-        this.update(sql, preparedStatement -> preparedStatement.setLong(1, currentTime));
+        delete(table -> table.where("cooldown_value", "<", System.currentTimeMillis()));
     }
 }

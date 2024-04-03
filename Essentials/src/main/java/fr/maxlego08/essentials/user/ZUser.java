@@ -2,6 +2,8 @@ package fr.maxlego08.essentials.user;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.Permission;
+import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
+import fr.maxlego08.essentials.api.database.dto.OptionDTO;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.Option;
@@ -15,6 +17,7 @@ import org.bukkit.entity.Player;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -178,8 +181,8 @@ public class ZUser extends ZUtils implements User {
     }
 
     @Override
-    public void setOptions(Map<Option, Boolean> options) {
-        this.options.putAll(options);
+    public void setOptions(List<OptionDTO> options) {
+        options.forEach((optionDTO) -> this.options.put(optionDTO.option_name(), optionDTO.option_value()));
     }
 
     @Override
@@ -190,10 +193,9 @@ public class ZUser extends ZUtils implements User {
     }
 
     @Override
-    public void setCooldowns(Map<String, Long> cooldowns) {
+    public void setCooldowns(List<CooldownDTO> cooldowns) {
         long currentTime = System.currentTimeMillis();
-        cooldowns.entrySet().removeIf(entry -> entry.getValue() <= currentTime);
-        this.cooldowns.putAll(cooldowns);
+        cooldowns.stream().filter(cooldownDTO -> cooldownDTO.cooldown_value() > currentTime).forEach(cooldownDTO -> this.cooldowns.put(cooldownDTO.cooldown_name(), cooldownDTO.cooldown_value()));
     }
 
     @Override

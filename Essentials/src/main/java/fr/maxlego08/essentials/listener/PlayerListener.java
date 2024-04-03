@@ -59,7 +59,7 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onClose(InventoryCloseEvent event) {
         User user = getUser(event.getPlayer());
-        if (user.getOption(Option.INVSEE)) user.setOption(Option.INVSEE, false);
+        if (user != null && user.getOption(Option.INVSEE)) user.setOption(Option.INVSEE, false);
     }
 
 }
