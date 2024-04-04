@@ -1,9 +1,10 @@
 plugins {
     id 'java'
+    id("com.dorongold.task-tree") version "2.1.1"
 }
 
 group = 'fr.maxlego08.essentials'
-version = '1.0.0'
+version = property('version')
 
 def targetJavaVersion = 17
 java {
@@ -13,6 +14,12 @@ java {
     if (JavaVersion.current() < javaVersion) {
         toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
     }
+}
+
+compileJava.options.encoding = 'UTF-8'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
 }
 
 tasks.withType(JavaCompile).configureEach {
@@ -34,7 +41,7 @@ subprojects {
     apply plugin: 'java'
 
     group = 'fr.maxlego08.essentials'
-    version = '1.0.0'
+    version = property('version')
 
     repositories {
         mavenCentral()
@@ -43,13 +50,27 @@ subprojects {
             name = "devmart-other"
             url = "https://nexuslite.gcnt.net/repos/other/"
         }
+        maven { url 'https://jitpack.io' }
+        maven {url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/'}
     }
 
     dependencies {
         implementation "com.tcoded:FoliaLib:0.3.1"
 
         compileOnly 'io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT'
+        compileOnly 'com.github.Maxlego08:zMenu-API:1.0.2.9'
+        compileOnly 'me.clip:placeholderapi:2.11.5'
 
         testImplementation 'junit:junit:4.12'
     }
+}
+
+tasks.register("buildAll") {
+    group = "essentials"
+    description = "Build all Essentials related plugins"
+    dependsOn(
+            ":EssentialsApi:build",
+            ":Hooks:Vault:build",
+            ":Essentials:build"
+    )
 }

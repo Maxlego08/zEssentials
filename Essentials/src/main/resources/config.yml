@@ -1,0 +1,63 @@
+########################################################################################################################
+#
+#  ███████╗███████╗░██████╗░██████╗███████╗███╗░░██╗████████╗██╗░█████╗░██╗░░░░░░██████╗
+#  ╚════██║██╔════╝██╔════╝██╔════╝██╔════╝████╗░██║╚══██╔══╝██║██╔══██╗██║░░░░░██╔════╝
+#  ░░███╔═╝█████╗░░╚█████╗░╚█████╗░█████╗░░██╔██╗██║░░░██║░░░██║███████║██║░░░░░╚█████╗░
+#  ██╔══╝░░██╔══╝░░░╚═══██╗░╚═══██╗██╔══╝░░██║╚████║░░░██║░░░██║██╔══██║██║░░░░░░╚═══██╗
+#  ███████╗███████╗██████╔╝██████╔╝███████╗██║░╚███║░░░██║░░░██║██║░░██║███████╗██████╔╝
+#  ╚══════╝╚══════╝╚═════╝░╚═════╝░╚══════╝╚═╝░░╚══╝░░░╚═╝░░░╚═╝╚═╝░░╚═╝╚══════╝╚═════╝░
+#
+# Placeholders:
+# %zessentials_user_target_player_name%
+#
+########################################################################################################################
+
+enable-debug: false
+
+storage-type: MYSQL
+
+database-configuration:
+  prefix: "zessentials_"
+  host: 192.168.10.10
+  port: 3306
+  user: homestead
+  password: 'secret'
+  database: zessentials
+  debug: false
+
+enable-cooldown-bypass: false
+
+command-cooldowns:
+  - command: heal
+    cooldown: 60
+    permissions:
+      - permission: "essentials.cooldown.heal.vip"
+        cooldown: 40
+      - permission: "essentials.cooldown.heal.staff"
+        cooldown: 20
+
+trash-size: 27
+
+compact-materials:
+  - from: COAL
+    to: COAL_BLOCK
+  - from: REDSTONE
+    to: REDSTONE_BLOCK
+  - from: LAPIS_LAZULI
+    to: LAPIS_BLOCK
+  - from: IRON_INGOT
+    to: IRON_BLOCK
+  - from: GOLD_INGOT
+    to: GOLD_BLOCK
+  - from: IRON_NUGGET
+    to: IRON_INGOT
+  - from: GOLD_NUGGET
+    to: GOLD_INGOT
+  - from: DIAMOND
+    to: DIAMOND_BLOCK
+  - from: EMERALD
+    to: EMERALD_BLOCK
+  - from: COPPER_INGOT
+    to: COPPER_BLOCK
+  - from: NETHERITE_INGOT
+    to: NETHERITE_BLOCK

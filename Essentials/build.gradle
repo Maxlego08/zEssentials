@@ -1,9 +1,11 @@
 plugins {
     id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.0'
 }
 
 dependencies {
     compileOnly project(':EssentialsApi')
+    compileOnly project(':Hooks:Vault')
 }
 
 jar {
@@ -13,3 +15,25 @@ jar {
 java {
     withSourcesJar()
 }
+
+compileJava.options.encoding = 'UTF-8'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+processResources {
+    filesMatching('plugin.yml') {
+        expand(project.properties)
+    }
+}
+
+shadowJar {
+
+    from(project(':EssentialsApi').sourceSets.main.output)
+    from(project(':Hooks:Vault').sourceSets.main.output)
+
+    relocate 'com.tcoded.folialib', 'fr.maxlego08.essentials.folialib'
+}
+
+assemble.dependsOn shadowJar
