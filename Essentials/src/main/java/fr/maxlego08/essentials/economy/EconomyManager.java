@@ -67,12 +67,9 @@ public class EconomyManager extends ZModule implements EconomyProvider {
 
         if (user == null) { // Need to load the user, use async scheduler
 
-            this.plugin.getScheduler().runAsync(wrappedTask -> {
-                User loadUser = iStorage.createOrLoad(uniqueId, "offline");
-                consumer.accept(loadUser);
-            });
-
+            this.plugin.getScheduler().runAsync(wrappedTask -> iStorage.updateUserMoney(uniqueId, consumer));
         } else {
+            
             consumer.accept(user);
         }
     }

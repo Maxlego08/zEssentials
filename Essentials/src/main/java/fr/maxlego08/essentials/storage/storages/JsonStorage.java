@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 public class JsonStorage implements IStorage {
 
@@ -116,5 +117,11 @@ public class JsonStorage implements IStorage {
     @Override
     public void updateEconomy(UUID uniqueId, Economy economy, BigDecimal bigDecimal) {
         this.saveFileAsync(uniqueId);
+    }
+
+    @Override
+    public void updateUserMoney(UUID uniqueId, Consumer<User> consumer) {
+        User loadUser = createOrLoad(uniqueId, "offline");
+        consumer.accept(loadUser);
     }
 }

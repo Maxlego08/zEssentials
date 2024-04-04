@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 public class SqlStorage implements IStorage {
 
@@ -98,5 +99,11 @@ public class SqlStorage implements IStorage {
     @Override
     public void updateEconomy(UUID uniqueId, Economy economy, BigDecimal bigDecimal) {
         // ToDo
+    }
+
+    @Override
+    public void updateUserMoney(UUID uniqueId, Consumer<User> consumer) {
+        User fakeUser = new ZUser(this.plugin, uniqueId);
+        consumer.accept(fakeUser);
     }
 }

@@ -6,6 +6,7 @@ import fr.maxlego08.essentials.api.user.User;
 
 import java.math.BigDecimal;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 public interface IStorage {
 
@@ -24,4 +25,6 @@ public interface IStorage {
     void updateCooldown(UUID uniqueId, String key, long expiredAt);
 
     void updateEconomy(UUID uniqueId, Economy economy, BigDecimal bigDecimal);
+
+    void updateUserMoney(UUID uniqueId, Consumer<User> consumer);
 }
