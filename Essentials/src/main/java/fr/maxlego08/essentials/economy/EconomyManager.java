@@ -18,6 +18,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 public class EconomyManager extends ZModule implements EconomyProvider {
 
@@ -60,8 +61,7 @@ public class EconomyManager extends ZModule implements EconomyProvider {
         return null;
     }
 
-    @Override
-    public boolean deposit(UUID uniqueId, Economy economy, BigDecimal amount) {
+    private void perform(UUID uniqueId, Consumer<User> consumer) {
         IStorage iStorage = this.plugin.getStorageManager().getStorage();
         User user = iStorage.getUser(uniqueId);
 
@@ -69,23 +69,29 @@ public class EconomyManager extends ZModule implements EconomyProvider {
 
             this.plugin.getScheduler().runAsync(wrappedTask -> {
                 User loadUser = iStorage.createOrLoad(uniqueId, "offline");
-                loadUser.deposit(economy, amount);
+                consumer.accept(loadUser);
             });
 
         } else {
-            user.deposit(economy, amount);
+            consumer.accept(user);
         }
+    }
 
+    @Override
+    public boolean deposit(UUID uniqueId, Economy economy, BigDecimal amount) {
+        perform(uniqueId, user -> user.deposit(economy, amount));
         return true;
     }
 
     @Override
-    public boolean withdraw(OfflinePlayer player, Economy economy, BigDecimal amount) {
+    public boolean withdraw(UUID uniqueId, Economy economy, BigDecimal amount) {
+        perform(uniqueId, user -> user.withdraw(economy, amount));
         return true;
     }
 
     @Override
-    public boolean set(OfflinePlayer player, Economy economy, BigDecimal amount) {
+    public boolean set(UUID uniqueId, Economy economy, BigDecimal amount) {
+        perform(uniqueId, user -> user.set(economy, amount));
         return true;
     }
 

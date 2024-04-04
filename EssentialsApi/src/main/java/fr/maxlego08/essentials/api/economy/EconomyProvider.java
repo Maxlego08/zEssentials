@@ -16,9 +16,9 @@ public interface EconomyProvider extends Module {
 
     boolean deposit(UUID uniqueId, Economy economy, BigDecimal amount);
 
-    boolean withdraw(OfflinePlayer player, Economy economy, BigDecimal amount);
+    boolean withdraw(UUID uniqueId, Economy economy, BigDecimal amount);
 
-    boolean set(OfflinePlayer player, Economy economy, BigDecimal amount);
+    boolean set(UUID uniqueId, Economy economy, BigDecimal amount);
 
     Collection<Economy> getEconomies();
 

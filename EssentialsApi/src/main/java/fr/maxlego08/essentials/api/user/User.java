@@ -75,7 +75,7 @@ public interface User {
 
     void set(Economy economy, BigDecimal bigDecimal);
 
-    void remove(Economy economy, BigDecimal bigDecimal);
+    void withdraw(Economy economy, BigDecimal bigDecimal);
 
     void deposit(Economy economy, BigDecimal bigDecimal);
 

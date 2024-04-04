@@ -14,6 +14,7 @@ public class CommandEconomy extends VCommand {
         this.setPermission(Permission.ESSENTIALS_ECO_USE);
         this.setDescription(Message.DESCRIPTION_ECO);
         this.addSubCommand(new CommandEconomyGive(plugin));
+        this.addSubCommand(new CommandEconomyTake(plugin));
     }
 
     @Override

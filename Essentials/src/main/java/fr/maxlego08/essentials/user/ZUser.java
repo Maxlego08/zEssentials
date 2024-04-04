@@ -245,7 +245,7 @@ public class ZUser extends ZUtils implements User {
     }
 
     @Override
-    public void remove(Economy economy, BigDecimal bigDecimal) {
+    public void withdraw(Economy economy, BigDecimal bigDecimal) {
         set(economy, getBalance(economy).subtract(bigDecimal));
     }
 
