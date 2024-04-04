@@ -7,9 +7,9 @@ import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 import org.bukkit.entity.Player;
 
-public class CommandTeleportS extends VCommand {
+public class CommandTeleportHere extends VCommand {
 
-    public CommandTeleportS(EssentialsPlugin plugin) {
+    public CommandTeleportHere(EssentialsPlugin plugin) {
         super(plugin);
         this.setPermission(Permission.ESSENTIALS_TP);
         this.setDescription(Message.DESCRIPTION_TP_SELF);

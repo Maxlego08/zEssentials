@@ -9,6 +9,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -42,6 +43,8 @@ public class EconomyManager extends ZModule implements EconomyProvider {
             this.economies.add(new ZEconomy(section, economyName));
             this.plugin.getLogger().info("Create economy " + economyName + " !");
         });
+
+        System.out.println(economies);
     }
 
     @Override
@@ -56,17 +59,17 @@ public class EconomyManager extends ZModule implements EconomyProvider {
 
     @Override
     public boolean deposit(OfflinePlayer player, Economy economy, BigDecimal amount) {
-        return false;
+        return true;
     }
 
     @Override
     public boolean withdraw(OfflinePlayer player, Economy economy, BigDecimal amount) {
-        return false;
+        return true;
     }
 
     @Override
     public boolean set(OfflinePlayer player, Economy economy, BigDecimal amount) {
-        return EconomyProvider.super.set(player, economy, amount);
+        return true;
     }
 
     @Override
@@ -86,6 +89,8 @@ public class EconomyManager extends ZModule implements EconomyProvider {
 
     @Override
     public String format(double amount) {
-        return String.valueOf(amount);
+        // Rework for more configuration about that
+        DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
+        return decimalFormat.format(amount);
     }
 }

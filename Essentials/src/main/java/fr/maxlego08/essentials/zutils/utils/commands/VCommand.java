@@ -424,4 +424,13 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
         return newList.size() == 0 ? null : newList;
     }
 
+    public void syntaxMessage() {
+        this.subVCommands.forEach(command -> {
+            if (command.getPermission() == null || sender.hasPermission(command.getPermission())) {
+                message(this.sender, Message.COMMAND_SYNTAXE_HELP, "%syntax%", command.getSyntax(), "%description%",
+                        command.getDescription());
+            }
+        });
+    }
+
 }

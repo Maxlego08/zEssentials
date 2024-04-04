@@ -17,12 +17,7 @@ public interface EconomyProvider extends Module {
 
     boolean withdraw(OfflinePlayer player, Economy economy, BigDecimal amount);
 
-    default boolean set(OfflinePlayer player, Economy economy, BigDecimal amount) {
-        if (!withdraw(player, economy, getBalance(player, economy))) {
-            return false;
-        }
-        return amount.equals(BigDecimal.ZERO) || deposit(player, economy, amount);
-    }
+    boolean set(OfflinePlayer player, Economy economy, BigDecimal amount);
 
     Collection<Economy> getEconomies();
 

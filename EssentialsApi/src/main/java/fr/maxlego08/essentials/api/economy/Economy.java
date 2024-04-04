@@ -6,14 +6,14 @@ public interface Economy {
 
     String getDisplayName();
 
-    String getCurrency();
+    String getSymbol();
 
     String getFormat();
 
     boolean isVaultEconomy();
 
     default String format(String priceAsString, long amount) {
-        return getCurrency().replace("%price%", priceAsString).replace("%s%", amount > 1 ? "s" : "");
+        return getFormat().replace("%price%", priceAsString).replace("%s%", amount > 1 ? "s" : "");
     }
 
 }

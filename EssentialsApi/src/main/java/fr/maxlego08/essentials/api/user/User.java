@@ -3,9 +3,11 @@ package fr.maxlego08.essentials.api.user;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
 import fr.maxlego08.essentials.api.database.dto.OptionDTO;
+import fr.maxlego08.essentials.api.economy.Economy;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -66,4 +68,18 @@ public interface User {
     long getCooldownSeconds(String key);
 
     void addCooldown(String key, long seconds);
+
+    BigDecimal getBalance(Economy economy);
+
+    boolean has(Economy economy, BigDecimal bigDecimal);
+
+    void set(Economy economy, BigDecimal bigDecimal);
+
+    void remove(Economy economy, BigDecimal bigDecimal);
+
+    void add(Economy economy, BigDecimal bigDecimal);
+
+    Map<String, BigDecimal> getBalances();
+
+    void setBalance(String key, BigDecimal value);
 }

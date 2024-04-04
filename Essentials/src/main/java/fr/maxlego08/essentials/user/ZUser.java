@@ -4,6 +4,7 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
 import fr.maxlego08.essentials.api.database.dto.OptionDTO;
+import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.Option;
@@ -15,6 +16,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +30,7 @@ public class ZUser extends ZUtils implements User {
     private final Map<String, Long> cooldowns = new HashMap<>();
     private final UUID uniqueId;
     private final Map<Option, Boolean> options = new HashMap<>();
+    private final Map<String, BigDecimal> balances = new HashMap<>();
     private String name;
     private TeleportRequest teleportRequest;
     private User targetUser;
@@ -223,5 +226,40 @@ public class ZUser extends ZUtils implements User {
     @Override
     public void addCooldown(String key, long seconds) {
         setCooldown(key, System.currentTimeMillis() + (1000L * seconds));
+    }
+
+    @Override
+    public BigDecimal getBalance(Economy economy) {
+        return this.balances.getOrDefault(economy.getName(), BigDecimal.ZERO);
+    }
+
+    @Override
+    public boolean has(Economy economy, BigDecimal bigDecimal) {
+        return bigDecimal.compareTo(getBalance(economy)) > 0;
+    }
+
+    @Override
+    public void set(Economy economy, BigDecimal bigDecimal) {
+        this.balances.put(economy.getName(), bigDecimal);
+    }
+
+    @Override
+    public void remove(Economy economy, BigDecimal bigDecimal) {
+        set(economy, getBalance(economy).subtract(bigDecimal));
+    }
+
+    @Override
+    public void add(Economy economy, BigDecimal bigDecimal) {
+        set(economy, getBalance(economy).add(bigDecimal));
+    }
+
+    @Override
+    public Map<String, BigDecimal> getBalances() {
+        return this.balances;
+    }
+
+    @Override
+    public void setBalance(String key, BigDecimal value) {
+        this.balances.put(key, value);
     }
 }

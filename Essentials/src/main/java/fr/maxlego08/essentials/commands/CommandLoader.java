@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.commands;
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandManager;
+import fr.maxlego08.essentials.commands.commands.economy.CommandEconomy;
 import fr.maxlego08.essentials.commands.commands.enderchest.CommandEnderChest;
 import fr.maxlego08.essentials.commands.commands.enderchest.CommandEnderSee;
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameMode;
@@ -14,7 +15,7 @@ import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleport;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportAccept;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportCancel;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportDeny;
-import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportS;
+import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportHere;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportTo;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportWorld;
 import fr.maxlego08.essentials.commands.commands.utils.CommandCompact;
@@ -83,11 +84,13 @@ public class CommandLoader {
         register("hat", CommandHat.class);
 
         register("tp", CommandTeleport.class);
-        register("s", CommandTeleportS.class);
+        register("tphere", CommandTeleportHere.class, "s");
         register("tpa", CommandTeleportTo.class);
         register("tpaccept", CommandTeleportAccept.class, "tpyes");
         register("tpdeny", CommandTeleportDeny.class, "tpno");
         register("tpacancel", CommandTeleportCancel.class);
+
+        register("economy", CommandEconomy.class, "eco");
 
 
         File file = new File(plugin.getDataFolder(), "commands.yml");

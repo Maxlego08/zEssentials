@@ -9,6 +9,7 @@ import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.user.ZUser;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Map;
 import java.util.UUID;
 
@@ -40,12 +41,18 @@ public class UserTypeAdapter extends TypeAdapter<User> {
         }
         out.endObject();
 
+        out.name("balances").beginObject();
+        for (Map.Entry<String, BigDecimal> entry : value.getBalances().entrySet()) {
+            out.name(entry.getKey()).value(entry.getValue());
+        }
+        out.endObject();
+
+
         out.endObject();
     }
 
     @Override
     public User read(JsonReader in) throws IOException {
-        UUID uniqueId = null;
         String name = null;
         User user = new ZUser(this.plugin, UUID.randomUUID());
 
@@ -64,6 +71,16 @@ public class UserTypeAdapter extends TypeAdapter<User> {
                     while (in.hasNext()) user.setCooldown(in.nextName(), in.nextLong());
                     in.endObject();
                 }
+                case "balances" -> {
+                    in.beginObject();
+                    while (in.hasNext()) {
+                        String key = in.nextName();
+                        BigDecimal value = new BigDecimal(in.nextString());
+                        user.setBalance(key, value);
+                    }
+                    in.endObject();
+                }
+
             }
         }
         in.endObject();

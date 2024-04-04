@@ -28,4 +28,5 @@ hat: true
 player-weather: true
 player-time: true
 tp: true
-s: true
+tphere: true
+economy: true
