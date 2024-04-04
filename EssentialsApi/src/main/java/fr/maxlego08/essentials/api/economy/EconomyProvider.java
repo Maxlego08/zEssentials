@@ -6,6 +6,7 @@ import org.bukkit.OfflinePlayer;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.UUID;
 
 public interface EconomyProvider extends Module {
 
@@ -13,7 +14,7 @@ public interface EconomyProvider extends Module {
 
     BigDecimal getBalance(OfflinePlayer player, Economy economy);
 
-    boolean deposit(OfflinePlayer player, Economy economy, BigDecimal amount);
+    boolean deposit(UUID uniqueId, Economy economy, BigDecimal amount);
 
     boolean withdraw(OfflinePlayer player, Economy economy, BigDecimal amount);
 

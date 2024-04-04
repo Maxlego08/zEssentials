@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.storage.storages;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.event.UserEvent;
 import fr.maxlego08.essentials.api.event.events.UserFirstJoinEvent;
 import fr.maxlego08.essentials.api.storage.IStorage;
@@ -11,6 +12,7 @@ import fr.maxlego08.essentials.user.ZUser;
 import org.bukkit.Bukkit;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -108,6 +110,11 @@ public class JsonStorage implements IStorage {
 
     @Override
     public void updateCooldown(UUID uniqueId, String key, long expiredAt) {
+        this.saveFileAsync(uniqueId);
+    }
+
+    @Override
+    public void updateEconomy(UUID uniqueId, Economy economy, BigDecimal bigDecimal) {
         this.saveFileAsync(uniqueId);
     }
 }

@@ -1,8 +1,10 @@
 package fr.maxlego08.essentials.api.storage;
 
+import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 public interface IStorage {
@@ -20,4 +22,6 @@ public interface IStorage {
     void updateOption(UUID uniqueId, Option option, boolean value);
 
     void updateCooldown(UUID uniqueId, String key, long expiredAt);
+
+    void updateEconomy(UUID uniqueId, Economy economy, BigDecimal bigDecimal);
 }

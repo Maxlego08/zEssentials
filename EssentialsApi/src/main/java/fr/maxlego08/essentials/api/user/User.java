@@ -77,7 +77,7 @@ public interface User {
 
     void remove(Economy economy, BigDecimal bigDecimal);
 
-    void add(Economy economy, BigDecimal bigDecimal);
+    void deposit(Economy economy, BigDecimal bigDecimal);
 
     Map<String, BigDecimal> getBalances();
 

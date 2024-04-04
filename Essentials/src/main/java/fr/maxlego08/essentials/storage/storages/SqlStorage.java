@@ -1,17 +1,19 @@
 package fr.maxlego08.essentials.storage.storages;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
-import fr.maxlego08.essentials.storage.requests.SqlConnection;
 import fr.maxlego08.essentials.storage.requests.Repositories;
+import fr.maxlego08.essentials.storage.requests.SqlConnection;
 import fr.maxlego08.essentials.storage.requests.repositeries.UserCooldownsRepository;
-import fr.maxlego08.essentials.storage.requests.repositeries.UserRepository;
 import fr.maxlego08.essentials.storage.requests.repositeries.UserOptionRepository;
+import fr.maxlego08.essentials.storage.requests.repositeries.UserRepository;
 import fr.maxlego08.essentials.user.ZUser;
 import org.bukkit.Bukkit;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -91,5 +93,10 @@ public class SqlStorage implements IStorage {
     @Override
     public void updateCooldown(UUID uniqueId, String key, long expiredAt) {
         this.plugin.getScheduler().runAsync(wrappedTask -> this.repositories.getTable(UserCooldownsRepository.class).upsert(uniqueId, key, expiredAt));
+    }
+
+    @Override
+    public void updateEconomy(UUID uniqueId, Economy economy, BigDecimal bigDecimal) {
+        // ToDo
     }
 }

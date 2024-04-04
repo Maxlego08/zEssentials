@@ -3,6 +3,8 @@ package fr.maxlego08.essentials.economy;
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.economy.EconomyProvider;
+import fr.maxlego08.essentials.api.storage.IStorage;
+import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.ZModule;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
@@ -15,6 +17,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public class EconomyManager extends ZModule implements EconomyProvider {
 
@@ -58,7 +61,21 @@ public class EconomyManager extends ZModule implements EconomyProvider {
     }
 
     @Override
-    public boolean deposit(OfflinePlayer player, Economy economy, BigDecimal amount) {
+    public boolean deposit(UUID uniqueId, Economy economy, BigDecimal amount) {
+        IStorage iStorage = this.plugin.getStorageManager().getStorage();
+        User user = iStorage.getUser(uniqueId);
+
+        if (user == null) { // Need to load the user, use async scheduler
+
+            this.plugin.getScheduler().runAsync(wrappedTask -> {
+                User loadUser = iStorage.createOrLoad(uniqueId, "offline");
+                loadUser.deposit(economy, amount);
+            });
+
+        } else {
+            user.deposit(economy, amount);
+        }
+
         return true;
     }
 
