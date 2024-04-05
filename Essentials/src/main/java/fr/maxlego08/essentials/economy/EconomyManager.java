@@ -108,9 +108,9 @@ public class EconomyManager extends ZModule implements EconomyProvider {
     }
 
     @Override
-    public String format(double amount) {
+    public String format(Number number) {
         // Rework for more configuration about that
         DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
-        return decimalFormat.format(amount);
+        return decimalFormat.format(number);
     }
 }

@@ -26,5 +26,5 @@ public interface EconomyProvider extends Module {
 
     Economy getDefaultEconomy();
 
-    String format(double amount);
+    String format(Number number);
 }

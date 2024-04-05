@@ -4,6 +4,7 @@ import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandManager;
 import fr.maxlego08.essentials.commands.commands.economy.CommandEconomy;
+import fr.maxlego08.essentials.commands.commands.economy.CommandMoney;
 import fr.maxlego08.essentials.commands.commands.enderchest.CommandEnderChest;
 import fr.maxlego08.essentials.commands.commands.enderchest.CommandEnderSee;
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameMode;
@@ -91,6 +92,7 @@ public class CommandLoader {
         register("tpacancel", CommandTeleportCancel.class);
 
         register("economy", CommandEconomy.class, "eco");
+        register("money", CommandMoney.class, "balance");
 
 
         File file = new File(plugin.getDataFolder(), "commands.yml");

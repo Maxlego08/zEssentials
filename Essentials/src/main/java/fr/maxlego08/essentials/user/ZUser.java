@@ -61,7 +61,7 @@ public class ZUser extends ZUtils implements User {
 
     @Override
     public Player getPlayer() {
-        return Bukkit.getPlayer(this.name);
+        return Bukkit.getPlayer(this.uniqueId);
     }
 
     @Override

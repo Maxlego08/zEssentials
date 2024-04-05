@@ -129,10 +129,12 @@ public enum Message {
     DESCRIPTION_HAT("Create your custom hat !"),
     DESCRIPTION_PLAYER_WEATHER("Change your weather"),
     DESCRIPTION_PLAYER_TIME("Change your time"),
+    DESCRIPTION_MONEY("Show your money"),
     DESCRIPTION_ECO("Manages the server economies"),
     DESCRIPTION_ECO_SET("Sets the specified player's balance to the specified amount of money"),
     DESCRIPTION_ECO_TAKE("Takes the specified amount of money from the specified player"),
     DESCRIPTION_ECO_GIVE("Gives the specified player the specified amount of money"),
+    DESCRIPTION_ECO_GIVE_ALL("Gives for all players the specified amount of money"),
     DESCRIPTION_ECO_RESET("Resets the specified player's balance to the server's starting balance"),
 
     YOU("you"),
@@ -152,10 +154,15 @@ public enum Message {
     // Economy
 
     COMMAND_ECONOMY_NOT_FOUND("#ff0000 Can’t find a economy with the name &f%name%#ff0000."),
+    COMMAND_ECONOMY_GIVE_ALL_SENDER("#99E0FFYou just gave &f%economyFormat% #99E0FFto the online players."),
     COMMAND_ECONOMY_GIVE_SENDER("#99E0FFYou just gave &f%economyFormat% #99E0FFto the player &7%player%#99E0FF."),
     COMMAND_ECONOMY_GIVE_RECEIVER("#99E0FFYou have just received &f%economyFormat%."),
     COMMAND_ECONOMY_TAKE_SENDER("#99E0FFYou just take &f%economyFormat% #99E0FFto the player &7%player%#99E0FF."),
     COMMAND_ECONOMY_TAKE_RECEIVER("#99E0FFYou have just lost &f%economyFormat%."),
+    COMMAND_MONEY(
+            "#99E0FFYou have&8:" ,
+            " &7- #99E0FF%economy-name-money% &f%economy-money%."
+    ),
     ;
 
     private String message;
