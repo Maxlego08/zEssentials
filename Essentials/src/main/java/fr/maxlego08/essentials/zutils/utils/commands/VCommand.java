@@ -15,6 +15,8 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -396,8 +398,8 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
 
         this.parentCount = this.parentCount(0);
 
-        int currentInex = (args.length - this.parentCount) - 1;
-        Optional<TabCompletion> optional = this.getCompletionAt(currentInex);
+        int currentIndex = (args.length - this.parentCount) - 1;
+        Optional<TabCompletion> optional = this.getCompletionAt(currentIndex);
 
         if (optional.isPresent()) {
 
@@ -415,17 +417,19 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
     }
 
     protected List<String> generateList(List<String> defaultList, String startWith, Tab tab) {
-        List<String> newList = new ArrayList<>();
+        List<String> generatedList = new ArrayList<>();
         for (String str : defaultList) {
             if (startWith.length() == 0 || (tab.equals(Tab.START) ? str.toLowerCase().startsWith(startWith.toLowerCase()) : str.toLowerCase().contains(startWith.toLowerCase()))) {
-                newList.add(str);
+                generatedList.add(str);
             }
         }
-        return newList.size() == 0 ? null : newList;
+        return generatedList.size() == 0 ? null : generatedList;
     }
 
     public void syntaxMessage() {
-        this.subVCommands.forEach(command -> {
+        List<VCommand> commands = new ArrayList<>(this.subVCommands);
+        commands.sort(new VCommandComparator());
+        commands.forEach(command -> {
             if (command.getPermission() == null || sender.hasPermission(command.getPermission())) {
                 message(this.sender, Message.COMMAND_SYNTAXE_HELP, "%syntax%", command.getSyntax(), "%description%",
                         command.getDescription());
@@ -433,4 +437,11 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
         });
     }
 
+
+    private static class VCommandComparator implements Comparator<VCommand> {
+        @Override
+        public int compare(VCommand command1, VCommand command2) {
+            return command1.getMainCommand().compareTo(command2.getMainCommand());
+        }
+    }
 }
