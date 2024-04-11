@@ -26,6 +26,9 @@ economies:
     min-pay: 0.1
     max-pay: 999999999999999
     enable-pay: true
+    enable-confirm-inventory: true
+    min-confirm-inventory: 10000000
+
   coins:
     display-name: Coins
     symbol: "⛁"
@@ -36,6 +39,8 @@ economies:
     min-pay: 0.1
     max-pay: 1000
     enable-pay: true
+    enable-confirm-inventory: true
+    min-confirm-inventory: 0
 
 number-format-sell-multiplication:
   - format: k
