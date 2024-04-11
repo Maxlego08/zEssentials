@@ -9,7 +9,7 @@ public class CreateUserEconomyMigration extends Migration {
         SchemaBuilder.create("%prefix%economies", table -> {
             table.uuid("unique_id").primary().foreignKey("%prefix%players");
             table.string("economy_name", 255).primary();
-            table.decimal("amount").defaultValue("0");
+            table.decimal("amount", 65, 2).defaultValue("0");
             table.timestamps();
         });
     }

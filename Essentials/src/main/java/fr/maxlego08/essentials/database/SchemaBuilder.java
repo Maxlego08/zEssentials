@@ -96,6 +96,11 @@ public class SchemaBuilder implements Schema {
     }
 
     @Override
+    public Schema decimal(String columnName, Number value) {
+        return this.addColumn(new ColumnDefinition(columnName).setObject(value));
+    }
+
+    @Override
     public Schema bigInt(String columnName) {
         return addColumn(new ColumnDefinition(columnName, "BIGINT"));
     }

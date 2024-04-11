@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.user;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
+import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.OptionDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.messages.Message;
@@ -262,5 +263,10 @@ public class ZUser extends ZUtils implements User {
     @Override
     public void setBalance(String key, BigDecimal value) {
         this.balances.put(key, value);
+    }
+
+    @Override
+    public void setEconomies(List<EconomyDTO> economyDTOS) {
+        economyDTOS.forEach(economyDTO -> this.balances.put(economyDTO.economy_name(), economyDTO.amount()));
     }
 }

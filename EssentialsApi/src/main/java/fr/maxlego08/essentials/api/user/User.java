@@ -2,6 +2,7 @@ package fr.maxlego08.essentials.api.user;
 
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
+import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.OptionDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import org.bukkit.Location;
@@ -82,4 +83,6 @@ public interface User {
     Map<String, BigDecimal> getBalances();
 
     void setBalance(String key, BigDecimal value);
+
+    void setEconomies(List<EconomyDTO> economyDTOS);
 }

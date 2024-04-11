@@ -1,4 +1,4 @@
-package fr.maxlego08.essentials.storage.requests;
+package fr.maxlego08.essentials.storage.database;
 
 import fr.maxlego08.essentials.api.database.Schema;
 import fr.maxlego08.essentials.database.SchemaBuilder;

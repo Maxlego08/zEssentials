@@ -5,17 +5,19 @@ import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
-import fr.maxlego08.essentials.storage.requests.Repositories;
-import fr.maxlego08.essentials.storage.requests.SqlConnection;
-import fr.maxlego08.essentials.storage.requests.repositeries.UserCooldownsRepository;
-import fr.maxlego08.essentials.storage.requests.repositeries.UserOptionRepository;
-import fr.maxlego08.essentials.storage.requests.repositeries.UserRepository;
+import fr.maxlego08.essentials.storage.database.Repositories;
+import fr.maxlego08.essentials.storage.database.SqlConnection;
+import fr.maxlego08.essentials.storage.database.repositeries.UserCooldownsRepository;
+import fr.maxlego08.essentials.storage.database.repositeries.UserEconomyRepository;
+import fr.maxlego08.essentials.storage.database.repositeries.UserOptionRepository;
+import fr.maxlego08.essentials.storage.database.repositeries.UserRepository;
 import fr.maxlego08.essentials.user.ZUser;
 import org.bukkit.Bukkit;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Consumer;
 
@@ -41,6 +43,7 @@ public class SqlStorage implements IStorage {
         this.repositories.register(UserRepository.class);
         this.repositories.register(UserOptionRepository.class);
         this.repositories.register(UserCooldownsRepository.class);
+        this.repositories.register(UserEconomyRepository.class);
 
         plugin.getMigrationManager().execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), this.plugin.getLogger());
         this.repositories.getTable(UserCooldownsRepository.class).deleteExpiredCooldowns();
@@ -70,6 +73,7 @@ public class SqlStorage implements IStorage {
             this.repositories.getTable(UserRepository.class).upsert(uniqueId, playerName);
             user.setOptions(this.repositories.getTable(UserOptionRepository.class).selectOptions(uniqueId));
             user.setCooldowns(this.repositories.getTable(UserCooldownsRepository.class).selectCooldowns(uniqueId));
+            user.setEconomies(this.repositories.getTable(UserEconomyRepository.class).selectOptions(uniqueId));
         });
 
         return user;
@@ -85,19 +89,23 @@ public class SqlStorage implements IStorage {
         return this.users.get(uniqueId);
     }
 
+    private void async(Runnable runnable) {
+        this.plugin.getScheduler().runAsync(wrappedTask -> runnable.run());
+    }
+
     @Override
     public void updateOption(UUID uniqueId, Option option, boolean value) {
-        this.plugin.getScheduler().runAsync(wrappedTask -> this.repositories.getTable(UserOptionRepository.class).upsert(uniqueId, option, value));
+        async(() -> this.repositories.getTable(UserOptionRepository.class).upsert(uniqueId, option, value));
     }
 
     @Override
     public void updateCooldown(UUID uniqueId, String key, long expiredAt) {
-        this.plugin.getScheduler().runAsync(wrappedTask -> this.repositories.getTable(UserCooldownsRepository.class).upsert(uniqueId, key, expiredAt));
+        async(() -> this.repositories.getTable(UserCooldownsRepository.class).upsert(uniqueId, key, expiredAt));
     }
 
     @Override
     public void updateEconomy(UUID uniqueId, Economy economy, BigDecimal bigDecimal) {
-        // ToDo
+        async(() -> this.repositories.getTable(UserEconomyRepository.class).upsert(uniqueId, economy, bigDecimal));
     }
 
     @Override

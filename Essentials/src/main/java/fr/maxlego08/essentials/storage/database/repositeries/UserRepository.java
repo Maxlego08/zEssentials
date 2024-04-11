@@ -1,7 +1,7 @@
-package fr.maxlego08.essentials.storage.requests.repositeries;
+package fr.maxlego08.essentials.storage.database.repositeries;
 
-import fr.maxlego08.essentials.storage.requests.Repository;
-import fr.maxlego08.essentials.storage.requests.SqlConnection;
+import fr.maxlego08.essentials.storage.database.Repository;
+import fr.maxlego08.essentials.storage.database.SqlConnection;
 
 import java.util.UUID;
 
