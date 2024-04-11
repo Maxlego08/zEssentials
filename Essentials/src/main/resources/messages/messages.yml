@@ -67,6 +67,15 @@ command-money:
   - "#99E0FFYou have&8:"
   - " &7- #99E0FF%economy-name-money% &f%economy-money%."
   - " &7- #99E0FF%economy-name-coins% &f%economy-coins%."
+command-pay-negative: "#ff0000Amount to pay must be positive."
+command-pay-min: "#ff0000The minimum amount you can pay is &f%amount%#ff0000."
+command-pay-max: "#ff0000The maximum amount you can pay is &f%amount%#ff0000."
+command-pay-sender: "#99E0FFYou just sent #F8F327%amount%#99E0FF to the player &f%player%#99E0FF."
+command-pay-receiver: "&f%player% #99E0FFjust sent you #F8F327%amount%#99E0FF."
+command-pay-disable: "#ff0000You can’t send %name%."
+command-pay-self: "#ff0000You cannot send money to yourself."
+command-pay-not-enough: "#ff0000You don't have enough money."
+
 
 # Teleport commands
 command-tpa-error: "#ff0000You have already sent a request to #99E0FF%player%#ff0000."
@@ -142,6 +151,7 @@ description-eco-give: "Gives the specified player the specified amount of money"
 description-eco-give-all: "Gives for all players the specified amount of money"
 description-eco-reset: "Resets the specified player's balance to the server's starting balance"
 description-eco-show: "Show player money"
+description-pay: "Pays another player from your balance"
 
 
 # Time format

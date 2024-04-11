@@ -17,16 +17,52 @@ default-economy: "money"
 
 economies:
   money:
-    displayName: Money
+    display-name: Money
     symbol: "$"
     format: "%price%$"
     vault: true
     min: -99999999999999999999999999999999999999999999999999999999999999
     max: 99999999999999999999999999999999999999999999999999999999999999
+    min-pay: 0.1
+    max-pay: 999999999999999
+    enable-pay: true
   coins:
-    displayName: Coins
+    display-name: Coins
     symbol: "⛁"
     format: "%price%⛁"
     vault: false
     min: 0
     max: 9999999999999999999999999
+    min-pay: 0.1
+    max-pay: 1000
+    enable-pay: true
+
+number-format-sell-multiplication:
+  - format: k
+    multiplication: 1000
+  - format: m
+    multiplication: 1000000
+  - format: b
+    multiplication: 1000000000
+  - format: t
+    multiplication: 1000000000000
+  - format: q
+    multiplication: 1000000000000000
+  - format: qq
+    multiplication: 1000000000000000000
+  - format: s
+    multiplication: 1000000000000000000000
+  - format: ss
+    multiplication: 1000000000000000000000000
+  - format: o
+    multiplication: 1000000000000000000000000000
+  - format: n
+    multiplication: 1000000000000000000000000000000
+  - format: d
+    multiplication: 1000000000000000000000000000000000
+  - format: uu
+    multiplication: 1000000000000000000000000000000000000
+  - format: dd
+    multiplication: 1000000000000000000000000000000000000000
+  - format: tr
+    multiplication: 1000000000000000000000000000000000000000000
