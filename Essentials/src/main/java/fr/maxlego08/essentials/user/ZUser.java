@@ -16,6 +16,7 @@ import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Nullable;
 
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -35,6 +36,8 @@ public class ZUser extends ZUtils implements User {
     private String name;
     private TeleportRequest teleportRequest;
     private User targetUser;
+    private BigDecimal targetAmount;
+    private Economy targetEconomy;
 
     public ZUser(EssentialsPlugin plugin, UUID uniqueId) {
         this.plugin = plugin;
@@ -288,5 +291,22 @@ public class ZUser extends ZUtils implements User {
     @Override
     public void setEconomies(List<EconomyDTO> economyDTOS) {
         economyDTOS.forEach(economyDTO -> this.balances.put(economyDTO.economy_name(), economyDTO.amount()));
+    }
+
+    @Override
+    public void setTargetPay(User user, Economy economy, BigDecimal bigDecimal) {
+        this.targetUser = user;
+        this.targetEconomy = economy;
+        this.targetAmount = bigDecimal;
+    }
+
+    @Override
+    public @Nullable Economy getTargetEconomy() {
+        return this.targetEconomy;
+    }
+
+    @Override
+    public @Nullable BigDecimal getTargetDecimal() {
+        return this.targetAmount;
     }
 }

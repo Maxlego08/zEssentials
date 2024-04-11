@@ -14,7 +14,7 @@
 
 enable-debug: false
 
-storage-type: MYSQL
+storage-type: JSON
 
 database-configuration:
   prefix: "zessentials_"

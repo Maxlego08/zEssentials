@@ -17,6 +17,8 @@ public class ZEconomy implements Economy {
     private final BigDecimal minPayValue;
     private final BigDecimal maxPayValue;
     private final boolean isEnablePay;
+    private final boolean isEnableConfirmInventory;
+    private final BigDecimal minConfirmInventory;
 
     public ZEconomy(ConfigurationSection section, String name) {
         this.name = name;
@@ -29,6 +31,8 @@ public class ZEconomy implements Economy {
         this.minPayValue = new BigDecimal(section.getString("min-pay", "0.1"));
         this.maxPayValue = new BigDecimal(section.getString("max-pay", "999999999999999"));
         this.isEnablePay = section.getBoolean("enable-pay", true);
+        this.isEnableConfirmInventory = section.getBoolean("enable-confirm-inventory", false);
+        this.minConfirmInventory = new BigDecimal(section.getString("min-confirm-inventory", "0"));
     }
 
     @Override
@@ -82,7 +86,17 @@ public class ZEconomy implements Economy {
     }
 
     @Override
+    public BigDecimal getMinConfirmInventory() {
+        return this.minConfirmInventory;
+    }
+
+    @Override
     public boolean isEnablePay() {
         return this.isEnablePay;
+    }
+
+    @Override
+    public boolean isEnableConfirmInventory() {
+        return this.isEnableConfirmInventory;
     }
 }

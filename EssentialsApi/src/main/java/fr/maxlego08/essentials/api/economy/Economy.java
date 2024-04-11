@@ -22,7 +22,11 @@ public interface Economy {
 
     BigDecimal getMaxPayValue();
 
+    BigDecimal getMinConfirmInventory();
+
     boolean isEnablePay();
+
+    boolean isEnableConfirmInventory();
 
     default String format(String priceAsString, long amount) {
         return getFormat().replace("%price%", priceAsString).replace("%s%", amount > 1 ? "s" : "");

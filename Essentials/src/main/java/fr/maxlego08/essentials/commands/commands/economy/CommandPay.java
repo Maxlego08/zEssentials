@@ -6,7 +6,9 @@ import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.economy.EconomyProvider;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.NumberMultiplicationFormat;
+import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 
 import java.math.BigDecimal;
@@ -82,7 +84,18 @@ public class CommandPay extends VCommand {
         }
 
         BigDecimal finalAmount = amount;
-        this.fetchUniqueId(userName, uniqueId -> economyProvider.pay(this.player.getUniqueId(), this.player.getName(), uniqueId, userName, economy, finalAmount));
+        this.fetchUniqueId(userName, uniqueId -> {
+
+            if (economy.isEnableConfirmInventory() && finalAmount.compareTo(economy.getMinConfirmInventory()) > 0) {
+                User fakeUser = new ZUser(plugin, uniqueId);
+                fakeUser.setName(userName);
+                this.user.setTargetPay(fakeUser, economy, finalAmount);
+                plugin.getScheduler().runAtLocation(player.getLocation(), wrappedTask -> plugin.getInventoryManager().openInventory(player, plugin, "confirm_pay_inventory"));
+                return;
+            }
+
+            economyProvider.pay(this.player.getUniqueId(), this.player.getName(), uniqueId, userName, economy, finalAmount);
+        });
 
         return CommandResultType.SUCCESS;
     }

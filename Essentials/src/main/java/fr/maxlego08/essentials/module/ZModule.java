@@ -3,6 +3,8 @@ package fr.maxlego08.essentials.module;
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.modules.Module;
 import fr.maxlego08.essentials.zutils.utils.YamlLoader;
+import fr.maxlego08.menu.api.InventoryManager;
+import fr.maxlego08.menu.exceptions.InventoryException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -51,5 +53,15 @@ public abstract class ZModule extends YamlLoader implements Module {
     @Override
     public boolean isEnable() {
         return this.isEnable;
+    }
+
+    protected void loadInventory(String inventoryName) {
+        InventoryManager inventoryManager = this.plugin.getInventoryManager();
+
+        try {
+            inventoryManager.loadInventoryOrSaveResource(this.plugin, "modules/" + name + "/" + inventoryName + ".yml");
+        } catch (InventoryException exception) {
+            exception.printStackTrace();
+        }
     }
 }

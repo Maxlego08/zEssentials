@@ -28,13 +28,7 @@ public class TeleportationModule extends ZModule {
     public void loadConfiguration() {
         super.loadConfiguration();
 
-        InventoryManager inventoryManager = this.plugin.getInventoryManager();
-
-        try {
-            inventoryManager.loadInventoryOrSaveResource(this.plugin, "modules/teleportation/confirm_request_inventory.yml");
-        } catch (InventoryException exception) {
-            exception.printStackTrace();
-        }
+        this.loadInventory("confirm_request_inventory");
     }
 
     public boolean isTeleportSafety() {

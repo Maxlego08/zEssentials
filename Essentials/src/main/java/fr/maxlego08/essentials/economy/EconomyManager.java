@@ -51,6 +51,8 @@ public class EconomyManager extends ZModule implements EconomyProvider {
             this.economies.add(new ZEconomy(section, economyName));
             this.plugin.getLogger().info("Create economy " + economyName + " !");
         });
+
+        this.loadInventory("confirm_pay_inventory");
     }
 
     @Override

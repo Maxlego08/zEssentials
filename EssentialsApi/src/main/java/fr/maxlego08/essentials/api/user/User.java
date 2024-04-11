@@ -7,6 +7,7 @@ import fr.maxlego08.essentials.api.database.dto.OptionDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Nullable;
 
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -91,4 +92,10 @@ public interface User {
     void setBalance(String key, BigDecimal value);
 
     void setEconomies(List<EconomyDTO> economyDTOS);
+
+    void setTargetPay(User user, Economy economy, BigDecimal bigDecimal);
+
+    @Nullable Economy getTargetEconomy();
+
+    @Nullable BigDecimal getTargetDecimal();
 }
