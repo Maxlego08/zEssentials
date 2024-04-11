@@ -37,7 +37,6 @@ public class SqlStorage implements IStorage {
             plugin.getLogger().info("The database connection is valid ! (" + connection.getDatabaseConfiguration().host() + ")");
         }
 
-
         this.repositories = new Repositories(this.connection);
         this.repositories.register(UserRepository.class);
         this.repositories.register(UserOptionRepository.class);

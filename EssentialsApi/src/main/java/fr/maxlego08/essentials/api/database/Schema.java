@@ -16,6 +16,9 @@ public interface Schema {
 
     Schema string(String columnName, int length);
 
+    Schema decimal(String columnName);
+    Schema decimal(String columnName, int length, int decimal);
+
     Schema string(String columnName, String value);
 
     Schema bigInt(String columnName);

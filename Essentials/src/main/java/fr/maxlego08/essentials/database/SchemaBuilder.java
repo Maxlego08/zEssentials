@@ -81,6 +81,16 @@ public class SchemaBuilder implements Schema {
     }
 
     @Override
+    public Schema decimal(String columnName) {
+        return this.decimal(columnName, 65, 30);
+    }
+
+    @Override
+    public Schema decimal(String columnName, int length, int decimal) {
+        return addColumn(new ColumnDefinition(columnName, "DECIMAL").setLength(length).setDecimal(decimal));
+    }
+
+    @Override
     public Schema string(String columnName, String value) {
         return this.addColumn(new ColumnDefinition(columnName).setObject(value));
     }
@@ -171,6 +181,7 @@ public class SchemaBuilder implements Schema {
             case UPSERT -> this.executeUpsert(connection, databaseConfiguration, logger);
             case DELETE -> this.executeDelete(connection, databaseConfiguration, logger);
             case SELECT -> throw new IllegalArgumentException("Wrong method !");
+            default -> throw new Error("Schema type not found !");
         }
     }
 
