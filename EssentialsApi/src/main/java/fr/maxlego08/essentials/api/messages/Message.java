@@ -136,6 +136,7 @@ public enum Message {
     DESCRIPTION_ECO_GIVE("Gives the specified player the specified amount of money"),
     DESCRIPTION_ECO_GIVE_ALL("Gives for all players the specified amount of money"),
     DESCRIPTION_ECO_RESET("Resets the specified player's balance to the server's starting balance"),
+    DESCRIPTION_ECO_SHOW("Show player money"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -161,9 +162,12 @@ public enum Message {
     COMMAND_ECONOMY_SET_RECEIVER("#99E0FFYou have just been modified &f%economyFormat%."),
     COMMAND_ECONOMY_TAKE_SENDER("#99E0FFYou just take &f%economyFormat% #99E0FFto the player &7%player%#99E0FF."),
     COMMAND_ECONOMY_TAKE_RECEIVER("#99E0FFYou have just lost &f%economyFormat%."),
+    COMMAND_ECONOMY_SHOW_EMPTY("&f%player% #FF0000has no money."),
+    COMMAND_ECONOMY_SHOW_INFO("&7- #99E0FF%economy% &f%amount%."),
     COMMAND_MONEY(
             "#99E0FFYou have&8:" ,
-            " &7- #99E0FF%economy-name-money% &f%economy-money%."
+            " &7- #99E0FF%economy-name-money% &f%economy-money%.",
+            " &7- #99E0FF%economy-name-coins% &f%economy-coins%."
     ),
     ;
 

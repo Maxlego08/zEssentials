@@ -1,10 +1,12 @@
 package fr.maxlego08.essentials.api.storage;
 
+import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
 
@@ -27,4 +29,6 @@ public interface IStorage {
     void updateEconomy(UUID uniqueId, Economy economy, BigDecimal bigDecimal);
 
     void updateUserMoney(UUID uniqueId, Consumer<User> consumer);
+
+    void getUserEconomy(String userName, Consumer<List<EconomyDTO>> consumer);
 }

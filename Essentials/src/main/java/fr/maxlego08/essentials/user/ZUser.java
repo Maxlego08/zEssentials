@@ -241,7 +241,7 @@ public class ZUser extends ZUtils implements User {
 
     @Override
     public void set(Economy economy, BigDecimal bigDecimal) {
-        this.balances.put(economy.getName(), bigDecimal);
+        this.balances.put(economy.getName(), (bigDecimal.compareTo(economy.getMinValue()) < 0) ? economy.getMinValue() : (bigDecimal.compareTo(economy.getMaxValue()) > 0) ? economy.getMaxValue() : bigDecimal);
         getStorage().updateEconomy(this.uniqueId, economy, bigDecimal);
     }
 

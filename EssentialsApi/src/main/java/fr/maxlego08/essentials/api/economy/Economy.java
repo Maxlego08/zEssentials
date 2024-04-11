@@ -1,5 +1,7 @@
 package fr.maxlego08.essentials.api.economy;
 
+import java.math.BigDecimal;
+
 public interface Economy {
 
     String getName();
@@ -11,6 +13,10 @@ public interface Economy {
     String getFormat();
 
     boolean isVaultEconomy();
+
+    BigDecimal getMinValue();
+
+    BigDecimal getMaxValue();
 
     default String format(String priceAsString, long amount) {
         return getFormat().replace("%price%", priceAsString).replace("%s%", amount > 1 ? "s" : "");

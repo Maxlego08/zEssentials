@@ -354,6 +354,8 @@ public class SchemaBuilder implements Schema {
                     Class<Enum> enumType = (Class<Enum>) parameter.getType();
                     Object enumValue = Enum.valueOf(enumType, (String) value);
                     params[i] = enumValue;
+                } else if (parameter.getType() == UUID.class) {
+                    params[i] = UUID.fromString((String) value);
                 } else {
                     params[i] = value;
                 }

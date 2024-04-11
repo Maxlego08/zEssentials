@@ -1,6 +1,8 @@
 package fr.maxlego08.essentials.storage.storages;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
+import fr.maxlego08.essentials.api.database.dto.UserDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.Option;
@@ -12,24 +14,25 @@ import fr.maxlego08.essentials.storage.database.repositeries.UserEconomyReposito
 import fr.maxlego08.essentials.storage.database.repositeries.UserOptionRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserRepository;
 import fr.maxlego08.essentials.user.ZUser;
+import fr.maxlego08.essentials.zutils.utils.StorageHelper;
 import org.bukkit.Bukkit;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Consumer;
 
-public class SqlStorage implements IStorage {
+public class SqlStorage extends StorageHelper implements IStorage {
 
     private final SqlConnection connection;
-    private final EssentialsPlugin plugin;
-    private final Map<UUID, User> users = new HashMap<>();
     private final Repositories repositories;
 
     public SqlStorage(EssentialsPlugin plugin) {
-        this.plugin = plugin;
+        super(plugin);
         this.connection = new SqlConnection(plugin);
 
         if (!this.connection.isValid()) {
@@ -89,10 +92,6 @@ public class SqlStorage implements IStorage {
         return this.users.get(uniqueId);
     }
 
-    private void async(Runnable runnable) {
-        this.plugin.getScheduler().runAsync(wrappedTask -> runnable.run());
-    }
-
     @Override
     public void updateOption(UUID uniqueId, Option option, boolean value) {
         async(() -> this.repositories.getTable(UserOptionRepository.class).upsert(uniqueId, option, value));
@@ -112,5 +111,25 @@ public class SqlStorage implements IStorage {
     public void updateUserMoney(UUID uniqueId, Consumer<User> consumer) {
         User fakeUser = new ZUser(this.plugin, uniqueId);
         consumer.accept(fakeUser);
+    }
+
+    @Override
+    public void getUserEconomy(String userName, Consumer<List<EconomyDTO>> consumer) {
+        async(() -> {
+            List<EconomyDTO> economyDTOS = getLocalEconomyDTO(userName);
+            if (!economyDTOS.isEmpty()) {
+                consumer.accept(economyDTOS);
+                return;
+            }
+
+            List<UserDTO> userDTOS = this.repositories.getTable(UserRepository.class).selectOptions(userName);
+            if (userDTOS.isEmpty()) {
+                consumer.accept(new ArrayList<>());
+                return;
+            }
+
+            UserDTO userDTO = userDTOS.get(0);
+            consumer.accept(this.repositories.getTable(UserEconomyRepository.class).selectOptions(userDTO.unique_id()));
+        });
     }
 }

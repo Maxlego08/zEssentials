@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.storage.storages;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.event.UserEvent;
 import fr.maxlego08.essentials.api.event.events.UserFirstJoinEvent;
@@ -9,22 +10,20 @@ import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.user.ZUser;
+import fr.maxlego08.essentials.zutils.utils.StorageHelper;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 
 import java.io.File;
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
 
-public class JsonStorage implements IStorage {
-
-    private final EssentialsPlugin plugin;
-    private final Map<UUID, User> users = new HashMap<>();
+public class JsonStorage extends StorageHelper implements IStorage {
 
     public JsonStorage(EssentialsPlugin plugin) {
-        this.plugin = plugin;
+        super(plugin);
     }
 
     public File getFolder() {
@@ -123,5 +122,21 @@ public class JsonStorage implements IStorage {
     public void updateUserMoney(UUID uniqueId, Consumer<User> consumer) {
         User loadUser = createOrLoad(uniqueId, "offline");
         consumer.accept(loadUser);
+    }
+
+    @Override
+    public void getUserEconomy(String userName, Consumer<List<EconomyDTO>> consumer) {
+        async(() -> {
+
+            List<EconomyDTO> economyDTOS = getLocalEconomyDTO(userName);
+            if (!economyDTOS.isEmpty()) {
+                consumer.accept(economyDTOS);
+                return;
+            }
+
+            OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(userName);
+            User loadUser = createOrLoad(offlinePlayer.getUniqueId(), "offline");
+            consumer.accept(loadUser.getBalances().entrySet().stream().map(e -> new EconomyDTO(e.getKey(), e.getValue())).toList());
+        });
     }
 }

@@ -17,7 +17,16 @@ default-economy: "money"
 
 economies:
   money:
-    displayName: money
+    displayName: Money
     symbol: "$"
     format: "%price%$"
     vault: true
+    min: -99999999999999999999999999999999999999999999999999999999999999
+    max: 99999999999999999999999999999999999999999999999999999999999999
+  coins:
+    displayName: Coins
+    symbol: "⛁"
+    format: "%price%⛁"
+    vault: false
+    min: 0
+    max: 9999999999999999999999999
