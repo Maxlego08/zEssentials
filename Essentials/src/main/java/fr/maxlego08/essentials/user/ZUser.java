@@ -240,19 +240,39 @@ public class ZUser extends ZUtils implements User {
     }
 
     @Override
-    public void set(Economy economy, BigDecimal bigDecimal) {
-        this.balances.put(economy.getName(), (bigDecimal.compareTo(economy.getMinValue()) < 0) ? economy.getMinValue() : (bigDecimal.compareTo(economy.getMaxValue()) > 0) ? economy.getMaxValue() : bigDecimal);
+    public void set(UUID fromUuid, Economy economy, BigDecimal bigDecimal) {
+
+        BigDecimal fromAmount = this.balances.getOrDefault(economy.getName(), BigDecimal.ZERO);
+        BigDecimal toAmount = (bigDecimal.compareTo(economy.getMinValue()) < 0) ? economy.getMinValue() : (bigDecimal.compareTo(economy.getMaxValue()) > 0) ? economy.getMaxValue() : bigDecimal;
+        this.balances.put(economy.getName(), toAmount);
+
         getStorage().updateEconomy(this.uniqueId, economy, bigDecimal);
+        getStorage().storeTransactions(fromUuid, this.uniqueId, economy, fromAmount, toAmount);
     }
 
     @Override
-    public void withdraw(Economy economy, BigDecimal bigDecimal) {
-        set(economy, getBalance(economy).subtract(bigDecimal));
+    public void withdraw(UUID fromUuid, Economy economy, BigDecimal bigDecimal) {
+        set(fromUuid, economy, getBalance(economy).subtract(bigDecimal));
+    }
+
+    @Override
+    public void deposit(UUID fromUuid, Economy economy, BigDecimal bigDecimal) {
+        set(fromUuid, economy, getBalance(economy).add(bigDecimal));
+    }
+
+    @Override
+    public void set(Economy economy, BigDecimal bigDecimal) {
+        this.set(this.plugin.getConsoleUniqueId(), economy, bigDecimal);
     }
 
     @Override
     public void deposit(Economy economy, BigDecimal bigDecimal) {
-        set(economy, getBalance(economy).add(bigDecimal));
+        deposit(this.plugin.getConsoleUniqueId(), economy, bigDecimal);
+    }
+
+    @Override
+    public void withdraw(Economy economy, BigDecimal bigDecimal) {
+        withdraw(this.plugin.getConsoleUniqueId(), economy, bigDecimal);
     }
 
     @Override

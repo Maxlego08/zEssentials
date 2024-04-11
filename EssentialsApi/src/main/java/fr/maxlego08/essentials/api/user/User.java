@@ -52,15 +52,15 @@ public interface User {
 
     void setOption(Option option, boolean value);
 
-    void setOptions(List<OptionDTO> options);
-
     Map<Option, Boolean> getOptions();
+
+    void setOptions(List<OptionDTO> options);
 
     Map<String, Long> getCooldowns();
 
-    void setCooldown(String key, long expiredAt);
-
     void setCooldowns(List<CooldownDTO> cooldowns);
+
+    void setCooldown(String key, long expiredAt);
 
     boolean isCooldown(String key);
 
@@ -79,6 +79,12 @@ public interface User {
     void withdraw(Economy economy, BigDecimal bigDecimal);
 
     void deposit(Economy economy, BigDecimal bigDecimal);
+
+    void set(UUID fromUuid, Economy economy, BigDecimal bigDecimal);
+
+    void withdraw(UUID fromUuid, Economy economy, BigDecimal bigDecimal);
+
+    void deposit(UUID fromUuid, Economy economy, BigDecimal bigDecimal);
 
     Map<String, BigDecimal> getBalances();
 

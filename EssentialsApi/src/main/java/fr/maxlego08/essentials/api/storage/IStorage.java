@@ -33,4 +33,6 @@ public interface IStorage {
     void getUserEconomy(String userName, Consumer<List<EconomyDTO>> consumer);
 
     void fetchUniqueId(String userName, Consumer<UUID> consumer);
+
+    void storeTransactions(UUID fromUuid, UUID toUuid, Economy economy, BigDecimal fromAmount, BigDecimal toAmount);
 }

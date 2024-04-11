@@ -168,4 +168,9 @@ public class JsonStorage extends StorageHelper implements IStorage {
             });
         });
     }
+
+    @Override
+    public void storeTransactions(UUID fromUuid, UUID toUuid, Economy economy, BigDecimal fromAmount, BigDecimal toAmount) {
+
+    }
 }

@@ -44,6 +44,12 @@ public class SchemaBuilder implements Schema {
         return schema;
     }
 
+    public static Schema insert(String tableName, Consumer<Schema> consumer) {
+        Schema schema = new SchemaBuilder(tableName, SchemaType.INSERT);
+        consumer.accept(schema);
+        return schema;
+    }
+
     public static Schema select(String tableName) {
         return new SchemaBuilder(tableName, SchemaType.SELECT);
     }
@@ -184,6 +190,7 @@ public class SchemaBuilder implements Schema {
         switch (this.schemaType) {
             case CREATE -> this.executeCreate(connection, databaseConfiguration, logger);
             case UPSERT -> this.executeUpsert(connection, databaseConfiguration, logger);
+            case INSERT -> this.executeInsert(connection, databaseConfiguration, logger);
             case DELETE -> this.executeDelete(connection, databaseConfiguration, logger);
             case SELECT -> throw new IllegalArgumentException("Wrong method !");
             default -> throw new Error("Schema type not found !");
@@ -219,11 +226,44 @@ public class SchemaBuilder implements Schema {
                 preparedStatement.setObject(i + 1, values.get(i));
             }
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new SQLException("Failed to execute upsert: " + e.getMessage(), e);
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            throw new SQLException("Failed to execute upsert: " + exception.getMessage(), exception);
         }
 
+    }
+
+    private void executeInsert(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
+
+        StringBuilder insertQuery = new StringBuilder("INSERT INTO " + this.tableName + " (");
+        StringBuilder valuesQuery = new StringBuilder("VALUES (");
+
+        List<Object> values = new ArrayList<>();
+
+        for (int i = 0; i < this.columns.size(); i++) {
+            ColumnDefinition columnDefinition = this.columns.get(i);
+            insertQuery.append(i > 0 ? ", " : "").append(columnDefinition.getName());
+            valuesQuery.append(i > 0 ? ", " : "").append("?");
+            values.add(columnDefinition.getObject());
+        }
+
+        insertQuery.append(") ");
+        valuesQuery.append(")");
+        String upsertQuery = databaseConfiguration.replacePrefix(insertQuery + valuesQuery.toString());
+
+        if (databaseConfiguration.debug()) {
+            logger.info("Executing SQL: " + upsertQuery);
+        }
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(upsertQuery)) {
+            for (int i = 0; i < values.size(); i++) {
+                preparedStatement.setObject(i + 1, values.get(i));
+            }
+            preparedStatement.executeUpdate();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            throw new SQLException("Failed to execute upsert: " + exception.getMessage(), exception);
+        }
     }
 
     private void executeCreate(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {

@@ -69,7 +69,7 @@ public class EconomyManager extends ZModule implements EconomyProvider {
 
             this.plugin.getScheduler().runAsync(wrappedTask -> iStorage.updateUserMoney(uniqueId, consumer));
         } else {
-            
+
             consumer.accept(user);
         }
     }

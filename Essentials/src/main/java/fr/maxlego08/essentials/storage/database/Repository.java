@@ -35,6 +35,14 @@ public abstract class Repository {
         }
     }
 
+    protected void insert(Consumer<Schema> consumer) {
+        try {
+            SchemaBuilder.insert(getTableName(), consumer).execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), this.connection.getPlugin().getLogger());
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
+
     protected <T> List<T> select(Class<T> clazz, Consumer<Schema> consumer) {
         Schema schema = SchemaBuilder.select(getTableName());
         consumer.accept(schema);

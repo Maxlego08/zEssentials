@@ -9,6 +9,7 @@ import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.storage.database.Repositories;
 import fr.maxlego08.essentials.storage.database.SqlConnection;
+import fr.maxlego08.essentials.storage.database.repositeries.EconomyTransactionsRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserCooldownsRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserEconomyRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserOptionRepository;
@@ -45,6 +46,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
         this.repositories.register(UserOptionRepository.class);
         this.repositories.register(UserCooldownsRepository.class);
         this.repositories.register(UserEconomyRepository.class);
+        this.repositories.register(EconomyTransactionsRepository.class);
 
         plugin.getMigrationManager().execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), this.plugin.getLogger());
         this.repositories.getTable(UserCooldownsRepository.class).deleteExpiredCooldowns();
@@ -166,5 +168,10 @@ public class SqlStorage extends StorageHelper implements IStorage {
                 consumer.accept(userDTO.unique_id());
             });
         });
+    }
+
+    @Override
+    public void storeTransactions(UUID fromUuid, UUID toUuid, Economy economy, BigDecimal fromAmount, BigDecimal toAmount) {
+        async(() -> this.repositories.getTable(EconomyTransactionsRepository.class).upsert(fromUuid, toUuid, economy, fromAmount, toAmount));
     }
 }

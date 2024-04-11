@@ -42,9 +42,11 @@ import org.bukkit.Location;
 
 import java.lang.reflect.Modifier;
 import java.util.List;
+import java.util.UUID;
 
 public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin {
 
+    private final UUID consoleUniqueId = UUID.fromString("00000000-0000-0000-0000-000000000000");
     private InventoryManager inventoryManager;
     private ButtonManager buttonManager;
     private PatternManager patternManager;
@@ -219,5 +221,10 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     @Override
     public EconomyProvider getEconomyProvider() {
         return this.economyProvider;
+    }
+
+    @Override
+    public UUID getConsoleUniqueId() {
+        return this.consoleUniqueId;
     }
 }
