@@ -31,4 +31,6 @@ public interface IStorage {
     void updateUserMoney(UUID uniqueId, Consumer<User> consumer);
 
     void getUserEconomy(String userName, Consumer<List<EconomyDTO>> consumer);
+
+    void fetchUniqueId(String userName, Consumer<UUID> consumer);
 }

@@ -15,12 +15,13 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
+import java.util.function.Consumer;
 
 public abstract class VCommand extends Arguments implements EssentialsCommand {
 
@@ -431,12 +432,26 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
         commands.sort(new VCommandComparator());
         commands.forEach(command -> {
             if (command.getPermission() == null || sender.hasPermission(command.getPermission())) {
-                message(this.sender, Message.COMMAND_SYNTAXE_HELP, "%syntax%", command.getSyntax(), "%description%",
-                        command.getDescription());
+                message(this.sender, Message.COMMAND_SYNTAXE_HELP, "%syntax%", command.getSyntax(), "%description%", command.getDescription());
             }
         });
     }
 
+    protected void async(Runnable runnable) {
+        this.plugin.getScheduler().runAsync(wrappedTask -> runnable.run());
+    }
+
+    protected void fetchUniqueId(String userName, Consumer<UUID> consumer) {
+        this.plugin.getStorageManager().getStorage().fetchUniqueId(userName, uuid -> {
+
+            if (uuid == null) {
+                message(sender, Message.PLAYER_NOT_FOUND, "%player%", userName);
+                return;
+            }
+
+            consumer.accept(uuid);
+        });
+    }
 
     private static class VCommandComparator implements Comparator<VCommand> {
         @Override

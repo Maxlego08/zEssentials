@@ -16,13 +16,11 @@ import fr.maxlego08.essentials.storage.database.repositeries.UserRepository;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.utils.StorageHelper;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Consumer;
 
@@ -76,7 +74,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
             this.repositories.getTable(UserRepository.class).upsert(uniqueId, playerName);
             user.setOptions(this.repositories.getTable(UserOptionRepository.class).selectOptions(uniqueId));
             user.setCooldowns(this.repositories.getTable(UserCooldownsRepository.class).selectCooldowns(uniqueId));
-            user.setEconomies(this.repositories.getTable(UserEconomyRepository.class).selectOptions(uniqueId));
+            user.setEconomies(this.repositories.getTable(UserEconomyRepository.class).selectEconomies(uniqueId));
         });
 
         return user;
@@ -122,14 +120,51 @@ public class SqlStorage extends StorageHelper implements IStorage {
                 return;
             }
 
-            List<UserDTO> userDTOS = this.repositories.getTable(UserRepository.class).selectOptions(userName);
-            if (userDTOS.isEmpty()) {
-                consumer.accept(new ArrayList<>());
-                return;
-            }
+            fetchUniqueId(userName, uuid -> {
+                if (uuid == null) {
+                    consumer.accept(new ArrayList<>());
+                    return;
+                }
 
-            UserDTO userDTO = userDTOS.get(0);
-            consumer.accept(this.repositories.getTable(UserEconomyRepository.class).selectOptions(userDTO.unique_id()));
+                consumer.accept(this.repositories.getTable(UserEconomyRepository.class).selectEconomies(uuid));
+            });
+        });
+    }
+
+    @Override
+    public void fetchUniqueId(String userName, Consumer<UUID> consumer) {
+
+        if (this.localUUIDS.containsKey(userName)) {
+            consumer.accept(this.localUUIDS.get(userName));
+            return;
+        }
+
+        async(() -> {
+            // User plugin cache first
+            getLocalUniqueId(userName).ifPresentOrElse(uuid -> {
+                this.localUUIDS.put(userName, uuid);
+                consumer.accept(uuid);
+            }, () -> {
+
+                // User server cache
+                OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayerIfCached(userName);
+                if (offlinePlayer != null) {
+                    this.localUUIDS.put(userName, offlinePlayer.getUniqueId());
+                    consumer.accept(offlinePlayer.getUniqueId());
+                    return;
+                }
+
+                // Get uuid from database
+                List<UserDTO> userDTOS = this.repositories.getTable(UserRepository.class).selectOptions(userName);
+                if (userDTOS.isEmpty()) {
+                    consumer.accept(null);
+                    return;
+                }
+
+                UserDTO userDTO = userDTOS.get(0);
+                this.localUUIDS.put(userName, userDTO.unique_id());
+                consumer.accept(userDTO.unique_id());
+            });
         });
     }
 }

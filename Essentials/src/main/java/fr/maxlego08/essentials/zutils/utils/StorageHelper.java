@@ -16,6 +16,8 @@ public class StorageHelper {
     protected final EssentialsPlugin plugin;
     protected final Map<UUID, User> users = new HashMap<>();
 
+    protected final Map<String, UUID> localUUIDS = new HashMap<>();
+
     public StorageHelper(EssentialsPlugin plugin) {
         this.plugin = plugin;
     }
@@ -27,6 +29,10 @@ public class StorageHelper {
     protected List<EconomyDTO> getLocalEconomyDTO(String userName) {
         Optional<User> optional = this.users.values().stream().filter(user -> user.getName().equalsIgnoreCase(userName)).findFirst();
         return optional.map(user -> user.getBalances().entrySet().stream().map(e -> new EconomyDTO(e.getKey(), e.getValue())).toList()).orElseGet(ArrayList::new);
+    }
+
+    protected Optional<UUID> getLocalUniqueId(String userName){
+        return this.users.values().stream().filter(user -> user.getName().equalsIgnoreCase(userName)).map(User::getUniqueId).findFirst();
     }
 
 }

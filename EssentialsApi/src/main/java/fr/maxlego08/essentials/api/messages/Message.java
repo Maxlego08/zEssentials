@@ -169,6 +169,8 @@ public enum Message {
             " &7- #99E0FF%economy-name-money% &f%economy-money%.",
             " &7- #99E0FF%economy-name-coins% &f%economy-coins%."
     ),
+
+    PLAYER_NOT_FOUND("&f%player% #FF0000was not found."),
     ;
 
     private String message;

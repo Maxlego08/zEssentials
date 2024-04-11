@@ -139,4 +139,33 @@ public class JsonStorage extends StorageHelper implements IStorage {
             consumer.accept(loadUser.getBalances().entrySet().stream().map(e -> new EconomyDTO(e.getKey(), e.getValue())).toList());
         });
     }
+
+    @Override
+    public void fetchUniqueId(String userName, Consumer<UUID> consumer) {
+
+        if (this.localUUIDS.containsKey(userName)) {
+            consumer.accept(this.localUUIDS.get(userName));
+            return;
+        }
+
+        async(() -> {
+            // User plugin cache first
+            getLocalUniqueId(userName).ifPresentOrElse(uuid -> {
+                this.localUUIDS.put(userName, uuid);
+                consumer.accept(uuid);
+            }, () -> {
+                // User server cache
+                OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayerIfCached(userName);
+                if (offlinePlayer != null) {
+                    this.localUUIDS.put(userName, offlinePlayer.getUniqueId());
+                    consumer.accept(offlinePlayer.getUniqueId());
+                    return;
+                }
+                // Try load offline player
+                offlinePlayer = Bukkit.getOfflinePlayer(userName);
+                this.localUUIDS.put(userName, offlinePlayer.getUniqueId());
+                consumer.accept(offlinePlayer.getUniqueId());
+            });
+        });
+    }
 }

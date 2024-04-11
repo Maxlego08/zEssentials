@@ -1,6 +1,7 @@
 prefix: "#03fcb6zEssentials #656665• "
 you: "you"
 trash: "&8Trash"
+player-not-found: "&f%player% #FF0000was not found."
 
 # Commands
 command-syntax-error: "#ff0000You must execute the command like this#656665: &f%syntax%"
@@ -50,6 +51,22 @@ command-player-weather-reset: "&7You just changed the weather to that of the ser
 command-player-weather-downfall: "&7You just put the rain on for yourself."
 command-player-time-reset: "&7You just changed the time to that of the server."
 command-player-time-change: "&7You’re here to change your time."
+
+# Economy
+command-economy-not-found: "#ff0000 Can’t find a economy with the name &f%name%#ff0000."
+command-economy-give-all-sender: "#99E0FFYou just gave &f%economyFormat% #99E0FFto the online players."
+command-economy-give-sender: "#99E0FFYou just gave &f%economyFormat% #99E0FFto the player &7%player%#99E0FF."
+command-economy-give-receiver: "#99E0FFYou have just received &f%economyFormat%."
+command-economy-set-sender: "#99E0FFYou just set &f%economyFormat% #99E0FFto the player &7%player%#99E0FF."
+command-economy-set-receiver: "#99E0FFYou have just been modified &f%economyFormat%."
+command-economy-take-sender: "#99E0FFYou just take &f%economyFormat% #99E0FFto the player &7%player%#99E0FF."
+command-economy-take-receiver: "#99E0FFYou have just lost &f%economyFormat%."
+command-economy-show-empty: "&f%player% #FF0000has no money."
+command-economy-show-info: "&7- #99E0FF%economy% &f%amount%."
+command-money:
+  - "#99E0FFYou have&8:"
+  - " &7- #99E0FF%economy-name-money% &f%economy-money%."
+  - " &7- #99E0FF%economy-name-coins% &f%economy-coins%."
 
 # Teleport commands
 command-tpa-error: "#ff0000You have already sent a request to #99E0FF%player%#ff0000."
@@ -117,6 +134,15 @@ description-tp: "Teleport to a player"
 description-tp-self: "Teleport a player to your location"
 description-player-weather: "Change your weather"
 description-player-time: "Change your time"
+description-money: "Show your money"
+description-eco: "Manages the server economies"
+description-eco-set: "Sets the specified player's balance to the specified amount of money"
+description-eco-take: "Takes the specified amount of money from the specified player"
+description-eco-give: "Gives the specified player the specified amount of money"
+description-eco-give-all: "Gives for all players the specified amount of money"
+description-eco-reset: "Resets the specified player's balance to the server's starting balance"
+description-eco-show: "Show player money"
+
 
 # Time format
 time-day: "%02d day %02d hour %02d minute %02d second"
