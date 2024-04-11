@@ -10,7 +10,6 @@ import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class CommandMoney extends VCommand {
     public CommandMoney(EssentialsPlugin plugin) {
@@ -25,15 +24,13 @@ public class CommandMoney extends VCommand {
 
         List<String> arguments = new ArrayList<>();
         EconomyProvider economyProvider = plugin.getEconomyProvider();
-        for (Map.Entry<String, BigDecimal> entry : this.user.getBalances().entrySet()) {
-
-            economyProvider.getEconomy(entry.getKey()).ifPresent(economy -> {
-                arguments.add("%economy-name-" + entry.getKey() + "%");
-                arguments.add(economy.getDisplayName());
-                arguments.add("%economy-" + entry.getKey() + "%");
-                arguments.add(economy.format(economyProvider.format(entry.getValue()), entry.getValue().longValue()));
-            });
-        }
+        economyProvider.getEconomies().forEach(economy -> {
+            BigDecimal amount = this.user.getBalance(economy);
+            arguments.add("%economy-name-" + economy.getName() + "%");
+            arguments.add(economy.getDisplayName());
+            arguments.add("%economy-" + economy.getName() + "%");
+            arguments.add(economy.format(economyProvider.format(amount), amount.longValue()));
+        });
 
         message(sender, Message.COMMAND_MONEY, arguments.toArray());
 

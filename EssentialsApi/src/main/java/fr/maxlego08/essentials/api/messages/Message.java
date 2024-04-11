@@ -9,6 +9,7 @@ public enum Message {
     // Rework message for a better system
 
     PREFIX("&8(&6zEssentials&8) "),
+    PLAYER_NOT_FOUND("&f%player% #FF0000was not found."),
 
     TIME_DAY("%02d %day% %02d %hour% %02d %minute% %02d %second%"),
     TIME_HOUR("%02d %hour% %02d minute(s) %02d %second%"),
@@ -137,6 +138,7 @@ public enum Message {
     DESCRIPTION_ECO_GIVE_ALL("Gives for all players the specified amount of money"),
     DESCRIPTION_ECO_RESET("Resets the specified player's balance to the server's starting balance"),
     DESCRIPTION_ECO_SHOW("Show player money"),
+    DESCRIPTION_PAY("Pays another player from your balance"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -170,7 +172,16 @@ public enum Message {
             " &7- #99E0FF%economy-name-coins% &f%economy-coins%."
     ),
 
-    PLAYER_NOT_FOUND("&f%player% #FF0000was not found."),
+    COMMAND_PAY_NEGATIVE("#ff0000Amount to pay must be positive."),
+    COMMAND_PAY_MIN("#ff0000The minimum amount you can pay is &f%amount%#ff0000."),
+    COMMAND_PAY_MAX("#ff0000The maximum amount you can pay is &f%amount%#ff0000."),
+    COMMAND_PAY_SENDER("#99E0FFYou just sent #F8F327%amount%#99E0FF to the player &f%player%#99E0FF."),
+    COMMAND_PAY_RECEIVER("&f%player% #99E0FFjust sent you #F8F327%amount%#99E0FF."),
+    COMMAND_PAY_DISABLE("#ff0000You can’t send %name%."),
+    COMMAND_PAY_SELF("#ff0000You cannot send money to yourself."),
+    COMMAND_PAY_NOT_ENOUGH("#ff0000You don't have enough money."),
+
+
     ;
 
     private String message;

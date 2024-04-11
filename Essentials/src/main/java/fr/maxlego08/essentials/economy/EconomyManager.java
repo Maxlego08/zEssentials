@@ -3,8 +3,10 @@ package fr.maxlego08.essentials.economy;
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.economy.EconomyProvider;
+import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.User;
+import fr.maxlego08.essentials.api.utils.NumberMultiplicationFormat;
 import fr.maxlego08.essentials.module.ZModule;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
@@ -23,7 +25,9 @@ import java.util.function.Consumer;
 public class EconomyManager extends ZModule implements EconomyProvider {
 
     private final List<Economy> economies = new ArrayList<>();
+    private final List<NumberMultiplicationFormat> numberFormatSellMultiplication = new ArrayList<>();
     private String defaultEconomy;
+    private BigDecimal minimumPayAmount;
 
     public EconomyManager(ZEssentialsPlugin plugin) {
         super(plugin, "economy");
@@ -47,8 +51,6 @@ public class EconomyManager extends ZModule implements EconomyProvider {
             this.economies.add(new ZEconomy(section, economyName));
             this.plugin.getLogger().info("Create economy " + economyName + " !");
         });
-
-        System.out.println(economies);
     }
 
     @Override
@@ -112,5 +114,26 @@ public class EconomyManager extends ZModule implements EconomyProvider {
         // Rework for more configuration about that
         DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
         return decimalFormat.format(number);
+    }
+
+    @Override
+    public List<NumberMultiplicationFormat> getNumberFormatSellMultiplication() {
+        return this.numberFormatSellMultiplication;
+    }
+
+    @Override
+    public Optional<NumberMultiplicationFormat> getMultiplication(String format) {
+        return this.numberFormatSellMultiplication.stream().filter(numberMultiplicationFormat -> numberMultiplicationFormat.format().equalsIgnoreCase(format)).findFirst();
+    }
+
+    @Override
+    public void pay(UUID fromUuid, String fromName, UUID toUuid, String toName, Economy economy, BigDecimal amount) {
+
+        perform(fromUuid, user -> user.withdraw(toUuid, economy, amount));
+        perform(toUuid, user -> user.deposit(fromUuid, economy, amount));
+
+        message(fromUuid, Message.COMMAND_PAY_SENDER, "%amount%", economy.format(this.format(amount), amount.longValue()), "%player%", toName);
+        message(toUuid, Message.COMMAND_PAY_RECEIVER, "%amount%", economy.format(this.format(amount), amount.longValue()), "%player%", fromName);
+
     }
 }

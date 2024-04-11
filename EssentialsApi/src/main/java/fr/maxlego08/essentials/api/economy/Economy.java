@@ -18,6 +18,12 @@ public interface Economy {
 
     BigDecimal getMaxValue();
 
+    BigDecimal getMinPayValue();
+
+    BigDecimal getMaxPayValue();
+
+    boolean isEnablePay();
+
     default String format(String priceAsString, long amount) {
         return getFormat().replace("%price%", priceAsString).replace("%s%", amount > 1 ? "s" : "");
     }

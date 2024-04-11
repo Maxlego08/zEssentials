@@ -14,15 +14,21 @@ public class ZEconomy implements Economy {
     private final boolean isVaultEconomy;
     private final BigDecimal minValue;
     private final BigDecimal maxValue;
+    private final BigDecimal minPayValue;
+    private final BigDecimal maxPayValue;
+    private final boolean isEnablePay;
 
     public ZEconomy(ConfigurationSection section, String name) {
         this.name = name;
-        this.displayName = section.getString("displayName", "default-money");
+        this.displayName = section.getString("display-name", "default-money");
         this.symbol = section.getString("symbol", "$");
         this.format = section.getString("format", "%price%$");
         this.isVaultEconomy = section.getBoolean("vault", false);
         this.minValue = new BigDecimal(section.getString("min", "0"));
         this.maxValue = new BigDecimal(section.getString("max", "999999999999999"));
+        this.minPayValue = new BigDecimal(section.getString("min-pay", "0.1"));
+        this.maxPayValue = new BigDecimal(section.getString("max-pay", "999999999999999"));
+        this.isEnablePay = section.getBoolean("enable-pay", true);
     }
 
     @Override
@@ -63,5 +69,20 @@ public class ZEconomy implements Economy {
     @Override
     public BigDecimal getMaxValue() {
         return this.maxValue;
+    }
+
+    @Override
+    public BigDecimal getMinPayValue() {
+        return this.minPayValue;
+    }
+
+    @Override
+    public BigDecimal getMaxPayValue() {
+        return this.maxPayValue;
+    }
+
+    @Override
+    public boolean isEnablePay() {
+        return this.isEnablePay;
     }
 }

@@ -1,10 +1,13 @@
 package fr.maxlego08.essentials.api.economy;
 
 import fr.maxlego08.essentials.api.modules.Module;
+import fr.maxlego08.essentials.api.utils.NumberMultiplicationFormat;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -27,4 +30,10 @@ public interface EconomyProvider extends Module {
     Economy getDefaultEconomy();
 
     String format(Number number);
+
+    List<NumberMultiplicationFormat> getNumberFormatSellMultiplication();
+
+    Optional<NumberMultiplicationFormat> getMultiplication(String format);
+
+    void pay(UUID fromUuid, String fromName, UUID toUuid, String toName, Economy economy, BigDecimal amount);
 }

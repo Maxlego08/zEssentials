@@ -8,12 +8,14 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public abstract class YamlLoader {
+public abstract class YamlLoader extends ZUtils {
 
     protected void loadYamlConfirmation(YamlConfiguration configuration) {
         for (Field field : this.getClass().getDeclaredFields()) {
@@ -28,6 +30,8 @@ public abstract class YamlLoader {
                     field.setInt(this, configuration.getInt(configKey));
                 } else if (field.getType().equals(String.class)) {
                     field.set(this, configuration.getString(configKey));
+                } else if (field.getType().equals(BigDecimal.class)) {
+                    field.set(this, new BigDecimal(configuration.getString(configKey, "0")));
                 } else if (field.getType().isEnum()) {
                     Class<? extends Enum> enumType = (Class<? extends Enum>) field.getType();
                     field.set(this, Enum.valueOf(enumType, configuration.getString(configKey).toUpperCase()));
@@ -74,6 +78,8 @@ public abstract class YamlLoader {
                     @SuppressWarnings("unchecked")
                     Class<? extends Enum> enumType = (Class<? extends Enum>) paramType;
                     value = Enum.valueOf(enumType, (String) value);
+                } else if (paramType == BigDecimal.class) {
+                    value = new BigDecimal(value.toString());
                 }
                 arguments[i] = value;
             }
