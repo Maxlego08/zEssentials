@@ -7,12 +7,10 @@ import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.economy.EconomyProvider;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
-import org.bukkit.OfflinePlayer;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 public class CommandEconomyReset extends VCommand {
 
@@ -31,7 +29,7 @@ public class CommandEconomyReset extends VCommand {
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
         String economyName = this.argAsString(0);
-        OfflinePlayer offlinePlayer = this.argAsOfflinePlayer(1);
+        String userName = this.argAsString(1);
         double amount = 0;
         boolean silent = this.argAsBoolean(2, false);
 
@@ -41,14 +39,18 @@ public class CommandEconomyReset extends VCommand {
             message(sender, Message.COMMAND_ECONOMY_NOT_FOUND, "%name%", economyName);
             return CommandResultType.DEFAULT;
         }
-        Economy economy = optional.get();
-        economyProvider.set(offlinePlayer.getUniqueId(), economy, new BigDecimal(amount));
 
-        String economyFormat = economy.format(economyProvider.format(amount), (long) amount);
-        message(sender, Message.COMMAND_ECONOMY_SET_SENDER, "%player%", offlinePlayer.getName(), "%economyFormat%", economyFormat);
-        if (offlinePlayer.isOnline() && !silent) {
-            message(offlinePlayer.getPlayer(), Message.COMMAND_ECONOMY_SET_RECEIVER, "%economyFormat%", economyFormat);
-        }
+        Economy economy = optional.get();
+        fetchUniqueId(userName, uniqueId -> {
+
+            economyProvider.set(uniqueId, economy, new BigDecimal(0));
+
+            String economyFormat = economy.format(economyProvider.format(0), 0);
+            message(sender, Message.COMMAND_ECONOMY_SET_SENDER, "%player%", userName, "%economyFormat%", economyFormat);
+            if (!silent) {
+                message(uniqueId, Message.COMMAND_ECONOMY_SET_RECEIVER, "%economyFormat%", economyFormat);
+            }
+        });
 
         return CommandResultType.SUCCESS;
     }
