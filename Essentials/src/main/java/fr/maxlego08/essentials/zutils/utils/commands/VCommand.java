@@ -8,6 +8,7 @@ import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.commands.Tab;
 import fr.maxlego08.essentials.api.commands.TabCompletion;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.modules.Module;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import org.bukkit.command.CommandSender;
@@ -36,6 +37,7 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
     protected Player player;
     protected User user;
     protected Configuration configuration;
+    protected Class<? extends Module> module;
     private boolean consoleCanUse = true;
     private boolean ignoreParent = false;
     private boolean ignoreArgs = false;
@@ -49,6 +51,10 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
 
     public VCommand(EssentialsPlugin plugin) {
         this.plugin = plugin;
+    }
+
+    public void setModule(Class<? extends Module> module) {
+        this.module = module;
     }
 
     public boolean isExtendedArgs() {
@@ -364,6 +370,15 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
                         message(this.sender, Message.COOLDOWN, "%cooldown%", TimerBuilder.getStringTime(milliSeconds));
                         return CommandResultType.COOLDOWN;
                     }
+                }
+            }
+
+            if (this.module != null) {
+
+                Module module = this.plugin.getModuleManager().getModule(this.module);
+                if (!module.isEnable()) {
+                    message(sender, Message.MODULE_DISABLE, "%name%", module.getName());
+                    return CommandResultType.MODULE_DISABLE;
                 }
             }
 

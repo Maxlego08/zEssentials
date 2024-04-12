@@ -8,6 +8,7 @@ import fr.maxlego08.essentials.api.economy.EconomyProvider;
 import fr.maxlego08.essentials.api.economy.NumberMultiplicationFormat;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.user.User;
+import fr.maxlego08.essentials.economy.EconomyManager;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 
@@ -19,6 +20,7 @@ public class CommandPay extends VCommand {
 
     public CommandPay(EssentialsPlugin plugin) {
         super(plugin);
+        this.setModule(EconomyManager.class);
         this.setPermission(Permission.ESSENTIALS_PAY);
         this.setDescription(Message.DESCRIPTION_PAY);
         this.onlyPlayers();

@@ -10,6 +10,7 @@ public enum Message {
 
     PREFIX("&8(&6zEssentials&8) "),
     PLAYER_NOT_FOUND("&f%player% #FF0000was not found."),
+    MODULE_DISABLE("#FF0000The &f%name% #FF0000module is disabled. You cannot use this command."),
 
     TIME_DAY("%02d %day% %02d %hour% %02d %minute% %02d %second%"),
     TIME_HOUR("%02d %hour% %02d minute(s) %02d %second%"),

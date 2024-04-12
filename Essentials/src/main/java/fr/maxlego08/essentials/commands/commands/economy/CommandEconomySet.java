@@ -6,6 +6,7 @@ import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.economy.EconomyProvider;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.economy.EconomyManager;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 
 import java.math.BigDecimal;
@@ -18,6 +19,7 @@ public class CommandEconomySet extends VCommand {
 
     public CommandEconomySet(EssentialsPlugin plugin) {
         super(plugin);
+        this.setModule(EconomyManager.class);
         this.setPermission(Permission.ESSENTIALS_ECO_SET);
         this.setDescription(Message.DESCRIPTION_ECO_SET);
         this.addSubCommand("set");

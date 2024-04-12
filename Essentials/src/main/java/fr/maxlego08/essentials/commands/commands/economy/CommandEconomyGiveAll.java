@@ -6,6 +6,7 @@ import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.economy.EconomyProvider;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.economy.EconomyManager;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 import org.bukkit.Bukkit;
 
@@ -19,6 +20,7 @@ public class CommandEconomyGiveAll extends VCommand {
 
     public CommandEconomyGiveAll(EssentialsPlugin plugin) {
         super(plugin);
+        this.setModule(EconomyManager.class);
         this.setPermission(Permission.ESSENTIALS_ECO_GIVE_ALL);
         this.setDescription(Message.DESCRIPTION_ECO_GIVE_ALL);
         this.addSubCommand("giveall");

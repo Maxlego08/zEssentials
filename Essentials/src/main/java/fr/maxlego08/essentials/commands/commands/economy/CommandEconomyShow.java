@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.economy.EconomyProvider;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.economy.EconomyManager;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 
 public class CommandEconomyShow extends VCommand {
@@ -12,6 +13,7 @@ public class CommandEconomyShow extends VCommand {
 
     public CommandEconomyShow(EssentialsPlugin plugin) {
         super(plugin);
+        this.setModule(EconomyManager.class);
         this.setPermission(Permission.ESSENTIALS_ECO_SHOW);
         this.setDescription(Message.DESCRIPTION_ECO_SHOW);
         this.addSubCommand("show", "s");

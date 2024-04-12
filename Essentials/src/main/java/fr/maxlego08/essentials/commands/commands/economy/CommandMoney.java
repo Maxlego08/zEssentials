@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.economy.EconomyProvider;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.economy.EconomyManager;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 
 import java.math.BigDecimal;
@@ -14,6 +15,7 @@ import java.util.List;
 public class CommandMoney extends VCommand {
     public CommandMoney(EssentialsPlugin plugin) {
         super(plugin);
+        this.setModule(EconomyManager.class);
         this.setPermission(Permission.ESSENTIALS_MONEY);
         this.setDescription(Message.DESCRIPTION_MONEY);
         this.onlyPlayers();
