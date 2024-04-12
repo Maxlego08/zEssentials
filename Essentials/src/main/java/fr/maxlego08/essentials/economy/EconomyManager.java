@@ -121,11 +121,21 @@ public class EconomyManager extends ZModule implements EconomyProvider {
 
     @Override
     public String format(Number number) {
-        return switch (this.priceFormat) {
+        return this.format(this.priceFormat, number);
+    }
+
+    @Override
+    public String format(PriceFormat priceFormat, Number number) {
+        return switch (priceFormat) {
             case PRICE_WITH_REDUCTION -> getDisplayBalance(number);
             case PRICE_WITH_DECIMAL_FORMAT -> decimalFormat.format(number);
             default -> number.toString();
         };
+    }
+
+    @Override
+    public String format(Economy economy, Number number) {
+        return economy.format(format(economy.getPriceFormat(), number), number.longValue());
     }
 
     protected String getDisplayBalance(Number number) {
@@ -162,8 +172,8 @@ public class EconomyManager extends ZModule implements EconomyProvider {
         perform(fromUuid, user -> user.withdraw(toUuid, economy, amount));
         perform(toUuid, user -> user.deposit(fromUuid, economy, amount));
 
-        message(fromUuid, Message.COMMAND_PAY_SENDER, "%amount%", economy.format(this.format(amount), amount.longValue()), "%player%", toName);
-        message(toUuid, Message.COMMAND_PAY_RECEIVER, "%amount%", economy.format(this.format(amount), amount.longValue()), "%player%", fromName);
+        message(fromUuid, Message.COMMAND_PAY_SENDER, "%amount%", this.format(economy, amount), "%player%", toName);
+        message(toUuid, Message.COMMAND_PAY_RECEIVER, "%amount%", this.format(economy, amount), "%player%", fromName);
     }
 
     @Override

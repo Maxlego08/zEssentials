@@ -5,9 +5,9 @@ import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.economy.EconomyProvider;
+import fr.maxlego08.essentials.api.economy.NumberMultiplicationFormat;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.user.User;
-import fr.maxlego08.essentials.api.economy.NumberMultiplicationFormat;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 
@@ -64,12 +64,12 @@ public class CommandPay extends VCommand {
         }
 
         if (amount.compareTo(economy.getMinPayValue()) < 0) {
-            message(sender, Message.COMMAND_PAY_MIN, "%amount%", economy.format(economyProvider.format(economy.getMinPayValue()), economy.getMinPayValue().longValue()));
+            message(sender, Message.COMMAND_PAY_MIN, "%amount%", economyProvider.format(economy, economy.getMinPayValue()));
             return CommandResultType.DEFAULT;
         }
 
         if (amount.compareTo(economy.getMaxPayValue()) > 0) {
-            message(sender, Message.COMMAND_PAY_MAX, "%amount%", economy.format(economyProvider.format(economy.getMaxPayValue()), economy.getMaxPayValue().longValue()));
+            message(sender, Message.COMMAND_PAY_MAX, "%amount%", economyProvider.format(economy, economy.getMaxPayValue()));
             return CommandResultType.DEFAULT;
         }
 

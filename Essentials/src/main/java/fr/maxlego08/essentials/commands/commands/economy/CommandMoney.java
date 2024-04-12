@@ -29,7 +29,7 @@ public class CommandMoney extends VCommand {
             arguments.add("%economy-name-" + economy.getName() + "%");
             arguments.add(economy.getDisplayName());
             arguments.add("%economy-" + economy.getName() + "%");
-            arguments.add(economy.format(economyProvider.format(amount), amount.longValue()));
+            arguments.add(economyProvider.format(economy, amount));
         });
 
         message(sender, Message.COMMAND_MONEY, arguments.toArray());

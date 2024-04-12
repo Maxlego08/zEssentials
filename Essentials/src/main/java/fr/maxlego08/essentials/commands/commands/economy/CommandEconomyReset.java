@@ -45,7 +45,7 @@ public class CommandEconomyReset extends VCommand {
 
             economyProvider.set(uniqueId, economy, new BigDecimal(0));
 
-            String economyFormat = economy.format(economyProvider.format(0), 0);
+            String economyFormat = economyProvider.format(economy, amount);
             message(sender, Message.COMMAND_ECONOMY_SET_SENDER, "%player%", userName, "%economyFormat%", economyFormat);
             if (!silent) {
                 message(uniqueId, Message.COMMAND_ECONOMY_SET_RECEIVER, "%economyFormat%", economyFormat);

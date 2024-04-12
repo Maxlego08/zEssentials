@@ -33,7 +33,7 @@ public class CommandEconomyShow extends VCommand {
 
             economies.forEach(economyDTO -> {
                 economyProvider.getEconomy(economyDTO.economy_name()).ifPresentOrElse(economy -> {
-                    String economyFormat = economy.format(economyProvider.format(economyDTO.amount()), economyDTO.amount().longValue());
+                    String economyFormat = economyProvider.format(economy,  economyDTO.amount());
                     message(sender, Message.COMMAND_ECONOMY_SHOW_INFO, "%economy%", economy.getDisplayName(), "%amount%", economyFormat);
                 }, () -> {
                     message(sender, Message.COMMAND_ECONOMY_SHOW_INFO, "%economy%", economyDTO.economy_name(), "%amount%", economyProvider.format(economyDTO.amount()));

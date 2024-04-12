@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.economy;
 
 import fr.maxlego08.essentials.api.economy.Economy;
+import fr.maxlego08.essentials.api.economy.PriceFormat;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.math.BigDecimal;
@@ -19,6 +20,7 @@ public class ZEconomy implements Economy {
     private final boolean isEnablePay;
     private final boolean isEnableConfirmInventory;
     private final BigDecimal minConfirmInventory;
+    private final PriceFormat priceFormat;
 
     public ZEconomy(ConfigurationSection section, String name) {
         this.name = name;
@@ -33,6 +35,7 @@ public class ZEconomy implements Economy {
         this.isEnablePay = section.getBoolean("enable-pay", true);
         this.isEnableConfirmInventory = section.getBoolean("enable-confirm-inventory", false);
         this.minConfirmInventory = new BigDecimal(section.getString("min-confirm-inventory", "0"));
+        this.priceFormat = PriceFormat.valueOf(section.getString("price-format", "PRICE_RAW").toUpperCase());
     }
 
     @Override
@@ -98,5 +101,10 @@ public class ZEconomy implements Economy {
     @Override
     public boolean isEnableConfirmInventory() {
         return this.isEnableConfirmInventory;
+    }
+
+    @Override
+    public PriceFormat getPriceFormat() {
+        return this.priceFormat;
     }
 }

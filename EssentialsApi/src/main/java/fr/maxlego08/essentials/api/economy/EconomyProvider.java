@@ -29,6 +29,10 @@ public interface EconomyProvider extends Module {
 
     String format(Number number);
 
+    String format(PriceFormat priceFormat, Number number);
+
+    String format(Economy economy, Number number);
+
     List<NumberMultiplicationFormat> getNumberFormatSellMultiplication();
 
     Optional<NumberMultiplicationFormat> getMultiplication(String format);

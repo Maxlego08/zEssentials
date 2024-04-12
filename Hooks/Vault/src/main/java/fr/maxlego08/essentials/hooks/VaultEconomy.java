@@ -45,7 +45,7 @@ public class VaultEconomy implements Economy {
 
     @Override
     public String format(double amount) {
-        return getEconomy().format(this.essentialsPlugin.getEconomyProvider().format(amount), (long) amount);
+        return this.essentialsPlugin.getEconomyProvider().format(getEconomy(), amount);
     }
 
     @Override

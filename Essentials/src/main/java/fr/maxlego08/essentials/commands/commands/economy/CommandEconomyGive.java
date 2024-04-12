@@ -46,7 +46,7 @@ public class CommandEconomyGive extends VCommand {
 
             economyProvider.deposit(uniqueId, economy, new BigDecimal(amount));
 
-            String economyFormat = economy.format(economyProvider.format(amount), (long) amount);
+            String economyFormat = economyProvider.format(economy, amount);
             message(sender, Message.COMMAND_ECONOMY_GIVE_SENDER, "%player%", userName, "%economyFormat%", economyFormat);
             if (!silent) {
                 message(uniqueId, Message.COMMAND_ECONOMY_GIVE_RECEIVER, "%economyFormat%", economyFormat);

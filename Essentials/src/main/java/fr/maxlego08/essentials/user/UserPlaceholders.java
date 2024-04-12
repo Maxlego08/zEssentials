@@ -27,7 +27,7 @@ public class UserPlaceholders implements PlaceholderRegister {
             User user = iStorage.getUser(player.getUniqueId());
             Economy economy = user.getTargetEconomy();
             BigDecimal decimal = user.getTargetDecimal();
-            return economy == null || decimal == null ? "0" : economy.format(economyProvider.format(decimal), decimal.longValue());
+            return economy == null || decimal == null ? "0" : economyProvider.format(economy, decimal);
         });
 
     }

@@ -46,7 +46,7 @@ public class CommandEconomySet extends VCommand {
         fetchUniqueId(userName, uniqueId -> {
             economyProvider.set(uniqueId, economy, new BigDecimal(amount));
 
-            String economyFormat = economy.format(economyProvider.format(amount), (long) amount);
+            String economyFormat = economyProvider.format(economy, amount);
             message(sender, Message.COMMAND_ECONOMY_SET_SENDER, "%player%", userName, "%economyFormat%", economyFormat);
 
             if (!silent) {

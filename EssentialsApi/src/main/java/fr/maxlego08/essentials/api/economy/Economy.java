@@ -28,6 +28,8 @@ public interface Economy {
 
     boolean isEnableConfirmInventory();
 
+    PriceFormat getPriceFormat();
+
     default String format(String priceAsString, long amount) {
         return getFormat().replace("%price%", priceAsString).replace("%s%", amount > 1 ? "s" : "");
     }

@@ -41,7 +41,7 @@ public class CommandEconomyGiveAll extends VCommand {
             return CommandResultType.DEFAULT;
         }
         Economy economy = optional.get();
-        String economyFormat = economy.format(economyProvider.format(amount), (long) amount);
+        String economyFormat = economyProvider.format(economy, amount);
         Bukkit.getOnlinePlayers().forEach(onlinePlayer -> {
             economyProvider.deposit(player.getUniqueId(), economy, new BigDecimal(amount));
             if (!silent) {
