@@ -112,6 +112,8 @@ command-world-teleport-self: "&aYou have just been teleported into the world &f%
 command-world-teleport-other: "&aYou just teleported the player &f%player% &ain the world &f%world%&a."
 command-tp: "&7You just teleport to the player #34cfe0%player%&f."
 command-tp-self: "&7You just teleported #34cfe0%player%&7 to your position."
+command-back: "&7Returning to previous location."
+command-back-error: "#ff0000You have no last location. Impossible to go back."
 
 
 # First join
@@ -176,6 +178,7 @@ description-grindstone: "Open a grind stone"
 description-loom: "Open a loom"
 description-stonecutter: "Open a stone cutter"
 description-smithingtable: "Open a smithing table"
+description-back: "Teleport to your previous location"
 
 
 # Time format

@@ -41,6 +41,8 @@ public interface User {
 
     void removeTeleportRequest(User user);
 
+    void teleportNow(Location location);
+
     void teleport(Location location);
 
     boolean hasPermission(Permission permission);

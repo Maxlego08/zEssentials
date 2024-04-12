@@ -10,7 +10,6 @@ import fr.maxlego08.essentials.module.modules.TeleportationModule;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import org.bukkit.Location;
 
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ZTeleportRequest extends ZUtils implements TeleportRequest {
@@ -104,7 +103,7 @@ public class ZTeleportRequest extends ZUtils implements TeleportRequest {
             location.setPitch(playerLocation.getPitch());
         }
 
-        this.fromUser.teleport(location);
+        this.fromUser.teleportNow(location);
         this.fromUser.removeTeleportRequest(this.toUser);
 
         message(this.fromUser, Message.TELEPORT_SUCCESS);

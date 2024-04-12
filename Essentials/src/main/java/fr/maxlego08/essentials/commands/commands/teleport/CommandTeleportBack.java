@@ -6,25 +6,26 @@ import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.module.modules.TeleportationModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
-import org.bukkit.entity.Player;
 
-public class CommandTeleportHere extends VCommand {
+public class CommandTeleportBack extends VCommand {
 
-    public CommandTeleportHere(EssentialsPlugin plugin) {
+    public CommandTeleportBack(EssentialsPlugin plugin) {
         super(plugin);
         this.setModule(TeleportationModule.class);
-        this.setPermission(Permission.ESSENTIALS_TP_HERE);
-        this.setDescription(Message.DESCRIPTION_TP_SELF);
-        this.addRequireArg("player");
+        this.setPermission(Permission.ESSENTIALS_BACK);
+        this.setDescription(Message.DESCRIPTION_BACK);
         this.onlyPlayers();
     }
 
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
-        Player targetPlayer = this.argAsPlayer(0);
-        getUser(targetPlayer).teleportNow(player.getLocation());
-        message(this.sender, Message.COMMAND_TP_SELF, targetPlayer);
+        if (this.user.getLastLocation() == null) {
+            message(this.sender, Message.COMMAND_BACK_ERROR);
+            return CommandResultType.DEFAULT;
+        }
+        this.user.teleport(user.getLastLocation());
+        message(this.sender, Message.COMMAND_BACK);
 
         return CommandResultType.SUCCESS;
     }

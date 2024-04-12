@@ -1,5 +1,6 @@
 package fr.maxlego08.essentials.user;
 
+import com.tcoded.folialib.impl.ServerImplementation;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
@@ -24,6 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ZUser extends ZUtils implements User {
 
@@ -153,8 +155,63 @@ public class ZUser extends ZUtils implements User {
     }
 
     @Override
-    public void teleport(Location location) {
+    public void teleportNow(Location location) {
+        this.setLastLocation();
         this.plugin.getScheduler().teleportAsync(this.getPlayer(), location);
+    }
+
+    @Override
+    public void teleport(Location location) {
+
+        TeleportationModule teleportationModule = this.plugin.getModuleManager().getModule(TeleportationModule.class);
+        Location playerLocation = getPlayer().getLocation();
+        AtomicInteger atomicInteger = new AtomicInteger(teleportationModule.getTeleportationDelay(getPlayer()));
+
+        if (teleportationModule.isTeleportDelayBypass() && this.hasPermission(Permission.ESSENTIALS_TELEPORT_BYPASS)) {
+            this.teleport(teleportationModule, location);
+            return;
+        }
+
+        ServerImplementation serverImplementation = this.plugin.getScheduler();
+        serverImplementation.runAtLocationTimer(location, wrappedTask -> {
+
+            if (!same(playerLocation, getPlayer().getLocation())) {
+
+                message(this, Message.TELEPORT_MOVE);
+                wrappedTask.cancel();
+                return;
+            }
+
+            int currentSecond = atomicInteger.getAndDecrement();
+
+            if (!this.isOnline()) {
+                wrappedTask.cancel();
+                return;
+            }
+
+            if (currentSecond == 0) {
+
+                wrappedTask.cancel();
+                this.teleport(teleportationModule, location);
+            } else {
+
+                message(this, Message.TELEPORT_MESSAGE, "%seconds%", currentSecond);
+            }
+
+        }, 1, 20);
+
+    }
+
+    private void teleport(TeleportationModule teleportationModule, Location toLocation) {
+        Location location = getPlayer().isFlying() ? toLocation : teleportationModule.isTeleportSafety() ? toSafeLocation(toLocation) : toLocation;
+
+        if (teleportationModule.isTeleportToCenter()) {
+            location = location.getBlock().getLocation().add(0.5, 0, 0.5);
+            location.setYaw(toLocation.getYaw());
+            location.setPitch(toLocation.getPitch());
+        }
+
+        this.teleportNow(location);
     }
 
     @Override
@@ -312,11 +369,6 @@ public class ZUser extends ZUtils implements User {
     }
 
     @Override
-    public void setLastLocation(Location location) {
-        this.lastLocation = location;
-    }
-
-    @Override
     public void setLastLocation() {
         this.lastLocation = this.getPlayer().getLocation().clone();
         this.getStorage().upsertUser(this);
@@ -325,5 +377,10 @@ public class ZUser extends ZUtils implements User {
     @Override
     public Location getLastLocation() {
         return this.lastLocation;
+    }
+
+    @Override
+    public void setLastLocation(Location location) {
+        this.lastLocation = location;
     }
 }

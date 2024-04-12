@@ -85,6 +85,8 @@ public enum Message {
     COMMAND_TP_CANCEL_RECEIVER("&f%player% #ff0000cancelled their teleport request to you."),
     COMMAND_TP("&7You just teleport to the player #34cfe0%player%&f."),
     COMMAND_TP_SELF("&7You just teleported #34cfe0%player%&7 to your position."),
+    COMMAND_BACK("&7Returning to previous location."),
+    COMMAND_BACK_ERROR("#ff0000You have no last location. Impossible to go back."),
 
     COMMAND_MORE_ERROR("&cYou cannot make this order in item in hand."),
     COMMAND_MORE_SUCCESS("&7You just put your item to &f64&7."),
@@ -119,6 +121,7 @@ public enum Message {
     DESCRIPTION_SPEED("Change player speed"),
     DESCRIPTION_TPA("Teleport to a player"),
     DESCRIPTION_TP("Teleport to a player"),
+    DESCRIPTION_BACK("Teleport to your previous location"),
     DESCRIPTION_TP_SELF("Teleport a player to your location"),
     DESCRIPTION_TPA_ACCEPT("Accept a teleportation request"),
     DESCRIPTION_TPA_DENY("Denied a teleportation request"),
