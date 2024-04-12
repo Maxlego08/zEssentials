@@ -208,6 +208,7 @@ public enum Message {
     ),
 
     COMMAND_SET_SPAWN("&fYou just set the spawn location."),
+    COMMAND_SPAWN_NOT_DEFINE("&cThe spawn does not exist. Please contact an administrator."),
 
     ;
 

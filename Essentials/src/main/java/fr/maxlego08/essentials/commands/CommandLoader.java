@@ -14,6 +14,7 @@ import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeCreativ
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeSpectator;
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeSurvival;
 import fr.maxlego08.essentials.commands.commands.spawn.CommandSetSpawn;
+import fr.maxlego08.essentials.commands.commands.spawn.CommandSpawn;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleport;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportAccept;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportBack;
@@ -114,6 +115,7 @@ public class CommandLoader {
         register("pay", CommandPay.class);
 
         register("setspawn", CommandSetSpawn.class);
+        register("spawn", CommandSpawn.class);
 
 
         File file = new File(plugin.getDataFolder(), "commands.yml");

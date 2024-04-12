@@ -54,3 +54,4 @@ stonecutter: true
 smithingtable: true
 back: true
 setspawn: true
+spawn: true
