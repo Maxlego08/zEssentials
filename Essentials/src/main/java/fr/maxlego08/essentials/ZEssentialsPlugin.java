@@ -35,12 +35,15 @@ import fr.maxlego08.essentials.storage.adapter.UserTypeAdapter;
 import fr.maxlego08.essentials.user.UserPlaceholders;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.ZPlugin;
+import fr.maxlego08.essentials.zutils.utils.CommandMarkdownGenerator;
 import fr.maxlego08.menu.api.ButtonManager;
 import fr.maxlego08.menu.api.InventoryManager;
 import fr.maxlego08.menu.api.pattern.PatternManager;
 import fr.maxlego08.menu.button.loader.NoneLoader;
 import org.bukkit.Location;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Modifier;
 import java.util.List;
 import java.util.UUID;
@@ -104,6 +107,8 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
         this.registerListener(new PlayerListener(this));
         this.registerPlaceholder(UserPlaceholders.class);
+
+        this.generateDocs();
     }
 
     @Override
@@ -189,11 +194,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     }
 
     private GsonBuilder getGsonBuilder() {
-        return new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().serializeNulls()
-                .excludeFieldsWithModifiers(Modifier.TRANSIENT, Modifier.VOLATILE)
-                .registerTypeAdapter(Location.class, new LocationAdapter(this))
-                .registerTypeAdapter(User.class, new UserTypeAdapter(this))
-                .registerTypeAdapter(ZUser.class, new UserTypeAdapter(this));
+        return new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().serializeNulls().excludeFieldsWithModifiers(Modifier.TRANSIENT, Modifier.VOLATILE).registerTypeAdapter(Location.class, new LocationAdapter(this)).registerTypeAdapter(User.class, new UserTypeAdapter(this)).registerTypeAdapter(ZUser.class, new UserTypeAdapter(this));
     }
 
     private void registerPlaceholder(Class<? extends PlaceholderRegister> placeholderClass) {
@@ -228,5 +229,18 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     @Override
     public UUID getConsoleUniqueId() {
         return this.consoleUniqueId;
+    }
+
+    private void generateDocs() {
+        CommandMarkdownGenerator generator = new CommandMarkdownGenerator();
+
+        File file = new File(getDataFolder(), "commands.md");
+        try {
+            generator.generateMarkdownFile(this.commandManager.getCommands(), file.toPath());
+            getLogger().info("Markdown file successfully generated!");
+        } catch (IOException exception) {
+            getLogger().severe("Error while writing the file: " + exception.getMessage());
+            exception.printStackTrace();
+        }
     }
 }

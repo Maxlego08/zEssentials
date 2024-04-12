@@ -24,6 +24,7 @@ import fr.maxlego08.essentials.commands.commands.utils.CommandCompact;
 import fr.maxlego08.essentials.commands.commands.utils.CommandCraft;
 import fr.maxlego08.essentials.commands.commands.utils.CommandEnchanting;
 import fr.maxlego08.essentials.commands.commands.utils.CommandFeed;
+import fr.maxlego08.essentials.commands.commands.utils.CommandFly;
 import fr.maxlego08.essentials.commands.commands.utils.CommandGod;
 import fr.maxlego08.essentials.commands.commands.utils.CommandHat;
 import fr.maxlego08.essentials.commands.commands.utils.CommandHeal;
@@ -84,6 +85,7 @@ public class CommandLoader {
         register("invsee", CommandInvsee.class);
         register("compact", CommandCompact.class, "blocks");
         register("hat", CommandHat.class);
+        register("fly", CommandFly.class);
 
         register("tp", CommandTeleport.class);
         register("tphere", CommandTeleportHere.class, "s");

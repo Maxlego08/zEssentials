@@ -30,4 +30,6 @@ public interface EssentialsCommand {
     List<String> toTab(EssentialsPlugin plugin, CommandSender sender, String[] args);
 
     boolean isIgnoreArgs();
+
+    String getDescription();
 }

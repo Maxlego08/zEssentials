@@ -125,6 +125,7 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
         this.syntax = syntax;
     }
 
+    @Override
     public String getDescription() {
         return description;
     }
