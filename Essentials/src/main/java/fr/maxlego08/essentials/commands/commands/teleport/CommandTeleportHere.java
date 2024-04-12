@@ -11,7 +11,7 @@ public class CommandTeleportHere extends VCommand {
 
     public CommandTeleportHere(EssentialsPlugin plugin) {
         super(plugin);
-        this.setPermission(Permission.ESSENTIALS_TP);
+        this.setPermission(Permission.ESSENTIALS_TP_HERE);
         this.setDescription(Message.DESCRIPTION_TP_SELF);
         this.addRequireArg("player");
         this.onlyPlayers();

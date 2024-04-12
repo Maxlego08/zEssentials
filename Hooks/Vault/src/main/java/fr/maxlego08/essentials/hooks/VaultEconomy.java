@@ -1,6 +1,8 @@
 package fr.maxlego08.essentials.hooks;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.economy.EconomyProvider;
+import fr.maxlego08.essentials.api.storage.IStorage;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
@@ -8,6 +10,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.ServicePriority;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 public class VaultEconomy implements Economy {
@@ -20,7 +23,7 @@ public class VaultEconomy implements Economy {
     }
 
     private fr.maxlego08.essentials.api.economy.Economy getEconomy() {
-        return this.essentialsPlugin.getEconomyProvider().getDefaultEconomy();
+        return this.essentialsPlugin.getEconomyProvider().getVaultEconomy();
     }
 
     @Override
@@ -50,112 +53,135 @@ public class VaultEconomy implements Economy {
 
     @Override
     public String currencyNamePlural() {
-        return null;
+        return currencyNameSingular();
     }
 
     @Override
     public String currencyNameSingular() {
-        return null;
+        return getEconomy().getSymbol();
     }
 
     @Override
     public boolean hasAccount(String playerName) {
-        return false;
+        return true;
     }
 
     @Override
     public boolean hasAccount(OfflinePlayer player) {
-        return false;
+        return true;
     }
 
     @Override
     public boolean hasAccount(String playerName, String worldName) {
-        return false;
+        return true;
     }
 
     @Override
     public boolean hasAccount(OfflinePlayer player, String worldName) {
-        return false;
+        return true;
     }
 
     @Override
     public double getBalance(String playerName) {
+        this.essentialsPlugin.getLogger().severe("Player Name not supported for getBalance !");
         return 0;
     }
 
     @Override
     public double getBalance(OfflinePlayer player) {
-        return 0;
+        return this.essentialsPlugin.getStorageManager().getStorage().getUser(player.getUniqueId()).getBalance(getEconomy()).doubleValue();
     }
 
     @Override
     public double getBalance(String playerName, String world) {
-        return 0;
+        return getBalance(playerName);
     }
 
     @Override
     public double getBalance(OfflinePlayer player, String world) {
-        return 0;
+        return getBalance(player);
     }
 
     @Override
     public boolean has(String playerName, double amount) {
-        return false;
+        return getBalance(playerName) >= amount;
     }
 
     @Override
     public boolean has(OfflinePlayer player, double amount) {
-        return false;
+        return getBalance(player) >= amount;
     }
 
     @Override
     public boolean has(String playerName, String worldName, double amount) {
-        return false;
+        return has(playerName, amount);
     }
 
     @Override
     public boolean has(OfflinePlayer player, String worldName, double amount) {
-        return false;
+        return has(player, amount);
     }
 
     @Override
     public EconomyResponse withdrawPlayer(String playerName, double amount) {
-        return null;
+
+        IStorage iStorage = this.essentialsPlugin.getStorageManager().getStorage();
+        EconomyProvider economyProvider = this.essentialsPlugin.getEconomyProvider();
+        iStorage.fetchUniqueId(playerName, uuid -> {
+            if (uuid == null) return;
+            economyProvider.withdraw(uuid, getEconomy(), new BigDecimal(amount));
+        });
+
+        return new EconomyResponse(amount, 0, EconomyResponse.ResponseType.SUCCESS, "Yeah its work (i guess its async withdraw so idk maybe) !");
     }
 
     @Override
     public EconomyResponse withdrawPlayer(OfflinePlayer player, double amount) {
-        return null;
+
+        EconomyProvider economyProvider = this.essentialsPlugin.getEconomyProvider();
+        economyProvider.withdraw(player.getUniqueId(), getEconomy(), new BigDecimal(amount));
+        return new EconomyResponse(amount, 0, EconomyResponse.ResponseType.SUCCESS, "Yeah its work (i guess its async withdraw so idk maybe) !");
     }
 
     @Override
     public EconomyResponse withdrawPlayer(String playerName, String worldName, double amount) {
-        return null;
+        return withdrawPlayer(playerName, amount);
     }
 
     @Override
     public EconomyResponse withdrawPlayer(OfflinePlayer player, String worldName, double amount) {
-        return null;
+        return withdrawPlayer(player, amount);
     }
 
     @Override
     public EconomyResponse depositPlayer(String playerName, double amount) {
-        return null;
+
+        IStorage iStorage = this.essentialsPlugin.getStorageManager().getStorage();
+        EconomyProvider economyProvider = this.essentialsPlugin.getEconomyProvider();
+        iStorage.fetchUniqueId(playerName, uuid -> {
+            if (uuid == null) return;
+            economyProvider.deposit(uuid, getEconomy(), new BigDecimal(amount));
+        });
+
+        return new EconomyResponse(amount, 0, EconomyResponse.ResponseType.SUCCESS, "Yeah its work (i guess its async deposit so idk maybe) !");
     }
 
     @Override
     public EconomyResponse depositPlayer(OfflinePlayer player, double amount) {
-        return null;
+
+        EconomyProvider economyProvider = this.essentialsPlugin.getEconomyProvider();
+        economyProvider.deposit(player.getUniqueId(), getEconomy(), new BigDecimal(amount));
+        return new EconomyResponse(amount, 0, EconomyResponse.ResponseType.SUCCESS, "Yeah its work (i guess its async deposit so idk maybe) !");
     }
 
     @Override
     public EconomyResponse depositPlayer(String playerName, String worldName, double amount) {
-        return null;
+        return depositPlayer(playerName, amount);
     }
 
     @Override
     public EconomyResponse depositPlayer(OfflinePlayer player, String worldName, double amount) {
-        return null;
+        return depositPlayer(player, amount);
     }
 
     @Override
@@ -170,52 +196,52 @@ public class VaultEconomy implements Economy {
 
     @Override
     public EconomyResponse deleteBank(String name) {
-        return null;
+        return new EconomyResponse(0, 0, EconomyResponse.ResponseType.NOT_IMPLEMENTED, "no bank");
     }
 
     @Override
     public EconomyResponse bankBalance(String name) {
-        return null;
+        return new EconomyResponse(0, 0, EconomyResponse.ResponseType.NOT_IMPLEMENTED, "no bank");
     }
 
     @Override
     public EconomyResponse bankHas(String name, double amount) {
-        return null;
+        return new EconomyResponse(0, 0, EconomyResponse.ResponseType.NOT_IMPLEMENTED, "no bank");
     }
 
     @Override
     public EconomyResponse bankWithdraw(String name, double amount) {
-        return null;
+        return new EconomyResponse(0, 0, EconomyResponse.ResponseType.NOT_IMPLEMENTED, "no bank");
     }
 
     @Override
     public EconomyResponse bankDeposit(String name, double amount) {
-        return null;
+        return new EconomyResponse(0, 0, EconomyResponse.ResponseType.NOT_IMPLEMENTED, "no bank");
     }
 
     @Override
     public EconomyResponse isBankOwner(String name, String playerName) {
-        return null;
+        return new EconomyResponse(0, 0, EconomyResponse.ResponseType.NOT_IMPLEMENTED, "no bank");
     }
 
     @Override
     public EconomyResponse isBankOwner(String name, OfflinePlayer player) {
-        return null;
+        return new EconomyResponse(0, 0, EconomyResponse.ResponseType.NOT_IMPLEMENTED, "no bank");
     }
 
     @Override
     public EconomyResponse isBankMember(String name, String playerName) {
-        return null;
+        return new EconomyResponse(0, 0, EconomyResponse.ResponseType.NOT_IMPLEMENTED, "no bank");
     }
 
     @Override
     public EconomyResponse isBankMember(String name, OfflinePlayer player) {
-        return null;
+        return new EconomyResponse(0, 0, EconomyResponse.ResponseType.NOT_IMPLEMENTED, "no bank");
     }
 
     @Override
     public List<String> getBanks() {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
@@ -236,10 +262,5 @@ public class VaultEconomy implements Economy {
     @Override
     public boolean createPlayerAccount(OfflinePlayer player, String worldName) {
         return false;
-    }
-
-    private double getDoubleValue(final BigDecimal value) {
-        double amount = value.doubleValue();
-        return new BigDecimal(amount).compareTo(value) > 0 ? Math.nextAfter(amount, Double.NEGATIVE_INFINITY) : amount;
     }
 }

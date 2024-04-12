@@ -120,6 +120,11 @@ public class EconomyManager extends ZModule implements EconomyProvider {
     }
 
     @Override
+    public Economy getVaultEconomy() {
+        return this.economies.stream().filter(Economy::isVaultEconomy).findFirst().orElseGet(this::getDefaultEconomy);
+    }
+
+    @Override
     public String format(Number number) {
         return this.format(this.priceFormat, number);
     }

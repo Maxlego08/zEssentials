@@ -27,6 +27,8 @@ public interface EconomyProvider extends Module {
 
     Economy getDefaultEconomy();
 
+    Economy getVaultEconomy();
+
     String format(Number number);
 
     String format(PriceFormat priceFormat, Number number);

@@ -7,41 +7,82 @@
 # ███████╗╚█████╔╝╚█████╔╝██║░╚███║╚█████╔╝██║░╚═╝░██║░░░██║░░░
 # ╚══════╝░╚════╝░░╚════╝░╚═╝░░╚══╝░╚════╝░╚═╝░░░░░╚═╝░░░╚═╝░░░
 #
-#
+# Commands:
+# /economy (/eco) - essentials.eco.use - Manages the server economies
+# /economy give <economy> <player> <amount> [<silent>] - essentials.eco.give - Gives the specified player the specified amount of money
+# /economy giveall <economy> <amount> [<silent>] - essentials.eco.give.all - Gives for all players the specified amount of money
+# /economy take <economy> <player> <amount> [<silent>] - essentials.eco.take - Takes the specified amount of money from the specified player
+# /economy reset <economy> <player> [<silent>] - essentials.eco.reset - Resets the specified player's balance to the server's starting balance
+# /economy set <economy> <player> <amount> [<silent>] - essentials.eco.set - Sets the specified player's balance to the specified amount of money
+# /economy show <player> - essentials.eco.show - Show player money
+# /money (/balance) - essentials.money - Show your money
+# /pay <player> <amount> [<economy>] - essentials.pay - Pays another player from your balance
 #
 ########################################################################################################################
 
 enable: true
 
+# The economy that will be used by default.
 default-economy: "money"
 
+# List of available economies
 economies:
+  # Economy name
   money:
+    # Economy display name. This name will be used to be displayed in player messages whenever possible.
     display-name: Money
+    # Economy symbol
     symbol: "$"
+    # Economy format
     format: "%price%$"
+    # Should the economy be used for vault. Only one economy can work with vault.
     vault: true
+    # The minimum number possible with this economy.
     min: -99999999999999999999999999999999999999999999999999999999999999
+    # The maximum number possible with this economy.
     max: 99999999999999999999999999999999999999999999999999999999999999
+    # The minimum number for /pay command
     min-pay: 0.1
+    # The maximum number for /pay command
     max-pay: 999999999999999
+    # Enable the ability to use /pay command with this economy
     enable-pay: true
+    # Activate confirmation menu for /pay command. This menu will confirm that you really want to send money to the player
     enable-confirm-inventory: true
+    # The minimum number to display the confirmation inventory, below the command will run directly
     min-confirm-inventory: 10000000
+    # The format type of for numbers
+    price-format: PRICE_WITH_REDUCTION
 
+    # Economy name
   coins:
+    # Economy display name. This name will be used to be displayed in player messages whenever possible.
     display-name: Coins
+    # Economy symbol
     symbol: "⛁"
+    # Economy format
     format: "%price%⛁"
+    # Should the economy be used for vault. Only one economy can work with vault.
     vault: false
+    # The minimum number possible with this economy.
     min: 0
+    # The maximum number possible with this economy.
     max: 9999999999999999999999999
+    # The minimum number for /pay command
     min-pay: 0.1
+    # The maximum number for /pay command
     max-pay: 1000
+    # Enable the ability to use /pay command with this economy
     enable-pay: true
+    # Activate confirmation menu for /pay command. This menu will confirm that you really want to send money to the player
     enable-confirm-inventory: true
+    # The minimum number to display the confirmation inventory, below the command will run directly
     min-confirm-inventory: 0
+    # The format type of for numbers
+    price-format: PRICE_RAW
 
+# Set a number to use a format. For example, /pay Maxlego08 10k will become/pay Maxlego08 10000
+# Allows to multiply a number very simply
 number-format-sell-multiplication:
   - format: k
     multiplication: 1000
@@ -71,3 +112,31 @@ number-format-sell-multiplication:
     multiplication: 1000000000000000000000000000000000000000
   - format: tr
     multiplication: 1000000000000000000000000000000000000000000
+
+# Price format available
+# - PRICE_RAW
+# - PRICE_WITH_DECIMAL_FORMAT
+# - PRICE_WITH_REDUCTION
+price-format: PRICE_WITH_REDUCTION
+
+price-decimal-format: '#,###.##'
+
+# Documentation for String format: https://www.geeksforgeeks.org/java-string-format-method-with-examples/
+price-reductions:
+  - format: "" # Blank format to display text directly
+    maxAmount: 1000
+    # Add colors to text display, works with MiniMessage
+    display: "#2bd66f%amount%"
+  - format: "%.1fK"
+    maxAmount: 1000000
+    display: "#a3d14d%amount%"
+  - format: "%.1fM"
+    maxAmount: 1000000000
+    display: "#ebbc23%amount%"
+  - format: "%.1fB"
+    maxAmount: 1000000000000
+    display: "#eb4b23%amount%"
+  - format: "%.2fT"
+    maxAmount: 1000000000000000
+  - format: "%.2fQ"
+    maxAmount: 100000000000000000
