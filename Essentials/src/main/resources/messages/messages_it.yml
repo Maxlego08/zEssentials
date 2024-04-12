@@ -1,0 +1,150 @@
+# Plugin's prefix
+# Translation made by Melon-Oof
+prefix: "#03fcb6zEssentials #656665• "
+you: "Tu"
+#Trash can GUI title
+trash: "&8Cestino della Spazzatura"
+
+# Commands
+command-syntax-error: "#ff0000Devi eseguire il comando segunedo questo formato#656665: &f%syntax%"
+command-no-permission: "#ff0000Non puoi eseguire questo comando."
+command-no-console: "#ff0000Solo i giocatori possono eseguire questo comando."
+command-no-arg: "#ff0000Non è stato possible trovare il comando con questi argomenti."
+command-syntaxe-help: "&f%syntax% #656665» &7%description%"
+
+command-reload: "#00ff40Hai appena aggiornato la ocnfigurazione."
+command-essentials: "&ezEssentials&8, &eVersione &f%version%"
+
+
+# GameMode commands
+command-gamemode: "&fLa modalità&e %gamemode%&f è stata data a &b%player%&f."
+command-gamemode-invalid: "#ff0000Giocatore non valido."
+
+
+# Weather commands
+command-day: "&fHai fatto diventare &egiorno&f nel mondo &a%world%&f."
+command-night: "&ffHai fatto diventare &enightfall&f nel mondo &a%world%&f."
+command-sun: "&ffHai fatto diventare &esun&f nel mondo &a%world%&f."
+
+
+# Admins commands
+command-top: "&7Sei stato teletrasportato in &ecima&7."
+command-top-error: "#ff0000Non è stato possibile trovare un posizione sicura."
+command-speed-invalid: "#ff0000Giocatore non valido."
+command-speed-fly: "&7Hai impostato la velocità di &nvolo&r&7 a &f%speed%&7 per il giocatore &f%player%&7. &8(&f2 &7di default8)"
+command-speed-walk: "&Hai impostato la velocità di &ncammino&r&7 a &f%speed%&7 per il giocatore &f%player%&7. &8(&f2 &7di default&8)"
+command-speed-error: "#ff0000Devi immettere un numero tra &60#ff0000 e &610#ff0000. &8(&f2 &7by default&8)"
+command-god-enable: "&7Modalità God &aabilitata &7per &f%player%&a."
+command-god-disable: "&7Modalità God &cdisabilitata &7per &f%player%&a."
+command-heal-sender: "&7Hai appena curato &f%player%&7."
+command-heal-receiver: "&aSei appena stato curato."
+command-heal-error: "&cNon puoi curare qualcuno che è morto!"
+command-more-error: "&cYou cannot make this order in item in hand."
+command-more-success: "&7You just put your item to &f64&7."
+command-feed-sender: "&7Hai appena sfamato &f%player%&7."
+command-feed-receiver: "&aSei stato sfamato."
+command-feed-error: "&cNon puoi dar da mangiare a giocatori morti!"
+command-compact-type: "&cImpossibile comprimere &f%material%&c."
+command-compact-error: "&cNon hai &f%item%&c nel tuo inventario."
+command-compact-success: "&7Hai appena compresso #0EEA93x%amount% #99E0FF%item% &7in #0EEA93x%toAmount% #99E0FF%toItem%&7."
+command-hat-success: "&7Hai appena messo #0ef0ce%item% &7sulla tua testa."
+command-hat-error: "&cNon puoi mettere aria sulla tua testa."
+command-player-weather-reset: "&7Hai appena cambiato il tempo atmosferico a quello del server."
+command-player-weather-downfall: "&7Hai appena messo pioggia su di te."
+command-player-time-reset: "&7Hai appena cambiato il tempo aa quello del server."
+command-player-time-change: "&7Sei qui per cambiare il tuo tempo."
+
+# Teleport commands
+command-tpa-error: "#ff0000Hai gia mandato la richiesta a #99E0FF%player%#ff0000."
+command-tpa-error-same: "#ff0000Non puoi teletrasportarti a te stesso."
+command-tpa-error-offline: "#ff0000Non è stato possibile trovare il giocatore."
+command-tpa-error-to-late-empty: "#ff0000Non hai nessuna richiesta di teletrasporto."
+command-tpa-error-to-late-expire: "#ff0000La richiesta di teletrasporto è scaduta."
+command-tpa-sender:
+  - "#00FF00✔ #99E0FFMandata la richiesta a &f%displayName% #99E0FF."
+  - "  <hover:show_text:'#ff0000✘ Cancella richiesta'><click:run_command:/tpacancel %player%>#99E0FFType #00FF00/tpacancel %player%#99E0FF per cancellare la tua richiesta.</click></hover>"
+command-tpa-receiver:
+  - ""
+  - "#F8F327⚠ &f%displayName% #99E0FFha richiesto di teletrasportarsi da te!"
+  - "  <hover:show_text:'#00FF00✔ Accetta richiesta'><click:run_command:/tpaccept>#99E0FFScrivi #00FF00/tpaccept #99E0FFper #00FF00<u>accettare</u>#99E0FF.</click></hover>"
+  - "  <hover:show_text:'#ff0000✘ Rifiuta richiesta'><click:run_command:/tpdeny>#99E0FFScrivi #ff0000/tpdeny #99E0FFper #ff0000<u>rifiutare</u>#99E0FF.</click></hover>"
+  - ""
+  - "&7&oHai 60 secondi per accettare la richiesta di teletrasporto"
+command-tpa-accept-receiver: "#99E0FFHai appena #00FF00accettato #99E0FFla richiesta di teletrasporto da parte di #99E0FF%player%&a."
+command-tpa-accept-sender: "#99E0FF%player%&a ha appena accettato la tua richiesta di teletrasporto."
+command-teleport-ignore-player: "#ff0000Non puoi mandare la richiesta di teletrasporto a #99E0FF%player%#ff0000 ti ignorano."
+command-teleport-world: "#ff0000Devi stare nello stesso mondo per teletrasportarti."
+command-tpa-error-to-late: "#ff0000Non hai nessuna richiesta di teletrasporto al momento."
+command-tpa-error-to-late-2: "#ff0000La richiesta è scaduta."
+command-tp-deny-sender: "#00FF00✔ Rifiutata la richiesta di teletrasporto di &f%player% #00FF00."
+command-tp-deny-receiver: "#ff0000✘ &f%player% #ff0000ha rifiutato la tua richiesta di teletrasporto."
+command-tp-cancel-error: "#ff0000Non hai mandato nessuna richiesta di teletrasporto a &f%player%#ff0000."
+command-tp-cancel-sender: "#ff0000Cancellata #99E0FFla tua richiesta di teletrasporto a %player%."
+command-tp-cancel-receiver: "&f%player% #ff0000ha cancellato la sua richiesta di teletrasporto."
+command-world-teleport-self: "&aSei appena stato teletrasportato nel mondo &f%world%&a."
+command-world-teleport-other: "&aHai appena teletrasportato &f%player% &anel mondo &f%world%&a."
+command-tp: "&7Ti sei teletrasportato da #34cfe0%player%&f."
+command-tp-self: "&7Hai teletrasportato #34cfe0%player%&7 da te."
+
+
+# Command description
+description-reload: "Aggiorna i file di configurazione"
+description-gamemode: "Cambia la modalità di gioco"
+description-gamemode-creative: "Cambia la modalità di gioco a creativa"
+description-gamemode-survival: "Cambia la modalità di gioco a spettatore"
+description-gamemode-adventure: "Cambia la modalità di gioco ad avventura"
+description-gamemode-spectator: "Cambia la modalità di gioco spettatore"
+description-day: "Imposta giorno nel tuo mondo"
+description-night: "Imposta notte nel tuo mondo"
+description-sun: "Imposta il sole nel tuo mondo"
+description-top: "Teletrasportati in cima"
+description-speed: "Cambia la velocità di movimento"
+description-enderchest: "Apri la tua cassa dell'end"
+description-endersee: "Apri la cassa dell'end di un altro giocatore"
+description-tpa: "Teletrasportati a un giocatore"
+description-tpa-accept: "Accetta la richiesta di teletrasporto"
+description-tpa-deny: "Rifiuta la richiesta di teletrasporto"
+description-tpa-cancel: "Cancella una richiesta di teletrasporto"
+description-god: "Attiva o disattiva la modalità God"
+description-heal: "Cura un giocatore"
+description-more: "Ottieni più oggetti"
+description-tp-world: "Teletrasportati in un altro mondo"
+description-trash: "Apri il cestino della spazzatura"
+description-feed: "Sfama un giocatore"
+description-craft: "Apri il banco da lavoro"
+description-enchanting: "Apri l'enchantment table"
+description-invsee: "Apri l'inventario di un giocatore"
+description-compact: "Comprimi un materiale"
+description-hat: "Indossa un cappello"
+description-tp: "Teletrasportati a un giocatore"
+description-tp-self: "Teleport a player to your location"
+description-player-weather: "Change your weather"
+description-player-time: "Change your time"
+
+# Time format
+time-day: "%02d giorno %02d ora %02d minuto %02d secondo"
+time-hour: "%02d ora %02d minuto %02d secondo"
+time-minute: "%02d minuto %02d secondo"
+time-second: "%02d secondo"
+format-second: "secondo"
+format-seconds: "secondi"
+format-minute: "minuto"
+format-minutes: "minuti"
+format-hour: "ora"
+format-hours: "ore"
+format-day: "giorno"
+format-days: "giorni"
+cooldown: "#ff0000✘ Devi aspettare &f%cooldown% #ff0000prima di poter ripetere questa azione."
+
+
+# Teleportation
+teleport-move: "#ff0000Non devi muoverti!"
+teleport-message:
+  type: ACTION
+  message: "&7Verrai teletrasportato entro #0EEA93%seconds% &7secondi, non muoverti."
+teleport-error: "#ff0000Hai gia una richiesta di teletrasporto in corso!"
+teleport-success:
+  type: ACTION
+  message: "#99E0FFTi sei teletrasportato con successo!"
+teleport-damage: "#ff0000Teletrasporto annullato. Hai ricevuto danno."
+teleport-error-location: "#ff0000Non è stato possibile teletrasportarti in modo sicuro."
