@@ -9,10 +9,12 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 
 public class MessageLoader implements ConfigurationFile {
 
+    private final Locale locale = Locale.getDefault();
     private final ZEssentialsPlugin plugin;
     private final List<Message> loadedMessages = new ArrayList<>();
 
@@ -41,9 +43,13 @@ public class MessageLoader implements ConfigurationFile {
     private void copyFile(File file) {
         if (!file.exists()) {
 
-            // ToDo, detect the server country
+            String messageFileName = "messages";
+            String localMessageName = "messages_" + locale.getLanguage();
+            if (this.plugin.resourceExist("messages/" + localMessageName + ".yml")) {
+                messageFileName = localMessageName;
+            }
 
-            this.plugin.saveResource("messages/messages.yml", "messages.yml", false);
+            this.plugin.saveResource("messages/" + messageFileName + ".yml", "messages.yml", false);
         }
     }
 

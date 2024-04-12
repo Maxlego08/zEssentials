@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.user;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
+import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.OptionDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.messages.Message;
@@ -15,6 +16,7 @@ import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Nullable;
 
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -34,6 +36,8 @@ public class ZUser extends ZUtils implements User {
     private String name;
     private TeleportRequest teleportRequest;
     private User targetUser;
+    private BigDecimal targetAmount;
+    private Economy targetEconomy;
 
     public ZUser(EssentialsPlugin plugin, UUID uniqueId) {
         this.plugin = plugin;
@@ -61,7 +65,7 @@ public class ZUser extends ZUtils implements User {
 
     @Override
     public Player getPlayer() {
-        return Bukkit.getPlayer(this.name);
+        return Bukkit.getPlayer(this.uniqueId);
     }
 
     @Override
@@ -239,19 +243,39 @@ public class ZUser extends ZUtils implements User {
     }
 
     @Override
-    public void set(Economy economy, BigDecimal bigDecimal) {
-        this.balances.put(economy.getName(), bigDecimal);
+    public void set(UUID fromUuid, Economy economy, BigDecimal bigDecimal) {
+
+        BigDecimal fromAmount = this.balances.getOrDefault(economy.getName(), BigDecimal.ZERO);
+        BigDecimal toAmount = (bigDecimal.compareTo(economy.getMinValue()) < 0) ? economy.getMinValue() : (bigDecimal.compareTo(economy.getMaxValue()) > 0) ? economy.getMaxValue() : bigDecimal;
+        this.balances.put(economy.getName(), toAmount);
+
         getStorage().updateEconomy(this.uniqueId, economy, bigDecimal);
+        getStorage().storeTransactions(fromUuid, this.uniqueId, economy, fromAmount, toAmount);
     }
 
     @Override
-    public void withdraw(Economy economy, BigDecimal bigDecimal) {
-        set(economy, getBalance(economy).subtract(bigDecimal));
+    public void withdraw(UUID fromUuid, Economy economy, BigDecimal bigDecimal) {
+        set(fromUuid, economy, getBalance(economy).subtract(bigDecimal));
+    }
+
+    @Override
+    public void deposit(UUID fromUuid, Economy economy, BigDecimal bigDecimal) {
+        set(fromUuid, economy, getBalance(economy).add(bigDecimal));
+    }
+
+    @Override
+    public void set(Economy economy, BigDecimal bigDecimal) {
+        this.set(this.plugin.getConsoleUniqueId(), economy, bigDecimal);
     }
 
     @Override
     public void deposit(Economy economy, BigDecimal bigDecimal) {
-        set(economy, getBalance(economy).add(bigDecimal));
+        deposit(this.plugin.getConsoleUniqueId(), economy, bigDecimal);
+    }
+
+    @Override
+    public void withdraw(Economy economy, BigDecimal bigDecimal) {
+        withdraw(this.plugin.getConsoleUniqueId(), economy, bigDecimal);
     }
 
     @Override
@@ -262,5 +286,27 @@ public class ZUser extends ZUtils implements User {
     @Override
     public void setBalance(String key, BigDecimal value) {
         this.balances.put(key, value);
+    }
+
+    @Override
+    public void setEconomies(List<EconomyDTO> economyDTOS) {
+        economyDTOS.forEach(economyDTO -> this.balances.put(economyDTO.economy_name(), economyDTO.amount()));
+    }
+
+    @Override
+    public void setTargetPay(User user, Economy economy, BigDecimal bigDecimal) {
+        this.targetUser = user;
+        this.targetEconomy = economy;
+        this.targetAmount = bigDecimal;
+    }
+
+    @Override
+    public @Nullable Economy getTargetEconomy() {
+        return this.targetEconomy;
+    }
+
+    @Override
+    public @Nullable BigDecimal getTargetDecimal() {
+        return this.targetAmount;
     }
 }

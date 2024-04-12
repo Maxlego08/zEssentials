@@ -6,8 +6,8 @@ import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.economy.EconomyProvider;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.economy.EconomyManager;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
-import org.bukkit.OfflinePlayer;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -19,6 +19,7 @@ public class CommandEconomyGive extends VCommand {
 
     public CommandEconomyGive(EssentialsPlugin plugin) {
         super(plugin);
+        this.setModule(EconomyManager.class);
         this.setPermission(Permission.ESSENTIALS_ECO_GIVE);
         this.setDescription(Message.DESCRIPTION_ECO_GIVE);
         this.addSubCommand("give");
@@ -32,7 +33,7 @@ public class CommandEconomyGive extends VCommand {
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
         String economyName = this.argAsString(0);
-        OfflinePlayer offlinePlayer = this.argAsOfflinePlayer(1);
+        String userName = this.argAsString(1);
         double amount = this.argAsDouble(2);
         boolean silent = this.argAsBoolean(3, false);
 
@@ -43,13 +44,16 @@ public class CommandEconomyGive extends VCommand {
             return CommandResultType.DEFAULT;
         }
         Economy economy = optional.get();
-        economyProvider.deposit(offlinePlayer.getUniqueId(), economy, new BigDecimal(amount));
+        fetchUniqueId(userName, uniqueId -> {
 
-        String economyFormat = economy.format(economyProvider.format(amount), (long) amount);
-        message(sender, Message.COMMAND_ECONOMY_GIVE_SENDER, "%player%", offlinePlayer.getName(), "%economyFormat%", economyFormat);
-        if (offlinePlayer.isOnline() && !silent) {
-            message(offlinePlayer.getPlayer(), Message.COMMAND_ECONOMY_GIVE_RECEIVER, "%economyFormat%", economyFormat);
-        }
+            economyProvider.deposit(uniqueId, economy, new BigDecimal(amount));
+
+            String economyFormat = economyProvider.format(economy, amount);
+            message(sender, Message.COMMAND_ECONOMY_GIVE_SENDER, "%player%", userName, "%economyFormat%", economyFormat);
+            if (!silent) {
+                message(uniqueId, Message.COMMAND_ECONOMY_GIVE_RECEIVER, "%economyFormat%", economyFormat);
+            }
+        });
 
         return CommandResultType.SUCCESS;
     }

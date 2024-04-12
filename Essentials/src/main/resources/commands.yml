@@ -43,3 +43,6 @@ player-time: true
 tp: true
 tphere: true
 economy: true
+money: true
+pay: true
+fly: true

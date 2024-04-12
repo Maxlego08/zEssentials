@@ -2,10 +2,12 @@ package fr.maxlego08.essentials.api.user;
 
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
+import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.OptionDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Nullable;
 
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -51,15 +53,15 @@ public interface User {
 
     void setOption(Option option, boolean value);
 
-    void setOptions(List<OptionDTO> options);
-
     Map<Option, Boolean> getOptions();
+
+    void setOptions(List<OptionDTO> options);
 
     Map<String, Long> getCooldowns();
 
-    void setCooldown(String key, long expiredAt);
-
     void setCooldowns(List<CooldownDTO> cooldowns);
+
+    void setCooldown(String key, long expiredAt);
 
     boolean isCooldown(String key);
 
@@ -79,7 +81,21 @@ public interface User {
 
     void deposit(Economy economy, BigDecimal bigDecimal);
 
+    void set(UUID fromUuid, Economy economy, BigDecimal bigDecimal);
+
+    void withdraw(UUID fromUuid, Economy economy, BigDecimal bigDecimal);
+
+    void deposit(UUID fromUuid, Economy economy, BigDecimal bigDecimal);
+
     Map<String, BigDecimal> getBalances();
 
     void setBalance(String key, BigDecimal value);
+
+    void setEconomies(List<EconomyDTO> economyDTOS);
+
+    void setTargetPay(User user, Economy economy, BigDecimal bigDecimal);
+
+    @Nullable Economy getTargetEconomy();
+
+    @Nullable BigDecimal getTargetDecimal();
 }

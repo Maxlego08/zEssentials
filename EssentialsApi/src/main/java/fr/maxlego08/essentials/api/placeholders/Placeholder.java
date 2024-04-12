@@ -6,9 +6,9 @@ import org.bukkit.entity.Player;
 
 public interface Placeholder {
 
-    void register(String startWith, ReturnBiConsumer<Player, String, String> biConsumer);
+    void register(String startWith, ReturnBiConsumer<Player, String, String> biConsumer, String description);
 
-    void register(String startWith, ReturnConsumer<Player, String> biConsumer);
+    void register(String startWith, ReturnConsumer<Player, String> biConsumer, String description);
 
     String getPrefix();
 

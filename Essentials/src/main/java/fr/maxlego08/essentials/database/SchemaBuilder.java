@@ -44,7 +44,17 @@ public class SchemaBuilder implements Schema {
         return schema;
     }
 
+    public static Schema insert(String tableName, Consumer<Schema> consumer) {
+        Schema schema = new SchemaBuilder(tableName, SchemaType.INSERT);
+        consumer.accept(schema);
+        return schema;
+    }
+
     public static Schema select(String tableName) {
+        return new SchemaBuilder(tableName, SchemaType.SELECT);
+    }
+
+    public static Schema selectCount(String tableName) {
         return new SchemaBuilder(tableName, SchemaType.SELECT);
     }
 
@@ -56,6 +66,11 @@ public class SchemaBuilder implements Schema {
     public Schema where(String column, Object value) {
         this.whereConditions.add(new WhereCondition(column, value));
         return this;
+    }
+
+    @Override
+    public Schema where(String column, UUID value) {
+        return this.where(column, value.toString());
     }
 
     @Override
@@ -81,7 +96,22 @@ public class SchemaBuilder implements Schema {
     }
 
     @Override
+    public Schema decimal(String columnName) {
+        return this.decimal(columnName, 65, 30);
+    }
+
+    @Override
+    public Schema decimal(String columnName, int length, int decimal) {
+        return addColumn(new ColumnDefinition(columnName, "DECIMAL").setLength(length).setDecimal(decimal));
+    }
+
+    @Override
     public Schema string(String columnName, String value) {
+        return this.addColumn(new ColumnDefinition(columnName).setObject(value));
+    }
+
+    @Override
+    public Schema decimal(String columnName, Number value) {
         return this.addColumn(new ColumnDefinition(columnName).setObject(value));
     }
 
@@ -169,8 +199,10 @@ public class SchemaBuilder implements Schema {
         switch (this.schemaType) {
             case CREATE -> this.executeCreate(connection, databaseConfiguration, logger);
             case UPSERT -> this.executeUpsert(connection, databaseConfiguration, logger);
+            case INSERT -> this.executeInsert(connection, databaseConfiguration, logger);
             case DELETE -> this.executeDelete(connection, databaseConfiguration, logger);
-            case SELECT -> throw new IllegalArgumentException("Wrong method !");
+            case SELECT, SELECT_COUNT -> throw new IllegalArgumentException("Wrong method !");
+            default -> throw new Error("Schema type not found !");
         }
     }
 
@@ -203,11 +235,44 @@ public class SchemaBuilder implements Schema {
                 preparedStatement.setObject(i + 1, values.get(i));
             }
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new SQLException("Failed to execute upsert: " + e.getMessage(), e);
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            throw new SQLException("Failed to execute upsert: " + exception.getMessage(), exception);
         }
 
+    }
+
+    private void executeInsert(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
+
+        StringBuilder insertQuery = new StringBuilder("INSERT INTO " + this.tableName + " (");
+        StringBuilder valuesQuery = new StringBuilder("VALUES (");
+
+        List<Object> values = new ArrayList<>();
+
+        for (int i = 0; i < this.columns.size(); i++) {
+            ColumnDefinition columnDefinition = this.columns.get(i);
+            insertQuery.append(i > 0 ? ", " : "").append(columnDefinition.getName());
+            valuesQuery.append(i > 0 ? ", " : "").append("?");
+            values.add(columnDefinition.getObject());
+        }
+
+        insertQuery.append(") ");
+        valuesQuery.append(")");
+        String upsertQuery = databaseConfiguration.replacePrefix(insertQuery + valuesQuery.toString());
+
+        if (databaseConfiguration.debug()) {
+            logger.info("Executing SQL: " + upsertQuery);
+        }
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(upsertQuery)) {
+            for (int i = 0; i < values.size(); i++) {
+                preparedStatement.setObject(i + 1, values.get(i));
+            }
+            preparedStatement.executeUpdate();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            throw new SQLException("Failed to execute upsert: " + exception.getMessage(), exception);
+        }
     }
 
     private void executeCreate(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
@@ -248,11 +313,7 @@ public class SchemaBuilder implements Schema {
         return columns.get(columns.size() - 1);
     }
 
-    @Override
-    public List<Map<String, Object>> executeSelect(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
-        List<Map<String, Object>> results = new ArrayList<>();
-        StringBuilder sql = new StringBuilder("SELECT * FROM " + tableName);
-
+    private void whereConditions(StringBuilder sql) {
         if (!whereConditions.isEmpty()) {
             List<String> conditions = new ArrayList<>();
             for (WhereCondition condition : whereConditions) {
@@ -260,6 +321,42 @@ public class SchemaBuilder implements Schema {
             }
             sql.append(" WHERE ").append(String.join(" AND ", conditions));
         }
+    }
+
+    @Override
+    public long executeSelectCount(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
+        List<Map<String, Object>> results = new ArrayList<>();
+        StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM " + tableName);
+        this.whereConditions(sql);
+
+        String finalQuery = databaseConfiguration.replacePrefix(sql.toString());
+        if (databaseConfiguration.debug()) {
+            logger.info("Executing SQL: " + finalQuery);
+        }
+
+        try (PreparedStatement statement = connection.prepareStatement(finalQuery)) {
+
+            int index = 1;
+            for (WhereCondition condition : whereConditions) {
+                statement.setObject(index++, condition.getValue());
+            }
+
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            throw new SQLException("Failed to execute schema select count: " + exception.getMessage(), exception);
+        }
+        return 0;
+    }
+
+    @Override
+    public List<Map<String, Object>> executeSelect(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
+        List<Map<String, Object>> results = new ArrayList<>();
+        StringBuilder sql = new StringBuilder("SELECT * FROM " + tableName);
+        this.whereConditions(sql);
 
         String finalQuery = databaseConfiguration.replacePrefix(sql.toString());
         if (databaseConfiguration.debug()) {
@@ -291,15 +388,7 @@ public class SchemaBuilder implements Schema {
 
     private void executeDelete(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
         StringBuilder sql = new StringBuilder("DELETE FROM ").append(tableName);
-
-        if (!whereConditions.isEmpty()) {
-            sql.append(" WHERE ");
-            List<String> conditions = new ArrayList<>();
-            for (WhereCondition condition : whereConditions) {
-                conditions.add(condition.getCondition());
-            }
-            sql.append(String.join(" AND ", conditions));
-        }
+        this.whereConditions(sql);
 
         String finalQuery = databaseConfiguration.replacePrefix(sql.toString());
         if (databaseConfiguration.debug()) {
@@ -338,6 +427,8 @@ public class SchemaBuilder implements Schema {
                     Class<Enum> enumType = (Class<Enum>) parameter.getType();
                     Object enumValue = Enum.valueOf(enumType, (String) value);
                     params[i] = enumValue;
+                } else if (parameter.getType() == UUID.class) {
+                    params[i] = UUID.fromString((String) value);
                 } else {
                     params[i] = value;
                 }

@@ -17,6 +17,7 @@ import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.essentials.api.storage.StorageManager;
 import fr.maxlego08.essentials.api.storage.adapter.LocationAdapter;
 import fr.maxlego08.essentials.api.user.User;
+import fr.maxlego08.essentials.buttons.ButtonPayConfirm;
 import fr.maxlego08.essentials.buttons.ButtonTeleportationConfirm;
 import fr.maxlego08.essentials.commands.CommandLoader;
 import fr.maxlego08.essentials.commands.ZCommandManager;
@@ -34,17 +35,22 @@ import fr.maxlego08.essentials.storage.adapter.UserTypeAdapter;
 import fr.maxlego08.essentials.user.UserPlaceholders;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.ZPlugin;
+import fr.maxlego08.essentials.zutils.utils.CommandMarkdownGenerator;
 import fr.maxlego08.menu.api.ButtonManager;
 import fr.maxlego08.menu.api.InventoryManager;
 import fr.maxlego08.menu.api.pattern.PatternManager;
 import fr.maxlego08.menu.button.loader.NoneLoader;
 import org.bukkit.Location;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Modifier;
 import java.util.List;
+import java.util.UUID;
 
 public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin {
 
+    private final UUID consoleUniqueId = UUID.fromString("00000000-0000-0000-0000-000000000000");
     private InventoryManager inventoryManager;
     private ButtonManager buttonManager;
     private PatternManager patternManager;
@@ -101,6 +107,8 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
         this.registerListener(new PlayerListener(this));
         this.registerPlaceholder(UserPlaceholders.class);
+
+        this.generateDocs();
     }
 
     @Override
@@ -126,6 +134,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     private void registerButtons() {
 
         this.buttonManager.register(new NoneLoader(this, ButtonTeleportationConfirm.class, "essentials_teleportation_confirm"));
+        this.buttonManager.register(new NoneLoader(this, ButtonPayConfirm.class, "essentials_pay_confirm"));
 
     }
 
@@ -185,11 +194,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     }
 
     private GsonBuilder getGsonBuilder() {
-        return new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().serializeNulls()
-                .excludeFieldsWithModifiers(Modifier.TRANSIENT, Modifier.VOLATILE)
-                .registerTypeAdapter(Location.class, new LocationAdapter(this))
-                .registerTypeAdapter(User.class, new UserTypeAdapter(this))
-                .registerTypeAdapter(ZUser.class, new UserTypeAdapter(this));
+        return new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().serializeNulls().excludeFieldsWithModifiers(Modifier.TRANSIENT, Modifier.VOLATILE).registerTypeAdapter(Location.class, new LocationAdapter(this)).registerTypeAdapter(User.class, new UserTypeAdapter(this)).registerTypeAdapter(ZUser.class, new UserTypeAdapter(this));
     }
 
     private void registerPlaceholder(Class<? extends PlaceholderRegister> placeholderClass) {
@@ -219,5 +224,23 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     @Override
     public EconomyProvider getEconomyProvider() {
         return this.economyProvider;
+    }
+
+    @Override
+    public UUID getConsoleUniqueId() {
+        return this.consoleUniqueId;
+    }
+
+    private void generateDocs() {
+        CommandMarkdownGenerator generator = new CommandMarkdownGenerator();
+
+        File file = new File(getDataFolder(), "commands.md");
+        try {
+            generator.generateMarkdownFile(this.commandManager.getCommands(), file.toPath());
+            getLogger().info("Markdown file successfully generated!");
+        } catch (IOException exception) {
+            getLogger().severe("Error while writing the file: " + exception.getMessage());
+            exception.printStackTrace();
+        }
     }
 }

@@ -4,7 +4,9 @@ public enum SchemaType {
 
     CREATE,
     UPSERT,
+    INSERT,
     SELECT,
+    SELECT_COUNT,
     DELETE,
 
 }
