@@ -43,6 +43,17 @@ public abstract class Repository {
         }
     }
 
+    protected long select(Consumer<Schema> consumer) {
+        Schema schema = SchemaBuilder.selectCount(getTableName());
+        consumer.accept(schema);
+        try {
+            return schema.executeSelectCount(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), this.connection.getPlugin().getLogger());
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return 0L;
+    }
+
     protected <T> List<T> select(Class<T> clazz, Consumer<Schema> consumer) {
         Schema schema = SchemaBuilder.select(getTableName());
         consumer.accept(schema);

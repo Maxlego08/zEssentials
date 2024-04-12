@@ -175,7 +175,6 @@ teleport-move: "#ff0000You must not move!"
 teleport-message:
   type: ACTION
   message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
-teleport-error: "#ff0000You already have a teleportation in progress!"
 teleport-success:
   type: ACTION
   message: "#99E0FFYou have just teleported successfully!"

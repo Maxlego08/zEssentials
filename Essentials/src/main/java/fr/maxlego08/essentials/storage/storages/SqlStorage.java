@@ -56,7 +56,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
     public void onEnable() {
 
         this.connection.connect();
-
+        this.totalUser = this.repositories.getTable(UserRepository.class).totalUsers();
     }
 
     @Override
@@ -73,10 +73,19 @@ public class SqlStorage extends StorageHelper implements IStorage {
         this.users.put(uniqueId, user);
 
         this.plugin.getScheduler().runAsync(wrappedTask -> {
+
+            // First join !
+            boolean alreadyExist = this.repositories.getTable(UserRepository.class).userAlreadyExist(uniqueId);
+            if (!alreadyExist) {
+                this.firstJoin(user);
+            }
+
             this.repositories.getTable(UserRepository.class).upsert(uniqueId, playerName);
-            user.setOptions(this.repositories.getTable(UserOptionRepository.class).selectOptions(uniqueId));
-            user.setCooldowns(this.repositories.getTable(UserCooldownsRepository.class).selectCooldowns(uniqueId));
-            user.setEconomies(this.repositories.getTable(UserEconomyRepository.class).selectEconomies(uniqueId));
+            if (alreadyExist) {
+                user.setOptions(this.repositories.getTable(UserOptionRepository.class).selectOptions(uniqueId));
+                user.setCooldowns(this.repositories.getTable(UserCooldownsRepository.class).selectCooldowns(uniqueId));
+                user.setEconomies(this.repositories.getTable(UserEconomyRepository.class).selectEconomies(uniqueId));
+            }
         });
 
         return user;

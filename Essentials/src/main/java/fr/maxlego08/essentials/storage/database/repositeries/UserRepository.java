@@ -24,4 +24,14 @@ public class UserRepository extends Repository {
         return select(UserDTO.class, table -> table.where("name", userName));
     }
 
+    public long totalUsers() {
+        return select(schema -> {
+        });
+    }
+
+    public boolean userAlreadyExist(UUID uniqueId) {
+        return select(schema -> {
+            schema.where("unique_id", uniqueId);
+        }) != 0;
+    }
 }

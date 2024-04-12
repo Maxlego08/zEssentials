@@ -24,7 +24,7 @@ public class UserEconomyRepository extends Repository {
     }
 
     public List<EconomyDTO> selectEconomies(UUID uuid) {
-        return select(EconomyDTO.class, table -> table.where("unique_id", uuid.toString()));
+        return select(EconomyDTO.class, table -> table.where("unique_id", uuid));
     }
 
 }

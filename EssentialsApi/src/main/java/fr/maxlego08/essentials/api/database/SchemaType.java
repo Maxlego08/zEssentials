@@ -6,6 +6,7 @@ public enum SchemaType {
     UPSERT,
     INSERT,
     SELECT,
+    SELECT_COUNT,
     DELETE,
 
 }

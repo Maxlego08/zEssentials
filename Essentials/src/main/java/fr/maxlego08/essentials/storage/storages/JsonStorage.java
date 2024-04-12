@@ -17,6 +17,7 @@ import org.bukkit.OfflinePlayer;
 import java.io.File;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Consumer;
 
@@ -40,6 +41,9 @@ public class JsonStorage extends StorageHelper implements IStorage {
     @Override
     public void onEnable() {
         this.createFolder();
+
+        File folder = getFolder();
+        this.totalUser = folder == null ? 0 : Optional.ofNullable(folder.listFiles()).map(e -> e.length).orElse(0);
     }
 
     @Override
@@ -71,10 +75,7 @@ public class JsonStorage extends StorageHelper implements IStorage {
 
             user = new ZUser(plugin, uniqueId);
             user.setName(playerName);
-
-            this.plugin.getLogger().info(String.format("%s (%s) is a new player !", playerName, uniqueId));
-            UserEvent event = new UserFirstJoinEvent(user);
-            this.plugin.getScheduler().runNextTick(wrappedTask -> event.callEvent());
+            this.firstJoin(user);
 
             persist.save(user, file);
         }

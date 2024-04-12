@@ -151,7 +151,6 @@ public enum Message {
 
     TELEPORT_MOVE("&cYou must not move!"),
     TELEPORT_MESSAGE(MessageType.ACTION, "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."),
-    TELEPORT_ERROR("&cYou already have a teleportation in progress!"),
     TELEPORT_SUCCESS("&eYou have just teleported successfully!"),
     TELEPORT_DAMAGE("&cYou must not take damage during teleportation."),
     TELEPORT_ERROR_LOCATION("&cUnable to teleport you safely."),
@@ -185,6 +184,17 @@ public enum Message {
     COMMAND_PAY_SELF("#ff0000You cannot send money to yourself."),
     COMMAND_PAY_NOT_ENOUGH("#ff0000You don't have enough money."),
 
+    JOIN_MESSAGE("#99E0FF%player% &7joined the game"),
+    QUIT_MESSAGE("#99E0FF%player% &7left the game"),
+    FIRST_JOIN_MESSAGE(""),
+    FIRST_JOIN_MOTD(
+            "",
+            "#00FF00✔ #99E0FFWelcome %player%#99E0FF !",
+            "",
+            "#858ef8Discord&8: #99E0FF<hover:show_text:'&fJoin the server #858ef8Discord &f!'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>",
+            "&7Website&8: #99E0FF<hover:show_text:'&fOpen the Website &f!'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>",
+            ""
+    ),
 
     ;
 

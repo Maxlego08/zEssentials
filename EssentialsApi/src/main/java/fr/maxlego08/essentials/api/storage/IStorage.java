@@ -35,4 +35,6 @@ public interface IStorage {
     void fetchUniqueId(String userName, Consumer<UUID> consumer);
 
     void storeTransactions(UUID fromUuid, UUID toUuid, Economy economy, BigDecimal fromAmount, BigDecimal toAmount);
+
+    long totalUsers();
 }

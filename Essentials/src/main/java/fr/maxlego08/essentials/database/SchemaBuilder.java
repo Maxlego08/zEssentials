@@ -54,6 +54,10 @@ public class SchemaBuilder implements Schema {
         return new SchemaBuilder(tableName, SchemaType.SELECT);
     }
 
+    public static Schema selectCount(String tableName) {
+        return new SchemaBuilder(tableName, SchemaType.SELECT);
+    }
+
     public static Schema delete(String tableName) {
         return new SchemaBuilder(tableName, SchemaType.DELETE);
     }
@@ -62,6 +66,11 @@ public class SchemaBuilder implements Schema {
     public Schema where(String column, Object value) {
         this.whereConditions.add(new WhereCondition(column, value));
         return this;
+    }
+
+    @Override
+    public Schema where(String column, UUID value) {
+        return this.where(column, value.toString());
     }
 
     @Override
@@ -192,7 +201,7 @@ public class SchemaBuilder implements Schema {
             case UPSERT -> this.executeUpsert(connection, databaseConfiguration, logger);
             case INSERT -> this.executeInsert(connection, databaseConfiguration, logger);
             case DELETE -> this.executeDelete(connection, databaseConfiguration, logger);
-            case SELECT -> throw new IllegalArgumentException("Wrong method !");
+            case SELECT, SELECT_COUNT -> throw new IllegalArgumentException("Wrong method !");
             default -> throw new Error("Schema type not found !");
         }
     }
@@ -304,11 +313,7 @@ public class SchemaBuilder implements Schema {
         return columns.get(columns.size() - 1);
     }
 
-    @Override
-    public List<Map<String, Object>> executeSelect(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
-        List<Map<String, Object>> results = new ArrayList<>();
-        StringBuilder sql = new StringBuilder("SELECT * FROM " + tableName);
-
+    private void whereConditions(StringBuilder sql) {
         if (!whereConditions.isEmpty()) {
             List<String> conditions = new ArrayList<>();
             for (WhereCondition condition : whereConditions) {
@@ -316,6 +321,42 @@ public class SchemaBuilder implements Schema {
             }
             sql.append(" WHERE ").append(String.join(" AND ", conditions));
         }
+    }
+
+    @Override
+    public long executeSelectCount(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
+        List<Map<String, Object>> results = new ArrayList<>();
+        StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM " + tableName);
+        this.whereConditions(sql);
+
+        String finalQuery = databaseConfiguration.replacePrefix(sql.toString());
+        if (databaseConfiguration.debug()) {
+            logger.info("Executing SQL: " + finalQuery);
+        }
+
+        try (PreparedStatement statement = connection.prepareStatement(finalQuery)) {
+
+            int index = 1;
+            for (WhereCondition condition : whereConditions) {
+                statement.setObject(index++, condition.getValue());
+            }
+
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            throw new SQLException("Failed to execute schema select count: " + exception.getMessage(), exception);
+        }
+        return 0;
+    }
+
+    @Override
+    public List<Map<String, Object>> executeSelect(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
+        List<Map<String, Object>> results = new ArrayList<>();
+        StringBuilder sql = new StringBuilder("SELECT * FROM " + tableName);
+        this.whereConditions(sql);
 
         String finalQuery = databaseConfiguration.replacePrefix(sql.toString());
         if (databaseConfiguration.debug()) {
@@ -347,15 +388,7 @@ public class SchemaBuilder implements Schema {
 
     private void executeDelete(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
         StringBuilder sql = new StringBuilder("DELETE FROM ").append(tableName);
-
-        if (!whereConditions.isEmpty()) {
-            sql.append(" WHERE ");
-            List<String> conditions = new ArrayList<>();
-            for (WhereCondition condition : whereConditions) {
-                conditions.add(condition.getCondition());
-            }
-            sql.append(String.join(" AND ", conditions));
-        }
+        this.whereConditions(sql);
 
         String finalQuery = databaseConfiguration.replacePrefix(sql.toString());
         if (databaseConfiguration.debug()) {
