@@ -36,6 +36,7 @@ import fr.maxlego08.essentials.user.UserPlaceholders;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.ZPlugin;
 import fr.maxlego08.essentials.zutils.utils.CommandMarkdownGenerator;
+import fr.maxlego08.essentials.zutils.utils.PlaceholderMarkdownGenerator;
 import fr.maxlego08.menu.api.ButtonManager;
 import fr.maxlego08.menu.api.InventoryManager;
 import fr.maxlego08.menu.api.pattern.PatternManager;
@@ -232,14 +233,24 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     }
 
     private void generateDocs() {
-        CommandMarkdownGenerator generator = new CommandMarkdownGenerator();
+        CommandMarkdownGenerator commandMarkdownGenerator = new CommandMarkdownGenerator();
+        PlaceholderMarkdownGenerator placeholderMarkdownGenerator = new PlaceholderMarkdownGenerator();
 
-        File file = new File(getDataFolder(), "commands.md");
+        File fileCommand = new File(getDataFolder(), "commands.md");
+        File filePlaceholder = new File(getDataFolder(), "placeholders.md");
         try {
-            generator.generateMarkdownFile(this.commandManager.getCommands(), file.toPath());
-            getLogger().info("Markdown file successfully generated!");
+            commandMarkdownGenerator.generateMarkdownFile(this.commandManager.getCommands(), fileCommand.toPath());
+            getLogger().info("Markdown 'commands.md' file successfully generated!");
         } catch (IOException exception) {
-            getLogger().severe("Error while writing the file: " + exception.getMessage());
+            getLogger().severe("Error while writing the file commands: " + exception.getMessage());
+            exception.printStackTrace();
+        }
+
+        try {
+            placeholderMarkdownGenerator.generateMarkdownFile(((LocalPlaceholder) this.placeholder).getAutoPlaceholders(), filePlaceholder.toPath());
+            getLogger().info("Markdown 'placeholders.md' file successfully generated!");
+        } catch (IOException exception) {
+            getLogger().severe("Error while writing the file placeholders: " + exception.getMessage());
             exception.printStackTrace();
         }
     }
