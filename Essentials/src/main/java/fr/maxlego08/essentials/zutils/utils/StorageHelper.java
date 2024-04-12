@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-public class StorageHelper {
+public class StorageHelper extends ZUtils{
 
     protected final EssentialsPlugin plugin;
     protected final Map<UUID, User> users = new HashMap<>();

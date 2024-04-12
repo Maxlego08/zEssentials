@@ -75,13 +75,16 @@ public class SqlStorage extends StorageHelper implements IStorage {
         this.plugin.getScheduler().runAsync(wrappedTask -> {
 
             // First join !
-            boolean alreadyExist = this.repositories.getTable(UserRepository.class).userAlreadyExist(uniqueId);
-            if (!alreadyExist) {
+            List<UserDTO> userDTOS = this.repositories.getTable(UserRepository.class).selectUser(uniqueId);
+            System.out.println(userDTOS);
+            if (userDTOS.isEmpty()) {
                 this.firstJoin(user);
             }
 
-            this.repositories.getTable(UserRepository.class).upsert(uniqueId, playerName);
-            if (alreadyExist) {
+            this.repositories.getTable(UserRepository.class).upsert(uniqueId, playerName); // Create the player or update his name
+            if (!userDTOS.isEmpty()) {
+                UserDTO userDTO = userDTOS.get(0);
+                user.setLastLocation(stringAsLocation(userDTO.last_location()));
                 user.setOptions(this.repositories.getTable(UserOptionRepository.class).selectOptions(uniqueId));
                 user.setCooldowns(this.repositories.getTable(UserCooldownsRepository.class).selectCooldowns(uniqueId));
                 user.setEconomies(this.repositories.getTable(UserEconomyRepository.class).selectEconomies(uniqueId));
@@ -114,6 +117,11 @@ public class SqlStorage extends StorageHelper implements IStorage {
     @Override
     public void updateEconomy(UUID uniqueId, Economy economy, BigDecimal bigDecimal) {
         async(() -> this.repositories.getTable(UserEconomyRepository.class).upsert(uniqueId, economy, bigDecimal));
+    }
+
+    @Override
+    public void upsertUser(User user) {
+        async(() -> this.repositories.getTable(UserRepository.class).upsert(user));
     }
 
     @Override
@@ -166,7 +174,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
                 }
 
                 // Get uuid from database
-                List<UserDTO> userDTOS = this.repositories.getTable(UserRepository.class).selectOptions(userName);
+                List<UserDTO> userDTOS = this.repositories.getTable(UserRepository.class).selectUsers(userName);
                 if (userDTOS.isEmpty()) {
                     consumer.accept(null);
                     return;

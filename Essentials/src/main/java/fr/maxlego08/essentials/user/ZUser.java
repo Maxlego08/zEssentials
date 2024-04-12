@@ -38,6 +38,7 @@ public class ZUser extends ZUtils implements User {
     private User targetUser;
     private BigDecimal targetAmount;
     private Economy targetEconomy;
+    private Location lastLocation;
 
     public ZUser(EssentialsPlugin plugin, UUID uniqueId) {
         this.plugin = plugin;
@@ -308,5 +309,21 @@ public class ZUser extends ZUtils implements User {
     @Override
     public @Nullable BigDecimal getTargetDecimal() {
         return this.targetAmount;
+    }
+
+    @Override
+    public void setLastLocation(Location location) {
+        this.lastLocation = location;
+    }
+
+    @Override
+    public void setLastLocation() {
+        this.lastLocation = this.getPlayer().getLocation().clone();
+        this.getStorage().upsertUser(this);
+    }
+
+    @Override
+    public Location getLastLocation() {
+        return this.lastLocation;
     }
 }

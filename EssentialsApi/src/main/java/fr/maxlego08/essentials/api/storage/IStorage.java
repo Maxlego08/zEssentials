@@ -4,6 +4,7 @@ import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
+import org.bukkit.Location;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -37,4 +38,6 @@ public interface IStorage {
     void storeTransactions(UUID fromUuid, UUID toUuid, Economy economy, BigDecimal fromAmount, BigDecimal toAmount);
 
     long totalUsers();
+
+    void upsertUser(User user);
 }

@@ -11,9 +11,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityTeleportEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 
 public class PlayerListener implements Listener {
 
@@ -60,6 +63,35 @@ public class PlayerListener implements Listener {
     public void onClose(InventoryCloseEvent event) {
         User user = getUser(event.getPlayer());
         if (user != null && user.getOption(Option.INVSEE)) user.setOption(Option.INVSEE, false);
+    }
+
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onPlayerDeathEvent(PlayerDeathEvent event) {
+        User user = getUser(event.getPlayer());
+        if (user == null) return;
+
+        user.setLastLocation();
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onPlayerTeleport(PlayerTeleportEvent event) {
+        User user = getUser(event.getPlayer());
+        System.out.println("Je me téléporte ici ! " + event.getPlayer());
+        if (user == null) return;
+
+        System.out.println("Oui ?");
+        user.setLastLocation();
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onPlayerTeleport(EntityTeleportEvent event) {
+        User user = getUser(event.getEntity());
+        System.out.println("Je me téléporte ici 22 ! " + event.getEntity());
+        if (user == null) return;
+
+        System.out.println("Oui ?");
+        user.setLastLocation();
     }
 
 }

@@ -3,8 +3,6 @@ package fr.maxlego08.essentials.storage.storages;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
-import fr.maxlego08.essentials.api.event.UserEvent;
-import fr.maxlego08.essentials.api.event.events.UserFirstJoinEvent;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.essentials.api.user.Option;
@@ -126,6 +124,11 @@ public class JsonStorage extends StorageHelper implements IStorage {
     }
 
     @Override
+    public void upsertUser(User user) {
+        this.saveFileAsync(user.getUniqueId());
+    }
+
+    @Override
     public void getUserEconomy(String userName, Consumer<List<EconomyDTO>> consumer) {
         async(() -> {
 
@@ -174,4 +177,5 @@ public class JsonStorage extends StorageHelper implements IStorage {
     public void storeTransactions(UUID fromUuid, UUID toUuid, Economy economy, BigDecimal fromAmount, BigDecimal toAmount) {
 
     }
+
 }

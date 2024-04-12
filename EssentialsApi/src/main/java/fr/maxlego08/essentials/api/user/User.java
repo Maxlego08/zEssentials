@@ -98,4 +98,10 @@ public interface User {
     @Nullable Economy getTargetEconomy();
 
     @Nullable BigDecimal getTargetDecimal();
+
+    void setLastLocation(Location location);
+
+    void setLastLocation();
+
+    Location getLastLocation();
 }
