@@ -117,7 +117,7 @@ command-tp-self: "&7You just teleported #34cfe0%player%&7 to your position."
 # First join
 join-message: "#99E0FF%player% &7joined the game"
 quit-message: "#99E0FF%player% &7left the game"
-first-join-message: ""
+first-join-message: "&7Welcome #99E0FF%player% &7on <your server name>! &8(&f%count% &7registered players&8)"
 first-join-motd:
   - ""
   - "#00FF00✔ #99E0FFWelcome %player%#99E0FF !"
