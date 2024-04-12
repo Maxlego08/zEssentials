@@ -4,7 +4,8 @@ prefix: "#03fcb6zEssentials #656665• "
 you: "Tu"
 #Trash can GUI title
 trash: "&8Cestino della Spazzatura"
-
+player-not-found: "&f%player% #FF0000non è stato trovato."
+module-disable: "#FF0000Il modulo &f%name% #FF0000 è disabilitato, non puoi usare questo comando."
 # Commands
 command-syntax-error: "#ff0000Devi eseguire il comando segunedo questo formato#656665: &f%syntax%"
 command-no-permission: "#ff0000Non puoi eseguire questo comando."
@@ -53,6 +54,33 @@ command-player-weather-reset: "&7Hai appena cambiato il tempo atmosferico a quel
 command-player-weather-downfall: "&7Hai appena messo pioggia su di te."
 command-player-time-reset: "&7Hai appena cambiato il tempo aa quello del server."
 command-player-time-change: "&7Sei qui per cambiare il tuo tempo."
+command-fly-enable: "&7Modalità volo &aabilitata &7per &f%player%&a."
+command-fly-disable: "&7Modalità volo  &cdisabilitata &7per &f%player%&a."
+
+# Economy
+command-economy-not-found: "#ff0000 Non riesco a trovare una valuta di nome &f%name%#ff0000."
+command-economy-give-all-sender: "#99E0FFHai appena dato &f%economyFormat% #99E0FFai giocatori online."
+command-economy-give-sender: "#99E0FFHai appena dato &f%economyFormat% #99E0FFa &7%player%#99E0FF."
+command-economy-give-receiver: "#99E0FFHai appena ricevuto &f%economyFormat%."
+command-economy-set-sender: "#99E0FFHai impostato il saldo a &f%economyFormat% #99E0FFdel giocatore &7%player%#99E0FF."
+command-economy-set-receiver: "#99E0FFHai appena modificato &f%economyFormat%."
+command-economy-take-sender: "#99E0FFHai appena preso &f%economyFormat% #99E0FFa &7%player%#99E0FF."
+command-economy-take-receiver: "#99E0FFHai perso &f%economyFormat%."
+command-economy-show-empty: "&f%player% #FF0000has no money."
+command-economy-show-info: "&7- #99E0FF%economy% &f%amount%."
+command-money:
+  - "#99E0FFHai&8:"
+  - " &7- #99E0FF%economy-name-money% &f%economy-money%."
+  - " &7- #99E0FF%economy-name-coins% &f%economy-coins%."
+command-pay-negative: "#ff0000Quantità da pagare deve essere positiva."
+command-pay-min: "#ff0000La quantità minima che puoi pagare è &f%amount%#ff0000."
+command-pay-max: "#ff0000La quantità massima che puoi pagare è &f%amount%#ff0000."
+command-pay-sender: "#99E0FFHai dato #F8F327%amount%#99E0FF a &f%player%#99E0FF."
+command-pay-receiver: "&f%player% #99E0FFti ha dato #F8F327%amount%#99E0FF."
+command-pay-disable: "#ff0000Non puoi dare %name%."
+command-pay-self: "#ff0000Non puoi dare soldi a te stesso."
+command-pay-not-enough: "#ff0000Non hai abbastanza soldi."
+
 
 # Teleport commands
 command-tpa-error: "#ff0000Hai gia mandato la richiesta a #99E0FF%player%#ff0000."
@@ -87,6 +115,20 @@ command-tp: "&7Ti sei teletrasportato da #34cfe0%player%&f."
 command-tp-self: "&7Hai teletrasportato #34cfe0%player%&7 da te."
 
 
+# First join
+join-message: "&a+ #99E0FF%player%"
+quit-message: "&c- #99E0FF%player%"
+first-join-message: ""
+first-join-motd:
+  - ""
+  - "#00FF00✔ #99E0FFBenvenuto %player%#99E0FF !"
+  - ""
+  - "#858ef8Discord&8: #99E0FF<hover:show_text:'&fEntra nel server #858ef8Discord &f!'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>"
+  - "&7Sito&8: #99E0FF<hover:show_text:'&fApri il sito &f!'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>"
+  - ""
+
+  
+
 # Command description
 description-reload: "Aggiorna i file di configurazione"
 description-gamemode: "Cambia la modalità di gioco"
@@ -117,9 +159,20 @@ description-invsee: "Apri l'inventario di un giocatore"
 description-compact: "Comprimi un materiale"
 description-hat: "Indossa un cappello"
 description-tp: "Teletrasportati a un giocatore"
-description-tp-self: "Teleport a player to your location"
-description-player-weather: "Change your weather"
-description-player-time: "Change your time"
+description-tp-self: "Teletrasportati da un giocatore"
+description-player-weather: "Cambia il tempo metereologico"
+description-player-time: "Chambia il tempo"
+description-money: "Mostra il tuo saldo"
+description-eco: "Manages the server economies"
+description-eco-set: "Imposta il saldo di un giocatore alla quantita scelta"
+description-eco-take: "Prendi dei soldi da un giocatore"
+description-eco-give: "Dai a un giocatore dei soldi"
+description-eco-give-all: "Dai a tutti i giocatori dei soldi"
+description-eco-reset: "Azzera il saldo del giocatore al saldo iniziale del server"
+description-eco-show: "Mostra il saldo di un giocatore"
+description-pay: "Paga un altro giocatore attraverso l'utilizzo del tuo saldo"
+description-fly: "Abilita/Disabilita il volo"
+
 
 # Time format
 time-day: "%02d giorno %02d ora %02d minuto %02d secondo"
@@ -142,7 +195,6 @@ teleport-move: "#ff0000Non devi muoverti!"
 teleport-message:
   type: ACTION
   message: "&7Verrai teletrasportato entro #0EEA93%seconds% &7secondi, non muoverti."
-teleport-error: "#ff0000Hai gia una richiesta di teletrasporto in corso!"
 teleport-success:
   type: ACTION
   message: "#99E0FFTi sei teletrasportato con successo!"
