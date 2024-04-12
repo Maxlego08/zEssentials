@@ -186,7 +186,7 @@ public enum Message {
 
     JOIN_MESSAGE("#99E0FF%player% &7joined the game"),
     QUIT_MESSAGE("#99E0FF%player% &7left the game"),
-    FIRST_JOIN_MESSAGE("&7Welcome #99E0FF%player% &7on <your server name>! &8(&f%count% &7registered players&8)"),
+    FIRST_JOIN_MESSAGE("&7Welcome #99E0FF%player% &7on <your server name>! &8(&f%totalUserFormat% &7registered players&8)"),
     FIRST_JOIN_MOTD(
             "",
             "#00FF00✔ #99E0FFWelcome %player%#99E0FF !",
