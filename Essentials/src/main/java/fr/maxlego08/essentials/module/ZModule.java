@@ -26,6 +26,9 @@ public abstract class ZModule extends YamlLoader implements Module {
         File folfer = getFolder();
         if (!folfer.exists()) {
             folfer.mkdirs();
+        }
+        File configFile = new File(this.plugin.getDataFolder(), "modules/" + this.name + "/config.yml");
+        if (!configFile.exists()) {
             this.plugin.saveResource("modules/" + name + "/config.yml", false);
         }
 
