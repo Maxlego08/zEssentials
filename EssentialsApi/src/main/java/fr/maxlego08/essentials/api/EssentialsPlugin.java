@@ -8,6 +8,7 @@ import fr.maxlego08.essentials.api.economy.EconomyProvider;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.storage.Persist;
+import fr.maxlego08.essentials.api.storage.ServerStorage;
 import fr.maxlego08.essentials.api.storage.StorageManager;
 import fr.maxlego08.menu.api.ButtonManager;
 import fr.maxlego08.menu.api.InventoryManager;
@@ -50,4 +51,8 @@ public interface EssentialsPlugin extends Plugin {
     EconomyProvider getEconomyProvider();
 
     UUID getConsoleUniqueId();
+
+    ServerStorage getServerStorage();
+
+    void setServerStorage(ServerStorage serverStorage);
 }

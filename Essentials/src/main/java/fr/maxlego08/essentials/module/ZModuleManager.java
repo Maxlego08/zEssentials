@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.modules.Module;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
 import fr.maxlego08.essentials.economy.EconomyManager;
 import fr.maxlego08.essentials.module.modules.JoinQuitModule;
+import fr.maxlego08.essentials.module.modules.SpawnModule;
 import fr.maxlego08.essentials.module.modules.TeleportationModule;
 import org.bukkit.Bukkit;
 
@@ -33,10 +34,11 @@ public class ZModuleManager implements ModuleManager {
         if (!folder.exists()) folder.mkdirs();
 
         this.modules.put(TeleportationModule.class, new TeleportationModule(this.plugin));
+        this.modules.put(SpawnModule.class, new SpawnModule(this.plugin));
         this.modules.put(JoinQuitModule.class, new JoinQuitModule(this.plugin));
         this.modules.put(EconomyManager.class, this.plugin.getEconomyProvider());
 
-        this.modules.values().forEach(module -> Bukkit.getPluginManager().registerEvents(module, this.plugin));
+        this.modules.values().stream().filter(Module::isRegisterEvent).forEach(module -> Bukkit.getPluginManager().registerEvents(module, this.plugin));
 
         this.loadConfigurations();
     }

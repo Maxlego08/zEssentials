@@ -14,6 +14,7 @@ public abstract class ZModule extends YamlLoader implements Module {
     protected final ZEssentialsPlugin plugin;
     protected final String name;
     protected boolean isEnable = false;
+    protected boolean isRegisterEvent = true;
 
     public ZModule(ZEssentialsPlugin plugin, String name) {
         this.plugin = plugin;
@@ -36,6 +37,11 @@ public abstract class ZModule extends YamlLoader implements Module {
         this.loadYamlConfirmation(configuration);
 
         this.isEnable = configuration.getBoolean("enable", true);
+    }
+
+    @Override
+    public boolean isRegisterEvent() {
+        return isRegisterEvent;
     }
 
     @Override

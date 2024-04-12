@@ -14,6 +14,7 @@ import fr.maxlego08.essentials.api.modules.ModuleManager;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.placeholders.PlaceholderRegister;
 import fr.maxlego08.essentials.api.storage.Persist;
+import fr.maxlego08.essentials.api.storage.ServerStorage;
 import fr.maxlego08.essentials.api.storage.StorageManager;
 import fr.maxlego08.essentials.api.storage.adapter.LocationAdapter;
 import fr.maxlego08.essentials.api.user.User;
@@ -37,6 +38,7 @@ import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.ZPlugin;
 import fr.maxlego08.essentials.zutils.utils.CommandMarkdownGenerator;
 import fr.maxlego08.essentials.zutils.utils.PlaceholderMarkdownGenerator;
+import fr.maxlego08.essentials.zutils.utils.ZServerStorage;
 import fr.maxlego08.menu.api.ButtonManager;
 import fr.maxlego08.menu.api.InventoryManager;
 import fr.maxlego08.menu.api.pattern.PatternManager;
@@ -52,6 +54,7 @@ import java.util.UUID;
 public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin {
 
     private final UUID consoleUniqueId = UUID.fromString("00000000-0000-0000-0000-000000000000");
+    private ServerStorage serverStorage = new ZServerStorage();
     private InventoryManager inventoryManager;
     private ButtonManager buttonManager;
     private PatternManager patternManager;
@@ -253,5 +256,15 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
             getLogger().severe("Error while writing the file placeholders: " + exception.getMessage());
             exception.printStackTrace();
         }
+    }
+
+    @Override
+    public ServerStorage getServerStorage() {
+        return serverStorage;
+    }
+
+    @Override
+    public void setServerStorage(ServerStorage serverStorage) {
+        this.serverStorage = serverStorage;
     }
 }

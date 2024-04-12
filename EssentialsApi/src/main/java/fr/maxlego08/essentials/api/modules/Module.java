@@ -17,5 +17,7 @@ public interface Module extends Listener {
 
     boolean isEnable();
 
+    boolean isRegisterEvent();
+
 
 }

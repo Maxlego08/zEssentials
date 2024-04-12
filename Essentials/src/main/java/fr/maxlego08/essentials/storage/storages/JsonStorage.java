@@ -178,4 +178,8 @@ public class JsonStorage extends StorageHelper implements IStorage {
 
     }
 
+    @Override
+    public void upsertStorage(String key, Object value) {
+
+    }
 }

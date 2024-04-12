@@ -6,7 +6,7 @@ import org.bukkit.World;
 
 public abstract class LocationUtils {
 
-    protected String locationAsString(Location location) {
+    public String locationAsString(Location location) {
         return location == null ? null : String.join(",",
                 location.getWorld().getName(),
                 String.valueOf(location.getX()),
@@ -17,7 +17,7 @@ public abstract class LocationUtils {
         );
     }
 
-    protected Location stringAsLocation(String string) {
+    public Location stringAsLocation(String string) {
         if (string == null) return null;
         String[] parts = string.split(",");
         if (parts.length < 4) {

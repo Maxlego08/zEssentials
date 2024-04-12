@@ -40,4 +40,6 @@ public interface IStorage {
     long totalUsers();
 
     void upsertUser(User user);
+
+    void upsertStorage(String key, Object value);
 }

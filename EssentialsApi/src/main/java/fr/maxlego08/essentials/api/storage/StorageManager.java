@@ -1,6 +1,9 @@
 package fr.maxlego08.essentials.api.storage;
 
+import fr.maxlego08.essentials.api.database.dto.ServerStorageDTO;
 import org.bukkit.event.Listener;
+
+import java.util.List;
 
 public interface StorageManager extends Listener {
 
@@ -11,5 +14,4 @@ public interface StorageManager extends Listener {
     IStorage getStorage();
 
     StorageType getType();
-
 }

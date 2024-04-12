@@ -152,6 +152,8 @@ public enum Message {
     DESCRIPTION_ECO_RESET("Resets the specified player's balance to the server's starting balance"),
     DESCRIPTION_ECO_SHOW("Show player money"),
     DESCRIPTION_PAY("Pays another player from your balance"),
+    DESCRIPTION_SET_SPAWN("Set server spawn"),
+    DESCRIPTION_SPAWN("Teleport to spawn"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -204,6 +206,8 @@ public enum Message {
             "&7Website&8: #99E0FF<hover:show_text:'&fOpen the Website &f!'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>",
             ""
     ),
+
+    COMMAND_SET_SPAWN("&fYou just set the spawn location."),
 
     ;
 

@@ -53,3 +53,4 @@ loom: true
 stonecutter: true
 smithingtable: true
 back: true
+setspawn: true
