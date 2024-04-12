@@ -3,16 +3,19 @@ package fr.maxlego08.essentials.economy;
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.economy.EconomyProvider;
+import fr.maxlego08.essentials.api.economy.NumberFormatReduction;
+import fr.maxlego08.essentials.api.economy.NumberMultiplicationFormat;
+import fr.maxlego08.essentials.api.economy.PriceFormat;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.User;
-import fr.maxlego08.essentials.api.utils.NumberMultiplicationFormat;
 import fr.maxlego08.essentials.module.ZModule;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,6 +31,10 @@ public class EconomyManager extends ZModule implements EconomyProvider {
     private final List<NumberMultiplicationFormat> numberFormatSellMultiplication = new ArrayList<>();
     private String defaultEconomy;
     private BigDecimal minimumPayAmount;
+    private PriceFormat priceFormat;
+    private List<NumberFormatReduction> priceReductions;
+    private String priceDecimalFormat;
+    private DecimalFormat decimalFormat;
 
     public EconomyManager(ZEssentialsPlugin plugin) {
         super(plugin, "economy");
@@ -53,6 +60,7 @@ public class EconomyManager extends ZModule implements EconomyProvider {
         });
 
         this.loadInventory("confirm_pay_inventory");
+        this.decimalFormat = new DecimalFormat(this.priceDecimalFormat);
     }
 
     @Override
@@ -113,10 +121,30 @@ public class EconomyManager extends ZModule implements EconomyProvider {
 
     @Override
     public String format(Number number) {
-        // Rework for more configuration about that
-        DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
-        return decimalFormat.format(number);
+        return switch (this.priceFormat) {
+            case PRICE_WITH_REDUCTION -> getDisplayBalance(number);
+            case PRICE_WITH_DECIMAL_FORMAT -> decimalFormat.format(number);
+            default -> number.toString();
+        };
     }
+
+    protected String getDisplayBalance(Number number) {
+        BigDecimal numValue = (number instanceof BigDecimal) ? (BigDecimal) number : BigDecimal.valueOf(number.longValue());
+
+        for (NumberFormatReduction config : this.priceReductions) {
+            if (numValue.compareTo(config.maxAmount()) < 0) {
+                String displayText = config.display();
+                if (config.format().isEmpty()) {
+                    return displayText.replace("%amount%", numValue.toString());
+                }
+                BigDecimal divisor = config.maxAmount().equals(BigDecimal.valueOf(1000)) ? BigDecimal.valueOf(1000.0) : config.maxAmount().divide(BigDecimal.valueOf(1000.0), 2, RoundingMode.HALF_UP);
+                String formattedAmount = String.format(config.format(), numValue.divide(divisor, 2, RoundingMode.HALF_UP));
+                return displayText.replace("%amount%", formattedAmount);
+            }
+        }
+        return numValue.toString();
+    }
+
 
     @Override
     public List<NumberMultiplicationFormat> getNumberFormatSellMultiplication() {
@@ -136,6 +164,20 @@ public class EconomyManager extends ZModule implements EconomyProvider {
 
         message(fromUuid, Message.COMMAND_PAY_SENDER, "%amount%", economy.format(this.format(amount), amount.longValue()), "%player%", toName);
         message(toUuid, Message.COMMAND_PAY_RECEIVER, "%amount%", economy.format(this.format(amount), amount.longValue()), "%player%", fromName);
+    }
 
+    @Override
+    public PriceFormat getPriceFormat() {
+        return this.priceFormat;
+    }
+
+    @Override
+    public List<NumberFormatReduction> getPriceReductions() {
+        return this.priceReductions;
+    }
+
+    @Override
+    public String getPriceDecimalFormat() {
+        return this.priceDecimalFormat;
     }
 }

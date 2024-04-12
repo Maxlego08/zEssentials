@@ -1,4 +1,4 @@
-package fr.maxlego08.essentials.api.utils;
+package fr.maxlego08.essentials.api.economy;
 
 import fr.maxlego08.essentials.api.modules.Loadable;
 
