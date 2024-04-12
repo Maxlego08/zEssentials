@@ -2,6 +2,7 @@ prefix: "#03fcb6zEssentials #656665• "
 you: "you"
 trash: "&8Trash"
 player-not-found: "&f%player% #FF0000was not found."
+module-disable: "#FF0000The &f%name% #FF0000module is disabled. You cannot use this command."
 
 # Commands
 command-syntax-error: "#ff0000You must execute the command like this#656665: &f%syntax%"
@@ -51,6 +52,9 @@ command-player-weather-reset: "&7You just changed the weather to that of the ser
 command-player-weather-downfall: "&7You just put the rain on for yourself."
 command-player-time-reset: "&7You just changed the time to that of the server."
 command-player-time-change: "&7You’re here to change your time."
+command-fly-enable: "&7Flight mode &aenable &7for &f%player%&a."
+command-fly-disable: "&7Flight mode &cdisable &7for &f%player%&a."
+
 
 # Economy
 command-economy-not-found: "#ff0000 Can’t find a economy with the name &f%name%#ff0000."
@@ -110,6 +114,19 @@ command-tp: "&7You just teleport to the player #34cfe0%player%&f."
 command-tp-self: "&7You just teleported #34cfe0%player%&7 to your position."
 
 
+# First join
+join-message: "#99E0FF%player% &7joined the game"
+quit-message: "#99E0FF%player% &7left the game"
+first-join-message: ""
+first-join-motd:
+  - ""
+  - "#00FF00✔ #99E0FFWelcome %player%#99E0FF !"
+  - ""
+  - "#858ef8Discord&8: #99E0FF<hover:show_text:'&fJoin the server #858ef8Discord &f!'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>"
+  - "&7Website&8: #99E0FF<hover:show_text:'&fOpen the Website &f!'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>"
+  - ""
+
+
 # Command description
 description-reload: "Reload configuration files"
 description-gamemode: "Change player gamemode"
@@ -152,6 +169,7 @@ description-eco-give-all: "Gives for all players the specified amount of money"
 description-eco-reset: "Resets the specified player's balance to the server's starting balance"
 description-eco-show: "Show player money"
 description-pay: "Pays another player from your balance"
+description-fly: "Toggle flight"
 
 
 # Time format
