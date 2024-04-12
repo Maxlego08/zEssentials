@@ -1,8 +1,8 @@
-# Plugin's prefix
 prefix: "#03fcb6zEssentials #656665• "
 you: "you"
-#Trash can GUI title
 trash: "&8Trash"
+player-not-found: "&f%player% #FF0000was not found."
+module-disable: "#FF0000The &f%name% #FF0000module is disabled. You cannot use this command."
 
 # Commands
 command-syntax-error: "#ff0000You must execute the command like this#656665: &f%syntax%"
@@ -52,6 +52,34 @@ command-player-weather-reset: "&7You just changed the weather to that of the ser
 command-player-weather-downfall: "&7You just put the rain on for yourself."
 command-player-time-reset: "&7You just changed the time to that of the server."
 command-player-time-change: "&7You’re here to change your time."
+command-fly-enable: "&7Flight mode &aenable &7for &f%player%&a."
+command-fly-disable: "&7Flight mode &cdisable &7for &f%player%&a."
+
+
+# Economy
+command-economy-not-found: "#ff0000 Can’t find a economy with the name &f%name%#ff0000."
+command-economy-give-all-sender: "#99E0FFYou just gave &f%economyFormat% #99E0FFto the online players."
+command-economy-give-sender: "#99E0FFYou just gave &f%economyFormat% #99E0FFto the player &7%player%#99E0FF."
+command-economy-give-receiver: "#99E0FFYou have just received &f%economyFormat%."
+command-economy-set-sender: "#99E0FFYou just set &f%economyFormat% #99E0FFto the player &7%player%#99E0FF."
+command-economy-set-receiver: "#99E0FFYou have just been modified &f%economyFormat%."
+command-economy-take-sender: "#99E0FFYou just take &f%economyFormat% #99E0FFto the player &7%player%#99E0FF."
+command-economy-take-receiver: "#99E0FFYou have just lost &f%economyFormat%."
+command-economy-show-empty: "&f%player% #FF0000has no money."
+command-economy-show-info: "&7- #99E0FF%economy% &f%amount%."
+command-money:
+  - "#99E0FFYou have&8:"
+  - " &7- #99E0FF%economy-name-money% &f%economy-money%."
+  - " &7- #99E0FF%economy-name-coins% &f%economy-coins%."
+command-pay-negative: "#ff0000Amount to pay must be positive."
+command-pay-min: "#ff0000The minimum amount you can pay is &f%amount%#ff0000."
+command-pay-max: "#ff0000The maximum amount you can pay is &f%amount%#ff0000."
+command-pay-sender: "#99E0FFYou just sent #F8F327%amount%#99E0FF to the player &f%player%#99E0FF."
+command-pay-receiver: "&f%player% #99E0FFjust sent you #F8F327%amount%#99E0FF."
+command-pay-disable: "#ff0000You can’t send %name%."
+command-pay-self: "#ff0000You cannot send money to yourself."
+command-pay-not-enough: "#ff0000You don't have enough money."
+
 
 # Teleport commands
 command-tpa-error: "#ff0000You have already sent a request to #99E0FF%player%#ff0000."
@@ -84,6 +112,19 @@ command-world-teleport-self: "&aYou have just been teleported into the world &f%
 command-world-teleport-other: "&aYou just teleported the player &f%player% &ain the world &f%world%&a."
 command-tp: "&7You just teleport to the player #34cfe0%player%&f."
 command-tp-self: "&7You just teleported #34cfe0%player%&7 to your position."
+
+
+# First join
+join-message: "#99E0FF%player% &7joined the game"
+quit-message: "#99E0FF%player% &7left the game"
+first-join-message: ""
+first-join-motd:
+  - ""
+  - "#00FF00✔ #99E0FFWelcome %player%#99E0FF !"
+  - ""
+  - "#858ef8Discord&8: #99E0FF<hover:show_text:'&fJoin the server #858ef8Discord &f!'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>"
+  - "&7Website&8: #99E0FF<hover:show_text:'&fOpen the Website &f!'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>"
+  - ""
 
 
 # Command description
@@ -119,6 +160,17 @@ description-tp: "Teleport to a player"
 description-tp-self: "Teleport a player to your location"
 description-player-weather: "Change your weather"
 description-player-time: "Change your time"
+description-money: "Show your money"
+description-eco: "Manages the server economies"
+description-eco-set: "Sets the specified player's balance to the specified amount of money"
+description-eco-take: "Takes the specified amount of money from the specified player"
+description-eco-give: "Gives the specified player the specified amount of money"
+description-eco-give-all: "Gives for all players the specified amount of money"
+description-eco-reset: "Resets the specified player's balance to the server's starting balance"
+description-eco-show: "Show player money"
+description-pay: "Pays another player from your balance"
+description-fly: "Toggle flight"
+
 
 # Time format
 time-day: "%02d day %02d hour %02d minute %02d second"
@@ -141,7 +193,6 @@ teleport-move: "#ff0000You must not move!"
 teleport-message:
   type: ACTION
   message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
-teleport-error: "#ff0000You already have a teleportation in progress!"
 teleport-success:
   type: ACTION
   message: "#99E0FFYou have just teleported successfully!"
