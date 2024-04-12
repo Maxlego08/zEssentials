@@ -7,11 +7,12 @@ import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.placeholders.PlaceholderRegister;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.User;
+import fr.maxlego08.essentials.zutils.utils.ZUtils;
 
 import java.math.BigDecimal;
 import java.util.Optional;
 
-public class UserPlaceholders implements PlaceholderRegister {
+public class UserPlaceholders extends ZUtils implements PlaceholderRegister {
 
     @Override
     public void register(Placeholder placeholder, EssentialsPlugin plugin) {
@@ -39,7 +40,7 @@ public class UserPlaceholders implements PlaceholderRegister {
             }
             Economy economy = optional.get();
             BigDecimal decimal = user.getBalance(economy);
-            return decimal == null ? "0" : economyProvider.format(economy, decimal);
+            return decimal == null ? "0" : color(economyProvider.format(economy, decimal));
         }, "Returns the formatted number for a given economy", "economy");
 
         placeholder.register("user_balance_", (player, args) -> {

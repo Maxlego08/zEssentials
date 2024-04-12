@@ -170,6 +170,12 @@ description-eco-reset: "Resets the specified player's balance to the server's st
 description-eco-show: "Show player money"
 description-pay: "Pays another player from your balance"
 description-fly: "Toggle flight"
+description-anvil: "Open an anvil"
+description-cartographytable: "Open a cartography table"
+description-grindstone: "Open a grind stone"
+description-loom: "Open a loom"
+description-stonecutter: "Open a stone cutter"
+description-smithingtable: "Open a smithing table"
 
 
 # Time format

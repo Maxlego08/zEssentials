@@ -46,3 +46,9 @@ economy: true
 money: true
 pay: true
 fly: true
+anvil: true
+cartographytable: true
+grindstone: true
+loom: true
+stonecutter: true
+smithingtable: true
