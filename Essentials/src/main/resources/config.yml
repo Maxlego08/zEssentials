@@ -18,25 +18,34 @@ storage-type: MYSQL
 
 database-configuration:
   prefix: "zessentials_"
+  # For Pterodactyl panel: when you create a database it creates a <prefix>_<database name you chose>. Set "prefix"'s value to the prefix of the database
   host: 192.168.10.10
+  # IP Address of the machine the database is hosted on
   port: 3306
+  # Port of the database, by default MySQL's port is 3306
   user: homestead
   password: 'secret'
   database: zessentials
+  # For Pterodactyl panel: when you create a database it creates a <prefix>_<database name you chose>. Set "database"'s value to the name of the database
   debug: false
 
 enable-cooldown-bypass: false
 
 command-cooldowns:
+# Create command cooldowns (can run a command after X amount of seconds)
   - command: heal
     cooldown: 60
+    # In this example you can see that the "/heal" command has a 60 seconds cooldown
     permissions:
       - permission: "essentials.cooldown.heal.vip"
         cooldown: 40
+        # In this example whoever has "essentials.cooldown.heal.vip" permission can run "/heal" after 40 seconds
       - permission: "essentials.cooldown.heal.staff"
         cooldown: 20
+        # In this example whoever has "essentials.cooldown.heal.vip" permission can run "/heal" after 20 seconds
 
 trash-size: 27
+# Trash can GUI size. Must be 9, 18, 27, 36, 45, 54.
 
 compact-materials:
   - from: COAL
