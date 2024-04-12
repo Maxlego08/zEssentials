@@ -35,6 +35,10 @@ public abstract class MessageUtils extends PlaceholderUtils {
 
             switch (message.getMessageType()) {
 
+                case TCHAT_AND_ACTION -> {
+                    sendTchatMessage(sender, message, args);
+                    this.componentMessage.sendActionBar(sender, getMessage(message, args));
+                }
                 case ACTION -> {
                     this.componentMessage.sendActionBar(sender, getMessage(message, args));
                 }

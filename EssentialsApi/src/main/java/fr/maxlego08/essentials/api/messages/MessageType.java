@@ -7,5 +7,6 @@ public enum MessageType {
 	TITLE,
 	CENTER,
 	NONE,
+	TCHAT_AND_ACTION,
 	
 }

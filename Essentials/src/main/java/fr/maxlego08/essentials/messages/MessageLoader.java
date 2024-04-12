@@ -71,7 +71,7 @@ public class MessageLoader implements ConfigurationFile {
                         case ACTION -> {
                             message.setMessage(configuration.getString(key + ".message"));
                         }
-                        case CENTER, TCHAT -> {
+                        case CENTER, TCHAT, TCHAT_AND_ACTION -> {
                             List<String> messages = configuration.getStringList(key + ".messages");
                             if (messages.isEmpty()) {
                                 message.setMessage(configuration.getString(key + "message"));
