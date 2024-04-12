@@ -67,12 +67,12 @@ public class LocalPlaceholder implements Placeholder {
         return null;
     }
 
-    public void register(String startWith, ReturnBiConsumer<Player, String, String> biConsumer) {
-        this.autoPlaceholders.add(new AutoPlaceholder(startWith, biConsumer));
+    public void register(String startWith, ReturnBiConsumer<Player, String, String> biConsumer, String description) {
+        this.autoPlaceholders.add(new AutoPlaceholder(startWith, biConsumer, description));
     }
 
-    public void register(String startWith, ReturnConsumer<Player, String> biConsumer) {
-        this.autoPlaceholders.add(new AutoPlaceholder(startWith, biConsumer));
+    public void register(String startWith, ReturnConsumer<Player, String> biConsumer, String description) {
+        this.autoPlaceholders.add(new AutoPlaceholder(startWith, biConsumer, description));
     }
 
     public String getPrefix() {

@@ -21,14 +21,14 @@ public class UserPlaceholders implements PlaceholderRegister {
         placeholder.register("user_target_player_name", player -> {
             User user = iStorage.getUser(player.getUniqueId());
             return user.getTargetUser() != null ? user.getTargetUser().getName() : "no";
-        });
+        }, "Returns the name of the target player");
 
         placeholder.register("user_target_pay_amount", player -> {
             User user = iStorage.getUser(player.getUniqueId());
             Economy economy = user.getTargetEconomy();
             BigDecimal decimal = user.getTargetDecimal();
             return economy == null || decimal == null ? "0" : economyProvider.format(economy, decimal);
-        });
+        }, "Returns the number formatted for the /pay command");
 
     }
 }

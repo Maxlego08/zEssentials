@@ -9,18 +9,25 @@ public class AutoPlaceholder {
     private final String startWith;
     private final ReturnBiConsumer<Player, String, String> biConsumer;
     private final ReturnConsumer<Player, String> consumer;
+    private final String description;
 
-    public AutoPlaceholder(String startWith, ReturnBiConsumer<Player, String, String> biConsumer) {
+    public AutoPlaceholder(String startWith, ReturnBiConsumer<Player, String, String> biConsumer, String description) {
         super();
         this.startWith = startWith;
         this.biConsumer = biConsumer;
+        this.description = description;
         this.consumer = null;
     }
 
-    public AutoPlaceholder(String startWith, ReturnConsumer<Player, String> consumer) {
+    public AutoPlaceholder(String startWith, ReturnConsumer<Player, String> consumer, String description) {
         this.startWith = startWith;
+        this.description = description;
         this.biConsumer = null;
         this.consumer = consumer;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     /**
