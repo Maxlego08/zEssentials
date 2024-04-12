@@ -89,7 +89,7 @@ command-tpa-error-to-late-empty: "#ff0000You do not have a teleport request."
 command-tpa-error-to-late-expire: "#ff0000The teleport request has expired."
 command-tpa-sender:
   - "#00FF00✔ #99E0FFSent &f%displayName% #99E0FFa teleport request."
-  - "  <hover:show_text:'#ff0000✘ Cancel teleportation'><click:run_command:/tpacancel %player%>#99E0FFType #00FF00/tpacencel %player%#99E0FF to cancel your request.</click></hover>"
+  - "  <hover:show_text:'#ff0000✘ Cancel teleportation'><click:run_command:/tpacancel %player%>#99E0FFType #00FF00/tpacancel %player%#99E0FF to cancel your request.</click></hover>"
 command-tpa-receiver:
   - ""
   - "#F8F327⚠ &f%displayName% #99E0FFhas requested to teleport to you!"
