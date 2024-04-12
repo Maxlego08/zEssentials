@@ -18,11 +18,12 @@ public class PlaceholderMarkdownGenerator {
 
         for (AutoPlaceholder placeholder : placeholders) {
             // Format placeholder with arguments
-            String placeholderText = "zessentials_" + placeholder.getStartWith();
+            String placeholderText = "%zessentials_" + placeholder.getStartWith();
             if (!placeholder.getArgs().isEmpty()) {
                 String args = placeholder.getArgs().stream().collect(Collectors.joining("_", "<", ">"));
                 placeholderText += args;
             }
+            placeholderText += "%";
 
             // Escape Markdown special characters in descriptions
             String desc = placeholder.getDescription().replace("|", "\\|");
