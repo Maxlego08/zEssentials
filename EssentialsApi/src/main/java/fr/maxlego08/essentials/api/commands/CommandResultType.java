@@ -7,6 +7,7 @@ public enum CommandResultType {
 	NO_PERMISSION,
 	DEFAULT,
 	CONTINUE,
+	MODULE_DISABLE,
     COOLDOWN;
 	
 }

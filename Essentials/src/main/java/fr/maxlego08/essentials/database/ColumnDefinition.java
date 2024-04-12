@@ -4,6 +4,7 @@ public class ColumnDefinition {
     private String name;
     private String type;
     private int length;
+    private int decimal;
     private boolean nullable = false;
     private String defaultValue;
     private boolean isPrimaryKey = false;
@@ -23,7 +24,9 @@ public class ColumnDefinition {
     public String build() {
         StringBuilder columnSQL = new StringBuilder(name + " " + type);
 
-        if (length != 0) {
+        if (length != 0 && decimal != 0) {
+            columnSQL.append("(").append(length).append(",").append(decimal).append(")");
+        } else if (length != 0) {
             columnSQL.append("(").append(length).append(")");
         }
 
@@ -65,12 +68,18 @@ public class ColumnDefinition {
         return this;
     }
 
-    public Boolean getNullable() {
-        return nullable;
+    public ColumnDefinition setLength(int length) {
+        this.length = length;
+        return this;
     }
 
-    public void setNullable(Boolean nullable) {
-        this.nullable = nullable;
+    public ColumnDefinition setDecimal(Integer decimal) {
+        this.decimal = decimal;
+        return this;
+    }
+
+    public Boolean getNullable() {
+        return nullable;
     }
 
     public String getDefaultValue() {
@@ -97,13 +106,12 @@ public class ColumnDefinition {
         this.referenceTable = referenceTable;
     }
 
-    public ColumnDefinition setLength(int length) {
-        this.length = length;
-        return this;
-    }
-
     public boolean isNullable() {
         return nullable;
+    }
+
+    public void setNullable(Boolean nullable) {
+        this.nullable = nullable;
     }
 
     public void setNullable(boolean nullable) {

@@ -8,6 +8,7 @@ import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.commands.Tab;
 import fr.maxlego08.essentials.api.commands.TabCompletion;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.modules.Module;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import org.bukkit.command.CommandSender;
@@ -15,10 +16,13 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
+import java.util.function.Consumer;
 
 public abstract class VCommand extends Arguments implements EssentialsCommand {
 
@@ -33,6 +37,7 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
     protected Player player;
     protected User user;
     protected Configuration configuration;
+    protected Class<? extends Module> module;
     private boolean consoleCanUse = true;
     private boolean ignoreParent = false;
     private boolean ignoreArgs = false;
@@ -46,6 +51,10 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
 
     public VCommand(EssentialsPlugin plugin) {
         this.plugin = plugin;
+    }
+
+    public void setModule(Class<? extends Module> module) {
+        this.module = module;
     }
 
     public boolean isExtendedArgs() {
@@ -116,6 +125,7 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
         this.syntax = syntax;
     }
 
+    @Override
     public String getDescription() {
         return description;
     }
@@ -364,6 +374,15 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
                 }
             }
 
+            if (this.module != null) {
+
+                Module module = this.plugin.getModuleManager().getModule(this.module);
+                if (!module.isEnable()) {
+                    message(sender, Message.MODULE_DISABLE, "%name%", module.getName());
+                    return CommandResultType.MODULE_DISABLE;
+                }
+            }
+
             CommandResultType commandResultType = perform(plugin);
 
             if (commandResultType != CommandResultType.SYNTAX_ERROR && cooldownSeconds != 0 && this.user != null && (!this.user.hasPermission(Permission.ESSENTIALS_BYPASS_COOLDOWN) || !configuration.isEnableCooldownBypass())) {
@@ -396,8 +415,8 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
 
         this.parentCount = this.parentCount(0);
 
-        int currentInex = (args.length - this.parentCount) - 1;
-        Optional<TabCompletion> optional = this.getCompletionAt(currentInex);
+        int currentIndex = (args.length - this.parentCount) - 1;
+        Optional<TabCompletion> optional = this.getCompletionAt(currentIndex);
 
         if (optional.isPresent()) {
 
@@ -415,22 +434,45 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
     }
 
     protected List<String> generateList(List<String> defaultList, String startWith, Tab tab) {
-        List<String> newList = new ArrayList<>();
+        List<String> generatedList = new ArrayList<>();
         for (String str : defaultList) {
             if (startWith.length() == 0 || (tab.equals(Tab.START) ? str.toLowerCase().startsWith(startWith.toLowerCase()) : str.toLowerCase().contains(startWith.toLowerCase()))) {
-                newList.add(str);
+                generatedList.add(str);
             }
         }
-        return newList.size() == 0 ? null : newList;
+        return generatedList.size() == 0 ? null : generatedList;
     }
 
     public void syntaxMessage() {
-        this.subVCommands.forEach(command -> {
+        List<VCommand> commands = new ArrayList<>(this.subVCommands);
+        commands.sort(new VCommandComparator());
+        commands.forEach(command -> {
             if (command.getPermission() == null || sender.hasPermission(command.getPermission())) {
-                message(this.sender, Message.COMMAND_SYNTAXE_HELP, "%syntax%", command.getSyntax(), "%description%",
-                        command.getDescription());
+                message(this.sender, Message.COMMAND_SYNTAXE_HELP, "%syntax%", command.getSyntax(), "%description%", command.getDescription());
             }
         });
     }
 
+    protected void async(Runnable runnable) {
+        this.plugin.getScheduler().runAsync(wrappedTask -> runnable.run());
+    }
+
+    protected void fetchUniqueId(String userName, Consumer<UUID> consumer) {
+        this.plugin.getStorageManager().getStorage().fetchUniqueId(userName, uuid -> {
+
+            if (uuid == null) {
+                message(sender, Message.PLAYER_NOT_FOUND, "%player%", userName);
+                return;
+            }
+
+            consumer.accept(uuid);
+        });
+    }
+
+    private static class VCommandComparator implements Comparator<VCommand> {
+        @Override
+        public int compare(VCommand command1, VCommand command2) {
+            return command1.getMainCommand().compareTo(command2.getMainCommand());
+        }
+    }
 }

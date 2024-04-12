@@ -1,4 +1,4 @@
-package fr.maxlego08.essentials.storage.requests;
+package fr.maxlego08.essentials.storage.database;
 
 import fr.maxlego08.essentials.api.database.Schema;
 import fr.maxlego08.essentials.database.SchemaBuilder;
@@ -33,6 +33,25 @@ public abstract class Repository {
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
+    }
+
+    protected void insert(Consumer<Schema> consumer) {
+        try {
+            SchemaBuilder.insert(getTableName(), consumer).execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), this.connection.getPlugin().getLogger());
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    protected long select(Consumer<Schema> consumer) {
+        Schema schema = SchemaBuilder.selectCount(getTableName());
+        consumer.accept(schema);
+        try {
+            return schema.executeSelectCount(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), this.connection.getPlugin().getLogger());
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return 0L;
     }
 
     protected <T> List<T> select(Class<T> clazz, Consumer<Schema> consumer) {

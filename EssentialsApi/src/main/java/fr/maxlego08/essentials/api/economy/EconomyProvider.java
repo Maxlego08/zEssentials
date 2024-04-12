@@ -5,6 +5,7 @@ import org.bukkit.OfflinePlayer;
 
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -26,5 +27,23 @@ public interface EconomyProvider extends Module {
 
     Economy getDefaultEconomy();
 
-    String format(double amount);
+    Economy getVaultEconomy();
+
+    String format(Number number);
+
+    String format(PriceFormat priceFormat, Number number);
+
+    String format(Economy economy, Number number);
+
+    List<NumberMultiplicationFormat> getNumberFormatSellMultiplication();
+
+    Optional<NumberMultiplicationFormat> getMultiplication(String format);
+
+    void pay(UUID fromUuid, String fromName, UUID toUuid, String toName, Economy economy, BigDecimal amount);
+
+    PriceFormat getPriceFormat();
+
+    List<NumberFormatReduction> getPriceReductions();
+
+    String getPriceDecimalFormat();
 }

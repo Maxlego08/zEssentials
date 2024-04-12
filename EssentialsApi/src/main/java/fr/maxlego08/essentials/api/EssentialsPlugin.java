@@ -15,6 +15,7 @@ import fr.maxlego08.menu.api.pattern.PatternManager;
 import org.bukkit.plugin.Plugin;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface EssentialsPlugin extends Plugin {
 
@@ -47,4 +48,6 @@ public interface EssentialsPlugin extends Plugin {
     boolean isEconomyEnable();
 
     EconomyProvider getEconomyProvider();
+
+    UUID getConsoleUniqueId();
 }

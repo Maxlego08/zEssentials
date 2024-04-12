@@ -1,0 +1,29 @@
+name: '#3f3f3fᴄᴏɴꜰɪʀᴍ'
+size: 27
+items:
+  cancel:
+    slot: 10
+    closeInventory: true
+    item:
+      material: RED_STAINED_GLASS_PANE
+      name: '#ff0000ᴄᴀɴᴄᴇʟ'
+      lore:
+        - '&7Click to cancel the payment'
+
+  head:
+    slot: 13
+    item:
+      playerHead: '%zessentials_user_target_player_name%'
+      name: '#99E0FF%zessentials_user_target_player_name%'
+      lore:
+        - '&7Amount&8: #99E0FF%zessentials_user_target_pay_amount%'
+
+  confirm:
+    type: ESSENTIALS_PAY_CONFIRM
+    slot: 16
+    closeInventory: true
+    item:
+      material: GREEN_STAINED_GLASS_PANE
+      name: '#00ff00ᴄᴏɴғɪʀᴍ'
+      lore:
+        - '&7Click to send &n%zessentials_user_target_player_name%&r &7payment of #99E0FF%zessentials_user_target_pay_amount%'

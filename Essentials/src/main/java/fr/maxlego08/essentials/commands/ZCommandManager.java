@@ -6,6 +6,7 @@ import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.EssentialsCommand;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
+import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
@@ -120,9 +121,7 @@ public class ZCommandManager extends ZUtils implements CommandManager {
         for (EssentialsCommand command : commands) {
 
             if (command.getSubCommands().contains(cmd.getName().toLowerCase())) {
-                if (args.length == 1 && command.getParent() == null) {
-                    return processTab(sender, command, args);
-                }
+                return processTab(sender, command, args);
             } else {
                 String[] newArgs = Arrays.copyOf(args, args.length - 1);
                 if (newArgs.length >= 1 && command.getParent() != null && canExecute(newArgs, cmd.getName().toLowerCase(), command)) {
@@ -192,5 +191,10 @@ public class ZCommandManager extends ZUtils implements CommandManager {
     @Override
     public int countCommands() {
         return this.commands.size();
+    }
+
+    @Override
+    public List<EssentialsCommand> getCommands() {
+        return this.commands;
     }
 }

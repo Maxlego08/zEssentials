@@ -3,12 +3,14 @@ package fr.maxlego08.essentials.zutils.utils;
 import fr.maxlego08.essentials.api.messages.DefaultFontInfo;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.user.User;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public abstract class MessageUtils extends PlaceholderUtils {
 
@@ -16,6 +18,12 @@ public abstract class MessageUtils extends PlaceholderUtils {
 
     protected void message(User sender, Message message, Object... args) {
         message(sender.getPlayer(), message, args);
+    }
+
+    protected void message(UUID uniqueId, Message message, Object... args) {
+        Player player = Bukkit.getPlayer(uniqueId);
+        if (player == null) return;
+        message(player, message, args);
     }
 
     protected void message(CommandSender sender, Message message, Object... args) {

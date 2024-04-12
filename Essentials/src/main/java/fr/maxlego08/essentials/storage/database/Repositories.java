@@ -1,4 +1,4 @@
-package fr.maxlego08.essentials.storage.requests;
+package fr.maxlego08.essentials.storage.database;
 
 import java.util.HashMap;
 import java.util.Map;

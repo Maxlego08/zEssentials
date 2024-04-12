@@ -53,6 +53,15 @@ public class ZPlugin extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(listener, this);
     }
 
+    public boolean resourceExist(String resourcePath) {
+        if (resourcePath != null && !resourcePath.equals("")) {
+            resourcePath = resourcePath.replace('\\', '/');
+            InputStream in = this.getResource(resourcePath);
+            return in != null;
+        }
+        return false;
+    }
+
     public void saveResource(String resourcePath, String toPath, boolean replace) {
         if (resourcePath != null && !resourcePath.equals("")) {
             resourcePath = resourcePath.replace('\\', '/');

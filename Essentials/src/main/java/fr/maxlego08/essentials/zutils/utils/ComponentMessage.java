@@ -122,6 +122,10 @@ public class ComponentMessage extends PlaceholderUtils {
         return newMessage;
     }
 
+    public Component getComponent(String message) {
+        return this.cache.get(message, () -> this.MINI_MESSAGE.deserialize(colorMiniMessage(message)));
+    }
+
     public void sendMessage(CommandSender sender, String message) {
         Component component = this.cache.get(message, () -> this.MINI_MESSAGE.deserialize(colorMiniMessage(message)));
         sender.sendMessage(component);

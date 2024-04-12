@@ -91,7 +91,7 @@ public class ZTeleportRequest extends ZUtils implements TeleportRequest {
                 message(this.fromUser, Message.TELEPORT_MESSAGE, "%seconds%", currentSecond);
             }
 
-        }, 0, 1, TimeUnit.SECONDS);
+        }, 1, 20);
     }
 
     private void teleport(TeleportationModule teleportationModule) {

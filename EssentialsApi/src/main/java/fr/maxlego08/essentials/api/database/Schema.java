@@ -16,7 +16,13 @@ public interface Schema {
 
     Schema string(String columnName, int length);
 
+    Schema decimal(String columnName);
+
+    Schema decimal(String columnName, int length, int decimal);
+
     Schema string(String columnName, String value);
+
+    Schema decimal(String columnName, Number value);
 
     Schema bigInt(String columnName);
 
@@ -42,11 +48,14 @@ public interface Schema {
 
     Schema where(String column, Object value);
 
+    Schema where(String column, UUID value);
+
     Schema where(String column, String operator, Object value);
 
     void execute(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException;
 
     List<Map<String, Object>> executeSelect(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException;
+    long executeSelectCount(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException;
 
     <T> List<T> executeSelect(Class<T> clazz, Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws Exception;
 }

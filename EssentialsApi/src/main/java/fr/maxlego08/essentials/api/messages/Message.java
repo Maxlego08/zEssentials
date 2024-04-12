@@ -9,6 +9,8 @@ public enum Message {
     // Rework message for a better system
 
     PREFIX("&8(&6zEssentials&8) "),
+    PLAYER_NOT_FOUND("&f%player% #FF0000was not found."),
+    MODULE_DISABLE("#FF0000The &f%name% #FF0000module is disabled. You cannot use this command."),
 
     TIME_DAY("%02d %day% %02d %hour% %02d %minute% %02d %second%"),
     TIME_HOUR("%02d %hour% %02d minute(s) %02d %second%"),
@@ -47,6 +49,8 @@ public enum Message {
     COMMAND_SPEED_WALK("&7You have just set your &nwalk&r&7 speed to &f%speed%&7 for &f%player%&7. &8(&f2 &7by default&8)"),
     COMMAND_SPEED_ERROR("&cYou must enter a number between &60&c and &610&c. &8(&f2 &7by default&8)"),
 
+    COMMAND_FLY_ENABLE("&7Flight mode &aenable &7for &f%player%&a."),
+    COMMAND_FLY_DISABLE("&7Flight mode &cdisable &7for &f%player%&a."),
     COMMAND_GOD_ENABLE("&7God mode &aenable &7for &f%player%&a."),
     COMMAND_GOD_DISABLE("&7God mode &cdisable &7for &f%player%&a."),
     COMMAND_HEAL_SENDER("&7You just healed the player &f%player%&7."),
@@ -106,6 +110,7 @@ public enum Message {
     DESCRIPTION_DAY("Set the day in your world"),
     DESCRIPTION_NIGHT("Set the night in your world"),
     DESCRIPTION_GOD("Toggle god mode"),
+    DESCRIPTION_FLY("Toggle flight"),
     DESCRIPTION_HEAL("Heal a player"),
     DESCRIPTION_SUN("Set the sun in your world"),
     DESCRIPTION_ENDERCHEST("Open your enderchest"),
@@ -129,11 +134,15 @@ public enum Message {
     DESCRIPTION_HAT("Create your custom hat !"),
     DESCRIPTION_PLAYER_WEATHER("Change your weather"),
     DESCRIPTION_PLAYER_TIME("Change your time"),
+    DESCRIPTION_MONEY("Show your money"),
     DESCRIPTION_ECO("Manages the server economies"),
     DESCRIPTION_ECO_SET("Sets the specified player's balance to the specified amount of money"),
     DESCRIPTION_ECO_TAKE("Takes the specified amount of money from the specified player"),
     DESCRIPTION_ECO_GIVE("Gives the specified player the specified amount of money"),
+    DESCRIPTION_ECO_GIVE_ALL("Gives for all players the specified amount of money"),
     DESCRIPTION_ECO_RESET("Resets the specified player's balance to the server's starting balance"),
+    DESCRIPTION_ECO_SHOW("Show player money"),
+    DESCRIPTION_PAY("Pays another player from your balance"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -142,7 +151,6 @@ public enum Message {
 
     TELEPORT_MOVE("&cYou must not move!"),
     TELEPORT_MESSAGE(MessageType.ACTION, "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."),
-    TELEPORT_ERROR("&cYou already have a teleportation in progress!"),
     TELEPORT_SUCCESS("&eYou have just teleported successfully!"),
     TELEPORT_DAMAGE("&cYou must not take damage during teleportation."),
     TELEPORT_ERROR_LOCATION("&cUnable to teleport you safely."),
@@ -152,10 +160,42 @@ public enum Message {
     // Economy
 
     COMMAND_ECONOMY_NOT_FOUND("#ff0000 Can’t find a economy with the name &f%name%#ff0000."),
+    COMMAND_ECONOMY_GIVE_ALL_SENDER("#99E0FFYou just gave &f%economyFormat% #99E0FFto the online players."),
     COMMAND_ECONOMY_GIVE_SENDER("#99E0FFYou just gave &f%economyFormat% #99E0FFto the player &7%player%#99E0FF."),
     COMMAND_ECONOMY_GIVE_RECEIVER("#99E0FFYou have just received &f%economyFormat%."),
+    COMMAND_ECONOMY_SET_SENDER("#99E0FFYou just set &f%economyFormat% #99E0FFto the player &7%player%#99E0FF."),
+    COMMAND_ECONOMY_SET_RECEIVER("#99E0FFYou have just been modified &f%economyFormat%."),
     COMMAND_ECONOMY_TAKE_SENDER("#99E0FFYou just take &f%economyFormat% #99E0FFto the player &7%player%#99E0FF."),
     COMMAND_ECONOMY_TAKE_RECEIVER("#99E0FFYou have just lost &f%economyFormat%."),
+    COMMAND_ECONOMY_SHOW_EMPTY("&f%player% #FF0000has no money."),
+    COMMAND_ECONOMY_SHOW_INFO("&7- #99E0FF%economy% &f%amount%."),
+    COMMAND_MONEY(
+            "#99E0FFYou have&8:" ,
+            " &7- #99E0FF%economy-name-money% &f%economy-money%.",
+            " &7- #99E0FF%economy-name-coins% &f%economy-coins%."
+    ),
+
+    COMMAND_PAY_NEGATIVE("#ff0000Amount to pay must be positive."),
+    COMMAND_PAY_MIN("#ff0000The minimum amount you can pay is &f%amount%#ff0000."),
+    COMMAND_PAY_MAX("#ff0000The maximum amount you can pay is &f%amount%#ff0000."),
+    COMMAND_PAY_SENDER("#99E0FFYou just sent #F8F327%amount%#99E0FF to the player &f%player%#99E0FF."),
+    COMMAND_PAY_RECEIVER("&f%player% #99E0FFjust sent you #F8F327%amount%#99E0FF."),
+    COMMAND_PAY_DISABLE("#ff0000You can’t send %name%."),
+    COMMAND_PAY_SELF("#ff0000You cannot send money to yourself."),
+    COMMAND_PAY_NOT_ENOUGH("#ff0000You don't have enough money."),
+
+    JOIN_MESSAGE("#99E0FF%player% &7joined the game"),
+    QUIT_MESSAGE("#99E0FF%player% &7left the game"),
+    FIRST_JOIN_MESSAGE("&7Welcome #99E0FF%player% &7on <your server name>! &8(&f%totalUserFormat% &7registered players&8)"),
+    FIRST_JOIN_MOTD(
+            "",
+            "#00FF00✔ #99E0FFWelcome %player%#99E0FF !",
+            "",
+            "#858ef8Discord&8: #99E0FF<hover:show_text:'&fJoin the server #858ef8Discord &f!'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>",
+            "&7Website&8: #99E0FF<hover:show_text:'&fOpen the Website &f!'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>",
+            ""
+    ),
+
     ;
 
     private String message;

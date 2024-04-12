@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.storage.storages;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.event.UserEvent;
 import fr.maxlego08.essentials.api.event.events.UserFirstJoinEvent;
@@ -9,22 +10,21 @@ import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.user.ZUser;
+import fr.maxlego08.essentials.zutils.utils.StorageHelper;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 
 import java.io.File;
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Consumer;
 
-public class JsonStorage implements IStorage {
-
-    private final EssentialsPlugin plugin;
-    private final Map<UUID, User> users = new HashMap<>();
+public class JsonStorage extends StorageHelper implements IStorage {
 
     public JsonStorage(EssentialsPlugin plugin) {
-        this.plugin = plugin;
+        super(plugin);
     }
 
     public File getFolder() {
@@ -41,6 +41,9 @@ public class JsonStorage implements IStorage {
     @Override
     public void onEnable() {
         this.createFolder();
+
+        File folder = getFolder();
+        this.totalUser = folder == null ? 0 : Optional.ofNullable(folder.listFiles()).map(e -> e.length).orElse(0);
     }
 
     @Override
@@ -72,10 +75,7 @@ public class JsonStorage implements IStorage {
 
             user = new ZUser(plugin, uniqueId);
             user.setName(playerName);
-
-            this.plugin.getLogger().info(String.format("%s (%s) is a new player !", playerName, uniqueId));
-            UserEvent event = new UserFirstJoinEvent(user);
-            this.plugin.getScheduler().runNextTick(wrappedTask -> event.callEvent());
+            this.firstJoin(user);
 
             persist.save(user, file);
         }
@@ -123,5 +123,55 @@ public class JsonStorage implements IStorage {
     public void updateUserMoney(UUID uniqueId, Consumer<User> consumer) {
         User loadUser = createOrLoad(uniqueId, "offline");
         consumer.accept(loadUser);
+    }
+
+    @Override
+    public void getUserEconomy(String userName, Consumer<List<EconomyDTO>> consumer) {
+        async(() -> {
+
+            List<EconomyDTO> economyDTOS = getLocalEconomyDTO(userName);
+            if (!economyDTOS.isEmpty()) {
+                consumer.accept(economyDTOS);
+                return;
+            }
+
+            OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(userName);
+            User loadUser = createOrLoad(offlinePlayer.getUniqueId(), "offline");
+            consumer.accept(loadUser.getBalances().entrySet().stream().map(e -> new EconomyDTO(e.getKey(), e.getValue())).toList());
+        });
+    }
+
+    @Override
+    public void fetchUniqueId(String userName, Consumer<UUID> consumer) {
+
+        if (this.localUUIDS.containsKey(userName)) {
+            consumer.accept(this.localUUIDS.get(userName));
+            return;
+        }
+
+        async(() -> {
+            // User plugin cache first
+            getLocalUniqueId(userName).ifPresentOrElse(uuid -> {
+                this.localUUIDS.put(userName, uuid);
+                consumer.accept(uuid);
+            }, () -> {
+                // User server cache
+                OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayerIfCached(userName);
+                if (offlinePlayer != null) {
+                    this.localUUIDS.put(userName, offlinePlayer.getUniqueId());
+                    consumer.accept(offlinePlayer.getUniqueId());
+                    return;
+                }
+                // Try load offline player
+                offlinePlayer = Bukkit.getOfflinePlayer(userName);
+                this.localUUIDS.put(userName, offlinePlayer.getUniqueId());
+                consumer.accept(offlinePlayer.getUniqueId());
+            });
+        });
+    }
+
+    @Override
+    public void storeTransactions(UUID fromUuid, UUID toUuid, Economy economy, BigDecimal fromAmount, BigDecimal toAmount) {
+
     }
 }
