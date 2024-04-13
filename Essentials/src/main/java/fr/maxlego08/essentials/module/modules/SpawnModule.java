@@ -9,6 +9,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.plugin.PluginManager;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
@@ -49,11 +50,38 @@ public class SpawnModule extends ZModule {
                 spawnModule.onSpawnLocation(playerSpawnLocationEvent, playerSpawnLocationEvent.getPlayer());
             }
         }, this.plugin);
+
+        if (this.plugin.isFolia()) {
+            pluginManager.registerEvent(PlayerDeathEvent.class, this, EventPriority.LOWEST, (listener, event) -> {
+                if (listener instanceof SpawnModule spawnModule && event instanceof PlayerDeathEvent playerDeathEvent) {
+                    spawnModule.onPlayerDeath(playerDeathEvent, playerDeathEvent.getPlayer());
+                }
+            }, this.plugin);
+        }
+    }
+
+    private void onPlayerDeath(PlayerDeathEvent playerDeathEvent, Player player) {
+
+        Location respawnLocation = player.getRespawnLocation();
+
+        if (this.respawnAtAnchor && respawnLocation != null) return;
+
+        if (this.respawnAtBed) {
+            // ToDo
+        }
+
+        if (this.respawnAtHome) {
+            // ToDo
+        }
+
+        if (ConfigStorage.spawnLocation != null) {
+            player.setRespawnLocation(ConfigStorage.spawnLocation, true);
+        }
     }
 
     public void onSpawnLocation(PlayerSpawnLocationEvent event, Player player) {
         User user = getUser(player);
-        if (user.isFirstJoin() && ConfigStorage.spawnLocation != null) {
+        if (user != null && user.isFirstJoin() && ConfigStorage.spawnLocation != null) {
             event.setSpawnLocation(ConfigStorage.spawnLocation);
         }
     }
@@ -72,7 +100,7 @@ public class SpawnModule extends ZModule {
 
         }
 
-        if (this.respawnAtBed) {
+        if (this.respawnAtBed && event.isBedSpawn()) {
             Location respawnLocation = player.getRespawnLocation();
             if (respawnLocation != null) {
                 event.setRespawnLocation(respawnLocation);

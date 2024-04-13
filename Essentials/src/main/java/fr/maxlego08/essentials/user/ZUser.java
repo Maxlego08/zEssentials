@@ -157,6 +157,8 @@ public class ZUser extends ZUtils implements User {
 
     @Override
     public void teleportNow(Location location) {
+        // ToDo, https://github.com/PaperMC/Folia/?tab=readme-ov-file#current-broken-api
+        // When folia API is update, remove this
         if (this.plugin.isFolia()) {
             this.setLastLocation();
         }

@@ -12,12 +12,6 @@
 #
 ########################################################################################################################
 
-# IMPORTANT
-#
-# If you are on folia certain event does not work, for players respawn to spawn you must use the command /setworldspawn
-#
-# IMPORTANT
-
 enable: true
 
 # What priority should we use for handling respawns?
