@@ -233,32 +233,43 @@ cooldown: "#ff0000✘ You must wait for &f%cooldown% #ff0000before performing th
 
 # Teleportation
 teleport-move: "#ff0000You must not move!"
+teleport-damage: "#ff0000You must not take damage during teleportation."
+teleport-error-location: "#ff0000Unable to teleport you safely."
+
 teleport-message:
   type: ACTION
   message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
 teleport-success:
   type: ACTION
   message: "#99E0FFYou have just teleported successfully!"
-teleport-damage: "#ff0000You must not take damage during teleportation."
-teleport-error-location: "#ff0000Unable to teleport you safely."
+
 teleport-message-spawn:
   type: TCHAT_AND_ACTION
   message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
 teleport-success-spawn:
   type: TCHAT_AND_ACTION
   message: "&7You just teleported to #0EEA93spawn &7!"
+
 teleport-message-warp:
   type: TCHAT_AND_ACTION
   message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
 teleport-success-warp:
   type: TCHAT_AND_ACTION
   message: "&7You just teleported to warp #0EEA93%name% &7!"
+
 teleport-message-random:
   type: ACTION
   message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
 teleport-success-random:
   type: ACTION
   message: "#99E0FFYou have just teleported successfully!"
+
+teleport-message-home:
+  type: TCHAT_AND_ACTION
+  message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
+teleport-success-home:
+  type: TCHAT_AND_ACTION
+  message: "&7You just teleported to home #0EEA93%name% &7!"
 
 
 # Warps

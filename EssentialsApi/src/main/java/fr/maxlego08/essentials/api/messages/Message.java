@@ -177,6 +177,8 @@ public enum Message {
     TELEPORT_SUCCESS_SPAWN(MessageType.TCHAT_AND_ACTION, "&7You just teleported to #0EEA93spawn &7!"),
     TELEPORT_MESSAGE_WARP(MessageType.TCHAT_AND_ACTION, "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."),
     TELEPORT_SUCCESS_WARP(MessageType.TCHAT_AND_ACTION, "&7You just teleported to warp #0EEA93%name% &7!"),
+    TELEPORT_MESSAGE_HOME(MessageType.TCHAT_AND_ACTION, "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."),
+    TELEPORT_SUCCESS_HOME(MessageType.TCHAT_AND_ACTION, "&7You just teleported to home #0EEA93%name% &7!"),
     TELEPORT_DAMAGE("&cYou must not take damage during teleportation."),
     TELEPORT_ERROR_LOCATION("&cUnable to teleport you safely."),
 
@@ -252,6 +254,8 @@ public enum Message {
             "&fUse &n<hover:show_text:'&fClick to teleport to home'><click:suggest_command:'/home %name%'>/home %name%</click></hover>&r command to teleport to it",
             ""
     ),
+
+    COMMAND_HOME_DOESNT_EXIST("#ff0000The home &f%name%#ff0000 does not exist."),
 
     ;
 

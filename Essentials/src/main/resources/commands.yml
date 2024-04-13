@@ -61,3 +61,4 @@ delwarp: true
 warps: true
 tpr: true
 sethome: true
+home: true
