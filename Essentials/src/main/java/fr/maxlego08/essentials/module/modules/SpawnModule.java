@@ -45,7 +45,8 @@ public class SpawnModule extends ZModule {
             }, this.plugin);
         }
 
-        pluginManager.registerEvent(PlayerSpawnLocationEvent.class, this, EventPriority.LOWEST, (listener, event) -> {
+        EventPriority spawnPriority = getPriority(this.spawnJoinListenerPriority);
+        pluginManager.registerEvent(PlayerSpawnLocationEvent.class, this, spawnPriority, (listener, event) -> {
             if (listener instanceof SpawnModule spawnModule && event instanceof PlayerSpawnLocationEvent playerSpawnLocationEvent) {
                 spawnModule.onSpawnLocation(playerSpawnLocationEvent, playerSpawnLocationEvent.getPlayer());
             }

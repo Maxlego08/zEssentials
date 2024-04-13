@@ -154,6 +154,10 @@ public enum Message {
     DESCRIPTION_PAY("Pays another player from your balance"),
     DESCRIPTION_SET_SPAWN("Set server spawn"),
     DESCRIPTION_SPAWN("Teleport to spawn"),
+    DESCRIPTION_WARP_SET("Create a warp"),
+    DESCRIPTION_WARP_USE("Teleport to a warp"),
+    DESCRIPTION_WARP_DEL("Delete a warp"),
+    DESCRIPTION_WARP_LIST("Show warp list"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -211,6 +215,12 @@ public enum Message {
 
     COMMAND_SET_SPAWN("&fYou just set the spawn location."),
     COMMAND_SPAWN_NOT_DEFINE("&cThe spawn does not exist. Please contact an administrator."),
+
+    COMMAND_WARP_ALREADY_EXIST("#ff0000Warp &f%name% #ff0000already exists."),
+    COMMAND_WARP_CREATE(
+            "#00ff00You just created the warp &f%name% #00ff00to your position.",
+            "&7Warp Permission is: <hover:show_text:'&fCopy command to add permission to a player'><click:SUGGEST_COMMAND:'/lp user <username> permission set nessentials.warp.%name%'>&f&nessentials.warp.%name%</click></hover>"
+            ),
 
     ;
 

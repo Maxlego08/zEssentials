@@ -19,6 +19,7 @@ import fr.maxlego08.essentials.api.storage.ServerStorage;
 import fr.maxlego08.essentials.api.storage.StorageManager;
 import fr.maxlego08.essentials.api.storage.adapter.LocationAdapter;
 import fr.maxlego08.essentials.api.user.User;
+import fr.maxlego08.essentials.api.utils.Warp;
 import fr.maxlego08.essentials.buttons.ButtonPayConfirm;
 import fr.maxlego08.essentials.buttons.ButtonTeleportationConfirm;
 import fr.maxlego08.essentials.commands.CommandLoader;
@@ -51,6 +52,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Modifier;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin {
@@ -276,5 +278,15 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     @Override
     public boolean isFolia() {
         return this.serverImplementation instanceof FoliaImplementation;
+    }
+
+    @Override
+    public List<Warp> getWarps() {
+        return ConfigStorage.warps;
+    }
+
+    @Override
+    public Optional<Warp> getWarp(String name) {
+        return getWarps().stream().filter(warp -> warp.getName().equalsIgnoreCase(name)).findFirst();
     }
 }

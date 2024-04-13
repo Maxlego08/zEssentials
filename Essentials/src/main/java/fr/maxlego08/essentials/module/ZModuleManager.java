@@ -7,6 +7,7 @@ import fr.maxlego08.essentials.economy.EconomyManager;
 import fr.maxlego08.essentials.module.modules.JoinQuitModule;
 import fr.maxlego08.essentials.module.modules.SpawnModule;
 import fr.maxlego08.essentials.module.modules.TeleportationModule;
+import fr.maxlego08.essentials.module.modules.WarpModule;
 import org.bukkit.Bukkit;
 
 import java.io.File;
@@ -35,6 +36,7 @@ public class ZModuleManager implements ModuleManager {
 
         this.modules.put(TeleportationModule.class, new TeleportationModule(this.plugin));
         this.modules.put(SpawnModule.class, new SpawnModule(this.plugin));
+        this.modules.put(WarpModule.class, new WarpModule(this.plugin));
         this.modules.put(JoinQuitModule.class, new JoinQuitModule(this.plugin));
         this.modules.put(EconomyManager.class, this.plugin.getEconomyProvider());
 

@@ -26,7 +26,7 @@ public class CommandEconomySet extends VCommand {
         this.addRequireArg("economy", (a, b) -> plugin.getEconomyProvider().getEconomies().stream().map(Economy::getName).toList());
         this.addRequireArg("player");
         this.addRequireArg("amount", (a, b) -> Stream.of(10, 20, 30, 40, 50, 60, 70, 80, 90).map(String::valueOf).toList());
-        this.addOptionalArg("silent", (a, b) -> Arrays.asList("true", "false"));
+        this.addBooleanOptionalArg("silent");
     }
 
     @Override

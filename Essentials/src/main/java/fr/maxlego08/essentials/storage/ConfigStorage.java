@@ -2,11 +2,16 @@ package fr.maxlego08.essentials.storage;
 
 
 import fr.maxlego08.essentials.api.storage.Persist;
+import fr.maxlego08.essentials.api.utils.Warp;
 import org.bukkit.Location;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ConfigStorage {
 
     public static Location spawnLocation;
+    public static List<Warp> warps = new ArrayList<>();
 
     /**
      * static Singleton instance.

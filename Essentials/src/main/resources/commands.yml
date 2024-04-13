@@ -55,3 +55,7 @@ smithingtable: true
 back: true
 setspawn: true
 spawn: true
+setwarp: true
+warp: true
+delwarp: true
+warps: true

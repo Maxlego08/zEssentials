@@ -10,12 +10,14 @@ import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.essentials.api.storage.ServerStorage;
 import fr.maxlego08.essentials.api.storage.StorageManager;
+import fr.maxlego08.essentials.api.utils.Warp;
 import fr.maxlego08.menu.api.ButtonManager;
 import fr.maxlego08.menu.api.InventoryManager;
 import fr.maxlego08.menu.api.pattern.PatternManager;
 import org.bukkit.plugin.Plugin;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface EssentialsPlugin extends Plugin {
@@ -57,4 +59,8 @@ public interface EssentialsPlugin extends Plugin {
     void setServerStorage(ServerStorage serverStorage);
 
     boolean isFolia();
+
+    List<Warp> getWarps();
+
+    Optional<Warp> getWarp(String name);
 }

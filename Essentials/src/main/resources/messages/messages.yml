@@ -204,6 +204,10 @@ description-smithingtable: "Open a smithing table"
 description-back: "Teleport to your previous location"
 description-set-spawn: "Set server spawn"
 description-spawn: "Teleport to spawn"
+description-warp-set: "Create a warp"
+description-warp-use: "Teleport to a warp"
+description-warp-del: "Delete a warp"
+description-warp-list: "Show warp list"
 
 
 # Time format
