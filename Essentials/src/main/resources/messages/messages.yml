@@ -210,6 +210,9 @@ description-warp-use: "Teleport to a warp"
 description-warp-del: "Delete a warp"
 description-warp-list: "Show warp list"
 description-tp-random: "Random Teleport in the world"
+description-set-home: "Create a home"
+description-del-home: "Delete a home"
+description-home: "Teleport to a home"
 
 
 # Time format

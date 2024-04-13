@@ -9,6 +9,7 @@ import fr.maxlego08.essentials.database.migrations.CreateEconomyTransactionMigra
 import fr.maxlego08.essentials.database.migrations.CreateServerStorageTableMigration;
 import fr.maxlego08.essentials.database.migrations.CreateUserCooldownTableMigration;
 import fr.maxlego08.essentials.database.migrations.CreateUserEconomyMigration;
+import fr.maxlego08.essentials.database.migrations.CreateUserHomeTableMigration;
 import fr.maxlego08.essentials.database.migrations.CreateUserOptionTableMigration;
 import fr.maxlego08.essentials.database.migrations.CreateUserTableMigration;
 
@@ -40,6 +41,7 @@ public class ZMigrationManager implements MigrationManager {
         this.migrations.add(new CreateUserEconomyMigration());
         this.migrations.add(new CreateEconomyTransactionMigration());
         // this.migrations.add(new CreateServerStorageTableMigration());
+        this.migrations.add(new CreateUserHomeTableMigration());
     }
 
     @Override

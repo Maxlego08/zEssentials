@@ -32,6 +32,7 @@ import fr.maxlego08.essentials.listener.PlayerListener;
 import fr.maxlego08.essentials.loader.ButtonWarpLoader;
 import fr.maxlego08.essentials.messages.MessageLoader;
 import fr.maxlego08.essentials.module.ZModuleManager;
+import fr.maxlego08.essentials.module.modules.HomeModule;
 import fr.maxlego08.essentials.placeholders.DistantPlaceholder;
 import fr.maxlego08.essentials.placeholders.LocalPlaceholder;
 import fr.maxlego08.essentials.storage.ConfigStorage;
@@ -48,6 +49,7 @@ import fr.maxlego08.menu.api.InventoryManager;
 import fr.maxlego08.menu.api.pattern.PatternManager;
 import fr.maxlego08.menu.button.loader.NoneLoader;
 import org.bukkit.Location;
+import org.bukkit.permissions.Permissible;
 
 import java.io.File;
 import java.io.IOException;
@@ -289,6 +291,11 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
     @Override
     public Optional<Warp> getWarp(String name) {
-        return getWarps().stream().filter(warp -> warp.getName().equalsIgnoreCase(name)).findFirst();
+        return getWarps().stream().filter(warp -> warp.name().equalsIgnoreCase(name)).findFirst();
+    }
+
+    @Override
+    public int getMaxHome(Permissible permissible) {
+        return this.moduleManager.getModule(HomeModule.class).getMaxHome(permissible);
     }
 }

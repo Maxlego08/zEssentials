@@ -3,8 +3,10 @@ package fr.maxlego08.essentials.api.user;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
+import fr.maxlego08.essentials.api.database.dto.HomeDTO;
 import fr.maxlego08.essentials.api.database.dto.OptionDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
+import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.messages.Message;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -14,6 +16,7 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface User {
@@ -113,4 +116,18 @@ public interface User {
     boolean isFirstJoin();
 
     void setFirstJoin();
+
+    void setHome(String name, Location location);
+
+    Optional<Home> getHome(String name);
+
+    List<Home> getHomes();
+
+    int countHomes();
+
+    void removeHome(String name);
+
+    void setHomes(List<HomeDTO> homeDTOS);
+
+    boolean isHomeName(String homeName);
 }

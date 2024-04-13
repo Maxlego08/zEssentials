@@ -14,6 +14,7 @@ import fr.maxlego08.essentials.api.utils.Warp;
 import fr.maxlego08.menu.api.ButtonManager;
 import fr.maxlego08.menu.api.InventoryManager;
 import fr.maxlego08.menu.api.pattern.PatternManager;
+import org.bukkit.permissions.Permissible;
 import org.bukkit.plugin.Plugin;
 
 import java.util.List;
@@ -63,4 +64,6 @@ public interface EssentialsPlugin extends Plugin {
     List<Warp> getWarps();
 
     Optional<Warp> getWarp(String name);
+
+    int getMaxHome(Permissible permissible);
 }

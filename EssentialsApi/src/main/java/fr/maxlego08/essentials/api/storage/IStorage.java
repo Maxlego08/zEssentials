@@ -2,6 +2,7 @@ package fr.maxlego08.essentials.api.storage;
 
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
+import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import org.bukkit.Location;
@@ -42,4 +43,8 @@ public interface IStorage {
     void upsertUser(User user);
 
     void upsertStorage(String key, Object value);
+
+    void upsertHome(UUID uniqueId, Home home);
+
+    void deleteHome(UUID uniqueId, String name);
 }

@@ -159,6 +159,9 @@ public enum Message {
     DESCRIPTION_WARP_USE("Teleport to a warp"),
     DESCRIPTION_WARP_DEL("Delete a warp"),
     DESCRIPTION_WARP_LIST("Show warp list"),
+    DESCRIPTION_SET_HOME("Create a home"),
+    DESCRIPTION_DEL_HOME("Delete a home"),
+    DESCRIPTION_HOME("Teleport to a home"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -238,6 +241,17 @@ public enum Message {
     COMMAND_WARP_DELETE("#00ff00You just removed the warp &f%name%#00ff00."),
 
     COMMAND_RANDOM_TP_ERROR("#ff0000No safe location found after multiple attempts, please try again."),
+
+    COMMAND_SET_HOME_INVALIDE_NAME("&f%name% #ff0000is not a valid name, please choose another one."),
+    COMMAND_SET_HOME_TOO_LONG("&f%name% #ff0000is too long, please choose another one."),
+    COMMAND_SET_HOME_TOO_SHORT("&f%name% #ff0000is too short name, please choose another one."),
+    COMMAND_SET_HOME_MAX("#ff0000You cannot have more than &f%max%#ff0000 homes."),
+    COMMAND_SET_HOME_CREATE(
+            "",
+            "#99E0FFYou just created the home &f%name%#99E0FF. &8(&7%current%&8/&7%max%&8)",
+            "&fUse &n<hover:show_text:'&fClick to teleport to home'><click:suggest_command:'/home %name%'>/home %name%</click></hover>&r command to teleport to it",
+            ""
+    ),
 
     ;
 

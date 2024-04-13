@@ -20,7 +20,7 @@ public class CommandWarp extends VCommand {
         this.setDescription(Message.DESCRIPTION_WARP_USE);
         this.addOptionalArg("name", (sender, args) -> {
             List<Warp> warps = plugin.getWarps();
-            return warps.stream().filter(warp -> warp.hasPermission(sender)).map(Warp::getName).toList();
+            return warps.stream().filter(warp -> warp.hasPermission(sender)).map(Warp::name).toList();
         });
         this.onlyPlayers();
     }
@@ -35,7 +35,7 @@ public class CommandWarp extends VCommand {
 
             if (warpModule.isEnableNoArgumentMessage()) {
 
-                List<String> warps = plugin.getWarps().stream().filter(warp -> warp.hasPermission(sender)).map(warp -> getMessage(Message.COMMAND_WARP_DESTINATION, "%name%", warp.getName())).toList();
+                List<String> warps = plugin.getWarps().stream().filter(warp -> warp.hasPermission(sender)).map(warp -> getMessage(Message.COMMAND_WARP_DESTINATION, "%name%", warp.name())).toList();
                 message(sender, Message.COMMAND_WARP_USE, "%destinations%", Strings.join(warps, ','));
 
                 return CommandResultType.DEFAULT;

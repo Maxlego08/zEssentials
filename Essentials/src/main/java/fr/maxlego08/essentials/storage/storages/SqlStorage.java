@@ -2,18 +2,18 @@ package fr.maxlego08.essentials.storage.storages;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
-import fr.maxlego08.essentials.api.database.dto.ServerStorageDTO;
 import fr.maxlego08.essentials.api.database.dto.UserDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
+import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.storage.database.Repositories;
 import fr.maxlego08.essentials.storage.database.SqlConnection;
 import fr.maxlego08.essentials.storage.database.repositeries.EconomyTransactionsRepository;
-import fr.maxlego08.essentials.storage.database.repositeries.ServerStorageRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserCooldownsRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserEconomyRepository;
+import fr.maxlego08.essentials.storage.database.repositeries.UserHomeRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserOptionRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserRepository;
 import fr.maxlego08.essentials.user.ZUser;
@@ -49,6 +49,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
         this.repositories.register(UserCooldownsRepository.class);
         this.repositories.register(UserEconomyRepository.class);
         this.repositories.register(EconomyTransactionsRepository.class);
+        this.repositories.register(UserHomeRepository.class);
         // this.repositories.register(ServerStorageRepository.class);
 
         plugin.getMigrationManager().execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), this.plugin.getLogger());
@@ -93,6 +94,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
                 user.setOptions(this.repositories.getTable(UserOptionRepository.class).selectOptions(uniqueId));
                 user.setCooldowns(this.repositories.getTable(UserCooldownsRepository.class).selectCooldowns(uniqueId));
                 user.setEconomies(this.repositories.getTable(UserEconomyRepository.class).selectEconomies(uniqueId));
+                user.setHomes(this.repositories.getTable(UserHomeRepository.class).selectHomes(uniqueId));
             }
         });
 
@@ -200,5 +202,15 @@ public class SqlStorage extends StorageHelper implements IStorage {
     @Override
     public void upsertStorage(String key, Object value) {
         // async(() -> this.repositories.getTable(ServerStorageRepository.class).upsert(key, value));
+    }
+
+    @Override
+    public void upsertHome(UUID uniqueId, Home home) {
+        async(() -> this.repositories.getTable(UserHomeRepository.class).upsert(uniqueId, home));
+    }
+
+    @Override
+    public void deleteHome(UUID uniqueId, String name) {
+        async(() -> this.repositories.getTable(UserHomeRepository.class).deleteHomes(uniqueId, name));
     }
 }

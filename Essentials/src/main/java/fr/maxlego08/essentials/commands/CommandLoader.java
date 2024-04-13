@@ -13,6 +13,7 @@ import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeAdventu
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeCreative;
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeSpectator;
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeSurvival;
+import fr.maxlego08.essentials.commands.commands.home.CommandSetHome;
 import fr.maxlego08.essentials.commands.commands.spawn.CommandSetSpawn;
 import fr.maxlego08.essentials.commands.commands.spawn.CommandSpawn;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleport;
@@ -127,6 +128,8 @@ public class CommandLoader {
         register("warp", CommandWarp.class, "w");
         register("warps", CommandWarps.class, "wlist");
         register("delwarp", CommandDelWarp.class, "wdelete");
+
+        register("sethome", CommandSetHome.class);
 
 
         File file = new File(plugin.getDataFolder(), "commands.yml");

@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.storage.storages;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
+import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.essentials.api.user.Option;
@@ -181,5 +182,15 @@ public class JsonStorage extends StorageHelper implements IStorage {
     @Override
     public void upsertStorage(String key, Object value) {
 
+    }
+
+    @Override
+    public void upsertHome(UUID uniqueId, Home home) {
+        this.saveFileAsync(uniqueId);
+    }
+
+    @Override
+    public void deleteHome(UUID uniqueId, String name) {
+        this.saveFileAsync(uniqueId);
     }
 }
