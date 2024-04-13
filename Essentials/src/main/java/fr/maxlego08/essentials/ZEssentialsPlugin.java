@@ -31,6 +31,7 @@ import fr.maxlego08.essentials.messages.MessageLoader;
 import fr.maxlego08.essentials.module.ZModuleManager;
 import fr.maxlego08.essentials.placeholders.DistantPlaceholder;
 import fr.maxlego08.essentials.placeholders.LocalPlaceholder;
+import fr.maxlego08.essentials.storage.ConfigStorage;
 import fr.maxlego08.essentials.storage.ZStorageManager;
 import fr.maxlego08.essentials.storage.adapter.UserTypeAdapter;
 import fr.maxlego08.essentials.user.UserPlaceholders;
@@ -92,6 +93,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
         // Load configuration files
         this.configurationFiles.forEach(ConfigurationFile::load);
+        ConfigStorage.getInstance().load(getPersist());
 
         // Commands
         this.commandManager = new ZCommandManager(this);
@@ -133,6 +135,8 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
         // Storage
         if (this.storageManager != null) this.storageManager.onDisable();
+        if (this.persist != null) ConfigStorage.getInstance().save(this.persist);
+        
     }
 
     private void registerButtons() {

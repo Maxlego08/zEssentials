@@ -39,7 +39,7 @@ public class ZMigrationManager implements MigrationManager {
         this.migrations.add(new CreateUserCooldownTableMigration());
         this.migrations.add(new CreateUserEconomyMigration());
         this.migrations.add(new CreateEconomyTransactionMigration());
-        this.migrations.add(new CreateServerStorageTableMigration());
+        // this.migrations.add(new CreateServerStorageTableMigration());
     }
 
     @Override

@@ -162,7 +162,9 @@ public enum Message {
 
     TELEPORT_MOVE("&cYou must not move!"),
     TELEPORT_MESSAGE(MessageType.ACTION, "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."),
-    TELEPORT_SUCCESS("&eYou have just teleported successfully!"),
+    TELEPORT_SUCCESS(MessageType.ACTION, "#99E0FFYou have just teleported successfully!"),
+    TELEPORT_MESSAGE_SPAWN(MessageType.TCHAT_AND_ACTION, "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."),
+    TELEPORT_SUCCESS_SPAWN(MessageType.TCHAT_AND_ACTION, "&7You just teleported to #0EEA93spawn &7!"),
     TELEPORT_DAMAGE("&cYou must not take damage during teleportation."),
     TELEPORT_ERROR_LOCATION("&cUnable to teleport you safely."),
 

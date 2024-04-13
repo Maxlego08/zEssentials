@@ -49,12 +49,13 @@ public class SqlStorage extends StorageHelper implements IStorage {
         this.repositories.register(UserCooldownsRepository.class);
         this.repositories.register(UserEconomyRepository.class);
         this.repositories.register(EconomyTransactionsRepository.class);
-        this.repositories.register(ServerStorageRepository.class);
+        // this.repositories.register(ServerStorageRepository.class);
 
         plugin.getMigrationManager().execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), this.plugin.getLogger());
         this.repositories.getTable(UserCooldownsRepository.class).deleteExpiredCooldowns();
-        List<ServerStorageDTO> serverStorageDTOS = this.repositories.getTable(ServerStorageRepository.class).select();
-        plugin.getServerStorage().setContents(serverStorageDTOS);
+
+        /*List<ServerStorageDTO> serverStorageDTOS = this.repositories.getTable(ServerStorageRepository.class).select();
+        plugin.getServerStorage().setContents(serverStorageDTOS);*/
     }
 
     @Override
@@ -199,6 +200,6 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     @Override
     public void upsertStorage(String key, Object value) {
-        async(() -> this.repositories.getTable(ServerStorageRepository.class).upsert(key, value));
+        // async(() -> this.repositories.getTable(ServerStorageRepository.class).upsert(key, value));
     }
 }

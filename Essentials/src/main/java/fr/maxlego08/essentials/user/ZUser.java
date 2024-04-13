@@ -162,13 +162,18 @@ public class ZUser extends ZUtils implements User {
 
     @Override
     public void teleport(Location location) {
+        this.teleport(location, Message.TELEPORT_MESSAGE, Message.TELEPORT_SUCCESS);
+    }
+
+    @Override
+    public void teleport(Location location, Message message, Message successMessage) {
 
         TeleportationModule teleportationModule = this.plugin.getModuleManager().getModule(TeleportationModule.class);
         Location playerLocation = getPlayer().getLocation();
         AtomicInteger atomicInteger = new AtomicInteger(teleportationModule.getTeleportationDelay(getPlayer()));
 
         if (teleportationModule.isTeleportDelayBypass() && this.hasPermission(Permission.ESSENTIALS_TELEPORT_BYPASS)) {
-            this.teleport(teleportationModule, location);
+            this.teleport(teleportationModule, location, successMessage);
             return;
         }
 
@@ -192,17 +197,17 @@ public class ZUser extends ZUtils implements User {
             if (currentSecond == 0) {
 
                 wrappedTask.cancel();
-                this.teleport(teleportationModule, location);
+                this.teleport(teleportationModule, location, successMessage);
             } else {
 
-                message(this, Message.TELEPORT_MESSAGE, "%seconds%", currentSecond);
+                message(this, message, "%seconds%", currentSecond);
             }
 
         }, 1, 20);
 
     }
 
-    private void teleport(TeleportationModule teleportationModule, Location toLocation) {
+    private void teleport(TeleportationModule teleportationModule, Location toLocation, Message message) {
         Location location = getPlayer().isFlying() ? toLocation : teleportationModule.isTeleportSafety() ? toSafeLocation(toLocation) : toLocation;
 
         if (teleportationModule.isTeleportToCenter()) {
@@ -212,6 +217,9 @@ public class ZUser extends ZUtils implements User {
         }
 
         this.teleportNow(location);
+        if (message != null) {
+            message(this, message);
+        }
     }
 
     @Override

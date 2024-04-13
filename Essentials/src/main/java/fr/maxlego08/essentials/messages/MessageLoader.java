@@ -68,10 +68,10 @@ public class MessageLoader implements ConfigurationFile {
                     MessageType messageType = MessageType.valueOf(configuration.getString(key + ".type", "TCHAT").toUpperCase());
                     message.setMessageType(messageType);
                     switch (messageType) {
-                        case ACTION -> {
+                        case ACTION, TCHAT_AND_ACTION -> {
                             message.setMessage(configuration.getString(key + ".message"));
                         }
-                        case CENTER, TCHAT, TCHAT_AND_ACTION -> {
+                        case CENTER, TCHAT -> {
                             List<String> messages = configuration.getStringList(key + ".messages");
                             if (messages.isEmpty()) {
                                 message.setMessage(configuration.getString(key + "message"));

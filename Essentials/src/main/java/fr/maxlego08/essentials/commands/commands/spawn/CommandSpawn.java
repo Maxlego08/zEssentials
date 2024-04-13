@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.module.modules.SpawnModule;
+import fr.maxlego08.essentials.storage.ConfigStorage;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 import org.bukkit.Location;
 
@@ -21,13 +22,13 @@ public class CommandSpawn extends VCommand {
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
-        Location location = plugin.getServerStorage().getSpawnLocation();
+        Location location = ConfigStorage.spawnLocation;
         if (location == null) {
             message(sender, Message.COMMAND_SPAWN_NOT_DEFINE);
             return CommandResultType.DEFAULT;
         }
 
-        this.user.teleport(location);
+        this.user.teleport(location, Message.TELEPORT_MESSAGE_SPAWN, Message.TELEPORT_SUCCESS_SPAWN);
 
         return CommandResultType.SUCCESS;
     }

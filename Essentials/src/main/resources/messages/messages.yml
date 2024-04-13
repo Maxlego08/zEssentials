@@ -147,6 +147,10 @@ first-join-motd:
   - "&7Website&8: #99E0FF<hover:show_text:'&fOpen the Website &f!'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>"
   - ""
 
+# Spawn
+command-set-spawn: "&fYou just set the spawn location."
+command-spawn-not-define: "&cThe spawn does not exist. Please contact an administrator."
+
 
 # Command description
 description-reload: "Reload configuration files"
@@ -198,6 +202,8 @@ description-loom: "Open a loom"
 description-stonecutter: "Open a stone cutter"
 description-smithingtable: "Open a smithing table"
 description-back: "Teleport to your previous location"
+description-set-spawn: "Set server spawn"
+description-spawn: "Teleport to spawn"
 
 
 # Time format
@@ -226,3 +232,9 @@ teleport-success:
   message: "#99E0FFYou have just teleported successfully!"
 teleport-damage: "#ff0000You must not take damage during teleportation."
 teleport-error-location: "#ff0000Unable to teleport you safely."
+teleport-message-spawn:
+  type: TCHAT_AND_ACTION
+  message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
+teleport-success-spawn:
+  type: TCHAT_AND_ACTION
+  message: "&7You just teleported to #0EEA93spawn &7!"
