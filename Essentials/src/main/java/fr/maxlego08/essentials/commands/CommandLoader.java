@@ -21,6 +21,7 @@ import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportBack;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportCancel;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportDeny;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportHere;
+import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportRandom;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportTo;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportWorld;
 import fr.maxlego08.essentials.commands.commands.utils.CommandAnvil;
@@ -113,6 +114,7 @@ public class CommandLoader {
         register("tpdeny", CommandTeleportDeny.class, "tpno");
         register("tpacancel", CommandTeleportCancel.class);
         register("back", CommandTeleportBack.class);
+        register("tpr", CommandTeleportRandom.class, "rtp");
 
         register("economy", CommandEconomy.class, "eco");
         register("money", CommandMoney.class, "balance");

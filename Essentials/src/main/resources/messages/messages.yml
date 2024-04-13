@@ -133,6 +133,7 @@ command-tp: "&7You just teleport to the player #34cfe0%player%&f."
 command-tp-self: "&7You just teleported #34cfe0%player%&7 to your position."
 command-back: "&7Returning to previous location."
 command-back-error: "#ff0000You have no last location. Impossible to go back."
+command-random-tp-error: "#ff0000No safe location found after multiple attempts, please try again."
 
 
 # First join
@@ -208,6 +209,7 @@ description-warp-set: "Create a warp"
 description-warp-use: "Teleport to a warp"
 description-warp-del: "Delete a warp"
 description-warp-list: "Show warp list"
+description-tp-random: "Random Teleport in the world"
 
 
 # Time format
@@ -248,6 +250,12 @@ teleport-message-warp:
 teleport-success-warp:
   type: TCHAT_AND_ACTION
   message: "&7You just teleported to warp #0EEA93%name% &7!"
+teleport-message-random:
+  type: ACTION
+  message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
+teleport-success-random:
+  type: ACTION
+  message: "#99E0FFYou have just teleported successfully!"
 
 
 # Warps

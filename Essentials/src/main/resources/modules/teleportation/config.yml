@@ -46,3 +46,27 @@ teleport-tpa-expire: 60
 
 # Opens a confirmation inventory for the /tpa command.
 open-confirm-inventory-for-tpa: false
+
+rtp-center-x: 0
+rtp-center-z: 0
+
+rtp-radius-x: 5000
+rtp-radius-z: 5000
+
+rtp-world: "world"
+
+max-rtp-attempts: 10
+
+blacklist-biomes:
+  - cold_ocean
+  - deep_cold_ocean
+  - deep_frozen_ocean
+  - deep_lukewarm_ocean
+  - deep_ocean
+  - deep_warm_ocean
+  - frozen_ocean
+  - frozen_river
+  - lukewarm_ocean
+  - ocean
+  - river
+  - warm_ocean

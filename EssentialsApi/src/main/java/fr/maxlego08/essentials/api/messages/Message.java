@@ -121,6 +121,7 @@ public enum Message {
     DESCRIPTION_SPEED("Change player speed"),
     DESCRIPTION_TPA("Teleport to a player"),
     DESCRIPTION_TP("Teleport to a player"),
+    DESCRIPTION_TP_RANDOM("Random Teleport in the world"),
     DESCRIPTION_BACK("Teleport to your previous location"),
     DESCRIPTION_TP_SELF("Teleport a player to your location"),
     DESCRIPTION_TPA_ACCEPT("Accept a teleportation request"),
@@ -167,6 +168,8 @@ public enum Message {
     TELEPORT_MOVE("&cYou must not move!"),
     TELEPORT_MESSAGE(MessageType.ACTION, "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."),
     TELEPORT_SUCCESS(MessageType.ACTION, "#99E0FFYou have just teleported successfully!"),
+    TELEPORT_MESSAGE_RANDOM(MessageType.ACTION, "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."),
+    TELEPORT_SUCCESS_RANDOM(MessageType.ACTION, "#99E0FFYou have just teleported successfully!"),
     TELEPORT_MESSAGE_SPAWN(MessageType.TCHAT_AND_ACTION, "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."),
     TELEPORT_SUCCESS_SPAWN(MessageType.TCHAT_AND_ACTION, "&7You just teleported to #0EEA93spawn &7!"),
     TELEPORT_MESSAGE_WARP(MessageType.TCHAT_AND_ACTION, "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."),
@@ -233,6 +236,8 @@ public enum Message {
     COMMAND_WARP_LIST("&7Warps&8:&f%destinations%"),
     COMMAND_WARP_LIST_INFO(" <hover:show_text:'&fClick to teleport to warp &n%name%'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"),
     COMMAND_WARP_DELETE("#00ff00You just removed the warp &f%name%#00ff00."),
+
+    COMMAND_RANDOM_TP_ERROR("#ff0000No safe location found after multiple attempts, please try again."),
 
     ;
 
