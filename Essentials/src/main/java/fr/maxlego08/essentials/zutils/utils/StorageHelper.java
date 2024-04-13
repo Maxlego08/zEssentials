@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-public class StorageHelper {
+public class StorageHelper extends ZUtils{
 
     protected final EssentialsPlugin plugin;
     protected final Map<UUID, User> users = new HashMap<>();
@@ -43,6 +43,7 @@ public class StorageHelper {
     }
 
     protected void firstJoin(User user){
+        user.setFirstJoin();
         this.totalUser += 1;
         this.plugin.getLogger().info(String.format("%s (%s) is a new player !", user.getName(), user.getUniqueId()));
         UserEvent event = new UserFirstJoinEvent(user);

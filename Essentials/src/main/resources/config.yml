@@ -10,6 +10,7 @@
 # Placeholders:
 # %zessentials_user_target_player_name%
 # %zessentials_user_target_pay_amount%
+# %zessentials_user_balance_<economy>%
 #
 ########################################################################################################################
 
@@ -29,6 +30,10 @@ database-configuration:
   # For Pterodactyl panel: when you create a database it creates a <prefix>_<database name you chose>. Set "database"'s value to the name of the database
   database: zessentials
   debug: false
+  # ToDo - Créer un système qui permet de load toutes les données en cache (pour SQL et JSON) et ajouter un moyen de pouvoir filter par rapport à l'activer du joueur
+  # ToDo - Par exemple pouvoir load les joueurs actifs durant les 7 derniers jours, ainsi on évite de load tout les joueurs mais seulement les joueurs actifs
+  # ToDo - Se système va permettre de load les données des joueurs plus rapidement, en cas de crash serveurs si des centaines de joueurs veulent revenir en même temps cela peut être problématique.
+  # ToDo - Cette solution sera très bien pour se genre de cas.
 
 enable-cooldown-bypass: false
 

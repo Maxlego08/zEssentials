@@ -46,3 +46,17 @@ economy: true
 money: true
 pay: true
 fly: true
+anvil: true
+cartographytable: true
+grindstone: true
+loom: true
+stonecutter: true
+smithingtable: true
+back: true
+setspawn: true
+spawn: true
+setwarp: true
+warp: true
+delwarp: true
+warps: true
+tpr: true

@@ -9,6 +9,7 @@ public class CreateUserTableMigration extends Migration {
         SchemaBuilder.create("%prefix%players", table -> {
             table.uuid("unique_id").primary();
             table.string("name", 16);
+            table.text("last_location").nullable();
             table.timestamps();
         });
     }

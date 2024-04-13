@@ -1,3 +1,22 @@
+########################################################################################################################
+#
+#  ███████╗███████╗░██████╗░██████╗███████╗███╗░░██╗████████╗██╗░█████╗░██╗░░░░░░██████╗
+#  ╚════██║██╔════╝██╔════╝██╔════╝██╔════╝████╗░██║╚══██╔══╝██║██╔══██╗██║░░░░░██╔════╝
+#  ░░███╔═╝█████╗░░╚█████╗░╚█████╗░█████╗░░██╔██╗██║░░░██║░░░██║███████║██║░░░░░╚█████╗░
+#  ██╔══╝░░██╔══╝░░░╚═══██╗░╚═══██╗██╔══╝░░██║╚████║░░░██║░░░██║██╔══██║██║░░░░░░╚═══██╗
+#  ███████╗███████╗██████╔╝██████╔╝███████╗██║░╚███║░░░██║░░░██║██║░░██║███████╗██████╔╝
+#  ╚══════╝╚══════╝╚═════╝░╚═════╝░╚══════╝╚═╝░░╚══╝░░░╚═╝░░░╚═╝╚═╝░░╚═╝╚══════╝╚═════╝░
+#
+# Messages type:
+# NONE - Does not display the message
+# TCHAT - Default type, sends one or more messages in chat
+# ACTION - Sends the message in the action bar
+# TCHAT_AND_ACTION - Sends message in action bar and chat
+# CENTER - Send one or more messages in the chat, but they will be centered
+# TITLE - Sends a title
+#
+########################################################################################################################
+
 prefix: "#03fcb6zEssentials #656665• "
 you: "you"
 trash: "&8Trash"
@@ -112,6 +131,9 @@ command-world-teleport-self: "&aYou have just been teleported into the world &f%
 command-world-teleport-other: "&aYou just teleported the player &f%player% &ain the world &f%world%&a."
 command-tp: "&7You just teleport to the player #34cfe0%player%&f."
 command-tp-self: "&7You just teleported #34cfe0%player%&7 to your position."
+command-back: "&7Returning to previous location."
+command-back-error: "#ff0000You have no last location. Impossible to go back."
+command-random-tp-error: "#ff0000No safe location found after multiple attempts, please try again."
 
 
 # First join
@@ -125,6 +147,10 @@ first-join-motd:
   - "#858ef8Discord&8: #99E0FF<hover:show_text:'&fJoin the server #858ef8Discord &f!'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>"
   - "&7Website&8: #99E0FF<hover:show_text:'&fOpen the Website &f!'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>"
   - ""
+
+# Spawn
+command-set-spawn: "&fYou just set the spawn location."
+command-spawn-not-define: "&cThe spawn does not exist. Please contact an administrator."
 
 
 # Command description
@@ -170,6 +196,20 @@ description-eco-reset: "Resets the specified player's balance to the server's st
 description-eco-show: "Show player money"
 description-pay: "Pays another player from your balance"
 description-fly: "Toggle flight"
+description-anvil: "Open an anvil"
+description-cartographytable: "Open a cartography table"
+description-grindstone: "Open a grind stone"
+description-loom: "Open a loom"
+description-stonecutter: "Open a stone cutter"
+description-smithingtable: "Open a smithing table"
+description-back: "Teleport to your previous location"
+description-set-spawn: "Set server spawn"
+description-spawn: "Teleport to spawn"
+description-warp-set: "Create a warp"
+description-warp-use: "Teleport to a warp"
+description-warp-del: "Delete a warp"
+description-warp-list: "Show warp list"
+description-tp-random: "Random Teleport in the world"
 
 
 # Time format
@@ -198,3 +238,37 @@ teleport-success:
   message: "#99E0FFYou have just teleported successfully!"
 teleport-damage: "#ff0000You must not take damage during teleportation."
 teleport-error-location: "#ff0000Unable to teleport you safely."
+teleport-message-spawn:
+  type: TCHAT_AND_ACTION
+  message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
+teleport-success-spawn:
+  type: TCHAT_AND_ACTION
+  message: "&7You just teleported to #0EEA93spawn &7!"
+teleport-message-warp:
+  type: TCHAT_AND_ACTION
+  message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
+teleport-success-warp:
+  type: TCHAT_AND_ACTION
+  message: "&7You just teleported to warp #0EEA93%name% &7!"
+teleport-message-random:
+  type: ACTION
+  message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
+teleport-success-random:
+  type: ACTION
+  message: "#99E0FFYou have just teleported successfully!"
+
+
+# Warps
+command-warp-already-exist: "#ff0000Warp &f%name% #ff0000already exists. &7Use &n<hover:show_text:'&fUse this command'><click:suggest_command:'/setwarp %name% true'>/setwarp %name% true</click></hover>&r command to modify the warp"
+command-warp-doesnt-exist: "#ff0000Warp &f%name% #ff0000 does not exist."
+command-warp-no-permission: "#ff0000You do not have permission to use the warp &f%name%#ff0000."
+command-warp-create:
+  - "#00ff00You just created the warp &f%name% #00ff00to your position."
+  - "&7Warp Permission is: <hover:show_text:'&fCopy command to add permission to a player'><click:SUGGEST_COMMAND:'/lp user <username> permission set nessentials.warp.%name%'>&f&nessentials.warp.%name%</click></hover>"
+command-warp-use:
+  - "&cUsage&8: &f/warp <destination>"
+  - "&7Warps&8:&f%destinations%"
+command-warp-destination: " <hover:show_text:'&fClick to teleport to warp &n%name%'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"
+command-warp-list: "&7Warps&8:&f%destinations%"
+command-warp-list-info: " <hover:show_text:'&fClick to teleport to warp &n%name%'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"
+command-warp-delete: "#00ff00You just removed the warp &f%name%#00ff00."

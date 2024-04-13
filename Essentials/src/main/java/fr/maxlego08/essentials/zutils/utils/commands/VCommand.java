@@ -223,6 +223,12 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
         this.ignoreArgs = true;
     }
 
+    protected void addBooleanOptionalArg(String message) {
+        this.addOptionalArg(message);
+        int index = this.requireArgs.size() + this.optionalArgs.size();
+        this.addCompletion(index - 1, (a, b) -> Arrays.asList("true", "false"));
+    }
+
     protected void addOptionalArg(String message, TabCompletion runnable) {
         this.addOptionalArg(message);
         int index = this.requireArgs.size() + this.optionalArgs.size();

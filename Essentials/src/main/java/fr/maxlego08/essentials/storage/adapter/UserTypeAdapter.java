@@ -9,6 +9,8 @@ import fr.maxlego08.essentials.api.database.dto.OptionDTO;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.user.ZUser;
+import fr.maxlego08.essentials.zutils.utils.LocationUtils;
+import org.bukkit.Location;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -20,6 +22,8 @@ import java.util.stream.Collectors;
 public class UserTypeAdapter extends TypeAdapter<User> {
 
     private final EssentialsPlugin plugin;
+    private final LocationUtils locationUtils = new LocationUtils() {
+    };
 
     public UserTypeAdapter(EssentialsPlugin plugin) {
         this.plugin = plugin;
@@ -30,6 +34,9 @@ public class UserTypeAdapter extends TypeAdapter<User> {
         out.beginObject();
         out.name("uniqueId").value(value.getUniqueId().toString());
         out.name("name").value(value.getName());
+        if (value.getLastLocation() != null) {
+            out.name("lastLocation").value(locationUtils.locationAsString(value.getLastLocation()));
+        }
 
         out.name("options").beginObject();
         for (Map.Entry<Option, Boolean> entry : value.getOptions().entrySet()) {
@@ -62,12 +69,14 @@ public class UserTypeAdapter extends TypeAdapter<User> {
         Map<Option, Boolean> options = new HashMap<>();
         Map<String, Long> cooldowns = new HashMap<>();
         Map<String, BigDecimal> balances = new HashMap<>();
+        Location lastLocation = null;
 
         in.beginObject();
         while (in.hasNext()) {
             switch (in.nextName()) {
                 case "uniqueId" -> uniqueId = UUID.fromString(in.nextString());
                 case "name" -> name = in.nextString();
+                case "lastLocation" -> lastLocation = locationUtils.stringAsLocation(in.nextString());
                 case "options" -> {
                     in.beginObject();
                     while (in.hasNext()) {
@@ -105,6 +114,7 @@ public class UserTypeAdapter extends TypeAdapter<User> {
         user.setName(name);
         user.setOptions(options.entrySet().stream().map(e -> new OptionDTO(e.getKey(), e.getValue())).collect(Collectors.toList()));
         user.setCooldowns(cooldowns.entrySet().stream().map(e -> new CooldownDTO(e.getKey(), e.getValue())).collect(Collectors.toList()));
+        user.setLastLocation(lastLocation);
         balances.forEach(user::setBalance);
 
         return user;

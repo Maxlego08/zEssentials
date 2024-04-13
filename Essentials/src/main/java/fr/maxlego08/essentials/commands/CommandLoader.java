@@ -13,26 +13,40 @@ import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeAdventu
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeCreative;
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeSpectator;
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeSurvival;
+import fr.maxlego08.essentials.commands.commands.spawn.CommandSetSpawn;
+import fr.maxlego08.essentials.commands.commands.spawn.CommandSpawn;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleport;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportAccept;
+import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportBack;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportCancel;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportDeny;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportHere;
+import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportRandom;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportTo;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportWorld;
+import fr.maxlego08.essentials.commands.commands.utils.CommandAnvil;
+import fr.maxlego08.essentials.commands.commands.utils.CommandCartographyTable;
 import fr.maxlego08.essentials.commands.commands.utils.CommandCompact;
 import fr.maxlego08.essentials.commands.commands.utils.CommandCraft;
 import fr.maxlego08.essentials.commands.commands.utils.CommandEnchanting;
 import fr.maxlego08.essentials.commands.commands.utils.CommandFeed;
 import fr.maxlego08.essentials.commands.commands.utils.CommandFly;
 import fr.maxlego08.essentials.commands.commands.utils.CommandGod;
+import fr.maxlego08.essentials.commands.commands.utils.CommandGrindStone;
 import fr.maxlego08.essentials.commands.commands.utils.CommandHat;
 import fr.maxlego08.essentials.commands.commands.utils.CommandHeal;
 import fr.maxlego08.essentials.commands.commands.utils.CommandInvsee;
+import fr.maxlego08.essentials.commands.commands.utils.CommandLoom;
 import fr.maxlego08.essentials.commands.commands.utils.CommandMore;
+import fr.maxlego08.essentials.commands.commands.utils.CommandSmithingTable;
 import fr.maxlego08.essentials.commands.commands.utils.CommandSpeed;
+import fr.maxlego08.essentials.commands.commands.utils.CommandStoneCutter;
 import fr.maxlego08.essentials.commands.commands.utils.CommandTop;
 import fr.maxlego08.essentials.commands.commands.utils.CommandTrash;
+import fr.maxlego08.essentials.commands.commands.warp.CommandDelWarp;
+import fr.maxlego08.essentials.commands.commands.warp.CommandSetWarp;
+import fr.maxlego08.essentials.commands.commands.warp.CommandWarp;
+import fr.maxlego08.essentials.commands.commands.warp.CommandWarps;
 import fr.maxlego08.essentials.commands.commands.weather.CommandDay;
 import fr.maxlego08.essentials.commands.commands.weather.CommandNight;
 import fr.maxlego08.essentials.commands.commands.weather.CommandPlayerTime;
@@ -86,6 +100,12 @@ public class CommandLoader {
         register("compact", CommandCompact.class, "blocks");
         register("hat", CommandHat.class);
         register("fly", CommandFly.class);
+        register("anvil", CommandAnvil.class);
+        register("cartographytable", CommandCartographyTable.class);
+        register("grindstone", CommandGrindStone.class);
+        register("loom", CommandLoom.class);
+        register("stonecutter", CommandStoneCutter.class);
+        register("smithingtable", CommandSmithingTable.class);
 
         register("tp", CommandTeleport.class);
         register("tphere", CommandTeleportHere.class, "s");
@@ -93,10 +113,20 @@ public class CommandLoader {
         register("tpaccept", CommandTeleportAccept.class, "tpyes");
         register("tpdeny", CommandTeleportDeny.class, "tpno");
         register("tpacancel", CommandTeleportCancel.class);
+        register("back", CommandTeleportBack.class);
+        register("tpr", CommandTeleportRandom.class, "rtp");
 
         register("economy", CommandEconomy.class, "eco");
         register("money", CommandMoney.class, "balance");
         register("pay", CommandPay.class);
+
+        register("setspawn", CommandSetSpawn.class);
+        register("spawn", CommandSpawn.class);
+
+        register("setwarp", CommandSetWarp.class, "wcreate");
+        register("warp", CommandWarp.class, "w");
+        register("warps", CommandWarps.class, "wlist");
+        register("delwarp", CommandDelWarp.class, "wdelete");
 
 
         File file = new File(plugin.getDataFolder(), "commands.yml");

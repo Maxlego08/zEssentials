@@ -85,6 +85,8 @@ public enum Message {
     COMMAND_TP_CANCEL_RECEIVER("&f%player% #ff0000cancelled their teleport request to you."),
     COMMAND_TP("&7You just teleport to the player #34cfe0%player%&f."),
     COMMAND_TP_SELF("&7You just teleported #34cfe0%player%&7 to your position."),
+    COMMAND_BACK("&7Returning to previous location."),
+    COMMAND_BACK_ERROR("#ff0000You have no last location. Impossible to go back."),
 
     COMMAND_MORE_ERROR("&cYou cannot make this order in item in hand."),
     COMMAND_MORE_SUCCESS("&7You just put your item to &f64&7."),
@@ -119,6 +121,8 @@ public enum Message {
     DESCRIPTION_SPEED("Change player speed"),
     DESCRIPTION_TPA("Teleport to a player"),
     DESCRIPTION_TP("Teleport to a player"),
+    DESCRIPTION_TP_RANDOM("Random Teleport in the world"),
+    DESCRIPTION_BACK("Teleport to your previous location"),
     DESCRIPTION_TP_SELF("Teleport a player to your location"),
     DESCRIPTION_TPA_ACCEPT("Accept a teleportation request"),
     DESCRIPTION_TPA_DENY("Denied a teleportation request"),
@@ -129,6 +133,12 @@ public enum Message {
     DESCRIPTION_FEED("Feed a player"),
     DESCRIPTION_CRAFT("Open workbrench"),
     DESCRIPTION_ENCHANTING("Open enchantment table"),
+    DESCRIPTION_ANVIL("Open an anvil"),
+    DESCRIPTION_CARTOGRAPHYTABLE("Open a cartography table"),
+    DESCRIPTION_GRINDSTONE("Open a grind stone"),
+    DESCRIPTION_LOOM("Open a loom"),
+    DESCRIPTION_STONECUTTER("Open a stone cutter"),
+    DESCRIPTION_SMITHINGTABLE("Open a smithing table"),
     DESCRIPTION_INVSEE("Open player's inventory"),
     DESCRIPTION_COMPACT("Compact material"),
     DESCRIPTION_HAT("Create your custom hat !"),
@@ -143,6 +153,12 @@ public enum Message {
     DESCRIPTION_ECO_RESET("Resets the specified player's balance to the server's starting balance"),
     DESCRIPTION_ECO_SHOW("Show player money"),
     DESCRIPTION_PAY("Pays another player from your balance"),
+    DESCRIPTION_SET_SPAWN("Set server spawn"),
+    DESCRIPTION_SPAWN("Teleport to spawn"),
+    DESCRIPTION_WARP_SET("Create a warp"),
+    DESCRIPTION_WARP_USE("Teleport to a warp"),
+    DESCRIPTION_WARP_DEL("Delete a warp"),
+    DESCRIPTION_WARP_LIST("Show warp list"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -151,7 +167,13 @@ public enum Message {
 
     TELEPORT_MOVE("&cYou must not move!"),
     TELEPORT_MESSAGE(MessageType.ACTION, "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."),
-    TELEPORT_SUCCESS("&eYou have just teleported successfully!"),
+    TELEPORT_SUCCESS(MessageType.ACTION, "#99E0FFYou have just teleported successfully!"),
+    TELEPORT_MESSAGE_RANDOM(MessageType.ACTION, "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."),
+    TELEPORT_SUCCESS_RANDOM(MessageType.ACTION, "#99E0FFYou have just teleported successfully!"),
+    TELEPORT_MESSAGE_SPAWN(MessageType.TCHAT_AND_ACTION, "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."),
+    TELEPORT_SUCCESS_SPAWN(MessageType.TCHAT_AND_ACTION, "&7You just teleported to #0EEA93spawn &7!"),
+    TELEPORT_MESSAGE_WARP(MessageType.TCHAT_AND_ACTION, "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."),
+    TELEPORT_SUCCESS_WARP(MessageType.TCHAT_AND_ACTION, "&7You just teleported to warp #0EEA93%name% &7!"),
     TELEPORT_DAMAGE("&cYou must not take damage during teleportation."),
     TELEPORT_ERROR_LOCATION("&cUnable to teleport you safely."),
 
@@ -195,6 +217,27 @@ public enum Message {
             "&7Website&8: #99E0FF<hover:show_text:'&fOpen the Website &f!'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>",
             ""
     ),
+
+    COMMAND_SET_SPAWN("&fYou just set the spawn location."),
+    COMMAND_SPAWN_NOT_DEFINE("&cThe spawn does not exist. Please contact an administrator."),
+
+    COMMAND_WARP_ALREADY_EXIST("#ff0000Warp &f%name% #ff0000already exists. &7Use &n<hover:show_text:'&fUse this command'><click:suggest_command:'/setwarp %name% true'>/setwarp %name% true</click></hover>&r command to modify the warp"),
+    COMMAND_WARP_DOESNT_EXIST("#ff0000Warp &f%name% #ff0000 does not exist."),
+    COMMAND_WARP_NO_PERMISSION("#ff0000You do not have permission to use the warp &f%name%#ff0000."),
+    COMMAND_WARP_CREATE(
+            "#00ff00You just created the warp &f%name% #00ff00to your position.",
+            "&7Warp Permission is: <hover:show_text:'&fCopy command to add permission to a player'><click:SUGGEST_COMMAND:'/lp user <username> permission set nessentials.warp.%name%'>&f&nessentials.warp.%name%</click></hover>"
+            ),
+    COMMAND_WARP_USE(
+            "&cUsage&8: &f/warp <destination>",
+            "&7Warps&8:&f%destinations%"
+    ),
+    COMMAND_WARP_DESTINATION(" <hover:show_text:'&fClick to teleport to warp &n%name%'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"),
+    COMMAND_WARP_LIST("&7Warps&8:&f%destinations%"),
+    COMMAND_WARP_LIST_INFO(" <hover:show_text:'&fClick to teleport to warp &n%name%'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"),
+    COMMAND_WARP_DELETE("#00ff00You just removed the warp &f%name%#00ff00."),
+
+    COMMAND_RANDOM_TP_ERROR("#ff0000No safe location found after multiple attempts, please try again."),
 
     ;
 

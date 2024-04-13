@@ -7,6 +7,7 @@ import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -15,10 +16,6 @@ import java.util.stream.Collectors;
 
 public class LocalPlaceholder implements Placeholder {
 
-    /**
-     * static Singleton instance.
-     */
-    private static volatile LocalPlaceholder instance;
     private final Pattern pattern = Pattern.compile("[%]([^%]+)[%]");
     private final List<AutoPlaceholder> autoPlaceholders = new ArrayList<>();
     private final EssentialsPlugin plugin;
@@ -67,8 +64,8 @@ public class LocalPlaceholder implements Placeholder {
         return null;
     }
 
-    public void register(String startWith, ReturnBiConsumer<Player, String, String> biConsumer, String description) {
-        this.autoPlaceholders.add(new AutoPlaceholder(startWith, biConsumer, description));
+    public void register(String startWith, ReturnBiConsumer<Player, String, String> biConsumer, String description, String... args) {
+        this.autoPlaceholders.add(new AutoPlaceholder(startWith, biConsumer, description, Arrays.asList(args)));
     }
 
     public void register(String startWith, ReturnConsumer<Player, String> biConsumer, String description) {
@@ -82,5 +79,9 @@ public class LocalPlaceholder implements Placeholder {
 
     public EssentialsPlugin getPlugin() {
         return plugin;
+    }
+
+    public List<AutoPlaceholder> getAutoPlaceholders() {
+        return autoPlaceholders;
     }
 }

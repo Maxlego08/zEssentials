@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.OptionDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
+import fr.maxlego08.essentials.api.messages.Message;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
@@ -41,7 +42,11 @@ public interface User {
 
     void removeTeleportRequest(User user);
 
+    void teleportNow(Location location);
+
     void teleport(Location location);
+
+    void teleport(Location location, Message message, Message successMessage, Object... args);
 
     boolean hasPermission(Permission permission);
 
@@ -98,4 +103,14 @@ public interface User {
     @Nullable Economy getTargetEconomy();
 
     @Nullable BigDecimal getTargetDecimal();
+
+    void setLastLocation(Location location);
+
+    void setLastLocation();
+
+    Location getLastLocation();
+
+    boolean isFirstJoin();
+
+    void setFirstJoin();
 }

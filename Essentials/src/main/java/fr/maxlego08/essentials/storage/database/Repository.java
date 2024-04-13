@@ -2,6 +2,7 @@ package fr.maxlego08.essentials.storage.database;
 
 import fr.maxlego08.essentials.api.database.Schema;
 import fr.maxlego08.essentials.database.SchemaBuilder;
+import fr.maxlego08.essentials.zutils.utils.ZUtils;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public abstract class Repository {
+public abstract class Repository extends ZUtils {
 
     private final SqlConnection connection;
     private final String tableName;

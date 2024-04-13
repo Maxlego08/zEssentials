@@ -7,10 +7,12 @@ import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.placeholders.PlaceholderRegister;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.User;
+import fr.maxlego08.essentials.zutils.utils.ZUtils;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
-public class UserPlaceholders implements PlaceholderRegister {
+public class UserPlaceholders extends ZUtils implements PlaceholderRegister {
 
     @Override
     public void register(Placeholder placeholder, EssentialsPlugin plugin) {
@@ -29,6 +31,27 @@ public class UserPlaceholders implements PlaceholderRegister {
             BigDecimal decimal = user.getTargetDecimal();
             return economy == null || decimal == null ? "0" : economyProvider.format(economy, decimal);
         }, "Returns the number formatted for the /pay command");
+
+        placeholder.register("user_formatted_balance_", (player, args) -> {
+            User user = iStorage.getUser(player.getUniqueId());
+            Optional<Economy> optional = economyProvider.getEconomy(args);
+            if (optional.isEmpty()) {
+                return "Economy " + args + " was not found";
+            }
+            Economy economy = optional.get();
+            BigDecimal decimal = user.getBalance(economy);
+            return decimal == null ? "0" : color(economyProvider.format(economy, decimal));
+        }, "Returns the formatted number for a given economy", "economy");
+
+        placeholder.register("user_balance_", (player, args) -> {
+            User user = iStorage.getUser(player.getUniqueId());
+            Optional<Economy> optional = economyProvider.getEconomy(args);
+            if (optional.isEmpty()) {
+                return "Economy " + args + " was not found";
+            }
+            Economy economy = optional.get();
+            return user.getBalance(economy).toString();
+        }, "Returns the number for a given economy", "economy");
 
     }
 }

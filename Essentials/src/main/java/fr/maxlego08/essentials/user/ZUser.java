@@ -1,5 +1,6 @@
 package fr.maxlego08.essentials.user;
 
+import com.tcoded.folialib.impl.ServerImplementation;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
@@ -19,11 +20,14 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ZUser extends ZUtils implements User {
 
@@ -38,6 +42,8 @@ public class ZUser extends ZUtils implements User {
     private User targetUser;
     private BigDecimal targetAmount;
     private Economy targetEconomy;
+    private Location lastLocation;
+    private boolean firstJoin;
 
     public ZUser(EssentialsPlugin plugin, UUID uniqueId) {
         this.plugin = plugin;
@@ -152,8 +158,78 @@ public class ZUser extends ZUtils implements User {
     }
 
     @Override
-    public void teleport(Location location) {
+    public void teleportNow(Location location) {
+        // ToDo, https://github.com/PaperMC/Folia/?tab=readme-ov-file#current-broken-api
+        // When folia API is update, remove this
+        if (this.plugin.isFolia()) {
+            this.setLastLocation();
+        }
         this.plugin.getScheduler().teleportAsync(this.getPlayer(), location);
+    }
+
+    @Override
+    public void teleport(Location location) {
+        this.teleport(location, Message.TELEPORT_MESSAGE, Message.TELEPORT_SUCCESS);
+    }
+
+    @Override
+    public void teleport(Location location, Message message, Message successMessage, Object... args) {
+
+        TeleportationModule teleportationModule = this.plugin.getModuleManager().getModule(TeleportationModule.class);
+        Location playerLocation = getPlayer().getLocation();
+        AtomicInteger atomicInteger = new AtomicInteger(teleportationModule.getTeleportationDelay(getPlayer()));
+
+        if (teleportationModule.isTeleportDelayBypass() && this.hasPermission(Permission.ESSENTIALS_TELEPORT_BYPASS)) {
+            this.teleport(teleportationModule, location, successMessage, args);
+            return;
+        }
+
+        ServerImplementation serverImplementation = this.plugin.getScheduler();
+        serverImplementation.runAtLocationTimer(location, wrappedTask -> {
+
+            if (!same(playerLocation, getPlayer().getLocation())) {
+
+                message(this, Message.TELEPORT_MOVE);
+                wrappedTask.cancel();
+                return;
+            }
+
+            int currentSecond = atomicInteger.getAndDecrement();
+
+            if (!this.isOnline()) {
+                wrappedTask.cancel();
+                return;
+            }
+
+            if (currentSecond == 0) {
+
+                wrappedTask.cancel();
+                this.teleport(teleportationModule, location, successMessage, args);
+            } else {
+                List<Object> objects = new ArrayList<>(Arrays.asList(args));
+                objects.add("%seconds%");
+                objects.add(currentSecond);
+
+                message(this, message, objects.toArray());
+            }
+
+        }, 1, 20);
+
+    }
+
+    private void teleport(TeleportationModule teleportationModule, Location toLocation, Message message, Object... args) {
+        Location location = getPlayer().isFlying() ? toLocation : teleportationModule.isTeleportSafety() ? toSafeLocation(toLocation) : toLocation;
+
+        if (teleportationModule.isTeleportToCenter()) {
+            location = location.getBlock().getLocation().add(0.5, 0, 0.5);
+            location.setYaw(toLocation.getYaw());
+            location.setPitch(toLocation.getPitch());
+        }
+
+        this.teleportNow(location);
+        if (message != null) {
+            message(this, message, args);
+        }
     }
 
     @Override
@@ -308,5 +384,33 @@ public class ZUser extends ZUtils implements User {
     @Override
     public @Nullable BigDecimal getTargetDecimal() {
         return this.targetAmount;
+    }
+
+    @Override
+    public void setLastLocation() {
+        Player player = this.getPlayer();
+        if (player == null) return;
+        this.lastLocation = player.getLocation().clone();
+        this.getStorage().upsertUser(this);
+    }
+
+    @Override
+    public Location getLastLocation() {
+        return this.lastLocation;
+    }
+
+    @Override
+    public void setLastLocation(Location location) {
+        this.lastLocation = location;
+    }
+
+    @Override
+    public boolean isFirstJoin() {
+        return this.firstJoin;
+    }
+
+    @Override
+    public void setFirstJoin() {
+        this.firstJoin = true;
     }
 }

@@ -15,14 +15,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
 public class JoinQuitModule extends ZModule {
 
-    private final List<UUID> firstJoinPlayers = new ArrayList<>();
     private boolean allowSilentJoinQuit;
     private JoinQuitMessageType customJoinMessage;
     private JoinQuitMessageType customQuitMessage;
@@ -40,7 +36,6 @@ public class JoinQuitModule extends ZModule {
         if (!isEnable()) return;
 
         User user = event.getUser();
-        this.firstJoinPlayers.add(user.getUniqueId());
 
         if (!this.allowFirstJoinBroadcast) return;
 
@@ -59,6 +54,7 @@ public class JoinQuitModule extends ZModule {
         if (!isEnable()) return;
 
         Player player = event.getPlayer();
+        User user = getUser(player);
 
         if (this.allowSilentJoinQuit && hasPermission(player, Permission.ESSENTIALS_SILENT_JOIN)) {
             event.joinMessage(Component.empty());
@@ -68,13 +64,11 @@ public class JoinQuitModule extends ZModule {
             event.joinMessage(componentMessage.getComponent(getMessage(Message.JOIN_MESSAGE, "%player%", player.getName(), "%displayName%", player.getDisplayName())));
         }
 
-        if (this.firstJoinPlayers.contains(player.getUniqueId()) && this.allowFirstJoinMotd) {
+        if (user != null && user.isFirstJoin() && this.allowFirstJoinMotd) {
             this.plugin.getScheduler().runAtLocationLater(player.getLocation(), () -> {
                 message(player, Message.FIRST_JOIN_MOTD, "%player%", player.getName(), "%displayName%", player.getDisplayName());
             }, this.firstJoinMotdTicks);
         }
-
-        this.firstJoinPlayers.remove(player.getUniqueId());
     }
 
     @EventHandler(priority = EventPriority.LOWEST)

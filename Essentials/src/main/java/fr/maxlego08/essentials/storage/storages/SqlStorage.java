@@ -2,6 +2,7 @@ package fr.maxlego08.essentials.storage.storages;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
+import fr.maxlego08.essentials.api.database.dto.ServerStorageDTO;
 import fr.maxlego08.essentials.api.database.dto.UserDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.storage.IStorage;
@@ -10,6 +11,7 @@ import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.storage.database.Repositories;
 import fr.maxlego08.essentials.storage.database.SqlConnection;
 import fr.maxlego08.essentials.storage.database.repositeries.EconomyTransactionsRepository;
+import fr.maxlego08.essentials.storage.database.repositeries.ServerStorageRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserCooldownsRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserEconomyRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserOptionRepository;
@@ -47,9 +49,13 @@ public class SqlStorage extends StorageHelper implements IStorage {
         this.repositories.register(UserCooldownsRepository.class);
         this.repositories.register(UserEconomyRepository.class);
         this.repositories.register(EconomyTransactionsRepository.class);
+        // this.repositories.register(ServerStorageRepository.class);
 
         plugin.getMigrationManager().execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), this.plugin.getLogger());
         this.repositories.getTable(UserCooldownsRepository.class).deleteExpiredCooldowns();
+
+        /*List<ServerStorageDTO> serverStorageDTOS = this.repositories.getTable(ServerStorageRepository.class).select();
+        plugin.getServerStorage().setContents(serverStorageDTOS);*/
     }
 
     @Override
@@ -75,13 +81,15 @@ public class SqlStorage extends StorageHelper implements IStorage {
         this.plugin.getScheduler().runAsync(wrappedTask -> {
 
             // First join !
-            boolean alreadyExist = this.repositories.getTable(UserRepository.class).userAlreadyExist(uniqueId);
-            if (!alreadyExist) {
+            List<UserDTO> userDTOS = this.repositories.getTable(UserRepository.class).selectUser(uniqueId);
+            if (userDTOS.isEmpty()) {
                 this.firstJoin(user);
             }
 
-            this.repositories.getTable(UserRepository.class).upsert(uniqueId, playerName);
-            if (alreadyExist) {
+            this.repositories.getTable(UserRepository.class).upsert(uniqueId, playerName); // Create the player or update his name
+            if (!userDTOS.isEmpty()) {
+                UserDTO userDTO = userDTOS.get(0);
+                user.setLastLocation(stringAsLocation(userDTO.last_location()));
                 user.setOptions(this.repositories.getTable(UserOptionRepository.class).selectOptions(uniqueId));
                 user.setCooldowns(this.repositories.getTable(UserCooldownsRepository.class).selectCooldowns(uniqueId));
                 user.setEconomies(this.repositories.getTable(UserEconomyRepository.class).selectEconomies(uniqueId));
@@ -114,6 +122,11 @@ public class SqlStorage extends StorageHelper implements IStorage {
     @Override
     public void updateEconomy(UUID uniqueId, Economy economy, BigDecimal bigDecimal) {
         async(() -> this.repositories.getTable(UserEconomyRepository.class).upsert(uniqueId, economy, bigDecimal));
+    }
+
+    @Override
+    public void upsertUser(User user) {
+        async(() -> this.repositories.getTable(UserRepository.class).upsert(user));
     }
 
     @Override
@@ -166,7 +179,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
                 }
 
                 // Get uuid from database
-                List<UserDTO> userDTOS = this.repositories.getTable(UserRepository.class).selectOptions(userName);
+                List<UserDTO> userDTOS = this.repositories.getTable(UserRepository.class).selectUsers(userName);
                 if (userDTOS.isEmpty()) {
                     consumer.accept(null);
                     return;
@@ -182,5 +195,10 @@ public class SqlStorage extends StorageHelper implements IStorage {
     @Override
     public void storeTransactions(UUID fromUuid, UUID toUuid, Economy economy, BigDecimal fromAmount, BigDecimal toAmount) {
         async(() -> this.repositories.getTable(EconomyTransactionsRepository.class).upsert(fromUuid, toUuid, economy, fromAmount, toAmount));
+    }
+
+    @Override
+    public void upsertStorage(String key, Object value) {
+        // async(() -> this.repositories.getTable(ServerStorageRepository.class).upsert(key, value));
     }
 }

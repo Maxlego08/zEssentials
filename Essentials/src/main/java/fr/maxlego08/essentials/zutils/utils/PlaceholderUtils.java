@@ -5,7 +5,7 @@ import org.bukkit.OfflinePlayer;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class PlaceholderUtils {
+public abstract class PlaceholderUtils extends LocationUtils{
 
     protected String papi(String placeHolder, OfflinePlayer player) {
         return placeHolder;

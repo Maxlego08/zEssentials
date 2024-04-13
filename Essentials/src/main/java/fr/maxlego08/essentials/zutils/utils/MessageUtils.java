@@ -3,14 +3,18 @@ package fr.maxlego08.essentials.zutils.utils;
 import fr.maxlego08.essentials.api.messages.DefaultFontInfo;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.user.User;
+import fr.maxlego08.menu.zcore.utils.nms.NMSUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public abstract class MessageUtils extends PlaceholderUtils {
 
@@ -29,9 +33,12 @@ public abstract class MessageUtils extends PlaceholderUtils {
     protected void message(CommandSender sender, Message message, Object... args) {
 
         if (sender instanceof Player player) {
-
             switch (message.getMessageType()) {
 
+                case TCHAT_AND_ACTION -> {
+                    sendTchatMessage(sender, message, args);
+                    this.componentMessage.sendActionBar(sender, getMessage(message, args));
+                }
                 case ACTION -> {
                     this.componentMessage.sendActionBar(sender, getMessage(message, args));
                 }
@@ -103,7 +110,7 @@ public abstract class MessageUtils extends PlaceholderUtils {
         modifiedArgs.add(displayName);
     }
 
-    // ToDo, rework with componrent
+    // ToDo, rework with component
     protected String getCenteredMessage(String message) {
         if (message == null || message.equals("")) return "";
 
@@ -138,6 +145,20 @@ public abstract class MessageUtils extends PlaceholderUtils {
             compensated += spaceLength;
         }
         return sb + message;
+    }
+
+    protected String color(String message) {
+        if (message == null) return null;
+        if (NMSUtils.isHexColor()) {
+            Pattern pattern = Pattern.compile("#[a-fA-F0-9]{6}");
+            Matcher matcher = pattern.matcher(message);
+            while (matcher.find()) {
+                String color = message.substring(matcher.start(), matcher.end());
+                message = message.replace(color, String.valueOf(net.md_5.bungee.api.ChatColor.of(color)));
+                matcher = pattern.matcher(message);
+            }
+        }
+        return net.md_5.bungee.api.ChatColor.translateAlternateColorCodes('&', message);
     }
 
 }

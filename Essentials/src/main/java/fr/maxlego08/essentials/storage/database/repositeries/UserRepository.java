@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.storage.database.repositeries;
 
 import fr.maxlego08.essentials.api.database.dto.UserDTO;
+import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.storage.database.Repository;
 import fr.maxlego08.essentials.storage.database.SqlConnection;
 
@@ -20,8 +21,20 @@ public class UserRepository extends Repository {
         });
     }
 
-    public List<UserDTO> selectOptions(String userName) {
+    public void upsert(User user) {
+        upsert(table -> {
+            table.uuid("unique_id", user.getUniqueId());
+            table.string("name", user.getName());
+            table.location("last_location", user.getLastLocation());
+        });
+    }
+
+    public List<UserDTO> selectUsers(String userName) {
         return select(UserDTO.class, table -> table.where("name", userName));
+    }
+
+    public List<UserDTO> selectUser(UUID uniqueId) {
+        return select(UserDTO.class, table -> table.where("unique_id", uniqueId));
     }
 
     public long totalUsers() {

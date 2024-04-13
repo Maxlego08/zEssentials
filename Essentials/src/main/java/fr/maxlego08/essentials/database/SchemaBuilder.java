@@ -3,6 +3,8 @@ package fr.maxlego08.essentials.database;
 import fr.maxlego08.essentials.api.database.Schema;
 import fr.maxlego08.essentials.api.database.SchemaType;
 import fr.maxlego08.essentials.api.storage.DatabaseConfiguration;
+import fr.maxlego08.essentials.zutils.utils.ZUtils;
+import org.bukkit.Location;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Parameter;
@@ -18,7 +20,7 @@ import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
-public class SchemaBuilder implements Schema {
+public class SchemaBuilder extends ZUtils implements Schema {
     private final String tableName;
     private final SchemaType schemaType;
     private final List<ColumnDefinition> columns = new ArrayList<>();
@@ -63,19 +65,19 @@ public class SchemaBuilder implements Schema {
     }
 
     @Override
-    public Schema where(String column, Object value) {
-        this.whereConditions.add(new WhereCondition(column, value));
+    public Schema where(String columnName, Object value) {
+        this.whereConditions.add(new WhereCondition(columnName, value));
         return this;
     }
 
     @Override
-    public Schema where(String column, UUID value) {
-        return this.where(column, value.toString());
+    public Schema where(String columnName, UUID value) {
+        return this.where(columnName, value.toString());
     }
 
     @Override
-    public Schema where(String column, String operator, Object value) {
-        this.whereConditions.add(new WhereCondition(column, operator, value));
+    public Schema where(String columnName, String operator, Object value) {
+        this.whereConditions.add(new WhereCondition(columnName, operator, value));
         return this;
     }
 
@@ -96,6 +98,16 @@ public class SchemaBuilder implements Schema {
     }
 
     @Override
+    public Schema text(String columnName) {
+        return addColumn(new ColumnDefinition(columnName, "TEXT"));
+    }
+
+    @Override
+    public Schema longText(String columnName) {
+        return addColumn(new ColumnDefinition(columnName, "LONGTEXT"));
+    }
+
+    @Override
     public Schema decimal(String columnName) {
         return this.decimal(columnName, 65, 30);
     }
@@ -108,6 +120,11 @@ public class SchemaBuilder implements Schema {
     @Override
     public Schema string(String columnName, String value) {
         return this.addColumn(new ColumnDefinition(columnName).setObject(value));
+    }
+
+    @Override
+    public Schema location(String columnName, Location location) {
+        return this.addColumn(new ColumnDefinition(columnName).setObject(locationAsString(location)));
     }
 
     @Override
@@ -423,8 +440,7 @@ public class SchemaBuilder implements Schema {
                 Parameter parameter = parameters[i];
                 Object value = row.get(parameter.getName());
                 if (parameter.getType().isEnum()) {
-                    @SuppressWarnings("unchecked")
-                    Class<Enum> enumType = (Class<Enum>) parameter.getType();
+                    @SuppressWarnings("unchecked") Class<Enum> enumType = (Class<Enum>) parameter.getType();
                     Object enumValue = Enum.valueOf(enumType, (String) value);
                     params[i] = enumValue;
                 } else if (parameter.getType() == UUID.class) {

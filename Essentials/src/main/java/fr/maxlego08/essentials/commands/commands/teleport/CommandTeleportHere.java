@@ -23,7 +23,7 @@ public class CommandTeleportHere extends VCommand {
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
         Player targetPlayer = this.argAsPlayer(0);
-        getUser(targetPlayer).teleport(player.getLocation());
+        getUser(targetPlayer).teleportNow(player.getLocation());
         message(this.sender, Message.COMMAND_TP_SELF, targetPlayer);
 
         return CommandResultType.SUCCESS;

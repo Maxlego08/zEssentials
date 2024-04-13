@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventPriority;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -118,5 +119,21 @@ public abstract class ZUtils extends MessageUtils {
         }*/
         player.getInventory().addItem(itemStack);
     }
+
+    protected EventPriority getPriority(final String priority) {
+        if (priority == null) {
+            return EventPriority.NORMAL; // Default case or handle null appropriately
+        }
+        return switch (priority) {
+            case "none" -> null;
+            case "lowest" -> EventPriority.LOWEST;
+            case "low" -> EventPriority.LOW;
+            case "normal" -> EventPriority.NORMAL;
+            case "high" -> EventPriority.HIGH;
+            case "highest" -> EventPriority.HIGHEST;
+            default -> EventPriority.NORMAL; // Default case for unknown strings
+        };
+    }
+
 
 }

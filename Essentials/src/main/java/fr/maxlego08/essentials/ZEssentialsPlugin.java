@@ -3,6 +3,7 @@ package fr.maxlego08.essentials;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tcoded.folialib.FoliaLib;
+import com.tcoded.folialib.impl.FoliaImplementation;
 import com.tcoded.folialib.impl.ServerImplementation;
 import fr.maxlego08.essentials.api.Configuration;
 import fr.maxlego08.essentials.api.ConfigurationFile;
@@ -14,9 +15,11 @@ import fr.maxlego08.essentials.api.modules.ModuleManager;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.placeholders.PlaceholderRegister;
 import fr.maxlego08.essentials.api.storage.Persist;
+import fr.maxlego08.essentials.api.storage.ServerStorage;
 import fr.maxlego08.essentials.api.storage.StorageManager;
 import fr.maxlego08.essentials.api.storage.adapter.LocationAdapter;
 import fr.maxlego08.essentials.api.user.User;
+import fr.maxlego08.essentials.api.utils.Warp;
 import fr.maxlego08.essentials.buttons.ButtonPayConfirm;
 import fr.maxlego08.essentials.buttons.ButtonTeleportationConfirm;
 import fr.maxlego08.essentials.commands.CommandLoader;
@@ -26,16 +29,20 @@ import fr.maxlego08.essentials.database.ZMigrationManager;
 import fr.maxlego08.essentials.economy.EconomyManager;
 import fr.maxlego08.essentials.hooks.VaultEconomy;
 import fr.maxlego08.essentials.listener.PlayerListener;
+import fr.maxlego08.essentials.loader.ButtonWarpLoader;
 import fr.maxlego08.essentials.messages.MessageLoader;
 import fr.maxlego08.essentials.module.ZModuleManager;
 import fr.maxlego08.essentials.placeholders.DistantPlaceholder;
 import fr.maxlego08.essentials.placeholders.LocalPlaceholder;
+import fr.maxlego08.essentials.storage.ConfigStorage;
 import fr.maxlego08.essentials.storage.ZStorageManager;
 import fr.maxlego08.essentials.storage.adapter.UserTypeAdapter;
 import fr.maxlego08.essentials.user.UserPlaceholders;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.ZPlugin;
 import fr.maxlego08.essentials.zutils.utils.CommandMarkdownGenerator;
+import fr.maxlego08.essentials.zutils.utils.PlaceholderMarkdownGenerator;
+import fr.maxlego08.essentials.zutils.utils.ZServerStorage;
 import fr.maxlego08.menu.api.ButtonManager;
 import fr.maxlego08.menu.api.InventoryManager;
 import fr.maxlego08.menu.api.pattern.PatternManager;
@@ -46,11 +53,13 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Modifier;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin {
 
     private final UUID consoleUniqueId = UUID.fromString("00000000-0000-0000-0000-000000000000");
+    private ServerStorage serverStorage = new ZServerStorage();
     private InventoryManager inventoryManager;
     private ButtonManager buttonManager;
     private PatternManager patternManager;
@@ -88,6 +97,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
         // Load configuration files
         this.configurationFiles.forEach(ConfigurationFile::load);
+        ConfigStorage.getInstance().load(getPersist());
 
         // Commands
         this.commandManager = new ZCommandManager(this);
@@ -129,12 +139,15 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
         // Storage
         if (this.storageManager != null) this.storageManager.onDisable();
+        if (this.persist != null) ConfigStorage.getInstance().save(this.persist);
+
     }
 
     private void registerButtons() {
 
         this.buttonManager.register(new NoneLoader(this, ButtonTeleportationConfirm.class, "essentials_teleportation_confirm"));
         this.buttonManager.register(new NoneLoader(this, ButtonPayConfirm.class, "essentials_pay_confirm"));
+        this.buttonManager.register(new ButtonWarpLoader(this));
 
     }
 
@@ -232,15 +245,50 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     }
 
     private void generateDocs() {
-        CommandMarkdownGenerator generator = new CommandMarkdownGenerator();
+        CommandMarkdownGenerator commandMarkdownGenerator = new CommandMarkdownGenerator();
+        PlaceholderMarkdownGenerator placeholderMarkdownGenerator = new PlaceholderMarkdownGenerator();
 
-        File file = new File(getDataFolder(), "commands.md");
+        File fileCommand = new File(getDataFolder(), "commands.md");
+        File filePlaceholder = new File(getDataFolder(), "placeholders.md");
         try {
-            generator.generateMarkdownFile(this.commandManager.getCommands(), file.toPath());
-            getLogger().info("Markdown file successfully generated!");
+            commandMarkdownGenerator.generateMarkdownFile(this.commandManager.getCommands(), fileCommand.toPath());
+            getLogger().info("Markdown 'commands.md' file successfully generated!");
         } catch (IOException exception) {
-            getLogger().severe("Error while writing the file: " + exception.getMessage());
+            getLogger().severe("Error while writing the file commands: " + exception.getMessage());
             exception.printStackTrace();
         }
+
+        try {
+            placeholderMarkdownGenerator.generateMarkdownFile(((LocalPlaceholder) this.placeholder).getAutoPlaceholders(), filePlaceholder.toPath());
+            getLogger().info("Markdown 'placeholders.md' file successfully generated!");
+        } catch (IOException exception) {
+            getLogger().severe("Error while writing the file placeholders: " + exception.getMessage());
+            exception.printStackTrace();
+        }
+    }
+
+    @Override
+    public ServerStorage getServerStorage() {
+        return serverStorage;
+    }
+
+    @Override
+    public void setServerStorage(ServerStorage serverStorage) {
+        this.serverStorage = serverStorage;
+    }
+
+    @Override
+    public boolean isFolia() {
+        return this.serverImplementation instanceof FoliaImplementation;
+    }
+
+    @Override
+    public List<Warp> getWarps() {
+        return ConfigStorage.warps;
+    }
+
+    @Override
+    public Optional<Warp> getWarp(String name) {
+        return getWarps().stream().filter(warp -> warp.getName().equalsIgnoreCase(name)).findFirst();
     }
 }

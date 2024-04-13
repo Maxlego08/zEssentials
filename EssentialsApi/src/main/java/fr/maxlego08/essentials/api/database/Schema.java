@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.api.database;
 
 import fr.maxlego08.essentials.api.storage.DatabaseConfiguration;
+import org.bukkit.Location;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -15,6 +16,10 @@ public interface Schema {
     Schema uuid(String columnName, UUID value);
 
     Schema string(String columnName, int length);
+
+    Schema text(String columnName);
+
+    Schema longText(String columnName);
 
     Schema decimal(String columnName);
 
@@ -46,17 +51,21 @@ public interface Schema {
 
     Schema defaultValue(String value);
 
-    Schema where(String column, Object value);
+    Schema location(String columnName, Location location);
+    
+    Schema where(String columnName, Object value);
 
-    Schema where(String column, UUID value);
+    Schema where(String columnName, UUID value);
 
-    Schema where(String column, String operator, Object value);
+    Schema where(String columnName, String operator, Object value);
 
     void execute(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException;
 
     List<Map<String, Object>> executeSelect(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException;
+
     long executeSelectCount(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException;
 
     <T> List<T> executeSelect(Class<T> clazz, Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws Exception;
+
 }
 
