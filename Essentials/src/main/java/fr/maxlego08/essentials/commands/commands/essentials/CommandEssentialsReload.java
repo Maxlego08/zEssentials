@@ -19,6 +19,7 @@ public class CommandEssentialsReload extends VCommand {
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
+        plugin.getInventoryManager().deleteInventories(plugin);
         plugin.getConfigurationFiles().forEach(ConfigurationFile::load);
         plugin.getModuleManager().loadConfigurations();
         message(sender, Message.COMMAND_RELOAD);

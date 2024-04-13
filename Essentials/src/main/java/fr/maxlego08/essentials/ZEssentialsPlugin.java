@@ -29,6 +29,7 @@ import fr.maxlego08.essentials.database.ZMigrationManager;
 import fr.maxlego08.essentials.economy.EconomyManager;
 import fr.maxlego08.essentials.hooks.VaultEconomy;
 import fr.maxlego08.essentials.listener.PlayerListener;
+import fr.maxlego08.essentials.loader.ButtonWarpLoader;
 import fr.maxlego08.essentials.messages.MessageLoader;
 import fr.maxlego08.essentials.module.ZModuleManager;
 import fr.maxlego08.essentials.placeholders.DistantPlaceholder;
@@ -146,6 +147,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
         this.buttonManager.register(new NoneLoader(this, ButtonTeleportationConfirm.class, "essentials_teleportation_confirm"));
         this.buttonManager.register(new NoneLoader(this, ButtonPayConfirm.class, "essentials_pay_confirm"));
+        this.buttonManager.register(new ButtonWarpLoader(this));
 
     }
 

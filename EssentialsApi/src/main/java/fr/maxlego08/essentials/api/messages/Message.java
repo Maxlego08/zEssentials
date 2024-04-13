@@ -225,13 +225,14 @@ public enum Message {
             "#00ff00You just created the warp &f%name% #00ff00to your position.",
             "&7Warp Permission is: <hover:show_text:'&fCopy command to add permission to a player'><click:SUGGEST_COMMAND:'/lp user <username> permission set nessentials.warp.%name%'>&f&nessentials.warp.%name%</click></hover>"
             ),
-
     COMMAND_WARP_USE(
             "&cUsage&8: &f/warp <destination>",
-            "&7Destinations&8:&f%destinations%"
+            "&7Warps&8:&f%destinations%"
     ),
-
     COMMAND_WARP_DESTINATION(" <hover:show_text:'&fClick to teleport to warp &n%name%'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"),
+    COMMAND_WARP_LIST("&7Warps&8:&f%destinations%"),
+    COMMAND_WARP_LIST_INFO(" <hover:show_text:'&fClick to teleport to warp &n%name%'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"),
+    COMMAND_WARP_DELETE("#00ff00You just removed the warp &f%name%#00ff00."),
 
     ;
 

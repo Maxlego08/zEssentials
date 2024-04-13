@@ -42,8 +42,10 @@ import fr.maxlego08.essentials.commands.commands.utils.CommandSpeed;
 import fr.maxlego08.essentials.commands.commands.utils.CommandStoneCutter;
 import fr.maxlego08.essentials.commands.commands.utils.CommandTop;
 import fr.maxlego08.essentials.commands.commands.utils.CommandTrash;
+import fr.maxlego08.essentials.commands.commands.warp.CommandDelWarp;
 import fr.maxlego08.essentials.commands.commands.warp.CommandSetWarp;
 import fr.maxlego08.essentials.commands.commands.warp.CommandWarp;
+import fr.maxlego08.essentials.commands.commands.warp.CommandWarps;
 import fr.maxlego08.essentials.commands.commands.weather.CommandDay;
 import fr.maxlego08.essentials.commands.commands.weather.CommandNight;
 import fr.maxlego08.essentials.commands.commands.weather.CommandPlayerTime;
@@ -121,6 +123,8 @@ public class CommandLoader {
 
         register("setwarp", CommandSetWarp.class, "wcreate");
         register("warp", CommandWarp.class, "w");
+        register("warps", CommandWarps.class, "wlist");
+        register("delwarp", CommandDelWarp.class, "wdelete");
 
 
         File file = new File(plugin.getDataFolder(), "commands.yml");

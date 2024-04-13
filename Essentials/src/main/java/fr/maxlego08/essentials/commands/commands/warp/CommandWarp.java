@@ -10,7 +10,6 @@ import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 import org.apache.logging.log4j.util.Strings;
 
 import java.util.List;
-import java.util.Optional;
 
 public class CommandWarp extends VCommand {
 
@@ -43,22 +42,14 @@ public class CommandWarp extends VCommand {
             }
 
             if (warpModule.isEnableInventory()) {
-                // TODO
+                plugin.getInventoryManager().openInventory(this.player, plugin, "warps");
                 return CommandResultType.DEFAULT;
             }
 
             return CommandResultType.SYNTAX_ERROR;
         }
 
-        Optional<Warp> optional = plugin.getWarp(warpName);
-        if (optional.isEmpty()) {
-            message(sender, Message.COMMAND_WARP_DOESNT_EXIST, "%name%", warpName);
-            return CommandResultType.DEFAULT;
-        }
-
-        Warp warp = optional.get();
-        this.user.teleport(warp.getLocation(), Message.TELEPORT_MESSAGE_WARP, Message.TELEPORT_SUCCESS_WARP, "%name%", warpName);
-
+        warpModule.teleport(this.user, warpName);
         return CommandResultType.SUCCESS;
     }
 }
