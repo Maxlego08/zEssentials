@@ -43,6 +43,7 @@ public class StorageHelper extends ZUtils{
     }
 
     protected void firstJoin(User user){
+        user.setFirstJoin();
         this.totalUser += 1;
         this.plugin.getLogger().info(String.format("%s (%s) is a new player !", user.getName(), user.getUniqueId()));
         UserEvent event = new UserFirstJoinEvent(user);

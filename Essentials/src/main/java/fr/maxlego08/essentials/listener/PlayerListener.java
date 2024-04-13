@@ -77,20 +77,8 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerTeleport(PlayerTeleportEvent event) {
         User user = getUser(event.getPlayer());
-        System.out.println("Je me téléporte ici ! " + event.getPlayer());
         if (user == null) return;
 
-        System.out.println("Oui ?");
-        user.setLastLocation();
-    }
-
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void onPlayerTeleport(EntityTeleportEvent event) {
-        User user = getUser(event.getEntity());
-        System.out.println("Je me téléporte ici 22 ! " + event.getEntity());
-        if (user == null) return;
-
-        System.out.println("Oui ?");
         user.setLastLocation();
     }
 

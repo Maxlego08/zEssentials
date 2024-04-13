@@ -82,7 +82,6 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
             // First join !
             List<UserDTO> userDTOS = this.repositories.getTable(UserRepository.class).selectUser(uniqueId);
-            System.out.println(userDTOS);
             if (userDTOS.isEmpty()) {
                 this.firstJoin(user);
             }

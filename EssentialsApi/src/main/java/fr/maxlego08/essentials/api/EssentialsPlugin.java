@@ -55,4 +55,6 @@ public interface EssentialsPlugin extends Plugin {
     ServerStorage getServerStorage();
 
     void setServerStorage(ServerStorage serverStorage);
+
+    boolean isFolia();
 }

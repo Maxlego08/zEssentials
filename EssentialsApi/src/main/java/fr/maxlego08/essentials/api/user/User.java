@@ -109,4 +109,8 @@ public interface User {
     void setLastLocation();
 
     Location getLastLocation();
+
+    boolean isFirstJoin();
+
+    void setFirstJoin();
 }

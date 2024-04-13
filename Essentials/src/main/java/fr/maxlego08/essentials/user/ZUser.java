@@ -41,6 +41,7 @@ public class ZUser extends ZUtils implements User {
     private BigDecimal targetAmount;
     private Economy targetEconomy;
     private Location lastLocation;
+    private boolean firstJoin;
 
     public ZUser(EssentialsPlugin plugin, UUID uniqueId) {
         this.plugin = plugin;
@@ -156,7 +157,9 @@ public class ZUser extends ZUtils implements User {
 
     @Override
     public void teleportNow(Location location) {
-        this.setLastLocation();
+        if (this.plugin.isFolia()) {
+            this.setLastLocation();
+        }
         this.plugin.getScheduler().teleportAsync(this.getPlayer(), location);
     }
 
@@ -378,7 +381,9 @@ public class ZUser extends ZUtils implements User {
 
     @Override
     public void setLastLocation() {
-        this.lastLocation = this.getPlayer().getLocation().clone();
+        Player player = this.getPlayer();
+        if (player == null) return;
+        this.lastLocation = player.getLocation().clone();
         this.getStorage().upsertUser(this);
     }
 
@@ -390,5 +395,15 @@ public class ZUser extends ZUtils implements User {
     @Override
     public void setLastLocation(Location location) {
         this.lastLocation = location;
+    }
+
+    @Override
+    public boolean isFirstJoin() {
+        return this.firstJoin;
+    }
+
+    @Override
+    public void setFirstJoin() {
+        this.firstJoin = true;
     }
 }

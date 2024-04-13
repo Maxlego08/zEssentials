@@ -12,6 +12,12 @@
 #
 ########################################################################################################################
 
+# IMPORTANT
+#
+# If you are on folia certain event does not work, for players respawn to spawn you must use the command /setworldspawn
+#
+# IMPORTANT
+
 enable: true
 
 # What priority should we use for handling respawns?
@@ -27,3 +33,12 @@ respawn-listener-priority: highest
 # Note: Changing this may impact or break spawn-on-join functionality.
 # Note: Changes will not apply until after the server is restarted.
 spawn-join-listener-priority: highest
+
+# When the player dies, does he have to respawn to the respawn anchor
+respawn-at-anchor: false
+
+# When users die, should they respawn at their first home, instead of the spawnpoint?
+respawn-at-home: false
+
+# When users die, should they respawn at their bed instead of the spawnpoint?
+respawn-at-bed: true

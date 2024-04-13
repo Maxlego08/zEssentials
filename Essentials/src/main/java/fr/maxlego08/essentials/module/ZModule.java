@@ -2,10 +2,12 @@ package fr.maxlego08.essentials.module;
 
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.modules.Module;
+import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.zutils.utils.YamlLoader;
 import fr.maxlego08.menu.api.InventoryManager;
 import fr.maxlego08.menu.exceptions.InventoryException;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Entity;
 
 import java.io.File;
 
@@ -72,5 +74,9 @@ public abstract class ZModule extends YamlLoader implements Module {
         } catch (InventoryException exception) {
             exception.printStackTrace();
         }
+    }
+
+    protected User getUser(Entity entity) {
+        return this.plugin.getStorageManager().getStorage().getUser(entity.getUniqueId());
     }
 }

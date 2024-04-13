@@ -3,6 +3,7 @@ package fr.maxlego08.essentials;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tcoded.folialib.FoliaLib;
+import com.tcoded.folialib.impl.FoliaImplementation;
 import com.tcoded.folialib.impl.ServerImplementation;
 import fr.maxlego08.essentials.api.Configuration;
 import fr.maxlego08.essentials.api.ConfigurationFile;
@@ -136,7 +137,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         // Storage
         if (this.storageManager != null) this.storageManager.onDisable();
         if (this.persist != null) ConfigStorage.getInstance().save(this.persist);
-        
+
     }
 
     private void registerButtons() {
@@ -270,5 +271,10 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     @Override
     public void setServerStorage(ServerStorage serverStorage) {
         this.serverStorage = serverStorage;
+    }
+
+    @Override
+    public boolean isFolia() {
+        return this.serverImplementation instanceof FoliaImplementation;
     }
 }
