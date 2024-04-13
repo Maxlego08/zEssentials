@@ -169,6 +169,8 @@ public enum Message {
     TELEPORT_SUCCESS(MessageType.ACTION, "#99E0FFYou have just teleported successfully!"),
     TELEPORT_MESSAGE_SPAWN(MessageType.TCHAT_AND_ACTION, "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."),
     TELEPORT_SUCCESS_SPAWN(MessageType.TCHAT_AND_ACTION, "&7You just teleported to #0EEA93spawn &7!"),
+    TELEPORT_MESSAGE_WARP(MessageType.TCHAT_AND_ACTION, "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."),
+    TELEPORT_SUCCESS_WARP(MessageType.TCHAT_AND_ACTION, "&7You just teleported to warp #0EEA93%name% &7!"),
     TELEPORT_DAMAGE("&cYou must not take damage during teleportation."),
     TELEPORT_ERROR_LOCATION("&cUnable to teleport you safely."),
 
@@ -216,11 +218,20 @@ public enum Message {
     COMMAND_SET_SPAWN("&fYou just set the spawn location."),
     COMMAND_SPAWN_NOT_DEFINE("&cThe spawn does not exist. Please contact an administrator."),
 
-    COMMAND_WARP_ALREADY_EXIST("#ff0000Warp &f%name% #ff0000already exists."),
+    COMMAND_WARP_ALREADY_EXIST("#ff0000Warp &f%name% #ff0000already exists. &7Use &n<hover:show_text:'&fUse this command'><click:suggest_command:'/setwarp %name% true'>/setwarp %name% true</click></hover>&r command to modify the warp"),
+    COMMAND_WARP_DOESNT_EXIST("#ff0000Warp &f%name% #ff0000 does not exist."),
+    COMMAND_WARP_NO_PERMISSION("#ff0000You do not have permission to use the warp &f%name%#ff0000."),
     COMMAND_WARP_CREATE(
             "#00ff00You just created the warp &f%name% #00ff00to your position.",
             "&7Warp Permission is: <hover:show_text:'&fCopy command to add permission to a player'><click:SUGGEST_COMMAND:'/lp user <username> permission set nessentials.warp.%name%'>&f&nessentials.warp.%name%</click></hover>"
             ),
+
+    COMMAND_WARP_USE(
+            "&cUsage&8: &f/warp <destination>",
+            "&7Destinations&8:&f%destinations%"
+    ),
+
+    COMMAND_WARP_DESTINATION(" <hover:show_text:'&fClick to teleport to warp &n%name%'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"),
 
     ;
 

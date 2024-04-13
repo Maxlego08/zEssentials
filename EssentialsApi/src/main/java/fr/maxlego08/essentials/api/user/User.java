@@ -46,7 +46,7 @@ public interface User {
 
     void teleport(Location location);
 
-    void teleport(Location location, Message message, Message successMessage);
+    void teleport(Location location, Message message, Message successMessage, Object... args);
 
     boolean hasPermission(Permission permission);
 

@@ -10,6 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.regex.Matcher;
@@ -32,7 +33,6 @@ public abstract class MessageUtils extends PlaceholderUtils {
     protected void message(CommandSender sender, Message message, Object... args) {
 
         if (sender instanceof Player player) {
-
             switch (message.getMessageType()) {
 
                 case TCHAT_AND_ACTION -> {

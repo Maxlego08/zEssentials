@@ -12,4 +12,11 @@ public class WarpModule extends ZModule {
         super(plugin, "warp");
     }
 
+    public boolean isEnableInventory() {
+        return enableInventory;
+    }
+
+    public boolean isEnableNoArgumentMessage() {
+        return enableNoArgumentMessage;
+    }
 }

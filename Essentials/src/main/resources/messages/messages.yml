@@ -242,3 +242,9 @@ teleport-message-spawn:
 teleport-success-spawn:
   type: TCHAT_AND_ACTION
   message: "&7You just teleported to #0EEA93spawn &7!"
+teleport-message-warp:
+  type: TCHAT_AND_ACTION
+  message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
+teleport-success-warp:
+  type: TCHAT_AND_ACTION
+  message: "&7You just teleported to warp #0EEA93%name% &7!"

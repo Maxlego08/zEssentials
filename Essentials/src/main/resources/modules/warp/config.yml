@@ -14,7 +14,7 @@
 
 enable: true
 
-enable-inventory: true
+enable-inventory: false
 
-enable-no-argument-message: false
+enable-no-argument-message: true
 

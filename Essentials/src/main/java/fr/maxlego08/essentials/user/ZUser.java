@@ -20,6 +20,8 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -171,14 +173,14 @@ public class ZUser extends ZUtils implements User {
     }
 
     @Override
-    public void teleport(Location location, Message message, Message successMessage) {
+    public void teleport(Location location, Message message, Message successMessage, Object... args) {
 
         TeleportationModule teleportationModule = this.plugin.getModuleManager().getModule(TeleportationModule.class);
         Location playerLocation = getPlayer().getLocation();
         AtomicInteger atomicInteger = new AtomicInteger(teleportationModule.getTeleportationDelay(getPlayer()));
 
         if (teleportationModule.isTeleportDelayBypass() && this.hasPermission(Permission.ESSENTIALS_TELEPORT_BYPASS)) {
-            this.teleport(teleportationModule, location, successMessage);
+            this.teleport(teleportationModule, location, successMessage, args);
             return;
         }
 
@@ -202,17 +204,20 @@ public class ZUser extends ZUtils implements User {
             if (currentSecond == 0) {
 
                 wrappedTask.cancel();
-                this.teleport(teleportationModule, location, successMessage);
+                this.teleport(teleportationModule, location, successMessage, args);
             } else {
+                List<Object> objects = new ArrayList<>(Arrays.asList(args));
+                objects.add("%seconds%");
+                objects.add(currentSecond);
 
-                message(this, message, "%seconds%", currentSecond);
+                message(this, message, objects.toArray());
             }
 
         }, 1, 20);
 
     }
 
-    private void teleport(TeleportationModule teleportationModule, Location toLocation, Message message) {
+    private void teleport(TeleportationModule teleportationModule, Location toLocation, Message message, Object... args) {
         Location location = getPlayer().isFlying() ? toLocation : teleportationModule.isTeleportSafety() ? toSafeLocation(toLocation) : toLocation;
 
         if (teleportationModule.isTeleportToCenter()) {
@@ -223,7 +228,7 @@ public class ZUser extends ZUtils implements User {
 
         this.teleportNow(location);
         if (message != null) {
-            message(this, message);
+            message(this, message, args);
         }
     }
 
