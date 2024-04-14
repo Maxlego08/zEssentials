@@ -300,3 +300,43 @@ command-set-home-create:
   - ""
 command-home-doesnt-exist: "#ff0000The home &f%name%#ff0000 does not exist."
 
+# Available placeholders:
+# %count% - Home count
+# %max% - Max player's home
+command-home-information-multi-line-header:
+  - ""
+  - "#8cc0ccʏᴏᴜʀ ʜᴏᴍᴇs &a♦ &7(%count%) &8- &7(Max: %max%)"
+
+# Available placeholders:
+# %count% - Home count
+# %max% - Max player's home
+# %name% - Home name
+# %world% - Home world
+# %environment% - Home world environment
+# %x% - Home location x
+# %y% - Home location y
+# %z% - Home location z
+command-home-information-multi-line-content:
+  type: WITHOUT_PREFIX
+  message: " #8cc0cc♢ &f%name% &7in %world% (%environment%) &a<hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %name%'>[CLICK]</click></hover>"
+
+# Available placeholders:
+# %count% - Home count
+# %max% - Max player's home
+command-home-information-multi-line-footer:
+  type: WITHOUT_PREFIX
+  message: ""
+
+# Available placeholders:
+# %count% - Home count
+# %max% - Max player's home
+# %name% - Home name
+# %world% - Home world
+# %environment% - Home world environment
+# %x% - Home location x
+# %y% - Home location y
+# %z% - Home location z
+command-home-information-in-line:
+  type: WITHOUT_PREFIX
+  message: "#8cc0ccʏᴏᴜʀ ʜᴏᴍᴇs &a♦ &7(%count%/%max%) &8:&f%homes%"
+command-home-information-in-line-info: " <hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %name%'>&f%name%</click></hover>&7"

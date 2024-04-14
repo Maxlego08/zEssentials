@@ -29,6 +29,7 @@ permissions:
 #
 # IN_LINE: Displays a message with a header and footer (optional) and a message with the list of homes on the same line
 # INVENTORY: Displays the player’s homes in an inventory
+# INVENTORY_DONUT: Displays the player’s homes in an inventory that works exactly the same as donutsmpt
 # MULTI_LINE: Displays a message with a header and footer (optional) and a message per home (You can display buttons to teleport or delete the home quickly)
 home-display: MULTI_LINE
 

@@ -2,6 +2,7 @@ package fr.maxlego08.essentials.zutils.utils;
 
 import fr.maxlego08.essentials.api.messages.DefaultFontInfo;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.messages.MessageType;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.menu.zcore.utils.nms.NMSUtils;
 import org.bukkit.Bukkit;
@@ -10,7 +11,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.regex.Matcher;
@@ -42,7 +42,7 @@ public abstract class MessageUtils extends PlaceholderUtils {
                 case ACTION -> {
                     this.componentMessage.sendActionBar(sender, getMessage(message, args));
                 }
-                case TCHAT -> {
+                case TCHAT, WITHOUT_PREFIX -> {
                     sendTchatMessage(sender, message, args);
                 }
                 case TITLE -> {
@@ -66,7 +66,7 @@ public abstract class MessageUtils extends PlaceholderUtils {
         if (message.getMessages().size() > 0) {
             message.getMessages().forEach(msg -> this.componentMessage.sendMessage(sender, getMessage(msg, args)));
         } else {
-            this.componentMessage.sendMessage(sender, Message.PREFIX.getMessage() + getMessage(message, args));
+            this.componentMessage.sendMessage(sender, (message.getMessageType() == MessageType.WITHOUT_PREFIX ? "" : Message.PREFIX.getMessage()) + getMessage(message, args));
         }
     }
 

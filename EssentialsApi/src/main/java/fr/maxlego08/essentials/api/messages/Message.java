@@ -257,6 +257,16 @@ public enum Message {
 
     COMMAND_HOME_DOESNT_EXIST("#ff0000The home &f%name%#ff0000 does not exist."),
 
+    COMMAND_HOME_INFORMATION_MULTI_LINE_HEADER(
+            "",
+            "#8cc0ccʏᴏᴜʀ ʜᴏᴍᴇs &a♦ &7(%count%) &8- &7(Max: %max%)"
+    ),
+    COMMAND_HOME_INFORMATION_MULTI_LINE_CONTENT(MessageType.WITHOUT_PREFIX,
+            " #8cc0cc♢ &f%name% &7in %world% (%environment%) &a<hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %name%'>[CLICK]</click></hover>"),
+    COMMAND_HOME_INFORMATION_MULTI_LINE_FOOTER(MessageType.WITHOUT_PREFIX, ""),
+    COMMAND_HOME_INFORMATION_IN_LINE(MessageType.WITHOUT_PREFIX, "#8cc0ccʏᴏᴜʀ ʜᴏᴍᴇs &a♦ &7(%count%/%max%)&8:&f%homes%"),
+    COMMAND_HOME_INFORMATION_IN_LINE_INFO(" <hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %name%'>&f%name%</click></hover>&7"),
+
     ;
 
     private String message;

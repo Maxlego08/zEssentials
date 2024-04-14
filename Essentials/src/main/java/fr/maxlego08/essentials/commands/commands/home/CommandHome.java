@@ -7,6 +7,7 @@ import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.module.modules.HomeModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
+import org.bukkit.command.ConsoleCommandSender;
 
 import java.util.Optional;
 
@@ -24,9 +25,13 @@ public class CommandHome extends VCommand {
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
         String homeName = this.argAsString(0, null);
+        HomeModule homeModule = plugin.getModuleManager().getModule(HomeModule.class);
 
         if (homeName == null) {
-            sendHomes(plugin);
+
+            if (this.sender instanceof ConsoleCommandSender) return CommandResultType.SYNTAX_ERROR;
+
+            homeModule.sendHomes(player, user);
             return CommandResultType.SUCCESS;
         }
 
@@ -36,7 +41,6 @@ public class CommandHome extends VCommand {
             // ToDo
         }
 
-        HomeModule homeModule = plugin.getModuleManager().getModule(HomeModule.class);
 
         Optional<Home> optional = this.user.getHome(homeName);
         if (optional.isEmpty()) {
@@ -48,9 +52,5 @@ public class CommandHome extends VCommand {
         this.user.teleport(home.getLocation(), Message.TELEPORT_MESSAGE_HOME, Message.TELEPORT_SUCCESS_HOME, "%name%", home.getName());
 
         return CommandResultType.SUCCESS;
-    }
-
-    private void sendHomes(EssentialsPlugin plugin) {
-
     }
 }
