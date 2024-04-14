@@ -4,7 +4,7 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 
 # ToDo
 
-- [ ] Command /sethome <name> (limit by grade/permission)
+- [x] Command /sethome <name> (limit by grade/permission)
 - [ ] Command /delhome <name>
 - [ ] Command /home (as gui or not)
 
@@ -27,8 +27,8 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 - [ ] Command /ext
 - [ ] Command /near (ability to set custom radius by grade/permission)
 - [x] Command /craft
-- [ ] Command /anvil
-- [ ] Command /back
+- [x] Command /anvil
+- [x] Command /back
 - [x] Command /feed
 
 - [x] Command /gm 1, gm0, gm3
@@ -39,7 +39,7 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 - [ ] Command /kill
 - [ ] Command /enchant
 - [ ] Command /give
-- [ ] Command /fly
+- [x] Command /fly
 - [x] Command /god
 - [ ] Command /skull
 - [ ] Command /ci
@@ -65,9 +65,9 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 
 - [ ] Command /paytoggle
 - [ ] Command /balancetop (alias: baltop)
-- [ ] Command /balance (alias: money)
-- [ ] Command /eco give, take, set,reset
-- [ ] Command /pay
+- [x] Command /balance (alias: money)
+- [x] Command /eco give, take, set,reset
+- [x] Command /pay
 
 - [ ] Command /createkit <name> <delay>
 - [ ] Command /kitreset
@@ -75,5 +75,5 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 - [ ] Command /kit (as gui or not)
 - [ ] Command /showkit <kit> (Preview kit as gui)
 
-- [ ] Command /setspawn
-- [ ] Command /spawn
+- [x] Command /setspawn
+- [x] Command /spawn

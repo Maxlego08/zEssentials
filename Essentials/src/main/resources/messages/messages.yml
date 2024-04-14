@@ -286,3 +286,17 @@ command-warp-destination: " <hover:show_text:'&fClick to teleport to warp &n%nam
 command-warp-list: "&7Warps&8:&f%destinations%"
 command-warp-list-info: " <hover:show_text:'&fClick to teleport to warp &n%name%'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"
 command-warp-delete: "#00ff00You just removed the warp &f%name%#00ff00."
+
+
+# Homes
+command-set-home-invalide-name: "&f%name% #ff0000is not a valid name, please choose another one."
+command-set-home-too-long: "&f%name% #ff0000is too long, please choose another one."
+command-set-home-too-short: "&f%name% #ff0000is too short name, please choose another one."
+command-set-home-max: "#ff0000You cannot have more than &f%max%#ff0000 homes."
+command-set-home-create:
+  - ""
+  - "#99E0FFYou just created the home &f%name%#99E0FF. &8(&7%current%&8/&7%max%&8)"
+  - "&fUse &n<hover:show_text:'&fClick to teleport to home'><click:suggest_command:'/home %name%'>/home %name%</click></hover>&r command to teleport to it"
+  - ""
+command-home-doesnt-exist: "#ff0000The home &f%name%#ff0000 does not exist."
+
