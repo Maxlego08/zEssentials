@@ -340,3 +340,12 @@ command-home-information-in-line:
   type: WITHOUT_PREFIX
   message: "#8cc0ccʏᴏᴜʀ ʜᴏᴍᴇs &a♦ &7(%count%/%max%) &8:&f%homes%"
 command-home-information-in-line-info: " <hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %name%'>&f%name%</click></hover>&7"
+
+command-home-icon-error: "#ff0000You must have an item in your hand to change the icon of your home."
+command-home-icon-success: "#00ff00You just changed the home icon &f%name%#00ff00."
+command-home-icon-reset: "#00ff00You just reset the home icon &f%name%#00ff00."
+command-home-delete: "#99E0FFYou just deleted the home &f%name%#99E0FF."
+command-home-admin-delete: "#00ff00You just deleted home &f%name%#00ff00 of &b%player%#00ff00."
+command-home-admin-set: "#00ff00You just created home &f%name%#00ff00 of &b%player%#00ff00."
+command-home-admin-list: "#8cc0cc%player% ʜᴏᴍᴇs&8:&f%homes%"
+command-home-admin-list-info: " <hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %player%:%name%'>&f%name%</click></hover>&7"
