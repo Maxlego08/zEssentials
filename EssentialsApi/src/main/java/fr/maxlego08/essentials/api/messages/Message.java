@@ -164,6 +164,7 @@ public enum Message {
     DESCRIPTION_HOME("Teleport to a home"),
     DESCRIPTION_KICK("Kick a player"),
     DESCRIPTION_KICK_ALL("Kick all players"),
+    DESCRIPTION_KITTY_CANNON("Launch kitty, wtf you want to do that ? monster"),
 
     YOU("you"),
     TRASH("&8Trash"),

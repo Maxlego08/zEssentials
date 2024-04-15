@@ -41,6 +41,7 @@ import fr.maxlego08.essentials.commands.commands.utils.CommandHat;
 import fr.maxlego08.essentials.commands.commands.utils.CommandHeal;
 import fr.maxlego08.essentials.commands.commands.utils.CommandInvsee;
 import fr.maxlego08.essentials.commands.commands.sanction.CommandKick;
+import fr.maxlego08.essentials.commands.commands.utils.CommandKittyCannon;
 import fr.maxlego08.essentials.commands.commands.utils.CommandLoom;
 import fr.maxlego08.essentials.commands.commands.utils.CommandMore;
 import fr.maxlego08.essentials.commands.commands.utils.CommandSmithingTable;
@@ -139,6 +140,8 @@ public class CommandLoader {
 
         register("kick", CommandKick.class);
         register("kickall", CommandKickAll.class);
+
+        register("kittycannon", CommandKittyCannon.class);
 
         File file = new File(plugin.getDataFolder(), "commands.yml");
         if (!file.exists()) this.plugin.saveResource("commands.yml", false);
