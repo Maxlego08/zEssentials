@@ -62,3 +62,5 @@ warps: true
 tpr: true
 sethome: true
 home: true
+kick: true
+kickall: true

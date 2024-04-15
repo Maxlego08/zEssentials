@@ -475,6 +475,15 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
         });
     }
 
+    protected String getArgs(int start) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = start; i < this.args.length; i++) {
+            if (i != start) stringBuilder.append(" ");
+            stringBuilder.append(this.args[i]);
+        }
+        return stringBuilder.toString();
+    }
+
     private static class VCommandComparator implements Comparator<VCommand> {
         @Override
         public int compare(VCommand command1, VCommand command2) {

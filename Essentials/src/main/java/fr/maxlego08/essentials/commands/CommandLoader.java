@@ -16,6 +16,7 @@ import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeSurviva
 import fr.maxlego08.essentials.commands.commands.home.CommandDelHome;
 import fr.maxlego08.essentials.commands.commands.home.CommandHome;
 import fr.maxlego08.essentials.commands.commands.home.CommandSetHome;
+import fr.maxlego08.essentials.commands.commands.sanction.CommandKickAll;
 import fr.maxlego08.essentials.commands.commands.spawn.CommandSetSpawn;
 import fr.maxlego08.essentials.commands.commands.spawn.CommandSpawn;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleport;
@@ -39,6 +40,7 @@ import fr.maxlego08.essentials.commands.commands.utils.CommandGrindStone;
 import fr.maxlego08.essentials.commands.commands.utils.CommandHat;
 import fr.maxlego08.essentials.commands.commands.utils.CommandHeal;
 import fr.maxlego08.essentials.commands.commands.utils.CommandInvsee;
+import fr.maxlego08.essentials.commands.commands.sanction.CommandKick;
 import fr.maxlego08.essentials.commands.commands.utils.CommandLoom;
 import fr.maxlego08.essentials.commands.commands.utils.CommandMore;
 import fr.maxlego08.essentials.commands.commands.utils.CommandSmithingTable;
@@ -135,6 +137,8 @@ public class CommandLoader {
         register("delhome", CommandDelHome.class, "hdelete", "hd");
         register("home", CommandHome.class, "h");
 
+        register("kick", CommandKick.class);
+        register("kickall", CommandKickAll.class);
 
         File file = new File(plugin.getDataFolder(), "commands.yml");
         if (!file.exists()) this.plugin.saveResource("commands.yml", false);

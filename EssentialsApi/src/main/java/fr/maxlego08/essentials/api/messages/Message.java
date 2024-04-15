@@ -162,6 +162,8 @@ public enum Message {
     DESCRIPTION_SET_HOME("Create a home"),
     DESCRIPTION_DEL_HOME("Delete a home"),
     DESCRIPTION_HOME("Teleport to a home"),
+    DESCRIPTION_KICK("Kick a player"),
+    DESCRIPTION_KICK_ALL("Kick all players"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -274,6 +276,16 @@ public enum Message {
     COMMAND_HOME_ADMIN_SET("#00ff00You just created home &f%name%#00ff00 of &b%player%#00ff00."),
     COMMAND_HOME_ADMIN_LIST("#8cc0cc%player% ʜᴏᴍᴇs&8:&f%homes%"),
     COMMAND_HOME_ADMIN_LIST_INFO(" <hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %player%:%name%'>&f%name%</click></hover>&7"),
+
+    COMMAND_KICK_NOTIFY("&f%player% &cjust kicked out the player &7&n%target%&r &cfor the reason &e%reason%"),
+    COMMAND_KICK_RECEIVER(
+            "",
+            "&cYou have just been kicked from the server for the reason:",
+            "%reason%",
+            "",
+            "&fMinecraft-Inventory-Builder.com",
+            ""
+    )
 
     ;
 

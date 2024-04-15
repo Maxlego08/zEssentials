@@ -11,7 +11,7 @@ public class CommandTrash extends VCommand {
     public CommandTrash(EssentialsPlugin plugin) {
         super(plugin);
         this.setPermission(Permission.ESSENTIALS_TRASH);
-        this.setDescription(Message.DESCRIPTION_GOD);
+        this.setDescription(Message.DESCRIPTION_TRASH);
         this.onlyPlayers();
     }
 

@@ -1,10 +1,13 @@
 package fr.maxlego08.essentials.zutils.utils;
 
+import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.DefaultFontInfo;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.messages.MessageType;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.menu.zcore.utils.nms.NMSUtils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -28,6 +31,16 @@ public abstract class MessageUtils extends PlaceholderUtils {
         Player player = Bukkit.getPlayer(uniqueId);
         if (player == null) return;
         message(player, message, args);
+    }
+
+
+    protected void broadcast(Permission permission, Message message, Object... args) {
+        Bukkit.getOnlinePlayers().forEach(player -> {
+            if (player.hasPermission(permission.asPermission())) {
+                message(player, message, args);
+            }
+        });
+        message(Bukkit.getConsoleSender(), message, args);
     }
 
     protected void message(CommandSender sender, Message message, Object... args) {
@@ -72,6 +85,18 @@ public abstract class MessageUtils extends PlaceholderUtils {
 
     protected String getMessage(Message message, Object... args) {
         return getMessage(message.getMessage(), args);
+    }
+
+    protected Component getComponentMessage(Message message, Object... args) {
+        if (message.getMessages().size() > 0) {
+            TextComponent.Builder component = Component.text();
+            message.getMessages().forEach(msg -> {
+                component.append(this.componentMessage.getComponent(getMessage(msg, args)));
+                component.append(Component.text("\n"));
+            });
+            return component.build();
+        }
+        return this.componentMessage.getComponent(getMessage(message, args));
     }
 
     protected String getMessage(String message, Object... args) {
