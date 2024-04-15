@@ -18,6 +18,7 @@ import fr.maxlego08.essentials.module.modules.TeleportationModule;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
@@ -423,7 +424,7 @@ public class ZUser extends ZUtils implements User {
         // Delete home with the same name before
         removeHome(name);
 
-        Home home = new ZHome(location, name);
+        Home home = new ZHome(location, name, null);
         this.homes.add(home);
         this.getStorage().upsertHome(this.uniqueId, home);
     }
@@ -440,7 +441,7 @@ public class ZUser extends ZUtils implements User {
 
     @Override
     public void setHomes(List<HomeDTO> homeDTOS) {
-        this.homes.addAll(homeDTOS.stream().map(homeDTO -> new ZHome(stringAsLocation(homeDTO.location()), homeDTO.name())).toList());
+        this.homes.addAll(homeDTOS.stream().map(homeDTO -> new ZHome(stringAsLocation(homeDTO.location()), homeDTO.name(), homeDTO.material() == null ? null : Material.valueOf(homeDTO.material()))).toList());
     }
 
     @Override

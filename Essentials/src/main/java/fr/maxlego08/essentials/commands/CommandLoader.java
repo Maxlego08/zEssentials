@@ -13,6 +13,7 @@ import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeAdventu
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeCreative;
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeSpectator;
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeSurvival;
+import fr.maxlego08.essentials.commands.commands.home.CommandDelHome;
 import fr.maxlego08.essentials.commands.commands.home.CommandHome;
 import fr.maxlego08.essentials.commands.commands.home.CommandSetHome;
 import fr.maxlego08.essentials.commands.commands.spawn.CommandSetSpawn;
@@ -131,6 +132,7 @@ public class CommandLoader {
         register("delwarp", CommandDelWarp.class, "wdelete");
 
         register("sethome", CommandSetHome.class, "hcreate", "hc");
+        register("delhome", CommandDelHome.class, "hdelete", "hd");
         register("home", CommandHome.class, "h");
 
 

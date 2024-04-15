@@ -67,6 +67,9 @@ public class UserTypeAdapter extends TypeAdapter<User> {
             out.beginObject();
             out.name("name").value(home.getName());
             out.name("location").value(locationUtils.locationAsString(home.getLocation()));
+            if (home.getMaterial() != null) {
+                out.name("material").value(home.getMaterial().name());
+            }
             out.endObject();
         }
         out.endArray();
@@ -120,14 +123,16 @@ public class UserTypeAdapter extends TypeAdapter<User> {
                         in.beginObject();
                         String homeName = null;
                         String location = null;
+                        String material = null;
                         while (in.hasNext()) {
                             switch (in.nextName()) {
                                 case "name" -> homeName = in.nextString();
                                 case "location" -> location = in.nextString();
+                                case "material" -> material = in.nextString();
                             }
                         }
                         in.endObject();
-                        homeDTOS.add(new HomeDTO(location, homeName));
+                        homeDTOS.add(new HomeDTO(location, homeName, material));
                     }
                     in.endArray();
                 }

@@ -10,6 +10,7 @@ public class CreateUserHomeTableMigration extends Migration {
             table.uuid("unique_id").primary().foreignKey("%prefix%players");
             table.string("name", 255).primary();
             table.longText("location");
+            table.string("material", 255).nullable();
             table.timestamps();
         });
     }

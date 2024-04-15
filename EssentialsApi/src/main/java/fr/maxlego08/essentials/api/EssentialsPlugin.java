@@ -10,6 +10,7 @@ import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.essentials.api.storage.ServerStorage;
 import fr.maxlego08.essentials.api.storage.StorageManager;
+import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.Warp;
 import fr.maxlego08.menu.api.ButtonManager;
 import fr.maxlego08.menu.api.InventoryManager;
@@ -66,4 +67,6 @@ public interface EssentialsPlugin extends Plugin {
     Optional<Warp> getWarp(String name);
 
     int getMaxHome(Permissible permissible);
+
+    User getUser(UUID uniqueId);
 }

@@ -266,6 +266,10 @@ public enum Message {
     COMMAND_HOME_INFORMATION_MULTI_LINE_FOOTER(MessageType.WITHOUT_PREFIX, ""),
     COMMAND_HOME_INFORMATION_IN_LINE(MessageType.WITHOUT_PREFIX, "#8cc0ccʏᴏᴜʀ ʜᴏᴍᴇs &a♦ &7(%count%/%max%)&8:&f%homes%"),
     COMMAND_HOME_INFORMATION_IN_LINE_INFO(" <hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %name%'>&f%name%</click></hover>&7"),
+    COMMAND_HOME_ICON_ERROR("#ff0000You must have an item in your hand to change the icon of your home."),
+    COMMAND_HOME_ICON_SUCCESS("#00ff00You just changed the home icon &f%name%#00ff00."),
+    COMMAND_HOME_ICON_RESET("#00ff00You just reset the home icon &f%name%#00ff00."),
+    COMMAND_HOME_DELETE("#99E0FFYou just deleted the home &f%name%#99E0FF."),
 
     ;
 

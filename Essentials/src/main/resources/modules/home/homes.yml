@@ -1,0 +1,44 @@
+name: '#3f3f3fʜᴏᴍᴇs'
+size: 54
+items:
+  decorations:
+    item:
+      material: GRAY_STAINED_GLASS_PANE
+      name: '&e'
+    slots:
+      - 9-17
+  homes:
+    type: ESSENTIALS_HOMES
+    slots:
+      - 18-53
+    item:
+      material: BLUE_BED
+      name: '&f%home%'
+      lore:
+        - '#ffd353ℹ Informations#3f3f3f:'
+        - '#3f3f3f• &7World#3f3f3f: #4cd5ff%world%'
+        - '#3f3f3f• &7Environment#3f3f3f: #4cd5ff%environment%'
+        - ''
+        - '&f➥ &nLeft Click&r&7 to teleport'
+        - '&f➨ &nDrop key&r&7 to edit material'
+        - '&f➦ &nRight Click&r&7 to delete'
+    else:
+      slot: 31
+      item:
+        material: RED_STAINED_GLASS_PANE
+        name: "#ff0000✗ ʏᴏᴜ ᴅᴏɴ'ᴛ ʜᴀᴠᴇ ʜᴏᴍᴇs"
+        lore:
+          - '&7To create a home use the command:'
+          - ''
+          - '#3f3f3f• #4cd5ff/sethome &7<home name>'
+  informations:
+    slot: 4
+    item:
+      material: PLAYER_HEAD
+      name: '&fʜᴏᴍᴇs'
+      lore:
+        - '#ffd353ℹ Informations#3f3f3f:'
+        - '#3f3f3f• &7Homes#3f3f3f: #4cd5ff%count%'
+        - '#3f3f3f• &7Max homes#3f3f3f: #4cd5ff%max%'
+        - ''
+        - '#3f3f3f• &7Command#3f3f3f: #4cd5ff/sethome &7<home name>'
