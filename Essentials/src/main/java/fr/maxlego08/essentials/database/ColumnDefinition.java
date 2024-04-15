@@ -11,6 +11,7 @@ public class ColumnDefinition {
     private boolean is = false;
     private String referenceTable;
     private Object object;
+    private boolean isAutoIncrement;
 
     public ColumnDefinition(String name, String type) {
         this.name = name;
@@ -28,6 +29,10 @@ public class ColumnDefinition {
             columnSQL.append("(").append(length).append(",").append(decimal).append(")");
         } else if (length != 0) {
             columnSQL.append("(").append(length).append(")");
+        }
+
+        if (isAutoIncrement) {
+            columnSQL.append(" AUTO_INCREMENT");
         }
 
         if (nullable) {
@@ -132,6 +137,11 @@ public class ColumnDefinition {
 
     public ColumnDefinition setObject(Object object) {
         this.object = object;
+        return this;
+    }
+
+    public ColumnDefinition setAutoIncrement(boolean isAutoIncrement) {
+        this.isAutoIncrement = isAutoIncrement;
         return this;
     }
 }

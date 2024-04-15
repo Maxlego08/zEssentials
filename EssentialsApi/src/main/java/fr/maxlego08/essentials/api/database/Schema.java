@@ -40,12 +40,17 @@ public interface Schema {
     Schema primary();
 
     Schema foreignKey(String referenceTable);
+    Schema foreignKey(String referenceTable, String columnName);
 
     Schema createdAt();
 
     Schema updatedAt();
 
     Schema timestamps();
+
+    Schema timestamp(String columnName);
+
+    Schema autoIncrement(String columnName);
 
     Schema nullable();
 

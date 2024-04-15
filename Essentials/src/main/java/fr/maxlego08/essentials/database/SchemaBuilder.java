@@ -162,6 +162,15 @@ public class SchemaBuilder extends ZUtils implements Schema {
         return this;
     }
 
+    @Override
+    public Schema foreignKey(String referenceTable, String columnName) {
+        if (this.columns.isEmpty()) throw new IllegalStateException("No column defined to apply foreign key.");
+        ColumnDefinition lastColumn = this.columns.get(this.columns.size() - 1);
+
+        String fkDefinition = String.format("FOREIGN KEY (%s) REFERENCES %s(%s) ON DELETE CASCADE", lastColumn.getName(), referenceTable, columnName);
+        this.foreignKeys.add(fkDefinition);
+        return this;
+    }
 
     @Override
     public Schema createdAt() {
@@ -169,6 +178,16 @@ public class SchemaBuilder extends ZUtils implements Schema {
         column.setDefaultValue("CURRENT_TIMESTAMP");
         this.columns.add(column);
         return this;
+    }
+
+    @Override
+    public Schema timestamp(String columnName) {
+        return this.addColumn(new ColumnDefinition(columnName, "TIMESTAMP"));
+    }
+
+    @Override
+    public Schema autoIncrement(String columnName) {
+        return addColumn(new ColumnDefinition(columnName, "INT").setAutoIncrement(true));
     }
 
     @Override
