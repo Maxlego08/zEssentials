@@ -25,6 +25,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 import java.util.function.Consumer;
 
 public class SqlStorage extends StorageHelper implements IStorage {
@@ -212,5 +214,19 @@ public class SqlStorage extends StorageHelper implements IStorage {
     @Override
     public void deleteHome(UUID uniqueId, String name) {
         async(() -> this.repositories.getTable(UserHomeRepository.class).deleteHomes(uniqueId, name));
+    }
+
+    @Override
+    public CompletableFuture<List<Home>> getHome(UUID uuid, String homeName) {
+        CompletableFuture<List<Home>> future = new CompletableFuture<>();
+        future.complete(this.repositories.getTable(UserHomeRepository.class).getHomes(uuid, homeName));
+        return future;
+    }
+
+    @Override
+    public CompletionStage<List<Home>> getHomes(UUID uuid) {
+        CompletableFuture<List<Home>> future = new CompletableFuture<>();
+        future.complete(this.repositories.getTable(UserHomeRepository.class).getHomes(uuid));
+        return future;
     }
 }

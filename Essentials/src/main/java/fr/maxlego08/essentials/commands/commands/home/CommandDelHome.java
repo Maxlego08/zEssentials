@@ -32,13 +32,17 @@ public class CommandDelHome extends VCommand {
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
         String homeName = this.argAsString(0);
+        HomeModule homeModule = plugin.getModuleManager().getModule(HomeModule.class);
 
-        // For /sethome Maxlego08:<home name>
+        // For /delhome Maxlego08:<home name>
         if (homeName.contains(":") && hasPermission(sender, Permission.ESSENTIALS_SET_HOME_OTHER)) {
-            // ToDo
+            String[] values = homeName.split(":", 2);
+            String username = values[0];
+            String home = values[1];
+            homeModule.deleteHome(this.sender, this.user, username, home);
+            return CommandResultType.DEFAULT;
         }
 
-        HomeModule homeModule = plugin.getModuleManager().getModule(HomeModule.class);
         homeModule.deleteHome(this.player, this.user, homeName);
 
         return CommandResultType.SUCCESS;

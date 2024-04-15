@@ -8,6 +8,7 @@ import fr.maxlego08.menu.api.InventoryManager;
 import fr.maxlego08.menu.exceptions.InventoryException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 
 import java.io.File;
 

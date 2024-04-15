@@ -4,6 +4,7 @@ import fr.maxlego08.essentials.api.database.dto.HomeDTO;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.storage.database.Repository;
 import fr.maxlego08.essentials.storage.database.SqlConnection;
+import fr.maxlego08.essentials.user.ZHome;
 
 import java.util.List;
 import java.util.UUID;
@@ -29,5 +30,13 @@ public class UserHomeRepository extends Repository {
 
     public void deleteHomes(UUID uuid, String name) {
         delete(table -> table.where("unique_id", name).where("name", name));
+    }
+
+    public List<Home> getHomes(UUID uuid, String homeName) {
+        return select(HomeDTO.class, schema -> schema.where("unique_id", uuid).where("name", homeName)).stream().map(homeDTO -> (Home) new ZHome(stringAsLocation(homeDTO.location()), homeDTO.name(), null)).toList();
+    }
+
+    public List<Home> getHomes(UUID uuid) {
+        return select(HomeDTO.class, schema -> schema.where("unique_id", uuid)).stream().map(homeDTO -> (Home) new ZHome(stringAsLocation(homeDTO.location()), homeDTO.name(), null)).toList();
     }
 }

@@ -5,12 +5,15 @@ import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.home.HomeDisplay;
 import fr.maxlego08.essentials.api.home.HomePermission;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.ZModule;
+import fr.maxlego08.essentials.user.ZHome;
 import fr.maxlego08.menu.api.utils.Placeholders;
 import org.apache.logging.log4j.util.Strings;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.Permissible;
@@ -44,6 +47,9 @@ public class HomeModule extends ZModule {
 
     public Message isValidHomeName(String input) {
         if (!input.matches("[a-zA-Z0-9]+")) {
+            return Message.COMMAND_SET_HOME_INVALIDE_NAME;
+        }
+        if (input.equalsIgnoreCase("list")) { // Blacklist for /home <player>:list
             return Message.COMMAND_SET_HOME_INVALIDE_NAME;
         }
         if (input.length() > this.homeNameMax) {
@@ -151,5 +157,51 @@ public class HomeModule extends ZModule {
         user.removeHome(homeName);
         message(user, Message.COMMAND_HOME_DELETE, "%name%", homeName);
         player.closeInventory();
+    }
+
+    public void teleport(User user, String username, String homeName) {
+
+        IStorage iStorage = this.plugin.getStorageManager().getStorage();
+        iStorage.fetchUniqueId(username, uuid -> {
+
+            if (homeName.equalsIgnoreCase("list")) {
+                iStorage.getHomes(uuid).thenAccept(homes -> {
+                    List<String> homesAsString = homes.stream().map(home -> getMessage(Message.COMMAND_HOME_ADMIN_LIST_INFO, "%name%", home.getName(), "%player%", username)).toList();
+                    message(user, Message.COMMAND_HOME_ADMIN_LIST, "%homes%", Strings.join(homesAsString, ','), "%player%", username);
+                });
+                return;
+            }
+
+            iStorage.getHome(uuid, homeName).thenAccept(homes -> {
+
+                if (homes.isEmpty()) {
+                    message(user, Message.COMMAND_HOME_DOESNT_EXIST, "%name%", homeName);
+                    return;
+                }
+
+                Home home = homes.get(0);
+                teleport(user, home);
+            });
+        });
+    }
+
+    public void deleteHome(CommandSender sender, User user, String username, String homeName) {
+        IStorage iStorage = this.plugin.getStorageManager().getStorage();
+        iStorage.fetchUniqueId(username, uuid -> {
+
+            iStorage.deleteHome(uuid, homeName);
+            message(sender, Message.COMMAND_HOME_ADMIN_DELETE, "%name%", homeName, "%player%", username);
+        });
+    }
+
+    public void setHome(Player player, String username, String homeName) {
+
+        IStorage iStorage = this.plugin.getStorageManager().getStorage();
+        iStorage.fetchUniqueId(username, uuid -> {
+
+            Home home = new ZHome(player.getLocation(), homeName, null);
+            iStorage.upsertHome(uuid, home);
+            message(player, Message.COMMAND_HOME_ADMIN_SET, "%name%", homeName, "%player%", username);
+        });
     }
 }

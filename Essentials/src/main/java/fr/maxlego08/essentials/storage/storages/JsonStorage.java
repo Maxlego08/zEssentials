@@ -2,6 +2,7 @@ package fr.maxlego08.essentials.storage.storages;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
+import fr.maxlego08.essentials.api.database.dto.HomeDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.storage.IStorage;
@@ -18,6 +19,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 import java.util.function.Consumer;
 
 public class JsonStorage extends StorageHelper implements IStorage {
@@ -186,11 +189,47 @@ public class JsonStorage extends StorageHelper implements IStorage {
 
     @Override
     public void upsertHome(UUID uniqueId, Home home) {
+        User user = getUser(uniqueId);
+        if (user == null) {
+            user = createOrLoad(uniqueId, "");
+            user.setHomes(List.of(new HomeDTO(locationAsString(home.getLocation()), home.getName(), home.getMaterial() == null ? null : home.getMaterial().name())));
+            User finalUser = user;
+            this.plugin.getScheduler().runAsync(wrappedTask -> {
+                Persist persist = this.plugin.getPersist();
+                persist.save(finalUser, getUserFile(uniqueId));
+            });
+            return;
+        }
         this.saveFileAsync(uniqueId);
     }
 
     @Override
     public void deleteHome(UUID uniqueId, String name) {
+        User user = getUser(uniqueId);
+        if (user == null) {
+            user = createOrLoad(uniqueId, "");
+            user.removeHome(name);
+            User finalUser = user;
+            this.plugin.getScheduler().runAsync(wrappedTask -> {
+                Persist persist = this.plugin.getPersist();
+                persist.save(finalUser, getUserFile(uniqueId));
+            });
+            return;
+        }
         this.saveFileAsync(uniqueId);
+    }
+
+    @Override
+    public CompletableFuture<List<Home>> getHome(UUID uuid, String homeName) {
+        CompletableFuture<List<Home>> future = new CompletableFuture<>();
+        future.complete(createOrLoad(uuid, "").getHomes().stream().filter(home -> home.getName().equalsIgnoreCase(homeName)).toList());
+        return future;
+    }
+
+    @Override
+    public CompletionStage<List<Home>> getHomes(UUID uuid) {
+        CompletableFuture<List<Home>> future = new CompletableFuture<>();
+        future.complete(createOrLoad(uuid, "").getHomes());
+        return future;
     }
 }

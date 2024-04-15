@@ -270,6 +270,10 @@ public enum Message {
     COMMAND_HOME_ICON_SUCCESS("#00ff00You just changed the home icon &f%name%#00ff00."),
     COMMAND_HOME_ICON_RESET("#00ff00You just reset the home icon &f%name%#00ff00."),
     COMMAND_HOME_DELETE("#99E0FFYou just deleted the home &f%name%#99E0FF."),
+    COMMAND_HOME_ADMIN_DELETE("#00ff00You just deleted home &f%name%#00ff00 of &b%player%#00ff00."),
+    COMMAND_HOME_ADMIN_SET("#00ff00You just created home &f%name%#00ff00 of &b%player%#00ff00."),
+    COMMAND_HOME_ADMIN_LIST("#8cc0cc%player% ʜᴏᴍᴇs&8:&f%homes%"),
+    COMMAND_HOME_ADMIN_LIST_INFO(" <hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %player%:%name%'>&f%name%</click></hover>&7"),
 
     ;
 

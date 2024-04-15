@@ -45,9 +45,16 @@ public class CommandHome extends VCommand {
         }
 
 
-        // For /sethome Maxlego08:<home name>
+        // For /home Maxlego08:<home name>
         if (homeName.contains(":") && hasPermission(sender, Permission.ESSENTIALS_HOME_OTHER)) {
-            // ToDo
+
+            if (this.sender instanceof ConsoleCommandSender) return CommandResultType.SYNTAX_ERROR;
+
+            String[] values = homeName.split(":", 2);
+            String username = values[0];
+            String home = values[1];
+            homeModule.teleport(this.user, username, home);
+            return CommandResultType.DEFAULT;
         }
 
 

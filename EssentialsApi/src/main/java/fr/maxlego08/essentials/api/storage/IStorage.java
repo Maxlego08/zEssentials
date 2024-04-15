@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.api.storage;
 
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
+import fr.maxlego08.essentials.api.database.dto.HomeDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.user.Option;
@@ -10,6 +11,8 @@ import org.bukkit.Location;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 import java.util.function.Consumer;
 
 public interface IStorage {
@@ -47,4 +50,8 @@ public interface IStorage {
     void upsertHome(UUID uniqueId, Home home);
 
     void deleteHome(UUID uniqueId, String name);
+
+    CompletableFuture<List<Home>> getHome(UUID uuid, String homeName);
+
+    CompletionStage<List<Home>> getHomes(UUID uuid);
 }
