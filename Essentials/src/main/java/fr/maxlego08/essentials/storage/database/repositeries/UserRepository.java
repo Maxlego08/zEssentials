@@ -29,6 +29,17 @@ public class UserRepository extends Repository {
         });
     }
 
+    public void updateBanId(UUID uuid, Integer index) {
+        update(table -> {
+            table.decimal("ban_sanction_id", index);
+            table.where("unique_id", uuid);
+        });
+    }
+
+    public void updateMuteId(Integer index) {
+
+    }
+
     public List<UserDTO> selectUsers(String userName) {
         return select(UserDTO.class, table -> table.where("name", userName));
     }

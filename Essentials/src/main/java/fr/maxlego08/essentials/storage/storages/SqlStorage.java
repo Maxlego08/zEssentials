@@ -95,6 +95,8 @@ public class SqlStorage extends StorageHelper implements IStorage {
             this.repositories.getTable(UserRepository.class).upsert(uniqueId, playerName); // Create the player or update his name
             if (!userDTOS.isEmpty()) {
                 UserDTO userDTO = userDTOS.get(0);
+                System.out.println(userDTO);
+                user.setSanction(userDTO.ban_sanction_id(), userDTO.mute_sanction_id());
                 user.setLastLocation(stringAsLocation(userDTO.last_location()));
                 user.setOptions(this.repositories.getTable(UserOptionRepository.class).selectOptions(uniqueId));
                 user.setCooldowns(this.repositories.getTable(UserCooldownsRepository.class).selectCooldowns(uniqueId));
@@ -234,7 +236,12 @@ public class SqlStorage extends StorageHelper implements IStorage {
     }
 
     @Override
-    public void insertSanction(Sanction sanction) {
-        async(() -> this.repositories.getTable(UserSanctionRepository.class).insert(sanction));
+    public void insertSanction(Sanction sanction, Consumer<Integer> consumer) {
+        async(() -> this.repositories.getTable(UserSanctionRepository.class).insert(sanction, consumer));
+    }
+
+    @Override
+    public void updateUserBan(UUID uuid, Integer index) {
+        async(() -> this.repositories.getTable(UserRepository.class).updateBanId(uuid, index));
     }
 }

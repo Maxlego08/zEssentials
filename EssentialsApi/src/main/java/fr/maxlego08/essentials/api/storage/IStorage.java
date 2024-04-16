@@ -54,5 +54,7 @@ public interface IStorage {
 
     CompletionStage<List<Home>> getHomes(UUID uuid);
 
-    void insertSanction(Sanction sanction);
+    void insertSanction(Sanction sanction, Consumer<Integer> consumer);
+
+    void updateUserBan(UUID uuid, Integer index);
 }

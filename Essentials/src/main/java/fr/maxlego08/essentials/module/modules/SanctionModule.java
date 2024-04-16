@@ -41,7 +41,7 @@ public class SanctionModule extends ZModule {
         IStorage iStorage = plugin.getStorageManager().getStorage();
 
         Sanction sanction = Sanction.kick(uuid, getSenderUniqueId(sender), reason);
-        iStorage.insertSanction(sanction);
+        iStorage.insertSanction(sanction, sanction::setId);
 
         server.kickPlayer(uuid, Message.MESSAGE_KICK, "%reason%", reason);
         server.broadcastMessage(Permission.ESSENTIALS_KICK_NOTIFY, Message.COMMAND_KICK_NOTIFY, "%player%", sender.getName(), "%target%", playerName, "%reason%", reason);
@@ -59,7 +59,10 @@ public class SanctionModule extends ZModule {
 
         Date finishAt = new Date(System.currentTimeMillis() + duration.toMillis());
         Sanction sanction = Sanction.ban(uuid, getSenderUniqueId(sender), reason, duration, finishAt);
-        iStorage.insertSanction(sanction);
+        iStorage.insertSanction(sanction, index -> {
+            sanction.setId(index);
+            iStorage.updateUserBan(uuid, index);
+        });
 
         server.kickPlayer(uuid, Message.MESSAGE_BAN, "%reason%", reason, "%duration%", TimerBuilder.getStringTime(duration.toMillis()));
         server.broadcastMessage(Permission.ESSENTIALS_BAN_NOTIFY, Message.COMMAND_BAN_NOTIFY, "%player%", sender.getName(), "%target%", playerName, "%reason%", reason);

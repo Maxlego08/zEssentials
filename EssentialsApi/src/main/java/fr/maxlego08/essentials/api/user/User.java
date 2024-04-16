@@ -130,4 +130,10 @@ public interface User {
     void setHomes(List<HomeDTO> homeDTOS);
 
     boolean isHomeName(String homeName);
+
+    int getActiveBanId();
+
+    int getActiveMuteId();
+
+    void setSanction(Integer banId, Integer muteId);
 }

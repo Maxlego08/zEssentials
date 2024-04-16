@@ -68,7 +68,7 @@ public interface Schema {
 
     Schema where(String columnName, String operator, Object value);
 
-    void execute(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException;
+    int execute(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException;
 
     List<Map<String, Object>> executeSelect(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException;
 

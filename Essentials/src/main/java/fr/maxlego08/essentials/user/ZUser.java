@@ -49,6 +49,8 @@ public class ZUser extends ZUtils implements User {
     private Economy targetEconomy;
     private Location lastLocation;
     private boolean firstJoin;
+    private int banId;
+    private int muteId;
 
     public ZUser(EssentialsPlugin plugin, UUID uniqueId) {
         this.plugin = plugin;
@@ -458,5 +460,21 @@ public class ZUser extends ZUtils implements User {
     @Override
     public boolean isHomeName(String homeName) {
         return getHome(homeName).isPresent();
+    }
+
+    @Override
+    public int getActiveBanId() {
+        return this.banId;
+    }
+
+    @Override
+    public int getActiveMuteId() {
+        return this.muteId;
+    }
+
+    @Override
+    public void setSanction(Integer banId, Integer muteId) {
+        this.banId = banId == null ? 0 : banId;
+        this.muteId = muteId == null ? 0 : muteId;
     }
 }

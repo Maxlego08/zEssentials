@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -64,6 +65,12 @@ public class SchemaBuilder extends ZUtils implements Schema {
 
     public static Schema insert(String tableName, Consumer<Schema> consumer) {
         Schema schema = new SchemaBuilder(tableName, SchemaType.INSERT);
+        consumer.accept(schema);
+        return schema;
+    }
+
+    public static Schema update(String tableName, Consumer<Schema> consumer) {
+        Schema schema = new SchemaBuilder(tableName, SchemaType.UPDATE);
         consumer.accept(schema);
         return schema;
     }
@@ -258,16 +265,20 @@ public class SchemaBuilder extends ZUtils implements Schema {
     }
 
     @Override
-    public void execute(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
+    public int execute(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
         switch (this.schemaType) {
             case CREATE -> this.executeCreate(connection, databaseConfiguration, logger);
             case ALTER -> this.executeAlter(connection, databaseConfiguration, logger);
             case UPSERT -> this.executeUpsert(connection, databaseConfiguration, logger);
-            case INSERT -> this.executeInsert(connection, databaseConfiguration, logger);
+            case UPDATE -> this.executeUpdate(connection, databaseConfiguration, logger);
+            case INSERT -> {
+                return this.executeInsert(connection, databaseConfiguration, logger);
+            }
             case DELETE -> this.executeDelete(connection, databaseConfiguration, logger);
             case SELECT, SELECT_COUNT -> throw new IllegalArgumentException("Wrong method !");
             default -> throw new Error("Schema type not found !");
         }
+        return -1;
     }
 
     private void executeUpsert(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
@@ -306,8 +317,7 @@ public class SchemaBuilder extends ZUtils implements Schema {
 
     }
 
-    private void executeInsert(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
-
+    private int executeInsert(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
         StringBuilder insertQuery = new StringBuilder("INSERT INTO " + this.tableName + " (");
         StringBuilder valuesQuery = new StringBuilder("VALUES (");
 
@@ -328,9 +338,52 @@ public class SchemaBuilder extends ZUtils implements Schema {
             logger.info("Executing SQL: " + upsertQuery);
         }
 
+        try (PreparedStatement preparedStatement = connection.prepareStatement(upsertQuery, Statement.RETURN_GENERATED_KEYS)) {
+            for (int i = 0; i < values.size(); i++) {
+                preparedStatement.setObject(i + 1, values.get(i));
+            }
+            preparedStatement.executeUpdate();
+
+            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1);  // Retourne l'index généré (généralement l'ID)
+                } else {
+                    return -1;
+                }
+            } catch (Exception exception) {
+                return -1;
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            throw new SQLException("Failed to execute upsert: " + exception.getMessage(), exception);
+        }
+    }
+
+    private void executeUpdate(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
+        StringBuilder insertQuery = new StringBuilder("UPDATE " + this.tableName + " SET ");
+
+        List<Object> values = new ArrayList<>();
+
+        for (int i = 0; i < this.columns.size(); i++) {
+            ColumnDefinition columnDefinition = this.columns.get(i);
+            insertQuery.append(i > 0 ? ", " : "").append(columnDefinition.getName()).append(" = ?");
+            values.add(columnDefinition.getObject());
+        }
+
+        this.whereConditions(insertQuery);
+        String upsertQuery = databaseConfiguration.replacePrefix(insertQuery.toString());
+
+        if (databaseConfiguration.debug()) {
+            logger.info("Executing SQL: " + upsertQuery);
+        }
+
         try (PreparedStatement preparedStatement = connection.prepareStatement(upsertQuery)) {
             for (int i = 0; i < values.size(); i++) {
                 preparedStatement.setObject(i + 1, values.get(i));
+            }
+            int index = values.size() + 1;
+            for (WhereCondition condition : whereConditions) {
+                preparedStatement.setObject(index++, condition.getValue());
             }
             preparedStatement.executeUpdate();
         } catch (SQLException exception) {
@@ -338,6 +391,7 @@ public class SchemaBuilder extends ZUtils implements Schema {
             throw new SQLException("Failed to execute upsert: " + exception.getMessage(), exception);
         }
     }
+
 
     private void executeAlter(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
 

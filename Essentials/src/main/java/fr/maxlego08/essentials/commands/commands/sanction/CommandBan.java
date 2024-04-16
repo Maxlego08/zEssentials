@@ -8,6 +8,8 @@ import fr.maxlego08.essentials.module.modules.SanctionModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CommandBan extends VCommand {
     public CommandBan(EssentialsPlugin plugin) {
@@ -16,8 +18,8 @@ public class CommandBan extends VCommand {
         this.setPermission(Permission.ESSENTIALS_BAN);
         this.setDescription(Message.DESCRIPTION_BAN);
         this.addRequirePlayerNameArg();
-        this.addRequireArg("duration");
-        this.addOptionalArg("reason");
+        this.addRequireArg("duration", (a, b) -> Arrays.asList("1s", "1h", "1d", "1w", "1m"));
+        this.addOptionalArg("reason", (a, b) -> new ArrayList<>());
         this.setExtendedArgs(true);
     }
 

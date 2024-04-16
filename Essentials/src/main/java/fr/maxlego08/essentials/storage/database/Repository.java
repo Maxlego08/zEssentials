@@ -36,9 +36,22 @@ public abstract class Repository extends ZUtils {
         }
     }
 
-    protected void insert(Consumer<Schema> consumer) {
+    protected void update(Consumer<Schema> consumer) {
         try {
-            SchemaBuilder.insert(getTableName(), consumer).execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), this.connection.getPlugin().getLogger());
+            SchemaBuilder.update(getTableName(), consumer).execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), this.connection.getPlugin().getLogger());
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    protected void insert(Consumer<Schema> consumer) {
+        insert(consumer, id -> {
+        });
+    }
+
+    protected void insert(Consumer<Schema> consumer, Consumer<Integer> consumerResult) {
+        try {
+            consumerResult.accept(SchemaBuilder.insert(getTableName(), consumer).execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), this.connection.getPlugin().getLogger()));
         } catch (SQLException exception) {
             exception.printStackTrace();
         }

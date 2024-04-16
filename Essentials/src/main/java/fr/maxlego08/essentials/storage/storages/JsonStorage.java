@@ -12,6 +12,7 @@ import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.utils.StorageHelper;
+import org.apache.commons.lang3.NotImplementedException;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
@@ -235,7 +236,12 @@ public class JsonStorage extends StorageHelper implements IStorage {
     }
 
     @Override
-    public void insertSanction(Sanction sanction) {
-        System.out.println("TODO");
+    public void insertSanction(Sanction sanction, Consumer<Integer> consumer) {
+        throw new NotImplementedException("insertSanction is not implemented");
+    }
+
+    @Override
+    public void updateUserBan(UUID uuid, Integer index) {
+        throw new NotImplementedException("updateUserBan is not implemented");
     }
 }
