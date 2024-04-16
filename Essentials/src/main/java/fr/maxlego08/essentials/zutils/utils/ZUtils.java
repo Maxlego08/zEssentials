@@ -172,7 +172,7 @@ public abstract class ZUtils extends MessageUtils {
         }
     }
 
-    private Object convertToRequiredType(Object value, Class<?> type) {
+    protected Object convertToRequiredType(Object value, Class<?> type) {
         if (value == null) {
             return null;
         } else if (type.isEnum()) {

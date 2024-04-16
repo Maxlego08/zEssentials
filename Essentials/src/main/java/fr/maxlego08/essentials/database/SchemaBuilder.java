@@ -1,5 +1,6 @@
 package fr.maxlego08.essentials.database;
 
+import fr.maxlego08.essentials.api.database.JoinCondition;
 import fr.maxlego08.essentials.api.database.Migration;
 import fr.maxlego08.essentials.api.database.Schema;
 import fr.maxlego08.essentials.api.database.SchemaType;
@@ -30,6 +31,7 @@ public class SchemaBuilder extends ZUtils implements Schema {
     private final List<String> primaryKeys = new ArrayList<>();
     private final List<String> foreignKeys = new ArrayList<>();
     private final List<WhereCondition> whereConditions = new ArrayList<>();
+    private final List<JoinCondition> joinConditions = new ArrayList<>();
     private Migration migration;
 
     private SchemaBuilder(String tableName, SchemaType schemaType) {
@@ -571,16 +573,7 @@ public class SchemaBuilder extends ZUtils implements Schema {
             Parameter[] parameters = firstConstructor.getParameters();
             for (int i = 0; i < parameters.length; i++) {
                 Parameter parameter = parameters[i];
-                Object value = row.get(parameter.getName());
-                if (parameter.getType().isEnum()) {
-                    @SuppressWarnings("unchecked") Class<Enum> enumType = (Class<Enum>) parameter.getType();
-                    Object enumValue = Enum.valueOf(enumType, (String) value);
-                    params[i] = enumValue;
-                } else if (parameter.getType() == UUID.class) {
-                    params[i] = UUID.fromString((String) value);
-                } else {
-                    params[i] = value;
-                }
+                params[i] = convertToRequiredType(row.get(parameter.getName()), parameter.getType());
             }
             T instance = (T) firstConstructor.newInstance(params);
             transformedResults.add(instance);
