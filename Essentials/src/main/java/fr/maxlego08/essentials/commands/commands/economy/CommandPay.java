@@ -24,7 +24,7 @@ public class CommandPay extends VCommand {
         this.setPermission(Permission.ESSENTIALS_PAY);
         this.setDescription(Message.DESCRIPTION_PAY);
         this.onlyPlayers();
-        this.addRequireArg("player");
+        this.addRequirePlayerNameArg();
         this.addRequireArg("amount", (a, b) -> Stream.of(10, 20, 30, 40, 50, 60, 70, 80, 90).map(String::valueOf).toList());
         this.addOptionalArg("economy", (a, b) -> plugin.getEconomyProvider().getEconomies().stream().map(Economy::getName).toList());
     }

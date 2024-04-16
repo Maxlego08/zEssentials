@@ -211,10 +211,18 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
         this.ignoreArgs = true;
     }
 
+    protected void addRequirePlayerNameArg() {
+        this.addRequireArg("player", getOnlinePlayers());
+    }
+
     protected void addRequireArg(String message, TabCompletion runnable) {
         this.addRequireArg(message);
         int index = this.requireArgs.size();
         this.addCompletion(index - 1, runnable);
+    }
+
+    protected TabCompletion getOnlinePlayers() {
+        return (a, b) -> this.plugin.getEssentialsServer().getPlayersNames();
     }
 
     protected void addOptionalArg(String message) {
@@ -397,6 +405,7 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
 
             return commandResultType;
         } catch (Exception exception) {
+
             if (plugin.getConfiguration().isEnableDebug()) {
                 exception.printStackTrace();
             }
@@ -473,6 +482,27 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
 
             consumer.accept(uuid);
         });
+    }
+
+    protected void isOnline(String userName, Runnable runnable) {
+        this.plugin.getScheduler().runAsync(wrappedTask -> {
+
+            if (!this.plugin.getEssentialsServer().isOnline(userName)) {
+                message(sender, Message.PLAYER_NOT_FOUND, "%player%", userName);
+                return;
+            }
+
+            runnable.run();
+        });
+    }
+
+    protected String getArgs(int start) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = start; i < this.args.length; i++) {
+            if (i != start) stringBuilder.append(" ");
+            stringBuilder.append(this.args[i]);
+        }
+        return stringBuilder.toString();
     }
 
     private static class VCommandComparator implements Comparator<VCommand> {

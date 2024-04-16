@@ -1,5 +1,7 @@
 package fr.maxlego08.essentials.database;
 
+import fr.maxlego08.essentials.api.database.JoinCondition;
+import fr.maxlego08.essentials.api.database.Migration;
 import fr.maxlego08.essentials.api.database.Schema;
 import fr.maxlego08.essentials.api.database.SchemaType;
 import fr.maxlego08.essentials.api.storage.DatabaseConfiguration;
@@ -12,7 +14,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,15 +31,20 @@ public class SchemaBuilder extends ZUtils implements Schema {
     private final List<String> primaryKeys = new ArrayList<>();
     private final List<String> foreignKeys = new ArrayList<>();
     private final List<WhereCondition> whereConditions = new ArrayList<>();
+    private final List<JoinCondition> joinConditions = new ArrayList<>();
+    private Migration migration;
 
     private SchemaBuilder(String tableName, SchemaType schemaType) {
         this.tableName = tableName;
         this.schemaType = schemaType;
     }
 
-    public static Schema create(String tableName, Consumer<Schema> consumer) {
-        Schema schema = new SchemaBuilder(tableName, SchemaType.CREATE);
-        ZMigrationManager.registerSchema(schema);
+    public static Schema create(Migration migration, String tableName, Consumer<Schema> consumer) {
+        SchemaBuilder schema = new SchemaBuilder(tableName, SchemaType.CREATE);
+        if (migration != null) {
+            schema.migration = migration;
+            ZMigrationManager.registerSchema(schema);
+        }
         consumer.accept(schema);
         return schema;
     }
@@ -46,8 +55,24 @@ public class SchemaBuilder extends ZUtils implements Schema {
         return schema;
     }
 
+    public static Schema alter(Migration migration, String tableName, Consumer<Schema> consumer) {
+        SchemaBuilder schema = new SchemaBuilder(tableName, SchemaType.ALTER);
+        if (migration != null) {
+            schema.migration = migration;
+            ZMigrationManager.registerSchema(schema);
+        }
+        consumer.accept(schema);
+        return schema;
+    }
+
     public static Schema insert(String tableName, Consumer<Schema> consumer) {
         Schema schema = new SchemaBuilder(tableName, SchemaType.INSERT);
+        consumer.accept(schema);
+        return schema;
+    }
+
+    public static Schema update(String tableName, Consumer<Schema> consumer) {
+        Schema schema = new SchemaBuilder(tableName, SchemaType.UPDATE);
         consumer.accept(schema);
         return schema;
     }
@@ -133,8 +158,19 @@ public class SchemaBuilder extends ZUtils implements Schema {
     }
 
     @Override
+    public Schema date(String columnName, Date value) {
+        // return this.addColumn(new ColumnDefinition(columnName).setObject(new java.sql.Date(value.getTime())));
+        return this.addColumn(new ColumnDefinition(columnName).setObject(value));
+    }
+
+    @Override
     public Schema bigInt(String columnName) {
         return addColumn(new ColumnDefinition(columnName, "BIGINT"));
+    }
+
+    @Override
+    public Schema integer(String columnName) {
+        return addColumn(new ColumnDefinition(columnName, "INT"));
     }
 
     @Override
@@ -162,6 +198,15 @@ public class SchemaBuilder extends ZUtils implements Schema {
         return this;
     }
 
+    @Override
+    public Schema foreignKey(String referenceTable, String columnName, boolean onCascade) {
+        if (this.columns.isEmpty()) throw new IllegalStateException("No column defined to apply foreign key.");
+        ColumnDefinition lastColumn = this.columns.get(this.columns.size() - 1);
+
+        String fkDefinition = String.format("FOREIGN KEY (%s) REFERENCES %s(%s)%s", lastColumn.getName(), referenceTable, columnName, onCascade ? " ON DELETE CASCADE" : "");
+        this.foreignKeys.add(fkDefinition);
+        return this;
+    }
 
     @Override
     public Schema createdAt() {
@@ -169,6 +214,16 @@ public class SchemaBuilder extends ZUtils implements Schema {
         column.setDefaultValue("CURRENT_TIMESTAMP");
         this.columns.add(column);
         return this;
+    }
+
+    @Override
+    public Schema timestamp(String columnName) {
+        return this.addColumn(new ColumnDefinition(columnName, "TIMESTAMP"));
+    }
+
+    @Override
+    public Schema autoIncrement(String columnName) {
+        return addColumn(new ColumnDefinition(columnName, "INT").setAutoIncrement(true));
     }
 
     @Override
@@ -212,15 +267,20 @@ public class SchemaBuilder extends ZUtils implements Schema {
     }
 
     @Override
-    public void execute(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
+    public int execute(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
         switch (this.schemaType) {
             case CREATE -> this.executeCreate(connection, databaseConfiguration, logger);
+            case ALTER -> this.executeAlter(connection, databaseConfiguration, logger);
             case UPSERT -> this.executeUpsert(connection, databaseConfiguration, logger);
-            case INSERT -> this.executeInsert(connection, databaseConfiguration, logger);
+            case UPDATE -> this.executeUpdate(connection, databaseConfiguration, logger);
+            case INSERT -> {
+                return this.executeInsert(connection, databaseConfiguration, logger);
+            }
             case DELETE -> this.executeDelete(connection, databaseConfiguration, logger);
             case SELECT, SELECT_COUNT -> throw new IllegalArgumentException("Wrong method !");
             default -> throw new Error("Schema type not found !");
         }
+        return -1;
     }
 
     private void executeUpsert(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
@@ -259,8 +319,7 @@ public class SchemaBuilder extends ZUtils implements Schema {
 
     }
 
-    private void executeInsert(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
-
+    private int executeInsert(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
         StringBuilder insertQuery = new StringBuilder("INSERT INTO " + this.tableName + " (");
         StringBuilder valuesQuery = new StringBuilder("VALUES (");
 
@@ -281,14 +340,98 @@ public class SchemaBuilder extends ZUtils implements Schema {
             logger.info("Executing SQL: " + upsertQuery);
         }
 
+        try (PreparedStatement preparedStatement = connection.prepareStatement(upsertQuery, Statement.RETURN_GENERATED_KEYS)) {
+            for (int i = 0; i < values.size(); i++) {
+                preparedStatement.setObject(i + 1, values.get(i));
+            }
+            preparedStatement.executeUpdate();
+
+            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1);  // Retourne l'index généré (généralement l'ID)
+                } else {
+                    return -1;
+                }
+            } catch (Exception exception) {
+                return -1;
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            throw new SQLException("Failed to execute upsert: " + exception.getMessage(), exception);
+        }
+    }
+
+    private void executeUpdate(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
+        StringBuilder updateQuery = new StringBuilder("UPDATE " + this.tableName);
+
+        if (!this.joinConditions.isEmpty()) {
+            for (JoinCondition join : this.joinConditions) {
+                updateQuery.append(" ").append(join.getJoinClause());
+            }
+        }
+
+        updateQuery.append(" SET ");
+
+        List<Object> values = new ArrayList<>();
+
+        for (int i = 0; i < this.columns.size(); i++) {
+            ColumnDefinition columnDefinition = this.columns.get(i);
+            updateQuery.append(i > 0 ? ", " : "").append(columnDefinition.getName()).append(" = ?");
+            values.add(columnDefinition.getObject());
+        }
+
+        this.whereConditions(updateQuery);
+        String upsertQuery = databaseConfiguration.replacePrefix(updateQuery.toString());
+
+        if (databaseConfiguration.debug()) {
+            logger.info("Executing SQL: " + upsertQuery);
+        }
+
         try (PreparedStatement preparedStatement = connection.prepareStatement(upsertQuery)) {
             for (int i = 0; i < values.size(); i++) {
                 preparedStatement.setObject(i + 1, values.get(i));
+            }
+            int index = values.size() + 1;
+            for (WhereCondition condition : whereConditions) {
+                preparedStatement.setObject(index++, condition.getValue());
             }
             preparedStatement.executeUpdate();
         } catch (SQLException exception) {
             exception.printStackTrace();
             throw new SQLException("Failed to execute upsert: " + exception.getMessage(), exception);
+        }
+    }
+
+
+    private void executeAlter(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
+
+        StringBuilder alterTableSQL = new StringBuilder("ALTER TABLE ");
+        alterTableSQL.append(this.tableName).append(" ");
+
+        List<String> columnSQLs = new ArrayList<>();
+        for (ColumnDefinition column : this.columns) {
+            columnSQLs.add("ADD COLUMN " + column.build());
+        }
+        alterTableSQL.append(String.join(", ", columnSQLs));
+
+        if (!this.primaryKeys.isEmpty()) {
+            alterTableSQL.append(", PRIMARY KEY (").append(String.join(", ", this.primaryKeys)).append(")");
+        }
+
+        for (String fk : this.foreignKeys) {
+            alterTableSQL.append(", ADD ").append(fk);
+        }
+
+        String finalQuery = databaseConfiguration.replacePrefix(alterTableSQL.toString());
+        if (databaseConfiguration.debug()) {
+            logger.info("Executing SQL: " + finalQuery);
+        }
+
+        try (PreparedStatement statement = connection.prepareStatement(finalQuery)) {
+            statement.execute();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            throw new SQLException("Failed to execute schema creation: " + exception.getMessage(), exception);
         }
     }
 
@@ -331,10 +474,10 @@ public class SchemaBuilder extends ZUtils implements Schema {
     }
 
     private void whereConditions(StringBuilder sql) {
-        if (!whereConditions.isEmpty()) {
+        if (!this.whereConditions.isEmpty()) {
             List<String> conditions = new ArrayList<>();
-            for (WhereCondition condition : whereConditions) {
-                conditions.add(condition.getColumn() + " = ?");
+            for (WhereCondition condition : this.whereConditions) {
+                conditions.add(condition.getCondition());
             }
             sql.append(" WHERE ").append(String.join(" AND ", conditions));
         }
@@ -414,7 +557,7 @@ public class SchemaBuilder extends ZUtils implements Schema {
 
         try (PreparedStatement statement = connection.prepareStatement(finalQuery)) {
             int index = 1;
-            for (WhereCondition condition : whereConditions) {
+            for (WhereCondition condition : this.whereConditions) {
                 statement.setObject(index++, condition.getValue());
             }
             statement.executeUpdate();
@@ -438,16 +581,7 @@ public class SchemaBuilder extends ZUtils implements Schema {
             Parameter[] parameters = firstConstructor.getParameters();
             for (int i = 0; i < parameters.length; i++) {
                 Parameter parameter = parameters[i];
-                Object value = row.get(parameter.getName());
-                if (parameter.getType().isEnum()) {
-                    @SuppressWarnings("unchecked") Class<Enum> enumType = (Class<Enum>) parameter.getType();
-                    Object enumValue = Enum.valueOf(enumType, (String) value);
-                    params[i] = enumValue;
-                } else if (parameter.getType() == UUID.class) {
-                    params[i] = UUID.fromString((String) value);
-                } else {
-                    params[i] = value;
-                }
+                params[i] = convertToRequiredType(row.get(parameter.getName()), parameter.getType());
             }
             T instance = (T) firstConstructor.newInstance(params);
             transformedResults.add(instance);
@@ -455,4 +589,14 @@ public class SchemaBuilder extends ZUtils implements Schema {
         return transformedResults;
     }
 
+    @Override
+    public Migration getMigration() {
+        return migration;
+    }
+
+    @Override
+    public Schema leftJoin(String primaryTable, String primaryTableAlias, String primaryColumn, String foreignTable, String foreignColumn) {
+        joinConditions.add(new JoinCondition(primaryTable, primaryTableAlias, primaryColumn, foreignTable, foreignColumn));
+        return this;
+    }
 }

@@ -6,6 +6,7 @@ plugins {
 dependencies {
     compileOnly project(':EssentialsApi')
     compileOnly project(':Hooks:Vault')
+    compileOnly project(':Hooks:Redis')
 }
 
 jar {
@@ -32,6 +33,7 @@ shadowJar {
 
     from(project(':EssentialsApi').sourceSets.main.output)
     from(project(':Hooks:Vault').sourceSets.main.output)
+    from(project(':Hooks:Redis').sourceSets.main.output)
 
     relocate 'com.tcoded.folialib', 'fr.maxlego08.essentials.folialib'
 }

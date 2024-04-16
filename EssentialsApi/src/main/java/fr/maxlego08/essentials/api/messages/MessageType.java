@@ -8,5 +8,6 @@ public enum MessageType {
 	CENTER,
 	NONE,
 	TCHAT_AND_ACTION,
+	WITHOUT_PREFIX,
 	
 }

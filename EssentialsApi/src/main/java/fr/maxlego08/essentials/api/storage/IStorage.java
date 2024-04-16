@@ -2,13 +2,17 @@ package fr.maxlego08.essentials.api.storage;
 
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
+import fr.maxlego08.essentials.api.exception.UserBanException;
+import fr.maxlego08.essentials.api.home.Home;
+import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
-import org.bukkit.Location;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 import java.util.function.Consumer;
 
 public interface IStorage {
@@ -17,7 +21,7 @@ public interface IStorage {
 
     void onDisable();
 
-    User createOrLoad(UUID uniqueId, String playerName);
+    User createOrLoad(UUID uniqueId, String playerName) throws UserBanException;
 
     void onPlayerQuit(UUID uniqueId);
 
@@ -42,4 +46,17 @@ public interface IStorage {
     void upsertUser(User user);
 
     void upsertStorage(String key, Object value);
+
+    void upsertHome(UUID uniqueId, Home home);
+
+    void deleteHome(UUID uniqueId, String name);
+
+    CompletableFuture<List<Home>> getHome(UUID uuid, String homeName);
+
+    CompletionStage<List<Home>> getHomes(UUID uuid);
+
+    void insertSanction(Sanction sanction, Consumer<Integer> consumer);
+
+    void updateUserBan(UUID uuid, Integer index);
+    void updateMuteBan(UUID uuid, Integer index);
 }

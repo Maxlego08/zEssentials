@@ -6,7 +6,7 @@ import fr.maxlego08.essentials.database.SchemaBuilder;
 public class CreateUserOptionTableMigration extends Migration {
     @Override
     public void up() {
-        SchemaBuilder.create("%prefix%player_options", table -> {
+        SchemaBuilder.create(this, "%prefix%player_options", table -> {
             table.uuid("unique_id").primary().foreignKey("%prefix%players");
             table.string("option_name", 255);
             table.bool("option_value");

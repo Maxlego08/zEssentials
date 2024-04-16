@@ -13,6 +13,12 @@ import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeAdventu
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeCreative;
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeSpectator;
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeSurvival;
+import fr.maxlego08.essentials.commands.commands.home.CommandDelHome;
+import fr.maxlego08.essentials.commands.commands.home.CommandHome;
+import fr.maxlego08.essentials.commands.commands.home.CommandSetHome;
+import fr.maxlego08.essentials.commands.commands.sanction.CommandBan;
+import fr.maxlego08.essentials.commands.commands.sanction.CommandKickAll;
+import fr.maxlego08.essentials.commands.commands.sanction.CommandMute;
 import fr.maxlego08.essentials.commands.commands.spawn.CommandSetSpawn;
 import fr.maxlego08.essentials.commands.commands.spawn.CommandSpawn;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleport;
@@ -36,6 +42,8 @@ import fr.maxlego08.essentials.commands.commands.utils.CommandGrindStone;
 import fr.maxlego08.essentials.commands.commands.utils.CommandHat;
 import fr.maxlego08.essentials.commands.commands.utils.CommandHeal;
 import fr.maxlego08.essentials.commands.commands.utils.CommandInvsee;
+import fr.maxlego08.essentials.commands.commands.sanction.CommandKick;
+import fr.maxlego08.essentials.commands.commands.utils.CommandKittyCannon;
 import fr.maxlego08.essentials.commands.commands.utils.CommandLoom;
 import fr.maxlego08.essentials.commands.commands.utils.CommandMore;
 import fr.maxlego08.essentials.commands.commands.utils.CommandSmithingTable;
@@ -93,7 +101,7 @@ public class CommandLoader {
         register("more", CommandMore.class);
         register("worldtp", CommandTeleportWorld.class, "wtp");
         register("trash", CommandTrash.class, "poubelle");
-        register("feed", CommandFeed.class);
+        register("feed", CommandFeed.class, "eat");
         register("craft", CommandCraft.class);
         register("enchanting", CommandEnchanting.class);
         register("invsee", CommandInvsee.class);
@@ -128,6 +136,16 @@ public class CommandLoader {
         register("warps", CommandWarps.class, "wlist");
         register("delwarp", CommandDelWarp.class, "wdelete");
 
+        register("sethome", CommandSetHome.class, "hcreate", "hc");
+        register("delhome", CommandDelHome.class, "hdelete", "hd");
+        register("home", CommandHome.class, "h");
+
+        register("ban", CommandBan.class);
+        register("mute", CommandMute.class);
+        register("kick", CommandKick.class);
+        register("kickall", CommandKickAll.class);
+
+        register("kittycannon", CommandKittyCannon.class);
 
         File file = new File(plugin.getDataFolder(), "commands.yml");
         if (!file.exists()) this.plugin.saveResource("commands.yml", false);

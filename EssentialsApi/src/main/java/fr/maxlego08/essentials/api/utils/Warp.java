@@ -4,24 +4,18 @@ import fr.maxlego08.essentials.api.commands.Permission;
 import org.bukkit.Location;
 import org.bukkit.permissions.Permissible;
 
-public class Warp {
+/**
+ * Represents a warp location.
+ * This record encapsulates data related to a warp, including its name and location.
+ */
+public record Warp(String name, Location location) {
 
-    private final String name;
-    private final Location location;
-
-    public Warp(String name, Location location) {
-        this.name = name;
-        this.location = location;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
+    /**
+     * Checks if the specified permissible entity has permission to warp to this location.
+     *
+     * @param permissible The permissible entity (e.g., player or command sender).
+     * @return true if the permissible entity has permission, false otherwise.
+     */
     public boolean hasPermission(Permissible permissible) {
         return permissible.hasPermission(Permission.ESSENTIALS_WARP.asPermission(this.name));
     }

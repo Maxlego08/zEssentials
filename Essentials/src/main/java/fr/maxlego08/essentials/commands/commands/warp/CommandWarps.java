@@ -22,7 +22,7 @@ public class CommandWarps extends VCommand {
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
-        List<String> warps = plugin.getWarps().stream().filter(warp -> warp.hasPermission(sender)).map(warp -> getMessage(Message.COMMAND_WARP_LIST_INFO, "%name%", warp.getName())).toList();
+        List<String> warps = plugin.getWarps().stream().filter(warp -> warp.hasPermission(sender)).map(warp -> getMessage(Message.COMMAND_WARP_LIST_INFO, "%name%", warp.name())).toList();
         message(sender, Message.COMMAND_WARP_LIST, "%destinations%", Strings.join(warps, ','));
         return CommandResultType.SUCCESS;
     }

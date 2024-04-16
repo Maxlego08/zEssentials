@@ -10,8 +10,18 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
+import java.math.BigDecimal;
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public abstract class ZUtils extends MessageUtils {
 
@@ -135,5 +145,71 @@ public abstract class ZUtils extends MessageUtils {
         };
     }
 
+    protected Object createInstanceFromMap(Constructor<?> constructor, Map<?, ?> map) {
+        try {
+            Object[] arguments = new Object[constructor.getParameterCount()];
+            java.lang.reflect.Parameter[] parameters = constructor.getParameters();
+            for (int i = 0; i < parameters.length; i++) {
+                Class<?> paramType = parameters[i].getType();
+                String paramName = parameters[i].getName();
+                Object value = map.get(paramName);
+                if (paramType.isArray()) {
+                    Class<?> componentType = paramType.getComponentType();
+                    List<?> list = (List<?>) value;
+                    Object array = Array.newInstance(componentType, list.size());
+                    for (int j = 0; j < list.size(); j++) {
+                        Object elem = list.get(j);
+                        elem = convertToRequiredType(elem, componentType);
+                        Array.set(array, j, elem);
+                    }
+                    value = array;
+                } else value = convertToRequiredType(value, paramType);
+                arguments[i] = value;
+            }
+            return constructor.newInstance(arguments);
+        } catch (Exception exception) {
+            throw new RuntimeException("Failed to create instance from map", exception);
+        }
+    }
+
+    protected Object convertToRequiredType(Object value, Class<?> type) {
+        if (value == null) {
+            return null;
+        } else if (type.isEnum()) {
+            return Enum.valueOf((Class<Enum>) type, (String) value);
+        } else if (type == BigDecimal.class) {
+            return new BigDecimal(value.toString());
+        } else if (type == UUID.class) {
+            return UUID.fromString((String) value);
+        } else {
+            return value;
+        }
+    }
+
+    public Duration stringToDuration(String duration) {
+        Pattern regex = Pattern.compile("(\\d+)([^0-9 ])");
+        Matcher result = regex.matcher(duration);
+
+        if (result.find()) {
+            String amountStr = result.group(1);
+            String unit = result.group(2);
+            long amount = Long.parseLong(amountStr);
+
+            return switch (unit) {
+                case "s" -> Duration.of(amount, ChronoUnit.SECONDS);
+                case "m" -> Duration.of(amount, ChronoUnit.MINUTES);
+                case "h" -> Duration.of(amount, ChronoUnit.HOURS);
+                case "j", "d" -> Duration.of(amount, ChronoUnit.DAYS);
+                case "w" -> Duration.of(amount, ChronoUnit.WEEKS);
+                case "M" -> Duration.of(amount, ChronoUnit.MONTHS);
+                case "y" -> Duration.of(amount, ChronoUnit.YEARS);
+                case "D" -> Duration.of(amount, ChronoUnit.DECADES);
+                case "c" -> Duration.of(amount, ChronoUnit.CENTURIES);
+                default -> Duration.ZERO;
+            };
+        } else {
+            return Duration.ZERO;
+        }
+    }
 
 }

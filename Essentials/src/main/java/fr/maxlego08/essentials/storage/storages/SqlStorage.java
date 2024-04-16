@@ -2,20 +2,24 @@ package fr.maxlego08.essentials.storage.storages;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
-import fr.maxlego08.essentials.api.database.dto.ServerStorageDTO;
+import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.database.dto.UserDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
+import fr.maxlego08.essentials.api.exception.UserBanException;
+import fr.maxlego08.essentials.api.home.Home;
+import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.storage.database.Repositories;
 import fr.maxlego08.essentials.storage.database.SqlConnection;
 import fr.maxlego08.essentials.storage.database.repositeries.EconomyTransactionsRepository;
-import fr.maxlego08.essentials.storage.database.repositeries.ServerStorageRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserCooldownsRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserEconomyRepository;
+import fr.maxlego08.essentials.storage.database.repositeries.UserHomeRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserOptionRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserRepository;
+import fr.maxlego08.essentials.storage.database.repositeries.UserSanctionRepository;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.utils.StorageHelper;
 import org.bukkit.Bukkit;
@@ -25,6 +29,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 import java.util.function.Consumer;
 
 public class SqlStorage extends StorageHelper implements IStorage {
@@ -49,10 +55,14 @@ public class SqlStorage extends StorageHelper implements IStorage {
         this.repositories.register(UserCooldownsRepository.class);
         this.repositories.register(UserEconomyRepository.class);
         this.repositories.register(EconomyTransactionsRepository.class);
+        this.repositories.register(UserHomeRepository.class);
+        this.repositories.register(UserSanctionRepository.class);
         // this.repositories.register(ServerStorageRepository.class);
 
         plugin.getMigrationManager().execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), this.plugin.getLogger());
+
         this.repositories.getTable(UserCooldownsRepository.class).deleteExpiredCooldowns();
+        this.repositories.getTable(UserRepository.class).clearExpiredSanctions();
 
         /*List<ServerStorageDTO> serverStorageDTOS = this.repositories.getTable(ServerStorageRepository.class).select();
         plugin.getServerStorage().setContents(serverStorageDTOS);*/
@@ -72,29 +82,47 @@ public class SqlStorage extends StorageHelper implements IStorage {
     }
 
     @Override
-    public User createOrLoad(UUID uniqueId, String playerName) {
+    public User createOrLoad(UUID uniqueId, String playerName) throws UserBanException {
 
         User user = new ZUser(this.plugin, uniqueId);
         user.setName(playerName);
         this.users.put(uniqueId, user);
 
-        this.plugin.getScheduler().runAsync(wrappedTask -> {
+        // this.plugin.getScheduler().runAsync(wrappedTask -> {
 
-            // First join !
-            List<UserDTO> userDTOS = this.repositories.getTable(UserRepository.class).selectUser(uniqueId);
-            if (userDTOS.isEmpty()) {
-                this.firstJoin(user);
+        List<UserDTO> userDTOS = this.repositories.getTable(UserRepository.class).selectUser(uniqueId);
+        // First join !
+        if (userDTOS.isEmpty()) {
+            this.firstJoin(user);
+        }
+
+        this.repositories.getTable(UserRepository.class).upsert(uniqueId, playerName); // Create the player or update his name
+        if (!userDTOS.isEmpty()) {
+
+            UserDTO userDTO = userDTOS.get(0);
+            if (userDTO.ban_sanction_id() != null) { // Check if player is banned
+
+                SanctionDTO sanction = this.repositories.getTable(UserSanctionRepository.class).getSanction(userDTO.ban_sanction_id());
+                if (sanction.isActive()) {
+                    throw new UserBanException(sanction);
+                }
             }
 
-            this.repositories.getTable(UserRepository.class).upsert(uniqueId, playerName); // Create the player or update his name
-            if (!userDTOS.isEmpty()) {
-                UserDTO userDTO = userDTOS.get(0);
-                user.setLastLocation(stringAsLocation(userDTO.last_location()));
-                user.setOptions(this.repositories.getTable(UserOptionRepository.class).selectOptions(uniqueId));
-                user.setCooldowns(this.repositories.getTable(UserCooldownsRepository.class).selectCooldowns(uniqueId));
-                user.setEconomies(this.repositories.getTable(UserEconomyRepository.class).selectEconomies(uniqueId));
+            if (userDTO.mute_sanction_id() != null) { // Check if player is mute
+                SanctionDTO sanction = this.repositories.getTable(UserSanctionRepository.class).getSanction(userDTO.mute_sanction_id());
+                if (sanction.isActive()) {
+                    user.setMuteSanction(Sanction.fromDTO(sanction));
+                }
             }
-        });
+
+            user.setSanction(userDTO.ban_sanction_id(), userDTO.mute_sanction_id());
+            user.setLastLocation(stringAsLocation(userDTO.last_location()));
+            user.setOptions(this.repositories.getTable(UserOptionRepository.class).selectOptions(uniqueId));
+            user.setCooldowns(this.repositories.getTable(UserCooldownsRepository.class).selectCooldowns(uniqueId));
+            user.setEconomies(this.repositories.getTable(UserEconomyRepository.class).selectEconomies(uniqueId));
+            user.setHomes(this.repositories.getTable(UserHomeRepository.class).selectHomes(uniqueId));
+        }
+        // });
 
         return user;
     }
@@ -200,5 +228,44 @@ public class SqlStorage extends StorageHelper implements IStorage {
     @Override
     public void upsertStorage(String key, Object value) {
         // async(() -> this.repositories.getTable(ServerStorageRepository.class).upsert(key, value));
+    }
+
+    @Override
+    public void upsertHome(UUID uniqueId, Home home) {
+        async(() -> this.repositories.getTable(UserHomeRepository.class).upsert(uniqueId, home));
+    }
+
+    @Override
+    public void deleteHome(UUID uniqueId, String name) {
+        async(() -> this.repositories.getTable(UserHomeRepository.class).deleteHomes(uniqueId, name));
+    }
+
+    @Override
+    public CompletableFuture<List<Home>> getHome(UUID uuid, String homeName) {
+        CompletableFuture<List<Home>> future = new CompletableFuture<>();
+        future.complete(this.repositories.getTable(UserHomeRepository.class).getHomes(uuid, homeName));
+        return future;
+    }
+
+    @Override
+    public CompletionStage<List<Home>> getHomes(UUID uuid) {
+        CompletableFuture<List<Home>> future = new CompletableFuture<>();
+        future.complete(this.repositories.getTable(UserHomeRepository.class).getHomes(uuid));
+        return future;
+    }
+
+    @Override
+    public void insertSanction(Sanction sanction, Consumer<Integer> consumer) {
+        async(() -> this.repositories.getTable(UserSanctionRepository.class).insert(sanction, consumer));
+    }
+
+    @Override
+    public void updateUserBan(UUID uuid, Integer index) {
+        async(() -> this.repositories.getTable(UserRepository.class).updateBanId(uuid, index));
+    }
+
+    @Override
+    public void updateMuteBan(UUID uuid, Integer index) {
+        async(() -> this.repositories.getTable(UserRepository.class).updateMuteId(uuid, index));
     }
 }

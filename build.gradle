@@ -56,6 +56,10 @@ subprojects {
 
     dependencies {
         implementation "com.tcoded:FoliaLib:0.3.1"
+        implementation('redis.clients:jedis:5.1.2') {
+            exclude group: 'com.google.code.gson', module: 'gson'
+            exclude group: 'org.slf4j', module: 'slf4j-api'
+        }
 
         compileOnly 'io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT'
         compileOnly 'com.github.Maxlego08:zMenu-API:1.0.2.9'
@@ -71,6 +75,7 @@ tasks.register("buildAll") {
     dependsOn(
             ":EssentialsApi:build",
             ":Hooks:Vault:build",
+            ":Hooks:Redis:build",
             ":Essentials:build"
     )
 }

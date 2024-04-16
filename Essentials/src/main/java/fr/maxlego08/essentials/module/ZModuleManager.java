@@ -4,7 +4,9 @@ import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.modules.Module;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
 import fr.maxlego08.essentials.economy.EconomyManager;
+import fr.maxlego08.essentials.module.modules.HomeModule;
 import fr.maxlego08.essentials.module.modules.JoinQuitModule;
+import fr.maxlego08.essentials.module.modules.SanctionModule;
 import fr.maxlego08.essentials.module.modules.SpawnModule;
 import fr.maxlego08.essentials.module.modules.TeleportationModule;
 import fr.maxlego08.essentials.module.modules.WarpModule;
@@ -39,6 +41,8 @@ public class ZModuleManager implements ModuleManager {
         this.modules.put(WarpModule.class, new WarpModule(this.plugin));
         this.modules.put(JoinQuitModule.class, new JoinQuitModule(this.plugin));
         this.modules.put(EconomyManager.class, this.plugin.getEconomyProvider());
+        this.modules.put(HomeModule.class, new HomeModule(this.plugin));
+        this.modules.put(SanctionModule.class, new SanctionModule(this.plugin));
 
         this.modules.values().stream().filter(Module::isRegisterEvent).forEach(module -> Bukkit.getPluginManager().registerEvents(module, this.plugin));
 

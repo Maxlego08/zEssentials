@@ -210,6 +210,14 @@ description-warp-use: "Teleport to a warp"
 description-warp-del: "Delete a warp"
 description-warp-list: "Show warp list"
 description-tp-random: "Random Teleport in the world"
+description-set-home: "Create a home"
+description-del-home: "Delete a home"
+description-home: "Teleport to a home"
+description-kick: "Kick a player"
+description-kick-all: "Kick all players"
+description-kitty-cannon: "Launch kitty, wtf you want to do that ? monster"
+description-ban: "Ban a player"
+description-mute: "Mute a player"
 
 
 # Time format
@@ -230,32 +238,43 @@ cooldown: "#ff0000✘ You must wait for &f%cooldown% #ff0000before performing th
 
 # Teleportation
 teleport-move: "#ff0000You must not move!"
+teleport-damage: "#ff0000You must not take damage during teleportation."
+teleport-error-location: "#ff0000Unable to teleport you safely."
+
 teleport-message:
   type: ACTION
   message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
 teleport-success:
   type: ACTION
   message: "#99E0FFYou have just teleported successfully!"
-teleport-damage: "#ff0000You must not take damage during teleportation."
-teleport-error-location: "#ff0000Unable to teleport you safely."
+
 teleport-message-spawn:
   type: TCHAT_AND_ACTION
   message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
 teleport-success-spawn:
   type: TCHAT_AND_ACTION
   message: "&7You just teleported to #0EEA93spawn &7!"
+
 teleport-message-warp:
   type: TCHAT_AND_ACTION
   message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
 teleport-success-warp:
   type: TCHAT_AND_ACTION
   message: "&7You just teleported to warp #0EEA93%name% &7!"
+
 teleport-message-random:
   type: ACTION
   message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
 teleport-success-random:
   type: ACTION
   message: "#99E0FFYou have just teleported successfully!"
+
+teleport-message-home:
+  type: TCHAT_AND_ACTION
+  message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
+teleport-success-home:
+  type: TCHAT_AND_ACTION
+  message: "&7You just teleported to home #0EEA93%name% &7!"
 
 
 # Warps
@@ -272,3 +291,116 @@ command-warp-destination: " <hover:show_text:'&fClick to teleport to warp &n%nam
 command-warp-list: "&7Warps&8:&f%destinations%"
 command-warp-list-info: " <hover:show_text:'&fClick to teleport to warp &n%name%'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"
 command-warp-delete: "#00ff00You just removed the warp &f%name%#00ff00."
+
+
+# Homes
+command-set-home-invalide-name: "&f%name% #ff0000is not a valid name, please choose another one."
+command-set-home-too-long: "&f%name% #ff0000is too long, please choose another one."
+command-set-home-too-short: "&f%name% #ff0000is too short name, please choose another one."
+command-set-home-max: "#ff0000You cannot have more than &f%max%#ff0000 homes."
+command-set-home-create:
+  - ""
+  - "#99E0FFYou just created the home &f%name%#99E0FF. &8(&7%current%&8/&7%max%&8)"
+  - "&fUse &n<hover:show_text:'&fClick to teleport to home'><click:suggest_command:'/home %name%'>/home %name%</click></hover>&r command to teleport to it"
+  - ""
+command-home-doesnt-exist: "#ff0000The home &f%name%#ff0000 does not exist."
+
+# Available placeholders:
+# %count% - Home count
+# %max% - Max player's home
+command-home-information-multi-line-header:
+  - ""
+  - "#8cc0ccʏᴏᴜʀ ʜᴏᴍᴇs &a♦ &7(%count%) &8- &7(Max: %max%)"
+
+# Available placeholders:
+# %count% - Home count
+# %max% - Max player's home
+# %name% - Home name
+# %world% - Home world
+# %environment% - Home world environment
+# %x% - Home location x
+# %y% - Home location y
+# %z% - Home location z
+command-home-information-multi-line-content:
+  type: WITHOUT_PREFIX
+  message: " #8cc0cc♢ &f%name% &7in %world% (%environment%) &a<hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %name%'>[CLICK]</click></hover>"
+
+# Available placeholders:
+# %count% - Home count
+# %max% - Max player's home
+command-home-information-multi-line-footer:
+  type: WITHOUT_PREFIX
+  message: ""
+
+# Available placeholders:
+# %count% - Home count
+# %max% - Max player's home
+# %name% - Home name
+# %world% - Home world
+# %environment% - Home world environment
+# %x% - Home location x
+# %y% - Home location y
+# %z% - Home location z
+command-home-information-in-line:
+  type: WITHOUT_PREFIX
+  message: "#8cc0ccʏᴏᴜʀ ʜᴏᴍᴇs &a♦ &7(%count%/%max%) &8:&f%homes%"
+command-home-information-in-line-info: " <hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %name%'>&f%name%</click></hover>&7"
+
+command-home-icon-error: "#ff0000You must have an item in your hand to change the icon of your home."
+command-home-icon-success: "#00ff00You just changed the home icon &f%name%#00ff00."
+command-home-icon-reset: "#00ff00You just reset the home icon &f%name%#00ff00."
+command-home-delete: "#99E0FFYou just deleted the home &f%name%#99E0FF."
+command-home-admin-delete: "#00ff00You just deleted home &f%name%#00ff00 of &b%player%#00ff00."
+command-home-admin-set: "#00ff00You just created home &f%name%#00ff00 of &b%player%#00ff00."
+command-home-admin-list: "#8cc0cc%player% ʜᴏᴍᴇs&8:&f%homes%"
+command-home-admin-list-info: " <hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %player%:%name%'>&f%name%</click></hover>&7"
+
+
+# Sanction
+command-kick-notify:
+  type: WITHOUT_PREFIX
+  message: "<click:run_command:/sc %target%>&8(#f59e07Sanction&8)</click> &f%player% <click:run_command:/sc %target%>#cf4229just kicked the player#c9b530 %target%#cf4229."
+command-ban-notify:
+  type: WITHOUT_PREFIX
+  message: "<click:run_command:/sc %target%>&8(#f59e07Sanction&8)</click> &f%player% <click:run_command:/sc %target%>#cf4229just banned the player #c9b530%target%#cf4229."
+command-mute-notify:
+  type: WITHOUT_PREFIX
+  message: "<click:run_command:/sc %target%>&8(#f59e07Sanction&8)</click> &f%player% <click:run_command:/sc %target%>#cf4229just muted the player #c9b530%target%#cf4229."
+command-ban-error-duration: "#ff0000The duration of a banishment must be at least 1 second."
+command-mute-error-duration: "#ff0000The duration of a mute must be at least 1 second."
+message-kick:
+  - ""
+  - "&cYou have just been kicked from the server for the reason:"
+  - "%reason%"
+  - ""
+  - "&fMinecraft-Inventory-Builder.com"
+  - ""
+message-mute:
+  - ""
+  - "&fYou have just lost your <u>voice</u>."
+  - "&fDuration&8: <gradient:#7ae856:#a1d909>%duration%</gradient>"
+  - "&fReason&8: #82d1ff%reason%"
+  - ""
+message-mute-talk:
+  - ""
+  - "&fYou do not have the right to speak."
+  - ""
+  - "&fDuration&8: <gradient:#7ae856:#a1d909>%duration%</gradient>"
+  - "&fReason&8: #82d1ff%reason%"
+  - ""
+message-ban:
+  - ""
+  - "&cYou have just been ban from the server for the reason:"
+  - "&f%reason%"
+  - "&fDuration&8: &7%duration%"
+  - ""
+  - "&fMinecraft-Inventory-Builder.com"
+  - ""
+message-ban-join:
+  - ""
+  - "&cYou are banned on server:"
+  - "&f%reason%"
+  - "&fRemaining time&8: &7%remaining%"
+  - ""
+  - "&fMinecraft-Inventory-Builder.com"
+  - ""

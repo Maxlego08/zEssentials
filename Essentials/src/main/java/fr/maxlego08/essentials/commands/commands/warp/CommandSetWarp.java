@@ -36,7 +36,7 @@ public class CommandSetWarp extends VCommand {
             return CommandResultType.DEFAULT;
         }
 
-        ConfigStorage.warps.removeIf(warp -> warp.getName().equalsIgnoreCase(warpName));
+        ConfigStorage.warps.removeIf(warp -> warp.name().equalsIgnoreCase(warpName));
         ConfigStorage.warps.add(new Warp(warpName, this.player.getLocation()));
         ConfigStorage.getInstance().save(plugin.getPersist());
 

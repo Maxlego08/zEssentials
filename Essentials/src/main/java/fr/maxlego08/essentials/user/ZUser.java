@@ -5,9 +5,12 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
+import fr.maxlego08.essentials.api.database.dto.HomeDTO;
 import fr.maxlego08.essentials.api.database.dto.OptionDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
+import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.TeleportRequest;
@@ -16,6 +19,7 @@ import fr.maxlego08.essentials.module.modules.TeleportationModule;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
@@ -26,6 +30,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -37,6 +42,7 @@ public class ZUser extends ZUtils implements User {
     private final UUID uniqueId;
     private final Map<Option, Boolean> options = new HashMap<>();
     private final Map<String, BigDecimal> balances = new HashMap<>();
+    private final List<Home> homes = new ArrayList<>();
     private String name;
     private TeleportRequest teleportRequest;
     private User targetUser;
@@ -44,6 +50,9 @@ public class ZUser extends ZUtils implements User {
     private Economy targetEconomy;
     private Location lastLocation;
     private boolean firstJoin;
+    private int banId;
+    private int muteId;
+    private Sanction muteSanction;
 
     public ZUser(EssentialsPlugin plugin, UUID uniqueId) {
         this.plugin = plugin;
@@ -412,5 +421,78 @@ public class ZUser extends ZUtils implements User {
     @Override
     public void setFirstJoin() {
         this.firstJoin = true;
+    }
+
+    @Override
+    public void setHome(String name, Location location) {
+        // Delete home with the same name before
+        removeHome(name);
+
+        Home home = new ZHome(location, name, null);
+        this.homes.add(home);
+        this.getStorage().upsertHome(this.uniqueId, home);
+    }
+
+    @Override
+    public Optional<Home> getHome(String name) {
+        return this.homes.stream().filter(home -> home.getName().equalsIgnoreCase(name)).findFirst();
+    }
+
+    @Override
+    public List<Home> getHomes() {
+        return this.homes;
+    }
+
+    @Override
+    public void setHomes(List<HomeDTO> homeDTOS) {
+        this.homes.addAll(homeDTOS.stream().map(homeDTO -> new ZHome(stringAsLocation(homeDTO.location()), homeDTO.name(), homeDTO.material() == null ? null : Material.valueOf(homeDTO.material()))).toList());
+    }
+
+    @Override
+    public int countHomes() {
+        return this.homes.size();
+    }
+
+    @Override
+    public void removeHome(String name) {
+        this.homes.removeIf(home -> home.getName().equalsIgnoreCase(name));
+        this.getStorage().deleteHome(this.uniqueId, name);
+    }
+
+    @Override
+    public boolean isHomeName(String homeName) {
+        return getHome(homeName).isPresent();
+    }
+
+    @Override
+    public int getActiveBanId() {
+        return this.banId;
+    }
+
+    @Override
+    public int getActiveMuteId() {
+        return this.muteId;
+    }
+
+    @Override
+    public void setSanction(Integer banId, Integer muteId) {
+        this.banId = banId == null ? 0 : banId;
+        this.muteId = muteId == null ? 0 : muteId;
+    }
+
+    @Override
+    public Sanction getMuteSanction() {
+        return this.muteSanction;
+    }
+
+    @Override
+    public void setMuteSanction(Sanction sanction) {
+        this.muteId = sanction.getId();
+        this.muteSanction = sanction;
+    }
+
+    @Override
+    public boolean isMute() {
+        return this.muteSanction != null && this.muteSanction.isActive();
     }
 }

@@ -18,6 +18,10 @@ enable-debug: false
 
 storage-type: JSON
 
+# PAPER
+# REDIS
+server-type: REDIS
+
 database-configuration:
   # For Pterodactyl panel: when you create a database it creates a <prefix>_<database name you chose>. Set "prefix"'s value to the prefix of the database
   prefix: "zessentials_"
@@ -34,6 +38,11 @@ database-configuration:
   # ToDo - Par exemple pouvoir load les joueurs actifs durant les 7 derniers jours, ainsi on évite de load tout les joueurs mais seulement les joueurs actifs
   # ToDo - Se système va permettre de load les données des joueurs plus rapidement, en cas de crash serveurs si des centaines de joueurs veulent revenir en même temps cela peut être problématique.
   # ToDo - Cette solution sera très bien pour se genre de cas.
+
+redis-configuration:
+  host: "192.168.10.10"
+  port: 6379
+  password: "123456a"
 
 enable-cooldown-bypass: false
 

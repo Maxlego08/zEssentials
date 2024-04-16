@@ -16,7 +16,7 @@ public class CommandTeleportCancel extends VCommand {
         this.setModule(TeleportationModule.class);
         this.setPermission(Permission.ESSENTIALS_TPA_CANCEL);
         this.setDescription(Message.DESCRIPTION_TPA_CANCEL);
-        this.addRequireArg("player");
+        this.addRequirePlayerNameArg();
         this.onlyPlayers();
     }
 

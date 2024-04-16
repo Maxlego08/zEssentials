@@ -159,6 +159,14 @@ public enum Message {
     DESCRIPTION_WARP_USE("Teleport to a warp"),
     DESCRIPTION_WARP_DEL("Delete a warp"),
     DESCRIPTION_WARP_LIST("Show warp list"),
+    DESCRIPTION_SET_HOME("Create a home"),
+    DESCRIPTION_DEL_HOME("Delete a home"),
+    DESCRIPTION_HOME("Teleport to a home"),
+    DESCRIPTION_KICK("Kick a player"),
+    DESCRIPTION_KICK_ALL("Kick all players"),
+    DESCRIPTION_KITTY_CANNON("Launch kitty, wtf you want to do that ? monster"),
+    DESCRIPTION_BAN("Ban a player"),
+    DESCRIPTION_MUTE("Mute a player"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -174,6 +182,8 @@ public enum Message {
     TELEPORT_SUCCESS_SPAWN(MessageType.TCHAT_AND_ACTION, "&7You just teleported to #0EEA93spawn &7!"),
     TELEPORT_MESSAGE_WARP(MessageType.TCHAT_AND_ACTION, "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."),
     TELEPORT_SUCCESS_WARP(MessageType.TCHAT_AND_ACTION, "&7You just teleported to warp #0EEA93%name% &7!"),
+    TELEPORT_MESSAGE_HOME(MessageType.TCHAT_AND_ACTION, "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."),
+    TELEPORT_SUCCESS_HOME(MessageType.TCHAT_AND_ACTION, "&7You just teleported to home #0EEA93%name% &7!"),
     TELEPORT_DAMAGE("&cYou must not take damage during teleportation."),
     TELEPORT_ERROR_LOCATION("&cUnable to teleport you safely."),
 
@@ -239,6 +249,89 @@ public enum Message {
 
     COMMAND_RANDOM_TP_ERROR("#ff0000No safe location found after multiple attempts, please try again."),
 
+    COMMAND_SET_HOME_INVALIDE_NAME("&f%name% #ff0000is not a valid name, please choose another one."),
+    COMMAND_SET_HOME_TOO_LONG("&f%name% #ff0000is too long, please choose another one."),
+    COMMAND_SET_HOME_TOO_SHORT("&f%name% #ff0000is too short name, please choose another one."),
+    COMMAND_SET_HOME_MAX("#ff0000You cannot have more than &f%max%#ff0000 homes."),
+    COMMAND_SET_HOME_CREATE(
+            "",
+            "#99E0FFYou just created the home &f%name%#99E0FF. &8(&7%current%&8/&7%max%&8)",
+            "&fUse &n<hover:show_text:'&fClick to teleport to home'><click:suggest_command:'/home %name%'>/home %name%</click></hover>&r command to teleport to it",
+            ""
+    ),
+
+    COMMAND_HOME_DOESNT_EXIST("#ff0000The home &f%name%#ff0000 does not exist."),
+
+    COMMAND_HOME_INFORMATION_MULTI_LINE_HEADER(
+            "",
+            "#8cc0ccʏᴏᴜʀ ʜᴏᴍᴇs &a♦ &7(%count%) &8- &7(Max: %max%)"
+    ),
+    COMMAND_HOME_INFORMATION_MULTI_LINE_CONTENT(MessageType.WITHOUT_PREFIX,
+            " #8cc0cc♢ &f%name% &7in %world% (%environment%) &a<hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %name%'>[CLICK]</click></hover>"),
+    COMMAND_HOME_INFORMATION_MULTI_LINE_FOOTER(MessageType.WITHOUT_PREFIX, ""),
+    COMMAND_HOME_INFORMATION_IN_LINE(MessageType.WITHOUT_PREFIX, "#8cc0ccʏᴏᴜʀ ʜᴏᴍᴇs &a♦ &7(%count%/%max%)&8:&f%homes%"),
+    COMMAND_HOME_INFORMATION_IN_LINE_INFO(" <hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %name%'>&f%name%</click></hover>&7"),
+    COMMAND_HOME_ICON_ERROR("#ff0000You must have an item in your hand to change the icon of your home."),
+    COMMAND_HOME_ICON_SUCCESS("#00ff00You just changed the home icon &f%name%#00ff00."),
+    COMMAND_HOME_ICON_RESET("#00ff00You just reset the home icon &f%name%#00ff00."),
+    COMMAND_HOME_DELETE("#99E0FFYou just deleted the home &f%name%#99E0FF."),
+    COMMAND_HOME_ADMIN_DELETE("#00ff00You just deleted home &f%name%#00ff00 of &b%player%#00ff00."),
+    COMMAND_HOME_ADMIN_SET("#00ff00You just created home &f%name%#00ff00 of &b%player%#00ff00."),
+    COMMAND_HOME_ADMIN_LIST("#8cc0cc%player% ʜᴏᴍᴇs&8:&f%homes%"),
+    COMMAND_HOME_ADMIN_LIST_INFO(" <hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %player%:%name%'>&f%name%</click></hover>&7"),
+
+    COMMAND_KICK_NOTIFY(MessageType.WITHOUT_PREFIX, "<click:run_command:/sc %target%>&8(#f59e07Sanction&8)</click> &f%player% <click:run_command:/sc %target%>#cf4229just kicked the player#c9b530 %target%#cf4229."),
+    COMMAND_BAN_NOTIFY(MessageType.WITHOUT_PREFIX, "<click:run_command:/sc %target%>&8(#f59e07Sanction&8)</click> &f%player% <click:run_command:/sc %target%>#cf4229just banned the player #c9b530%target%#cf4229."),
+    COMMAND_MUTE_NOTIFY(MessageType.WITHOUT_PREFIX, "<click:run_command:/sc %target%>&8(#f59e07Sanction&8)</click> &f%player% <click:run_command:/sc %target%>#cf4229just muted the player #c9b530%target%#cf4229."),
+    COMMAND_BAN_ERROR_DURATION("#ff0000The duration of a banishment must be at least 1 second."),
+    COMMAND_MUTE_ERROR_DURATION("#ff0000The duration of a mute must be at least 1 second."),
+
+    MESSAGE_KICK(
+            "",
+            "&cYou have just been kicked from the server for the reason:",
+            "%reason%",
+            "",
+            "&fMinecraft-Inventory-Builder.com",
+            ""
+    ),
+
+    MESSAGE_MUTE(
+            "",
+            "&fYou have just lost your <u>voice</u>.",
+            "&fDuration&8: <gradient:#7ae856:#a1d909>%duration%</gradient>",
+            "&fReason&8: #82d1ff%reason%",
+            ""
+    ),
+
+    MESSAGE_MUTE_TALK(
+            "",
+            "&fYou do not have the right to speak.",
+            "",
+            "&fDuration&8: <gradient:#7ae856:#a1d909>%duration%</gradient>",
+            "&fReason&8: #82d1ff%reason%",
+            ""
+    ),
+
+    MESSAGE_BAN(
+            "",
+            "&cYou have just been ban from the server for the reason:",
+            "&f%reason%",
+            "&fDuration&8: &7%duration%",
+            "",
+            "&fMinecraft-Inventory-Builder.com",
+            ""
+    ),
+
+    MESSAGE_BAN_JOIN(
+            "",
+            "&cYou are banned on server:",
+            "&f%reason%",
+            "&fRemaining time&8: &7%remaining%",
+            "",
+            "&fMinecraft-Inventory-Builder.com",
+            ""
+    ),
+
     ;
 
     private String message;
@@ -257,6 +350,12 @@ public enum Message {
     }
 
     Message(String... message) {
+        this.message = null;
+        this.messages = Arrays.asList(message);
+    }
+
+    Message(MessageType messageType, String... message) {
+        this.messageType = messageType;
         this.message = null;
         this.messages = Arrays.asList(message);
     }

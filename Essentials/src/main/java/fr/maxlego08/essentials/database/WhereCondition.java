@@ -19,6 +19,10 @@ public class WhereCondition {
         return column + " " + operator + " ?";
     }
 
+    public String getOperator() {
+        return operator;
+    }
+
     public Object getValue() {
         return value;
     }
