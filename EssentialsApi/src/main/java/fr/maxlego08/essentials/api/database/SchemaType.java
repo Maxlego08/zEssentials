@@ -8,5 +8,6 @@ public enum SchemaType {
     SELECT,
     SELECT_COUNT,
     DELETE,
+    ALTER
 
 }

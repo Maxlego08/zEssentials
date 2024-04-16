@@ -165,6 +165,7 @@ public enum Message {
     DESCRIPTION_KICK("Kick a player"),
     DESCRIPTION_KICK_ALL("Kick all players"),
     DESCRIPTION_KITTY_CANNON("Launch kitty, wtf you want to do that ? monster"),
+    DESCRIPTION_BAN("Ban a player"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -277,16 +278,28 @@ public enum Message {
     COMMAND_HOME_ADMIN_SET("#00ff00You just created home &f%name%#00ff00 of &b%player%#00ff00."),
     COMMAND_HOME_ADMIN_LIST("#8cc0cc%player% ʜᴏᴍᴇs&8:&f%homes%"),
     COMMAND_HOME_ADMIN_LIST_INFO(" <hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %player%:%name%'>&f%name%</click></hover>&7"),
+    COMMAND_KICK_NOTIFY(MessageType.WITHOUT_PREFIX, "<click:run_command:/sc %target%>&8(#f59e07Sanction&8)</click> &f%player% <click:run_command:/sc %target%>#cf4229just kicked the player#c9b530 %target%#cf4229."),
+    COMMAND_BAN_NOTIFY(MessageType.WITHOUT_PREFIX, "<click:run_command:/sc %target%>&8(#f59e07Sanction&8)</click> &f%player% <click:run_command:/sc %target%>#cf4229just banned the player #c9b530%target%#cf4229."),
+    COMMAND_BAN_ERROR_DURATION("#ff0000The duration of a banishment must be at least 1 second."),
 
-    COMMAND_KICK_NOTIFY("&f%player% &cjust kicked out the player &7&n%target%&r &cfor the reason &e%reason%"),
-    COMMAND_KICK_RECEIVER(
+    MESSAGE_KICK(
             "",
             "&cYou have just been kicked from the server for the reason:",
             "%reason%",
             "",
             "&fMinecraft-Inventory-Builder.com",
             ""
-    )
+    ),
+
+    MESSAGE_BAN(
+            "",
+            "&cYou have just been ban from the server for the reason:",
+            "&f%reason%",
+            "&fDuration&8: &7%duration%",
+            "",
+            "&fMinecraft-Inventory-Builder.com",
+            ""
+    ),
 
     ;
 

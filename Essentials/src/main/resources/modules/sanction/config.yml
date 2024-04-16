@@ -16,3 +16,5 @@ enable: true
 
 kick-default-reason: "You have been kicked"
 
+ban-default-reason: "The ban hammer has spoken"
+

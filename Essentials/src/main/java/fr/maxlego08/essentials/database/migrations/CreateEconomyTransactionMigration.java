@@ -6,7 +6,7 @@ import fr.maxlego08.essentials.database.SchemaBuilder;
 public class CreateEconomyTransactionMigration extends Migration {
     @Override
     public void up() {
-        SchemaBuilder.create("%prefix%economy_transactions", table -> {
+        SchemaBuilder.create(this, "%prefix%economy_transactions", table -> {
             table.uuid("from_unique_id");
             table.uuid("to_unique_id");
             table.string("economy_name", 255);

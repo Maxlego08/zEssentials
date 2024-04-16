@@ -62,6 +62,7 @@ warps: true
 tpr: true
 sethome: true
 home: true
+ban: true
 kick: true
 kickall: true
 kittycannon: true

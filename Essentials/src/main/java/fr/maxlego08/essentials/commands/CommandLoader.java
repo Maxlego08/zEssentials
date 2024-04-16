@@ -16,6 +16,7 @@ import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeSurviva
 import fr.maxlego08.essentials.commands.commands.home.CommandDelHome;
 import fr.maxlego08.essentials.commands.commands.home.CommandHome;
 import fr.maxlego08.essentials.commands.commands.home.CommandSetHome;
+import fr.maxlego08.essentials.commands.commands.sanction.CommandBan;
 import fr.maxlego08.essentials.commands.commands.sanction.CommandKickAll;
 import fr.maxlego08.essentials.commands.commands.spawn.CommandSetSpawn;
 import fr.maxlego08.essentials.commands.commands.spawn.CommandSpawn;
@@ -138,6 +139,7 @@ public class CommandLoader {
         register("delhome", CommandDelHome.class, "hdelete", "hd");
         register("home", CommandHome.class, "h");
 
+        register("ban", CommandBan.class);
         register("kick", CommandKick.class);
         register("kickall", CommandKickAll.class);
 

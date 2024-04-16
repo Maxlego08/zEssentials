@@ -5,6 +5,7 @@ import org.bukkit.Location;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -29,7 +30,10 @@ public interface Schema {
 
     Schema decimal(String columnName, Number value);
 
+    Schema date(String columnName, Date value);
+
     Schema bigInt(String columnName);
+    Schema integer(String columnName);
 
     Schema bigInt(String columnName, long value);
 
@@ -40,7 +44,7 @@ public interface Schema {
     Schema primary();
 
     Schema foreignKey(String referenceTable);
-    Schema foreignKey(String referenceTable, String columnName);
+    Schema foreignKey(String referenceTable, String columnName, boolean onCascade);
 
     Schema createdAt();
 
@@ -71,6 +75,8 @@ public interface Schema {
     long executeSelectCount(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException;
 
     <T> List<T> executeSelect(Class<T> clazz, Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws Exception;
+
+    Migration getMigration();
 
 }
 

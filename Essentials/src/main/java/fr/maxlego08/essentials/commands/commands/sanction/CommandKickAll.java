@@ -25,7 +25,7 @@ public class CommandKickAll extends VCommand {
 
         Bukkit.getOnlinePlayers().forEach(player -> {
             if (!hasPermission(player, Permission.ESSENTIALS_KICK_BYPASS_ALL)) {
-                player.kick(getComponentMessage(Message.COMMAND_KICK_RECEIVER, "%reason%", reason));
+                player.kick(getComponentMessage(Message.MESSAGE_KICK, "%reason%", reason));
             }
         });
         broadcast(Permission.ESSENTIALS_KICK_NOTIFY, Message.COMMAND_KICK_NOTIFY, "%player%", sender.getName(), "%target%", player.getName(), "%reason%", reason);

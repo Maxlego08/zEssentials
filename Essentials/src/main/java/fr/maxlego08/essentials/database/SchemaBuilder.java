@@ -1,5 +1,6 @@
 package fr.maxlego08.essentials.database;
 
+import fr.maxlego08.essentials.api.database.Migration;
 import fr.maxlego08.essentials.api.database.Schema;
 import fr.maxlego08.essentials.api.database.SchemaType;
 import fr.maxlego08.essentials.api.storage.DatabaseConfiguration;
@@ -13,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,21 +29,35 @@ public class SchemaBuilder extends ZUtils implements Schema {
     private final List<String> primaryKeys = new ArrayList<>();
     private final List<String> foreignKeys = new ArrayList<>();
     private final List<WhereCondition> whereConditions = new ArrayList<>();
+    private Migration migration;
 
     private SchemaBuilder(String tableName, SchemaType schemaType) {
         this.tableName = tableName;
         this.schemaType = schemaType;
     }
 
-    public static Schema create(String tableName, Consumer<Schema> consumer) {
-        Schema schema = new SchemaBuilder(tableName, SchemaType.CREATE);
-        ZMigrationManager.registerSchema(schema);
+    public static Schema create(Migration migration, String tableName, Consumer<Schema> consumer) {
+        SchemaBuilder schema = new SchemaBuilder(tableName, SchemaType.CREATE);
+        if (migration != null) {
+            schema.migration = migration;
+            ZMigrationManager.registerSchema(schema);
+        }
         consumer.accept(schema);
         return schema;
     }
 
     public static Schema upsert(String tableName, Consumer<Schema> consumer) {
         Schema schema = new SchemaBuilder(tableName, SchemaType.UPSERT);
+        consumer.accept(schema);
+        return schema;
+    }
+
+    public static Schema alter(Migration migration, String tableName, Consumer<Schema> consumer) {
+        SchemaBuilder schema = new SchemaBuilder(tableName, SchemaType.ALTER);
+        if (migration != null) {
+            schema.migration = migration;
+            ZMigrationManager.registerSchema(schema);
+        }
         consumer.accept(schema);
         return schema;
     }
@@ -133,8 +149,19 @@ public class SchemaBuilder extends ZUtils implements Schema {
     }
 
     @Override
+    public Schema date(String columnName, Date value) {
+        // return this.addColumn(new ColumnDefinition(columnName).setObject(new java.sql.Date(value.getTime())));
+        return this.addColumn(new ColumnDefinition(columnName).setObject(value));
+    }
+
+    @Override
     public Schema bigInt(String columnName) {
         return addColumn(new ColumnDefinition(columnName, "BIGINT"));
+    }
+
+    @Override
+    public Schema integer(String columnName) {
+        return addColumn(new ColumnDefinition(columnName, "INT"));
     }
 
     @Override
@@ -163,11 +190,11 @@ public class SchemaBuilder extends ZUtils implements Schema {
     }
 
     @Override
-    public Schema foreignKey(String referenceTable, String columnName) {
+    public Schema foreignKey(String referenceTable, String columnName, boolean onCascade) {
         if (this.columns.isEmpty()) throw new IllegalStateException("No column defined to apply foreign key.");
         ColumnDefinition lastColumn = this.columns.get(this.columns.size() - 1);
 
-        String fkDefinition = String.format("FOREIGN KEY (%s) REFERENCES %s(%s) ON DELETE CASCADE", lastColumn.getName(), referenceTable, columnName);
+        String fkDefinition = String.format("FOREIGN KEY (%s) REFERENCES %s(%s)%s", lastColumn.getName(), referenceTable, columnName, onCascade ? " ON DELETE CASCADE" : "");
         this.foreignKeys.add(fkDefinition);
         return this;
     }
@@ -234,6 +261,7 @@ public class SchemaBuilder extends ZUtils implements Schema {
     public void execute(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
         switch (this.schemaType) {
             case CREATE -> this.executeCreate(connection, databaseConfiguration, logger);
+            case ALTER -> this.executeAlter(connection, databaseConfiguration, logger);
             case UPSERT -> this.executeUpsert(connection, databaseConfiguration, logger);
             case INSERT -> this.executeInsert(connection, databaseConfiguration, logger);
             case DELETE -> this.executeDelete(connection, databaseConfiguration, logger);
@@ -308,6 +336,38 @@ public class SchemaBuilder extends ZUtils implements Schema {
         } catch (SQLException exception) {
             exception.printStackTrace();
             throw new SQLException("Failed to execute upsert: " + exception.getMessage(), exception);
+        }
+    }
+
+    private void executeAlter(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
+
+        StringBuilder alterTableSQL = new StringBuilder("ALTER TABLE ");
+        alterTableSQL.append(this.tableName).append(" ");
+
+        List<String> columnSQLs = new ArrayList<>();
+        for (ColumnDefinition column : this.columns) {
+            columnSQLs.add("ADD COLUMN " + column.build());
+        }
+        alterTableSQL.append(String.join(", ", columnSQLs));
+
+        if (!this.primaryKeys.isEmpty()) {
+            alterTableSQL.append(", PRIMARY KEY (").append(String.join(", ", this.primaryKeys)).append(")");
+        }
+
+        for (String fk : this.foreignKeys) {
+            alterTableSQL.append(", ADD ").append(fk);
+        }
+
+        String finalQuery = databaseConfiguration.replacePrefix(alterTableSQL.toString());
+        if (databaseConfiguration.debug()) {
+            logger.info("Executing SQL: " + finalQuery);
+        }
+
+        try (PreparedStatement statement = connection.prepareStatement(finalQuery)) {
+            statement.execute();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            throw new SQLException("Failed to execute schema creation: " + exception.getMessage(), exception);
         }
     }
 
@@ -474,4 +534,8 @@ public class SchemaBuilder extends ZUtils implements Schema {
         return transformedResults;
     }
 
+    @Override
+    public Migration getMigration() {
+        return migration;
+    }
 }

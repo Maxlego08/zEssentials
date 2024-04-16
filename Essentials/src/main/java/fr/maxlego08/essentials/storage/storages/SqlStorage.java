@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.UserDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
+import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
@@ -16,6 +17,7 @@ import fr.maxlego08.essentials.storage.database.repositeries.UserEconomyReposito
 import fr.maxlego08.essentials.storage.database.repositeries.UserHomeRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserOptionRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserRepository;
+import fr.maxlego08.essentials.storage.database.repositeries.UserSanctionRepository;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.utils.StorageHelper;
 import org.bukkit.Bukkit;
@@ -52,6 +54,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
         this.repositories.register(UserEconomyRepository.class);
         this.repositories.register(EconomyTransactionsRepository.class);
         this.repositories.register(UserHomeRepository.class);
+        this.repositories.register(UserSanctionRepository.class);
         // this.repositories.register(ServerStorageRepository.class);
 
         plugin.getMigrationManager().execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), this.plugin.getLogger());
@@ -228,5 +231,10 @@ public class SqlStorage extends StorageHelper implements IStorage {
         CompletableFuture<List<Home>> future = new CompletableFuture<>();
         future.complete(this.repositories.getTable(UserHomeRepository.class).getHomes(uuid));
         return future;
+    }
+
+    @Override
+    public void insertSanction(Sanction sanction) {
+        async(() -> this.repositories.getTable(UserSanctionRepository.class).insert(sanction));
     }
 }

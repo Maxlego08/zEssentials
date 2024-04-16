@@ -13,11 +13,15 @@ import org.bukkit.inventory.ItemStack;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.math.BigDecimal;
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public abstract class ZUtils extends MessageUtils {
 
@@ -179,6 +183,32 @@ public abstract class ZUtils extends MessageUtils {
             return UUID.fromString((String) value);
         } else {
             return value;
+        }
+    }
+
+    public Duration stringToDuration(String duration) {
+        Pattern regex = Pattern.compile("(\\d+)([^0-9 ])");
+        Matcher result = regex.matcher(duration);
+
+        if (result.find()) {
+            String amountStr = result.group(1);
+            String unit = result.group(2);
+            long amount = Long.parseLong(amountStr);
+
+            return switch (unit) {
+                case "s" -> Duration.of(amount, ChronoUnit.SECONDS);
+                case "m" -> Duration.of(amount, ChronoUnit.MINUTES);
+                case "h" -> Duration.of(amount, ChronoUnit.HOURS);
+                case "j", "d" -> Duration.of(amount, ChronoUnit.DAYS);
+                case "w" -> Duration.of(amount, ChronoUnit.WEEKS);
+                case "M" -> Duration.of(amount, ChronoUnit.MONTHS);
+                case "y" -> Duration.of(amount, ChronoUnit.YEARS);
+                case "D" -> Duration.of(amount, ChronoUnit.DECADES);
+                case "c" -> Duration.of(amount, ChronoUnit.CENTURIES);
+                default -> Duration.ZERO;
+            };
+        } else {
+            return Duration.ZERO;
         }
     }
 

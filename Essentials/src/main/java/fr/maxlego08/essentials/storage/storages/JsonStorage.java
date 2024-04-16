@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.HomeDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
+import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.essentials.api.user.Option;
@@ -231,5 +232,10 @@ public class JsonStorage extends StorageHelper implements IStorage {
         CompletableFuture<List<Home>> future = new CompletableFuture<>();
         future.complete(createOrLoad(uuid, "").getHomes());
         return future;
+    }
+
+    @Override
+    public void insertSanction(Sanction sanction) {
+        System.out.println("TODO");
     }
 }
