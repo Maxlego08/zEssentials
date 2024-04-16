@@ -11,6 +11,10 @@ public record SanctionDTO(
     UUID sender_unique_id,
     String reason,
     Date created_at,
-    Date finish_at,
+    Date expired_at,
     SanctionType sanction_type
-) {}
+) {
+    public boolean isActive() {
+        return this.expired_at.getTime() > System.currentTimeMillis();
+    }
+}

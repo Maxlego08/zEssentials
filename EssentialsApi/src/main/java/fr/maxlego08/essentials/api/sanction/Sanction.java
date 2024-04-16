@@ -69,4 +69,8 @@ public class Sanction {
     public long getDuration() {
         return duration;
     }
+
+    public boolean isActive() {
+        return this.expiredAt.getTime() > System.currentTimeMillis();
+    }
 }

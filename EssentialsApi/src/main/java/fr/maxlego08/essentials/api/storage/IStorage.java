@@ -2,6 +2,7 @@ package fr.maxlego08.essentials.api.storage;
 
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
+import fr.maxlego08.essentials.api.exception.UserBanException;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.user.Option;
@@ -20,7 +21,7 @@ public interface IStorage {
 
     void onDisable();
 
-    User createOrLoad(UUID uniqueId, String playerName);
+    User createOrLoad(UUID uniqueId, String playerName) throws UserBanException;
 
     void onPlayerQuit(UUID uniqueId);
 

@@ -1,9 +1,11 @@
 package fr.maxlego08.essentials.storage.database.repositeries;
 
+import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.storage.database.Repository;
 import fr.maxlego08.essentials.storage.database.SqlConnection;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 public class UserSanctionRepository extends Repository {
@@ -20,5 +22,10 @@ public class UserSanctionRepository extends Repository {
             table.decimal("duration", sanction.getDuration());
             table.date("expired_at", sanction.getExpiredAt());
         }, consumer);
+    }
+
+    public SanctionDTO getSanction(Integer integer) {
+        List<SanctionDTO> sanctionDTOS = select(SanctionDTO.class, table -> table.where("id", integer));
+        return sanctionDTOS.isEmpty() ? null : sanctionDTOS.get(0);
     }
 }

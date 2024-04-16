@@ -301,6 +301,16 @@ public enum Message {
             ""
     ),
 
+    MESSAGE_BAN_JOIN(
+            "",
+            "&cYou are banned on server:",
+            "&f%reason%",
+            "&fRemaining time&8: &7%remaining%",
+            "",
+            "&fMinecraft-Inventory-Builder.com",
+            ""
+    ),
+
     ;
 
     private String message;
