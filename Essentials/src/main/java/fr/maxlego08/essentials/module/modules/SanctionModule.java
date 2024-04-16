@@ -128,7 +128,7 @@ public class SanctionModule extends ZModule {
         Sanction sanction = Sanction.mute(uuid, getSenderUniqueId(sender), reason, duration, finishAt);
         iStorage.insertSanction(sanction, index -> {
             sanction.setId(index);
-            iStorage.updateUserBan(uuid, index);
+            iStorage.updateMuteBan(uuid, index);
 
             User user = iStorage.getUser(uuid);
             if (user != null) {// If user is online, update cache

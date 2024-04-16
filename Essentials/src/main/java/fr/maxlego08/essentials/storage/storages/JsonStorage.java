@@ -244,4 +244,9 @@ public class JsonStorage extends StorageHelper implements IStorage {
     public void updateUserBan(UUID uuid, Integer index) {
         throw new NotImplementedException("updateUserBan is not implemented");
     }
+
+    @Override
+    public void updateMuteBan(UUID uuid, Integer index) {
+        throw new NotImplementedException("updateMuteBan is not implemented");
+    }
 }

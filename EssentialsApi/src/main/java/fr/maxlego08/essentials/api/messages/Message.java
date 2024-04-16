@@ -295,7 +295,6 @@ public enum Message {
     ),
 
     MESSAGE_MUTE(
-            MessageType.CENTER,
             "",
             "&fYou have just lost your <u>voice</u>.",
             "&fDuration&8: <gradient:#7ae856:#a1d909>%duration%</gradient>",
@@ -304,7 +303,6 @@ public enum Message {
     ),
 
     MESSAGE_MUTE_TALK(
-            MessageType.CENTER,
             "",
             "&fYou do not have the right to speak.",
             "",

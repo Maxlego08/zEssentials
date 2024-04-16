@@ -263,4 +263,9 @@ public class SqlStorage extends StorageHelper implements IStorage {
     public void updateUserBan(UUID uuid, Integer index) {
         async(() -> this.repositories.getTable(UserRepository.class).updateBanId(uuid, index));
     }
+
+    @Override
+    public void updateMuteBan(UUID uuid, Integer index) {
+        async(() -> this.repositories.getTable(UserRepository.class).updateMuteId(uuid, index));
+    }
 }

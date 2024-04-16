@@ -58,4 +58,5 @@ public interface IStorage {
     void insertSanction(Sanction sanction, Consumer<Integer> consumer);
 
     void updateUserBan(UUID uuid, Integer index);
+    void updateMuteBan(UUID uuid, Integer index);
 }
