@@ -75,4 +75,6 @@ public interface EssentialsPlugin extends Plugin {
     EssentialsServer getEssentialsServer();
 
     EssentialsUtils getUtils();
+
+    void debug(String string);
 }

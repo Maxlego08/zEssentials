@@ -10,8 +10,14 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
+import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 public abstract class ZUtils extends MessageUtils {
 
@@ -135,5 +141,45 @@ public abstract class ZUtils extends MessageUtils {
         };
     }
 
+    protected Object createInstanceFromMap(Constructor<?> constructor, Map<?, ?> map) {
+        try {
+            Object[] arguments = new Object[constructor.getParameterCount()];
+            java.lang.reflect.Parameter[] parameters = constructor.getParameters();
+            for (int i = 0; i < parameters.length; i++) {
+                Class<?> paramType = parameters[i].getType();
+                String paramName = parameters[i].getName();
+                Object value = map.get(paramName);
+                if (paramType.isArray()) {
+                    Class<?> componentType = paramType.getComponentType();
+                    List<?> list = (List<?>) value;
+                    Object array = Array.newInstance(componentType, list.size());
+                    for (int j = 0; j < list.size(); j++) {
+                        Object elem = list.get(j);
+                        elem = convertToRequiredType(elem, componentType);
+                        Array.set(array, j, elem);
+                    }
+                    value = array;
+                } else value = convertToRequiredType(value, paramType);
+                arguments[i] = value;
+            }
+            return constructor.newInstance(arguments);
+        } catch (Exception exception) {
+            throw new RuntimeException("Failed to create instance from map", exception);
+        }
+    }
+
+    private Object convertToRequiredType(Object value, Class<?> type) {
+        if (value == null) {
+            return null;
+        } else if (type.isEnum()) {
+            return Enum.valueOf((Class<Enum>) type, (String) value);
+        } else if (type == BigDecimal.class) {
+            return new BigDecimal(value.toString());
+        } else if (type == UUID.class) {
+            return UUID.fromString((String) value);
+        } else {
+            return value;
+        }
+    }
 
 }

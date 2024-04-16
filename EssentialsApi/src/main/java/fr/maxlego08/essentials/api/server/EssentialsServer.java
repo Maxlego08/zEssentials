@@ -1,11 +1,10 @@
 package fr.maxlego08.essentials.api.server;
 
-import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
-import org.bukkit.entity.Player;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface EssentialsServer {
 
@@ -15,8 +14,12 @@ public interface EssentialsServer {
 
     List<String> getPlayersNames();
 
-    void sendMessage(Player player, Message message, Object... objects);
+    void sendMessage(UUID uuid, Message message, Object... objects);
 
     void broadcastMessage(Permission permission, Message message, Object... objects);
+
+    void kickPlayer(UUID uuid, Message message, Object... objects);
+
+    boolean isOnline(String userName);
 
 }

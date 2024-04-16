@@ -7,7 +7,6 @@ import fr.maxlego08.essentials.api.commands.EssentialsCommand;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.commands.Tab;
 import fr.maxlego08.essentials.api.commands.TabCompletion;
-import fr.maxlego08.essentials.api.exception.PlayerNotFoundError;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.modules.Module;
 import fr.maxlego08.essentials.api.user.User;
@@ -407,8 +406,6 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
             return commandResultType;
         } catch (Exception exception) {
 
-            if (exception instanceof PlayerNotFoundError) return CommandResultType.DEFAULT;
-
             if (plugin.getConfiguration().isEnableDebug()) {
                 exception.printStackTrace();
             }
@@ -416,7 +413,7 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
         }
     }
 
-    protected abstract CommandResultType perform(EssentialsPlugin plugin) throws Exception;
+    protected abstract CommandResultType perform(EssentialsPlugin plugin);
 
     public boolean sameSubCommands() {
         if (this.parent == null) {
@@ -487,6 +484,18 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
         });
     }
 
+    protected void isOnline(String userName, Runnable runnable) {
+        this.plugin.getScheduler().runAsync(wrappedTask -> {
+
+            if (!this.plugin.getEssentialsServer().isOnline(userName)) {
+                message(sender, Message.PLAYER_NOT_FOUND, "%player%", userName);
+                return;
+            }
+
+            runnable.run();
+        });
+    }
+
     protected String getArgs(int start) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = start; i < this.args.length; i++) {
@@ -494,15 +503,6 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
             stringBuilder.append(this.args[i]);
         }
         return stringBuilder.toString();
-    }
-
-    protected String argAsOnlinePlayerName(int index) throws PlayerNotFoundError {
-        String playerName = this.argAsString(index);
-        if (!this.plugin.getEssentialsServer().getPlayersNames().contains(playerName)) {
-            message(sender, Message.PLAYER_NOT_FOUND, "%player%", playerName);
-            throw new PlayerNotFoundError();
-        }
-        return playerName;
     }
 
     private static class VCommandComparator implements Comparator<VCommand> {

@@ -2,7 +2,7 @@ package fr.maxlego08.essentials.api.server;
 
 import java.util.UUID;
 
-public class IdentifiedInstance {
+public abstract class IdentifiedInstance {
 
     private UUID instanceId;
 

@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.List;
+import java.util.UUID;
 
 public class PaperServer extends ZUtils implements EssentialsServer {
 
@@ -27,12 +28,25 @@ public class PaperServer extends ZUtils implements EssentialsServer {
     }
 
     @Override
-    public void sendMessage(Player player, Message message, Object... objects) {
-        this.message(player, message, objects);
+    public void sendMessage(UUID uuid, Message message, Object... objects) {
+        this.message(uuid, message, objects);
     }
 
     @Override
     public void broadcastMessage(Permission permission, Message message, Object... objects) {
         this.broadcast(permission, message, objects);
+    }
+
+    @Override
+    public void kickPlayer(UUID uuid, Message message, Object... objects) {
+        Player player = Bukkit.getPlayer(uuid);
+        if (player != null) {
+            player.kick(getComponentMessage(message, objects));
+        }
+    }
+
+    @Override
+    public boolean isOnline(String userName) {
+        return Bukkit.getPlayer(userName) != null;
     }
 }

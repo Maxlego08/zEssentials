@@ -331,4 +331,11 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     public EssentialsUtils getUtils() {
         return this.essentialsUtils;
     }
+
+    @Override
+    public void debug(String string) {
+        if (this.configuration.isEnableDebug()) {
+            this.getLogger().info(string);
+        }
+    }
 }

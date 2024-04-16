@@ -84,7 +84,7 @@ public abstract class MessageUtils extends PlaceholderUtils {
     }
 
     protected String getMessage(Message message, Object... args) {
-        return getMessage(message.getMessage(), args);
+        return getMessage(message.getMessage() == null ? String.join("\n", message.getMessages()) : message.getMessage(), args);
     }
 
     protected Component getComponentMessage(Message message, Object... args) {

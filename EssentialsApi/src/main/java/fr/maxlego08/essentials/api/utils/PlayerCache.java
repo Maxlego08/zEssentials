@@ -1,4 +1,4 @@
-package fr.maxlego08.essentials.api.server;
+package fr.maxlego08.essentials.api.utils;
 
 import java.util.Collections;
 import java.util.Set;

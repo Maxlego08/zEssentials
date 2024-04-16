@@ -4,17 +4,21 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.server.EssentialsServer;
-import fr.maxlego08.essentials.api.server.PlayerCache;
 import fr.maxlego08.essentials.api.server.RedisConfiguration;
-import fr.maxlego08.essentials.api.server.ServerMessage;
 import fr.maxlego08.essentials.api.server.ServerMessageType;
+import fr.maxlego08.essentials.api.server.messages.KickMessage;
+import fr.maxlego08.essentials.api.server.messages.ServerMessage;
 import fr.maxlego08.essentials.api.utils.EssentialsUtils;
+import fr.maxlego08.essentials.api.utils.PlayerCache;
+import fr.maxlego08.essentials.server.redis.listener.KickListener;
+import fr.maxlego08.essentials.server.redis.listener.MessageListener;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.Protocol;
@@ -23,9 +27,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 
 public class RedisServer implements EssentialsServer, Listener {
 
+    private final RedisSubscriberRunnable redisSubscriberRunnable;
     private final PlayerCache playerCache = new PlayerCache();
     private final UUID instanceId = UUID.randomUUID();
     private final EssentialsPlugin plugin;
@@ -36,6 +42,7 @@ public class RedisServer implements EssentialsServer, Listener {
     public RedisServer(EssentialsPlugin plugin) {
         this.plugin = plugin;
         this.utils = plugin.getUtils();
+        this.redisSubscriberRunnable = new RedisSubscriberRunnable(plugin, this);
     }
 
     @Override
@@ -53,22 +60,23 @@ public class RedisServer implements EssentialsServer, Listener {
 
         this.plugin.getLogger().info("Redis connected to " + redisConfiguration.host() + ":" + redisConfiguration.port());
 
-        Thread thread = new Thread(new RedisSubscriberRunnable(this.plugin, this));
+        // Register listeners
+        this.redisSubscriberRunnable.registerListener(KickMessage.class, new KickListener(this.utils));
+        this.redisSubscriberRunnable.registerListener(ServerMessage.class, new MessageListener(this.utils));
+
+        Thread thread = new Thread(this.redisSubscriberRunnable);
         thread.start();
 
         Bukkit.getPluginManager().registerEvents(this, this.plugin);
 
         // Fetch players name every minute
-        plugin.getScheduler().runTimerAsync(() -> {
-            System.out.println("UPDATE BEFORE " + this.getPlayersNames());
-            this.playerCache.setPlayers(jedisPool.getResource().smembers(this.playersKey));
-            System.out.println("UPDATE AFTER " + this.getPlayersNames());
-        }, 1, 1, TimeUnit.MINUTES);
+        plugin.getScheduler().runTimerAsync(() -> this.playerCache.setPlayers(jedisPool.getResource().smembers(this.playersKey)), 1, 1, TimeUnit.MINUTES);
     }
 
     @Override
     public void onDisable() {
         if (this.jedisPool != null) {
+            execute(jedis -> jedis.srem(this.playersKey, Bukkit.getOnlinePlayers().stream().map(Player::getName).toList().toArray(new String[0])), false);
             this.jedisPool.close();
         }
     }
@@ -79,26 +87,44 @@ public class RedisServer implements EssentialsServer, Listener {
     }
 
     @Override
-    public void sendMessage(Player player, Message message, Object... objects) {
+    public void sendMessage(UUID uuid, Message message, Object... objects) {
 
-        utils.message(player, message, objects);
+        Player player = Bukkit.getPlayer(uuid);
+        if (player != null) { // If player is online, send the message
+            utils.message(uuid, message, objects);
+            return;
+        }
 
-        ServerMessage serverMessage = new ServerMessage(this.instanceId, ServerMessageType.SINGLE, player.getUniqueId(), null, message, objects);
-        sendServerMessage(serverMessage);
+        sendMessage(new ServerMessage(ServerMessageType.SINGLE, uuid, null, message, objects));
     }
 
     @Override
     public void broadcastMessage(Permission permission, Message message, Object... objects) {
 
-        utils.broadcast(permission, message, objects);
-
-        ServerMessage serverMessage = new ServerMessage(this.instanceId, ServerMessageType.BROADCAST, null, permission, message, objects);
-        sendServerMessage(serverMessage);
+        this.utils.broadcast(permission, message, objects);
+        sendMessage(new ServerMessage(ServerMessageType.BROADCAST, null, permission, message, objects));
     }
 
-    private void sendServerMessage(ServerMessage serverMessage) {
+    @Override
+    public void kickPlayer(UUID uuid, Message message, Object... objects) {
+        Player player = Bukkit.getPlayer(uuid);
+        if (player != null && player.isOnline()) {
+            player.kick(utils.getComponentMessage(message, objects));
+            return;
+        }
+
+        sendMessage(new KickMessage(uuid, message, objects));
+    }
+
+    @Override
+    public boolean isOnline(String userName) {
+        return jedisPool.getResource().sismember(playersKey, userName);
+    }
+
+    private <T> void sendMessage(T message) {
         this.plugin.getScheduler().runAsync(wrappedTask -> {
-            String jsonMessage = this.plugin.getGson().toJson(serverMessage);
+            String jsonMessage = this.plugin.getGson().toJson(new RedisMessage<>(this.instanceId, message, message.getClass().getName()));
+            this.plugin.debug("Send: " + jsonMessage);
             jedisPool.getResource().publish(RedisSubscriberRunnable.messagesChannel, jsonMessage);
         });
     }
@@ -126,16 +152,32 @@ public class RedisServer implements EssentialsServer, Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         String playerName = event.getPlayer().getName();
-        System.out.println("JE JOIN " + playerName);
         this.playerCache.addPlayer(playerName);
-        this.plugin.getScheduler().runAsync(wrappedTask -> jedisPool.getResource().sadd(this.playersKey, playerName));
+        execute(jedis -> jedis.sadd(this.playersKey, playerName));
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         String playerName = event.getPlayer().getName();
-        System.out.println("JE leave " + playerName);
         this.playerCache.removePlayer(playerName);
-        this.plugin.getScheduler().runAsync(wrappedTask -> jedisPool.getResource().srem(this.playersKey, playerName));
+        execute(jedis -> jedis.srem(this.playersKey, playerName));
+    }
+
+    private void execute(Consumer<Jedis> consumer) {
+        execute(consumer, true);
+    }
+
+    private void execute(Consumer<Jedis> consumer, boolean async) {
+        Runnable runnable = () -> {
+            try {
+                if (!jedisPool.isClosed()) {
+                    consumer.accept(jedisPool.getResource());
+                }
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        };
+        if (async) this.plugin.getScheduler().runAsync(wrappedTask -> runnable.run());
+        else runnable.run();
     }
 }
