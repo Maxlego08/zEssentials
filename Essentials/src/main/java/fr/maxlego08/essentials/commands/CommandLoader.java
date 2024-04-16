@@ -18,6 +18,7 @@ import fr.maxlego08.essentials.commands.commands.home.CommandHome;
 import fr.maxlego08.essentials.commands.commands.home.CommandSetHome;
 import fr.maxlego08.essentials.commands.commands.sanction.CommandBan;
 import fr.maxlego08.essentials.commands.commands.sanction.CommandKickAll;
+import fr.maxlego08.essentials.commands.commands.sanction.CommandMute;
 import fr.maxlego08.essentials.commands.commands.spawn.CommandSetSpawn;
 import fr.maxlego08.essentials.commands.commands.spawn.CommandSpawn;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleport;
@@ -140,6 +141,7 @@ public class CommandLoader {
         register("home", CommandHome.class, "h");
 
         register("ban", CommandBan.class);
+        register("mute", CommandMute.class);
         register("kick", CommandKick.class);
         register("kickall", CommandKickAll.class);
 

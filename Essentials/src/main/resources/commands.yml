@@ -63,6 +63,7 @@ tpr: true
 sethome: true
 home: true
 ban: true
+mute: true
 kick: true
 kickall: true
 kittycannon: true

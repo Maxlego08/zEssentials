@@ -10,6 +10,7 @@ import fr.maxlego08.essentials.api.database.dto.OptionDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.TeleportRequest;
@@ -51,6 +52,7 @@ public class ZUser extends ZUtils implements User {
     private boolean firstJoin;
     private int banId;
     private int muteId;
+    private Sanction muteSanction;
 
     public ZUser(EssentialsPlugin plugin, UUID uniqueId) {
         this.plugin = plugin;
@@ -476,5 +478,21 @@ public class ZUser extends ZUtils implements User {
     public void setSanction(Integer banId, Integer muteId) {
         this.banId = banId == null ? 0 : banId;
         this.muteId = muteId == null ? 0 : muteId;
+    }
+
+    @Override
+    public Sanction getMuteSanction() {
+        return this.muteSanction;
+    }
+
+    @Override
+    public void setMuteSanction(Sanction sanction) {
+        this.muteId = sanction.getId();
+        this.muteSanction = sanction;
+    }
+
+    @Override
+    public boolean isMute() {
+        return this.muteSanction != null && this.muteSanction.isActive();
     }
 }

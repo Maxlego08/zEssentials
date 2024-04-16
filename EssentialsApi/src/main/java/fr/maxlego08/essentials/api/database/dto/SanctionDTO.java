@@ -12,7 +12,8 @@ public record SanctionDTO(
     String reason,
     Date created_at,
     Date expired_at,
-    SanctionType sanction_type
+    SanctionType sanction_type,
+    long duration
 ) {
     public boolean isActive() {
         return this.expired_at.getTime() > System.currentTimeMillis();

@@ -1,5 +1,7 @@
 package fr.maxlego08.essentials.api.sanction;
 
+import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
+
 import java.time.Duration;
 import java.util.Date;
 import java.util.UUID;
@@ -32,6 +34,14 @@ public class Sanction {
 
     public static Sanction ban(UUID playerUniqueId, UUID senderUniqueId, String reason, Duration duration, Date finishAt) {
         return new Sanction(-1, playerUniqueId, senderUniqueId, reason, duration.toMillis(), new Date(), finishAt, SanctionType.BAN);
+    }
+
+    public static Sanction mute(UUID playerUniqueId, UUID senderUniqueId, String reason, Duration duration, Date finishAt) {
+        return new Sanction(-1, playerUniqueId, senderUniqueId, reason, duration.toMillis(), new Date(), finishAt, SanctionType.MUTE);
+    }
+
+    public static Sanction fromDTO(SanctionDTO sanctionDTO) {
+        return new Sanction(sanctionDTO.id(), sanctionDTO.player_unique_id(), sanctionDTO.sender_unique_id(), sanctionDTO.reason(), sanctionDTO.duration(), sanctionDTO.created_at(), sanctionDTO.expired_at(), sanctionDTO.sanction_type());
     }
 
     public int getId() {
@@ -72,5 +82,9 @@ public class Sanction {
 
     public boolean isActive() {
         return this.expiredAt.getTime() > System.currentTimeMillis();
+    }
+
+    public Duration getDurationRemaining() {
+        return Duration.ofMillis(this.expiredAt.getTime() - System.currentTimeMillis());
     }
 }

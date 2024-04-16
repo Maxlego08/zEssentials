@@ -108,6 +108,13 @@ public class SqlStorage extends StorageHelper implements IStorage {
                 }
             }
 
+            if (userDTO.mute_sanction_id() != null) { // Check if player is mute
+                SanctionDTO sanction = this.repositories.getTable(UserSanctionRepository.class).getSanction(userDTO.mute_sanction_id());
+                if (sanction.isActive()) {
+                    user.setMuteSanction(Sanction.fromDTO(sanction));
+                }
+            }
+
             user.setSanction(userDTO.ban_sanction_id(), userDTO.mute_sanction_id());
             user.setLastLocation(stringAsLocation(userDTO.last_location()));
             user.setOptions(this.repositories.getTable(UserOptionRepository.class).selectOptions(uniqueId));

@@ -8,6 +8,7 @@ import fr.maxlego08.essentials.api.database.dto.OptionDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.sanction.Sanction;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
@@ -463,4 +464,10 @@ public interface User {
      * @param muteId The active mute ID.
      */
     void setSanction(Integer banId, Integer muteId);
+
+    void setMuteSanction(Sanction sanction);
+
+    Sanction getMuteSanction();
+
+    boolean isMute();
 }
