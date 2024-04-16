@@ -213,6 +213,11 @@ description-tp-random: "Random Teleport in the world"
 description-set-home: "Create a home"
 description-del-home: "Delete a home"
 description-home: "Teleport to a home"
+description-kick: "Kick a player"
+description-kick-all: "Kick all players"
+description-kitty-cannon: "Launch kitty, wtf you want to do that ? monster"
+description-ban: "Ban a player"
+description-mute: "Mute a player"
 
 
 # Time format
@@ -349,3 +354,53 @@ command-home-admin-delete: "#00ff00You just deleted home &f%name%#00ff00 of &b%p
 command-home-admin-set: "#00ff00You just created home &f%name%#00ff00 of &b%player%#00ff00."
 command-home-admin-list: "#8cc0cc%player% ʜᴏᴍᴇs&8:&f%homes%"
 command-home-admin-list-info: " <hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %player%:%name%'>&f%name%</click></hover>&7"
+
+
+# Sanction
+command-kick-notify:
+  type: WITHOUT_PREFIX
+  message: "<click:run_command:/sc %target%>&8(#f59e07Sanction&8)</click> &f%player% <click:run_command:/sc %target%>#cf4229just kicked the player#c9b530 %target%#cf4229."
+command-ban-notify:
+  type: WITHOUT_PREFIX
+  message: "<click:run_command:/sc %target%>&8(#f59e07Sanction&8)</click> &f%player% <click:run_command:/sc %target%>#cf4229just banned the player #c9b530%target%#cf4229."
+command-mute-notify:
+  type: WITHOUT_PREFIX
+  message: "<click:run_command:/sc %target%>&8(#f59e07Sanction&8)</click> &f%player% <click:run_command:/sc %target%>#cf4229just muted the player #c9b530%target%#cf4229."
+command-ban-error-duration: "#ff0000The duration of a banishment must be at least 1 second."
+command-mute-error-duration: "#ff0000The duration of a mute must be at least 1 second."
+message-kick:
+  - ""
+  - "&cYou have just been kicked from the server for the reason:"
+  - "%reason%"
+  - ""
+  - "&fMinecraft-Inventory-Builder.com"
+  - ""
+message-mute:
+  - ""
+  - "&fYou have just lost your <u>voice</u>."
+  - "&fDuration&8: <gradient:#7ae856:#a1d909>%duration%</gradient>"
+  - "&fReason&8: #82d1ff%reason%"
+  - ""
+message-mute-talk:
+  - ""
+  - "&fYou do not have the right to speak."
+  - ""
+  - "&fDuration&8: <gradient:#7ae856:#a1d909>%duration%</gradient>"
+  - "&fReason&8: #82d1ff%reason%"
+  - ""
+message-ban:
+  - ""
+  - "&cYou have just been ban from the server for the reason:"
+  - "&f%reason%"
+  - "&fDuration&8: &7%duration%"
+  - ""
+  - "&fMinecraft-Inventory-Builder.com"
+  - ""
+message-ban-join:
+  - ""
+  - "&cYou are banned on server:"
+  - "&f%reason%"
+  - "&fRemaining time&8: &7%remaining%"
+  - ""
+  - "&fMinecraft-Inventory-Builder.com"
+  - ""

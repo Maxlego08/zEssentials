@@ -279,6 +279,7 @@ public enum Message {
     COMMAND_HOME_ADMIN_SET("#00ff00You just created home &f%name%#00ff00 of &b%player%#00ff00."),
     COMMAND_HOME_ADMIN_LIST("#8cc0cc%player% ʜᴏᴍᴇs&8:&f%homes%"),
     COMMAND_HOME_ADMIN_LIST_INFO(" <hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %player%:%name%'>&f%name%</click></hover>&7"),
+
     COMMAND_KICK_NOTIFY(MessageType.WITHOUT_PREFIX, "<click:run_command:/sc %target%>&8(#f59e07Sanction&8)</click> &f%player% <click:run_command:/sc %target%>#cf4229just kicked the player#c9b530 %target%#cf4229."),
     COMMAND_BAN_NOTIFY(MessageType.WITHOUT_PREFIX, "<click:run_command:/sc %target%>&8(#f59e07Sanction&8)</click> &f%player% <click:run_command:/sc %target%>#cf4229just banned the player #c9b530%target%#cf4229."),
     COMMAND_MUTE_NOTIFY(MessageType.WITHOUT_PREFIX, "<click:run_command:/sc %target%>&8(#f59e07Sanction&8)</click> &f%player% <click:run_command:/sc %target%>#cf4229just muted the player #c9b530%target%#cf4229."),
