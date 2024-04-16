@@ -54,8 +54,11 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 - [x] Command /pweather
 - [x] Command /ptime
 - [x] Command /heal
+- [x] Command /kittycannon
 - [x] Command /kick
 - [x] Command /kickall
+- [x] Command /mute
+- [x] Command /ban
 
 - [ ] Command /setwarp
 - [ ] Command /delwarp
