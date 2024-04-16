@@ -362,18 +362,26 @@ public class SchemaBuilder extends ZUtils implements Schema {
     }
 
     private void executeUpdate(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
-        StringBuilder insertQuery = new StringBuilder("UPDATE " + this.tableName + " SET ");
+        StringBuilder updateQuery = new StringBuilder("UPDATE " + this.tableName);
+
+        if (!this.joinConditions.isEmpty()) {
+            for (JoinCondition join : this.joinConditions) {
+                updateQuery.append(" ").append(join.getJoinClause());
+            }
+        }
+
+        updateQuery.append(" SET ");
 
         List<Object> values = new ArrayList<>();
 
         for (int i = 0; i < this.columns.size(); i++) {
             ColumnDefinition columnDefinition = this.columns.get(i);
-            insertQuery.append(i > 0 ? ", " : "").append(columnDefinition.getName()).append(" = ?");
+            updateQuery.append(i > 0 ? ", " : "").append(columnDefinition.getName()).append(" = ?");
             values.add(columnDefinition.getObject());
         }
 
-        this.whereConditions(insertQuery);
-        String upsertQuery = databaseConfiguration.replacePrefix(insertQuery.toString());
+        this.whereConditions(updateQuery);
+        String upsertQuery = databaseConfiguration.replacePrefix(updateQuery.toString());
 
         if (databaseConfiguration.debug()) {
             logger.info("Executing SQL: " + upsertQuery);
@@ -466,10 +474,10 @@ public class SchemaBuilder extends ZUtils implements Schema {
     }
 
     private void whereConditions(StringBuilder sql) {
-        if (!whereConditions.isEmpty()) {
+        if (!this.whereConditions.isEmpty()) {
             List<String> conditions = new ArrayList<>();
-            for (WhereCondition condition : whereConditions) {
-                conditions.add(condition.getColumn() + " = ?");
+            for (WhereCondition condition : this.whereConditions) {
+                conditions.add(condition.getCondition());
             }
             sql.append(" WHERE ").append(String.join(" AND ", conditions));
         }
@@ -549,7 +557,7 @@ public class SchemaBuilder extends ZUtils implements Schema {
 
         try (PreparedStatement statement = connection.prepareStatement(finalQuery)) {
             int index = 1;
-            for (WhereCondition condition : whereConditions) {
+            for (WhereCondition condition : this.whereConditions) {
                 statement.setObject(index++, condition.getValue());
             }
             statement.executeUpdate();
@@ -584,5 +592,11 @@ public class SchemaBuilder extends ZUtils implements Schema {
     @Override
     public Migration getMigration() {
         return migration;
+    }
+
+    @Override
+    public Schema leftJoin(String primaryTable, String primaryTableAlias, String primaryColumn, String foreignTable, String foreignColumn) {
+        joinConditions.add(new JoinCondition(primaryTable, primaryTableAlias, primaryColumn, foreignTable, foreignColumn));
+        return this;
     }
 }

@@ -60,7 +60,9 @@ public class SqlStorage extends StorageHelper implements IStorage {
         // this.repositories.register(ServerStorageRepository.class);
 
         plugin.getMigrationManager().execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), this.plugin.getLogger());
+
         this.repositories.getTable(UserCooldownsRepository.class).deleteExpiredCooldowns();
+        this.repositories.getTable(UserRepository.class).clearExpiredSanctions();
 
         /*List<ServerStorageDTO> serverStorageDTOS = this.repositories.getTable(ServerStorageRepository.class).select();
         plugin.getServerStorage().setContents(serverStorageDTOS);*/
