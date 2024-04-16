@@ -2,6 +2,8 @@ package fr.maxlego08.essentials;
 
 import fr.maxlego08.essentials.api.Configuration;
 import fr.maxlego08.essentials.api.commands.CommandCooldown;
+import fr.maxlego08.essentials.api.server.RedisConfiguration;
+import fr.maxlego08.essentials.api.server.ServerType;
 import fr.maxlego08.essentials.api.storage.DatabaseConfiguration;
 import fr.maxlego08.essentials.api.storage.StorageType;
 import fr.maxlego08.essentials.api.utils.CompactMaterial;
@@ -23,6 +25,8 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     private boolean enableCooldownBypass;
     private int trashSize;
     private DatabaseConfiguration databaseConfiguration;
+    private ServerType serverType;
+    private RedisConfiguration redisConfiguration;
 
     public MainConfiguration(ZEssentialsPlugin plugin) {
         this.plugin = plugin;
@@ -75,5 +79,15 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     @Override
     public DatabaseConfiguration getDatabaseConfiguration() {
         return this.databaseConfiguration;
+    }
+
+    @Override
+    public ServerType getServerType() {
+        return serverType;
+    }
+
+    @Override
+    public RedisConfiguration getRedisConfiguration() {
+        return redisConfiguration;
     }
 }

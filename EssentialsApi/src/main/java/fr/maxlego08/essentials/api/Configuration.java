@@ -1,6 +1,8 @@
 package fr.maxlego08.essentials.api;
 
 import fr.maxlego08.essentials.api.commands.CommandCooldown;
+import fr.maxlego08.essentials.api.server.RedisConfiguration;
+import fr.maxlego08.essentials.api.server.ServerType;
 import fr.maxlego08.essentials.api.storage.DatabaseConfiguration;
 import fr.maxlego08.essentials.api.storage.StorageType;
 import fr.maxlego08.essentials.api.utils.CompactMaterial;
@@ -26,5 +28,9 @@ public interface Configuration extends ConfigurationFile {
     StorageType getStorageType();
 
     DatabaseConfiguration getDatabaseConfiguration();
+
+    ServerType getServerType();
+
+    RedisConfiguration getRedisConfiguration();
 
 }

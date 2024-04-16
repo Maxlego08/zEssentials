@@ -11,6 +11,8 @@ import fr.maxlego08.essentials.api.modules.ModuleManager;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.essentials.api.storage.StorageManager;
+import fr.maxlego08.essentials.api.utils.EssentialsUtils;
+import fr.maxlego08.essentials.zutils.utils.ZEssentialsUtils;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
@@ -40,6 +42,7 @@ public class ZPlugin extends JavaPlugin {
     protected Gson gson;
     protected Persist persist;
     protected ServerImplementation serverImplementation;
+    protected final EssentialsUtils essentialsUtils = new ZEssentialsUtils();
 
     protected void registerCommand(String command, VCommand vCommand, String... aliases) {
         this.commandManager.registerCommand(this, command, vCommand, Arrays.asList(aliases));

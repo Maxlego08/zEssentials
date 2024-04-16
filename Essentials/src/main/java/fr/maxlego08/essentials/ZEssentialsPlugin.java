@@ -14,11 +14,14 @@ import fr.maxlego08.essentials.api.economy.EconomyProvider;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.placeholders.PlaceholderRegister;
+import fr.maxlego08.essentials.api.server.EssentialsServer;
+import fr.maxlego08.essentials.api.server.ServerType;
 import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.essentials.api.storage.ServerStorage;
 import fr.maxlego08.essentials.api.storage.StorageManager;
 import fr.maxlego08.essentials.api.storage.adapter.LocationAdapter;
 import fr.maxlego08.essentials.api.user.User;
+import fr.maxlego08.essentials.api.utils.EssentialsUtils;
 import fr.maxlego08.essentials.api.utils.Warp;
 import fr.maxlego08.essentials.buttons.ButtonHomes;
 import fr.maxlego08.essentials.buttons.ButtonPayConfirm;
@@ -36,6 +39,8 @@ import fr.maxlego08.essentials.module.ZModuleManager;
 import fr.maxlego08.essentials.module.modules.HomeModule;
 import fr.maxlego08.essentials.placeholders.DistantPlaceholder;
 import fr.maxlego08.essentials.placeholders.LocalPlaceholder;
+import fr.maxlego08.essentials.server.PaperServer;
+import fr.maxlego08.essentials.server.redis.RedisServer;
 import fr.maxlego08.essentials.storage.ConfigStorage;
 import fr.maxlego08.essentials.storage.ZStorageManager;
 import fr.maxlego08.essentials.storage.adapter.UserTypeAdapter;
@@ -66,6 +71,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     private InventoryManager inventoryManager;
     private ButtonManager buttonManager;
     private PatternManager patternManager;
+    private EssentialsServer essentialsServer = new PaperServer();
 
     @Override
     public void onEnable() {
@@ -111,6 +117,14 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
         this.getLogger().info("Create " + this.commandManager.countCommands() + " commands.");
 
+        // Essentials Server
+        if (this.configuration.getServerType() == ServerType.REDIS) {
+            this.essentialsServer = new RedisServer(this);
+            this.getLogger().info("Using Redis server.");
+        }
+
+        this.essentialsServer.onEnable();
+
         // Storage
         this.storageManager = new ZStorageManager(this);
         this.registerListener(this.storageManager);
@@ -143,6 +157,8 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         // Storage
         if (this.storageManager != null) this.storageManager.onDisable();
         if (this.persist != null) ConfigStorage.getInstance().save(this.persist);
+
+        this.essentialsServer.onDisable();
 
     }
 
@@ -304,5 +320,15 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     @Override
     public User getUser(UUID uniqueId) {
         return this.storageManager.getStorage().getUser(uniqueId);
+    }
+
+    @Override
+    public EssentialsServer getEssentialsServer() {
+        return this.essentialsServer;
+    }
+
+    @Override
+    public EssentialsUtils getUtils() {
+        return this.essentialsUtils;
     }
 }
