@@ -12,7 +12,7 @@ import java.util.UUID;
 public class UserRepository extends Repository {
 
     public UserRepository(SqlConnection connection) {
-        super(connection, "players");
+        super(connection, "users");
     }
 
     /**
@@ -48,13 +48,13 @@ public class UserRepository extends Repository {
     public void clearExpiredSanctions() {
         // Removes ban sanctions
         update(table -> {
-            table.leftJoin("%prefix%sanctions", "zs", "id", "%prefix%players", "ban_sanction_id");
+            table.leftJoin("%prefix%sanctions", "zs", "id", "%prefix%users", "ban_sanction_id");
             table.string("ban_sanction_id", null);
             table.where("zs.expired_at", "<", new Date());
         });
         // Removes mute sanctions
         update(table -> {
-            table.leftJoin("%prefix%sanctions", "zs", "id", "%prefix%players", "mute_sanction_id");
+            table.leftJoin("%prefix%sanctions", "zs", "id", "%prefix%users", "mute_sanction_id");
             table.string("mute_sanction_id", null);
             table.where("zs.expired_at", "<", new Date());
         });

@@ -63,6 +63,8 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
         this.repositories.getTable(UserCooldownsRepository.class).deleteExpiredCooldowns();
         this.repositories.getTable(UserRepository.class).clearExpiredSanctions();
+        List<SanctionDTO> sanctionDTOS = this.repositories.getTable(UserSanctionRepository.class).getActiveBan();
+        System.out.println("Active ban: " + sanctionDTOS.size());
 
         /*List<ServerStorageDTO> serverStorageDTOS = this.repositories.getTable(ServerStorageRepository.class).select();
         plugin.getServerStorage().setContents(serverStorageDTOS);*/

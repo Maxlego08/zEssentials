@@ -47,6 +47,7 @@ public interface Schema {
     Schema where(String columnName, Object value);
     Schema where(String columnName, UUID value);
     Schema where(String columnName, String operator, Object value);
+    Schema whereNotNull(String columnName);
     Schema leftJoin(String primaryTable, String primaryColumnAlias, String primaryColumn, String foreignTable, String foreignColumn);
 
     // Execution methods
@@ -57,5 +58,6 @@ public interface Schema {
 
     // Migration method
     Migration getMigration();
+
 }
 

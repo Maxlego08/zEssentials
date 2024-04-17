@@ -4,6 +4,7 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.event.UserEvent;
 import fr.maxlego08.essentials.api.event.events.UserFirstJoinEvent;
+import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.user.User;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class StorageHelper extends ZUtils{
     protected long totalUser = 0;
 
     protected final Map<String, UUID> localUUIDS = new HashMap<>();
+    protected final Map<UUID, Sanction> banSanctions = new HashMap<>();
 
     public StorageHelper(EssentialsPlugin plugin) {
         this.plugin = plugin;

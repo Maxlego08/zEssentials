@@ -8,7 +8,7 @@ public class CreateSanctionsTableMigration extends Migration {
     public void up() {
         SchemaBuilder.create(this, "%prefix%sanctions", table -> {
             table.autoIncrement("id").primary();
-            table.uuid("player_unique_id").foreignKey("%prefix%players", "unique_id", true);
+            table.uuid("player_unique_id").foreignKey("%prefix%users", "unique_id", true);
             table.uuid("sender_unique_id");
             table.string("sanction_type", 255);
             table.longText("reason");

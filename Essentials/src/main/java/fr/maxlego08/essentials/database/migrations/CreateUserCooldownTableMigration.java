@@ -6,8 +6,8 @@ import fr.maxlego08.essentials.database.SchemaBuilder;
 public class CreateUserCooldownTableMigration extends Migration {
     @Override
     public void up() {
-        SchemaBuilder.create(this, "%prefix%player_cooldowns", table -> {
-            table.uuid("unique_id").primary().foreignKey("%prefix%players");
+        SchemaBuilder.create(this, "%prefix%user_cooldowns", table -> {
+            table.uuid("unique_id").primary().foreignKey("%prefix%users");
             table.string("cooldown_name", 255).primary();
             table.bigInt("cooldown_value");
             table.timestamps();

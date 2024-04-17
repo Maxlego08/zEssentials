@@ -28,4 +28,11 @@ public class UserSanctionRepository extends Repository {
         List<SanctionDTO> sanctionDTOS = select(SanctionDTO.class, table -> table.where("id", integer));
         return sanctionDTOS.isEmpty() ? null : sanctionDTOS.get(0);
     }
+
+    public List<SanctionDTO> getActiveBan() {
+        return select(SanctionDTO.class, table -> {
+            table.leftJoin("%prefix%users", "zp", "ban_sanction_id", "%prefix%sanctions", "id");
+            table.whereNotNull("zp.ban_sanction_id");
+        });
+    }
 }

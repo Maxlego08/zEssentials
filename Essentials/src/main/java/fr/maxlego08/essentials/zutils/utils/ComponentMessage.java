@@ -127,7 +127,6 @@ public class ComponentMessage extends PlaceholderUtils {
     }
 
     public void sendMessage(CommandSender sender, String message) {
-        System.out.println("Je vais envoyer: '" + message + "'");
         Component component = this.cache.get(message, () -> this.MINI_MESSAGE.deserialize(colorMiniMessage(message)));
         sender.sendMessage(component);
     }

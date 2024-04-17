@@ -107,6 +107,12 @@ public class SchemaBuilder extends ZUtils implements Schema {
     }
 
     @Override
+    public Schema whereNotNull(String columnName) {
+        this.whereConditions.add(new WhereCondition(columnName));
+        return this;
+    }
+
+    @Override
     public Schema uuid(String columnName) {
         this.string(columnName, 36);
         return this;
@@ -391,10 +397,7 @@ public class SchemaBuilder extends ZUtils implements Schema {
             for (int i = 0; i < values.size(); i++) {
                 preparedStatement.setObject(i + 1, values.get(i));
             }
-            int index = values.size() + 1;
-            for (WhereCondition condition : whereConditions) {
-                preparedStatement.setObject(index++, condition.getValue());
-            }
+            applyWhereConditions(preparedStatement, values.size() + 1);
             preparedStatement.executeUpdate();
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -494,14 +497,11 @@ public class SchemaBuilder extends ZUtils implements Schema {
             logger.info("Executing SQL: " + finalQuery);
         }
 
-        try (PreparedStatement statement = connection.prepareStatement(finalQuery)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(finalQuery)) {
 
-            int index = 1;
-            for (WhereCondition condition : whereConditions) {
-                statement.setObject(index++, condition.getValue());
-            }
+            applyWhereConditions(preparedStatement, 1);
 
-            ResultSet resultSet = statement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 return resultSet.getInt(1);
             }
@@ -515,21 +515,25 @@ public class SchemaBuilder extends ZUtils implements Schema {
     @Override
     public List<Map<String, Object>> executeSelect(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
         List<Map<String, Object>> results = new ArrayList<>();
-        StringBuilder sql = new StringBuilder("SELECT * FROM " + tableName);
-        this.whereConditions(sql);
+        StringBuilder selectQuery = new StringBuilder("SELECT * FROM " + tableName);
 
-        String finalQuery = databaseConfiguration.replacePrefix(sql.toString());
+        if (!this.joinConditions.isEmpty()) {
+            for (JoinCondition join : this.joinConditions) {
+                selectQuery.append(" ").append(join.getJoinClause());
+            }
+        }
+
+        this.whereConditions(selectQuery);
+
+        String finalQuery = databaseConfiguration.replacePrefix(selectQuery.toString());
         if (databaseConfiguration.debug()) {
             logger.info("Executing SQL: " + finalQuery);
         }
 
-        try (PreparedStatement statement = connection.prepareStatement(finalQuery)) {
-            int index = 1;
-            for (WhereCondition condition : whereConditions) {
-                statement.setObject(index++, condition.getValue());
-            }
+        try (PreparedStatement preparedStatement = connection.prepareStatement(finalQuery)) {
+            applyWhereConditions(preparedStatement, 1);
 
-            try (ResultSet resultSet = statement.executeQuery()) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     Map<String, Object> row = new HashMap<>();
                     for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
@@ -555,12 +559,17 @@ public class SchemaBuilder extends ZUtils implements Schema {
             logger.info("Executing SQL: " + finalQuery);
         }
 
-        try (PreparedStatement statement = connection.prepareStatement(finalQuery)) {
-            int index = 1;
-            for (WhereCondition condition : this.whereConditions) {
-                statement.setObject(index++, condition.getValue());
+        try (PreparedStatement preparedStatement = connection.prepareStatement(finalQuery)) {
+            applyWhereConditions(preparedStatement, 1);
+            preparedStatement.executeUpdate();
+        }
+    }
+
+    private void applyWhereConditions(PreparedStatement preparedStatement, int index) throws SQLException {
+        for (WhereCondition condition : this.whereConditions) {
+            if (!condition.isNotNull()) {
+                preparedStatement.setObject(index++, condition.getValue());
             }
-            statement.executeUpdate();
         }
     }
 
