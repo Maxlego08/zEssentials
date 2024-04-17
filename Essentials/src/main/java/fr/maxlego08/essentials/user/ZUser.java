@@ -487,7 +487,7 @@ public class ZUser extends ZUtils implements User {
 
     @Override
     public void setMuteSanction(Sanction sanction) {
-        this.muteId = sanction.getId();
+        this.muteId = sanction == null ? 0 : sanction.getId();
         this.muteSanction = sanction;
     }
 

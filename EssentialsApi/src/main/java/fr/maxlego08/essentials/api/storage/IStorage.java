@@ -2,7 +2,6 @@ package fr.maxlego08.essentials.api.storage;
 
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
-import fr.maxlego08.essentials.api.exception.UserBanException;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.user.Option;
@@ -58,9 +57,12 @@ public interface IStorage {
     void insertSanction(Sanction sanction, Consumer<Integer> consumer);
 
     void updateUserBan(UUID uuid, Integer index);
-    void updateMuteBan(UUID uuid, Integer index);
+    
+    void updateUserMute(UUID uuid, Integer index);
 
     boolean isBan(UUID uuid);
 
     Sanction getBan(UUID uuid);
+
+    boolean isMute(UUID uuid);
 }

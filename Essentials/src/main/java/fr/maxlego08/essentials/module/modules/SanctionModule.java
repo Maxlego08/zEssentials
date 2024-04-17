@@ -98,7 +98,7 @@ public class SanctionModule extends ZModule {
         server.kickPlayer(uuid, Message.MESSAGE_BAN, "%reason%", reason, "%duration%", TimerBuilder.getStringTime(duration.toMillis()));
 
         // Broadcast a notification message to players with the ban notify permission
-        server.broadcastMessage(Permission.ESSENTIALS_BAN_NOTIFY, Message.COMMAND_BAN_NOTIFY, "%player%", sender.getName(), "%target%", playerName, "%reason%", reason);
+        server.broadcastMessage(Permission.ESSENTIALS_BAN_NOTIFY, Message.COMMAND_BAN_NOTIFY, "%player%", sender.getName(), "%target%", playerName, "%reason%", reason, "%duration%", TimerBuilder.getStringTime(duration.toMillis()));
     }
 
     /**
@@ -128,7 +128,7 @@ public class SanctionModule extends ZModule {
         Sanction sanction = Sanction.mute(uuid, getSenderUniqueId(sender), reason, duration, finishAt);
         iStorage.insertSanction(sanction, index -> {
             sanction.setId(index);
-            iStorage.updateMuteBan(uuid, index);
+            iStorage.updateUserMute(uuid, index);
 
             User user = iStorage.getUser(uuid);
             if (user != null) {// If user is online, update cache
@@ -140,7 +140,93 @@ public class SanctionModule extends ZModule {
         server.sendMessage(uuid, Message.MESSAGE_MUTE, "%reason%", reason, "%duration%", TimerBuilder.getStringTime(duration.toMillis()));
 
         // Broadcast a notification message to players with the mute notify permission
-        server.broadcastMessage(Permission.ESSENTIALS_MUTE_NOTIFY, Message.COMMAND_MUTE_NOTIFY, "%player%", sender.getName(), "%target%", playerName, "%reason%", reason);
+        server.broadcastMessage(Permission.ESSENTIALS_MUTE_NOTIFY, Message.COMMAND_MUTE_NOTIFY, "%player%", sender.getName(), "%target%", playerName, "%reason%", reason, "%duration%", TimerBuilder.getStringTime(duration.toMillis()));
+    }
+
+    /**
+     * UnMute a player with a reason.
+     *
+     * @param sender     The command sender.
+     * @param uuid       The UUID of the player to unmute.
+     * @param playerName The name of the player to unmute.
+     * @param reason     The reason for the unmute.
+     */
+    public void unmute(CommandSender sender, UUID uuid, String playerName, String reason) {
+
+        IStorage iStorage = plugin.getStorageManager().getStorage();
+
+        User user = iStorage.getUser(uuid);
+        if (user == null) {
+            // Check is user is mute
+            this.plugin.getScheduler().runAsync(wrappedTask -> {
+                if (!iStorage.isMute(uuid)) {
+                    message(sender, Message.COMMAND_UN_MUTE_ERROR, "%player%", playerName);
+                    return;
+                }
+
+                processUnmute(sender, uuid, playerName, reason);
+            });
+        } else {
+            // Check is user is mute
+            if (!user.isMute()) {
+                message(sender, Message.COMMAND_UN_MUTE_ERROR, "%player%", playerName);
+                return;
+            }
+
+            processUnmute(sender, uuid, playerName, reason);
+        }
+    }
+
+    private void processUnmute(CommandSender sender, UUID uuid, String playerName, String reason) {
+
+        EssentialsServer server = plugin.getEssentialsServer();
+        IStorage iStorage = plugin.getStorageManager().getStorage();
+
+        // Create and save the sanction
+        Sanction sanction = Sanction.unmute(uuid, getSenderUniqueId(sender), reason);
+        iStorage.insertSanction(sanction, index -> {
+            sanction.setId(index);
+            iStorage.updateUserMute(uuid, null);
+
+            User user = iStorage.getUser(uuid);
+            if (user != null) { // If user is online, update cache
+                user.setMuteSanction(null);
+            }
+        });
+
+        // Mute the player with the specified reason and duration
+        server.sendMessage(uuid, Message.MESSAGE_UNMUTE, "%reason%", reason);
+
+        // Broadcast a notification message to players with the mute notify permission
+        server.broadcastMessage(Permission.ESSENTIALS_UNMUTE_NOTIFY, Message.COMMAND_UNMUTE_NOTIFY, "%player%", sender.getName(), "%target%", playerName, "%reason%", reason);
+    }
+
+    /**
+     * UnBan a player with a reason.
+     *
+     * @param sender     The command sender.
+     * @param uuid       The UUID of the player to unban.
+     * @param playerName The name of the player to unban.
+     * @param reason     The reason for the unban.
+     */
+    public void unban(CommandSender sender, UUID uuid, String playerName, String reason) {
+
+        EssentialsServer server = plugin.getEssentialsServer();
+        IStorage iStorage = plugin.getStorageManager().getStorage();
+        if (!iStorage.isBan(uuid)) {
+            message(sender, Message.COMMAND_UN_BAN_ERROR, "%player%", playerName);
+            return;
+        }
+
+        // Create and save the sanction
+        Sanction sanction = Sanction.unban(uuid, getSenderUniqueId(sender), reason);
+        iStorage.insertSanction(sanction, index -> {
+            sanction.setId(index);
+            iStorage.updateUserBan(uuid, null);
+        });
+
+        // Broadcast a notification message to players with the mute notify permission
+        server.broadcastMessage(Permission.ESSENTIALS_UNBAN_NOTIFY, Message.COMMAND_UNBAN_NOTIFY, "%player%", sender.getName(), "%target%", playerName, "%reason%", reason);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)

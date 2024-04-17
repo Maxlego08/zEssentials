@@ -44,9 +44,9 @@ public class ZModuleManager implements ModuleManager {
         this.modules.put(HomeModule.class, new HomeModule(this.plugin));
         this.modules.put(SanctionModule.class, new SanctionModule(this.plugin));
 
-        this.modules.values().stream().filter(Module::isRegisterEvent).forEach(module -> Bukkit.getPluginManager().registerEvents(module, this.plugin));
-
         this.loadConfigurations();
+
+        this.modules.values().stream().filter(Module::isRegisterEvent).filter(Module::isEnable).forEach(module -> Bukkit.getPluginManager().registerEvents(module, this.plugin));
     }
 
     @Override

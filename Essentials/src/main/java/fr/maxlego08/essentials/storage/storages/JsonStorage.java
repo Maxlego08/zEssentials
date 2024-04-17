@@ -237,16 +237,21 @@ public class JsonStorage extends StorageHelper implements IStorage {
 
     @Override
     public void insertSanction(Sanction sanction, Consumer<Integer> consumer) {
-        throw new NotImplementedException("insertSanction is not implemented");
+        throw new NotImplementedException("insertSanction is not implemented, use MYSQL storage");
     }
 
     @Override
     public void updateUserBan(UUID uuid, Integer index) {
-        throw new NotImplementedException("updateUserBan is not implemented");
+        throw new NotImplementedException("updateUserBan is not implemented, use MYSQL storage");
     }
 
     @Override
-    public void updateMuteBan(UUID uuid, Integer index) {
-        throw new NotImplementedException("updateMuteBan is not implemented");
+    public void updateUserMute(UUID uuid, Integer index) {
+        throw new NotImplementedException("updateMuteBan is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public boolean isMute(UUID uuid) {
+        throw new NotImplementedException("isMute is not implemented, use MYSQL storage");
     }
 }

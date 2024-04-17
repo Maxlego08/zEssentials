@@ -40,6 +40,14 @@ public class Sanction {
         return new Sanction(-1, playerUniqueId, senderUniqueId, reason, duration.toMillis(), new Date(), finishAt, SanctionType.MUTE);
     }
 
+    public static Sanction unmute(UUID playerUniqueId, UUID senderUniqueId, String reason) {
+        return new Sanction(-1, playerUniqueId, senderUniqueId, reason, 0, new Date(), new Date(), SanctionType.UNMUTE);
+    }
+
+    public static Sanction unban(UUID playerUniqueId, UUID senderUniqueId, String reason) {
+        return new Sanction(-1, playerUniqueId, senderUniqueId, reason, 0, new Date(), new Date(), SanctionType.UNBAN);
+    }
+
     public static Sanction fromDTO(SanctionDTO sanctionDTO) {
         return new Sanction(sanctionDTO.id(), sanctionDTO.player_unique_id(), sanctionDTO.sender_unique_id(), sanctionDTO.reason(), sanctionDTO.duration(), sanctionDTO.created_at(), sanctionDTO.expired_at(), sanctionDTO.sanction_type());
     }

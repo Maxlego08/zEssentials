@@ -7,6 +7,7 @@ import fr.maxlego08.essentials.api.database.dto.UserDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.sanction.Sanction;
+import fr.maxlego08.essentials.api.sanction.SanctionType;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
@@ -249,16 +250,38 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     @Override
     public void insertSanction(Sanction sanction, Consumer<Integer> consumer) {
+        if (sanction.getSanctionType() == SanctionType.BAN) {
+            this.banSanctions.put(sanction.getPlayerUniqueId(), sanction);
+        } else if (sanction.getSanctionType() == SanctionType.UNBAN) {
+            this.banSanctions.remove(sanction.getPlayerUniqueId());
+        }
+
         async(() -> this.repositories.getTable(UserSanctionRepository.class).insert(sanction, consumer));
     }
 
     @Override
     public void updateUserBan(UUID uuid, Integer index) {
+        if (index == null) this.banSanctions.remove(uuid);
         async(() -> this.repositories.getTable(UserRepository.class).updateBanId(uuid, index));
     }
 
     @Override
-    public void updateMuteBan(UUID uuid, Integer index) {
+    public void updateUserMute(UUID uuid, Integer index) {
         async(() -> this.repositories.getTable(UserRepository.class).updateMuteId(uuid, index));
+    }
+
+    @Override
+    public boolean isMute(UUID uuid) {
+
+        List<UserDTO> userDTOS = this.repositories.getTable(UserRepository.class).selectUser(uuid);
+        if (userDTOS.isEmpty()) return false;
+
+        UserDTO userDTO = userDTOS.get(0);
+
+        if (userDTO.mute_sanction_id() != null) {
+            SanctionDTO sanction = this.repositories.getTable(UserSanctionRepository.class).getSanction(userDTO.mute_sanction_id());
+            return sanction.isActive();
+        }
+        return false;
     }
 }

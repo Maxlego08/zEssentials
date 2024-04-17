@@ -167,6 +167,8 @@ public enum Message {
     DESCRIPTION_KITTY_CANNON("Launch kitty, wtf you want to do that ? monster"),
     DESCRIPTION_BAN("Ban a player"),
     DESCRIPTION_MUTE("Mute a player"),
+    DESCRIPTION_UN_MUTE("Unmute a player"),
+    DESCRIPTION_UN_BAN("Unban a player"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -280,11 +282,15 @@ public enum Message {
     COMMAND_HOME_ADMIN_LIST("#8cc0cc%player% ʜᴏᴍᴇs&8:&f%homes%"),
     COMMAND_HOME_ADMIN_LIST_INFO(" <hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %player%:%name%'>&f%name%</click></hover>&7"),
 
-    COMMAND_KICK_NOTIFY(MessageType.WITHOUT_PREFIX, "<click:run_command:/sc %target%>&8(#f59e07Sanction&8)</click> &f%player% <click:run_command:/sc %target%>#cf4229just kicked the player#c9b530 %target%#cf4229."),
-    COMMAND_BAN_NOTIFY(MessageType.WITHOUT_PREFIX, "<click:run_command:/sc %target%>&8(#f59e07Sanction&8)</click> &f%player% <click:run_command:/sc %target%>#cf4229just banned the player #c9b530%target%#cf4229."),
-    COMMAND_MUTE_NOTIFY(MessageType.WITHOUT_PREFIX, "<click:run_command:/sc %target%>&8(#f59e07Sanction&8)</click> &f%player% <click:run_command:/sc %target%>#cf4229just muted the player #c9b530%target%#cf4229."),
+    COMMAND_KICK_NOTIFY(MessageType.WITHOUT_PREFIX, "&8(#f59e07Sanction&8) #8aebeb%player% #e33414just kicked the player #e0d12d%target%#e33414."),
+    COMMAND_BAN_NOTIFY(MessageType.WITHOUT_PREFIX, "&8(#f59e07Sanction&8) #8aebeb%player% #e33414just banned the player #e0d12d%target%#e33414."),
+    COMMAND_MUTE_NOTIFY(MessageType.WITHOUT_PREFIX, "&8(#f59e07Sanction&8) #8aebeb%player% #e33414just muted the player #e0d12d%target%#e33414."),
+    COMMAND_UNMUTE_NOTIFY(MessageType.WITHOUT_PREFIX, "&8(#f59e07Sanction&8) #8aebeb%player% #e33414just unmuted the player #e0d12d%target%#e33414."),
+    COMMAND_UNBAN_NOTIFY(MessageType.WITHOUT_PREFIX, "&8(#f59e07Sanction&8) #8aebeb%player% #e33414just unbanned the player #e0d12d%target%#e33414."),
     COMMAND_BAN_ERROR_DURATION("#ff0000The duration of a banishment must be at least 1 second."),
     COMMAND_MUTE_ERROR_DURATION("#ff0000The duration of a mute must be at least 1 second."),
+    COMMAND_UN_MUTE_ERROR("&f%player% #ff0000is not mute."),
+    COMMAND_UN_BAN_ERROR("&f%player% #ff0000is not ban."),
 
     MESSAGE_KICK(
             "",
@@ -299,6 +305,13 @@ public enum Message {
             "",
             "&fYou have just lost your <u>voice</u>.",
             "&fDuration&8: <gradient:#7ae856:#a1d909>%duration%</gradient>",
+            "&fReason&8: #82d1ff%reason%",
+            ""
+    ),
+
+    MESSAGE_UNMUTE(
+            "",
+            "&fYou have just regained your <u>voice</u>, congratulations !",
             "&fReason&8: #82d1ff%reason%",
             ""
     ),
