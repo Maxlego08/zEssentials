@@ -21,7 +21,7 @@ public interface IStorage {
 
     void onDisable();
 
-    User createOrLoad(UUID uniqueId, String playerName) throws UserBanException;
+    User createOrLoad(UUID uniqueId, String playerName);
 
     void onPlayerQuit(UUID uniqueId);
 
@@ -59,4 +59,8 @@ public interface IStorage {
 
     void updateUserBan(UUID uuid, Integer index);
     void updateMuteBan(UUID uuid, Integer index);
+
+    boolean isBan(UUID uuid);
+
+    Sanction getBan(UUID uuid);
 }
