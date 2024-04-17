@@ -56,6 +56,7 @@ public class ZUser extends ZUtils implements User {
     private Sanction muteSanction;
     private Sanction banSanction;
     private List<Sanction> fakeSanctions;
+    private String lastMessage;
 
     public ZUser(EssentialsPlugin plugin, UUID uniqueId) {
         this.plugin = plugin;
@@ -529,5 +530,15 @@ public class ZUser extends ZUtils implements User {
     public void setBanSanction(Sanction banSanction) {
         this.banId = banSanction != null ? banSanction.getId() : 0;
         this.banSanction = banSanction;
+    }
+
+    @Override
+    public String getLastMessage() {
+        return lastMessage;
+    }
+
+    @Override
+    public void setLastMessage(String lastMessage) {
+        this.lastMessage = lastMessage;
     }
 }

@@ -7,16 +7,7 @@
 # ███████╗╚█████╔╝╚█████╔╝██║░╚███║╚█████╔╝██║░╚═╝░██║░░░██║░░░
 # ╚══════╝░╚════╝░░╚════╝░╚═╝░░╚══╝░╚════╝░╚═╝░░░░░╚═╝░░░╚═╝░░░
 #
-# Commands:
-# /economy (/eco) - essentials.eco.use - Manages the server economies
-# /economy give <economy> <player> <amount> [<silent>] - essentials.eco.give - Gives the specified player the specified amount of money
-# /economy giveall <economy> <amount> [<silent>] - essentials.eco.give.all - Gives for all players the specified amount of money
-# /economy take <economy> <player> <amount> [<silent>] - essentials.eco.take - Takes the specified amount of money from the specified player
-# /economy reset <economy> <player> [<silent>] - essentials.eco.reset - Resets the specified player's balance to the server's starting balance
-# /economy set <economy> <player> <amount> [<silent>] - essentials.eco.set - Sets the specified player's balance to the specified amount of money
-# /economy show <player> - essentials.eco.show - Show player money
-# /money (/balance) - essentials.money - Show your money
-# /pay <player> <amount> [<economy>] - essentials.pay - Pays another player from your balance
+# Documentation: https://zessentials.groupez.dev/modules/economy
 #
 ########################################################################################################################
 

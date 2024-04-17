@@ -1,0 +1,55 @@
+########################################################################################################################
+#
+# ░█████╗░██╗░░██╗░█████╗░████████╗
+# ██╔══██╗██║░░██║██╔══██╗╚══██╔══╝
+# ██║░░╚═╝███████║███████║░░░██║░░░
+# ██║░░██╗██╔══██║██╔══██║░░░██║░░░
+# ╚█████╔╝██║░░██║██║░░██║░░░██║░░░
+# ░╚════╝░╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░
+#
+# Bypass Permissions:
+# essentials.chat.bypass.alphanumeric
+# essentials.chat.bypass.dynamic.cooldown
+# essentials.chat.bypass.link
+# essentials.chat.bypass.same.message
+# essentials.chat.bypass.disable
+#
+########################################################################################################################
+
+enable: true
+
+# Enables verification of authorized characters in chat
+enable-alphanumeric-regex: true
+
+# Check whether the message contains links
+enable-link-regex: true
+
+# Remove images that players are trying to put in the chat, for example: the message 'hey:auction:' will become: 'hey auction'
+enable-itemadders-font-regex: true
+
+# Allows to apply a dynamic cooldown between each message of a player, the more the player will spam the more he will have a great cooldown
+enable-chat-dynamic-cooldown: true
+
+# Regex to check allowed characters
+# You can test the regex here before changing the default one: https://regex101.com/
+alphanumeric-regex: '^[a-zA-Z0-9_.?!^¨%ù*&é"#''{(\[-|èêë`\\çà)\]=}ûî+<>:²€$/\\-,â@;ô ]+$'
+
+# Regex to check links
+# You can test the regex here before changing the default one: https://regex101.com/
+link-regex: '[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)'
+
+# Regex to check itemAdders font
+itemadders-font-regex: '(?<=:)(.*?)(?=\s*\:)'
+
+# Set the number of messages and cooldown between each message in milliseconds
+# The faster the player will send message the faster the cooldown between each message will be
+chat-cooldowns:
+  - messages: 2
+    cooldown: 1500 # max 1.5s
+  - messages: 4
+    cooldown: 12000 # max 12s
+  - messages: 10
+    cooldown: 60000 # max 60s
+
+# Number of messages that will be in memory to be analyzed during the cooldown
+chat-cooldown-max: 50

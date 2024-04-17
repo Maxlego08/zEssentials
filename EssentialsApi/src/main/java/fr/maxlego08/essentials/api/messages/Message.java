@@ -348,6 +348,14 @@ public enum Message {
             ""
     ),
 
+    // Chat
+    CHAT_ERROR("#ff0000Impossible to let you speak, your data is not loaded."),
+    CHAT_ALPHANUMERIC_REGEX("#ff0000You use a forbidden character."),
+    CHAT_COOLDOWN("#ff0000Please wait before sending your next message. &8(&7%cooldown%&8)"),
+    CHAT_SAME("#ff0000You can’t put the same sentence."),
+    CHAT_LINK("#ff0000You cannot send a link in the chat."),
+    CHAT_DISABLE("#ff0000The chat is currently unavailable."),
+
     ;
 
     private String message;

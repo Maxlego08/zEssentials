@@ -481,4 +481,8 @@ public interface User {
     void setBanSanction(Sanction ban);
 
     Sanction getBanSanction();
+
+    String getLastMessage();
+
+    void setLastMessage(String message);
 }
