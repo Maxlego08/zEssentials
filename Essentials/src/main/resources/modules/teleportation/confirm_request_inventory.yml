@@ -17,7 +17,7 @@ items:
       name: '#99E0FF%zessentials_user_target_player_name%'
 
   confirm:
-    type: ESSENTIALS_TELEPORTATION_CONFIRM
+    type: ZESSENTIALS_TELEPORTATION_CONFIRM
     slot: 16
     closeInventory: true
     item:

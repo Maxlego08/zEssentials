@@ -7,6 +7,7 @@ import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.HomeDTO;
 import fr.maxlego08.essentials.api.database.dto.OptionDTO;
+import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.messages.Message;
@@ -53,10 +54,18 @@ public class ZUser extends ZUtils implements User {
     private int banId;
     private int muteId;
     private Sanction muteSanction;
+    private Sanction banSanction;
+    private List<Sanction> fakeSanctions;
 
     public ZUser(EssentialsPlugin plugin, UUID uniqueId) {
         this.plugin = plugin;
         this.uniqueId = uniqueId;
+    }
+
+    public static User fakeUser(EssentialsPlugin plugin, UUID uniqueId, String userName) {
+        User user = new ZUser(plugin, uniqueId);
+        user.setName(userName);
+        return user;
     }
 
     private IStorage getStorage() {
@@ -265,6 +274,11 @@ public class ZUser extends ZUtils implements User {
     public void setOption(Option option, boolean value) {
         this.options.put(option, value);
         this.getStorage().updateOption(this.uniqueId, option, value);
+    }
+
+    @Override
+    public void setFakeOption(Option option, boolean value) {
+        this.options.put(option, value);
     }
 
     @Override
@@ -494,5 +508,26 @@ public class ZUser extends ZUtils implements User {
     @Override
     public boolean isMute() {
         return this.muteSanction != null && this.muteSanction.isActive();
+    }
+
+    @Override
+    public List<Sanction> getFakeSanctions() {
+        return this.fakeSanctions;
+    }
+
+    @Override
+    public void setFakeSanctions(List<SanctionDTO> sanctions) {
+        this.fakeSanctions = sanctions.stream().map(Sanction::fromDTO).toList();
+    }
+
+    @Override
+    public Sanction getBanSanction() {
+        return banSanction;
+    }
+
+    @Override
+    public void setBanSanction(Sanction banSanction) {
+        this.banId = banSanction != null ? banSanction.getId() : 0;
+        this.banSanction = banSanction;
     }
 }

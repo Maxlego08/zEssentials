@@ -19,6 +19,7 @@ import fr.maxlego08.essentials.commands.commands.home.CommandSetHome;
 import fr.maxlego08.essentials.commands.commands.sanction.CommandBan;
 import fr.maxlego08.essentials.commands.commands.sanction.CommandKickAll;
 import fr.maxlego08.essentials.commands.commands.sanction.CommandMute;
+import fr.maxlego08.essentials.commands.commands.sanction.CommandSanction;
 import fr.maxlego08.essentials.commands.commands.sanction.CommandUnBan;
 import fr.maxlego08.essentials.commands.commands.sanction.CommandUnMute;
 import fr.maxlego08.essentials.commands.commands.spawn.CommandSetSpawn;
@@ -148,6 +149,7 @@ public class CommandLoader {
         register("unban", CommandUnBan.class);
         register("kick", CommandKick.class);
         register("kickall", CommandKickAll.class);
+        register("sanction", CommandSanction.class, "sc");
 
         register("kittycannon", CommandKittyCannon.class);
 

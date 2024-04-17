@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.storage.storages;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.HomeDTO;
+import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.sanction.Sanction;
@@ -18,6 +19,7 @@ import org.bukkit.OfflinePlayer;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -253,5 +255,15 @@ public class JsonStorage extends StorageHelper implements IStorage {
     @Override
     public boolean isMute(UUID uuid) {
         throw new NotImplementedException("isMute is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public Sanction getMute(UUID uuid) {
+        throw new NotImplementedException("getMute is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public List<SanctionDTO> getSanctions(UUID uuid) {
+        throw new NotImplementedException("getSanctions is not implemented, use MYSQL storage");
     }
 }

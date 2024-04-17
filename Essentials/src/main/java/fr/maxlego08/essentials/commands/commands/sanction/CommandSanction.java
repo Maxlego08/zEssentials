@@ -9,15 +9,14 @@ import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 
 import java.util.List;
 
-public class CommandUnBan extends VCommand {
-    public CommandUnBan(EssentialsPlugin plugin) {
+public class CommandSanction extends VCommand {
+    public CommandSanction(EssentialsPlugin plugin) {
         super(plugin);
         this.setModule(SanctionModule.class);
-        this.setPermission(Permission.ESSENTIALS_UN_BAN);
-        this.setDescription(Message.DESCRIPTION_UN_MUTE);
+        this.setPermission(Permission.ESSENTIALS_SANCTION);
+        this.setDescription(Message.DESCRIPTION_SANCTION);
         this.addRequirePlayerNameArg();
-        this.addOptionalArg("reason", (a, b) -> List.of(""));
-        this.setExtendedArgs(true);
+        this.onlyPlayers();
     }
 
     @Override
@@ -25,9 +24,8 @@ public class CommandUnBan extends VCommand {
 
         SanctionModule sanctionModule = plugin.getModuleManager().getModule(SanctionModule.class);
         String userName = this.argAsString(0);
-        String reason = args.length > 1 ? getArgs(1) : sanctionModule.getBanDefaultReason();
 
-        fetchUniqueId(userName, uuid -> sanctionModule.unban(sender, uuid, userName, reason));
+        fetchUniqueId(userName, uuid -> sanctionModule.openSanction(user, uuid, userName));
 
         return CommandResultType.SUCCESS;
     }

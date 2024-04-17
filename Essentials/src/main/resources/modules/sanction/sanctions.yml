@@ -1,0 +1,67 @@
+name: '#3f3f3fSanctions of %zessentials_user_target_player_name%'
+size: 54
+items:
+  back:
+    type: BACK
+    slot: 49
+    item:
+      material: BARRIER
+      name: "&cGo Back"
+
+  btn-0:
+    slot: 0
+    item:
+      material: FISHING_ROD
+      name: '&fProvocations'
+  btn-9:
+    slot: 9
+    type: ZESSENTIALS_SANCTION
+    sanction: MUTE
+    duration: 1h
+    reason: "Provocation"
+    item:
+      material: GREEN_STAINED_GLASS_PANE
+      name: '&fProvocations'
+      lore:
+        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff1 hour'
+        - ''
+        - '&f➥ &nClick&r&7 to mute the player'
+  btn-18:
+    slot: 18
+    type: ZESSENTIALS_SANCTION
+    sanction: MUTE
+    duration: 2h
+    reason: "Provocation"
+    item:
+      material: YELLOW_STAINED_GLASS_PANE
+      name: '&fProvocations'
+      lore:
+        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff2 hour'
+        - ''
+        - '&f➥ &nClick&r&7 to mute the player'
+  btn-27:
+    slot: 27
+    type: ZESSENTIALS_SANCTION
+    sanction: MUTE
+    duration: 4h
+    reason: "Provocation"
+    item:
+      material: ORANGE_STAINED_GLASS_PANE
+      name: '&fProvocations'
+      lore:
+        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff4 hour'
+        - ''
+        - '&f➥ &nClick&r&7 to mute the player'
+  btn-36:
+    slot: 36
+    type: ZESSENTIALS_SANCTION
+    sanction: MUTE
+    duration: 24h
+    reason: "Provocation"
+    item:
+      material: RED_STAINED_GLASS_PANE
+      name: '&fProvocations'
+      lore:
+        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff24 hour'
+        - ''
+        - '&f➥ &nClick&r&7 to mute the player'

@@ -9,9 +9,6 @@
 #
 # You must have MYSQL storage to use the sanction module
 #
-# Commands:
-#
-#
 ########################################################################################################################
 
 
@@ -21,3 +18,20 @@ kick-default-reason: "You have been kicked"
 
 ban-default-reason: "The ban hammer has spoken"
 
+date-format: "yyyy-MM-dd HH:mm:ss"
+
+kick-material: IRON_INGOT
+
+ban-material: DIAMOND
+
+mute-material: EMERALD
+
+unban-material: IRON_INGOT
+
+unmute-material: COPPER_INGOT
+
+warn-material: COAL
+
+current-mute-material: EMERALD_BLOCK
+
+current-ban-material: DIAMOND_BLOCK

@@ -9,6 +9,8 @@ public enum Message {
     // Rework message for a better system
 
     PREFIX("&8(&6zEssentials&8) "),
+    CONSOLE("Console"),
+    EXPIRED("Expired"),
     PLAYER_NOT_FOUND("&f%player% #FF0000was not found."),
     MODULE_DISABLE("#FF0000The &f%name% #FF0000module is disabled. You cannot use this command."),
 
@@ -169,6 +171,7 @@ public enum Message {
     DESCRIPTION_MUTE("Mute a player"),
     DESCRIPTION_UN_MUTE("Unmute a player"),
     DESCRIPTION_UN_BAN("Unban a player"),
+    DESCRIPTION_SANCTION("Open sanction inventory"),
 
     YOU("you"),
     TRASH("&8Trash"),

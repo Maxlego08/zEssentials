@@ -1,15 +1,21 @@
 package fr.maxlego08.essentials.module.modules;
 
 import fr.maxlego08.essentials.ZEssentialsPlugin;
+import fr.maxlego08.essentials.api.cache.ExpiringCache;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.sanction.Sanction;
+import fr.maxlego08.essentials.api.sanction.SanctionType;
 import fr.maxlego08.essentials.api.server.EssentialsServer;
 import fr.maxlego08.essentials.api.storage.IStorage;
+import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.ZModule;
+import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import io.papermc.paper.event.player.AsyncChatEvent;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,12 +27,37 @@ import java.util.UUID;
 
 public class SanctionModule extends ZModule {
 
+    private final ExpiringCache<UUID, User> expiringCache = new ExpiringCache<>(1000 * 60 * 60); // 1 hour cache
+
     // Default messages for kick and ban
     private String kickDefaultReason;
     private String banDefaultReason;
+    private String dateFormat;
+    private Material kickMaterial;
+    private Material banMaterial;
+    private Material muteMaterial;
+    private Material unbanMaterial;
+    private Material unmuteMaterial;
+    private Material warnMaterial;
+    private Material currentMuteMaterial;
+    private Material currentBanMaterial;
+
 
     public SanctionModule(ZEssentialsPlugin plugin) {
         super(plugin, "sanction");
+    }
+
+    @Override
+    public void loadConfiguration() {
+        super.loadConfiguration();
+
+        this.loadInventory("sanction");
+        this.loadInventory("sanction_history");
+        this.loadInventory("sanctions");
+    }
+
+    public String getDateFormat() {
+        return dateFormat;
     }
 
     public String getKickDefaultReason() {
@@ -36,6 +67,18 @@ public class SanctionModule extends ZModule {
     public String getBanDefaultReason() {
         return banDefaultReason;
     }
+
+    public Material getSanctionMaterial(SanctionType sanctionType, boolean isActive) {
+        return switch (sanctionType) {
+            case KICK -> kickMaterial;
+            case MUTE -> isActive ? currentMuteMaterial : muteMaterial;
+            case BAN -> isActive ? currentBanMaterial : banMaterial;
+            case UNBAN -> unbanMaterial;
+            case UNMUTE -> unmuteMaterial;
+            case WARN -> warnMaterial;
+        };
+    }
+
 
     // Get the UUID of the sender (player or console)
     private UUID getSenderUniqueId(CommandSender sender) {
@@ -57,6 +100,7 @@ public class SanctionModule extends ZModule {
         // Create and save the sanction
         Sanction sanction = Sanction.kick(uuid, getSenderUniqueId(sender), reason);
         iStorage.insertSanction(sanction, sanction::setId);
+        this.expiringCache.clear(uuid);
 
         // Kick the player with the specified reason
         server.kickPlayer(uuid, Message.MESSAGE_KICK, "%reason%", reason);
@@ -93,6 +137,7 @@ public class SanctionModule extends ZModule {
             sanction.setId(index);
             iStorage.updateUserBan(uuid, index);
         });
+        this.expiringCache.clear(uuid);
 
         // Ban the player with the specified reason and duration
         server.kickPlayer(uuid, Message.MESSAGE_BAN, "%reason%", reason, "%duration%", TimerBuilder.getStringTime(duration.toMillis()));
@@ -135,6 +180,7 @@ public class SanctionModule extends ZModule {
                 user.setMuteSanction(sanction);
             }
         });
+        this.expiringCache.clear(uuid);
 
         // Mute the player with the specified reason and duration
         server.sendMessage(uuid, Message.MESSAGE_MUTE, "%reason%", reason, "%duration%", TimerBuilder.getStringTime(duration.toMillis()));
@@ -193,6 +239,7 @@ public class SanctionModule extends ZModule {
                 user.setMuteSanction(null);
             }
         });
+        this.expiringCache.clear(uuid);
 
         // Mute the player with the specified reason and duration
         server.sendMessage(uuid, Message.MESSAGE_UNMUTE, "%reason%", reason);
@@ -224,6 +271,7 @@ public class SanctionModule extends ZModule {
             sanction.setId(index);
             iStorage.updateUserBan(uuid, null);
         });
+        this.expiringCache.clear(uuid);
 
         // Broadcast a notification message to players with the mute notify permission
         server.broadcastMessage(Permission.ESSENTIALS_UNBAN_NOTIFY, Message.COMMAND_UNBAN_NOTIFY, "%player%", sender.getName(), "%target%", playerName, "%reason%", reason);
@@ -241,5 +289,29 @@ public class SanctionModule extends ZModule {
             Duration duration = sanction.getDurationRemaining();
             message(player, Message.MESSAGE_MUTE_TALK, "%reason%", sanction.getReason(), "%duration%", TimerBuilder.getStringTime(duration.toMillis()));
         }
+    }
+
+    public void openSanction(User user, UUID uuid, String userName) {
+
+        IStorage iStorage = this.plugin.getStorageManager().getStorage();
+        this.plugin.getScheduler().runAsync(wrappedTask -> {
+
+            user.setTargetUser(expiringCache.get(uuid, () -> {
+                User fakeUser = ZUser.fakeUser(this.plugin, uuid, userName);
+                Sanction muteSanction = iStorage.getMute(uuid);
+                fakeUser.setFakeOption(Option.BAN, iStorage.isBan(uuid));
+                fakeUser.setFakeOption(Option.MUTE, muteSanction != null && muteSanction.isActive());
+                fakeUser.setMuteSanction(muteSanction);
+                fakeUser.setBanSanction(iStorage.getBan(uuid));
+                fakeUser.setFakeSanctions(iStorage.getSanctions(uuid));
+                return fakeUser;
+            }));
+
+            this.plugin.openInventory(user.getPlayer(), "sanction");
+        });
+    }
+
+    public String getSanctionBy(UUID senderUniqueId) {
+        return senderUniqueId.equals(this.plugin.getConsoleUniqueId()) ? Message.CONSOLE.getMessage() : Bukkit.getOfflinePlayer(senderUniqueId).getName();
     }
 }

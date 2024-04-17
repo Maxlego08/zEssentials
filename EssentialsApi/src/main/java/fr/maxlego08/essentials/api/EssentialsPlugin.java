@@ -17,6 +17,7 @@ import fr.maxlego08.essentials.api.utils.Warp;
 import fr.maxlego08.menu.api.ButtonManager;
 import fr.maxlego08.menu.api.InventoryManager;
 import fr.maxlego08.menu.api.pattern.PatternManager;
+import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permissible;
 import org.bukkit.plugin.Plugin;
 
@@ -213,4 +214,6 @@ public interface EssentialsPlugin extends Plugin {
      * @param message The debug message to log.
      */
     void debug(String message);
+
+    void openInventory(Player player, String inventoryName);
 }

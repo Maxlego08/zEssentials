@@ -1,0 +1,43 @@
+name: '#3f3f3fSanction %zessentials_user_target_player_name%'
+size: 27
+items:
+  player:
+    type: ZESSENTIALS_SANCTION_INFORMATION
+    slot: 13
+    item:
+      material: PLAYER_HEAD
+      name: '&f%target%'
+      lore:
+        - ''
+        - '#ffd353ℹ Informations#3f3f3f:'
+        - '#3f3f3f• &7Is Banned#3f3f3f: #4cd5ff%is_ban%'
+        - '#3f3f3f• &7Is Muted#3f3f3f: #4cd5ff%is_mute%'
+        - ''
+        - '&f➥ &nLeft Click&r&7 to sanction the player'
+        - '&f➦ &nRight Click&r&7 to see the history of sanctions'
+  ban:
+    type: ZESSENTIALS_SANCTION
+    slot: 15
+    placeHolder: '%zessentials_user_target_is_ban%'
+    value: true
+    action: BOOLEAN
+    sanction: UNBAN
+    item:
+      material: RED_DYE
+      name: '&cThe player is banned'
+      lore:
+        - ''
+        - '&f➥ &nClick&r&7 to unban the player'
+  mute:
+    type: ZESSENTIALS_SANCTION
+    slot: 11
+    placeHolder: '%zessentials_user_target_is_mute%'
+    value: true
+    action: BOOLEAN
+    sanction: UNMUTE
+    item:
+      material: RED_DYE
+      name: '&cThe player is muted'
+      lore:
+        - ''
+        - '&f➥ &nClick&r&7 to unmute the player'

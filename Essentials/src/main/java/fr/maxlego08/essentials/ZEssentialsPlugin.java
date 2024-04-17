@@ -26,6 +26,8 @@ import fr.maxlego08.essentials.api.utils.Warp;
 import fr.maxlego08.essentials.buttons.ButtonHomes;
 import fr.maxlego08.essentials.buttons.ButtonPayConfirm;
 import fr.maxlego08.essentials.buttons.ButtonTeleportationConfirm;
+import fr.maxlego08.essentials.buttons.sanction.ButtonSanctionInformation;
+import fr.maxlego08.essentials.buttons.sanction.ButtonSanctions;
 import fr.maxlego08.essentials.commands.CommandLoader;
 import fr.maxlego08.essentials.commands.ZCommandManager;
 import fr.maxlego08.essentials.commands.commands.essentials.CommandEssentials;
@@ -33,6 +35,7 @@ import fr.maxlego08.essentials.database.ZMigrationManager;
 import fr.maxlego08.essentials.economy.EconomyManager;
 import fr.maxlego08.essentials.hooks.VaultEconomy;
 import fr.maxlego08.essentials.listener.PlayerListener;
+import fr.maxlego08.essentials.loader.ButtonSanctionLoader;
 import fr.maxlego08.essentials.loader.ButtonWarpLoader;
 import fr.maxlego08.essentials.messages.MessageLoader;
 import fr.maxlego08.essentials.module.ZModuleManager;
@@ -44,9 +47,9 @@ import fr.maxlego08.essentials.server.redis.RedisServer;
 import fr.maxlego08.essentials.storage.ConfigStorage;
 import fr.maxlego08.essentials.storage.ZStorageManager;
 import fr.maxlego08.essentials.storage.adapter.UserTypeAdapter;
+import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.user.placeholders.UserHomePlaceholders;
 import fr.maxlego08.essentials.user.placeholders.UserPlaceholders;
-import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.ZPlugin;
 import fr.maxlego08.essentials.zutils.utils.CommandMarkdownGenerator;
 import fr.maxlego08.essentials.zutils.utils.PlaceholderMarkdownGenerator;
@@ -56,6 +59,7 @@ import fr.maxlego08.menu.api.InventoryManager;
 import fr.maxlego08.menu.api.pattern.PatternManager;
 import fr.maxlego08.menu.button.loader.NoneLoader;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permissible;
 
 import java.io.File;
@@ -166,10 +170,13 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
     private void registerButtons() {
 
-        this.buttonManager.register(new NoneLoader(this, ButtonTeleportationConfirm.class, "essentials_teleportation_confirm"));
-        this.buttonManager.register(new NoneLoader(this, ButtonPayConfirm.class, "essentials_pay_confirm"));
-        this.buttonManager.register(new NoneLoader(this, ButtonHomes.class, "essentials_homes"));
+        this.buttonManager.register(new NoneLoader(this, ButtonTeleportationConfirm.class, "zessentials_teleportation_confirm"));
+        this.buttonManager.register(new NoneLoader(this, ButtonPayConfirm.class, "zessentials_pay_confirm"));
+        this.buttonManager.register(new NoneLoader(this, ButtonHomes.class, "zessentials_homes"));
+        this.buttonManager.register(new NoneLoader(this, ButtonSanctionInformation.class, "zessentials_sanction_information"));
+        this.buttonManager.register(new NoneLoader(this, ButtonSanctions.class, "zessentials_sanctions"));
         this.buttonManager.register(new ButtonWarpLoader(this));
+        this.buttonManager.register(new ButtonSanctionLoader(this));
 
     }
 
@@ -339,5 +346,16 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         if (this.configuration.isEnableDebug()) {
             this.getLogger().info(string);
         }
+    }
+
+    @Override
+    public void openInventory(Player player, String inventoryName) {
+        this.inventoryManager.getInventory(this, inventoryName).ifPresent(inventory -> {
+            this.serverImplementation.runAtLocation(player.getLocation(), wrappedTask -> {
+                this.inventoryManager.getCurrentPlayerInventory(player).ifPresentOrElse(oldInventory -> {
+                    this.inventoryManager.openInventory(player, inventory, 1, oldInventory);
+                }, () -> this.inventoryManager.openInventory(player, inventory));
+            });
+        });
     }
 }

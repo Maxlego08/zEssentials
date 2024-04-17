@@ -19,7 +19,7 @@ items:
         - '&7Amount&8: #99E0FF%zessentials_user_target_pay_amount%'
 
   confirm:
-    type: ESSENTIALS_PAY_CONFIRM
+    type: ZESSENTIALS_PAY_CONFIRM
     slot: 16
     closeInventory: true
     item:

@@ -68,4 +68,5 @@ unmute: true
 unban: true
 kick: true
 kickall: true
+sanction: true
 kittycannon: true

@@ -272,16 +272,26 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     @Override
     public boolean isMute(UUID uuid) {
+        Sanction sanction = getMute(uuid);
+        return sanction != null && sanction.isActive();
+    }
 
+    @Override
+    public Sanction getMute(UUID uuid) {
         List<UserDTO> userDTOS = this.repositories.getTable(UserRepository.class).selectUser(uuid);
-        if (userDTOS.isEmpty()) return false;
+        if (userDTOS.isEmpty()) return null;
 
         UserDTO userDTO = userDTOS.get(0);
 
         if (userDTO.mute_sanction_id() != null) {
             SanctionDTO sanction = this.repositories.getTable(UserSanctionRepository.class).getSanction(userDTO.mute_sanction_id());
-            return sanction.isActive();
+            return Sanction.fromDTO(sanction);
         }
-        return false;
+        return null;
+    }
+
+    @Override
+    public List<SanctionDTO> getSanctions(UUID uuid) {
+        return this.repositories.getTable(UserSanctionRepository.class).getSanctions(uuid);
     }
 }
