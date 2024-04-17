@@ -4,6 +4,7 @@ import fr.maxlego08.essentials.api.storage.DatabaseConfiguration;
 import org.bukkit.Location;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
@@ -59,5 +60,18 @@ public interface Schema {
     // Migration method
     Migration getMigration();
 
+    String getTableName();
+
+    void whereConditions(StringBuilder stringBuilder);
+
+    void applyWhereConditions(PreparedStatement preparedStatement, int index) throws SQLException;
+
+    List<ColumnDefinition> getColumns();
+
+    List<String> getPrimaryKeys();
+
+    List<String> getForeignKeys();
+
+    List<JoinCondition> getJoinConditions();
 }
 
