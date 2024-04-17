@@ -1,4 +1,4 @@
-package fr.maxlego08.essentials.user;
+package fr.maxlego08.essentials.user.placeholders;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.economy.Economy;
@@ -56,9 +56,5 @@ public class UserPlaceholders extends ZUtils implements PlaceholderRegister {
             Economy economy = optional.get();
             return user.getBalance(economy).toString();
         }, "Returns the number for a given economy", "economy");
-
-        // Home
-        placeholder.register("home_count", (player) -> String.valueOf(Optional.ofNullable(iStorage.getUser(player.getUniqueId())).map(User::countHomes).orElse(0)), "Returns the number of homes");
-        placeholder.register("home_max", (player) -> String.valueOf(plugin.getMaxHome(player)), "Returns the number of max homes");
     }
 }

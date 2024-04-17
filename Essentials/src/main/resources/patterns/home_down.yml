@@ -1,0 +1,50 @@
+name: "ESSENTIALS_HOME_DOWN"
+type: BUTTON
+button:
+  slot: '%slot%'
+  view_requirement:
+    requirements:
+      - type: placeholder
+        placeholder: "%zessentials_home_max%"
+        value: '%home%'
+        action: LOWER
+  item:
+    material: RED_DYE
+    name: '#ff0000ɴᴏ ᴘᴇʀᴍɪssɪᴏɴ'
+    lore:
+      - '#fcfcfcYou need a higher rank for this home'
+  else:
+
+    view_requirement:
+      requirements:
+        - type: placeholder
+          placeholder: "%zessentials_home_exist_home_%remove_one_home%%"
+          value: 'false'
+          action: EQUALS_STRING
+
+    commands:
+      - 'sethome home_%zessentials_home_count%'
+    closeInventory: true
+
+    item:
+      material: GRAY_DYE
+      name: '#cfcfcfɴᴏ ʜᴏᴍᴇ sᴇᴛ'
+      lore:
+        - '#fcfcfcClick to create a home'
+
+    else:
+
+      actions:
+        - type: data
+          action: SET
+          key: 'home_to_delete'
+          value: 'home_%remove_one_home%'
+        - type: inventory
+          inventory: 'home_delete'
+          plugin: 'zEssentials'
+
+      item:
+        material: BLUE_DYE
+        name: '#00a4fcʜᴏᴍᴇ %home%'
+        lore:
+          - '#fcfcfcClick to delete this home'

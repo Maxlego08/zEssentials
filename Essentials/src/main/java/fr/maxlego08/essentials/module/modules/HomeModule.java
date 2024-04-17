@@ -38,7 +38,12 @@ public class HomeModule extends ZModule {
     public void loadConfiguration() {
         super.loadConfiguration();
 
+        this.savePattern("home_down");
+        this.savePattern("home_up");
+
         this.loadInventory("homes");
+        this.loadInventory("homes_donut");
+        this.loadInventory("home_delete");
     }
 
     public List<HomePermission> getPermissions() {
@@ -46,7 +51,7 @@ public class HomeModule extends ZModule {
     }
 
     public Message isValidHomeName(String input) {
-        if (!input.matches("[a-zA-Z0-9]+")) {
+        if (!input.matches("[a-zA-Z0-9_-]+")) {
             return Message.COMMAND_SET_HOME_INVALIDE_NAME;
         }
         if (input.equalsIgnoreCase("list")) { // Blacklist for /home <player>:list
