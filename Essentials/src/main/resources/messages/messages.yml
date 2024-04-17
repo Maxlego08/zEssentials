@@ -20,6 +20,8 @@
 prefix: "#03fcb6zEssentials #656665• "
 you: "you"
 trash: "&8Trash"
+console: "Console"
+expired: "Expired"
 player-not-found: "&f%player% #FF0000was not found."
 module-disable: "#FF0000The &f%name% #FF0000module is disabled. You cannot use this command."
 
@@ -218,6 +220,9 @@ description-kick-all: "Kick all players"
 description-kitty-cannon: "Launch kitty, wtf you want to do that ? monster"
 description-ban: "Ban a player"
 description-mute: "Mute a player"
+description-un-mute: "Unmute a player"
+description-un-ban: "Unban a player"
+description-sanction: "Open sanction inventory"
 
 
 # Time format
@@ -359,15 +364,23 @@ command-home-admin-list-info: " <hover:show_text:'&7Click to teleport to home &f
 # Sanction
 command-kick-notify:
   type: WITHOUT_PREFIX
-  message: "<click:run_command:/sc %target%>&8(#f59e07Sanction&8)</click> &f%player% <click:run_command:/sc %target%>#cf4229just kicked the player#c9b530 %target%#cf4229."
+  message: "<click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just kicked the player #e0d12d%target%#e33414.</click>"
 command-ban-notify:
   type: WITHOUT_PREFIX
-  message: "<click:run_command:/sc %target%>&8(#f59e07Sanction&8)</click> &f%player% <click:run_command:/sc %target%>#cf4229just banned the player #c9b530%target%#cf4229."
+  message: "<click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just banned the player #e0d12d%target%#e33414.</click>"
 command-mute-notify:
   type: WITHOUT_PREFIX
-  message: "<click:run_command:/sc %target%>&8(#f59e07Sanction&8)</click> &f%player% <click:run_command:/sc %target%>#cf4229just muted the player #c9b530%target%#cf4229."
+  message: "<click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just muted the player #e0d12d%target%#e33414.</click>"
+command-unmute-notify:
+  type: WITHOUT_PREFIX
+  message: "<click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just unmuted the player #e0d12d%target%#e33414.</click>"
+command-unban-notify:
+  type: WITHOUT_PREFIX
+  message: "<click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just unbanned the player #e0d12d%target%#e33414.</click>"
 command-ban-error-duration: "#ff0000The duration of a banishment must be at least 1 second."
 command-mute-error-duration: "#ff0000The duration of a mute must be at least 1 second."
+command-un-mute-error: "&f%player% #ff0000is not mute."
+command-un-ban-error: "&f%player% #ff0000is not ban."
 message-kick:
   - ""
   - "&cYou have just been kicked from the server for the reason:"
@@ -379,6 +392,11 @@ message-mute:
   - ""
   - "&fYou have just lost your <u>voice</u>."
   - "&fDuration&8: <gradient:#7ae856:#a1d909>%duration%</gradient>"
+  - "&fReason&8: #82d1ff%reason%"
+  - ""
+message-unmute:
+  - ""
+  - "&fYou have just regained your <u>voice</u>, congratulations !"
   - "&fReason&8: #82d1ff%reason%"
   - ""
 message-mute-talk:
@@ -404,3 +422,4 @@ message-ban-join:
   - ""
   - "&fMinecraft-Inventory-Builder.com"
   - ""
+

@@ -5,8 +5,8 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 # ToDo
 
 - [x] Command /sethome <name> (limit by grade/permission)
-- [ ] Command /delhome <name>
-- [ ] Command /home (as gui or not)
+- [x] Command /delhome <name>
+- [x] Command /home (as gui or not)
 
 - [ ] Command /tpall
 - [ ] Command /tpaall
