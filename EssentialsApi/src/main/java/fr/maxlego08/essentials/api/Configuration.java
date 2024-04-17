@@ -6,6 +6,7 @@ import fr.maxlego08.essentials.api.server.ServerType;
 import fr.maxlego08.essentials.api.storage.DatabaseConfiguration;
 import fr.maxlego08.essentials.api.storage.StorageType;
 import fr.maxlego08.essentials.api.utils.CompactMaterial;
+import fr.maxlego08.essentials.api.utils.MessageColor;
 import org.bukkit.permissions.Permissible;
 
 import java.util.List;
@@ -92,5 +93,7 @@ public interface Configuration extends ConfigurationFile {
      * @return The RedisConfiguration representing the Redis configuration.
      */
     RedisConfiguration getRedisConfiguration();
+
+    List<MessageColor> getMessageColors();
 
 }

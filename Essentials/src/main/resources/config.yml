@@ -85,3 +85,9 @@ compact-materials:
     to: COPPER_BLOCK
   - from: NETHERITE_INGOT
     to: NETHERITE_BLOCK
+
+message-colors:
+  - key: "<primary>"
+    color: "#24d65d"
+  - key: "<secondary>"
+    color: "#656665"

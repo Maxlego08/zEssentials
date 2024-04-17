@@ -69,13 +69,13 @@ public class MessageLoader implements ConfigurationFile {
                     message.setMessageType(messageType);
                     switch (messageType) {
                         case ACTION, TCHAT_AND_ACTION -> {
-                            message.setMessage(configuration.getString(key + ".message"));
+                            message.setMessage(replaceMessagesColors(configuration.getString(key + ".message")));
                         }
                         case CENTER, TCHAT -> {
-                            List<String> messages = configuration.getStringList(key + ".messages");
+                            List<String> messages = replaceMessagesColors(configuration.getStringList(key + ".messages"));
                             if (messages.isEmpty()) {
-                                message.setMessage(configuration.getString(key + "message"));
-                            } else message.setMessages(messages);
+                                message.setMessage(replaceMessagesColors(configuration.getString(key + "message")));
+                            } else message.setMessages(replaceMessagesColors(messages));
                         }
                     }
 
@@ -83,8 +83,8 @@ public class MessageLoader implements ConfigurationFile {
                     message.setMessageType(MessageType.TCHAT);
                     List<String> messages = configuration.getStringList(key);
                     if (messages.isEmpty()) {
-                        message.setMessage(configuration.getString(key));
-                    } else message.setMessages(messages);
+                        message.setMessage(replaceMessagesColors(configuration.getString(key)));
+                    } else message.setMessages(replaceMessagesColors(messages));
                 }
 
                 this.loadedMessages.add(message);
@@ -95,4 +95,14 @@ public class MessageLoader implements ConfigurationFile {
             }
         }
     }
+
+    private String replaceMessagesColors(String message) {
+        return plugin.getConfiguration().getMessageColors().stream().reduce(message, (msg, color) -> msg.replace(color.key(), color.color()), (msg1, msg2) -> msg1);
+    }
+
+    private List<String> replaceMessagesColors(List<String> messages) {
+        return messages.stream().map(this::replaceMessagesColors).toList();
+    }
+
+
 }

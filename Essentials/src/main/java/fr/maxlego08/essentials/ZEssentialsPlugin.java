@@ -106,8 +106,8 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.persist = new Persist(this);
 
         // Configurations files
-        this.registerConfiguration(new MessageLoader(this));
         this.registerConfiguration(this.configuration = new MainConfiguration(this));
+        this.registerConfiguration(new MessageLoader(this));
 
         // Load configuration files
         this.configurationFiles.forEach(ConfigurationFile::load);
