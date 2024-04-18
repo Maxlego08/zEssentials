@@ -114,7 +114,9 @@ public class ChatModule extends ZModule {
             message = transformUrlsToMiniMessage(message);
         }
 
+        System.out.println("AVANT " + getChatFormat(player));
         String chatFormat = papi(getChatFormat(player), player);
+        System.out.println("APRES " + chatFormat);
         Tag tag = Tag.inserting(this.componentMessage.translateText(player, message));
 
         event.renderer((source, sourceDisplayName, ignoredMessage, viewer) -> {

@@ -75,19 +75,11 @@ public class ComponentMessage extends PlaceholderUtils {
         updateDisplayName(itemMeta, papi(text, player));
     }
 
-    public void updateDisplayName(ItemMeta itemMeta, String text, OfflinePlayer offlinePlayer) {
-        updateDisplayName(itemMeta, papi(text, offlinePlayer));
-    }
-
-    public void updateLore(ItemMeta itemMeta, List<String> lore, Player player) {
-        update(itemMeta, lore, player);
-    }
-
-    public void updateLore(ItemMeta itemMeta, List<String> lore, OfflinePlayer offlinePlayer) {
+    public void updateLore(ItemMeta itemMeta, List<String> lore, Player offlinePlayer) {
         update(itemMeta, lore, offlinePlayer);
     }
 
-    public void update(ItemMeta itemMeta, List<String> lore, OfflinePlayer offlinePlayer) {
+    public void update(ItemMeta itemMeta, List<String> lore, Player offlinePlayer) {
         List<Component> components = lore.stream().map(text -> {
             String result = papi(text, offlinePlayer);
             return this.cache.get(result, () -> {

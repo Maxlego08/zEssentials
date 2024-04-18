@@ -78,6 +78,8 @@ chat-cooldown-max: 50
 
 # Chat format with permissions
 #
+# Use https://webui.advntr.dev/ to create your format quickly
+#
 # Available placeholder (you can use PlaceholderAPI here):
 # %player% - Player's name
 # %displayName% - Player's display name
@@ -86,13 +88,13 @@ chat-cooldown-max: 50
 chat-formats:
   - priority: 1
     permission: "essentials.chat.format.vip"
-    format: "<hover:show_text:'&cReport this message'><click:run_command:'/report %player% chat'><#ff0000>⚠</click></hover> %moderator_action%<#ffffff>%player% <#333333>» <#ffff6b><message>"
+    format: "<hover:show_text:'&cReport this message'><click:run_command:'/report %player% chat'><#ff0000>⚠</click></hover> %moderator_action%<#ffffff><hover:show_text:'#ffd353ℹ Informations#3f3f3f:<newline>#3f3f3f• &7Money#3f3f3f: #4cd5ff%zessentials_user_formatted_balance_money%<newline>#3f3f3f• &7Coins#3f3f3f: #4cd5ff%zessentials_user_formatted_balance_coins%<newline><newline>&f➥ &7Click for more information'>%player%</hover> <#333333>» <#ffff6b><click:suggest_command:'/msg %player% '><hover:show_text:'&fSend a private message'><message></hover></click>"
   - priority: 2
     permission: "essentials.chat.format.admin"
-    format: "<#ffffff>%player% <#333333>» <#ff4444><message>"
+    format: "<#ffffff><hover:show_text:'#ffd353ℹ Informations#3f3f3f:<newline>#3f3f3f• &7Money#3f3f3f: #4cd5ff%zessentials_user_formatted_balance_money%<newline>#3f3f3f• &7Coins#3f3f3f: #4cd5ff%zessentials_user_formatted_balance_coins%<newline><newline>&f➥ &7Click for more information'>%player%</hover> <#333333>» <#ff4444><click:suggest_command:'/msg %player% '><hover:show_text:'&fSend a private message'><message></hover></click>"
 
 # Default chat format
-default-chat-format: "<hover:show_text:'&cReport this message'><click:run_command:'/report %player% chat'><#ff0000>⚠</click></hover> %moderator_action%<#ffffff>%player% <#333333>» <gray><message>"
+default-chat-format: "<hover:show_text:'&cReport this message'><click:run_command:'/report %player% chat'><#ff0000>⚠</click></hover> %moderator_action%<#ffffff><hover:show_text:'#ffd353ℹ Informations#3f3f3f:<newline>#3f3f3f• &7Money#3f3f3f: #4cd5ff%zessentials_user_formatted_balance_money%<newline>#3f3f3f• &7Coins#3f3f3f: #4cd5ff%zessentials_user_formatted_balance_coins%<newline><newline>&f➥ &7Click for more information'>%player%</hover> <#333333>» <gray><click:suggest_command:'/msg %player% '><hover:show_text:'&fSend a private message'><message></hover></click>"
 
 # Allows players who have the essentials.chat.moderator permission to have a different view from other players.
 # By default, moderators will have a button to punish the player
