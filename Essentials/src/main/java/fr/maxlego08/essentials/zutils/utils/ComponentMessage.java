@@ -1,6 +1,8 @@
 package fr.maxlego08.essentials.zutils.utils;
 
 import fr.maxlego08.essentials.api.cache.SimpleCache;
+import fr.maxlego08.essentials.api.commands.Permission;
+import fr.maxlego08.essentials.api.utils.TagPermission;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -25,6 +27,9 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class ComponentMessage extends PlaceholderUtils {
+
+
+    private final List<TagPermission> tagPermissions = List.of(new TagPermission(Permission.ESSENTIALS_CHAT_COLOR, StandardTags.color()), new TagPermission(Permission.ESSENTIALS_CHAT_CLICK, StandardTags.clickEvent()), new TagPermission(Permission.ESSENTIALS_CHAT_HOVER, StandardTags.hoverEvent()), new TagPermission(Permission.ESSENTIALS_CHAT_GRADIENT, StandardTags.gradient()), new TagPermission(Permission.ESSENTIALS_CHAT_RAINBOW, StandardTags.rainbow()), new TagPermission(Permission.ESSENTIALS_CHAT_NEWLINE, StandardTags.newline()), new TagPermission(Permission.ESSENTIALS_CHAT_RESET, StandardTags.reset()), new TagPermission(Permission.ESSENTIALS_CHAT_FONT, StandardTags.font()), new TagPermission(Permission.ESSENTIALS_CHAT_KEYBIND, StandardTags.keybind()), new TagPermission(Permission.ESSENTIALS_CHAT_DECORATION, StandardTags.decorations()));
 
     private final MiniMessage MINI_MESSAGE = MiniMessage.builder().tags(TagResolver.builder().resolver(StandardTags.defaults()).build()).build();
     private final Map<String, String> COLORS_MAPPINGS = new HashMap<>();
@@ -124,6 +129,15 @@ public class ComponentMessage extends PlaceholderUtils {
 
     public Component getComponent(String message) {
         return this.cache.get(message, () -> this.MINI_MESSAGE.deserialize(colorMiniMessage(message)));
+    }
+
+    public Component getComponent(String message, TagResolver tagResolver) {
+        return this.MINI_MESSAGE.deserialize(colorMiniMessage(message), tagResolver);
+    }
+
+    public Component translateText(Player player, String message) {
+        List<TagResolver> resolvers = this.tagPermissions.stream().filter(tagPermission -> player.hasPermission(tagPermission.permission().asPermission())).map(TagPermission::tagResolver).toList();
+        return MiniMessage.builder().tags(TagResolver.builder().resolvers(resolvers).build()).build().deserialize(colorMiniMessage(message));
     }
 
     public void sendMessage(CommandSender sender, String message) {

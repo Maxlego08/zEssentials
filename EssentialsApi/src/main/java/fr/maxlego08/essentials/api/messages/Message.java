@@ -356,6 +356,7 @@ public enum Message {
     CHAT_LINK("#ff0000You cannot send a link in the chat."),
     CHAT_DISABLE("#ff0000The chat is currently unavailable."),
 
+    CHAT_DEFAULT_FORMAT("<white>%displayName% <#656665>• <gray>%message%"),
     ;
 
     private String message;
