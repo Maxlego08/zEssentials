@@ -7,33 +7,59 @@
 # ██████╔╝██║░░██║██║░╚███║╚█████╔╝░░░██║░░░██║╚█████╔╝██║░╚███║
 # ╚═════╝░╚═╝░░╚═╝╚═╝░░╚══╝░╚════╝░░░░╚═╝░░░╚═╝░╚════╝░╚═╝░░╚══╝
 #
-# Documentation: https://zessentials.groupez.dev/modules/sanction
-#
 # You must have MYSQL storage to use the sanction module
+#
+# Documentation: https://zessentials.groupez.dev/modules/sanction
 #
 ########################################################################################################################
 
-
 enable: true
 
+# List of nicknames that cannot be sanctioned, even if they do not have permission.
+protections:
+  - "Maxlego08"
+  - "Notch"
+
+# Default reason for /kick
 kick-default-reason: "You have been kicked"
 
+# Default reason for /mute
 ban-default-reason: "The ban hammer has spoken"
 
+# Default reason for /ban
+mute-default-reason: "You have to turn your tongue 7 times before speaking"
+
+# Default reason for /unmute
+unmute-default-reason: "You have the right to talk to us"
+
+# Default reason for /unban
+unban-default-reason: "The ban hammer gives you the right to return"
+
+# Date format used for sanctions
 date-format: "yyyy-MM-dd HH:mm:ss"
 
+# Materials are used for sanction_history inventory
+
+# Material used for kicks
 kick-material: IRON_INGOT
 
+# Material used for ban
 ban-material: DIAMOND
 
+# Material used for mute
 mute-material: EMERALD
 
+# Material used for unban
 unban-material: IRON_INGOT
 
+# Material used for unmute
 unmute-material: COPPER_INGOT
 
+# Material used for warn
 warn-material: COAL
 
+# Material used for mute if it is active
 current-mute-material: EMERALD_BLOCK
 
+# Material used for ban if it is active
 current-ban-material: DIAMOND_BLOCK

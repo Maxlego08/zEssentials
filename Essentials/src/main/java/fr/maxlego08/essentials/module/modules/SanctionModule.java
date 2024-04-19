@@ -21,17 +21,22 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 public class SanctionModule extends ZModule {
 
     private final ExpiringCache<UUID, User> expiringCache = new ExpiringCache<>(1000 * 60 * 60); // 1 hour cache
-
+    private SimpleDateFormat simpleDateFormat;
     // Default messages for kick and ban
     private String kickDefaultReason;
     private String banDefaultReason;
+    private String muteDefaultReason;
+    private String unmuteDefaultReason;
+    private String unbanDefaultReason;
     private String dateFormat;
     private Material kickMaterial;
     private Material banMaterial;
@@ -41,6 +46,7 @@ public class SanctionModule extends ZModule {
     private Material warnMaterial;
     private Material currentMuteMaterial;
     private Material currentBanMaterial;
+    private List<String> protections;
 
 
     public SanctionModule(ZEssentialsPlugin plugin) {
@@ -54,6 +60,7 @@ public class SanctionModule extends ZModule {
         this.loadInventory("sanction");
         this.loadInventory("sanction_history");
         this.loadInventory("sanctions");
+        this.simpleDateFormat = new SimpleDateFormat(this.dateFormat);
     }
 
     public String getDateFormat() {
@@ -66,6 +73,18 @@ public class SanctionModule extends ZModule {
 
     public String getBanDefaultReason() {
         return banDefaultReason;
+    }
+
+    public String getMuteDefaultReason() {
+        return muteDefaultReason;
+    }
+
+    public String getUnbanDefaultReason() {
+        return unbanDefaultReason;
+    }
+
+    public String getUnmuteDefaultReason() {
+        return unmuteDefaultReason;
     }
 
     public Material getSanctionMaterial(SanctionType sanctionType, boolean isActive) {
@@ -94,6 +113,12 @@ public class SanctionModule extends ZModule {
      * @param reason     The reason for the kick.
      */
     public void kick(CommandSender sender, UUID uuid, String playerName, String reason) {
+
+        if (isProtected(playerName)) {
+            message(sender, Message.COMMAND_SANCTION_ERROR);
+            return;
+        }
+
         EssentialsServer server = plugin.getEssentialsServer();
         IStorage iStorage = plugin.getStorageManager().getStorage();
 
@@ -106,7 +131,7 @@ public class SanctionModule extends ZModule {
         server.kickPlayer(uuid, Message.MESSAGE_KICK, "%reason%", reason);
 
         // Broadcast a notification message to players with the kick notify permission
-        server.broadcastMessage(Permission.ESSENTIALS_KICK_NOTIFY, Message.COMMAND_KICK_NOTIFY, "%player%", sender.getName(), "%target%", playerName, "%reason%", reason);
+        server.broadcastMessage(Permission.ESSENTIALS_KICK_NOTIFY, Message.COMMAND_KICK_NOTIFY, "%player%", sender.getName(), "%target%", playerName, "%reason%", reason, "%sender%", getSanctionBy(sender), "%created_at%", this.simpleDateFormat.format(new Date()));
     }
 
     /**
@@ -119,6 +144,12 @@ public class SanctionModule extends ZModule {
      * @param reason     The reason for the ban.
      */
     public void ban(CommandSender sender, UUID uuid, String playerName, Duration duration, String reason) {
+
+        if (isProtected(playerName)) {
+            message(sender, Message.COMMAND_SANCTION_ERROR);
+            return;
+        }
+
         EssentialsServer server = plugin.getEssentialsServer();
         IStorage iStorage = plugin.getStorageManager().getStorage();
 
@@ -139,11 +170,12 @@ public class SanctionModule extends ZModule {
         });
         this.expiringCache.clear(uuid);
 
+        String durationString = TimerBuilder.getStringTime(duration.toMillis());
         // Ban the player with the specified reason and duration
         server.kickPlayer(uuid, Message.MESSAGE_BAN, "%reason%", reason, "%duration%", TimerBuilder.getStringTime(duration.toMillis()));
 
         // Broadcast a notification message to players with the ban notify permission
-        server.broadcastMessage(Permission.ESSENTIALS_BAN_NOTIFY, Message.COMMAND_BAN_NOTIFY, "%player%", sender.getName(), "%target%", playerName, "%reason%", reason, "%duration%", TimerBuilder.getStringTime(duration.toMillis()));
+        server.broadcastMessage(Permission.ESSENTIALS_BAN_NOTIFY, Message.COMMAND_BAN_NOTIFY, "%player%", sender.getName(), "%target%", playerName, "%reason%", reason, "%duration%", durationString, "%sender%", getSanctionBy(sender), "%created_at%", this.simpleDateFormat.format(new Date()), "%expired_at%", this.simpleDateFormat.format(sanction.getExpiredAt()));
     }
 
     /**
@@ -156,6 +188,11 @@ public class SanctionModule extends ZModule {
      * @param reason     The reason for the mute.
      */
     public void mute(CommandSender sender, UUID uuid, String playerName, Duration duration, String reason) {
+
+        if (isProtected(playerName)) {
+            message(sender, Message.COMMAND_SANCTION_ERROR);
+            return;
+        }
 
         EssentialsServer server = plugin.getEssentialsServer();
         IStorage iStorage = plugin.getStorageManager().getStorage();
@@ -186,7 +223,7 @@ public class SanctionModule extends ZModule {
         server.sendMessage(uuid, Message.MESSAGE_MUTE, "%reason%", reason, "%duration%", TimerBuilder.getStringTime(duration.toMillis()));
 
         // Broadcast a notification message to players with the mute notify permission
-        server.broadcastMessage(Permission.ESSENTIALS_MUTE_NOTIFY, Message.COMMAND_MUTE_NOTIFY, "%player%", sender.getName(), "%target%", playerName, "%reason%", reason, "%duration%", TimerBuilder.getStringTime(duration.toMillis()));
+        server.broadcastMessage(Permission.ESSENTIALS_MUTE_NOTIFY, Message.COMMAND_MUTE_NOTIFY, "%player%", sender.getName(), "%target%", playerName, "%reason%", reason, "%duration%", TimerBuilder.getStringTime(duration.toMillis()), "%sender%", getSanctionBy(sender), "%created_at%", this.simpleDateFormat.format(new Date()), "%expired_at%", this.simpleDateFormat.format(sanction.getExpiredAt()));
     }
 
     /**
@@ -195,9 +232,14 @@ public class SanctionModule extends ZModule {
      * @param sender     The command sender.
      * @param uuid       The UUID of the player to unmute.
      * @param playerName The name of the player to unmute.
-     * @param reason     The reason for the unmute.
+     * @param reason     The reason for to unmute.
      */
     public void unmute(CommandSender sender, UUID uuid, String playerName, String reason) {
+
+        if (isProtected(playerName)) {
+            message(sender, Message.COMMAND_SANCTION_ERROR);
+            return;
+        }
 
         IStorage iStorage = plugin.getStorageManager().getStorage();
 
@@ -245,7 +287,7 @@ public class SanctionModule extends ZModule {
         server.sendMessage(uuid, Message.MESSAGE_UNMUTE, "%reason%", reason);
 
         // Broadcast a notification message to players with the mute notify permission
-        server.broadcastMessage(Permission.ESSENTIALS_UNMUTE_NOTIFY, Message.COMMAND_UNMUTE_NOTIFY, "%player%", sender.getName(), "%target%", playerName, "%reason%", reason);
+        server.broadcastMessage(Permission.ESSENTIALS_UNMUTE_NOTIFY, Message.COMMAND_UNMUTE_NOTIFY, "%player%", sender.getName(), "%target%", playerName, "%reason%", reason, "%sender%", getSanctionBy(sender), "%created_at%", this.simpleDateFormat.format(new Date()));
     }
 
     /**
@@ -257,6 +299,11 @@ public class SanctionModule extends ZModule {
      * @param reason     The reason for the unban.
      */
     public void unban(CommandSender sender, UUID uuid, String playerName, String reason) {
+
+        if (isProtected(playerName)) {
+            message(sender, Message.COMMAND_SANCTION_ERROR);
+            return;
+        }
 
         EssentialsServer server = plugin.getEssentialsServer();
         IStorage iStorage = plugin.getStorageManager().getStorage();
@@ -274,7 +321,7 @@ public class SanctionModule extends ZModule {
         this.expiringCache.clear(uuid);
 
         // Broadcast a notification message to players with the mute notify permission
-        server.broadcastMessage(Permission.ESSENTIALS_UNBAN_NOTIFY, Message.COMMAND_UNBAN_NOTIFY, "%player%", sender.getName(), "%target%", playerName, "%reason%", reason);
+        server.broadcastMessage(Permission.ESSENTIALS_UNBAN_NOTIFY, Message.COMMAND_UNBAN_NOTIFY, "%player%", sender.getName(), "%target%", playerName, "%reason%", reason, "%sender%", getSanctionBy(sender), "%created_at%", this.simpleDateFormat.format(new Date()));
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
@@ -313,5 +360,13 @@ public class SanctionModule extends ZModule {
 
     public String getSanctionBy(UUID senderUniqueId) {
         return senderUniqueId.equals(this.plugin.getConsoleUniqueId()) ? Message.CONSOLE.getMessage() : Bukkit.getOfflinePlayer(senderUniqueId).getName();
+    }
+
+    private String getSanctionBy(CommandSender sender) {
+        return sender instanceof Player player ? player.getName() : Message.CONSOLE.getMessage();
+    }
+
+    private boolean isProtected(String username) {
+        return this.protections.stream().anyMatch(name -> name.equalsIgnoreCase(username));
     }
 }

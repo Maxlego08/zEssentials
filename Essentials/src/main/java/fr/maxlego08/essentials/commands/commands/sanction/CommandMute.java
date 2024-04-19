@@ -29,7 +29,7 @@ public class CommandMute extends VCommand {
         SanctionModule sanctionModule = plugin.getModuleManager().getModule(SanctionModule.class);
         String userName = this.argAsString(0);
         Duration duration = this.argAsDuration(1);
-        String reason = args.length > 2 ? getArgs(2) : sanctionModule.getBanDefaultReason();
+        String reason = args.length > 2 ? getArgs(2) : sanctionModule.getMuteDefaultReason();
 
         fetchUniqueId(userName, uuid -> sanctionModule.mute(sender, uuid, userName, duration, reason));
 

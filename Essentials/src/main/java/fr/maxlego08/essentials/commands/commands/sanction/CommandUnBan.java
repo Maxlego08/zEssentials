@@ -25,7 +25,7 @@ public class CommandUnBan extends VCommand {
 
         SanctionModule sanctionModule = plugin.getModuleManager().getModule(SanctionModule.class);
         String userName = this.argAsString(0);
-        String reason = args.length > 1 ? getArgs(1) : sanctionModule.getBanDefaultReason();
+        String reason = args.length > 1 ? getArgs(1) : sanctionModule.getUnbanDefaultReason();
 
         fetchUniqueId(userName, uuid -> sanctionModule.unban(sender, uuid, userName, reason));
 

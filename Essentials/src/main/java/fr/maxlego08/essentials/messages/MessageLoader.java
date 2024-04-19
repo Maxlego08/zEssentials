@@ -63,6 +63,7 @@ public class MessageLoader implements ConfigurationFile {
             try {
 
                 Message message = Message.valueOf(messageKey);
+
                 if (configuration.contains(key + ".type")) {
 
                     MessageType messageType = MessageType.valueOf(configuration.getString(key + ".type", "TCHAT").toUpperCase());
@@ -71,10 +72,10 @@ public class MessageLoader implements ConfigurationFile {
                         case ACTION, TCHAT_AND_ACTION -> {
                             message.setMessage(replaceMessagesColors(configuration.getString(key + ".message")));
                         }
-                        case CENTER, TCHAT -> {
+                        case CENTER, TCHAT, WITHOUT_PREFIX -> {
                             List<String> messages = replaceMessagesColors(configuration.getStringList(key + ".messages"));
                             if (messages.isEmpty()) {
-                                message.setMessage(replaceMessagesColors(configuration.getString(key + "message")));
+                                message.setMessage(replaceMessagesColors(configuration.getString(key + ".message")));
                             } else message.setMessages(replaceMessagesColors(messages));
                         }
                     }

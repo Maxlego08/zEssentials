@@ -76,7 +76,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     private InventoryManager inventoryManager;
     private ButtonManager buttonManager;
     private PatternManager patternManager;
-    private EssentialsServer essentialsServer = new PaperServer();
+    private EssentialsServer essentialsServer = new PaperServer(this);
 
     @Override
     public void onEnable() {

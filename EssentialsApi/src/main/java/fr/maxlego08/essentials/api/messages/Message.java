@@ -286,15 +286,16 @@ public enum Message {
     COMMAND_HOME_ADMIN_LIST("#8cc0cc%player% ʜᴏᴍᴇs&8:&f%homes%"),
     COMMAND_HOME_ADMIN_LIST_INFO(" <hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %player%:%name%'>&f%name%</click></hover>&7"),
 
-    COMMAND_KICK_NOTIFY(MessageType.WITHOUT_PREFIX, "<click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just kicked the player #e0d12d%target%#e33414.</click>"),
-    COMMAND_BAN_NOTIFY(MessageType.WITHOUT_PREFIX, "<click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just banned the player #e0d12d%target%#e33414.</click>"),
-    COMMAND_MUTE_NOTIFY(MessageType.WITHOUT_PREFIX, "<click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just muted the player #e0d12d%target%#e33414.</click>"),
-    COMMAND_UNMUTE_NOTIFY(MessageType.WITHOUT_PREFIX, "<click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just unmuted the player #e0d12d%target%#e33414.</click>"),
-    COMMAND_UNBAN_NOTIFY(MessageType.WITHOUT_PREFIX, "<click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just unbanned the player #e0d12d%target%#e33414.</click>"),
+    COMMAND_KICK_NOTIFY(MessageType.WITHOUT_PREFIX, "<hover:show_text:'<gray>By: <white>%sender%<newline><gray>Duration: <white>%duration%<newline><gray>Reason: <white>%reason%<newline><gray>Date: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just kicked the player #e0d12d%target%#e33414.</click></hover>"),
+    COMMAND_BAN_NOTIFY(MessageType.WITHOUT_PREFIX, "<hover:show_text:'<gray>By: <white>%sender%<newline><gray>Duration: <white>%duration%<newline><gray>Reason: <white>%reason%<newline><gray>Date: <white>%created_at%<newline><gray>Expires: <white>%expired_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just banned the player #e0d12d%target%#e33414.</click></hover>"),
+    COMMAND_MUTE_NOTIFY(MessageType.WITHOUT_PREFIX, "<hover:show_text:'<gray>By: <white>%sender%<newline><gray>Duration: <white>%duration%<newline><gray>Reason: <white>%reason%<newline><gray>Date: <white>%created_at%<newline><gray>Expires: <white>%expired_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just muted the player #e0d12d%target%#e33414.</click></hover>"),
+    COMMAND_UNMUTE_NOTIFY(MessageType.WITHOUT_PREFIX, "<hover:show_text:'<gray>By: <white>%sender%<newline><gray>Duration: <white>%duration%<newline><gray>Reason: <white>%reason%<newline><gray>Date: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just unmuted the player #e0d12d%target%#e33414.</click></hover>"),
+    COMMAND_UNBAN_NOTIFY(MessageType.WITHOUT_PREFIX, "<hover:show_text:'<gray>By: <white>%sender%<newline><gray>Duration: <white>%duration%<newline><gray>Reason: <white>%reason%<newline><gray>Date: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just unbanned the player #e0d12d%target%#e33414.</click></hover>"),
     COMMAND_BAN_ERROR_DURATION("<error>The duration of a banishment must be at least 1 second."),
     COMMAND_MUTE_ERROR_DURATION("<error>The duration of a mute must be at least 1 second."),
     COMMAND_UN_MUTE_ERROR("&f%player% <error>is not mute."),
     COMMAND_UN_BAN_ERROR("&f%player% <error>is not ban."),
+    COMMAND_SANCTION_ERROR("<error>You can’t sanction that player. He’s protected."),
 
     MESSAGE_KICK(
             "",
