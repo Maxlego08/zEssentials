@@ -109,3 +109,6 @@ moderator-action: "<hover:show_text:'<#ff8888>Punish the player'><click:run_comm
 
 # Turns a link into a clickable link by players
 link-transform: "<hover:show_text:'&fOpen the link'><click:open_url:'%url%'>%url%</click></hover>"
+
+# Date format for /chathistory
+date-format: "yyyy-MM-dd HH:mm:ss"

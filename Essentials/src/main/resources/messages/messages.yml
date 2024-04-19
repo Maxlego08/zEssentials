@@ -223,6 +223,7 @@ description-mute: "Mute a player"
 description-un-mute: "Unmute a player"
 description-un-ban: "Unban a player"
 description-sanction: "Open sanction inventory"
+description-chat-history: "Show player's chat messages"
 
 
 # Time format
@@ -381,6 +382,7 @@ command-ban-error-duration: "<error>The duration of a banishment must be at leas
 command-mute-error-duration: "<error>The duration of a mute must be at least 1 second."
 command-un-mute-error: "&f%player% <error>is not mute."
 command-un-ban-error: "&f%player% <error>is not ban."
+command-sanction-error: "<error>You can’t sanction that player. He’s protected."
 message-kick:
   - ""
   - "&cYou have just been kicked from the server for the reason:"
@@ -423,3 +425,19 @@ message-ban-join:
   - "&fMinecraft-Inventory-Builder.com"
   - ""
 
+# Chat
+chat-error: "<error>Impossible to let you speak, your data is not loaded."
+chat-alphanumeric-regex: "<error>You use a forbidden character."
+chat-cooldown: "<error>Please wait before sending your next message. &8(&7%cooldown%&8)"
+chat-same: "<error>You can’t put the same sentence."
+chat-link: "<error>You cannot send a link in the chat."
+chat-disable: "<error>The chat is currently unavailable."
+
+chat-default-format: "<white>%displayName% <#656665>• <gray>%message%"
+chat-messages-empty: "&f%player% <error>did not write a message."
+chat-messages-line:
+  type: WITHOUT_PREFIX
+  message: "&f%date% &7%message%"
+chat-messages-footer:
+  type: WITHOUT_PREFIX
+  message: "<click:run_command:'/chathistory %player% %previousPage%'><hover:show_text:'Previous Page'><white>⬅</hover></click> <gray>%page%/%maxPage% <click:run_command:'/chathistory %player% %nextPage%'><hover:show_text:'Next Page'><white>➡</hover></click>"
