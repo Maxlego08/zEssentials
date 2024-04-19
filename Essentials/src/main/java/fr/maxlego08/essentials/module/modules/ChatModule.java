@@ -14,6 +14,7 @@ import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.minimessage.tag.Tag;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -44,6 +45,7 @@ public class ChatModule extends ZModule {
     private boolean enableSameMessageCancel;
     private boolean enableChatFormat;
     private boolean enableLinkTransform;
+    private boolean enableChatMessages;
     private int chatCooldownMax;
     private String defaultChatFormat;
     private String moderatorAction;
@@ -83,6 +85,7 @@ public class ChatModule extends ZModule {
         }
 
         String message = PlainTextComponentSerializer.plainText().serialize(event.originalMessage());
+        final String minecraftMessage = message;
 
         if (this.enableAlphanumericRegex && !this.alphanumericPattern.matcher(message).find() && !hasPermission(player, Permission.ESSENTIALS_CHAT_BYPASS_ALPHANUMERIC)) {
             cancelEvent(event, Message.CHAT_ALPHANUMERIC_REGEX);
@@ -114,17 +117,25 @@ public class ChatModule extends ZModule {
             message = transformUrlsToMiniMessage(message);
         }
 
-        System.out.println("AVANT " + getChatFormat(player));
         String chatFormat = papi(getChatFormat(player), player);
-        System.out.println("APRES " + chatFormat);
         Tag tag = Tag.inserting(this.componentMessage.translateText(player, message));
 
+        String finalMessage = message;
         event.renderer((source, sourceDisplayName, ignoredMessage, viewer) -> {
 
             boolean isModerator = viewer instanceof Player playerViewer && hasPermission(playerViewer, Permission.ESSENTIALS_CHAT_MODERATOR);
+            if (viewer instanceof Player playerViewer) {
+                if (finalMessage.contains("@" + playerViewer.getName())) {
+                    playerViewer.playSound(playerViewer.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1f);
+                }
+            }
 
             return getComponentMessage(chatFormat, TagResolver.resolver("message", tag), "%displayName%", player.getDisplayName(), "%player%", player.getName(), "%moderator_action%", isModerator ? papi(getMessage(this.moderatorAction, "%player%", player.getName()), (Player) viewer) : "");
         });
+
+        if (this.enableChatMessages) {
+            this.plugin.getStorageManager().getStorage().insertChatMessage(player.getUniqueId(), minecraftMessage);
+        }
     }
 
     private String getChatFormat(Player player) {

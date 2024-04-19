@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.storage.storages;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.database.dto.ChatMessageDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.database.dto.UserDTO;
@@ -13,6 +14,7 @@ import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.storage.database.Repositories;
 import fr.maxlego08.essentials.storage.database.SqlConnection;
+import fr.maxlego08.essentials.storage.database.repositeries.ChatMessagesRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.EconomyTransactionsRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserCooldownsRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserEconomyRepository;
@@ -57,6 +59,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
         this.repositories.register(EconomyTransactionsRepository.class);
         this.repositories.register(UserHomeRepository.class);
         this.repositories.register(UserSanctionRepository.class);
+        this.repositories.register(ChatMessagesRepository.class);
         // this.repositories.register(ServerStorageRepository.class);
 
         plugin.getMigrationManager().execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), this.plugin.getLogger());
@@ -293,5 +296,10 @@ public class SqlStorage extends StorageHelper implements IStorage {
     @Override
     public List<SanctionDTO> getSanctions(UUID uuid) {
         return this.repositories.getTable(UserSanctionRepository.class).getSanctions(uuid);
+    }
+
+    @Override
+    public void insertChatMessage(UUID uuid, String content) {
+        async(() -> this.repositories.getTable(ChatMessagesRepository.class).insert(new ChatMessageDTO(uuid, content)));
     }
 }

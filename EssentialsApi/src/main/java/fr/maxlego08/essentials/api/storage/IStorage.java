@@ -70,4 +70,6 @@ public interface IStorage {
     Sanction getMute(UUID uuid);
 
     List<SanctionDTO> getSanctions(UUID uuid);
+
+    void insertChatMessage(UUID uuid, String content);
 }

@@ -266,4 +266,9 @@ public class JsonStorage extends StorageHelper implements IStorage {
     public List<SanctionDTO> getSanctions(UUID uuid) {
         throw new NotImplementedException("getSanctions is not implemented, use MYSQL storage");
     }
+
+    @Override
+    public void insertChatMessage(UUID uuid, String content) {
+        throw new NotImplementedException("insertChatMessage is not implemented, use MYSQL storage");
+    }
 }

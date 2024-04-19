@@ -52,6 +52,10 @@ enable-chat-format: true
 # check out link-transform
 enable-link-transform: true
 
+# Stores all player messages in the database. Works only with MYSQL storage
+# Also provides access to all player messages with /sc command
+enable-chat-messages: true
+
 # Regex to check allowed characters
 # You can test the regex here before changing the default one: https://regex101.com/
 alphanumeric-regex: '^[a-zA-Z0-9_.?!^¨%ù*&é"#''{(\[-|èêë`\\çà)\]=}ûî+<>:²€$/\\-\\,-â@;ô ]+$'
