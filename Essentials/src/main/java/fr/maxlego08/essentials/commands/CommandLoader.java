@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.commands;
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandManager;
+import fr.maxlego08.essentials.commands.commands.chat.CommandChatHistory;
 import fr.maxlego08.essentials.commands.commands.economy.CommandEconomy;
 import fr.maxlego08.essentials.commands.commands.economy.CommandMoney;
 import fr.maxlego08.essentials.commands.commands.economy.CommandPay;
@@ -152,6 +153,8 @@ public class CommandLoader {
         register("sanction", CommandSanction.class, "sc");
 
         register("kittycannon", CommandKittyCannon.class);
+
+        register("chathistory", CommandChatHistory.class, "ct");
 
         File file = new File(plugin.getDataFolder(), "commands.yml");
         if (!file.exists()) this.plugin.saveResource("commands.yml", false);

@@ -29,6 +29,7 @@ import org.bukkit.OfflinePlayer;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -300,6 +301,11 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     @Override
     public void insertChatMessage(UUID uuid, String content) {
-        async(() -> this.repositories.getTable(ChatMessagesRepository.class).insert(new ChatMessageDTO(uuid, content)));
+        async(() -> this.repositories.getTable(ChatMessagesRepository.class).insert(new ChatMessageDTO(uuid, content, new Date())));
+    }
+
+    @Override
+    public List<ChatMessageDTO> getMessages(UUID targetUuid) {
+        return this.repositories.getTable(ChatMessagesRepository.class).getMessages(targetUuid);
     }
 }

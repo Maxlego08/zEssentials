@@ -1,37 +1,45 @@
 package fr.maxlego08.essentials.module.modules;
 
 import fr.maxlego08.essentials.ZEssentialsPlugin;
+import fr.maxlego08.essentials.api.cache.ExpiringCache;
 import fr.maxlego08.essentials.api.commands.Permission;
+import fr.maxlego08.essentials.api.database.dto.ChatMessageDTO;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.ChatCooldown;
 import fr.maxlego08.essentials.api.utils.ChatFormat;
 import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.essentials.storage.ConfigStorage;
-import fr.maxlego08.essentials.zutils.utils.CooldownLimit;
+import fr.maxlego08.essentials.zutils.utils.DynamicCooldown;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
+import fr.maxlego08.menu.zcore.utils.inventory.Pagination;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.minimessage.tag.Tag;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Sound;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.LongStream;
 
 public class ChatModule extends ZModule {
 
+    private final ExpiringCache<UUID, List<ChatMessageDTO>> chatMessagesCache = new ExpiringCache<>(1000 * 60);
     private final Pattern urlPattern = Pattern.compile("(https?://[\\w-\\.]+(\\:[0-9]+)?(/[\\w- ./?%&=]*)?)", Pattern.CASE_INSENSITIVE);
-    private final CooldownLimit limit = new CooldownLimit();
+    private final DynamicCooldown dynamicCooldown = new DynamicCooldown();
     private final List<ChatCooldown> chatCooldowns = new ArrayList<>();
     private final List<ChatFormat> chatFormats = new ArrayList<>();
+    private SimpleDateFormat simpleDateFormat;
     private String alphanumericRegex;
     private String linkRegex;
     private String itemaddersFontRegex;
@@ -50,6 +58,7 @@ public class ChatModule extends ZModule {
     private String defaultChatFormat;
     private String moderatorAction;
     private String linkTransform;
+    private String dateFormat;
     private long[] chatCooldownArray;
 
 
@@ -61,11 +70,12 @@ public class ChatModule extends ZModule {
     public void loadConfiguration() {
         super.loadConfiguration();
 
-        this.limit.setSamples(this.chatCooldownMax);
+        this.dynamicCooldown.setSamples(this.chatCooldownMax);
         this.alphanumericPattern = Pattern.compile(this.alphanumericRegex);
         this.linkPattern = Pattern.compile(this.linkRegex);
         this.fontPattern = Pattern.compile(this.itemaddersFontRegex);
         this.chatCooldownArray = this.chatCooldowns.stream().flatMapToLong(cooldown -> LongStream.of(cooldown.cooldown(), cooldown.messages())).toArray();
+        this.simpleDateFormat = new SimpleDateFormat(this.dateFormat);
     }
 
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
@@ -135,6 +145,7 @@ public class ChatModule extends ZModule {
 
         if (this.enableChatMessages) {
             this.plugin.getStorageManager().getStorage().insertChatMessage(player.getUniqueId(), minecraftMessage);
+            this.chatMessagesCache.clear(player.getUniqueId());
         }
     }
 
@@ -146,9 +157,9 @@ public class ChatModule extends ZModule {
 
         long wait;
 
-        synchronized (this.limit) {
-            wait = this.limit.limited(player.getUniqueId(), this.chatCooldownArray);
-            if (wait == 0L) this.limit.add(player.getUniqueId());
+        synchronized (this.dynamicCooldown) {
+            wait = this.dynamicCooldown.limited(player.getUniqueId(), this.chatCooldownArray);
+            if (wait == 0L) this.dynamicCooldown.add(player.getUniqueId());
         }
 
         return wait != 0L ? wait : 0.0;
@@ -170,5 +181,24 @@ public class ChatModule extends ZModule {
         matcher.appendTail(result);
 
         return result.toString();
+    }
+
+    public void sendChatHistory(CommandSender sender, UUID targetUuid, String targetName, int targetPage) {
+        this.plugin.getScheduler().runAsync(wrappedTask -> {
+
+            List<ChatMessageDTO> messages = this.chatMessagesCache.get(targetUuid, () -> this.plugin.getStorageManager().getStorage().getMessages(targetUuid));
+            if (messages.isEmpty()) {
+                message(sender, Message.CHAT_MESSAGES_EMPTY, "%player%", targetName);
+                return;
+            }
+
+            Pagination<ChatMessageDTO> pagination = new Pagination<>();
+            int maxPage = getMaxPage(messages, 10);
+            int page = targetPage > maxPage ? maxPage : targetPage < 0 ? 1 : targetPage;
+
+            pagination.paginate(messages, 10, page).forEach(chatMessageDTO -> message(sender, Message.CHAT_MESSAGES_LINE, "%date%", this.simpleDateFormat.format(chatMessageDTO.created_at()), "%message%", chatMessageDTO.content()));
+
+            message(sender, Message.CHAT_MESSAGES_FOOTER, "%page%", page, "%nextPage%", page + 1, "%previousPage%", page - 1, "%maxPage%", maxPage, "%player%", targetName);
+        });
     }
 }

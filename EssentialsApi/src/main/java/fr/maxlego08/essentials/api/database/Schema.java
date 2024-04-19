@@ -73,5 +73,11 @@ public interface Schema {
     List<String> getForeignKeys();
 
     List<JoinCondition> getJoinConditions();
+
+    void orderBy(String columnName);
+
+    void orderByDesc(String columnName);
+
+    String getOrderBy();
 }
 

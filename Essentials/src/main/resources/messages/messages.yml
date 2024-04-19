@@ -22,14 +22,14 @@ you: "you"
 trash: "&8Trash"
 console: "Console"
 expired: "Expired"
-player-not-found: "&f%player% #FF0000was not found."
-module-disable: "#FF0000The &f%name% #FF0000module is disabled. You cannot use this command."
+player-not-found: "&f%player% <error>was not found."
+module-disable: "<error>The &f%name% <error>module is disabled. You cannot use this command."
 
 # Commands
-command-syntax-error: "#ff0000You must execute the command like this#656665: &f%syntax%"
-command-no-permission: "#ff0000You do not have permission to run this command."
-command-no-console: "#ff0000Only one player can execute this command."
-command-no-arg: "#ff0000Impossible to find the command with its arguments."
+command-syntax-error: "<error>You must execute the command like this#656665: &f%syntax%"
+command-no-permission: "<error>You do not have permission to run this command."
+command-no-console: "<error>Only one player can execute this command."
+command-no-arg: "<error>Impossible to find the command with its arguments."
 command-syntaxe-help: "&f%syntax% #656665» &7%description%"
 
 command-reload: "#00ff40You have just reloaded the configuration files."
@@ -38,7 +38,7 @@ command-essentials: "&ezEssentials&8, &eVersion &f%version%"
 
 # GameMode commands
 command-gamemode: "&fSet game mode&e %gamemode%&f for &b%player%&f."
-command-gamemode-invalid: "#ff0000You need to specify a valid player."
+command-gamemode-invalid: "<error>You need to specify a valid player."
 
 
 # Weather commands
@@ -49,11 +49,11 @@ command-sun: "&fYou have just brought the &esun&f into the world &a%world%&f."
 
 # Admins commands
 command-top: "&7You've just been teleported to &etop&7."
-command-top-error: "#ff0000Unable to find a position to transport you safely."
-command-speed-invalid: "#ff0000You need to specify a valid player."
+command-top-error: "<error>Unable to find a position to transport you safely."
+command-speed-invalid: "<error>You need to specify a valid player."
 command-speed-fly: "&7You have just set your &nfly&r&7 speed to &f%speed%&7 for &f%player%&7. &8(&f2 &7by default&8)"
 command-speed-walk: "&7You have just set your &nwalk&r&7 speed to &f%speed%&7 for &f%player%&7. &8(&f2 &7by default&8)"
-command-speed-error: "#ff0000You must enter a number between &60#ff0000 and &610#ff0000. &8(&f2 &7by default&8)"
+command-speed-error: "<error>You must enter a number between &60<error> and &610<error>. &8(&f2 &7by default&8)"
 command-god-enable: "&7God mode &aenable &7for &f%player%&a."
 command-god-disable: "&7God mode &cdisable &7for &f%player%&a."
 command-heal-sender: "&7You just healed the player &f%player%&7."
@@ -78,7 +78,7 @@ command-fly-disable: "&7Flight mode &cdisable &7for &f%player%&a."
 
 
 # Economy
-command-economy-not-found: "#ff0000 Can’t find a economy with the name &f%name%#ff0000."
+command-economy-not-found: "<error> Can’t find a economy with the name &f%name%<error>."
 command-economy-give-all-sender: "#99E0FFYou just gave &f%economyFormat% #99E0FFto the online players."
 command-economy-give-sender: "#99E0FFYou just gave &f%economyFormat% #99E0FFto the player &7%player%#99E0FF."
 command-economy-give-receiver: "#99E0FFYou have just received &f%economyFormat%."
@@ -86,56 +86,56 @@ command-economy-set-sender: "#99E0FFYou just set &f%economyFormat% #99E0FFto the
 command-economy-set-receiver: "#99E0FFYou have just been modified &f%economyFormat%."
 command-economy-take-sender: "#99E0FFYou just take &f%economyFormat% #99E0FFto the player &7%player%#99E0FF."
 command-economy-take-receiver: "#99E0FFYou have just lost &f%economyFormat%."
-command-economy-show-empty: "&f%player% #FF0000has no money."
+command-economy-show-empty: "&f%player% <error>has no money."
 command-economy-show-info: "&7- #99E0FF%economy% &f%amount%."
 command-money:
   - "#99E0FFYou have&8:"
   - " &7- #99E0FF%economy-name-money% &f%economy-money%."
   - " &7- #99E0FF%economy-name-coins% &f%economy-coins%."
-command-pay-negative: "#ff0000Amount to pay must be positive."
-command-pay-min: "#ff0000The minimum amount you can pay is &f%amount%#ff0000."
-command-pay-max: "#ff0000The maximum amount you can pay is &f%amount%#ff0000."
+command-pay-negative: "<error>Amount to pay must be positive."
+command-pay-min: "<error>The minimum amount you can pay is &f%amount%<error>."
+command-pay-max: "<error>The maximum amount you can pay is &f%amount%<error>."
 command-pay-sender: "#99E0FFYou just sent #F8F327%amount%#99E0FF to the player &f%player%#99E0FF."
 command-pay-receiver: "&f%player% #99E0FFjust sent you #F8F327%amount%#99E0FF."
-command-pay-disable: "#ff0000You can’t send %name%."
-command-pay-self: "#ff0000You cannot send money to yourself."
-command-pay-not-enough: "#ff0000You don't have enough money."
+command-pay-disable: "<error>You can’t send %name%."
+command-pay-self: "<error>You cannot send money to yourself."
+command-pay-not-enough: "<error>You don't have enough money."
 
 
 # Teleport commands
-command-tpa-error: "#ff0000You have already sent a request to #99E0FF%player%#ff0000."
-command-tpa-error-same: "#ff0000You cannot teleport to yourself."
-command-tpa-error-offline: "#ff0000Unable to find player, must be offline."
-command-tpa-error-to-late-empty: "#ff0000You do not have a teleport request."
-command-tpa-error-to-late-expire: "#ff0000The teleport request has expired."
+command-tpa-error: "<error>You have already sent a request to #99E0FF%player%<error>."
+command-tpa-error-same: "<error>You cannot teleport to yourself."
+command-tpa-error-offline: "<error>Unable to find player, must be offline."
+command-tpa-error-to-late-empty: "<error>You do not have a teleport request."
+command-tpa-error-to-late-expire: "<error>The teleport request has expired."
 command-tpa-sender:
   - "#00FF00✔ #99E0FFSent &f%displayName% #99E0FFa teleport request."
-  - "  <hover:show_text:'#ff0000✘ Cancel teleportation'><click:run_command:/tpacancel %player%>#99E0FFType #00FF00/tpacencel %player%#99E0FF to cancel your request.</click></hover>"
+  - "  <hover:show_text:'<error>✘ Cancel teleportation'><click:run_command:/tpacancel %player%>#99E0FFType #00FF00/tpacencel %player%#99E0FF to cancel your request.</click></hover>"
 command-tpa-receiver:
   - ""
   - "#F8F327⚠ &f%displayName% #99E0FFhas requested to teleport to you!"
   - "  <hover:show_text:'#00FF00✔ Accept teleportation'><click:run_command:/tpaccept>#99E0FFType #00FF00/tpaccept #99E0FFto #00FF00<u>accept</u>#99E0FF.</click></hover>"
-  - "  <hover:show_text:'#ff0000✘ Deny teleportation'><click:run_command:/tpdeny>#99E0FFType #ff0000/tpdeny #99E0FFto #ff0000<u>deny</u>#99E0FF.</click></hover>"
+  - "  <hover:show_text:'<error>✘ Deny teleportation'><click:run_command:/tpdeny>#99E0FFType <error>/tpdeny #99E0FFto <error><u>deny</u>#99E0FF.</click></hover>"
   - ""
   - "&7&oYou have 60 seconds to accept the teleport request."
 command-tpa-accept-receiver: "#99E0FFYou have just #00FF00accepted #99E0FFthe teleport request from #99E0FF%player%&a."
 command-tpa-accept-sender: "#99E0FF%player%&a has just accepted your teleport request."
-command-teleport-ignore-player: "#ff0000You cannot send a teleport request to #99E0FF%player%#ff0000 they are ignoring you."
-command-teleport-world: "#ff0000You need to be in the same world to teleport."
-command-tpa-error-to-late: "#ff0000You do not have a teleport request."
-command-tpa-error-to-late-2: "#ff0000The request has expired."
+command-teleport-ignore-player: "<error>You cannot send a teleport request to #99E0FF%player%<error> they are ignoring you."
+command-teleport-world: "<error>You need to be in the same world to teleport."
+command-tpa-error-to-late: "<error>You do not have a teleport request."
+command-tpa-error-to-late-2: "<error>The request has expired."
 command-tp-deny-sender: "#00FF00✔ Denied &f%player% #00FF00teleport request."
-command-tp-deny-receiver: "#ff0000✘ &f%player% #ff0000has denied your teleport request."
-command-tp-cancel-error: "#ff0000You did not send a teleport request at &f%player%#ff0000."
-command-tp-cancel-sender: "#ff0000Cancelled #99E0FFyour teleport request to %player%."
-command-tp-cancel-receiver: "&f%player% #ff0000cancelled their teleport request to you."
+command-tp-deny-receiver: "<error>✘ &f%player% <error>has denied your teleport request."
+command-tp-cancel-error: "<error>You did not send a teleport request at &f%player%<error>."
+command-tp-cancel-sender: "<error>Cancelled #99E0FFyour teleport request to %player%."
+command-tp-cancel-receiver: "&f%player% <error>cancelled their teleport request to you."
 command-world-teleport-self: "&aYou have just been teleported into the world &f%world%&a."
 command-world-teleport-other: "&aYou just teleported the player &f%player% &ain the world &f%world%&a."
 command-tp: "&7You just teleport to the player #34cfe0%player%&f."
 command-tp-self: "&7You just teleported #34cfe0%player%&7 to your position."
 command-back: "&7Returning to previous location."
-command-back-error: "#ff0000You have no last location. Impossible to go back."
-command-random-tp-error: "#ff0000No safe location found after multiple attempts, please try again."
+command-back-error: "<error>You have no last location. Impossible to go back."
+command-random-tp-error: "<error>No safe location found after multiple attempts, please try again."
 
 
 # First join
@@ -238,13 +238,13 @@ format-hour: "hour"
 format-hours: "hours"
 format-day: "d"
 format-days: "days"
-cooldown: "#ff0000✘ You must wait for &f%cooldown% #ff0000before performing this action."
+cooldown: "<error>✘ You must wait for &f%cooldown% <error>before performing this action."
 
 
 # Teleportation
-teleport-move: "#ff0000You must not move!"
-teleport-damage: "#ff0000You must not take damage during teleportation."
-teleport-error-location: "#ff0000Unable to teleport you safely."
+teleport-move: "<error>You must not move!"
+teleport-damage: "<error>You must not take damage during teleportation."
+teleport-error-location: "<error>Unable to teleport you safely."
 
 teleport-message:
   type: ACTION
@@ -283,9 +283,9 @@ teleport-success-home:
 
 
 # Warps
-command-warp-already-exist: "#ff0000Warp &f%name% #ff0000already exists. &7Use &n<hover:show_text:'&fUse this command'><click:suggest_command:'/setwarp %name% true'>/setwarp %name% true</click></hover>&r command to modify the warp"
-command-warp-doesnt-exist: "#ff0000Warp &f%name% #ff0000 does not exist."
-command-warp-no-permission: "#ff0000You do not have permission to use the warp &f%name%#ff0000."
+command-warp-already-exist: "<error>Warp &f%name% <error>already exists. &7Use &n<hover:show_text:'&fUse this command'><click:suggest_command:'/setwarp %name% true'>/setwarp %name% true</click></hover>&r command to modify the warp"
+command-warp-doesnt-exist: "<error>Warp &f%name% <error> does not exist."
+command-warp-no-permission: "<error>You do not have permission to use the warp &f%name%<error>."
 command-warp-create:
   - "#00ff00You just created the warp &f%name% #00ff00to your position."
   - "&7Warp Permission is: <hover:show_text:'&fCopy command to add permission to a player'><click:SUGGEST_COMMAND:'/lp user <username> permission set nessentials.warp.%name%'>&f&nessentials.warp.%name%</click></hover>"
@@ -299,16 +299,16 @@ command-warp-delete: "#00ff00You just removed the warp &f%name%#00ff00."
 
 
 # Homes
-command-set-home-invalide-name: "&f%name% #ff0000is not a valid name, please choose another one."
-command-set-home-too-long: "&f%name% #ff0000is too long, please choose another one."
-command-set-home-too-short: "&f%name% #ff0000is too short name, please choose another one."
-command-set-home-max: "#ff0000You cannot have more than &f%max%#ff0000 homes."
+command-set-home-invalide-name: "&f%name% <error>is not a valid name, please choose another one."
+command-set-home-too-long: "&f%name% <error>is too long, please choose another one."
+command-set-home-too-short: "&f%name% <error>is too short name, please choose another one."
+command-set-home-max: "<error>You cannot have more than &f%max%<error> homes."
 command-set-home-create:
   - ""
   - "#99E0FFYou just created the home &f%name%#99E0FF. &8(&7%current%&8/&7%max%&8)"
   - "&fUse &n<hover:show_text:'&fClick to teleport to home'><click:suggest_command:'/home %name%'>/home %name%</click></hover>&r command to teleport to it"
   - ""
-command-home-doesnt-exist: "#ff0000The home &f%name%#ff0000 does not exist."
+command-home-doesnt-exist: "<error>The home &f%name%<error> does not exist."
 
 # Available placeholders:
 # %count% - Home count
@@ -351,7 +351,7 @@ command-home-information-in-line:
   message: "#8cc0ccʏᴏᴜʀ ʜᴏᴍᴇs &a♦ &7(%count%/%max%) &8:&f%homes%"
 command-home-information-in-line-info: " <hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %name%'>&f%name%</click></hover>&7"
 
-command-home-icon-error: "#ff0000You must have an item in your hand to change the icon of your home."
+command-home-icon-error: "<error>You must have an item in your hand to change the icon of your home."
 command-home-icon-success: "#00ff00You just changed the home icon &f%name%#00ff00."
 command-home-icon-reset: "#00ff00You just reset the home icon &f%name%#00ff00."
 command-home-delete: "#99E0FFYou just deleted the home &f%name%#99E0FF."
@@ -377,10 +377,10 @@ command-unmute-notify:
 command-unban-notify:
   type: WITHOUT_PREFIX
   message: "<click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just unbanned the player #e0d12d%target%#e33414.</click>"
-command-ban-error-duration: "#ff0000The duration of a banishment must be at least 1 second."
-command-mute-error-duration: "#ff0000The duration of a mute must be at least 1 second."
-command-un-mute-error: "&f%player% #ff0000is not mute."
-command-un-ban-error: "&f%player% #ff0000is not ban."
+command-ban-error-duration: "<error>The duration of a banishment must be at least 1 second."
+command-mute-error-duration: "<error>The duration of a mute must be at least 1 second."
+command-un-mute-error: "&f%player% <error>is not mute."
+command-un-ban-error: "&f%player% <error>is not ban."
 message-kick:
   - ""
   - "&cYou have just been kicked from the server for the reason:"

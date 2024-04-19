@@ -39,6 +39,7 @@ public class SchemaBuilder extends ZUtils implements Schema {
     private final List<String> foreignKeys = new ArrayList<>();
     private final List<WhereCondition> whereConditions = new ArrayList<>();
     private final List<JoinCondition> joinConditions = new ArrayList<>();
+    private String orderBy;
     private Migration migration;
 
     private SchemaBuilder(String tableName, SchemaType schemaType) {
@@ -335,6 +336,9 @@ public class SchemaBuilder extends ZUtils implements Schema {
         }
 
         this.whereConditions(selectQuery);
+        if (this.orderBy != null) {
+            selectQuery.append(" ").append(this.orderBy);
+        }
 
         String finalQuery = databaseConfiguration.replacePrefix(selectQuery.toString());
         if (databaseConfiguration.debug()) {
@@ -424,6 +428,21 @@ public class SchemaBuilder extends ZUtils implements Schema {
     @Override
     public List<JoinCondition> getJoinConditions() {
         return joinConditions;
+    }
+
+    @Override
+    public void orderBy(String columnName) {
+        this.orderBy = String.format("ORDER BY %s", columnName);
+    }
+
+    @Override
+    public void orderByDesc(String columnName) {
+        this.orderBy = String.format("ORDER BY %s DESC", columnName);
+    }
+
+    @Override
+    public String getOrderBy() {
+        return this.orderBy;
     }
 
     @Override

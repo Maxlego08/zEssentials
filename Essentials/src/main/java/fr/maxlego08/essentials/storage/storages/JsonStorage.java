@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.storage.storages;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.database.dto.ChatMessageDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.HomeDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
@@ -270,5 +271,10 @@ public class JsonStorage extends StorageHelper implements IStorage {
     @Override
     public void insertChatMessage(UUID uuid, String content) {
         throw new NotImplementedException("insertChatMessage is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public List<ChatMessageDTO> getMessages(UUID targetUuid) {
+        return new ArrayList<>();
     }
 }

@@ -1,5 +1,6 @@
 package fr.maxlego08.essentials.api.storage;
 
+import fr.maxlego08.essentials.api.database.dto.ChatMessageDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
@@ -72,4 +73,6 @@ public interface IStorage {
     List<SanctionDTO> getSanctions(UUID uuid);
 
     void insertChatMessage(UUID uuid, String content);
+
+    List<ChatMessageDTO> getMessages(UUID targetUuid);
 }

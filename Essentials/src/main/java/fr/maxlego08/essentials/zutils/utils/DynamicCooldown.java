@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class CooldownLimit {
+public class DynamicCooldown {
 
     private long[] samples;
     private final Map<UUID, Integer> latestSamplePos = new HashMap<>();
