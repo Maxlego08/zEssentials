@@ -25,8 +25,8 @@ public class HomeModule extends ZModule {
 
     private final List<HomePermission> permissions = new ArrayList<>();
 
-    private HomeDisplay homeDisplay;
-    private String homeRegex;
+    private HomeDisplay homeDisplay = HomeDisplay.MULTI_LINE;
+    private String homeRegex = "[a-zA-Z0-9]+";
     private int homeNameMax;
     private int homeNameMin;
 
@@ -38,7 +38,12 @@ public class HomeModule extends ZModule {
     public void loadConfiguration() {
         super.loadConfiguration();
 
+        this.savePattern("home_down");
+        this.savePattern("home_up");
+
         this.loadInventory("homes");
+        this.loadInventory("homes_donut");
+        this.loadInventory("home_delete");
     }
 
     public List<HomePermission> getPermissions() {
@@ -46,7 +51,7 @@ public class HomeModule extends ZModule {
     }
 
     public Message isValidHomeName(String input) {
-        if (!input.matches("[a-zA-Z0-9]+")) {
+        if (!input.matches("[a-zA-Z0-9_-]+")) {
             return Message.COMMAND_SET_HOME_INVALIDE_NAME;
         }
         if (input.equalsIgnoreCase("list")) { // Blacklist for /home <player>:list

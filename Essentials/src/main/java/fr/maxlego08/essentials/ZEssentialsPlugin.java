@@ -26,6 +26,8 @@ import fr.maxlego08.essentials.api.utils.Warp;
 import fr.maxlego08.essentials.buttons.ButtonHomes;
 import fr.maxlego08.essentials.buttons.ButtonPayConfirm;
 import fr.maxlego08.essentials.buttons.ButtonTeleportationConfirm;
+import fr.maxlego08.essentials.buttons.sanction.ButtonSanctionInformation;
+import fr.maxlego08.essentials.buttons.sanction.ButtonSanctions;
 import fr.maxlego08.essentials.commands.CommandLoader;
 import fr.maxlego08.essentials.commands.ZCommandManager;
 import fr.maxlego08.essentials.commands.commands.essentials.CommandEssentials;
@@ -33,6 +35,7 @@ import fr.maxlego08.essentials.database.ZMigrationManager;
 import fr.maxlego08.essentials.economy.EconomyManager;
 import fr.maxlego08.essentials.hooks.VaultEconomy;
 import fr.maxlego08.essentials.listener.PlayerListener;
+import fr.maxlego08.essentials.loader.ButtonSanctionLoader;
 import fr.maxlego08.essentials.loader.ButtonWarpLoader;
 import fr.maxlego08.essentials.messages.MessageLoader;
 import fr.maxlego08.essentials.module.ZModuleManager;
@@ -44,8 +47,9 @@ import fr.maxlego08.essentials.server.redis.RedisServer;
 import fr.maxlego08.essentials.storage.ConfigStorage;
 import fr.maxlego08.essentials.storage.ZStorageManager;
 import fr.maxlego08.essentials.storage.adapter.UserTypeAdapter;
-import fr.maxlego08.essentials.user.UserPlaceholders;
 import fr.maxlego08.essentials.user.ZUser;
+import fr.maxlego08.essentials.user.placeholders.UserHomePlaceholders;
+import fr.maxlego08.essentials.user.placeholders.UserPlaceholders;
 import fr.maxlego08.essentials.zutils.ZPlugin;
 import fr.maxlego08.essentials.zutils.utils.CommandMarkdownGenerator;
 import fr.maxlego08.essentials.zutils.utils.PlaceholderMarkdownGenerator;
@@ -55,13 +59,21 @@ import fr.maxlego08.menu.api.InventoryManager;
 import fr.maxlego08.menu.api.pattern.PatternManager;
 import fr.maxlego08.menu.button.loader.NoneLoader;
 import org.bukkit.Location;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permissible;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.lang.reflect.Modifier;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin {
@@ -71,12 +83,13 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     private InventoryManager inventoryManager;
     private ButtonManager buttonManager;
     private PatternManager patternManager;
-    private EssentialsServer essentialsServer = new PaperServer();
+    private EssentialsServer essentialsServer = new PaperServer(this);
 
     @Override
     public void onEnable() {
 
         this.saveDefaultConfig();
+        this.saveOrUpdateConfiguration("config.yml");
 
         FoliaLib foliaLib = new FoliaLib(this);
         this.serverImplementation = foliaLib.getImpl();
@@ -101,8 +114,8 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.persist = new Persist(this);
 
         // Configurations files
-        this.registerConfiguration(new MessageLoader(this));
         this.registerConfiguration(this.configuration = new MainConfiguration(this));
+        this.registerConfiguration(new MessageLoader(this));
 
         // Load configuration files
         this.configurationFiles.forEach(ConfigurationFile::load);
@@ -134,6 +147,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
         this.registerListener(new PlayerListener(this));
         this.registerPlaceholder(UserPlaceholders.class);
+        this.registerPlaceholder(UserHomePlaceholders.class);
 
         this.generateDocs();
     }
@@ -164,10 +178,13 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
     private void registerButtons() {
 
-        this.buttonManager.register(new NoneLoader(this, ButtonTeleportationConfirm.class, "essentials_teleportation_confirm"));
-        this.buttonManager.register(new NoneLoader(this, ButtonPayConfirm.class, "essentials_pay_confirm"));
-        this.buttonManager.register(new NoneLoader(this, ButtonHomes.class, "essentials_homes"));
+        this.buttonManager.register(new NoneLoader(this, ButtonTeleportationConfirm.class, "zessentials_teleportation_confirm"));
+        this.buttonManager.register(new NoneLoader(this, ButtonPayConfirm.class, "zessentials_pay_confirm"));
+        this.buttonManager.register(new NoneLoader(this, ButtonHomes.class, "zessentials_homes"));
+        this.buttonManager.register(new NoneLoader(this, ButtonSanctionInformation.class, "zessentials_sanction_information"));
+        this.buttonManager.register(new NoneLoader(this, ButtonSanctions.class, "zessentials_sanctions"));
         this.buttonManager.register(new ButtonWarpLoader(this));
+        this.buttonManager.register(new ButtonSanctionLoader(this));
 
     }
 
@@ -336,6 +353,69 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     public void debug(String string) {
         if (this.configuration.isEnableDebug()) {
             this.getLogger().info(string);
+        }
+    }
+
+    @Override
+    public void openInventory(Player player, String inventoryName) {
+        this.inventoryManager.getInventory(this, inventoryName).ifPresent(inventory -> {
+            this.serverImplementation.runAtLocation(player.getLocation(), wrappedTask -> {
+                this.inventoryManager.getCurrentPlayerInventory(player).ifPresentOrElse(oldInventory -> {
+                    this.inventoryManager.openInventory(player, inventory, 1, oldInventory);
+                }, () -> this.inventoryManager.openInventory(player, inventory));
+            });
+        });
+    }
+
+
+    @Override
+    public void saveOrUpdateConfiguration(String resourcePath) {
+        this.saveOrUpdateConfiguration(resourcePath, resourcePath);
+    }
+
+    @Override
+    public void saveOrUpdateConfiguration(String resourcePath, String toPath) {
+
+        File file = new File(getDataFolder(), toPath);
+        if (!file.exists()) {
+            saveResource(resourcePath, toPath, false);
+            return;
+        }
+
+        FileConfiguration config = YamlConfiguration.loadConfiguration(file);
+
+        try {
+
+            InputStream inputStream = this.getResource(resourcePath);
+
+            if (inputStream == null) {
+                this.getLogger().severe("Cannot find file " + resourcePath);
+                return;
+            }
+
+            Reader defConfigStream = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+            YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
+
+
+            Set<String> defaultKeys = defConfig.getKeys(true);
+
+            boolean configUpdated = false;
+            for (String key : defaultKeys) {
+                if (!config.contains(key)) {
+                    configUpdated = true;
+                }
+            }
+
+            config.setDefaults(defConfig);
+            config.options().copyDefaults(true);
+
+            if (configUpdated) {
+                this.getLogger().info("Update file " + toPath);
+                config.save(file);
+            }
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
     }
 }

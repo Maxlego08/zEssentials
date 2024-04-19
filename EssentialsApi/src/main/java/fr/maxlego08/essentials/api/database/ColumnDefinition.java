@@ -1,4 +1,4 @@
-package fr.maxlego08.essentials.database;
+package fr.maxlego08.essentials.api.database;
 
 public class ColumnDefinition {
     private String name;

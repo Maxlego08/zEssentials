@@ -20,8 +20,8 @@ import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 public class JoinQuitModule extends ZModule {
 
     private boolean allowSilentJoinQuit;
-    private JoinQuitMessageType customJoinMessage;
-    private JoinQuitMessageType customQuitMessage;
+    private JoinQuitMessageType customJoinMessage = JoinQuitMessageType.DEFAULT;
+    private JoinQuitMessageType customQuitMessage = JoinQuitMessageType.DEFAULT;
     private boolean allowFirstJoinBroadcast;
     private boolean allowFirstJoinMotd;
     private int firstJoinMotdTicks;

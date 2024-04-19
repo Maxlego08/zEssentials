@@ -6,8 +6,8 @@ import fr.maxlego08.essentials.database.SchemaBuilder;
 public class CreateUserHomeTableMigration extends Migration {
     @Override
     public void up() {
-        SchemaBuilder.create(this, "%prefix%player_homes", table -> {
-            table.uuid("unique_id").primary().foreignKey("%prefix%players");
+        SchemaBuilder.create(this, "%prefix%user_homes", table -> {
+            table.uuid("unique_id").primary().foreignKey("%prefix%users");
             table.string("name", 255).primary();
             table.longText("location");
             table.string("material", 255).nullable();

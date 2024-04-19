@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.HomeDTO;
 import fr.maxlego08.essentials.api.database.dto.OptionDTO;
+import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.messages.Message;
@@ -470,4 +471,18 @@ public interface User {
     Sanction getMuteSanction();
 
     boolean isMute();
+
+    void setFakeOption(Option option, boolean value);
+
+    void setFakeSanctions(List<SanctionDTO> sanctions);
+
+    List<Sanction> getFakeSanctions();
+
+    void setBanSanction(Sanction ban);
+
+    Sanction getBanSanction();
+
+    String getLastMessage();
+
+    void setLastMessage(String message);
 }

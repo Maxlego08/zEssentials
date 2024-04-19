@@ -1,10 +1,18 @@
 package fr.maxlego08.essentials.database;
 
+import fr.maxlego08.essentials.api.database.ColumnDefinition;
+import fr.maxlego08.essentials.api.database.Executor;
 import fr.maxlego08.essentials.api.database.JoinCondition;
 import fr.maxlego08.essentials.api.database.Migration;
 import fr.maxlego08.essentials.api.database.Schema;
 import fr.maxlego08.essentials.api.database.SchemaType;
 import fr.maxlego08.essentials.api.storage.DatabaseConfiguration;
+import fr.maxlego08.essentials.database.requests.AlterRequest;
+import fr.maxlego08.essentials.database.requests.CreateRequest;
+import fr.maxlego08.essentials.database.requests.DeleteRequest;
+import fr.maxlego08.essentials.database.requests.InsertRequest;
+import fr.maxlego08.essentials.database.requests.UpdateRequest;
+import fr.maxlego08.essentials.database.requests.UpsertRequest;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import org.bukkit.Location;
 
@@ -14,7 +22,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -32,6 +39,7 @@ public class SchemaBuilder extends ZUtils implements Schema {
     private final List<String> foreignKeys = new ArrayList<>();
     private final List<WhereCondition> whereConditions = new ArrayList<>();
     private final List<JoinCondition> joinConditions = new ArrayList<>();
+    private String orderBy;
     private Migration migration;
 
     private SchemaBuilder(String tableName, SchemaType schemaType) {
@@ -103,6 +111,12 @@ public class SchemaBuilder extends ZUtils implements Schema {
     @Override
     public Schema where(String columnName, String operator, Object value) {
         this.whereConditions.add(new WhereCondition(columnName, operator, value));
+        return this;
+    }
+
+    @Override
+    public Schema whereNotNull(String columnName) {
+        this.whereConditions.add(new WhereCondition(columnName));
         return this;
     }
 
@@ -266,214 +280,18 @@ public class SchemaBuilder extends ZUtils implements Schema {
         return this;
     }
 
-    @Override
-    public int execute(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
-        switch (this.schemaType) {
-            case CREATE -> this.executeCreate(connection, databaseConfiguration, logger);
-            case ALTER -> this.executeAlter(connection, databaseConfiguration, logger);
-            case UPSERT -> this.executeUpsert(connection, databaseConfiguration, logger);
-            case UPDATE -> this.executeUpdate(connection, databaseConfiguration, logger);
-            case INSERT -> {
-                return this.executeInsert(connection, databaseConfiguration, logger);
-            }
-            case DELETE -> this.executeDelete(connection, databaseConfiguration, logger);
-            case SELECT, SELECT_COUNT -> throw new IllegalArgumentException("Wrong method !");
-            default -> throw new Error("Schema type not found !");
-        }
-        return -1;
-    }
-
-    private void executeUpsert(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
-
-        StringBuilder insertQuery = new StringBuilder("INSERT INTO " + this.tableName + " (");
-        StringBuilder valuesQuery = new StringBuilder("VALUES (");
-        StringBuilder onUpdateQuery = new StringBuilder(" ON DUPLICATE KEY UPDATE ");
-
-        List<Object> values = new ArrayList<>();
-
-        for (int i = 0; i < this.columns.size(); i++) {
-            ColumnDefinition columnDefinition = this.columns.get(i);
-            insertQuery.append(i > 0 ? ", " : "").append(columnDefinition.getName());
-            valuesQuery.append(i > 0 ? ", " : "").append("?");
-            onUpdateQuery.append(i > 0 ? ", " : "").append(columnDefinition.getName()).append(" = VALUES(").append(columnDefinition.getName()).append(")");
-            values.add(columnDefinition.getObject());
-        }
-
-        insertQuery.append(") ");
-        valuesQuery.append(")");
-        String upsertQuery = databaseConfiguration.replacePrefix(insertQuery + valuesQuery.toString() + onUpdateQuery);
-
-        if (databaseConfiguration.debug()) {
-            logger.info("Executing SQL: " + upsertQuery);
-        }
-
-        try (PreparedStatement preparedStatement = connection.prepareStatement(upsertQuery)) {
-            for (int i = 0; i < values.size(); i++) {
-                preparedStatement.setObject(i + 1, values.get(i));
-            }
-            preparedStatement.executeUpdate();
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-            throw new SQLException("Failed to execute upsert: " + exception.getMessage(), exception);
-        }
-
-    }
-
-    private int executeInsert(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
-        StringBuilder insertQuery = new StringBuilder("INSERT INTO " + this.tableName + " (");
-        StringBuilder valuesQuery = new StringBuilder("VALUES (");
-
-        List<Object> values = new ArrayList<>();
-
-        for (int i = 0; i < this.columns.size(); i++) {
-            ColumnDefinition columnDefinition = this.columns.get(i);
-            insertQuery.append(i > 0 ? ", " : "").append(columnDefinition.getName());
-            valuesQuery.append(i > 0 ? ", " : "").append("?");
-            values.add(columnDefinition.getObject());
-        }
-
-        insertQuery.append(") ");
-        valuesQuery.append(")");
-        String upsertQuery = databaseConfiguration.replacePrefix(insertQuery + valuesQuery.toString());
-
-        if (databaseConfiguration.debug()) {
-            logger.info("Executing SQL: " + upsertQuery);
-        }
-
-        try (PreparedStatement preparedStatement = connection.prepareStatement(upsertQuery, Statement.RETURN_GENERATED_KEYS)) {
-            for (int i = 0; i < values.size(); i++) {
-                preparedStatement.setObject(i + 1, values.get(i));
-            }
-            preparedStatement.executeUpdate();
-
-            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    return generatedKeys.getInt(1);  // Retourne l'index généré (généralement l'ID)
-                } else {
-                    return -1;
-                }
-            } catch (Exception exception) {
-                return -1;
-            }
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-            throw new SQLException("Failed to execute upsert: " + exception.getMessage(), exception);
-        }
-    }
-
-    private void executeUpdate(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
-        StringBuilder updateQuery = new StringBuilder("UPDATE " + this.tableName);
-
-        if (!this.joinConditions.isEmpty()) {
-            for (JoinCondition join : this.joinConditions) {
-                updateQuery.append(" ").append(join.getJoinClause());
-            }
-        }
-
-        updateQuery.append(" SET ");
-
-        List<Object> values = new ArrayList<>();
-
-        for (int i = 0; i < this.columns.size(); i++) {
-            ColumnDefinition columnDefinition = this.columns.get(i);
-            updateQuery.append(i > 0 ? ", " : "").append(columnDefinition.getName()).append(" = ?");
-            values.add(columnDefinition.getObject());
-        }
-
-        this.whereConditions(updateQuery);
-        String upsertQuery = databaseConfiguration.replacePrefix(updateQuery.toString());
-
-        if (databaseConfiguration.debug()) {
-            logger.info("Executing SQL: " + upsertQuery);
-        }
-
-        try (PreparedStatement preparedStatement = connection.prepareStatement(upsertQuery)) {
-            for (int i = 0; i < values.size(); i++) {
-                preparedStatement.setObject(i + 1, values.get(i));
-            }
-            int index = values.size() + 1;
-            for (WhereCondition condition : whereConditions) {
-                preparedStatement.setObject(index++, condition.getValue());
-            }
-            preparedStatement.executeUpdate();
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-            throw new SQLException("Failed to execute upsert: " + exception.getMessage(), exception);
-        }
-    }
-
-
-    private void executeAlter(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
-
-        StringBuilder alterTableSQL = new StringBuilder("ALTER TABLE ");
-        alterTableSQL.append(this.tableName).append(" ");
-
-        List<String> columnSQLs = new ArrayList<>();
-        for (ColumnDefinition column : this.columns) {
-            columnSQLs.add("ADD COLUMN " + column.build());
-        }
-        alterTableSQL.append(String.join(", ", columnSQLs));
-
-        if (!this.primaryKeys.isEmpty()) {
-            alterTableSQL.append(", PRIMARY KEY (").append(String.join(", ", this.primaryKeys)).append(")");
-        }
-
-        for (String fk : this.foreignKeys) {
-            alterTableSQL.append(", ADD ").append(fk);
-        }
-
-        String finalQuery = databaseConfiguration.replacePrefix(alterTableSQL.toString());
-        if (databaseConfiguration.debug()) {
-            logger.info("Executing SQL: " + finalQuery);
-        }
-
-        try (PreparedStatement statement = connection.prepareStatement(finalQuery)) {
-            statement.execute();
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-            throw new SQLException("Failed to execute schema creation: " + exception.getMessage(), exception);
-        }
-    }
-
-    private void executeCreate(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
-        StringBuilder createTableSQL = new StringBuilder("CREATE TABLE IF NOT EXISTS ");
-        createTableSQL.append(this.tableName).append(" (");
-
-        List<String> columnSQLs = new ArrayList<>();
-        for (ColumnDefinition column : this.columns) {
-            columnSQLs.add(column.build());
-        }
-        createTableSQL.append(String.join(", ", columnSQLs));
-
-        if (!this.primaryKeys.isEmpty()) {
-            createTableSQL.append(", PRIMARY KEY (").append(String.join(", ", this.primaryKeys)).append(")");
-        }
-
-        for (String fk : this.foreignKeys) {
-            createTableSQL.append(", ").append(fk);
-        }
-
-        createTableSQL.append(")");
-
-        String finalQuery = databaseConfiguration.replacePrefix(createTableSQL.toString());
-        if (databaseConfiguration.debug()) {
-            logger.info("Executing SQL: " + finalQuery);
-        }
-
-        try (PreparedStatement statement = connection.prepareStatement(finalQuery)) {
-            statement.execute();
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-            throw new SQLException("Failed to execute schema creation: " + exception.getMessage(), exception);
-        }
-    }
-
     private ColumnDefinition getLastColumn() {
         if (columns.isEmpty()) throw new IllegalStateException("No columns defined.");
         return columns.get(columns.size() - 1);
     }
 
-    private void whereConditions(StringBuilder sql) {
+    @Override
+    public String getTableName() {
+        return this.tableName;
+    }
+
+    @Override
+    public void whereConditions(StringBuilder sql) {
         if (!this.whereConditions.isEmpty()) {
             List<String> conditions = new ArrayList<>();
             for (WhereCondition condition : this.whereConditions) {
@@ -485,26 +303,20 @@ public class SchemaBuilder extends ZUtils implements Schema {
 
     @Override
     public long executeSelectCount(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
-        List<Map<String, Object>> results = new ArrayList<>();
-        StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM " + tableName);
-        this.whereConditions(sql);
+        StringBuilder selectQuery = new StringBuilder("SELECT COUNT(*) FROM " + tableName);
+        this.whereConditions(selectQuery);
 
-        String finalQuery = databaseConfiguration.replacePrefix(sql.toString());
+        String finalQuery = databaseConfiguration.replacePrefix(selectQuery.toString());
         if (databaseConfiguration.debug()) {
             logger.info("Executing SQL: " + finalQuery);
         }
 
-        try (PreparedStatement statement = connection.prepareStatement(finalQuery)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(finalQuery)) {
 
-            int index = 1;
-            for (WhereCondition condition : whereConditions) {
-                statement.setObject(index++, condition.getValue());
-            }
+            applyWhereConditions(preparedStatement, 1);
 
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                return resultSet.getInt(1);
-            }
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) return resultSet.getInt(1);
         } catch (SQLException exception) {
             exception.printStackTrace();
             throw new SQLException("Failed to execute schema select count: " + exception.getMessage(), exception);
@@ -515,21 +327,28 @@ public class SchemaBuilder extends ZUtils implements Schema {
     @Override
     public List<Map<String, Object>> executeSelect(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
         List<Map<String, Object>> results = new ArrayList<>();
-        StringBuilder sql = new StringBuilder("SELECT * FROM " + tableName);
-        this.whereConditions(sql);
+        StringBuilder selectQuery = new StringBuilder("SELECT * FROM " + tableName);
 
-        String finalQuery = databaseConfiguration.replacePrefix(sql.toString());
+        if (!this.joinConditions.isEmpty()) {
+            for (JoinCondition join : this.joinConditions) {
+                selectQuery.append(" ").append(join.getJoinClause());
+            }
+        }
+
+        this.whereConditions(selectQuery);
+        if (this.orderBy != null) {
+            selectQuery.append(" ").append(this.orderBy);
+        }
+
+        String finalQuery = databaseConfiguration.replacePrefix(selectQuery.toString());
         if (databaseConfiguration.debug()) {
             logger.info("Executing SQL: " + finalQuery);
         }
 
-        try (PreparedStatement statement = connection.prepareStatement(finalQuery)) {
-            int index = 1;
-            for (WhereCondition condition : whereConditions) {
-                statement.setObject(index++, condition.getValue());
-            }
+        try (PreparedStatement preparedStatement = connection.prepareStatement(finalQuery)) {
+            applyWhereConditions(preparedStatement, 1);
 
-            try (ResultSet resultSet = statement.executeQuery()) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     Map<String, Object> row = new HashMap<>();
                     for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
@@ -546,21 +365,12 @@ public class SchemaBuilder extends ZUtils implements Schema {
         return results;
     }
 
-    private void executeDelete(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
-        StringBuilder sql = new StringBuilder("DELETE FROM ").append(tableName);
-        this.whereConditions(sql);
-
-        String finalQuery = databaseConfiguration.replacePrefix(sql.toString());
-        if (databaseConfiguration.debug()) {
-            logger.info("Executing SQL: " + finalQuery);
-        }
-
-        try (PreparedStatement statement = connection.prepareStatement(finalQuery)) {
-            int index = 1;
-            for (WhereCondition condition : this.whereConditions) {
-                statement.setObject(index++, condition.getValue());
+    @Override
+    public void applyWhereConditions(PreparedStatement preparedStatement, int index) throws SQLException {
+        for (WhereCondition condition : this.whereConditions) {
+            if (!condition.isNotNull()) {
+                preparedStatement.setObject(index++, condition.getValue());
             }
-            statement.executeUpdate();
         }
     }
 
@@ -598,5 +408,57 @@ public class SchemaBuilder extends ZUtils implements Schema {
     public Schema leftJoin(String primaryTable, String primaryTableAlias, String primaryColumn, String foreignTable, String foreignColumn) {
         joinConditions.add(new JoinCondition(primaryTable, primaryTableAlias, primaryColumn, foreignTable, foreignColumn));
         return this;
+    }
+
+    @Override
+    public List<ColumnDefinition> getColumns() {
+        return columns;
+    }
+
+    @Override
+    public List<String> getPrimaryKeys() {
+        return primaryKeys;
+    }
+
+    @Override
+    public List<String> getForeignKeys() {
+        return foreignKeys;
+    }
+
+    @Override
+    public List<JoinCondition> getJoinConditions() {
+        return joinConditions;
+    }
+
+    @Override
+    public void orderBy(String columnName) {
+        this.orderBy = String.format("ORDER BY %s", columnName);
+    }
+
+    @Override
+    public void orderByDesc(String columnName) {
+        this.orderBy = String.format("ORDER BY %s DESC", columnName);
+    }
+
+    @Override
+    public String getOrderBy() {
+        return this.orderBy;
+    }
+
+    @Override
+    public int execute(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
+        Executor executor;
+        switch (this.schemaType) {
+            case CREATE -> executor = new CreateRequest(this);
+            case ALTER -> executor = new AlterRequest(this);
+            case UPSERT -> executor = new UpsertRequest(this);
+            case UPDATE -> executor = new UpdateRequest(this);
+            case INSERT -> executor = new InsertRequest(this);
+            case DELETE -> executor = new DeleteRequest(this);
+            case SELECT, SELECT_COUNT -> throw new IllegalArgumentException("Wrong method !");
+            default -> throw new Error("Schema type not found !");
+        }
+
+        return executor.execute(connection, databaseConfiguration, logger);
     }
 }

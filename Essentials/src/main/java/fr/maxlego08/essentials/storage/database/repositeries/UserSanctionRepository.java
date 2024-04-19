@@ -6,6 +6,7 @@ import fr.maxlego08.essentials.storage.database.Repository;
 import fr.maxlego08.essentials.storage.database.SqlConnection;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.function.Consumer;
 
 public class UserSanctionRepository extends Repository {
@@ -27,5 +28,16 @@ public class UserSanctionRepository extends Repository {
     public SanctionDTO getSanction(Integer integer) {
         List<SanctionDTO> sanctionDTOS = select(SanctionDTO.class, table -> table.where("id", integer));
         return sanctionDTOS.isEmpty() ? null : sanctionDTOS.get(0);
+    }
+
+    public List<SanctionDTO> getActiveBan() {
+        return select(SanctionDTO.class, table -> {
+            table.leftJoin("%prefix%users", "zp", "ban_sanction_id", "%prefix%sanctions", "id");
+            table.whereNotNull("zp.ban_sanction_id");
+        });
+    }
+
+    public List<SanctionDTO> getSanctions(UUID uuid) {
+        return select(SanctionDTO.class, table -> table.where("player_unique_id", uuid));
     }
 }

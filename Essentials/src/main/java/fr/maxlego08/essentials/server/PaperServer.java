@@ -1,5 +1,6 @@
 package fr.maxlego08.essentials.server;
 
+import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.server.EssentialsServer;
@@ -11,6 +12,13 @@ import java.util.List;
 import java.util.UUID;
 
 public class PaperServer extends ZUtils implements EssentialsServer {
+
+    private final EssentialsPlugin plugin;
+
+
+    public PaperServer(EssentialsPlugin plugin) {
+        this.plugin = plugin;
+    }
 
     @Override
     public void onEnable() {
@@ -41,7 +49,11 @@ public class PaperServer extends ZUtils implements EssentialsServer {
     public void kickPlayer(UUID uuid, Message message, Object... objects) {
         Player player = Bukkit.getPlayer(uuid);
         if (player != null) {
-            player.kick(getComponentMessage(message, objects));
+            if (this.plugin.isFolia()) {
+                player.kick(getComponentMessage(message, objects));
+            } else {
+                this.plugin.getScheduler().runAtLocation(player.getLocation(), wrappedTask -> player.kick(getComponentMessage(message, objects)));
+            }
         }
     }
 

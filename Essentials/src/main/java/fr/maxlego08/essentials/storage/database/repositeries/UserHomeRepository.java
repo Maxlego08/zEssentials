@@ -12,7 +12,7 @@ import java.util.UUID;
 public class UserHomeRepository extends Repository {
 
     public UserHomeRepository(SqlConnection connection) {
-        super(connection, "player_homes");
+        super(connection, "user_homes");
     }
 
     public void upsert(UUID uuid, Home home) {

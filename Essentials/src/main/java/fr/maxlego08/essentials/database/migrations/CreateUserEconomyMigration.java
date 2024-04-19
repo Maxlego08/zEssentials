@@ -7,7 +7,7 @@ public class CreateUserEconomyMigration extends Migration {
     @Override
     public void up() {
         SchemaBuilder.create(this, "%prefix%economies", table -> {
-            table.uuid("unique_id").primary().foreignKey("%prefix%players");
+            table.uuid("unique_id").primary().foreignKey("%prefix%users");
             table.string("economy_name", 255).primary();
             table.decimal("amount", 65, 2).defaultValue("0");
             table.timestamps();

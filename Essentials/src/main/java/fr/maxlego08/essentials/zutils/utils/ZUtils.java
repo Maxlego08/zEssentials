@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -210,6 +211,10 @@ public abstract class ZUtils extends MessageUtils {
         } else {
             return Duration.ZERO;
         }
+    }
+
+    protected int getMaxPage(Collection<?> items, int pageSize) {
+        return (items.size() / pageSize) + 1;
     }
 
 }

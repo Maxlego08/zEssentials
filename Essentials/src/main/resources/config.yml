@@ -20,7 +20,7 @@ storage-type: JSON
 
 # PAPER
 # REDIS
-server-type: REDIS
+server-type: PAPER
 
 database-configuration:
   # For Pterodactyl panel: when you create a database it creates a <prefix>_<database name you chose>. Set "prefix"'s value to the prefix of the database
@@ -85,3 +85,11 @@ compact-materials:
     to: COPPER_BLOCK
   - from: NETHERITE_INGOT
     to: NETHERITE_BLOCK
+
+message-colors:
+  - key: "<primary>"
+    color: "#24d65d"
+  - key: "<secondary>"
+    color: "#656665"
+  - key: "<error>"
+    color: "#ff0000"

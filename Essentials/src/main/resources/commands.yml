@@ -64,6 +64,10 @@ sethome: true
 home: true
 ban: true
 mute: true
+unmute: true
+unban: true
 kick: true
 kickall: true
+sanction: true
 kittycannon: true
+chathistory: true

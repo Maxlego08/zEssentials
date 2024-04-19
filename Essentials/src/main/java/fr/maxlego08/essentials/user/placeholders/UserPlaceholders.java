@@ -1,4 +1,4 @@
-package fr.maxlego08.essentials.user;
+package fr.maxlego08.essentials.user.placeholders;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.economy.Economy;
@@ -6,6 +6,7 @@ import fr.maxlego08.essentials.api.economy.EconomyProvider;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.placeholders.PlaceholderRegister;
 import fr.maxlego08.essentials.api.storage.IStorage;
+import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 
@@ -26,6 +27,16 @@ public class UserPlaceholders extends ZUtils implements PlaceholderRegister {
             User user = iStorage.getUser(player.getUniqueId());
             return user.getTargetUser() != null ? user.getTargetUser().getName() : "no";
         }, "Returns the name of the target player");
+
+        placeholder.register("user_target_is_ban", player -> {
+            User user = iStorage.getUser(player.getUniqueId());
+            return user.getTargetUser() != null ? String.valueOf(user.getTargetUser().getOption(Option.BAN)) : "false";
+        }, "Returns true if the target player is banned, otherwise false");
+
+        placeholder.register("user_target_is_mute", player -> {
+            User user = iStorage.getUser(player.getUniqueId());
+            return user.getTargetUser() != null ? String.valueOf(user.getTargetUser().getOption(Option.MUTE)) : "false";
+        }, "Returns true if the target player is muted, otherwise false");
 
         placeholder.register("user_target_pay_amount", player -> {
             User user = iStorage.getUser(player.getUniqueId());
@@ -56,9 +67,5 @@ public class UserPlaceholders extends ZUtils implements PlaceholderRegister {
             Economy economy = optional.get();
             return user.getBalance(economy).toString();
         }, "Returns the number for a given economy", "economy");
-
-        // Home
-        placeholder.register("home_count", (player) -> String.valueOf(Optional.ofNullable(iStorage.getUser(player.getUniqueId())).map(User::countHomes).orElse(0)), "Returns the number of homes");
-        placeholder.register("home_max", (player) -> String.valueOf(plugin.getMaxHome(player)), "Returns the number of max homes");
     }
 }

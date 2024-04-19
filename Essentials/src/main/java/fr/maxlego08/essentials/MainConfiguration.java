@@ -7,6 +7,7 @@ import fr.maxlego08.essentials.api.server.ServerType;
 import fr.maxlego08.essentials.api.storage.DatabaseConfiguration;
 import fr.maxlego08.essentials.api.storage.StorageType;
 import fr.maxlego08.essentials.api.utils.CompactMaterial;
+import fr.maxlego08.essentials.api.utils.MessageColor;
 import fr.maxlego08.essentials.zutils.utils.YamlLoader;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.permissions.Permissible;
@@ -27,6 +28,7 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     private DatabaseConfiguration databaseConfiguration;
     private ServerType serverType;
     private RedisConfiguration redisConfiguration;
+    private List<MessageColor> messageColors = new ArrayList<>();
 
     public MainConfiguration(ZEssentialsPlugin plugin) {
         this.plugin = plugin;
@@ -89,5 +91,10 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     @Override
     public RedisConfiguration getRedisConfiguration() {
         return redisConfiguration;
+    }
+
+    @Override
+    public List<MessageColor> getMessageColors() {
+        return messageColors;
     }
 }

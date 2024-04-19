@@ -22,13 +22,13 @@ prefix: "#03fcb6zEssentials #656665• "
 you: "Tu"
 #Trash can GUI title
 trash: "&8Cestino della Spazzatura"
-player-not-found: "&f%player% #FF0000non è stato trovato."
-module-disable: "#FF0000Il modulo &f%name% #FF0000 è disabilitato, non puoi usare questo comando."
+player-not-found: "&f%player% <error>non è stato trovato."
+module-disable: "<error>Il modulo &f%name% <error> è disabilitato, non puoi usare questo comando."
 # Commands
-command-syntax-error: "#ff0000Devi eseguire il comando segunedo questo formato#656665: &f%syntax%"
-command-no-permission: "#ff0000Non puoi eseguire questo comando."
-command-no-console: "#ff0000Solo i giocatori possono eseguire questo comando."
-command-no-arg: "#ff0000Non è stato possible trovare il comando con questi argomenti."
+command-syntax-error: "<error>Devi eseguire il comando segunedo questo formato#656665: &f%syntax%"
+command-no-permission: "<error>Non puoi eseguire questo comando."
+command-no-console: "<error>Solo i giocatori possono eseguire questo comando."
+command-no-arg: "<error>Non è stato possible trovare il comando con questi argomenti."
 command-syntaxe-help: "&f%syntax% #656665» &7%description%"
 
 command-reload: "#00ff40Hai appena aggiornato la ocnfigurazione."
@@ -37,7 +37,7 @@ command-essentials: "&ezEssentials&8, &eVersione &f%version%"
 
 # GameMode commands
 command-gamemode: "&fLa modalità&e %gamemode%&f è stata data a &b%player%&f."
-command-gamemode-invalid: "#ff0000Giocatore non valido."
+command-gamemode-invalid: "<error>Giocatore non valido."
 
 
 # Weather commands
@@ -48,11 +48,11 @@ command-sun: "&ffHai fatto diventare &esun&f nel mondo &a%world%&f."
 
 # Admins commands
 command-top: "&7Sei stato teletrasportato in &ecima&7."
-command-top-error: "#ff0000Non è stato possibile trovare un posizione sicura."
-command-speed-invalid: "#ff0000Giocatore non valido."
+command-top-error: "<error>Non è stato possibile trovare un posizione sicura."
+command-speed-invalid: "<error>Giocatore non valido."
 command-speed-fly: "&7Hai impostato la velocità di &nvolo&r&7 a &f%speed%&7 per il giocatore &f%player%&7. &8(&f2 &7di default8)"
 command-speed-walk: "&Hai impostato la velocità di &ncammino&r&7 a &f%speed%&7 per il giocatore &f%player%&7. &8(&f2 &7di default&8)"
-command-speed-error: "#ff0000Devi immettere un numero tra &60#ff0000 e &610#ff0000. &8(&f2 &7by default&8)"
+command-speed-error: "<error>Devi immettere un numero tra &60<error> e &610<error>. &8(&f2 &7by default&8)"
 command-god-enable: "&7Modalità God &aabilitata &7per &f%player%&a."
 command-god-disable: "&7Modalità God &cdisabilitata &7per &f%player%&a."
 command-heal-sender: "&7Hai appena curato &f%player%&7."
@@ -76,7 +76,7 @@ command-fly-enable: "&7Modalità volo &aabilitata &7per &f%player%&a."
 command-fly-disable: "&7Modalità volo  &cdisabilitata &7per &f%player%&a."
 
 # Economy
-command-economy-not-found: "#ff0000 Non riesco a trovare una valuta di nome &f%name%#ff0000."
+command-economy-not-found: "<error> Non riesco a trovare una valuta di nome &f%name%<error>."
 command-economy-give-all-sender: "#99E0FFHai appena dato &f%economyFormat% #99E0FFai giocatori online."
 command-economy-give-sender: "#99E0FFHai appena dato &f%economyFormat% #99E0FFa &7%player%#99E0FF."
 command-economy-give-receiver: "#99E0FFHai appena ricevuto &f%economyFormat%."
@@ -84,56 +84,56 @@ command-economy-set-sender: "#99E0FFHai impostato il saldo a &f%economyFormat% #
 command-economy-set-receiver: "#99E0FFHai appena modificato &f%economyFormat%."
 command-economy-take-sender: "#99E0FFHai appena preso &f%economyFormat% #99E0FFa &7%player%#99E0FF."
 command-economy-take-receiver: "#99E0FFHai perso &f%economyFormat%."
-command-economy-show-empty: "&f%player% #FF0000has no money."
+command-economy-show-empty: "&f%player% <error>has no money."
 command-economy-show-info: "&7- #99E0FF%economy% &f%amount%."
 command-money:
   - "#99E0FFHai&8:"
   - " &7- #99E0FF%economy-name-money% &f%economy-money%."
   - " &7- #99E0FF%economy-name-coins% &f%economy-coins%."
-command-pay-negative: "#ff0000Quantità da pagare deve essere positiva."
-command-pay-min: "#ff0000La quantità minima che puoi pagare è &f%amount%#ff0000."
-command-pay-max: "#ff0000La quantità massima che puoi pagare è &f%amount%#ff0000."
+command-pay-negative: "<error>Quantità da pagare deve essere positiva."
+command-pay-min: "<error>La quantità minima che puoi pagare è &f%amount%<error>."
+command-pay-max: "<error>La quantità massima che puoi pagare è &f%amount%<error>."
 command-pay-sender: "#99E0FFHai dato #F8F327%amount%#99E0FF a &f%player%#99E0FF."
 command-pay-receiver: "&f%player% #99E0FFti ha dato #F8F327%amount%#99E0FF."
-command-pay-disable: "#ff0000Non puoi dare %name%."
-command-pay-self: "#ff0000Non puoi dare soldi a te stesso."
-command-pay-not-enough: "#ff0000Non hai abbastanza soldi."
+command-pay-disable: "<error>Non puoi dare %name%."
+command-pay-self: "<error>Non puoi dare soldi a te stesso."
+command-pay-not-enough: "<error>Non hai abbastanza soldi."
 
 
 # Teleport commands
-command-tpa-error: "#ff0000Hai gia mandato la richiesta a #99E0FF%player%#ff0000."
-command-tpa-error-same: "#ff0000Non puoi teletrasportarti a te stesso."
-command-tpa-error-offline: "#ff0000Non è stato possibile trovare il giocatore."
-command-tpa-error-to-late-empty: "#ff0000Non hai nessuna richiesta di teletrasporto."
-command-tpa-error-to-late-expire: "#ff0000La richiesta di teletrasporto è scaduta."
+command-tpa-error: "<error>Hai gia mandato la richiesta a #99E0FF%player%<error>."
+command-tpa-error-same: "<error>Non puoi teletrasportarti a te stesso."
+command-tpa-error-offline: "<error>Non è stato possibile trovare il giocatore."
+command-tpa-error-to-late-empty: "<error>Non hai nessuna richiesta di teletrasporto."
+command-tpa-error-to-late-expire: "<error>La richiesta di teletrasporto è scaduta."
 command-tpa-sender:
   - "#00FF00✔ #99E0FFMandata la richiesta a &f%displayName% #99E0FF."
-  - "  <hover:show_text:'#ff0000✘ Cancella richiesta'><click:run_command:/tpacancel %player%>#99E0FFType #00FF00/tpacancel %player%#99E0FF per cancellare la tua richiesta.</click></hover>"
+  - "  <hover:show_text:'<error>✘ Cancella richiesta'><click:run_command:/tpacancel %player%>#99E0FFType #00FF00/tpacancel %player%#99E0FF per cancellare la tua richiesta.</click></hover>"
 command-tpa-receiver:
   - ""
   - "#F8F327⚠ &f%displayName% #99E0FFha richiesto di teletrasportarsi da te!"
   - "  <hover:show_text:'#00FF00✔ Accetta richiesta'><click:run_command:/tpaccept>#99E0FFScrivi #00FF00/tpaccept #99E0FFper #00FF00<u>accettare</u>#99E0FF.</click></hover>"
-  - "  <hover:show_text:'#ff0000✘ Rifiuta richiesta'><click:run_command:/tpdeny>#99E0FFScrivi #ff0000/tpdeny #99E0FFper #ff0000<u>rifiutare</u>#99E0FF.</click></hover>"
+  - "  <hover:show_text:'<error>✘ Rifiuta richiesta'><click:run_command:/tpdeny>#99E0FFScrivi <error>/tpdeny #99E0FFper <error><u>rifiutare</u>#99E0FF.</click></hover>"
   - ""
   - "&7&oHai 60 secondi per accettare la richiesta di teletrasporto"
 command-tpa-accept-receiver: "#99E0FFHai appena #00FF00accettato #99E0FFla richiesta di teletrasporto da parte di #99E0FF%player%&a."
 command-tpa-accept-sender: "#99E0FF%player%&a ha appena accettato la tua richiesta di teletrasporto."
-command-teleport-ignore-player: "#ff0000Non puoi mandare la richiesta di teletrasporto a #99E0FF%player%#ff0000 ti ignorano."
-command-teleport-world: "#ff0000Devi stare nello stesso mondo per teletrasportarti."
-command-tpa-error-to-late: "#ff0000Non hai nessuna richiesta di teletrasporto al momento."
-command-tpa-error-to-late-2: "#ff0000La richiesta è scaduta."
+command-teleport-ignore-player: "<error>Non puoi mandare la richiesta di teletrasporto a #99E0FF%player%<error> ti ignorano."
+command-teleport-world: "<error>Devi stare nello stesso mondo per teletrasportarti."
+command-tpa-error-to-late: "<error>Non hai nessuna richiesta di teletrasporto al momento."
+command-tpa-error-to-late-2: "<error>La richiesta è scaduta."
 command-tp-deny-sender: "#00FF00✔ Rifiutata la richiesta di teletrasporto di &f%player% #00FF00."
-command-tp-deny-receiver: "#ff0000✘ &f%player% #ff0000ha rifiutato la tua richiesta di teletrasporto."
-command-tp-cancel-error: "#ff0000Non hai mandato nessuna richiesta di teletrasporto a &f%player%#ff0000."
-command-tp-cancel-sender: "#ff0000Cancellata #99E0FFla tua richiesta di teletrasporto a %player%."
-command-tp-cancel-receiver: "&f%player% #ff0000ha cancellato la sua richiesta di teletrasporto."
+command-tp-deny-receiver: "<error>✘ &f%player% <error>ha rifiutato la tua richiesta di teletrasporto."
+command-tp-cancel-error: "<error>Non hai mandato nessuna richiesta di teletrasporto a &f%player%<error>."
+command-tp-cancel-sender: "<error>Cancellata #99E0FFla tua richiesta di teletrasporto a %player%."
+command-tp-cancel-receiver: "&f%player% <error>ha cancellato la sua richiesta di teletrasporto."
 command-world-teleport-self: "&aSei appena stato teletrasportato nel mondo &f%world%&a."
 command-world-teleport-other: "&aHai appena teletrasportato &f%player% &anel mondo &f%world%&a."
 command-tp: "&7Ti sei teletrasportato da #34cfe0%player%&f."
 command-tp-self: "&7Hai teletrasportato #34cfe0%player%&7 da te."
 command-back: "&7Tornando alla posizione precedente."
-command-back-error: "#ff0000Non hai nessuna posizione precedente in cui tornare."
-command-random-tp-error: "#ff0000Dopo diversi tentativi, non si è riusciti a trovare una posizione sicura. Riprova."
+command-back-error: "<error>Non hai nessuna posizione precedente in cui tornare."
+command-random-tp-error: "<error>Dopo diversi tentativi, non si è riusciti a trovare una posizione sicura. Riprova."
 
 # First join
 join-message: "&a+ #99E0FF%player%"
@@ -226,13 +226,13 @@ format-hour: "ora"
 format-hours: "ore"
 format-day: "giorno"
 format-days: "giorni"
-cooldown: "#ff0000✘ Devi aspettare &f%cooldown% #ff0000prima di poter ripetere questa azione."
+cooldown: "<error>✘ Devi aspettare &f%cooldown% <error>prima di poter ripetere questa azione."
 
 
 # Teleportation
-teleport-move: "#ff0000Non devi muoverti!"
-teleport-damage: "#ff0000Teletrasporto annullato. Hai ricevuto danno."
-teleport-error-location: "#ff0000Non è stato possibile teletrasportarti in modo sicuro."
+teleport-move: "<error>Non devi muoverti!"
+teleport-damage: "<error>Teletrasporto annullato. Hai ricevuto danno."
+teleport-error-location: "<error>Non è stato possibile teletrasportarti in modo sicuro."
 
 
 teleport-message:
@@ -271,7 +271,7 @@ teleport-success-home:
 
 
 # Warps
-command-warp-already-exist: "#ff0000Warp &f%name% #ff0000esiste già. &7Usa &n<hover:show_text:'&fUsa questo comando'><click:suggest_command:'/setwarp %name% true'>/setwarp %name% true</click></hover>&r per modificare il warp"
+command-warp-already-exist: "<error>Warp &f%name% #ff0000esiste già. &7Usa &n<hover:show_text:'&fUsa questo comando'><click:suggest_command:'/setwarp %name% true'>/setwarp %name% true</click></hover>&r per modificare il warp"
 command-warp-doesnt-exist: "#ff0000Warp &f%name% #ff0000 non esiste."
 command-warp-no-permission: "#ff0000Non hai il abbastanza permessi per utilizzare il warp &f%name%#ff0000."
 command-warp-create:

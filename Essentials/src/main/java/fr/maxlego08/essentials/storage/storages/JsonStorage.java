@@ -1,8 +1,10 @@
 package fr.maxlego08.essentials.storage.storages;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.database.dto.ChatMessageDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.HomeDTO;
+import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.sanction.Sanction;
@@ -18,6 +20,7 @@ import org.bukkit.OfflinePlayer;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -237,16 +240,41 @@ public class JsonStorage extends StorageHelper implements IStorage {
 
     @Override
     public void insertSanction(Sanction sanction, Consumer<Integer> consumer) {
-        throw new NotImplementedException("insertSanction is not implemented");
+        throw new NotImplementedException("insertSanction is not implemented, use MYSQL storage");
     }
 
     @Override
     public void updateUserBan(UUID uuid, Integer index) {
-        throw new NotImplementedException("updateUserBan is not implemented");
+        throw new NotImplementedException("updateUserBan is not implemented, use MYSQL storage");
     }
 
     @Override
-    public void updateMuteBan(UUID uuid, Integer index) {
-        throw new NotImplementedException("updateMuteBan is not implemented");
+    public void updateUserMute(UUID uuid, Integer index) {
+        throw new NotImplementedException("updateMuteBan is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public boolean isMute(UUID uuid) {
+        throw new NotImplementedException("isMute is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public Sanction getMute(UUID uuid) {
+        throw new NotImplementedException("getMute is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public List<SanctionDTO> getSanctions(UUID uuid) {
+        throw new NotImplementedException("getSanctions is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public void insertChatMessage(UUID uuid, String content) {
+        throw new NotImplementedException("insertChatMessage is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public List<ChatMessageDTO> getMessages(UUID targetUuid) {
+        return new ArrayList<>();
     }
 }

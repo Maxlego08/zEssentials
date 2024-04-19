@@ -9,8 +9,10 @@ public enum Message {
     // Rework message for a better system
 
     PREFIX("&8(&6zEssentials&8) "),
-    PLAYER_NOT_FOUND("&f%player% #FF0000was not found."),
-    MODULE_DISABLE("#FF0000The &f%name% #FF0000module is disabled. You cannot use this command."),
+    CONSOLE("Console"),
+    EXPIRED("Expired"),
+    PLAYER_NOT_FOUND("&f%player% <error>was not found."),
+    MODULE_DISABLE("<error>The &f%name% <error>module is disabled. You cannot use this command."),
 
     TIME_DAY("%02d %day% %02d %hour% %02d %minute% %02d %second%"),
     TIME_HOUR("%02d %hour% %02d minute(s) %02d %second%"),
@@ -80,13 +82,13 @@ public enum Message {
     COMMAND_TPA_ERROR_TO_LATE_2("&cThe request has expired."),
     COMMAND_TP_DENY_SENDER("Denied %player% teleport request."),
     COMMAND_TP_DENY_RECEIVER("%player% has denied your teleport request"),
-    COMMAND_TP_CANCEL_ERROR("#ff0000You did not send a teleport request at &f%player%#ff0000."),
-    COMMAND_TP_CANCEL_SENDER("#ff0000Cancelled #99E0FFyour teleport request to %player%."),
-    COMMAND_TP_CANCEL_RECEIVER("&f%player% #ff0000cancelled their teleport request to you."),
+    COMMAND_TP_CANCEL_ERROR("<error>You did not send a teleport request at &f%player%<error>."),
+    COMMAND_TP_CANCEL_SENDER("<error>Cancelled #99E0FFyour teleport request to %player%."),
+    COMMAND_TP_CANCEL_RECEIVER("&f%player% <error>cancelled their teleport request to you."),
     COMMAND_TP("&7You just teleport to the player #34cfe0%player%&f."),
     COMMAND_TP_SELF("&7You just teleported #34cfe0%player%&7 to your position."),
     COMMAND_BACK("&7Returning to previous location."),
-    COMMAND_BACK_ERROR("#ff0000You have no last location. Impossible to go back."),
+    COMMAND_BACK_ERROR("<error>You have no last location. Impossible to go back."),
 
     COMMAND_MORE_ERROR("&cYou cannot make this order in item in hand."),
     COMMAND_MORE_SUCCESS("&7You just put your item to &f64&7."),
@@ -167,6 +169,10 @@ public enum Message {
     DESCRIPTION_KITTY_CANNON("Launch kitty, wtf you want to do that ? monster"),
     DESCRIPTION_BAN("Ban a player"),
     DESCRIPTION_MUTE("Mute a player"),
+    DESCRIPTION_UN_MUTE("Unmute a player"),
+    DESCRIPTION_UN_BAN("Unban a player"),
+    DESCRIPTION_SANCTION("Open sanction inventory"),
+    DESCRIPTION_CHAT_HISTORY("Show player's chat messages"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -187,11 +193,11 @@ public enum Message {
     TELEPORT_DAMAGE("&cYou must not take damage during teleportation."),
     TELEPORT_ERROR_LOCATION("&cUnable to teleport you safely."),
 
-    COOLDOWN("#ff0000✘ You must wait for &f%cooldown% #ff0000before performing this action."),
+    COOLDOWN("<error>✘ You must wait for &f%cooldown% <error>before performing this action."),
 
     // Economy
 
-    COMMAND_ECONOMY_NOT_FOUND("#ff0000 Can’t find a economy with the name &f%name%#ff0000."),
+    COMMAND_ECONOMY_NOT_FOUND("<error> Can’t find a economy with the name &f%name%<error>."),
     COMMAND_ECONOMY_GIVE_ALL_SENDER("#99E0FFYou just gave &f%economyFormat% #99E0FFto the online players."),
     COMMAND_ECONOMY_GIVE_SENDER("#99E0FFYou just gave &f%economyFormat% #99E0FFto the player &7%player%#99E0FF."),
     COMMAND_ECONOMY_GIVE_RECEIVER("#99E0FFYou have just received &f%economyFormat%."),
@@ -199,7 +205,7 @@ public enum Message {
     COMMAND_ECONOMY_SET_RECEIVER("#99E0FFYou have just been modified &f%economyFormat%."),
     COMMAND_ECONOMY_TAKE_SENDER("#99E0FFYou just take &f%economyFormat% #99E0FFto the player &7%player%#99E0FF."),
     COMMAND_ECONOMY_TAKE_RECEIVER("#99E0FFYou have just lost &f%economyFormat%."),
-    COMMAND_ECONOMY_SHOW_EMPTY("&f%player% #FF0000has no money."),
+    COMMAND_ECONOMY_SHOW_EMPTY("&f%player% <error>has no money."),
     COMMAND_ECONOMY_SHOW_INFO("&7- #99E0FF%economy% &f%amount%."),
     COMMAND_MONEY(
             "#99E0FFYou have&8:" ,
@@ -207,14 +213,14 @@ public enum Message {
             " &7- #99E0FF%economy-name-coins% &f%economy-coins%."
     ),
 
-    COMMAND_PAY_NEGATIVE("#ff0000Amount to pay must be positive."),
-    COMMAND_PAY_MIN("#ff0000The minimum amount you can pay is &f%amount%#ff0000."),
-    COMMAND_PAY_MAX("#ff0000The maximum amount you can pay is &f%amount%#ff0000."),
+    COMMAND_PAY_NEGATIVE("<error>Amount to pay must be positive."),
+    COMMAND_PAY_MIN("<error>The minimum amount you can pay is &f%amount%<error>."),
+    COMMAND_PAY_MAX("<error>The maximum amount you can pay is &f%amount%<error>."),
     COMMAND_PAY_SENDER("#99E0FFYou just sent #F8F327%amount%#99E0FF to the player &f%player%#99E0FF."),
     COMMAND_PAY_RECEIVER("&f%player% #99E0FFjust sent you #F8F327%amount%#99E0FF."),
-    COMMAND_PAY_DISABLE("#ff0000You can’t send %name%."),
-    COMMAND_PAY_SELF("#ff0000You cannot send money to yourself."),
-    COMMAND_PAY_NOT_ENOUGH("#ff0000You don't have enough money."),
+    COMMAND_PAY_DISABLE("<error>You can’t send %name%."),
+    COMMAND_PAY_SELF("<error>You cannot send money to yourself."),
+    COMMAND_PAY_NOT_ENOUGH("<error>You don't have enough money."),
 
     JOIN_MESSAGE("#99E0FF%player% &7joined the game"),
     QUIT_MESSAGE("#99E0FF%player% &7left the game"),
@@ -231,9 +237,9 @@ public enum Message {
     COMMAND_SET_SPAWN("&fYou just set the spawn location."),
     COMMAND_SPAWN_NOT_DEFINE("&cThe spawn does not exist. Please contact an administrator."),
 
-    COMMAND_WARP_ALREADY_EXIST("#ff0000Warp &f%name% #ff0000already exists. &7Use &n<hover:show_text:'&fUse this command'><click:suggest_command:'/setwarp %name% true'>/setwarp %name% true</click></hover>&r command to modify the warp"),
-    COMMAND_WARP_DOESNT_EXIST("#ff0000Warp &f%name% #ff0000 does not exist."),
-    COMMAND_WARP_NO_PERMISSION("#ff0000You do not have permission to use the warp &f%name%#ff0000."),
+    COMMAND_WARP_ALREADY_EXIST("<error>Warp &f%name% <error>already exists. &7Use &n<hover:show_text:'&fUse this command'><click:suggest_command:'/setwarp %name% true'>/setwarp %name% true</click></hover>&r command to modify the warp"),
+    COMMAND_WARP_DOESNT_EXIST("<error>Warp &f%name% <error> does not exist."),
+    COMMAND_WARP_NO_PERMISSION("<error>You do not have permission to use the warp &f%name%<error>."),
     COMMAND_WARP_CREATE(
             "#00ff00You just created the warp &f%name% #00ff00to your position.",
             "&7Warp Permission is: <hover:show_text:'&fCopy command to add permission to a player'><click:SUGGEST_COMMAND:'/lp user <username> permission set nessentials.warp.%name%'>&f&nessentials.warp.%name%</click></hover>"
@@ -247,12 +253,12 @@ public enum Message {
     COMMAND_WARP_LIST_INFO(" <hover:show_text:'&fClick to teleport to warp &n%name%'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"),
     COMMAND_WARP_DELETE("#00ff00You just removed the warp &f%name%#00ff00."),
 
-    COMMAND_RANDOM_TP_ERROR("#ff0000No safe location found after multiple attempts, please try again."),
+    COMMAND_RANDOM_TP_ERROR("<error>No safe location found after multiple attempts, please try again."),
 
-    COMMAND_SET_HOME_INVALIDE_NAME("&f%name% #ff0000is not a valid name, please choose another one."),
-    COMMAND_SET_HOME_TOO_LONG("&f%name% #ff0000is too long, please choose another one."),
-    COMMAND_SET_HOME_TOO_SHORT("&f%name% #ff0000is too short name, please choose another one."),
-    COMMAND_SET_HOME_MAX("#ff0000You cannot have more than &f%max%#ff0000 homes."),
+    COMMAND_SET_HOME_INVALIDE_NAME("&f%name% <error>is not a valid name, please choose another one."),
+    COMMAND_SET_HOME_TOO_LONG("&f%name% <error>is too long, please choose another one."),
+    COMMAND_SET_HOME_TOO_SHORT("&f%name% <error>is too short name, please choose another one."),
+    COMMAND_SET_HOME_MAX("<error>You cannot have more than &f%max%<error> homes."),
     COMMAND_SET_HOME_CREATE(
             "",
             "#99E0FFYou just created the home &f%name%#99E0FF. &8(&7%current%&8/&7%max%&8)",
@@ -260,7 +266,7 @@ public enum Message {
             ""
     ),
 
-    COMMAND_HOME_DOESNT_EXIST("#ff0000The home &f%name%#ff0000 does not exist."),
+    COMMAND_HOME_DOESNT_EXIST("<error>The home &f%name%<error> does not exist."),
 
     COMMAND_HOME_INFORMATION_MULTI_LINE_HEADER(
             "",
@@ -271,7 +277,7 @@ public enum Message {
     COMMAND_HOME_INFORMATION_MULTI_LINE_FOOTER(MessageType.WITHOUT_PREFIX, ""),
     COMMAND_HOME_INFORMATION_IN_LINE(MessageType.WITHOUT_PREFIX, "#8cc0ccʏᴏᴜʀ ʜᴏᴍᴇs &a♦ &7(%count%/%max%)&8:&f%homes%"),
     COMMAND_HOME_INFORMATION_IN_LINE_INFO(" <hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %name%'>&f%name%</click></hover>&7"),
-    COMMAND_HOME_ICON_ERROR("#ff0000You must have an item in your hand to change the icon of your home."),
+    COMMAND_HOME_ICON_ERROR("<error>You must have an item in your hand to change the icon of your home."),
     COMMAND_HOME_ICON_SUCCESS("#00ff00You just changed the home icon &f%name%#00ff00."),
     COMMAND_HOME_ICON_RESET("#00ff00You just reset the home icon &f%name%#00ff00."),
     COMMAND_HOME_DELETE("#99E0FFYou just deleted the home &f%name%#99E0FF."),
@@ -280,11 +286,16 @@ public enum Message {
     COMMAND_HOME_ADMIN_LIST("#8cc0cc%player% ʜᴏᴍᴇs&8:&f%homes%"),
     COMMAND_HOME_ADMIN_LIST_INFO(" <hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %player%:%name%'>&f%name%</click></hover>&7"),
 
-    COMMAND_KICK_NOTIFY(MessageType.WITHOUT_PREFIX, "<click:run_command:/sc %target%>&8(#f59e07Sanction&8)</click> &f%player% <click:run_command:/sc %target%>#cf4229just kicked the player#c9b530 %target%#cf4229."),
-    COMMAND_BAN_NOTIFY(MessageType.WITHOUT_PREFIX, "<click:run_command:/sc %target%>&8(#f59e07Sanction&8)</click> &f%player% <click:run_command:/sc %target%>#cf4229just banned the player #c9b530%target%#cf4229."),
-    COMMAND_MUTE_NOTIFY(MessageType.WITHOUT_PREFIX, "<click:run_command:/sc %target%>&8(#f59e07Sanction&8)</click> &f%player% <click:run_command:/sc %target%>#cf4229just muted the player #c9b530%target%#cf4229."),
-    COMMAND_BAN_ERROR_DURATION("#ff0000The duration of a banishment must be at least 1 second."),
-    COMMAND_MUTE_ERROR_DURATION("#ff0000The duration of a mute must be at least 1 second."),
+    COMMAND_KICK_NOTIFY(MessageType.WITHOUT_PREFIX, "<hover:show_text:'<gray>By: <white>%sender%<newline><gray>Duration: <white>%duration%<newline><gray>Reason: <white>%reason%<newline><gray>Date: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just kicked the player #e0d12d%target%#e33414.</click></hover>"),
+    COMMAND_BAN_NOTIFY(MessageType.WITHOUT_PREFIX, "<hover:show_text:'<gray>By: <white>%sender%<newline><gray>Duration: <white>%duration%<newline><gray>Reason: <white>%reason%<newline><gray>Date: <white>%created_at%<newline><gray>Expires: <white>%expired_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just banned the player #e0d12d%target%#e33414.</click></hover>"),
+    COMMAND_MUTE_NOTIFY(MessageType.WITHOUT_PREFIX, "<hover:show_text:'<gray>By: <white>%sender%<newline><gray>Duration: <white>%duration%<newline><gray>Reason: <white>%reason%<newline><gray>Date: <white>%created_at%<newline><gray>Expires: <white>%expired_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just muted the player #e0d12d%target%#e33414.</click></hover>"),
+    COMMAND_UNMUTE_NOTIFY(MessageType.WITHOUT_PREFIX, "<hover:show_text:'<gray>By: <white>%sender%<newline><gray>Duration: <white>%duration%<newline><gray>Reason: <white>%reason%<newline><gray>Date: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just unmuted the player #e0d12d%target%#e33414.</click></hover>"),
+    COMMAND_UNBAN_NOTIFY(MessageType.WITHOUT_PREFIX, "<hover:show_text:'<gray>By: <white>%sender%<newline><gray>Duration: <white>%duration%<newline><gray>Reason: <white>%reason%<newline><gray>Date: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just unbanned the player #e0d12d%target%#e33414.</click></hover>"),
+    COMMAND_BAN_ERROR_DURATION("<error>The duration of a banishment must be at least 1 second."),
+    COMMAND_MUTE_ERROR_DURATION("<error>The duration of a mute must be at least 1 second."),
+    COMMAND_UN_MUTE_ERROR("&f%player% <error>is not mute."),
+    COMMAND_UN_BAN_ERROR("&f%player% <error>is not ban."),
+    COMMAND_SANCTION_ERROR("<error>You can’t sanction that player. He’s protected."),
 
     MESSAGE_KICK(
             "",
@@ -299,6 +310,13 @@ public enum Message {
             "",
             "&fYou have just lost your <u>voice</u>.",
             "&fDuration&8: <gradient:#7ae856:#a1d909>%duration%</gradient>",
+            "&fReason&8: #82d1ff%reason%",
+            ""
+    ),
+
+    MESSAGE_UNMUTE(
+            "",
+            "&fYou have just regained your <u>voice</u>, congratulations !",
             "&fReason&8: #82d1ff%reason%",
             ""
     ),
@@ -332,6 +350,18 @@ public enum Message {
             ""
     ),
 
+    // Chat
+    CHAT_ERROR("<error>Impossible to let you speak, your data is not loaded."),
+    CHAT_ALPHANUMERIC_REGEX("<error>You use a forbidden character."),
+    CHAT_COOLDOWN("<error>Please wait before sending your next message. &8(&7%cooldown%&8)"),
+    CHAT_SAME("<error>You can’t put the same sentence."),
+    CHAT_LINK("<error>You cannot send a link in the chat."),
+    CHAT_DISABLE("<error>The chat is currently unavailable."),
+
+    CHAT_DEFAULT_FORMAT("<white>%displayName% <#656665>• <gray>%message%"),
+    CHAT_MESSAGES_EMPTY("&f%player% <error>did not write a message."),
+    CHAT_MESSAGES_LINE(MessageType.WITHOUT_PREFIX, "&f%date% &7%message%"),
+    CHAT_MESSAGES_FOOTER(MessageType.WITHOUT_PREFIX, "<click:run_command:'/chathistory %player% %previousPage%'><hover:show_text:'Previous Page'><white>⬅</hover></click> <gray>%page%/%maxPage% <click:run_command:'/chathistory %player% %nextPage%'><hover:show_text:'Next Page'><white>➡</hover></click>"),
     ;
 
     private String message;

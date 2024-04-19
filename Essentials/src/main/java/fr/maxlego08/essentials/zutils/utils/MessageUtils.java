@@ -8,6 +8,7 @@ import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.menu.zcore.utils.nms.NMSUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -97,6 +98,10 @@ public abstract class MessageUtils extends PlaceholderUtils {
             return component.build();
         }
         return this.componentMessage.getComponent(getMessage(message, args));
+    }
+
+    protected Component getComponentMessage(String message, TagResolver tagResolver, Object... args) {
+        return this.componentMessage.getComponent(getMessage(message, args), tagResolver);
     }
 
     protected String getMessage(String message, Object... args) {

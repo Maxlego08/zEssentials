@@ -1,8 +1,9 @@
 package fr.maxlego08.essentials.api.storage;
 
+import fr.maxlego08.essentials.api.database.dto.ChatMessageDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
+import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
-import fr.maxlego08.essentials.api.exception.UserBanException;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.user.Option;
@@ -21,7 +22,7 @@ public interface IStorage {
 
     void onDisable();
 
-    User createOrLoad(UUID uniqueId, String playerName) throws UserBanException;
+    User createOrLoad(UUID uniqueId, String playerName);
 
     void onPlayerQuit(UUID uniqueId);
 
@@ -58,5 +59,20 @@ public interface IStorage {
     void insertSanction(Sanction sanction, Consumer<Integer> consumer);
 
     void updateUserBan(UUID uuid, Integer index);
-    void updateMuteBan(UUID uuid, Integer index);
+
+    void updateUserMute(UUID uuid, Integer index);
+
+    boolean isBan(UUID uuid);
+
+    Sanction getBan(UUID uuid);
+
+    boolean isMute(UUID uuid);
+
+    Sanction getMute(UUID uuid);
+
+    List<SanctionDTO> getSanctions(UUID uuid);
+
+    void insertChatMessage(UUID uuid, String content);
+
+    List<ChatMessageDTO> getMessages(UUID targetUuid);
 }

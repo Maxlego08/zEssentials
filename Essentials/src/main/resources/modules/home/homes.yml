@@ -8,7 +8,7 @@ items:
     slots:
       - 9-17
   homes:
-    type: ESSENTIALS_HOMES
+    type: ZESSENTIALS_HOMES
     slots:
       - 18-53
     item:

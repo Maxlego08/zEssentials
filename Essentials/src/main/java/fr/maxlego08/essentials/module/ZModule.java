@@ -5,10 +5,10 @@ import fr.maxlego08.essentials.api.modules.Module;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.zutils.utils.YamlLoader;
 import fr.maxlego08.menu.api.InventoryManager;
+import fr.maxlego08.menu.api.pattern.PatternManager;
 import fr.maxlego08.menu.exceptions.InventoryException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
 
 import java.io.File;
 
@@ -31,10 +31,8 @@ public abstract class ZModule extends YamlLoader implements Module {
         if (!folfer.exists()) {
             folfer.mkdirs();
         }
-        File configFile = new File(this.plugin.getDataFolder(), "modules/" + this.name + "/config.yml");
-        if (!configFile.exists()) {
-            this.plugin.saveResource("modules/" + name + "/config.yml", false);
-        }
+
+        this.plugin.saveOrUpdateConfiguration("modules/" + name + "/config.yml");
 
         YamlConfiguration configuration = getConfiguration();
         this.loadYamlConfirmation(configuration);
@@ -74,6 +72,28 @@ public abstract class ZModule extends YamlLoader implements Module {
             inventoryManager.loadInventoryOrSaveResource(this.plugin, "modules/" + name + "/" + inventoryName + ".yml");
         } catch (InventoryException exception) {
             exception.printStackTrace();
+        }
+    }
+
+    protected void loadPattern(String patternName) {
+        PatternManager patternManager = this.plugin.getPatternManager();
+
+        File file = new File(this.plugin.getDataFolder(), "patterns/" + patternName + ".yml");
+        if (!file.exists()) {
+            this.plugin.saveResource("patterns/" + patternName + ".yml", false);
+        }
+
+        try {
+            patternManager.loadPattern(file);
+        } catch (InventoryException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    protected void savePattern(String patternName) {
+        File file = new File(this.plugin.getDataFolder(), "patterns/" + patternName + ".yml");
+        if (!file.exists()) {
+            this.plugin.saveResource("patterns/" + patternName + ".yml", false);
         }
     }
 

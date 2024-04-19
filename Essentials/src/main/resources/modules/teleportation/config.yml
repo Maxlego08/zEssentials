@@ -7,14 +7,7 @@
 # ░░░██║░░░███████╗███████╗███████╗██║░░░░░╚█████╔╝██║░░██║░░░██║░░░██║░░██║░░░██║░░░██║╚█████╔╝██║░╚███║
 # ░░░╚═╝░░░╚══════╝╚══════╝╚══════╝╚═╝░░░░░░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░╚════╝░╚═╝░░╚══╝
 #
-# Commands:
-# /tp <player> - essentials.tp - Teleport to a player
-# /tphere <player> (/s) - essentials.tp.here - Teleport a player to your location
-# /worldtp <world> [<player>] (/wtp) - essentials.tp.world - Teleport to another world
-# /tpa <player> - essentials.tpa - Teleport to a player
-# /tpaccept (/tpyes) - essentials.tpa.accept - Accept a teleportation request
-# /tpdeny (/tpno) - essentials.tpa.deny - Denied a teleportation request
-# /tpacancel - essentials.tpa.cancel - Cancel a teleportation request
+# Documentation: https://zessentials.groupez.dev/modules/teleportation
 #
 ########################################################################################################################
 

@@ -1,0 +1,45 @@
+name: '#3f3f3fSanctions History %zessentials_user_target_player_name%'
+size: 54
+items:
+  back:
+    isPermanent: true
+    type: BACK
+    slot: 49
+    item:
+      material: BARRIER
+      name: "&cGo Back"
+
+  next:
+    type: NEXT
+    isPermanent: true
+    slot: 50
+    item:
+      material: ARROW
+      name: "&fNext"
+
+  previous:
+    type: PREVIOUS
+    isPermanent: true
+    slot: 48
+    item:
+      material: ARROW
+      name: "&fPrevious"
+
+  sanctions:
+    type: ZESSENTIALS_SANCTIONS
+    isPermanent: true
+    slots:
+      - 0-44
+    item:
+      material: '%material%'
+      name: '&fType&8: &b%type%'
+      lore:
+        - ''
+        - '#ffd353ℹ Informations#3f3f3f:'
+        - '#3f3f3f• &7Reason#3f3f3f: #4cd5ff%reason%'
+        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff%duration%'
+        - '#3f3f3f• &7Remaining#3f3f3f: #4cd5ff%remaining%'
+        - '#3f3f3f• &7Created At#3f3f3f: #4cd5ff%created_at%'
+        - '#3f3f3f• &7Expired At#3f3f3f: #4cd5ff%expired_at%'
+        - '#3f3f3f• &7By#3f3f3f: #4cd5ff%sender%'
+        - ''

@@ -1,6 +1,8 @@
 package fr.maxlego08.essentials.zutils.utils;
 
 import fr.maxlego08.essentials.api.cache.SimpleCache;
+import fr.maxlego08.essentials.api.commands.Permission;
+import fr.maxlego08.essentials.api.utils.TagPermission;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -25,6 +27,9 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class ComponentMessage extends PlaceholderUtils {
+
+
+    private final List<TagPermission> tagPermissions = List.of(new TagPermission(Permission.ESSENTIALS_CHAT_COLOR, StandardTags.color()), new TagPermission(Permission.ESSENTIALS_CHAT_CLICK, StandardTags.clickEvent()), new TagPermission(Permission.ESSENTIALS_CHAT_HOVER, StandardTags.hoverEvent()), new TagPermission(Permission.ESSENTIALS_CHAT_GRADIENT, StandardTags.gradient()), new TagPermission(Permission.ESSENTIALS_CHAT_RAINBOW, StandardTags.rainbow()), new TagPermission(Permission.ESSENTIALS_CHAT_NEWLINE, StandardTags.newline()), new TagPermission(Permission.ESSENTIALS_CHAT_RESET, StandardTags.reset()), new TagPermission(Permission.ESSENTIALS_CHAT_FONT, StandardTags.font()), new TagPermission(Permission.ESSENTIALS_CHAT_KEYBIND, StandardTags.keybind()), new TagPermission(Permission.ESSENTIALS_CHAT_DECORATION, StandardTags.decorations()));
 
     private final MiniMessage MINI_MESSAGE = MiniMessage.builder().tags(TagResolver.builder().resolver(StandardTags.defaults()).build()).build();
     private final Map<String, String> COLORS_MAPPINGS = new HashMap<>();
@@ -70,19 +75,11 @@ public class ComponentMessage extends PlaceholderUtils {
         updateDisplayName(itemMeta, papi(text, player));
     }
 
-    public void updateDisplayName(ItemMeta itemMeta, String text, OfflinePlayer offlinePlayer) {
-        updateDisplayName(itemMeta, papi(text, offlinePlayer));
-    }
-
-    public void updateLore(ItemMeta itemMeta, List<String> lore, Player player) {
-        update(itemMeta, lore, player);
-    }
-
-    public void updateLore(ItemMeta itemMeta, List<String> lore, OfflinePlayer offlinePlayer) {
+    public void updateLore(ItemMeta itemMeta, List<String> lore, Player offlinePlayer) {
         update(itemMeta, lore, offlinePlayer);
     }
 
-    public void update(ItemMeta itemMeta, List<String> lore, OfflinePlayer offlinePlayer) {
+    public void update(ItemMeta itemMeta, List<String> lore, Player offlinePlayer) {
         List<Component> components = lore.stream().map(text -> {
             String result = papi(text, offlinePlayer);
             return this.cache.get(result, () -> {
@@ -126,8 +123,16 @@ public class ComponentMessage extends PlaceholderUtils {
         return this.cache.get(message, () -> this.MINI_MESSAGE.deserialize(colorMiniMessage(message)));
     }
 
+    public Component getComponent(String message, TagResolver tagResolver) {
+        return this.MINI_MESSAGE.deserialize(colorMiniMessage(message), tagResolver);
+    }
+
+    public Component translateText(Player player, String message) {
+        List<TagResolver> resolvers = this.tagPermissions.stream().filter(tagPermission -> player.hasPermission(tagPermission.permission().asPermission())).map(TagPermission::tagResolver).toList();
+        return MiniMessage.builder().tags(TagResolver.builder().resolvers(resolvers).build()).build().deserialize(colorMiniMessage(message));
+    }
+
     public void sendMessage(CommandSender sender, String message) {
-        System.out.println("Je vais envoyer: '" + message + "'");
         Component component = this.cache.get(message, () -> this.MINI_MESSAGE.deserialize(colorMiniMessage(message)));
         sender.sendMessage(component);
     }

@@ -11,7 +11,7 @@ import java.util.UUID;
 public class UserOptionRepository extends Repository {
 
     public UserOptionRepository(SqlConnection connection) {
-        super(connection, "player_options");
+        super(connection, "user_options");
     }
 
     public void upsert(UUID uuid, Option option, boolean optionValue) {

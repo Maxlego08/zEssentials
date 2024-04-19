@@ -21,6 +21,8 @@ public enum Option {
      */
     MESSAGE_DISABLE,
 
+    BAN,
+    MUTE,
     /**
      * Option for enabling inventory inspection.
      */
