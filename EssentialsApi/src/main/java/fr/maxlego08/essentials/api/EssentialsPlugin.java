@@ -216,4 +216,8 @@ public interface EssentialsPlugin extends Plugin {
     void debug(String message);
 
     void openInventory(Player player, String inventoryName);
+
+    void saveOrUpdateConfiguration(String toPath);
+
+    void saveOrUpdateConfiguration(String resourcePath, String toPath);
 }

@@ -31,10 +31,8 @@ public abstract class ZModule extends YamlLoader implements Module {
         if (!folfer.exists()) {
             folfer.mkdirs();
         }
-        File configFile = new File(this.plugin.getDataFolder(), "modules/" + this.name + "/config.yml");
-        if (!configFile.exists()) {
-            this.plugin.saveResource("modules/" + name + "/config.yml", false);
-        }
+
+        this.plugin.saveOrUpdateConfiguration("modules/" + name + "/config.yml");
 
         YamlConfiguration configuration = getConfiguration();
         this.loadYamlConfirmation(configuration);
@@ -92,7 +90,7 @@ public abstract class ZModule extends YamlLoader implements Module {
         }
     }
 
-    protected void savePattern(String patternName){
+    protected void savePattern(String patternName) {
         File file = new File(this.plugin.getDataFolder(), "patterns/" + patternName + ".yml");
         if (!file.exists()) {
             this.plugin.saveResource("patterns/" + patternName + ".yml", false);

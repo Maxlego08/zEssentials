@@ -41,16 +41,14 @@ public class MessageLoader implements ConfigurationFile {
     }
 
     private void copyFile(File file) {
-        if (!file.exists()) {
 
-            String messageFileName = "messages";
-            String localMessageName = "messages_" + locale.getLanguage();
-            if (this.plugin.resourceExist("messages/" + localMessageName + ".yml")) {
-                messageFileName = localMessageName;
-            }
-
-            this.plugin.saveResource("messages/" + messageFileName + ".yml", "messages.yml", false);
+        String messageFileName = "messages";
+        String localMessageName = "messages_" + locale.getLanguage();
+        if (this.plugin.resourceExist("messages/" + localMessageName + ".yml")) {
+            messageFileName = localMessageName;
         }
+
+        this.plugin.saveOrUpdateConfiguration("messages/" + messageFileName + ".yml", "messages.yml");
     }
 
     private void loadMessages(YamlConfiguration configuration) {
