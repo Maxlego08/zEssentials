@@ -25,8 +25,8 @@ public class HomeModule extends ZModule {
 
     private final List<HomePermission> permissions = new ArrayList<>();
 
-    private HomeDisplay homeDisplay;
-    private String homeRegex;
+    private HomeDisplay homeDisplay = HomeDisplay.MULTI_LINE;
+    private String homeRegex = "[a-zA-Z0-9]+";
     private int homeNameMax;
     private int homeNameMin;
 

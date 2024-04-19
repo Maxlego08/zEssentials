@@ -23,6 +23,7 @@ import org.bukkit.event.EventPriority;
 
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -32,21 +33,21 @@ public class SanctionModule extends ZModule {
     private final ExpiringCache<UUID, User> expiringCache = new ExpiringCache<>(1000 * 60 * 60); // 1 hour cache
     private SimpleDateFormat simpleDateFormat;
     // Default messages for kick and ban
-    private String kickDefaultReason;
-    private String banDefaultReason;
-    private String muteDefaultReason;
-    private String unmuteDefaultReason;
-    private String unbanDefaultReason;
-    private String dateFormat;
-    private Material kickMaterial;
-    private Material banMaterial;
-    private Material muteMaterial;
-    private Material unbanMaterial;
-    private Material unmuteMaterial;
-    private Material warnMaterial;
-    private Material currentMuteMaterial;
-    private Material currentBanMaterial;
-    private List<String> protections;
+    private String kickDefaultReason = "";
+    private String banDefaultReason = "";
+    private String muteDefaultReason = "";
+    private String unmuteDefaultReason = "";
+    private String unbanDefaultReason = "";
+    private String dateFormat = "yyyy-MM-dd HH:mm:ss";
+    private Material kickMaterial = Material.BOOK;
+    private Material banMaterial = Material.BOOK;
+    private Material muteMaterial = Material.BOOK;
+    private Material unbanMaterial = Material.BOOK;
+    private Material unmuteMaterial = Material.BOOK;
+    private Material warnMaterial = Material.BOOK;
+    private Material currentMuteMaterial = Material.BOOKSHELF;
+    private Material currentBanMaterial = Material.BOOKSHELF;
+    private List<String> protections = new ArrayList<>();
 
 
     public SanctionModule(ZEssentialsPlugin plugin) {

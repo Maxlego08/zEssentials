@@ -16,8 +16,8 @@ import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
 public class SpawnModule extends ZModule {
 
-    private String respawnListenerPriority;
-    private String spawnJoinListenerPriority;
+    private String respawnListenerPriority = "normal";
+    private String spawnJoinListenerPriority = "normal";
     private boolean respawnAtAnchor;
     private boolean respawnAtHome;
     private boolean respawnAtBed;

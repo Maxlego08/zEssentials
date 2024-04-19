@@ -40,9 +40,9 @@ public class ChatModule extends ZModule {
     private final List<ChatCooldown> chatCooldowns = new ArrayList<>();
     private final List<ChatFormat> chatFormats = new ArrayList<>();
     private SimpleDateFormat simpleDateFormat;
-    private String alphanumericRegex;
-    private String linkRegex;
-    private String itemaddersFontRegex;
+    private String alphanumericRegex = "^[a-zA-Z0-9_.?!^¨%ù*&é\"#'{(\\[-|èêë`\\\\çà)\\]=}ûî+<>:²€$/\\-,-â@;ô ]+$";
+    private String linkRegex = "[-a-zA-Z0-9@:%._+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)";
+    private String itemaddersFontRegex = "(?<=:)(.*?)(?=\\s*\\:)";
     private Pattern alphanumericPattern;
     private Pattern linkPattern;
     private Pattern fontPattern;
@@ -55,10 +55,10 @@ public class ChatModule extends ZModule {
     private boolean enableLinkTransform;
     private boolean enableChatMessages;
     private int chatCooldownMax;
-    private String defaultChatFormat;
-    private String moderatorAction;
-    private String linkTransform;
-    private String dateFormat;
+    private String defaultChatFormat = "<hover:show_text:'&cReport this message'><click:run_command:'/report %player% chat'><<error>>?</click></hover> %moderator_action%<#ffffff><hover:show_text:'#ffd353? Informations#3f3f3f:<newline>#3f3f3f• &7Money#3f3f3f: #4cd5ff%zessentials_user_formatted_balance_money%<newline>#3f3f3f• &7Coins#3f3f3f: #4cd5ff%zessentials_user_formatted_balance_coins%<newline><newline>&f? &7Click for more information'>%player%</hover> <#333333>» <gray><click:suggest_command:'/msg %player% '><hover:show_text:'&fSend a private message'><message></hover></click>";
+    private String moderatorAction = "<hover:show_text:'<#ff8888>Punish the player'><click:run_command:'/sc %player%'><#ff8888>?</click></hover> ";
+    private String linkTransform = "<hover:show_text:'&fOpen the link'><click:open_url:'%url%'>%url%</click></hover>";
+    private String dateFormat = "yyyy-MM-dd HH:mm:ss";
     private long[] chatCooldownArray;
 
 
