@@ -1,33 +1,32 @@
-package fr.maxlego08.essentials.zutils.utils;
+package fr.maxlego08.essentials.zutils.utils.paper;
 
 import fr.maxlego08.essentials.api.cache.SimpleCache;
 import fr.maxlego08.essentials.api.commands.Permission;
+import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.utils.ComponentMessage;
 import fr.maxlego08.essentials.api.utils.TagPermission;
+import fr.maxlego08.essentials.zutils.utils.PlaceholderUtils;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.kyori.adventure.text.minimessage.tag.standard.StandardTags;
-import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class ComponentMessage extends PlaceholderUtils {
-
+public class PaperComponent extends PlaceholderUtils implements ComponentMessage {
 
     private final List<TagPermission> tagPermissions = List.of(new TagPermission(Permission.ESSENTIALS_CHAT_COLOR, StandardTags.color()), new TagPermission(Permission.ESSENTIALS_CHAT_CLICK, StandardTags.clickEvent()), new TagPermission(Permission.ESSENTIALS_CHAT_HOVER, StandardTags.hoverEvent()), new TagPermission(Permission.ESSENTIALS_CHAT_GRADIENT, StandardTags.gradient()), new TagPermission(Permission.ESSENTIALS_CHAT_RAINBOW, StandardTags.rainbow()), new TagPermission(Permission.ESSENTIALS_CHAT_NEWLINE, StandardTags.newline()), new TagPermission(Permission.ESSENTIALS_CHAT_RESET, StandardTags.reset()), new TagPermission(Permission.ESSENTIALS_CHAT_FONT, StandardTags.font()), new TagPermission(Permission.ESSENTIALS_CHAT_KEYBIND, StandardTags.keybind()), new TagPermission(Permission.ESSENTIALS_CHAT_DECORATION, StandardTags.decorations()));
 
@@ -35,7 +34,7 @@ public class ComponentMessage extends PlaceholderUtils {
     private final Map<String, String> COLORS_MAPPINGS = new HashMap<>();
     private final SimpleCache<String, Component> cache = new SimpleCache<>();
 
-    public ComponentMessage() {
+    public PaperComponent() {
         this.COLORS_MAPPINGS.put("0", "black");
         this.COLORS_MAPPINGS.put("1", "dark_blue");
         this.COLORS_MAPPINGS.put("2", "dark_green");
@@ -89,6 +88,7 @@ public class ComponentMessage extends PlaceholderUtils {
         itemMeta.lore(components);
     }
 
+    @Override
     public Inventory createInventory(String inventoryName, int size, InventoryHolder inventoryHolder) {
         Component component = this.cache.get(inventoryName, () -> this.MINI_MESSAGE.deserialize(colorMiniMessage(inventoryName)));
         return Bukkit.createInventory(inventoryHolder, size, component);
@@ -107,7 +107,7 @@ public class ComponentMessage extends PlaceholderUtils {
 
         String newMessage = stringBuilder.toString();
 
-        for (Entry<String, String> entry : this.COLORS_MAPPINGS.entrySet()) {
+        for (Map.Entry<String, String> entry : this.COLORS_MAPPINGS.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
             newMessage = newMessage.replace("&" + key, "<" + value + ">");
@@ -132,20 +132,45 @@ public class ComponentMessage extends PlaceholderUtils {
         return MiniMessage.builder().tags(TagResolver.builder().resolvers(resolvers).build()).build().deserialize(colorMiniMessage(message));
     }
 
+    @Override
+    public void sendActionBar(Player sender, String message) {
+        Component component = this.cache.get(message, () -> this.MINI_MESSAGE.deserialize(colorMiniMessage(message)));
+        sender.sendActionBar(component);
+    }
+
+    @Override
     public void sendMessage(CommandSender sender, String message) {
         Component component = this.cache.get(message, () -> this.MINI_MESSAGE.deserialize(colorMiniMessage(message)));
         sender.sendMessage(component);
     }
 
-    public void sendActionBar(CommandSender sender, String message) {
-        Component component = this.cache.get(message, () -> this.MINI_MESSAGE.deserialize(colorMiniMessage(message)));
-        sender.sendActionBar(component);
+    public Component getComponentMessage(Message message, Object... args) {
+        if (message.getMessages().size() > 0) {
+            TextComponent.Builder component = Component.text();
+            message.getMessages().forEach(msg -> {
+                component.append(getComponent(getMessage(msg, args)));
+                component.append(Component.text("\n"));
+            });
+            return component.build();
+        }
+        return getComponent(getMessage(message.getMessage(), args));
     }
 
-    public void sendTitle(Player player, String title, String subtitle, long start, long duration, long end) {
-        Title.Times times = Title.Times.times(Duration.ofMillis(start), Duration.ofMillis(duration), Duration.ofMillis(end));
-        Component componentTitle = this.cache.get(title, () -> this.MINI_MESSAGE.deserialize(colorMiniMessage(papi(title, player))));
-        Component componentSubTitle = this.cache.get(subtitle, () -> this.MINI_MESSAGE.deserialize(colorMiniMessage(papi(subtitle, player))));
-        player.showTitle(Title.title(componentTitle, componentSubTitle, times));
+    public Component getComponentMessage(String message, TagResolver tagResolver, Object... args) {
+        return getComponent(getMessage(message, args), tagResolver);
+    }
+
+    protected String getMessage(String message, Object... args) {
+        if (args.length % 2 != 0) {
+            throw new IllegalArgumentException("Number of invalid arguments. Arguments must be in pairs.");
+        }
+
+        for (int i = 0; i < args.length; i += 2) {
+            if (args[i] == null || args[i + 1] == null) {
+                throw new IllegalArgumentException("Keys and replacement values must not be null.");
+            }
+            message = message.replace(args[i].toString(), args[i + 1].toString());
+        }
+        return message;
     }
 }

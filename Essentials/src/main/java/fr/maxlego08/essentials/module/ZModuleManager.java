@@ -7,6 +7,7 @@ import fr.maxlego08.essentials.economy.EconomyManager;
 import fr.maxlego08.essentials.module.modules.ChatModule;
 import fr.maxlego08.essentials.module.modules.HomeModule;
 import fr.maxlego08.essentials.module.modules.JoinQuitModule;
+import fr.maxlego08.essentials.module.modules.MessageModule;
 import fr.maxlego08.essentials.module.modules.SanctionModule;
 import fr.maxlego08.essentials.module.modules.SpawnModule;
 import fr.maxlego08.essentials.module.modules.TeleportationModule;
@@ -40,11 +41,14 @@ public class ZModuleManager implements ModuleManager {
         this.modules.put(TeleportationModule.class, new TeleportationModule(this.plugin));
         this.modules.put(SpawnModule.class, new SpawnModule(this.plugin));
         this.modules.put(WarpModule.class, new WarpModule(this.plugin));
-        this.modules.put(JoinQuitModule.class, new JoinQuitModule(this.plugin));
         this.modules.put(EconomyManager.class, this.plugin.getEconomyProvider());
         this.modules.put(HomeModule.class, new HomeModule(this.plugin));
         this.modules.put(SanctionModule.class, new SanctionModule(this.plugin));
-        this.modules.put(ChatModule.class, new ChatModule(this.plugin));
+        if (plugin.isPaperVersion()) {
+            this.modules.put(JoinQuitModule.class, new JoinQuitModule(this.plugin));
+            this.modules.put(ChatModule.class, new ChatModule(this.plugin));
+        }
+        this.modules.put(MessageModule.class, new MessageModule(this.plugin));
 
         this.loadConfigurations();
 

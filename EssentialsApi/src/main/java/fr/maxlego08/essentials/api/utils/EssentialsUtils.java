@@ -6,6 +6,8 @@ import fr.maxlego08.essentials.api.server.messages.ServerMessage;
 import fr.maxlego08.essentials.api.user.User;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 
 import java.lang.reflect.Constructor;
 import java.util.Map;
@@ -61,23 +63,6 @@ public interface EssentialsUtils {
     void process(ServerMessage receivedMessage);
 
     /**
-     * Converts a message into a Adventure Component.
-     *
-     * @param message The message to convert.
-     * @param objects Objects to format into the message.
-     * @return The Adventure Component representing the message.
-     */
-    Component getComponentMessage(Message message, Object... objects);
-
-    /**
-     * Converts a plain text message into a Adventure Component.
-     *
-     * @param message The plain text message to convert.
-     * @return The Adventure Component representing the message.
-     */
-    Component getComponentMessage(String message);
-
-    /**
      * Formats a message into a plain text string.
      *
      * @param message The message to format.
@@ -98,4 +83,8 @@ public interface EssentialsUtils {
     void toggleChat(boolean value);
 
     void broadcast(Message message, Object... arguments);
+
+    void kick(Player player, Message message, Object... objects);
+
+    void disallow(AsyncPlayerPreLoginEvent event, AsyncPlayerPreLoginEvent.Result result, Message message, Object... objects);
 }

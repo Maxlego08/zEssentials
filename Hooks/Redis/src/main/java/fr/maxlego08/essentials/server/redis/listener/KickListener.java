@@ -18,7 +18,7 @@ public class KickListener extends RedisListener<KickMessage> {
     protected void onMessage(KickMessage message) {
         Player player = Bukkit.getPlayer(message.playerUniqueId());
         if (player != null) {
-            player.kick(essentialsUtils.getComponentMessage(message.message(), message.arguments()));
+            this.essentialsUtils.kick(player, message.message(), message.arguments());
         }
     }
 }

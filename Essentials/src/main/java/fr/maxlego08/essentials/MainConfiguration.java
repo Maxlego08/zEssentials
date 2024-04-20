@@ -28,7 +28,7 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     private DatabaseConfiguration databaseConfiguration;
     private ServerType serverType;
     private RedisConfiguration redisConfiguration;
-    private List<MessageColor> messageColors = new ArrayList<>();
+    private final List<MessageColor> messageColors = new ArrayList<>();
 
     public MainConfiguration(ZEssentialsPlugin plugin) {
         this.plugin = plugin;

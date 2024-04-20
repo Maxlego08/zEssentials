@@ -26,5 +26,7 @@ public enum Option {
     /**
      * Option for enabling inventory inspection.
      */
-    INVSEE
+    INVSEE,
+    VANISH,
+    PRIVATE_MESSAGE_DISABLE,
 }

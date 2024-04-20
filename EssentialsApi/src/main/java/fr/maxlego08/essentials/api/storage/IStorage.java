@@ -2,6 +2,7 @@ package fr.maxlego08.essentials.api.storage;
 
 import fr.maxlego08.essentials.api.database.dto.ChatMessageDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
+import fr.maxlego08.essentials.api.database.dto.OptionDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
@@ -11,6 +12,7 @@ import fr.maxlego08.essentials.api.user.User;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
@@ -75,4 +77,6 @@ public interface IStorage {
     void insertChatMessage(UUID uuid, String content);
 
     List<ChatMessageDTO> getMessages(UUID targetUuid);
+
+    Map<Option, Boolean> getOptions(UUID uuid);
 }

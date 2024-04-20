@@ -19,7 +19,7 @@ public class CommandChatEnable extends VCommand {
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
-        if (ConfigStorage.chatDisable) {
+        if (ConfigStorage.chatEnable) {
             message(sender, Message.COMMAND_CHAT_ENABLE_ERROR);
             return CommandResultType.DEFAULT;
         }

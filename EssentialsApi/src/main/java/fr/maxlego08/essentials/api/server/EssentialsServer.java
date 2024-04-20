@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.api.server;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import org.bukkit.command.CommandSender;
+import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 
 import java.util.List;
 import java.util.UUID;

@@ -22,6 +22,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import redis.clients.jedis.Jedis;
@@ -127,7 +128,7 @@ public class RedisServer implements EssentialsServer, Listener {
     public void kickPlayer(UUID uuid, Message message, Object... objects) {
         Player player = Bukkit.getPlayer(uuid);
         if (player != null && player.isOnline()) {
-            player.kick(utils.getComponentMessage(message, objects));
+            utils.kick(player, message, objects);
             return;
         }
 

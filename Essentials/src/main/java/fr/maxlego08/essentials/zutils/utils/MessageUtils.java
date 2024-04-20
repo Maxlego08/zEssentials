@@ -5,10 +5,8 @@ import fr.maxlego08.essentials.api.messages.DefaultFontInfo;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.messages.MessageType;
 import fr.maxlego08.essentials.api.user.User;
+import fr.maxlego08.essentials.api.utils.ComponentMessage;
 import fr.maxlego08.menu.zcore.utils.nms.NMSUtils;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TextComponent;
-import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -22,7 +20,7 @@ import java.util.regex.Pattern;
 
 public abstract class MessageUtils extends PlaceholderUtils {
 
-    protected final ComponentMessage componentMessage = new ComponentMessage();
+    protected final ComponentMessage componentMessage = ComponentMessageHelper.componentMessage;
 
     protected void message(User sender, Message message, Object... args) {
         message(sender.getPlayer(), message, args);
@@ -56,10 +54,10 @@ public abstract class MessageUtils extends PlaceholderUtils {
 
                 case TCHAT_AND_ACTION -> {
                     sendTchatMessage(sender, message, args);
-                    this.componentMessage.sendActionBar(sender, getMessage(message, args));
+                    this.componentMessage.sendActionBar(player, getMessage(message, args));
                 }
                 case ACTION -> {
-                    this.componentMessage.sendActionBar(sender, getMessage(message, args));
+                    this.componentMessage.sendActionBar(player, getMessage(message, args));
                 }
                 case TCHAT, WITHOUT_PREFIX -> {
                     sendTchatMessage(sender, message, args);
@@ -91,22 +89,6 @@ public abstract class MessageUtils extends PlaceholderUtils {
 
     protected String getMessage(Message message, Object... args) {
         return getMessage(message.getMessage() == null ? String.join("\n", message.getMessages()) : message.getMessage(), args);
-    }
-
-    protected Component getComponentMessage(Message message, Object... args) {
-        if (message.getMessages().size() > 0) {
-            TextComponent.Builder component = Component.text();
-            message.getMessages().forEach(msg -> {
-                component.append(this.componentMessage.getComponent(getMessage(msg, args)));
-                component.append(Component.text("\n"));
-            });
-            return component.build();
-        }
-        return this.componentMessage.getComponent(getMessage(message, args));
-    }
-
-    protected Component getComponentMessage(String message, TagResolver tagResolver, Object... args) {
-        return this.componentMessage.getComponent(getMessage(message, args), tagResolver);
     }
 
     protected String getMessage(String message, Object... args) {
@@ -158,7 +140,7 @@ public abstract class MessageUtils extends PlaceholderUtils {
         boolean isBold = false;
 
         for (char c : message.toCharArray()) {
-            if (c == "§".charAt(0)) {
+            if (c == '§') {
                 previousCode = true;
             } else if (previousCode) {
                 previousCode = false;

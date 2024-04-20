@@ -10,16 +10,14 @@ import fr.maxlego08.essentials.api.server.EssentialsServer;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
+import fr.maxlego08.essentials.listener.paper.ChatListener;
 import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
-import io.papermc.paper.event.player.AsyncChatEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -31,27 +29,28 @@ import java.util.UUID;
 public class SanctionModule extends ZModule {
 
     private final ExpiringCache<UUID, User> expiringCache = new ExpiringCache<>(1000 * 60 * 60); // 1 hour cache
-    private SimpleDateFormat simpleDateFormat;
     // Default messages for kick and ban
-    private String kickDefaultReason = "";
-    private String banDefaultReason = "";
-    private String muteDefaultReason = "";
-    private String unmuteDefaultReason = "";
-    private String unbanDefaultReason = "";
-    private String dateFormat = "yyyy-MM-dd HH:mm:ss";
-    private Material kickMaterial = Material.BOOK;
-    private Material banMaterial = Material.BOOK;
-    private Material muteMaterial = Material.BOOK;
-    private Material unbanMaterial = Material.BOOK;
-    private Material unmuteMaterial = Material.BOOK;
-    private Material warnMaterial = Material.BOOK;
-    private Material currentMuteMaterial = Material.BOOKSHELF;
-    private Material currentBanMaterial = Material.BOOKSHELF;
-    private List<String> protections = new ArrayList<>();
+    private final String kickDefaultReason = "";
+    private final String banDefaultReason = "";
+    private final String muteDefaultReason = "";
+    private final String unmuteDefaultReason = "";
+    private final String unbanDefaultReason = "";
+    private final String dateFormat = "yyyy-MM-dd HH:mm:ss";
+    private final Material kickMaterial = Material.BOOK;
+    private final Material banMaterial = Material.BOOK;
+    private final Material muteMaterial = Material.BOOK;
+    private final Material unbanMaterial = Material.BOOK;
+    private final Material unmuteMaterial = Material.BOOK;
+    private final Material warnMaterial = Material.BOOK;
+    private final Material currentMuteMaterial = Material.BOOKSHELF;
+    private final Material currentBanMaterial = Material.BOOKSHELF;
+    private final List<String> protections = new ArrayList<>();
+    private SimpleDateFormat simpleDateFormat;
 
 
     public SanctionModule(ZEssentialsPlugin plugin) {
         super(plugin, "sanction");
+        Bukkit.getPluginManager().registerEvents(isPaperVersion() ? new ChatListener(plugin) : new fr.maxlego08.essentials.listener.spigot.ChatListener(plugin), plugin);
     }
 
     @Override
@@ -323,20 +322,6 @@ public class SanctionModule extends ZModule {
 
         // Broadcast a notification message to players with the mute notify permission
         server.broadcastMessage(Permission.ESSENTIALS_UNBAN_NOTIFY, Message.COMMAND_UNBAN_NOTIFY, "%player%", sender.getName(), "%target%", playerName, "%reason%", reason, "%sender%", getSanctionBy(sender), "%created_at%", this.simpleDateFormat.format(new Date()));
-    }
-
-    @EventHandler(priority = EventPriority.LOWEST)
-    public void onTalk(AsyncChatEvent event) {
-
-        Player player = event.getPlayer();
-        IStorage iStorage = plugin.getStorageManager().getStorage();
-        User user = iStorage.getUser(player.getUniqueId());
-        if (user != null && user.isMute()) {
-            event.setCancelled(true);
-            Sanction sanction = user.getMuteSanction();
-            Duration duration = sanction.getDurationRemaining();
-            message(player, Message.MESSAGE_MUTE_TALK, "%reason%", sanction.getReason(), "%duration%", TimerBuilder.getStringTime(duration.toMillis()));
-        }
     }
 
     public void openSanction(User user, UUID uuid, String userName) {

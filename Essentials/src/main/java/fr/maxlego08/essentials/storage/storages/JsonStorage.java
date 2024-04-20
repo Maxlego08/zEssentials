@@ -4,6 +4,7 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.database.dto.ChatMessageDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.HomeDTO;
+import fr.maxlego08.essentials.api.database.dto.OptionDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
@@ -21,7 +22,9 @@ import org.bukkit.OfflinePlayer;
 import java.io.File;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -276,5 +279,13 @@ public class JsonStorage extends StorageHelper implements IStorage {
     @Override
     public List<ChatMessageDTO> getMessages(UUID targetUuid) {
         return new ArrayList<>();
+    }
+
+    @Override
+    public Map<Option, Boolean> getOptions(UUID uuid) {
+        if (this.users.containsKey(uuid)) {
+            return this.users.get(uuid).getOptions();
+        }
+        return new HashMap<>();
     }
 }

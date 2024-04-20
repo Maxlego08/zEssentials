@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.storage.storages;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.database.dto.ChatMessageDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
+import fr.maxlego08.essentials.api.database.dto.OptionDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.database.dto.UserDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
@@ -31,10 +32,12 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class SqlStorage extends StorageHelper implements IStorage {
 
@@ -307,5 +310,13 @@ public class SqlStorage extends StorageHelper implements IStorage {
     @Override
     public List<ChatMessageDTO> getMessages(UUID targetUuid) {
         return this.repositories.getTable(ChatMessagesRepository.class).getMessages(targetUuid);
+    }
+
+    @Override
+    public Map<Option, Boolean> getOptions(UUID uuid) {
+        if (this.users.containsKey(uuid)) {
+            return this.users.get(uuid).getOptions();
+        }
+        return this.repositories.getTable(UserOptionRepository.class).selectOptions(uuid).stream().collect(Collectors.toMap(OptionDTO::option_name, OptionDTO::option_value));
     }
 }

@@ -11,8 +11,6 @@ import fr.maxlego08.essentials.api.modules.ModuleManager;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.essentials.api.storage.StorageManager;
-import fr.maxlego08.essentials.api.utils.EssentialsUtils;
-import fr.maxlego08.essentials.zutils.utils.ZEssentialsUtils;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
@@ -69,8 +67,7 @@ public class ZPlugin extends JavaPlugin {
             resourcePath = resourcePath.replace('\\', '/');
             InputStream in = this.getResource(resourcePath);
             if (in == null) {
-                throw new IllegalArgumentException(
-                        "The embedded resource '" + resourcePath + "' cannot be found in " + this.getFile());
+                throw new IllegalArgumentException("The embedded resource '" + resourcePath + "' cannot be found in " + this.getFile());
             } else {
                 File outFile = new File(getDataFolder(), toPath);
                 int lastIndex = toPath.lastIndexOf(47);
@@ -81,8 +78,7 @@ public class ZPlugin extends JavaPlugin {
 
                 try {
                     if (outFile.exists() && !replace) {
-                        getLogger().log(Level.WARNING, "Could not save " + outFile.getName() + " to " + outFile
-                                + " because " + outFile.getName() + " already exists.");
+                        getLogger().log(Level.WARNING, "Could not save " + outFile.getName() + " to " + outFile + " because " + outFile.getName() + " already exists.");
                     } else {
                         OutputStream out = Files.newOutputStream(outFile.toPath());
                         byte[] buf = new byte[1024];
@@ -107,6 +103,15 @@ public class ZPlugin extends JavaPlugin {
         RegisteredServiceProvider<T> provider = getServer().getServicesManager().getRegistration(classz);
         if (provider == null) return null;
         return provider.getProvider();
+    }
+
+    public boolean isPaperVersion() {
+        try {
+            Class.forName("net.kyori.adventure.text.Component");
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
     }
 
 }

@@ -5,9 +5,6 @@ import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.server.EssentialsServer;
 import fr.maxlego08.essentials.storage.ConfigStorage;
-import fr.maxlego08.essentials.zutils.utils.ZUtils;
-import fr.maxlego08.essentials.zutils.utils.paper.PaperComponent;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -15,12 +12,12 @@ import org.bukkit.entity.Player;
 import java.util.List;
 import java.util.UUID;
 
-public class PaperServer extends ZUtils implements EssentialsServer {
+public class SpigotServer implements EssentialsServer {
 
     private final EssentialsPlugin plugin;
 
 
-    public PaperServer(EssentialsPlugin plugin) {
+    public SpigotServer(EssentialsPlugin plugin) {
         this.plugin = plugin;
     }
 
@@ -41,25 +38,17 @@ public class PaperServer extends ZUtils implements EssentialsServer {
 
     @Override
     public void sendMessage(UUID uuid, Message message, Object... objects) {
-        this.message(uuid, message, objects);
+
     }
 
     @Override
     public void broadcastMessage(Permission permission, Message message, Object... objects) {
-        this.broadcast(permission, message, objects);
+
     }
 
     @Override
     public void kickPlayer(UUID uuid, Message message, Object... objects) {
-        Player player = Bukkit.getPlayer(uuid);
-        if (player != null) {
-            PaperComponent paperComponent = (PaperComponent) this.componentMessage;
-            if (this.plugin.isFolia()) {
-                player.kick(paperComponent.getComponentMessage(message, objects));
-            } else {
-                this.plugin.getScheduler().runAtLocation(player.getLocation(), wrappedTask -> player.kick(paperComponent.getComponentMessage(message, objects)));
-            }
-        }
+
     }
 
     @Override
@@ -69,11 +58,6 @@ public class PaperServer extends ZUtils implements EssentialsServer {
 
     @Override
     public void clearChat(CommandSender sender) {
-        Bukkit.getOnlinePlayers().forEach(player -> {
-            for (int i = 0; i != 300; i++) player.sendMessage(Component.text(""));
-            message(player, Message.COMMAND_CHAT_CLEAR);
-        });
-        message(Bukkit.getConsoleSender(), Message.COMMAND_CHAT_CLEAR);
     }
 
     @Override
@@ -84,6 +68,6 @@ public class PaperServer extends ZUtils implements EssentialsServer {
 
     @Override
     public void broadcast(String message) {
-        broadcast(Message.COMMAND_CHAT_BROADCAST, "%message%", message);
+
     }
 }

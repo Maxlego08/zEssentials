@@ -8,10 +8,12 @@ import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.ChatCooldown;
 import fr.maxlego08.essentials.api.utils.ChatFormat;
+import fr.maxlego08.essentials.api.utils.ChatResult;
 import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.essentials.storage.ConfigStorage;
 import fr.maxlego08.essentials.zutils.utils.DynamicCooldown;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
+import fr.maxlego08.essentials.zutils.utils.paper.PaperComponent;
 import fr.maxlego08.menu.zcore.utils.inventory.Pagination;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.minimessage.tag.Tag;
@@ -40,9 +42,9 @@ public class ChatModule extends ZModule {
     private final List<ChatCooldown> chatCooldowns = new ArrayList<>();
     private final List<ChatFormat> chatFormats = new ArrayList<>();
     private SimpleDateFormat simpleDateFormat;
-    private String alphanumericRegex = "^[a-zA-Z0-9_.?!^¨%ù*&é\"#'{(\\[-|èêë`\\\\çà)\\]=}ûî+<>:²€$/\\-,-â@;ô ]+$";
-    private String linkRegex = "[-a-zA-Z0-9@:%._+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)";
-    private String itemaddersFontRegex = "(?<=:)(.*?)(?=\\s*\\:)";
+    private final String alphanumericRegex = "^[a-zA-Z0-9_.?!^¨%ù*&é\"#'{(\\[-|èêë`\\\\çà)\\]=}ûî+<>:²€$/\\-,-â@;ô ]+$";
+    private final String linkRegex = "[-a-zA-Z0-9@:%._+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)";
+    private final String itemaddersFontRegex = "(?<=:)(.*?)(?=\\s*\\:)";
     private Pattern alphanumericPattern;
     private Pattern linkPattern;
     private Pattern fontPattern;
@@ -55,10 +57,10 @@ public class ChatModule extends ZModule {
     private boolean enableLinkTransform;
     private boolean enableChatMessages;
     private int chatCooldownMax;
-    private String defaultChatFormat = "<hover:show_text:'&cReport this message'><click:run_command:'/report %player% chat'><<error>>⚠</click></hover> %moderator_action%<#ffffff><hover:show_text:'#ffd353ℹ Informations#3f3f3f:<newline>#3f3f3f• &7Money#3f3f3f: #4cd5ff%zessentials_user_formatted_balance_money%<newline>#3f3f3f• &7Coins#3f3f3f: #4cd5ff%zessentials_user_formatted_balance_coins%<newline><newline>&f➥ &7Click for more information'>%player%</hover> <#333333>» <gray><click:suggest_command:'/msg %player% '><hover:show_text:'&fSend a private message'><message></hover></click>";
-    private String moderatorAction = "<hover:show_text:'<#ff8888>Punish the player'><click:run_command:'/sc %player%'><#ff8888>✗</click></hover> ";
-    private String linkTransform = "<hover:show_text:'&fOpen the link'><click:open_url:'%url%'>%url%</click></hover>";
-    private String dateFormat = "yyyy-MM-dd HH:mm:ss";
+    private final String defaultChatFormat = "<hover:show_text:'&cReport this message'><click:run_command:'/report %player% chat'><<error>>⚠</click></hover> %moderator_action%<#ffffff><hover:show_text:'#ffd353ℹ Informations#3f3f3f:<newline>#3f3f3f• &7Money#3f3f3f: #4cd5ff%zessentials_user_formatted_balance_money%<newline>#3f3f3f• &7Coins#3f3f3f: #4cd5ff%zessentials_user_formatted_balance_coins%<newline><newline>&f➥ &7Click for more information'>%player%</hover> <#333333>» <gray><click:suggest_command:'/msg %player% '><hover:show_text:'&fSend a private message'><message></hover></click>";
+    private final String moderatorAction = "<hover:show_text:'<#ff8888>Punish the player'><click:run_command:'/sc %player%'><#ff8888>✗</click></hover> ";
+    private final String linkTransform = "<hover:show_text:'&fOpen the link'><click:open_url:'%url%'>%url%</click></hover>";
+    private final String dateFormat = "yyyy-MM-dd HH:mm:ss";
     private long[] chatCooldownArray;
 
 
@@ -89,7 +91,7 @@ public class ChatModule extends ZModule {
             return;
         }
 
-        if (ConfigStorage.chatDisable && !hasPermission(player, Permission.ESSENTIALS_CHAT_BYPASS_DISABLE)) {
+        if (ConfigStorage.chatEnable && !hasPermission(player, Permission.ESSENTIALS_CHAT_BYPASS_DISABLE)) {
             cancelEvent(event, Message.CHAT_DISABLE);
             return;
         }
@@ -97,25 +99,9 @@ public class ChatModule extends ZModule {
         String message = PlainTextComponentSerializer.plainText().serialize(event.originalMessage());
         final String minecraftMessage = message;
 
-        if (this.enableAlphanumericRegex && !this.alphanumericPattern.matcher(message).find() && !hasPermission(player, Permission.ESSENTIALS_CHAT_BYPASS_ALPHANUMERIC)) {
-            cancelEvent(event, Message.CHAT_ALPHANUMERIC_REGEX);
-            return;
-        }
-
-        if (this.enableLinkRegex && this.linkPattern.matcher(message.replace(" ", "")).find() && !hasPermission(player, Permission.ESSENTIALS_CHAT_BYPASS_LINK)) {
-            cancelEvent(event, Message.CHAT_LINK);
-            return;
-        }
-
-        double cooldown = handleCooldown(player);
-        if (this.enableChatDynamicCooldown && cooldown > 0 && !hasPermission(player, Permission.ESSENTIALS_CHAT_BYPASS_DYNAMIC_COOLDOWN)) {
-            cancelEvent(event, Message.CHAT_COOLDOWN, "%cooldown%", TimerBuilder.getStringTime(cooldown));
-            return;
-        }
-
-        String lastMessage = user.getLastMessage();
-        if (this.enableSameMessageCancel && message.equalsIgnoreCase(lastMessage) && !hasPermission(player, Permission.ESSENTIALS_CHAT_BYPASS_SAME_MESSAGE)) {
-            cancelEvent(event, Message.CHAT_SAME, "%cooldown%", TimerBuilder.getStringTime(cooldown));
+        ChatResult chatResult = analyzeMessage(user, message);
+        if (!chatResult.isValid()) {
+            cancelEvent(event, chatResult.message(), chatResult.arguments());
             return;
         }
 
@@ -127,8 +113,9 @@ public class ChatModule extends ZModule {
             message = transformUrlsToMiniMessage(message);
         }
 
+        PaperComponent paperComponent = (PaperComponent) this.componentMessage;
         String chatFormat = papi(getChatFormat(player), player);
-        Tag tag = Tag.inserting(this.componentMessage.translateText(player, message));
+        Tag tag = Tag.inserting(paperComponent.translateText(player, message));
 
         String finalMessage = message;
         event.renderer((source, sourceDisplayName, ignoredMessage, viewer) -> {
@@ -140,13 +127,37 @@ public class ChatModule extends ZModule {
                 }
             }
 
-            return getComponentMessage(chatFormat, TagResolver.resolver("message", tag), "%displayName%", player.getDisplayName(), "%player%", player.getName(), "%moderator_action%", isModerator ? papi(getMessage(this.moderatorAction, "%player%", player.getName()), (Player) viewer) : "");
+            return paperComponent.getComponentMessage(chatFormat, TagResolver.resolver("message", tag), "%displayName%", player.getDisplayName(), "%player%", player.getName(), "%moderator_action%", isModerator ? papi(getMessage(this.moderatorAction, "%player%", player.getName()), (Player) viewer) : "");
         });
 
         if (this.enableChatMessages) {
             this.plugin.getStorageManager().getStorage().insertChatMessage(player.getUniqueId(), minecraftMessage);
             this.chatMessagesCache.clear(player.getUniqueId());
         }
+    }
+
+    public ChatResult analyzeMessage(User user, String message) {
+        Player player = user.getPlayer();
+
+        if (this.enableAlphanumericRegex && !this.alphanumericPattern.matcher(message).find() && !hasPermission(player, Permission.ESSENTIALS_CHAT_BYPASS_ALPHANUMERIC)) {
+            return new ChatResult(false, Message.CHAT_ALPHANUMERIC_REGEX);
+        }
+
+        if (this.enableLinkRegex && this.linkPattern.matcher(message.replace(" ", "")).find() && !hasPermission(player, Permission.ESSENTIALS_CHAT_BYPASS_LINK)) {
+            return new ChatResult(false, Message.CHAT_LINK);
+        }
+
+        double cooldown = handleCooldown(player);
+        if (this.enableChatDynamicCooldown && cooldown > 0 && !hasPermission(player, Permission.ESSENTIALS_CHAT_BYPASS_DYNAMIC_COOLDOWN)) {
+            return new ChatResult(false, Message.CHAT_COOLDOWN, "%cooldown%", TimerBuilder.getStringTime(cooldown));
+        }
+
+        String lastMessage = user.getLastMessage();
+        if (this.enableSameMessageCancel && message.equalsIgnoreCase(lastMessage) && !hasPermission(player, Permission.ESSENTIALS_CHAT_BYPASS_SAME_MESSAGE)) {
+            return new ChatResult(false, Message.CHAT_SAME);
+        }
+
+        return new ChatResult(true, null);
     }
 
     private String getChatFormat(Player player) {

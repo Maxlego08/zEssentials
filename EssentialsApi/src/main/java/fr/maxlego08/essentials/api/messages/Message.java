@@ -178,6 +178,9 @@ public enum Message {
     DESCRIPTION_CHAT_ENABLE("Enable chat"),
     DESCRIPTION_CHAT_BROADCAST("Broadcast a message"),
 
+    DESCRIPTION_MESSAGE("Send a private message to a player"),
+    DESCRIPTION_REPLY("Reply to a private message"),
+
     YOU("you"),
     TRASH("&8Trash"),
 
@@ -372,7 +375,12 @@ public enum Message {
     COMMAND_CHAT_DISABLE_SUCCESS("<success>You just deactivated the chat."),
     COMMAND_CHAT_ENABLE_ERROR("<error>Chat is already enable."),
     COMMAND_CHAT_ENABLE_SUCCESS("<success>You just activated the chat."),
-    COMMAND_CHAT_BROADCAST("<primary>ʙʀᴏᴀᴅᴄᴀsᴛ <secondary>• <white>%message%"),
+    COMMAND_CHAT_BROADCAST(MessageType.WITHOUT_PREFIX, "<primary>ʙʀᴏᴀᴅᴄᴀsᴛ <secondary>• <white>%message%"),
+
+    COMMAND_MESSAGE_SELF("<error>You can’t talk to yourself."),
+    COMMAND_MESSAGE_DISABLE("&f%%player% <error>has disabled private messages."),
+    COMMAND_MESSAGE_MUTE("<error>You’re not allowed to speak."),
+
     ;
 
     private String message;

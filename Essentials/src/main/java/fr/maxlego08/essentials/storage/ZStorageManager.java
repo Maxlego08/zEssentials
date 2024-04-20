@@ -59,15 +59,12 @@ public class ZStorageManager extends ZUtils implements StorageManager {
     public void onLogin(AsyncPlayerPreLoginEvent event) {
 
         UUID playerUuid = event.getUniqueId();
-        String playerName = event.getPlayerProfile().getName();
+        String playerName = event.getName();
 
         if (this.iStorage.isBan(playerUuid)) {
             Sanction sanction = this.iStorage.getBan(playerUuid);
             Duration duration = sanction.getDurationRemaining();
-            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, getComponentMessage(Message.MESSAGE_BAN_JOIN,
-                    "%reason%", sanction.getReason(),
-                    "%remaining%", TimerBuilder.getStringTime(duration.toMillis())
-            ));
+            this.plugin.getUtils().disallow(event, AsyncPlayerPreLoginEvent.Result.KICK_BANNED, Message.MESSAGE_BAN_JOIN, "%reason%", sanction.getReason(), "%remaining%", TimerBuilder.getStringTime(duration.toMillis()));
             return;
         }
 

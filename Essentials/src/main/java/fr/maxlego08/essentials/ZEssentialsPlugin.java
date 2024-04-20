@@ -43,6 +43,7 @@ import fr.maxlego08.essentials.module.modules.HomeModule;
 import fr.maxlego08.essentials.placeholders.DistantPlaceholder;
 import fr.maxlego08.essentials.placeholders.LocalPlaceholder;
 import fr.maxlego08.essentials.server.PaperServer;
+import fr.maxlego08.essentials.server.SpigotServer;
 import fr.maxlego08.essentials.server.redis.RedisServer;
 import fr.maxlego08.essentials.storage.ConfigStorage;
 import fr.maxlego08.essentials.storage.ZStorageManager;
@@ -53,8 +54,9 @@ import fr.maxlego08.essentials.user.placeholders.UserPlaceholders;
 import fr.maxlego08.essentials.zutils.ZPlugin;
 import fr.maxlego08.essentials.zutils.utils.CommandMarkdownGenerator;
 import fr.maxlego08.essentials.zutils.utils.PlaceholderMarkdownGenerator;
-import fr.maxlego08.essentials.zutils.utils.ZEssentialsUtils;
 import fr.maxlego08.essentials.zutils.utils.ZServerStorage;
+import fr.maxlego08.essentials.zutils.utils.paper.PaperUtils;
+import fr.maxlego08.essentials.zutils.utils.spigot.SpigotUtils;
 import fr.maxlego08.menu.api.ButtonManager;
 import fr.maxlego08.menu.api.InventoryManager;
 import fr.maxlego08.menu.api.pattern.PatternManager;
@@ -80,12 +82,12 @@ import java.util.UUID;
 public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin {
 
     private final UUID consoleUniqueId = UUID.fromString("00000000-0000-0000-0000-000000000000");
-    private final EssentialsUtils essentialsUtils = new ZEssentialsUtils(this);
+    private EssentialsUtils essentialsUtils;
     private ServerStorage serverStorage = new ZServerStorage();
     private InventoryManager inventoryManager;
     private ButtonManager buttonManager;
     private PatternManager patternManager;
-    private EssentialsServer essentialsServer = new PaperServer(this);
+    private EssentialsServer essentialsServer;
 
     @Override
     public void onEnable() {
@@ -95,6 +97,8 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
         FoliaLib foliaLib = new FoliaLib(this);
         this.serverImplementation = foliaLib.getImpl();
+        this.essentialsUtils = isPaperVersion() ? new PaperUtils(this) : new SpigotUtils(this);
+        this.essentialsServer = isPaperVersion() ? new PaperServer(this) : new SpigotServer(this);
 
         this.migrationManager = new ZMigrationManager(this);
         this.migrationManager.registerMigration();
