@@ -79,4 +79,9 @@ public class PaperServer extends ZUtils implements EssentialsServer {
         ConfigStorage.chatDisable = value;
         ConfigStorage.getInstance().save(this.plugin.getPersist());
     }
+
+    @Override
+    public void broadcast(String message) {
+        broadcast(Message.COMMAND_CHAT_BROADCAST, "%message%", message);
+    }
 }

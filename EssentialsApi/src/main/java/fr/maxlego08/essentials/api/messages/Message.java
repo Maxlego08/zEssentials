@@ -8,7 +8,7 @@ public enum Message {
 
     // Rework message for a better system
 
-    PREFIX("&8(&6zEssentials&8) "),
+    PREFIX("<primary>zEssentials <secondary>• "),
     CONSOLE("Console"),
     EXPIRED("Expired"),
     PLAYER_NOT_FOUND("&f%player% <error>was not found."),
@@ -176,6 +176,7 @@ public enum Message {
     DESCRIPTION_CHAT_CLEAR("Clear chat"),
     DESCRIPTION_CHAT_DISABLE("Disable chat"),
     DESCRIPTION_CHAT_ENABLE("Enable chat"),
+    DESCRIPTION_CHAT_BROADCAST("Broadcast a message"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -371,6 +372,7 @@ public enum Message {
     COMMAND_CHAT_DISABLE_SUCCESS("<success>You just deactivated the chat."),
     COMMAND_CHAT_ENABLE_ERROR("<error>Chat is already enable."),
     COMMAND_CHAT_ENABLE_SUCCESS("<success>You just activated the chat."),
+    COMMAND_CHAT_BROADCAST("<primary>ʙʀᴏᴀᴅᴄᴀsᴛ <secondary>• <white>%message%"),
     ;
 
     private String message;

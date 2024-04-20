@@ -26,4 +26,6 @@ public interface EssentialsServer {
     void clearChat(CommandSender sender);
 
     void toggleChat(boolean value);
+
+    void broadcast(String message);
 }

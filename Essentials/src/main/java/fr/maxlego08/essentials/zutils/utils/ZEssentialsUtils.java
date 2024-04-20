@@ -44,9 +44,16 @@ public class ZEssentialsUtils extends ZUtils implements EssentialsUtils {
     }
 
     @Override
+    public void broadcast(Message message, Object... arguments) {
+        super.broadcast(message, arguments);
+    }
+
+    @Override
     public void process(ServerMessage receivedMessage) {
-        if (receivedMessage.serverMessageType() == ServerMessageType.BROADCAST) {
+        if (receivedMessage.serverMessageType() == ServerMessageType.BROADCAST_PERMISSION) {
             this.broadcast(receivedMessage.permission(), receivedMessage.message(), receivedMessage.arguments());
+        } else if (receivedMessage.serverMessageType() == ServerMessageType.BROADCAST) {
+            this.broadcast(receivedMessage.message(), receivedMessage.arguments());
         } else {
             this.message(receivedMessage.uuid(), receivedMessage.message(), receivedMessage.arguments());
         }

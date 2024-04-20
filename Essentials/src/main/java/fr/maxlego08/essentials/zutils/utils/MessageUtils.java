@@ -44,6 +44,11 @@ public abstract class MessageUtils extends PlaceholderUtils {
         message(Bukkit.getConsoleSender(), message, args);
     }
 
+    protected void broadcast(Message message, Object... args) {
+        Bukkit.getOnlinePlayers().forEach(player -> message(player, message, args));
+        message(Bukkit.getConsoleSender(), message, args);
+    }
+
     protected void message(CommandSender sender, Message message, Object... args) {
 
         if (sender instanceof Player player) {

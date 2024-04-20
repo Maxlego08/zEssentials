@@ -114,7 +114,13 @@ public class RedisServer implements EssentialsServer, Listener {
     public void broadcastMessage(Permission permission, Message message, Object... objects) {
 
         this.utils.broadcast(permission, message, objects);
-        sendMessage(new ServerMessage(ServerMessageType.BROADCAST, null, permission, message, objects));
+        sendMessage(new ServerMessage(ServerMessageType.BROADCAST_PERMISSION, null, permission, message, objects));
+    }
+
+    @Override
+    public void broadcast(String message) {
+        this.utils.broadcast(Message.COMMAND_CHAT_BROADCAST, "%message%", message);
+        sendMessage(new ServerMessage(ServerMessageType.BROADCAST, null, null, Message.COMMAND_CHAT_BROADCAST, new String[]{"%message%", message}));
     }
 
     @Override

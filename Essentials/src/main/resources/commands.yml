@@ -74,3 +74,4 @@ chathistory: true
 chatclear: true
 chatenable: true
 chatdisable: true
+broadcast: true

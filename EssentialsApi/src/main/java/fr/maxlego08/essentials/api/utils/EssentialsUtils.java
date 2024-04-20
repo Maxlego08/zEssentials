@@ -96,4 +96,6 @@ public interface EssentialsUtils {
     Object createInstanceFromMap(Constructor<?> constructor, Map<?, ?> map);
 
     void toggleChat(boolean value);
+
+    void broadcast(Message message, Object... arguments);
 }
