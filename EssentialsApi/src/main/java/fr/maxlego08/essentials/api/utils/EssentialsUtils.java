@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.api.utils;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.server.messages.ServerMessage;
+import fr.maxlego08.essentials.api.user.PrivateMessage;
 import fr.maxlego08.essentials.api.user.User;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
@@ -87,4 +88,6 @@ public interface EssentialsUtils {
     void kick(Player player, Message message, Object... objects);
 
     void disallow(AsyncPlayerPreLoginEvent event, AsyncPlayerPreLoginEvent.Result result, Message message, Object... objects);
+
+    void sendPrivateMessage(User user, PrivateMessage privateMessage, Message message, String content);
 }

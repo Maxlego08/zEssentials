@@ -4,6 +4,9 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.server.EssentialsServer;
+import fr.maxlego08.essentials.api.storage.IStorage;
+import fr.maxlego08.essentials.api.user.PrivateMessage;
+import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.storage.ConfigStorage;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import fr.maxlego08.essentials.zutils.utils.paper.PaperComponent;
@@ -85,5 +88,15 @@ public class PaperServer extends ZUtils implements EssentialsServer {
     @Override
     public void broadcast(String message) {
         broadcast(Message.COMMAND_CHAT_BROADCAST, "%message%", message);
+    }
+
+    @Override
+    public void sendPrivateMessage(User user, PrivateMessage privateMessage, String message) {
+        IStorage iStorage = this.plugin.getStorageManager().getStorage();
+        User targetUser = iStorage.getUser(privateMessage.uuid());
+        if (targetUser == null) return;
+
+        PrivateMessage privateMessageReply = targetUser.setPrivateMessage(user.getUniqueId(), user.getName());
+        this.plugin.getUtils().sendPrivateMessage(targetUser, privateMessageReply, Message.COMMAND_MESSAGE_OTHER, message);
     }
 }

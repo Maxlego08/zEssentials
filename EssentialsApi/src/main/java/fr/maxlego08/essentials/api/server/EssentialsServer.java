@@ -2,6 +2,8 @@ package fr.maxlego08.essentials.api.server;
 
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.user.PrivateMessage;
+import fr.maxlego08.essentials.api.user.User;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 
@@ -29,4 +31,6 @@ public interface EssentialsServer {
     void toggleChat(boolean value);
 
     void broadcast(String message);
+
+    void sendPrivateMessage(User user, PrivateMessage privateMessage, String message);
 }

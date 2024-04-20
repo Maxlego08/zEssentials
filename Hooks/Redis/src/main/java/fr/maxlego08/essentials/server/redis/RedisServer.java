@@ -10,6 +10,8 @@ import fr.maxlego08.essentials.api.server.messages.ChatClear;
 import fr.maxlego08.essentials.api.server.messages.ChatToggle;
 import fr.maxlego08.essentials.api.server.messages.KickMessage;
 import fr.maxlego08.essentials.api.server.messages.ServerMessage;
+import fr.maxlego08.essentials.api.user.PrivateMessage;
+import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.EssentialsUtils;
 import fr.maxlego08.essentials.api.utils.PlayerCache;
 import fr.maxlego08.essentials.server.redis.listener.ChatClearListener;
@@ -122,6 +124,11 @@ public class RedisServer implements EssentialsServer, Listener {
     public void broadcast(String message) {
         this.utils.broadcast(Message.COMMAND_CHAT_BROADCAST, "%message%", message);
         sendMessage(new ServerMessage(ServerMessageType.BROADCAST, null, null, Message.COMMAND_CHAT_BROADCAST, new String[]{"%message%", message}));
+    }
+
+    @Override
+    public void sendPrivateMessage(User user, PrivateMessage privateMessage, String message) {
+        // ToDO
     }
 
     @Override

@@ -4,6 +4,8 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.server.EssentialsServer;
+import fr.maxlego08.essentials.api.user.PrivateMessage;
+import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.storage.ConfigStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -68,6 +70,11 @@ public class SpigotServer implements EssentialsServer {
 
     @Override
     public void broadcast(String message) {
+
+    }
+
+    @Override
+    public void sendPrivateMessage(User user, PrivateMessage privateMessage, String message) {
 
     }
 }

@@ -14,6 +14,7 @@ import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.Option;
+import fr.maxlego08.essentials.api.user.PrivateMessage;
 import fr.maxlego08.essentials.api.user.TeleportRequest;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.modules.TeleportationModule;
@@ -57,6 +58,7 @@ public class ZUser extends ZUtils implements User {
     private Sanction banSanction;
     private List<Sanction> fakeSanctions;
     private String lastMessage;
+    private PrivateMessage privateMessage;
 
     public ZUser(EssentialsPlugin plugin, UUID uniqueId) {
         this.plugin = plugin;
@@ -540,5 +542,20 @@ public class ZUser extends ZUtils implements User {
     @Override
     public void setLastMessage(String lastMessage) {
         this.lastMessage = lastMessage;
+    }
+
+    @Override
+    public PrivateMessage setPrivateMessage(UUID uuid, String userName) {
+        return this.privateMessage = new PrivateMessage(uuid, userName);
+    }
+
+    @Override
+    public PrivateMessage getPrivateMessage() {
+        return this.privateMessage;
+    }
+
+    @Override
+    public boolean hasPrivateMessage() {
+        return this.privateMessage != null;
     }
 }

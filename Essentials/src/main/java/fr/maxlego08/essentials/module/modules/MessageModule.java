@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.server.EssentialsServer;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.Option;
+import fr.maxlego08.essentials.api.user.PrivateMessage;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.ChatResult;
 import fr.maxlego08.essentials.module.ZModule;
@@ -51,6 +52,8 @@ public class MessageModule extends ZModule {
             return;
         }
 
-        System.out.println("OUI " + message);
+        PrivateMessage privateMessage = user.setPrivateMessage(uuid, userName);
+        this.plugin.getUtils().sendPrivateMessage(user, privateMessage, Message.COMMAND_MESSAGE_ME, message);
+        essentialsServer.sendPrivateMessage(user, privateMessage, message);
     }
 }

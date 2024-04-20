@@ -380,6 +380,9 @@ public enum Message {
     COMMAND_MESSAGE_SELF("<error>You can’t talk to yourself."),
     COMMAND_MESSAGE_DISABLE("&f%%player% <error>has disabled private messages."),
     COMMAND_MESSAGE_MUTE("<error>You’re not allowed to speak."),
+    COMMAND_MESSAGE_ME("<hover:show_text:'&fClick to reply'><click:suggest_command:'/r '>&8(#f533f5me &7-> #34cfe0%target%&8) #e6e1e6<message></click></hover>"),
+    COMMAND_MESSAGE_OTHER("<hover:show_text:'&fClick to reply'><click:suggest_command:'/r '>&8(#34cfe0%target% &7-> #f533f5me&8) #e6e1e6<message></click></hover>"),
+    COMMAND_MESSAGE_ERROR("<error>Vous n'avez personne à qui répondre"),
 
     ;
 

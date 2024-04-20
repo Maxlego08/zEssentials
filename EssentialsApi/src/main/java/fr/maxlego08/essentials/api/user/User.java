@@ -485,4 +485,10 @@ public interface User {
     String getLastMessage();
 
     void setLastMessage(String message);
+
+    PrivateMessage setPrivateMessage(UUID uuid, String userName);
+
+    PrivateMessage getPrivateMessage();
+
+    boolean hasPrivateMessage();
 }
