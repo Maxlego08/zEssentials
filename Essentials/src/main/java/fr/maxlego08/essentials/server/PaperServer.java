@@ -4,8 +4,11 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.server.EssentialsServer;
+import fr.maxlego08.essentials.storage.ConfigStorage;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -60,5 +63,20 @@ public class PaperServer extends ZUtils implements EssentialsServer {
     @Override
     public boolean isOnline(String userName) {
         return Bukkit.getPlayer(userName) != null;
+    }
+
+    @Override
+    public void clearChat(CommandSender sender) {
+        Bukkit.getOnlinePlayers().forEach(player -> {
+            for (int i = 0; i != 300; i++) player.sendMessage(Component.text(""));
+            message(player, Message.COMMAND_CHAT_CLEAR);
+        });
+        message(Bukkit.getConsoleSender(), Message.COMMAND_CHAT_CLEAR);
+    }
+
+    @Override
+    public void toggleChat(boolean value) {
+        ConfigStorage.chatDisable = value;
+        ConfigStorage.getInstance().save(this.plugin.getPersist());
     }
 }

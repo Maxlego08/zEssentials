@@ -105,22 +105,22 @@ command-tpa-error-offline: "<error>Impossible de trouver le joueur, il doit êtr
 command-tpa-error-to-late-empty: "<error>Vous n'avez pas de demande de téléportation."
 command-tpa-error-to-late-expire: "<error>La demande de téléportation a expiré."
 command-tpa-sender:
-  - "#00FF00✔ #99E0FFVous avez envoyé à &f%displayName% #99E0FFune demande de téléportation."
-  - "  <hover:show_text:'<error>✘ Annuler la téléportation'><click:run_command:/tpacancel %player%>#99E0FFTapez #00FF00/tpacencel %player%#99E0FF pour annuler votre demande.</click></hover>"
+  - "<success>✔ #99E0FFVous avez envoyé à &f%displayName% #99E0FFune demande de téléportation."
+  - "  <hover:show_text:'<error>✘ Annuler la téléportation'><click:run_command:/tpacancel %player%>#99E0FFTapez <success>/tpacencel %player%#99E0FF pour annuler votre demande.</click></hover>"
 command-tpa-receiver:
   - ""
   - "#F8F327⚠ &f%displayName% #99E0FFa demandé à se téléporter vers vous !"
-  - "  <hover:show_text:'#00FF00✔ Accepter la téléportation'><click:run_command:/tpaccept>#99E0FFTapez #00FF00/tpaccept #99E0FFpour #00FF00<u>accepter</u>#99E0FF.</click></hover>"
+  - "  <hover:show_text:'<success>✔ Accepter la téléportation'><click:run_command:/tpaccept>#99E0FFTapez <success>/tpaccept #99E0FFpour <success><u>accepter</u>#99E0FF.</click></hover>"
   - "  <hover:show_text:'<error>✘ Refuser la téléportation'><click:run_command:/tpdeny>#99E0FFTapez <error>/tpdeny #99E0FFpour <error><u>refuser</u>#99E0FF.</click></hover>"
   - ""
   - "&7&oVous avez 60 secondes pour accepter la demande de téléportation."
-command-tpa-accept-receiver: "#99E0FFVous venez de #00FF00accepter #99E0FFla demande de téléportation de #99E0FF%player%&a."
-command-tpa-accept-sender: "#99E0FF%player%&a vient de #00FF00accepter #99E0FFvotre demande de téléportation."
+command-tpa-accept-receiver: "#99E0FFVous venez de <success>accepter #99E0FFla demande de téléportation de #99E0FF%player%&a."
+command-tpa-accept-sender: "#99E0FF%player%&a vient de <success>accepter #99E0FFvotre demande de téléportation."
 command-teleport-ignore-player: "<error>Vous ne pouvez pas envoyer de demande de téléportation à #99E0FF%player%<error>, ils vous ignorent."
 command-teleport-world: "<error>Vous devez être dans le même monde pour vous téléporter."
 command-tpa-error-to-late: "<error>Vous n'avez pas de demande de téléportation."
 command-tpa-error-to-late-2: "<error>La demande a expiré."
-command-tp-deny-sender: "#00FF00✔ Refusé &f%player% #00FF00la demande de téléportation."
+command-tp-deny-sender: "<success>✔ Refusé &f%player% <success>la demande de téléportation."
 command-tp-deny-receiver: "<error>✘ &f%player% <error>a refusé votre demande de téléportation."
 command-tp-cancel-error: "<error>Vous n'avez pas envoyé de demande de téléportation à &f%player%<error>."
 command-tp-cancel-sender: "<error>Annulé #99E0FFvotre demande de téléportation vers %player%."
@@ -142,7 +142,7 @@ quit-message: "#99E0FF%player% &7a quitté la partie."
 first-join-message: "&7Bienvenue #99E0FF%player% &7sur <nom de votre serveur>! &8(&f%totalUserFormat% &7joueurs enregistrés&8)"
 first-join-motd:
   - ""
-  - "#00FF00✔ #99E0FFBienvenue %player%#99E0FF !"
+  - "<success>✔ #99E0FFBienvenue %player%#99E0FF !"
   - ""
   - "#858ef8Discord&8: #99E0FF<hover:show_text:'&fRejoignez le serveur #858ef8Discord &f!'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>"
   - "&7Site Web&8: #99E0FF<hover:show_text:'&fOuvrez le site Web &f!'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>"
@@ -282,7 +282,7 @@ command-warp-already-exist: "<error>Le point de téléportation &f%name% <error>
 command-warp-doesnt-exist: "<error>Le point de téléportation &f%name% <error>n'existe pas."
 command-warp-no-permission: "<error>Vous n'avez pas la permission d'utiliser le point de téléportation &f%name%<error>."
 command-warp-create:
-  - "#00ff00Vous venez de créer le point de téléportation &f%name% #00ff00à votre position."
+  - "<success>Vous venez de créer le point de téléportation &f%name% <success>à votre position."
   - "&7Permission du point de téléportation : <hover:show_text:'&fCopier la commande pour ajouter la permission à un joueur'><click:SUGGEST_COMMAND:'/lp user <username> permission set nessentials.warp.%name%'>&f&nessentials.warp.%name%</click></hover>"
 command-warp-use:
   - "&cUtilisation&8: &f/warp <destination>"
@@ -290,7 +290,7 @@ command-warp-use:
 command-warp-destination: " <hover:show_text:'&fCliquez pour vous téléporter au point de téléportation &n%name%'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"
 command-warp-list: "&7Points de téléportation&8:&f%destinations%"
 command-warp-list-info: " <hover:show_text:'&fCliquez pour vous téléporter au point de téléportation &n%name%'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"
-command-warp-delete: "#00ff00Vous venez de supprimer le point de téléportation &f%name%#00ff00."
+command-warp-delete: "<success>Vous venez de supprimer le point de téléportation &f%name%<success>."
 
 
 
@@ -329,11 +329,11 @@ command-home-information-in-line-info: " <hover:show_text:'&7Cliquez pour vous t
 
 # Messages liés à l'icône de maison
 command-home-icon-error: "<error>Vous devez avoir un objet en main pour changer l'icône de votre maison."
-command-home-icon-success: "#00ff00Vous venez de changer l'icône de la maison &f%name%#00ff00."
-command-home-icon-reset: "#00ff00Vous venez de réinitialiser l'icône de la maison &f%name%#00ff00."
+command-home-icon-success: "<success>Vous venez de changer l'icône de la maison &f%name%<success>."
+command-home-icon-reset: "<success>Vous venez de réinitialiser l'icône de la maison &f%name%<success>."
 command-home-delete: "#99E0FFVous venez de supprimer la maison &f%name%#99E0FF."
-command-home-admin-delete: "#00ff00Vous venez de supprimer la maison &f%name%#00ff00 de &b%player%#00ff00."
-command-home-admin-set: "#00ff00Vous venez de créer la maison &f%name%#00ff00 pour &b%player%#00ff00."
+command-home-admin-delete: "<success>Vous venez de supprimer la maison &f%name%<success> de &b%player%<success>."
+command-home-admin-set: "<success>Vous venez de créer la maison &f%name%<success> pour &b%player%<success>."
 command-home-admin-list: "#8cc0ccMaisons de %player%&8:&f%homes%"
 command-home-admin-list-info: " <hover:show_text:'&7Cliquez pour vous téléporter à la maison &f&n%name%'><click:run_command:'/home %player%:%name%'>&f%name%</click></hover>&7"
 

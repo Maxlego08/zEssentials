@@ -53,6 +53,7 @@ import fr.maxlego08.essentials.user.placeholders.UserPlaceholders;
 import fr.maxlego08.essentials.zutils.ZPlugin;
 import fr.maxlego08.essentials.zutils.utils.CommandMarkdownGenerator;
 import fr.maxlego08.essentials.zutils.utils.PlaceholderMarkdownGenerator;
+import fr.maxlego08.essentials.zutils.utils.ZEssentialsUtils;
 import fr.maxlego08.essentials.zutils.utils.ZServerStorage;
 import fr.maxlego08.menu.api.ButtonManager;
 import fr.maxlego08.menu.api.InventoryManager;
@@ -79,6 +80,7 @@ import java.util.UUID;
 public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin {
 
     private final UUID consoleUniqueId = UUID.fromString("00000000-0000-0000-0000-000000000000");
+    private final EssentialsUtils essentialsUtils = new ZEssentialsUtils(this);
     private ServerStorage serverStorage = new ZServerStorage();
     private InventoryManager inventoryManager;
     private ButtonManager buttonManager;

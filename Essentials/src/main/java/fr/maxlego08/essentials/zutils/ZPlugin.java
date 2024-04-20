@@ -42,7 +42,6 @@ public class ZPlugin extends JavaPlugin {
     protected Gson gson;
     protected Persist persist;
     protected ServerImplementation serverImplementation;
-    protected final EssentialsUtils essentialsUtils = new ZEssentialsUtils();
 
     protected void registerCommand(String command, VCommand vCommand, String... aliases) {
         this.commandManager.registerCommand(this, command, vCommand, Arrays.asList(aliases));

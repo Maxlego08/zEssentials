@@ -2,6 +2,7 @@ package fr.maxlego08.essentials.api.server;
 
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
+import org.bukkit.command.CommandSender;
 
 import java.util.List;
 import java.util.UUID;
@@ -22,4 +23,7 @@ public interface EssentialsServer {
 
     boolean isOnline(String userName);
 
+    void clearChat(CommandSender sender);
+
+    void toggleChat(boolean value);
 }

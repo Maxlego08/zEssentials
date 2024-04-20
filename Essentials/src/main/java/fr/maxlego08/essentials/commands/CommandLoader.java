@@ -3,6 +3,9 @@ package fr.maxlego08.essentials.commands;
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandManager;
+import fr.maxlego08.essentials.commands.commands.chat.CommandChatClear;
+import fr.maxlego08.essentials.commands.commands.chat.CommandChatDisable;
+import fr.maxlego08.essentials.commands.commands.chat.CommandChatEnable;
 import fr.maxlego08.essentials.commands.commands.chat.CommandChatHistory;
 import fr.maxlego08.essentials.commands.commands.economy.CommandEconomy;
 import fr.maxlego08.essentials.commands.commands.economy.CommandMoney;
@@ -155,6 +158,9 @@ public class CommandLoader {
         register("kittycannon", CommandKittyCannon.class);
 
         register("chathistory", CommandChatHistory.class, "ct");
+        register("chatclear", CommandChatClear.class, "cl");
+        register("chatenable", CommandChatEnable.class, "ce");
+        register("chatdisable", CommandChatDisable.class, "cd");
 
         File file = new File(plugin.getDataFolder(), "commands.yml");
         if (!file.exists()) this.plugin.saveResource("commands.yml", false);

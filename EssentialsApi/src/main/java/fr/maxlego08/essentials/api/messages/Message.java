@@ -173,6 +173,9 @@ public enum Message {
     DESCRIPTION_UN_BAN("Unban a player"),
     DESCRIPTION_SANCTION("Open sanction inventory"),
     DESCRIPTION_CHAT_HISTORY("Show player's chat messages"),
+    DESCRIPTION_CHAT_CLEAR("Clear chat"),
+    DESCRIPTION_CHAT_DISABLE("Disable chat"),
+    DESCRIPTION_CHAT_ENABLE("Enable chat"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -227,7 +230,7 @@ public enum Message {
     FIRST_JOIN_MESSAGE("&7Welcome #99E0FF%player% &7on <your server name>! &8(&f%totalUserFormat% &7registered players&8)"),
     FIRST_JOIN_MOTD(
             "",
-            "#00FF00✔ #99E0FFWelcome %player%#99E0FF !",
+            "<success>✔ #99E0FFWelcome %player%#99E0FF !",
             "",
             "#858ef8Discord&8: #99E0FF<hover:show_text:'&fJoin the server #858ef8Discord &f!'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>",
             "&7Website&8: #99E0FF<hover:show_text:'&fOpen the Website &f!'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>",
@@ -241,7 +244,7 @@ public enum Message {
     COMMAND_WARP_DOESNT_EXIST("<error>Warp &f%name% <error> does not exist."),
     COMMAND_WARP_NO_PERMISSION("<error>You do not have permission to use the warp &f%name%<error>."),
     COMMAND_WARP_CREATE(
-            "#00ff00You just created the warp &f%name% #00ff00to your position.",
+            "<success>You just created the warp &f%name% <success>to your position.",
             "&7Warp Permission is: <hover:show_text:'&fCopy command to add permission to a player'><click:SUGGEST_COMMAND:'/lp user <username> permission set nessentials.warp.%name%'>&f&nessentials.warp.%name%</click></hover>"
             ),
     COMMAND_WARP_USE(
@@ -251,7 +254,7 @@ public enum Message {
     COMMAND_WARP_DESTINATION(" <hover:show_text:'&fClick to teleport to warp &n%name%'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"),
     COMMAND_WARP_LIST("&7Warps&8:&f%destinations%"),
     COMMAND_WARP_LIST_INFO(" <hover:show_text:'&fClick to teleport to warp &n%name%'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"),
-    COMMAND_WARP_DELETE("#00ff00You just removed the warp &f%name%#00ff00."),
+    COMMAND_WARP_DELETE("<success>You just removed the warp &f%name%<success>."),
 
     COMMAND_RANDOM_TP_ERROR("<error>No safe location found after multiple attempts, please try again."),
 
@@ -278,11 +281,11 @@ public enum Message {
     COMMAND_HOME_INFORMATION_IN_LINE(MessageType.WITHOUT_PREFIX, "#8cc0ccʏᴏᴜʀ ʜᴏᴍᴇs &a♦ &7(%count%/%max%)&8:&f%homes%"),
     COMMAND_HOME_INFORMATION_IN_LINE_INFO(" <hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %name%'>&f%name%</click></hover>&7"),
     COMMAND_HOME_ICON_ERROR("<error>You must have an item in your hand to change the icon of your home."),
-    COMMAND_HOME_ICON_SUCCESS("#00ff00You just changed the home icon &f%name%#00ff00."),
-    COMMAND_HOME_ICON_RESET("#00ff00You just reset the home icon &f%name%#00ff00."),
+    COMMAND_HOME_ICON_SUCCESS("<success>You just changed the home icon &f%name%<success>."),
+    COMMAND_HOME_ICON_RESET("<success>You just reset the home icon &f%name%<success>."),
     COMMAND_HOME_DELETE("#99E0FFYou just deleted the home &f%name%#99E0FF."),
-    COMMAND_HOME_ADMIN_DELETE("#00ff00You just deleted home &f%name%#00ff00 of &b%player%#00ff00."),
-    COMMAND_HOME_ADMIN_SET("#00ff00You just created home &f%name%#00ff00 of &b%player%#00ff00."),
+    COMMAND_HOME_ADMIN_DELETE("<success>You just deleted home &f%name%<success> of &b%player%<success>."),
+    COMMAND_HOME_ADMIN_SET("<success>You just created home &f%name%<success> of &b%player%<success>."),
     COMMAND_HOME_ADMIN_LIST("#8cc0cc%player% ʜᴏᴍᴇs&8:&f%homes%"),
     COMMAND_HOME_ADMIN_LIST_INFO(" <hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %player%:%name%'>&f%name%</click></hover>&7"),
 
@@ -362,6 +365,12 @@ public enum Message {
     CHAT_MESSAGES_EMPTY("&f%player% <error>did not write a message."),
     CHAT_MESSAGES_LINE(MessageType.WITHOUT_PREFIX, "&f%date% &7%message%"),
     CHAT_MESSAGES_FOOTER(MessageType.WITHOUT_PREFIX, "<click:run_command:'/chathistory %player% %previousPage%'><hover:show_text:'Previous Page'><white>⬅</hover></click> <gray>%page%/%maxPage% <click:run_command:'/chathistory %player% %nextPage%'><hover:show_text:'Next Page'><white>➡</hover></click>"),
+
+    COMMAND_CHAT_CLEAR("<success>The chat just got clear."),
+    COMMAND_CHAT_DISABLE_ERROR("<error>Chat is already disable."),
+    COMMAND_CHAT_DISABLE_SUCCESS("<success>You just deactivated the chat."),
+    COMMAND_CHAT_ENABLE_ERROR("<error>Chat is already enable."),
+    COMMAND_CHAT_ENABLE_SUCCESS("<success>You just activated the chat."),
     ;
 
     private String message;

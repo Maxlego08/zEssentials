@@ -1,11 +1,13 @@
 package fr.maxlego08.essentials.zutils.utils;
 
+import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.server.ServerMessageType;
 import fr.maxlego08.essentials.api.server.messages.ServerMessage;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.EssentialsUtils;
+import fr.maxlego08.essentials.storage.ConfigStorage;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
 
@@ -14,6 +16,13 @@ import java.util.Map;
 import java.util.UUID;
 
 public class ZEssentialsUtils extends ZUtils implements EssentialsUtils {
+
+    private final EssentialsPlugin plugin;
+
+    public ZEssentialsUtils(EssentialsPlugin plugin) {
+        this.plugin = plugin;
+    }
+
     @Override
     public void message(UUID uniqueId, Message message, Object... args) {
         super.message(uniqueId, message, args);
@@ -61,5 +70,11 @@ public class ZEssentialsUtils extends ZUtils implements EssentialsUtils {
     @Override
     public Object createInstanceFromMap(Constructor<?> constructor, Map<?, ?> map) {
         return super.createInstanceFromMap(constructor, map);
+    }
+
+    @Override
+    public void toggleChat(boolean value) {
+        ConfigStorage.chatDisable = value;
+        ConfigStorage.getInstance().save(this.plugin.getPersist());
     }
 }

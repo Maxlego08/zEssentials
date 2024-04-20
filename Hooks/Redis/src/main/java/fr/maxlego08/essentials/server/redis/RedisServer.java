@@ -6,13 +6,19 @@ import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.server.EssentialsServer;
 import fr.maxlego08.essentials.api.server.RedisConfiguration;
 import fr.maxlego08.essentials.api.server.ServerMessageType;
+import fr.maxlego08.essentials.api.server.messages.ChatClear;
+import fr.maxlego08.essentials.api.server.messages.ChatToggle;
 import fr.maxlego08.essentials.api.server.messages.KickMessage;
 import fr.maxlego08.essentials.api.server.messages.ServerMessage;
 import fr.maxlego08.essentials.api.utils.EssentialsUtils;
 import fr.maxlego08.essentials.api.utils.PlayerCache;
+import fr.maxlego08.essentials.server.redis.listener.ChatClearListener;
+import fr.maxlego08.essentials.server.redis.listener.ChatToggleListener;
 import fr.maxlego08.essentials.server.redis.listener.KickListener;
 import fr.maxlego08.essentials.server.redis.listener.MessageListener;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -61,8 +67,7 @@ public class RedisServer implements EssentialsServer, Listener {
         this.plugin.getLogger().info("Redis connected to " + redisConfiguration.host() + ":" + redisConfiguration.port());
 
         // Register listeners
-        this.redisSubscriberRunnable.registerListener(KickMessage.class, new KickListener(this.utils));
-        this.redisSubscriberRunnable.registerListener(ServerMessage.class, new MessageListener(this.utils));
+        this.registerListener();
 
         Thread thread = new Thread(this.redisSubscriberRunnable);
         thread.start();
@@ -71,6 +76,13 @@ public class RedisServer implements EssentialsServer, Listener {
 
         // Fetch players name every minute
         plugin.getScheduler().runTimerAsync(() -> this.playerCache.setPlayers(jedisPool.getResource().smembers(this.playersKey)), 1, 1, TimeUnit.MINUTES);
+    }
+
+    private void registerListener() {
+        this.redisSubscriberRunnable.registerListener(KickMessage.class, new KickListener(this.utils));
+        this.redisSubscriberRunnable.registerListener(ServerMessage.class, new MessageListener(this.utils));
+        this.redisSubscriberRunnable.registerListener(ChatClear.class, new ChatClearListener(this));
+        this.redisSubscriberRunnable.registerListener(ChatToggle.class, new ChatToggleListener(this.utils));
     }
 
     @Override
@@ -119,6 +131,26 @@ public class RedisServer implements EssentialsServer, Listener {
     @Override
     public boolean isOnline(String userName) {
         return jedisPool.getResource().sismember(playersKey, userName);
+    }
+
+    @Override
+    public void clearChat(CommandSender sender) {
+        clearLocalChat();
+        sendMessage(new ChatClear());
+    }
+
+    @Override
+    public void toggleChat(boolean value) {
+        this.utils.toggleChat(value);
+        sendMessage(new ChatToggle(value));
+    }
+
+    public void clearLocalChat() {
+        Bukkit.getOnlinePlayers().forEach(player -> {
+            for (int i = 0; i != 300; i++) player.sendMessage(Component.text(""));
+            this.utils.message(player, Message.COMMAND_CHAT_CLEAR);
+        });
+        this.utils.message(Bukkit.getConsoleSender(), Message.COMMAND_CHAT_CLEAR);
     }
 
     private <T> void sendMessage(T message) {

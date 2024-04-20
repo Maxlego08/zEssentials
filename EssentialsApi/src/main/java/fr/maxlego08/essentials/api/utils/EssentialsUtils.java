@@ -94,4 +94,6 @@ public interface EssentialsUtils {
      * @return The created instance.
      */
     Object createInstanceFromMap(Constructor<?> constructor, Map<?, ?> map);
+
+    void toggleChat(boolean value);
 }

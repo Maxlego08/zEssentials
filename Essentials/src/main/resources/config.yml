@@ -86,6 +86,7 @@ compact-materials:
   - from: NETHERITE_INGOT
     to: NETHERITE_BLOCK
 
+# Transforms keys by color, used in messages
 message-colors:
   - key: "<primary>"
     color: "#24d65d"
@@ -93,3 +94,5 @@ message-colors:
     color: "#656665"
   - key: "<error>"
     color: "#ff0000"
+  - key: "<success>"
+    color: "#00ff00"
