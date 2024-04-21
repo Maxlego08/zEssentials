@@ -4,6 +4,7 @@ import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.DefaultFontInfo;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.messages.MessageType;
+import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.ComponentMessage;
 import fr.maxlego08.menu.zcore.utils.nms.NMSUtils;

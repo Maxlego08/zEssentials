@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.server.EssentialsServer;
 import fr.maxlego08.essentials.api.storage.IStorage;
+import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.PrivateMessage;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.storage.ConfigStorage;
@@ -50,6 +51,11 @@ public class PaperServer extends ZUtils implements EssentialsServer {
     @Override
     public void broadcastMessage(Permission permission, Message message, Object... objects) {
         this.broadcast(permission, message, objects);
+    }
+
+    @Override
+    public void broadcastMessage(Option option, Message message, Object... objects) {
+        this.plugin.getUtils().broadcast(option, message, objects);
     }
 
     @Override

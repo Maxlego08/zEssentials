@@ -384,7 +384,7 @@ public enum Message {
     COMMAND_MESSAGE_MUTE("<error>You’re not allowed to speak."),
     COMMAND_MESSAGE_ME("<hover:show_text:'&fClick to reply'><click:suggest_command:'/r '>&8(#f533f5me &7-> #34cfe0%target%&8) #e6e1e6<message></click></hover>"),
     COMMAND_MESSAGE_OTHER("<hover:show_text:'&fClick to reply'><click:suggest_command:'/r '>&8(#34cfe0%target% &7-> #f533f5me&8) #e6e1e6<message></click></hover>"),
-    COMMAND_MESSAGE_SOCIAL_SPY("&8(&7SocialSpy&8) &8(<hover:show_text:'&fOpen sanction for %sender%'><click:run_command:'/sc %sender%'>#34cfe0%sender%</click></hover> &7-> <hover:show_text:'&fOpen sanction for %receiver%'><click:run_command:'/sc %receiver%'>#f533f5%receiver%</click></hover>&8) #e6e1e6%message%"),
+    COMMAND_MESSAGE_SOCIAL_SPY(MessageType.WITHOUT_PREFIX, "&8(&7SocialSpy&8) &8(<hover:show_text:'&fOpen sanction for %sender%'><click:run_command:'/sc %sender%'>#34cfe0%sender%</click></hover> &7-> <hover:show_text:'&fOpen sanction for %receiver%'><click:run_command:'/sc %receiver%'>#f533f5%receiver%</click></hover>&8) #e6e1e6%message%"),
     COMMAND_MESSAGE_ERROR("<error>You have no one to answer."),
     COMMAND_MESSAGE_TOGGLE_ENABLE("&7Private message <success>enable &7for &f%player%<success>."),
     COMMAND_MESSAGE_TOGGLE_DISABLE("&7Private message <error>disable &7for &f%player%<success>."),

@@ -2,6 +2,7 @@ package fr.maxlego08.essentials.api.server;
 
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.PrivateMessage;
 import fr.maxlego08.essentials.api.user.User;
 import org.bukkit.command.CommandSender;
@@ -21,6 +22,8 @@ public interface EssentialsServer {
     void sendMessage(UUID uuid, Message message, Object... objects);
 
     void broadcastMessage(Permission permission, Message message, Object... objects);
+
+    void broadcastMessage(Option option, Message message, Object... objects);
 
     void kickPlayer(UUID uuid, Message message, Object... objects);
 

@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.server.redis;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.cache.ExpiringCache;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.server.EssentialsServer;
@@ -11,6 +12,8 @@ import fr.maxlego08.essentials.api.server.messages.ChatToggle;
 import fr.maxlego08.essentials.api.server.messages.KickMessage;
 import fr.maxlego08.essentials.api.server.messages.ServerMessage;
 import fr.maxlego08.essentials.api.server.messages.ServerPrivateMessage;
+import fr.maxlego08.essentials.api.storage.IStorage;
+import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.PrivateMessage;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.EssentialsUtils;
@@ -48,6 +51,7 @@ public class RedisServer implements EssentialsServer, Listener {
     private final EssentialsPlugin plugin;
     private final EssentialsUtils utils;
     private final String playersKey = "essentials:playerlist";
+    private final ExpiringCache<String, Boolean> onlineCache = new ExpiringCache<>(1000 * 30);
     private JedisPool jedisPool;
 
     public RedisServer(EssentialsPlugin plugin) {
@@ -113,26 +117,43 @@ public class RedisServer implements EssentialsServer, Listener {
             return;
         }
 
-        sendMessage(new ServerMessage(ServerMessageType.SINGLE, uuid, null, message, objects));
+        sendMessage(ServerMessage.single(uuid, message, objects));
     }
 
     @Override
     public void broadcastMessage(Permission permission, Message message, Object... objects) {
 
         this.utils.broadcast(permission, message, objects);
-        sendMessage(new ServerMessage(ServerMessageType.BROADCAST_PERMISSION, null, permission, message, objects));
+        sendMessage(new ServerMessage(ServerMessageType.BROADCAST_PERMISSION, null, permission, null, message, objects));
+    }
+
+    @Override
+    public void broadcastMessage(Option option, Message message, Object... objects) {
+        this.utils.broadcast(option, message, objects);
+        sendMessage(new ServerMessage(ServerMessageType.BROADCAST_OPTION, null, null, option, message, objects));
     }
 
     @Override
     public void broadcast(String message) {
         this.utils.broadcast(Message.COMMAND_CHAT_BROADCAST, "%message%", message);
-        sendMessage(new ServerMessage(ServerMessageType.BROADCAST, null, null, Message.COMMAND_CHAT_BROADCAST, new String[]{"%message%", message}));
+        sendMessage(new ServerMessage(ServerMessageType.BROADCAST, null, null, null, Message.COMMAND_CHAT_BROADCAST, new String[]{"%message%", message}));
     }
 
     @Override
     public void sendPrivateMessage(User user, PrivateMessage privateMessage, String message) {
-        ServerPrivateMessage serverPrivateMessage = new ServerPrivateMessage(user.getUniqueId(), user.getName(), privateMessage.uuid(), message);
-        sendMessage(serverPrivateMessage);
+
+        // First check if player is online on this server
+        IStorage iStorage = this.plugin.getStorageManager().getStorage();
+        User targetUser = iStorage.getUser(privateMessage.uuid());
+        if (targetUser == null) {
+
+            ServerPrivateMessage serverPrivateMessage = new ServerPrivateMessage(user.getUniqueId(), user.getName(), privateMessage.uuid(), message);
+            sendMessage(serverPrivateMessage);
+            return;
+        }
+
+        PrivateMessage privateMessageReply = targetUser.setPrivateMessage(user.getUniqueId(), user.getName());
+        this.plugin.getUtils().sendPrivateMessage(targetUser, privateMessageReply, Message.COMMAND_MESSAGE_OTHER, message);
     }
 
     @Override
@@ -148,7 +169,7 @@ public class RedisServer implements EssentialsServer, Listener {
 
     @Override
     public boolean isOnline(String userName) {
-        return jedisPool.getResource().sismember(playersKey, userName);
+        return this.onlineCache.get(userName, () -> jedisPool.getResource().sismember(playersKey, userName));
     }
 
     @Override

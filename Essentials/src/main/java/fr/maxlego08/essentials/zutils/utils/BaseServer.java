@@ -5,9 +5,12 @@ import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.server.ServerMessageType;
 import fr.maxlego08.essentials.api.server.messages.ServerMessage;
+import fr.maxlego08.essentials.api.storage.IStorage;
+import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.EssentialsUtils;
 import fr.maxlego08.essentials.storage.ConfigStorage;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
 import java.lang.reflect.Constructor;
@@ -75,4 +78,14 @@ public abstract class BaseServer extends ZUtils implements EssentialsUtils {
         return super.getMessage(message, objects);
     }
 
+    @Override
+    public void broadcast(Option option, Message message, Object... objects) {
+        IStorage iStorage = plugin.getStorageManager().getStorage();
+        Bukkit.getOnlinePlayers().forEach(player -> {
+            User user = iStorage.getUser(player.getUniqueId());
+            if (user != null && user.getOption(option)) {
+                message(user, message, objects);
+            }
+        });
+    }
 }

@@ -31,7 +31,6 @@ public class PaperUtils extends BaseServer {
 
     @Override
     public void sendPrivateMessage(User user, PrivateMessage privateMessage, Message message, String content) {
-
         PaperComponent paperComponent = (PaperComponent) this.componentMessage;
         Component component = paperComponent.getComponentMessage(message.getMessage(), TagResolver.resolver("message", Tag.inserting(Component.text(content))), "%target%", privateMessage.username());
         user.getPlayer().sendMessage(component);

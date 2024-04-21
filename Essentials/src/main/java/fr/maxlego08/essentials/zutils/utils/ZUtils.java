@@ -154,17 +154,19 @@ public abstract class ZUtils extends MessageUtils {
                 Class<?> paramType = parameters[i].getType();
                 String paramName = parameters[i].getName();
                 Object value = map.get(paramName);
-                if (paramType.isArray()) {
-                    Class<?> componentType = paramType.getComponentType();
-                    List<?> list = (List<?>) value;
-                    Object array = Array.newInstance(componentType, list.size());
-                    for (int j = 0; j < list.size(); j++) {
-                        Object elem = list.get(j);
-                        elem = convertToRequiredType(elem, componentType);
-                        Array.set(array, j, elem);
-                    }
-                    value = array;
-                } else value = convertToRequiredType(value, paramType);
+                if (value != null) {
+                    if (paramType.isArray()) {
+                        Class<?> componentType = paramType.getComponentType();
+                        List<?> list = (List<?>) value;
+                        Object array = Array.newInstance(componentType, list.size());
+                        for (int j = 0; j < list.size(); j++) {
+                            Object elem = list.get(j);
+                            elem = convertToRequiredType(elem, componentType);
+                            Array.set(array, j, elem);
+                        }
+                        value = array;
+                    } else value = convertToRequiredType(value, paramType);
+                }
                 arguments[i] = value;
             }
             return constructor.newInstance(arguments);
