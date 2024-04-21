@@ -203,6 +203,7 @@ public enum Message {
     TELEPORT_ERROR_LOCATION("<error>Unable to teleport you safely."),
 
     COOLDOWN("<error>✘ You must wait for &f%cooldown% <error>before performing this action."),
+    COOLDOWN_COMMANDS("<error>✘ You must wait for &f%cooldown% <error>before performing this commands."),
 
     // Economy
 

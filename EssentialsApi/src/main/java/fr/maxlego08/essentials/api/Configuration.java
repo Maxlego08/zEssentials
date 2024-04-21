@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.server.RedisConfiguration;
 import fr.maxlego08.essentials.api.server.ServerType;
 import fr.maxlego08.essentials.api.storage.DatabaseConfiguration;
 import fr.maxlego08.essentials.api.storage.StorageType;
+import fr.maxlego08.essentials.api.utils.ChatCooldown;
 import fr.maxlego08.essentials.api.utils.CompactMaterial;
 import fr.maxlego08.essentials.api.utils.MessageColor;
 import org.bukkit.permissions.Permissible;
@@ -95,5 +96,8 @@ public interface Configuration extends ConfigurationFile {
     RedisConfiguration getRedisConfiguration();
 
     List<MessageColor> getMessageColors();
+
+    List<ChatCooldown> getCooldowns();
+    long[] getCooldownCommands();
 
 }

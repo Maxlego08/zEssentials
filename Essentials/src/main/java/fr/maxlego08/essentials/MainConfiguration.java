@@ -6,6 +6,7 @@ import fr.maxlego08.essentials.api.server.RedisConfiguration;
 import fr.maxlego08.essentials.api.server.ServerType;
 import fr.maxlego08.essentials.api.storage.DatabaseConfiguration;
 import fr.maxlego08.essentials.api.storage.StorageType;
+import fr.maxlego08.essentials.api.utils.ChatCooldown;
 import fr.maxlego08.essentials.api.utils.CompactMaterial;
 import fr.maxlego08.essentials.api.utils.MessageColor;
 import fr.maxlego08.essentials.zutils.utils.YamlLoader;
@@ -15,6 +16,7 @@ import org.bukkit.permissions.Permissible;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.LongStream;
 
 public class MainConfiguration extends YamlLoader implements Configuration {
 
@@ -22,13 +24,15 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     private final List<CommandCooldown> commandCooldowns = new ArrayList<>();
     private final List<CompactMaterial> compactMaterials = new ArrayList<>();
     private final StorageType storageType = StorageType.JSON;
+    private final List<MessageColor> messageColors = new ArrayList<>();
+    private final List<ChatCooldown> cooldowns = new ArrayList<>();
+    private long[] cooldownCommands;
     private boolean enableDebug;
     private boolean enableCooldownBypass;
     private int trashSize;
     private DatabaseConfiguration databaseConfiguration;
     private ServerType serverType;
     private RedisConfiguration redisConfiguration;
-    private final List<MessageColor> messageColors = new ArrayList<>();
 
     public MainConfiguration(ZEssentialsPlugin plugin) {
         this.plugin = plugin;
@@ -61,6 +65,8 @@ public class MainConfiguration extends YamlLoader implements Configuration {
 
         YamlConfiguration configuration = (YamlConfiguration) this.plugin.getConfig();
         this.loadYamlConfirmation(configuration);
+
+        this.cooldownCommands = this.cooldowns.stream().flatMapToLong(cooldown -> LongStream.of(cooldown.cooldown(), cooldown.messages())).toArray();
     }
 
     @Override
@@ -96,5 +102,15 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     @Override
     public List<MessageColor> getMessageColors() {
         return messageColors;
+    }
+
+    @Override
+    public List<ChatCooldown> getCooldowns() {
+        return this.cooldowns;
+    }
+
+    @Override
+    public long[] getCooldownCommands() {
+        return cooldownCommands;
     }
 }
