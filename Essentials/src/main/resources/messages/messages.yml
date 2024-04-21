@@ -228,6 +228,10 @@ description-chat-clear: "Clear chat"
 description-chat-disable: "Disable chat"
 description-chat-enable: "Enable chat"
 description-chat-broadcast: "Broadcast a message"
+description-message: "Send a private message to a player"
+description-reply: "Reply to a private message"
+description-message-toggle: "Toggle private message"
+description-socialspy: "Display private messages of players"
 
 
 # Time format
@@ -244,6 +248,7 @@ format-hours: "hours"
 format-day: "d"
 format-days: "days"
 cooldown: "<error>✘ You must wait for &f%cooldown% <error>before performing this action."
+cooldown-commands: "<error>✘ You must wait for &f%cooldown% <error>before performing this commands."
 
 
 # Teleportation
@@ -453,3 +458,19 @@ command-chat-enable-success: "<success>You just activated the chat."
 command-chat-broadcast:
   type: WITHOUT_PREFIX
   message: "<primary>ʙʀᴏᴀᴅᴄᴀsᴛ <secondary>• <white>%message%"
+
+
+# Messages
+command-message-self: "<error>You can’t talk to yourself."
+command-message-disable: "&f%%player% <error>has disabled private messages."
+command-message-mute: "<error>You’re not allowed to speak."
+command-message-me: "<hover:show_text:'&fClick to reply'><click:suggest_command:'/r '>&8(#f533f5me &7-> #34cfe0%target%&8) #e6e1e6<message></click></hover>"
+command-message-other: "<hover:show_text:'&fClick to reply'><click:suggest_command:'/r '>&8(#34cfe0%target% &7-> #f533f5me&8) #e6e1e6<message></click></hover>"
+command-message-social-spy:
+  type: WITHOUT_PREFIX
+  message: "&8(&7SocialSpy&8) &8(<hover:show_text:'&fOpen sanction for %sender%'><click:run_command:'/sc %sender%'>#34cfe0%sender%</click></hover> &7-> <hover:show_text:'&fOpen sanction for %receiver%'><click:run_command:'/sc %receiver%'>#f533f5%receiver%</click></hover>&8) #e6e1e6%message%"
+command-message-error: "<error>You have no one to answer."
+command-message-toggle-enable: "&7Private message <success>enable &7for &f%player%<success>."
+command-message-toggle-disable: "&7Private message <error>disable &7for &f%player%<success>."
+command-social-spy-enable: "&7Social spy <success>enable &7for &f%player%<success>."
+command-social-spy-disable: "&7Social spy <error>disable &7for &f%player%<success>."

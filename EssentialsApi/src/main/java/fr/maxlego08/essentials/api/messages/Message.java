@@ -177,7 +177,6 @@ public enum Message {
     DESCRIPTION_CHAT_DISABLE("Disable chat"),
     DESCRIPTION_CHAT_ENABLE("Enable chat"),
     DESCRIPTION_CHAT_BROADCAST("Broadcast a message"),
-
     DESCRIPTION_MESSAGE("Send a private message to a player"),
     DESCRIPTION_REPLY("Reply to a private message"),
     DESCRIPTION_MESSAGE_TOGGLE("Toggle private message"),
