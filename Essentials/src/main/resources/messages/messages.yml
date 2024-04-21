@@ -42,9 +42,9 @@ command-gamemode-invalid: "<error>You need to specify a valid player."
 
 
 # Weather commands
-command-day: "&fYou have just brought &edaylight&f into the world &a%world%&f."
-command-night: "&fYou have just brought &enightfall&f into the world &a%world%&f."
-command-sun: "&fYou have just brought the &esun&f into the world &a%world%&f."
+command-day: "&fYou have just brought &edaylight&f into the world <success>%world%&f."
+command-night: "&fYou have just brought &enightfall&f into the world <success>%world%&f."
+command-sun: "&fYou have just brought the &esun&f into the world <success>%world%&f."
 
 
 # Admins commands
@@ -54,27 +54,27 @@ command-speed-invalid: "<error>You need to specify a valid player."
 command-speed-fly: "&7You have just set your &nfly&r&7 speed to &f%speed%&7 for &f%player%&7. &8(&f2 &7by default&8)"
 command-speed-walk: "&7You have just set your &nwalk&r&7 speed to &f%speed%&7 for &f%player%&7. &8(&f2 &7by default&8)"
 command-speed-error: "<error>You must enter a number between &60<error> and &610<error>. &8(&f2 &7by default&8)"
-command-god-enable: "&7God mode &aenable &7for &f%player%&a."
-command-god-disable: "&7God mode &cdisable &7for &f%player%&a."
+command-god-enable: "&7God mode <success>enable &7for &f%player%<success>."
+command-god-disable: "&7God mode <error>disable &7for &f%player%<success>."
 command-heal-sender: "&7You just healed the player &f%player%&7."
-command-heal-receiver: "&aYou have been healed."
-command-heal-error: "&cYou cannot heal someone who is dead !"
-command-more-error: "&cYou cannot make this order in item in hand."
+command-heal-receiver: "<success>You have been healed."
+command-heal-error: "<error>You cannot heal someone who is dead !"
+command-more-error: "<error>You cannot make this order in item in hand."
 command-more-success: "&7You just put your item to &f64&7."
 command-feed-sender: "&7You just feed the player &f%player%&7."
-command-feed-receiver: "&aYou have been feed."
-command-feed-error: "&cYou cannot feed someone who is dead !"
-command-compact-type: "&cImpossible to compact the material &f%material%&c."
-command-compact-error: "&cYou have no &f%item%&c in your inventory."
+command-feed-receiver: "<success>You have been feed."
+command-feed-error: "<error>You cannot feed someone who is dead !"
+command-compact-type: "<error>Impossible to compact the material &f%material%<error>."
+command-compact-error: "<error>You have no &f%item%<error> in your inventory."
 command-compact-success: "&7You have just transformed #0EEA93x%amount% #99E0FF%item% &7en #0EEA93x%toAmount% #99E0FF%toItem%&7."
 command-hat-success: "&7You just put #0ef0ce%item% &7on your head."
-command-hat-error: "&cYou cannot put air on your head."
+command-hat-error: "<error>You cannot put air on your head."
 command-player-weather-reset: "&7You just changed the weather to that of the server."
 command-player-weather-downfall: "&7You just put the rain on for yourself."
 command-player-time-reset: "&7You just changed the time to that of the server."
 command-player-time-change: "&7You’re here to change your time."
-command-fly-enable: "&7Flight mode &aenable &7for &f%player%&a."
-command-fly-disable: "&7Flight mode &cdisable &7for &f%player%&a."
+command-fly-enable: "&7Flight mode <success>enable &7for &f%player%<success>."
+command-fly-disable: "&7Flight mode <error>disable &7for &f%player%<success>."
 
 
 # Economy
@@ -118,8 +118,8 @@ command-tpa-receiver:
   - "  <hover:show_text:'<error>✘ Deny teleportation'><click:run_command:/tpdeny>#99E0FFType <error>/tpdeny #99E0FFto <error><u>deny</u>#99E0FF.</click></hover>"
   - ""
   - "&7&oYou have 60 seconds to accept the teleport request."
-command-tpa-accept-receiver: "#99E0FFYou have just #00FF00accepted #99E0FFthe teleport request from #99E0FF%player%&a."
-command-tpa-accept-sender: "#99E0FF%player%&a has just accepted your teleport request."
+command-tpa-accept-receiver: "#99E0FFYou have just #00FF00accepted #99E0FFthe teleport request from #99E0FF%player%<success>."
+command-tpa-accept-sender: "#99E0FF%player%<success> has just accepted your teleport request."
 command-teleport-ignore-player: "<error>You cannot send a teleport request to #99E0FF%player%<error> they are ignoring you."
 command-teleport-world: "<error>You need to be in the same world to teleport."
 command-tpa-error-to-late: "<error>You do not have a teleport request."
@@ -129,8 +129,8 @@ command-tp-deny-receiver: "<error>✘ &f%player% <error>has denied your teleport
 command-tp-cancel-error: "<error>You did not send a teleport request at &f%player%<error>."
 command-tp-cancel-sender: "<error>Cancelled #99E0FFyour teleport request to %player%."
 command-tp-cancel-receiver: "&f%player% <error>cancelled their teleport request to you."
-command-world-teleport-self: "&aYou have just been teleported into the world &f%world%&a."
-command-world-teleport-other: "&aYou just teleported the player &f%player% &ain the world &f%world%&a."
+command-world-teleport-self: "<success>You have just been teleported into the world &f%world%<success>."
+command-world-teleport-other: "<success>You just teleported the player &f%player% <success>in the world &f%world%<success>."
 command-tp: "&7You just teleport to the player #34cfe0%player%&f."
 command-tp-self: "&7You just teleported #34cfe0%player%&7 to your position."
 command-back: "&7Returning to previous location."
@@ -152,7 +152,7 @@ first-join-motd:
 
 # Spawn
 command-set-spawn: "&fYou just set the spawn location."
-command-spawn-not-define: "&cThe spawn does not exist. Please contact an administrator."
+command-spawn-not-define: "<error>The spawn does not exist. Please contact an administrator."
 
 
 # Command description
@@ -295,7 +295,7 @@ command-warp-create:
   - "#00ff00You just created the warp &f%name% #00ff00to your position."
   - "&7Warp Permission is: <hover:show_text:'&fCopy command to add permission to a player'><click:SUGGEST_COMMAND:'/lp user <username> permission set nessentials.warp.%name%'>&f&nessentials.warp.%name%</click></hover>"
 command-warp-use:
-  - "&cUsage&8: &f/warp <destination>"
+  - "<error>Usage&8: &f/warp <destination>"
   - "&7Warps&8:&f%destinations%"
 command-warp-destination: " <hover:show_text:'&fClick to teleport to warp &n%name%'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"
 command-warp-list: "&7Warps&8:&f%destinations%"
@@ -320,7 +320,7 @@ command-home-doesnt-exist: "<error>The home &f%name%<error> does not exist."
 # %max% - Max player's home
 command-home-information-multi-line-header:
   - ""
-  - "#8cc0ccʏᴏᴜʀ ʜᴏᴍᴇs &a♦ &7(%count%) &8- &7(Max: %max%)"
+  - "#8cc0ccʏᴏᴜʀ ʜᴏᴍᴇs <success>♦ &7(%count%) &8- &7(Max: %max%)"
 
 # Available placeholders:
 # %count% - Home count
@@ -333,7 +333,7 @@ command-home-information-multi-line-header:
 # %z% - Home location z
 command-home-information-multi-line-content:
   type: WITHOUT_PREFIX
-  message: " #8cc0cc♢ &f%name% &7in %world% (%environment%) &a<hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %name%'>[CLICK]</click></hover>"
+  message: " #8cc0cc♢ &f%name% &7in %world% (%environment%) <success><hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %name%'>[CLICK]</click></hover>"
 
 # Available placeholders:
 # %count% - Home count
@@ -353,7 +353,7 @@ command-home-information-multi-line-footer:
 # %z% - Home location z
 command-home-information-in-line:
   type: WITHOUT_PREFIX
-  message: "#8cc0ccʏᴏᴜʀ ʜᴏᴍᴇs &a♦ &7(%count%/%max%) &8:&f%homes%"
+  message: "#8cc0ccʏᴏᴜʀ ʜᴏᴍᴇs <success>♦ &7(%count%/%max%) &8:&f%homes%"
 command-home-information-in-line-info: " <hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %name%'>&f%name%</click></hover>&7"
 
 command-home-icon-error: "<error>You must have an item in your hand to change the icon of your home."
@@ -389,7 +389,7 @@ command-un-ban-error: "&f%player% <error>is not ban."
 command-sanction-error: "<error>You can’t sanction that player. He’s protected."
 message-kick:
   - ""
-  - "&cYou have just been kicked from the server for the reason:"
+  - "<error>You have just been kicked from the server for the reason:"
   - "%reason%"
   - ""
   - "&fMinecraft-Inventory-Builder.com"
@@ -414,7 +414,7 @@ message-mute-talk:
   - ""
 message-ban:
   - ""
-  - "&cYou have just been ban from the server for the reason:"
+  - "<error>You have just been ban from the server for the reason:"
   - "&f%reason%"
   - "&fDuration&8: &7%duration%"
   - ""
@@ -422,7 +422,7 @@ message-ban:
   - ""
 message-ban-join:
   - ""
-  - "&cYou are banned on server:"
+  - "<error>You are banned on server:"
   - "&f%reason%"
   - "&fRemaining time&8: &7%remaining%"
   - ""

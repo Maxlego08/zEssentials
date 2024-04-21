@@ -41,9 +41,9 @@ command-gamemode: "&fMode de jeu&e %gamemode%&f défini pour &b%player%&f."
 command-gamemode-invalid: "<error>Vous devez spécifier un joueur valide."
 
 # Commandes de météo
-command-day: "&fVous venez d'apporter la &elumière du jour&f dans le monde &a%world%&f."
-command-night: "&fVous venez d'apporter la &enuit&f dans le monde &a%world%&f."
-command-sun: "&fVous venez d'apporter le &esoleil&f dans le monde &a%world%&f."
+command-day: "&fVous venez d'apporter la &elumière du jour&f dans le monde <success>%world%&f."
+command-night: "&fVous venez d'apporter la &enuit&f dans le monde <success>%world%&f."
+command-sun: "&fVous venez d'apporter le &esoleil&f dans le monde <success>%world%&f."
 
 # Commandes d'administration
 command-top: "&7Vous venez d'être téléporté en &esommet&7."
@@ -52,27 +52,27 @@ command-speed-invalid: "<error>Vous devez spécifier un joueur valide."
 command-speed-fly: "&7Vous venez de définir votre vitesse de &nvole&r&7 sur &f%speed%&7 pour &f%player%&7. &8(&f2 &7par défaut&8)"
 command-speed-walk: "&7Vous venez de définir votre vitesse de &nmarche&r&7 sur &f%speed%&7 pour &f%player%&7. &8(&f2 &7par défaut&8)"
 command-speed-error: "<error>Vous devez entrer un nombre entre &60<error> et &610<error>. &8(&f2 &7par défaut&8)"
-command-god-enable: "&7Mode divin &aactivé &7pour &f%player%&a."
-command-god-disable: "&7Mode divin &cdésactivé &7pour &f%player%&a."
+command-god-enable: "&7Mode divin <success>activé &7pour &f%player%<success>."
+command-god-disable: "&7Mode divin <error>désactivé &7pour &f%player%<success>."
 command-heal-sender: "&7Vous venez de soigner le joueur &f%player%&7."
-command-heal-receiver: "&aVous avez été soigné."
-command-heal-error: "&cVous ne pouvez pas soigner quelqu'un qui est mort !"
-command-more-error: "&cVous ne pouvez pas effectuer cette commande sur l'objet en main."
+command-heal-receiver: "<success>Vous avez été soigné."
+command-heal-error: "<error>Vous ne pouvez pas soigner quelqu'un qui est mort !"
+command-more-error: "<error>Vous ne pouvez pas effectuer cette commande sur l'objet en main."
 command-more-success: "&7Vous venez de mettre votre objet à &f64&7."
 command-feed-sender: "&7Vous venez de nourrir le joueur &f%player%&7."
-command-feed-receiver: "&aVous avez été nourri."
-command-feed-error: "&cVous ne pouvez pas nourrir quelqu'un qui est mort !"
-command-compact-type: "&cImpossible de compacter le matériau &f%material%&c."
-command-compact-error: "&cVous n'avez pas &f%item%&c dans votre inventaire."
+command-feed-receiver: "<success>Vous avez été nourri."
+command-feed-error: "<error>Vous ne pouvez pas nourrir quelqu'un qui est mort !"
+command-compact-type: "<error>Impossible de compacter le matériau &f%material%<error>."
+command-compact-error: "<error>Vous n'avez pas &f%item%<error> dans votre inventaire."
 command-compact-success: "&7Vous venez de transformer #0EEA93x%amount% #99E0FF%item% &7en #0EEA93x%toAmount% #99E0FF%toItem%&7."
 command-hat-success: "&7Vous venez de mettre #0ef0ce%item% &7sur votre tête."
-command-hat-error: "&cVous ne pouvez pas mettre de l'air sur votre tête."
+command-hat-error: "<error>Vous ne pouvez pas mettre de l'air sur votre tête."
 command-player-weather-reset: "&7Vous venez de changer la météo pour celle du serveur."
 command-player-weather-downfall: "&7Vous venez de mettre la pluie pour vous-même."
 command-player-time-reset: "&7Vous venez de changer l'heure pour celle du serveur."
 command-player-time-change: "&7Vous êtes ici pour changer votre heure."
-command-fly-enable: "&7Mode vol &aactivé &7pour &f%player%&a."
-command-fly-disable: "&7Mode vol &cdésactivé &7pour &f%player%&a."
+command-fly-enable: "&7Mode vol <success>activé &7pour &f%player%<success>."
+command-fly-disable: "&7Mode vol <error>désactivé &7pour &f%player%<success>."
 
 # Économie
 command-economy-not-found: "<error>Impossible de trouver une économie avec le nom &f%name%<error>."
@@ -114,8 +114,8 @@ command-tpa-receiver:
   - "  <hover:show_text:'<error>✘ Refuser la téléportation'><click:run_command:/tpdeny>#99E0FFTapez <error>/tpdeny #99E0FFpour <error><u>refuser</u>#99E0FF.</click></hover>"
   - ""
   - "&7&oVous avez 60 secondes pour accepter la demande de téléportation."
-command-tpa-accept-receiver: "#99E0FFVous venez de <success>accepter #99E0FFla demande de téléportation de #99E0FF%player%&a."
-command-tpa-accept-sender: "#99E0FF%player%&a vient de <success>accepter #99E0FFvotre demande de téléportation."
+command-tpa-accept-receiver: "#99E0FFVous venez de <success>accepter #99E0FFla demande de téléportation de #99E0FF%player%<success>."
+command-tpa-accept-sender: "#99E0FF%player%<success> vient de <success>accepter #99E0FFvotre demande de téléportation."
 command-teleport-ignore-player: "<error>Vous ne pouvez pas envoyer de demande de téléportation à #99E0FF%player%<error>, ils vous ignorent."
 command-teleport-world: "<error>Vous devez être dans le même monde pour vous téléporter."
 command-tpa-error-to-late: "<error>Vous n'avez pas de demande de téléportation."
@@ -125,15 +125,15 @@ command-tp-deny-receiver: "<error>✘ &f%player% <error>a refusé votre demande 
 command-tp-cancel-error: "<error>Vous n'avez pas envoyé de demande de téléportation à &f%player%<error>."
 command-tp-cancel-sender: "<error>Annulé #99E0FFvotre demande de téléportation vers %player%."
 command-tp-cancel-receiver: "&f%player% <error>a annulé leur demande de téléportation vers vous."
-command-world-teleport-self: "&aVous venez d'être téléporté dans le monde &f%world%&a."
-command-world-teleport-other: "&aVous venez de téléporter le joueur &f%player% &adans le monde &f%world%&a."
+command-world-teleport-self: "<success>Vous venez d'être téléporté dans le monde &f%world%<success>."
+command-world-teleport-other: "<success>Vous venez de téléporter le joueur &f%player% <success>dans le monde &f%world%<success>."
 command-tp: "&7Vous venez de vous téléporter vers le joueur #34cfe0%player%&f."
 command-tp-self: "&7Vous venez de téléporter #34cfe0%player%&7 à votre position."
 command-back: "&7Retour à l'emplacement précédent."
 command-back-error: "<error>Vous n'avez pas de dernier emplacement. Impossible de revenir en arrière."
 command-random-tp-error: "<error>Aucun emplacement sûr trouvé après plusieurs tentatives, veuillez réessayer."
 command-set-spawn: "&fVous venez de définir l'emplacement de spawn."
-command-spawn-not-define: "&cLe spawn n'est pas défini. Veuillez contacter un administrateur."
+command-spawn-not-define: "<error>Le spawn n'est pas défini. Veuillez contacter un administrateur."
 
 
 # Première connexion
@@ -285,7 +285,7 @@ command-warp-create:
   - "<success>Vous venez de créer le point de téléportation &f%name% <success>à votre position."
   - "&7Permission du point de téléportation : <hover:show_text:'&fCopier la commande pour ajouter la permission à un joueur'><click:SUGGEST_COMMAND:'/lp user <username> permission set nessentials.warp.%name%'>&f&nessentials.warp.%name%</click></hover>"
 command-warp-use:
-  - "&cUtilisation&8: &f/warp <destination>"
+  - "<error>Utilisation&8: &f/warp <destination>"
   - "&7Points de téléportation&8:&f%destinations%"
 command-warp-destination: " <hover:show_text:'&fCliquez pour vous téléporter au point de téléportation &n%name%'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"
 command-warp-list: "&7Points de téléportation&8:&f%destinations%"
@@ -309,12 +309,12 @@ command-home-doesnt-exist: "<error>La maison &f%name%<error> n'existe pas."
 # En-tête multi-lignes des informations sur les maisons
 command-home-information-multi-line-header:
   - ""
-  - "#8cc0ccVos maisons &a♦ &7(%count%) &8- &7(Max : %max%)"
+  - "#8cc0ccVos maisons <success>♦ &7(%count%) &8- &7(Max : %max%)"
 
 # Contenu multi-lignes des informations sur les maisons
 command-home-information-multi-line-content:
   type: WITHOUT_PREFIX
-  message: " #8cc0cc♢ &f%name% &7à %world% (%environment%) &a<hover:show_text:'&7Cliquez pour vous téléporter à la maison &f&n%name%'><click:run_command:'/home %name%'>[CLIQUEZ]</click></hover>"
+  message: " #8cc0cc♢ &f%name% &7à %world% (%environment%) <success><hover:show_text:'&7Cliquez pour vous téléporter à la maison &f&n%name%'><click:run_command:'/home %name%'>[CLIQUEZ]</click></hover>"
 
 # Pied de page multi-lignes des informations sur les maisons
 command-home-information-multi-line-footer:
@@ -324,7 +324,7 @@ command-home-information-multi-line-footer:
 # Informations sur les maisons en ligne
 command-home-information-in-line:
   type: WITHOUT_PREFIX
-  message: "#8cc0ccVos maisons &a♦ &7(%count%/%max%) &8:&f%homes%"
+  message: "#8cc0ccVos maisons <success>♦ &7(%count%/%max%) &8:&f%homes%"
 command-home-information-in-line-info: " <hover:show_text:'&7Cliquez pour vous téléporter à la maison &f&n%name%'><click:run_command:'/home %name%'>&f%name%</click></hover>&7"
 
 # Messages liés à l'icône de maison
@@ -362,7 +362,7 @@ command-un-ban-error: "&f%player% <error>n'est pas banni."
 command-sanction-error: "<error>Vous ne pouvez pas sanctionner ce joueur. Il est protégé."
 message-kick:
   - ""
-  - "&cVous avez été expulsé du serveur pour la raison suivante :"
+  - "<error>Vous avez été expulsé du serveur pour la raison suivante :"
   - "%reason%"
   - ""
   - "&fMinecraft-Inventory-Builder.com"
@@ -387,7 +387,7 @@ message-mute-talk:
   - ""
 message-ban:
   - ""
-  - "&cVous avez été banni du serveur pour la raison suivante :"
+  - "<error>Vous avez été banni du serveur pour la raison suivante :"
   - "&f%reason%"
   - "&fDurée&8: &7%duration%"
   - ""
@@ -395,7 +395,7 @@ message-ban:
   - ""
 message-ban-join:
   - ""
-  - "&cVous êtes banni du serveur :"
+  - "<error>Vous êtes banni du serveur :"
   - "&f%reason%"
   - "&fTemps restant&8: &7%remaining%"
   - ""

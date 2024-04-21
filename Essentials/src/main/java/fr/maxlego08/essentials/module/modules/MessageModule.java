@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.module.modules;
 
 import fr.maxlego08.essentials.ZEssentialsPlugin;
+import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.server.EssentialsServer;
 import fr.maxlego08.essentials.api.storage.IStorage;
@@ -55,5 +56,6 @@ public class MessageModule extends ZModule {
         PrivateMessage privateMessage = user.setPrivateMessage(uuid, userName);
         this.plugin.getUtils().sendPrivateMessage(user, privateMessage, Message.COMMAND_MESSAGE_ME, message);
         essentialsServer.sendPrivateMessage(user, privateMessage, message);
+        essentialsServer.broadcastMessage(Permission.ESSENTIALS_SOCIALSPY, Message.COMMAND_MESSAGE_SOCIAL_SPY, "%sender%", user.getName(), "%receiver%", userName, "%message%", message);
     }
 }

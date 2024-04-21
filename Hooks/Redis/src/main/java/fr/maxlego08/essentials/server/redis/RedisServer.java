@@ -10,6 +10,7 @@ import fr.maxlego08.essentials.api.server.messages.ChatClear;
 import fr.maxlego08.essentials.api.server.messages.ChatToggle;
 import fr.maxlego08.essentials.api.server.messages.KickMessage;
 import fr.maxlego08.essentials.api.server.messages.ServerMessage;
+import fr.maxlego08.essentials.api.server.messages.ServerPrivateMessage;
 import fr.maxlego08.essentials.api.user.PrivateMessage;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.EssentialsUtils;
@@ -18,6 +19,7 @@ import fr.maxlego08.essentials.server.redis.listener.ChatClearListener;
 import fr.maxlego08.essentials.server.redis.listener.ChatToggleListener;
 import fr.maxlego08.essentials.server.redis.listener.KickListener;
 import fr.maxlego08.essentials.server.redis.listener.MessageListener;
+import fr.maxlego08.essentials.server.redis.listener.PrivateMessageListener;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -86,6 +88,7 @@ public class RedisServer implements EssentialsServer, Listener {
         this.redisSubscriberRunnable.registerListener(ServerMessage.class, new MessageListener(this.utils));
         this.redisSubscriberRunnable.registerListener(ChatClear.class, new ChatClearListener(this));
         this.redisSubscriberRunnable.registerListener(ChatToggle.class, new ChatToggleListener(this.utils));
+        this.redisSubscriberRunnable.registerListener(ServerPrivateMessage.class, new PrivateMessageListener(this.plugin));
     }
 
     @Override
@@ -128,7 +131,8 @@ public class RedisServer implements EssentialsServer, Listener {
 
     @Override
     public void sendPrivateMessage(User user, PrivateMessage privateMessage, String message) {
-        // ToDO
+        ServerPrivateMessage serverPrivateMessage = new ServerPrivateMessage(user.getUniqueId(), user.getName(), privateMessage.uuid(), message);
+        sendMessage(serverPrivateMessage);
     }
 
     @Override

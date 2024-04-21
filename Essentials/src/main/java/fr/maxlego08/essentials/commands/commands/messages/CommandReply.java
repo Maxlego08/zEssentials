@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class CommandReply extends VCommand {
     public CommandReply(EssentialsPlugin plugin) {
         super(plugin);
-        this.setModule(SanctionModule.class);
+        this.setModule(MessageModule.class);
         this.setPermission(Permission.ESSENTIALS_REPLY);
         this.setDescription(Message.DESCRIPTION_REPLY);
         this.addRequireArg("message", (a, b) -> new ArrayList<>());
@@ -28,14 +28,12 @@ public class CommandReply extends VCommand {
         MessageModule messageModule = plugin.getModuleManager().getModule(MessageModule.class);
         String message = getArgs(0);
 
-        if (!user.hasPrivateMessage()){
+        if (!user.hasPrivateMessage()) {
             return CommandResultType.DEFAULT;
         }
 
         PrivateMessage privateMessage = user.getPrivateMessage();
-
-
-        isOnline(userName, () -> fetchUniqueId(userName, uuid -> messageModule.sendMessage(this.user, uuid, userName, message)));
+        isOnline(privateMessage.username(), () -> messageModule.sendMessage(this.user, privateMessage.uuid(), privateMessage.username(), message));
 
         return CommandResultType.SUCCESS;
     }

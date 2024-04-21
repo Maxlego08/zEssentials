@@ -15,7 +15,7 @@ import java.util.Arrays;
 public class CommandMessage extends VCommand {
     public CommandMessage(EssentialsPlugin plugin) {
         super(plugin);
-        this.setModule(SanctionModule.class);
+        this.setModule(MessageModule.class);
         this.setPermission(Permission.ESSENTIALS_MESSAGE);
         this.setDescription(Message.DESCRIPTION_MESSAGE);
         this.addRequirePlayerNameArg();

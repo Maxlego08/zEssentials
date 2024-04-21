@@ -41,9 +41,9 @@ command-gamemode-invalid: "<error>Giocatore non valido."
 
 
 # Weather commands
-command-day: "&fHai fatto diventare &egiorno&f nel mondo &a%world%&f."
-command-night: "&ffHai fatto diventare &enightfall&f nel mondo &a%world%&f."
-command-sun: "&ffHai fatto diventare &esun&f nel mondo &a%world%&f."
+command-day: "&fHai fatto diventare &egiorno&f nel mondo <success>%world%&f."
+command-night: "&ffHai fatto diventare &enightfall&f nel mondo <success>%world%&f."
+command-sun: "&ffHai fatto diventare &esun&f nel mondo <success>%world%&f."
 
 
 # Admins commands
@@ -53,27 +53,27 @@ command-speed-invalid: "<error>Giocatore non valido."
 command-speed-fly: "&7Hai impostato la velocità di &nvolo&r&7 a &f%speed%&7 per il giocatore &f%player%&7. &8(&f2 &7di default8)"
 command-speed-walk: "&Hai impostato la velocità di &ncammino&r&7 a &f%speed%&7 per il giocatore &f%player%&7. &8(&f2 &7di default&8)"
 command-speed-error: "<error>Devi immettere un numero tra &60<error> e &610<error>. &8(&f2 &7by default&8)"
-command-god-enable: "&7Modalità God &aabilitata &7per &f%player%&a."
-command-god-disable: "&7Modalità God &cdisabilitata &7per &f%player%&a."
+command-god-enable: "&7Modalità God <success>abilitata &7per &f%player%<success>."
+command-god-disable: "&7Modalità God <error>disabilitata &7per &f%player%<success>."
 command-heal-sender: "&7Hai appena curato &f%player%&7."
-command-heal-receiver: "&aSei appena stato curato."
-command-heal-error: "&cNon puoi curare qualcuno che è morto!"
-command-more-error: "&cYou cannot make this order in item in hand."
+command-heal-receiver: "<success>Sei appena stato curato."
+command-heal-error: "<error>Non puoi curare qualcuno che è morto!"
+command-more-error: "<error>You cannot make this order in item in hand."
 command-more-success: "&7You just put your item to &f64&7."
 command-feed-sender: "&7Hai appena sfamato &f%player%&7."
-command-feed-receiver: "&aSei stato sfamato."
-command-feed-error: "&cNon puoi dar da mangiare a giocatori morti!"
-command-compact-type: "&cImpossibile comprimere &f%material%&c."
-command-compact-error: "&cNon hai &f%item%&c nel tuo inventario."
+command-feed-receiver: "<success>Sei stato sfamato."
+command-feed-error: "<error>Non puoi dar da mangiare a giocatori morti!"
+command-compact-type: "<error>Impossibile comprimere &f%material%<error>."
+command-compact-error: "<error>Non hai &f%item%<error> nel tuo inventario."
 command-compact-success: "&7Hai appena compresso #0EEA93x%amount% #99E0FF%item% &7in #0EEA93x%toAmount% #99E0FF%toItem%&7."
 command-hat-success: "&7Hai appena messo #0ef0ce%item% &7sulla tua testa."
-command-hat-error: "&cNon puoi mettere aria sulla tua testa."
+command-hat-error: "<error>Non puoi mettere aria sulla tua testa."
 command-player-weather-reset: "&7Hai appena cambiato il tempo atmosferico a quello del server."
 command-player-weather-downfall: "&7Hai appena messo pioggia su di te."
 command-player-time-reset: "&7Hai appena cambiato il tempo aa quello del server."
 command-player-time-change: "&7Sei qui per cambiare il tuo tempo."
-command-fly-enable: "&7Modalità volo &aabilitata &7per &f%player%&a."
-command-fly-disable: "&7Modalità volo  &cdisabilitata &7per &f%player%&a."
+command-fly-enable: "&7Modalità volo <success>abilitata &7per &f%player%<success>."
+command-fly-disable: "&7Modalità volo  <error>disabilitata &7per &f%player%<success>."
 
 # Economy
 command-economy-not-found: "<error> Non riesco a trovare una valuta di nome &f%name%<error>."
@@ -116,8 +116,8 @@ command-tpa-receiver:
   - "  <hover:show_text:'<error>✘ Rifiuta richiesta'><click:run_command:/tpdeny>#99E0FFScrivi <error>/tpdeny #99E0FFper <error><u>rifiutare</u>#99E0FF.</click></hover>"
   - ""
   - "&7&oHai 60 secondi per accettare la richiesta di teletrasporto"
-command-tpa-accept-receiver: "#99E0FFHai appena <success>accettato #99E0FFla richiesta di teletrasporto da parte di #99E0FF%player%&a."
-command-tpa-accept-sender: "#99E0FF%player%&a ha appena accettato la tua richiesta di teletrasporto."
+command-tpa-accept-receiver: "#99E0FFHai appena <success>accettato #99E0FFla richiesta di teletrasporto da parte di #99E0FF%player%<success>."
+command-tpa-accept-sender: "#99E0FF%player%<success> ha appena accettato la tua richiesta di teletrasporto."
 command-teleport-ignore-player: "<error>Non puoi mandare la richiesta di teletrasporto a #99E0FF%player%<error> ti ignorano."
 command-teleport-world: "<error>Devi stare nello stesso mondo per teletrasportarti."
 command-tpa-error-to-late: "<error>Non hai nessuna richiesta di teletrasporto al momento."
@@ -127,8 +127,8 @@ command-tp-deny-receiver: "<error>✘ &f%player% <error>ha rifiutato la tua rich
 command-tp-cancel-error: "<error>Non hai mandato nessuna richiesta di teletrasporto a &f%player%<error>."
 command-tp-cancel-sender: "<error>Cancellata #99E0FFla tua richiesta di teletrasporto a %player%."
 command-tp-cancel-receiver: "&f%player% <error>ha cancellato la sua richiesta di teletrasporto."
-command-world-teleport-self: "&aSei appena stato teletrasportato nel mondo &f%world%&a."
-command-world-teleport-other: "&aHai appena teletrasportato &f%player% &anel mondo &f%world%&a."
+command-world-teleport-self: "<success>Sei appena stato teletrasportato nel mondo &f%world%<success>."
+command-world-teleport-other: "<success>Hai appena teletrasportato &f%player% <success>nel mondo &f%world%<success>."
 command-tp: "&7Ti sei teletrasportato da #34cfe0%player%&f."
 command-tp-self: "&7Hai teletrasportato #34cfe0%player%&7 da te."
 command-back: "&7Tornando alla posizione precedente."
@@ -136,8 +136,8 @@ command-back-error: "<error>Non hai nessuna posizione precedente in cui tornare.
 command-random-tp-error: "<error>Dopo diversi tentativi, non si è riusciti a trovare una posizione sicura. Riprova."
 
 # First join
-join-message: "&a+ #99E0FF%player%"
-quit-message: "&c- #99E0FF%player%"
+join-message: "<success>+ #99E0FF%player%"
+quit-message: "<error>- #99E0FF%player%"
 first-join-message: ""
 first-join-motd:
   - ""
@@ -149,7 +149,7 @@ first-join-motd:
 
 # Spawn
 command-set-spawn: "&fHai appena impostato lo spawn."
-command-spawn-not-define: "&cLo spawn non esiste. Contatta gli amministratori."  
+command-spawn-not-define: "<error>Lo spawn non esiste. Contatta gli amministratori."  
 
 # Command description
 description-reload: "Aggiorna i file di configurazione"
@@ -278,7 +278,7 @@ command-warp-create:
   - "<success>Hai appena creato il warp &f%name% <success>nella tua posizione."
   - "&7Permesso del warp: <hover:show_text:'&fCopia il comando per aggiungere il permesso a un giocatore'><click:SUGGEST_COMMAND:'/lp user <username> permission set nessentials.warp.%name%'>&f&nessentials.warp.%name%</click></hover>"
 command-warp-use:
-  - "&cUtilizzo&8: &f/warp <destination>"
+  - "<error>Utilizzo&8: &f/warp <destination>"
   - "&7Warps&8:&f%destinations%"
 command-warp-destination: " <hover:show_text:'&fClick to teleport to warp &n%name%'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"
 command-warp-list: "&7Warps&8:&f%destinations%"
@@ -304,7 +304,7 @@ command-home-doesnt-exist: "#ff0000La casa &f%name%#ff0000 non esiste."
 # %max% - Max player's home
 command-home-information-multi-line-header:
   - ""
-  - "#8cc0ccʟᴇ ᴛᴜᴇ ᴄᴀsᴇ &a♦ &7(%count%) &8- &7(Max: %max%)"
+  - "#8cc0ccʟᴇ ᴛᴜᴇ ᴄᴀsᴇ <success>♦ &7(%count%) &8- &7(Max: %max%)"
 
 # Available placeholders:
 # %count% - Home count
@@ -317,7 +317,7 @@ command-home-information-multi-line-header:
 # %z% - Home location z
 command-home-information-multi-line-content:
   type: WITHOUT_PREFIX
-  message: " #8cc0cc♢ &f%name% &7in %world% (%environment%) &a<hover:show_text:'&7Clicca per teletrasportarti alla casa &f&n%name%'><click:run_command:'/home %name%'>[CLICCARE QUI]</click></hover>"
+  message: " #8cc0cc♢ &f%name% &7in %world% (%environment%) <success><hover:show_text:'&7Clicca per teletrasportarti alla casa &f&n%name%'><click:run_command:'/home %name%'>[CLICCARE QUI]</click></hover>"
 
 # Available placeholders:
 # %count% - Home count
@@ -337,7 +337,7 @@ command-home-information-multi-line-footer:
 # %z% - Home location z
 command-home-information-in-line:
   type: WITHOUT_PREFIX
-  message: "#8cc0ccʟᴇ ᴛᴜᴇ ᴄᴀsᴇ &a♦ &7(%count%/%max%) &8:&f%homes%"
+  message: "#8cc0ccʟᴇ ᴛᴜᴇ ᴄᴀsᴇ <success>♦ &7(%count%/%max%) &8:&f%homes%"
 command-home-information-in-line-info: " <hover:show_text:'&7Clicca per teletrasportarti alla casa &f&n%name%'><click:run_command:'/home %name%'>&f%name%</click></hover>&7"
 
 command-home-icon-error: "#ff0000Devi tenere un oggetto per cambiare l'icona della tua casa."

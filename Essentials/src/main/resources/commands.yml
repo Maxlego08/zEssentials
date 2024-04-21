@@ -75,3 +75,6 @@ chatclear: true
 chatenable: true
 chatdisable: true
 broadcast: true
+reply: true
+messagetoggle: true
+socialspy: true
