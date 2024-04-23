@@ -31,6 +31,7 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     private long[] cooldownCommands;
     private boolean enableDebug;
     private boolean enableCooldownBypass;
+    private boolean enableCommandLog;
     private int trashSize;
     private DatabaseConfiguration databaseConfiguration;
     private ServerType serverType;
@@ -136,5 +137,10 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     @Override
     public double getNearDistance(Permissible permissible) {
         return this.nearPermissions.stream().filter(nearDistance -> permissible.hasPermission(nearDistance.permission())).map(NearDistance::distance).findFirst().orElse(this.nearDistance);
+    }
+
+    @Override
+    public boolean isEnableCommandLog() {
+        return this.enableCommandLog;
     }
 }

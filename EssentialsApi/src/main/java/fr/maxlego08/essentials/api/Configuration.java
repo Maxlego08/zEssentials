@@ -109,4 +109,6 @@ public interface Configuration extends ConfigurationFile {
     List<NearDistance> getNearPermissions();
 
     double getNearDistance(Permissible permissible);
+
+    boolean isEnableCommandLog();
 }

@@ -28,7 +28,7 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 - [x] Command /ec (alias: enderchest)
 - [x] Command /endersee 
 - [x] Command /ext
-- [ ] Command /near (ability to set custom radius by grade/permission)
+- [x] Command /near (ability to set custom radius by grade/permission)
 - [x] Command /craft
 - [x] Command /anvil
 - [x] Command /back

@@ -1,5 +1,6 @@
 package fr.maxlego08.essentials.listener;
 
+import fr.maxlego08.essentials.api.Configuration;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
@@ -87,16 +88,27 @@ public class PlayerListener extends ZUtils implements Listener {
         user.setLastLocation();
     }
 
-    @EventHandler()
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onCommand(PlayerCommandPreprocessEvent event) {
 
-        long[] cooldownsArray = plugin.getConfiguration().getCooldownCommands();
+        Configuration configuration = this.plugin.getConfiguration();
+        long[] cooldownsArray = configuration.getCooldownCommands();
         if (cooldownsArray.length == 0) return;
         Player player = event.getPlayer();
         double cooldown = handleCooldown(player, cooldownsArray);
         if (cooldown != 0 && !hasPermission(player, Permission.ESSENTIALS_COOLDOWN_COMMAND_BYPASS)) {
             message(player, Message.COOLDOWN_COMMANDS, "%cooldown%", TimerBuilder.getStringTime(cooldown));
             event.setCancelled(true);
+            return;
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onCommandHighest(PlayerCommandPreprocessEvent event) {
+
+        Configuration configuration = this.plugin.getConfiguration();
+        if (configuration.isEnableCommandLog()) {
+            this.plugin.getStorageManager().getStorage().insertCommand(event.getPlayer().getUniqueId(), event.getMessage());
         }
     }
 

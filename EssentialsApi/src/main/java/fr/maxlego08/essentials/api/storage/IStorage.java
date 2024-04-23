@@ -79,4 +79,6 @@ public interface IStorage {
     List<ChatMessageDTO> getMessages(UUID targetUuid);
 
     Map<Option, Boolean> getOptions(UUID uuid);
+
+    void insertCommand(UUID uuid, String command);
 }

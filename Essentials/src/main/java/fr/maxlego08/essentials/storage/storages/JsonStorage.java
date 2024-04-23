@@ -277,6 +277,11 @@ public class JsonStorage extends StorageHelper implements IStorage {
     }
 
     @Override
+    public void insertCommand(UUID uuid, String command) {
+        throw new NotImplementedException("insertCommand is not implemented, use MYSQL storage");
+    }
+
+    @Override
     public List<ChatMessageDTO> getMessages(UUID targetUuid) {
         return new ArrayList<>();
     }

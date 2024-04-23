@@ -2,6 +2,7 @@ package fr.maxlego08.essentials.storage.storages;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.database.dto.ChatMessageDTO;
+import fr.maxlego08.essentials.api.database.dto.CommandDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.OptionDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
@@ -16,6 +17,7 @@ import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.storage.database.Repositories;
 import fr.maxlego08.essentials.storage.database.SqlConnection;
 import fr.maxlego08.essentials.storage.database.repositeries.ChatMessagesRepository;
+import fr.maxlego08.essentials.storage.database.repositeries.CommandsRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.EconomyTransactionsRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserCooldownsRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserEconomyRepository;
@@ -64,6 +66,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
         this.repositories.register(UserHomeRepository.class);
         this.repositories.register(UserSanctionRepository.class);
         this.repositories.register(ChatMessagesRepository.class);
+        this.repositories.register(CommandsRepository.class);
         // this.repositories.register(ServerStorageRepository.class);
 
         plugin.getMigrationManager().execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), this.plugin.getLogger());
@@ -305,6 +308,11 @@ public class SqlStorage extends StorageHelper implements IStorage {
     @Override
     public void insertChatMessage(UUID uuid, String content) {
         async(() -> this.repositories.getTable(ChatMessagesRepository.class).insert(new ChatMessageDTO(uuid, content, new Date())));
+    }
+
+    @Override
+    public void insertCommand(UUID uuid, String command) {
+        async(() -> this.repositories.getTable(CommandsRepository.class).insert(new CommandDTO(uuid, command, new Date())));
     }
 
     @Override
