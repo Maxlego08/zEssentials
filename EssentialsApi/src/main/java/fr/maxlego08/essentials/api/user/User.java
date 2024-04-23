@@ -499,4 +499,8 @@ public interface User {
     long getCurrentSessionPlayTime();
 
     void startCurrentSessionPlayTime();
+
+    void setAddress(String address);
+
+    String getAddress();
 }

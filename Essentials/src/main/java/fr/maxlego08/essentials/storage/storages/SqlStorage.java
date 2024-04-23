@@ -319,10 +319,10 @@ public class SqlStorage extends StorageHelper implements IStorage {
     }
 
     @Override
-    public void insertPlayTime(UUID uniqueId, long sessionPlayTime, long playtime) {
+    public void insertPlayTime(UUID uniqueId, long sessionPlayTime, long playtime, String address) {
         async(() -> {
             if (sessionPlayTime > 0) {
-                this.repositories.getTable(UserPlayTimeRepository.class).insert(uniqueId, sessionPlayTime);
+                this.repositories.getTable(UserPlayTimeRepository.class).insert(uniqueId, sessionPlayTime, address);
             }
             this.repositories.getTable(UserRepository.class).updatePlayTime(uniqueId, playtime);
         });

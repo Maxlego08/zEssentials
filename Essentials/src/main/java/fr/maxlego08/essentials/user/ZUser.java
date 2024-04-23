@@ -61,6 +61,7 @@ public class ZUser extends ZUtils implements User {
     private PrivateMessage privateMessage;
     private long playTime;
     private long currentSessionPlayTime;
+    private String address;
 
     public ZUser(EssentialsPlugin plugin, UUID uniqueId) {
         this.plugin = plugin;
@@ -579,5 +580,15 @@ public class ZUser extends ZUtils implements User {
     @Override
     public void startCurrentSessionPlayTime() {
         this.currentSessionPlayTime = System.currentTimeMillis();
+    }
+
+    @Override
+    public String getAddress() {
+        return address;
+    }
+
+    @Override
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

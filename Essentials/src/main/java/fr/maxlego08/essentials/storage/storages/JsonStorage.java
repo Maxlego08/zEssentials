@@ -4,7 +4,6 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.database.dto.ChatMessageDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.HomeDTO;
-import fr.maxlego08.essentials.api.database.dto.OptionDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
@@ -282,7 +281,7 @@ public class JsonStorage extends StorageHelper implements IStorage {
     }
 
     @Override
-    public void insertPlayTime(UUID uniqueId, long sessionPlayTime, long playtime) {
+    public void insertPlayTime(UUID uniqueId, long sessionPlayTime, long playtime, String address) {
         // throw new NotImplementedException("insertPlayTime is not implemented, use MYSQL storage");
     }
 

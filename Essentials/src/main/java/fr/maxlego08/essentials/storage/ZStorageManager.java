@@ -6,6 +6,7 @@ import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.storage.StorageManager;
 import fr.maxlego08.essentials.api.storage.StorageType;
+import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.storage.storages.JsonStorage;
 import fr.maxlego08.essentials.storage.storages.SqlStorage;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
@@ -73,7 +74,8 @@ public class ZStorageManager extends ZUtils implements StorageManager {
             return;
         }
 
-        this.iStorage.createOrLoad(playerUuid, playerName);
+        User user = this.iStorage.createOrLoad(playerUuid, playerName);
+        user.setAddress(event.getAddress().getHostAddress());
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)

@@ -2,7 +2,6 @@ package fr.maxlego08.essentials.api.storage;
 
 import fr.maxlego08.essentials.api.database.dto.ChatMessageDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
-import fr.maxlego08.essentials.api.database.dto.OptionDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
@@ -82,5 +81,5 @@ public interface IStorage {
 
     void insertCommand(UUID uuid, String command);
 
-    void insertPlayTime(UUID uniqueId, long sessionPlayTime, long playtime);
+    void insertPlayTime(UUID uniqueId, long sessionPlayTime, long playtime, String address);
 }

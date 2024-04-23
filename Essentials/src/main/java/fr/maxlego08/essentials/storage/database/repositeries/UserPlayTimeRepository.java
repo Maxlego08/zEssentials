@@ -10,10 +10,11 @@ public class UserPlayTimeRepository extends Repository {
         super(connection, "user_play_times");
     }
 
-    public void insert(UUID uuid, long playtime) {
+    public void insert(UUID uuid, long playtime, String address) {
         insert(table -> {
             table.uuid("unique_id", uuid);
             table.decimal("play_time", playtime);
+            table.string("address", address);
         });
     }
 }

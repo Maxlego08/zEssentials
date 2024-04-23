@@ -9,6 +9,7 @@ public class CreateUserPlayTimeTableMigration extends Migration {
         SchemaBuilder.create(this, "%prefix%user_play_times", table -> {
             table.uuid("unique_id").foreignKey("%prefix%users");
             table.bigInt("play_time");
+            table.string("address", 255);
             table.timestamps();
         });
     }

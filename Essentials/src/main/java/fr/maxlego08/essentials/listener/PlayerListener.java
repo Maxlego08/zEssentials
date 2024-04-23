@@ -139,7 +139,7 @@ public class PlayerListener extends ZUtils implements Listener {
         if (user == null) return;
         long sessionPlayTime = (System.currentTimeMillis() - user.getCurrentSessionPlayTime()) / 1000;
         long playtime = user.getPlayTime();
-        this.plugin.getStorageManager().getStorage().insertPlayTime(user.getUniqueId(), sessionPlayTime, playtime);
+        this.plugin.getStorageManager().getStorage().insertPlayTime(user.getUniqueId(), sessionPlayTime, playtime, user.getAddress());
     }
 
 }
