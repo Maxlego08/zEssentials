@@ -371,7 +371,7 @@ public class SanctionModule extends ZModule {
 
         message(sender, Message.COMMAND_SEEN_PLAYTIME, "%playtime%", TimerBuilder.getStringTime(user.play_time() * 1000));
         message(sender, Message.COMMAND_SEEN_UUID, "%uuid%", uuid.toString());
-        message(sender, Message.COMMAND_SEEN_IP, "%ips%", record.playTimeDTOS().stream().map(timeDTO -> getMessage(Message.COMMAND_SEEN_ADDRESS, "%ip%", timeDTO.address())).collect(Collectors.joining(",")));
+        message(sender, Message.COMMAND_SEEN_IP, "%ips%", record.playTimeDTOS().stream().map(timeDTO -> getMessage(Message.COMMAND_SEEN_ADDRESS, "%ip%", timeDTO.address())).distinct().collect(Collectors.joining(",")));
     }
 
     private void sendOnline(CommandSender sender, UserRecord record) {
