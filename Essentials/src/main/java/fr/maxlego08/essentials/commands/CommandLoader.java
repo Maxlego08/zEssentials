@@ -50,6 +50,7 @@ import fr.maxlego08.essentials.commands.commands.utils.CommandCompact;
 import fr.maxlego08.essentials.commands.commands.utils.CommandCompactAll;
 import fr.maxlego08.essentials.commands.commands.utils.CommandCraft;
 import fr.maxlego08.essentials.commands.commands.utils.CommandEnchanting;
+import fr.maxlego08.essentials.commands.commands.utils.CommandExt;
 import fr.maxlego08.essentials.commands.commands.utils.CommandFeed;
 import fr.maxlego08.essentials.commands.commands.utils.CommandFly;
 import fr.maxlego08.essentials.commands.commands.utils.CommandFurnace;
@@ -61,6 +62,7 @@ import fr.maxlego08.essentials.commands.commands.utils.CommandInvsee;
 import fr.maxlego08.essentials.commands.commands.utils.CommandKittyCannon;
 import fr.maxlego08.essentials.commands.commands.utils.CommandLoom;
 import fr.maxlego08.essentials.commands.commands.utils.CommandMore;
+import fr.maxlego08.essentials.commands.commands.utils.CommandNear;
 import fr.maxlego08.essentials.commands.commands.utils.CommandRepair;
 import fr.maxlego08.essentials.commands.commands.utils.CommandRepairAll;
 import fr.maxlego08.essentials.commands.commands.utils.CommandSkull;
@@ -185,6 +187,8 @@ public class CommandLoader {
 
         register("repair", CommandRepair.class, "fix");
         register("repairall", CommandRepairAll.class, "fixall");
+        register("ext", CommandExt.class);
+        register("near", CommandNear.class);
 
         File file = new File(plugin.getDataFolder(), "commands.yml");
         if (!file.exists()) this.plugin.saveResource("commands.yml", false);

@@ -31,6 +31,8 @@ public abstract class YamlLoader extends ZUtils {
                     field.setInt(this, configuration.getInt(configKey));
                 } else if (field.getType().equals(String.class)) {
                     field.set(this, configuration.getString(configKey));
+                } else if (field.getType().equals(double.class)) {
+                    field.set(this, configuration.getDouble(configKey));
                 } else if (field.getType().equals(BigDecimal.class)) {
                     field.set(this, new BigDecimal(configuration.getString(configKey, "0")));
                 } else if (field.getType().isEnum()) {

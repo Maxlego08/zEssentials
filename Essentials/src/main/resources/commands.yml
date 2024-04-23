@@ -83,3 +83,5 @@ furnace: true
 skull: true
 repair: true
 repairall: true
+ext: true
+near: true

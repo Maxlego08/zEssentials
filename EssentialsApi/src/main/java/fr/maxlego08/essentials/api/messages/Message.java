@@ -190,6 +190,8 @@ public enum Message {
     DESCRIPTION_SKULL("Gets the head of a player"),
     DESCRIPTION_REPAIR("Fix the item in your hand"),
     DESCRIPTION_REPAIR_ALL("Repair all items in your inventory"),
+    DESCRIPTION_EXT("Stop burning"),
+    DESCRIPTION_NEAR("Show players close to you"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -408,6 +410,11 @@ public enum Message {
     COMMAND_REPAIR_SUCCESS("<success>You just fixed the item in your hand."),
     COMMAND_REPAIR_ALL_ERROR("<error>You have no items to repair."),
     COMMAND_REPAIR_ALL_SUCCESS("<success>You have just repaired all the items in your inventory"),
+    COMMAND_EXT("&fBy the will of Maxlego08, you no longer burn."),
+
+    COMMAND_NEAR_EMPTY("<error>No player near to you."),
+    COMMAND_NEAR_PLAYER("&fPlayers near to you&7:%players%"),
+    COMMAND_NEAR_INFO(" &7%player% &8(&e%distance%m&8)"),
 
     ;
 

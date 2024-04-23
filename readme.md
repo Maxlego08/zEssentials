@@ -20,14 +20,14 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 - [x] Command /hat
 - [x] Command /top
 - [x] Command /bottom
-- [ ] Command /repair - Hand
-- [ ] Command /repairall - All Inventory
+- [x] Command /repair - Hand
+- [x] Command /repairall - All Inventory
 - [x] Command /compact
 - [x] Command /compactall
 - [x] Command /trash
 - [x] Command /ec (alias: enderchest)
 - [x] Command /endersee 
-- [ ] Command /ext
+- [x] Command /ext
 - [ ] Command /near (ability to set custom radius by grade/permission)
 - [x] Command /craft
 - [x] Command /anvil

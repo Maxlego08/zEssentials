@@ -8,6 +8,7 @@ import fr.maxlego08.essentials.api.storage.DatabaseConfiguration;
 import fr.maxlego08.essentials.api.storage.StorageType;
 import fr.maxlego08.essentials.api.utils.ChatCooldown;
 import fr.maxlego08.essentials.api.utils.MessageColor;
+import fr.maxlego08.essentials.api.utils.NearDistance;
 import fr.maxlego08.essentials.api.utils.TransformMaterial;
 import fr.maxlego08.essentials.zutils.utils.YamlLoader;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -34,6 +35,8 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     private DatabaseConfiguration databaseConfiguration;
     private ServerType serverType;
     private RedisConfiguration redisConfiguration;
+    private double nearDistance;
+    private final List<NearDistance> nearPermissions = new ArrayList<>();
 
     public MainConfiguration(ZEssentialsPlugin plugin) {
         this.plugin = plugin;
@@ -118,5 +121,20 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     @Override
     public List<TransformMaterial> getSmeltableMaterials() {
         return this.smeltableMaterials;
+    }
+
+    @Override
+    public List<NearDistance> getNearPermissions() {
+        return nearPermissions;
+    }
+
+    @Override
+    public double getDefaultNearDistance() {
+        return nearDistance;
+    }
+
+    @Override
+    public double getNearDistance(Permissible permissible) {
+        return this.nearPermissions.stream().filter(nearDistance -> permissible.hasPermission(nearDistance.permission())).map(NearDistance::distance).findFirst().orElse(this.nearDistance);
     }
 }

@@ -6,8 +6,9 @@ import fr.maxlego08.essentials.api.server.ServerType;
 import fr.maxlego08.essentials.api.storage.DatabaseConfiguration;
 import fr.maxlego08.essentials.api.storage.StorageType;
 import fr.maxlego08.essentials.api.utils.ChatCooldown;
-import fr.maxlego08.essentials.api.utils.TransformMaterial;
 import fr.maxlego08.essentials.api.utils.MessageColor;
+import fr.maxlego08.essentials.api.utils.NearDistance;
+import fr.maxlego08.essentials.api.utils.TransformMaterial;
 import org.bukkit.permissions.Permissible;
 
 import java.util.List;
@@ -102,4 +103,10 @@ public interface Configuration extends ConfigurationFile {
     long[] getCooldownCommands();
 
     List<TransformMaterial> getSmeltableMaterials();
+
+    double getDefaultNearDistance();
+
+    List<NearDistance> getNearPermissions();
+
+    double getNearDistance(Permissible permissible);
 }
