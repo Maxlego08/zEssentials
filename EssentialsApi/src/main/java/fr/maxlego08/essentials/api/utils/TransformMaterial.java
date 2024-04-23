@@ -11,5 +11,5 @@ import org.bukkit.Material;
  * @param to   The resulting material after compacting.
  * @see Loadable
  */
-public record CompactMaterial(Material from, Material to) implements Loadable {
+public record TransformMaterial(Material from, Material to) implements Loadable {
 }

@@ -45,7 +45,9 @@ public enum Message {
     COMMAND_NIGHT("&fYou have just brought &enightfall&f into the world <success>%world%&f."),
     COMMAND_SUN("&fYou have just brought the &esun&f into the world <success>%world%&f."),
     COMMAND_TOP("&7You've just been teleported to &etop&7."),
+    COMMAND_BOTTOM("&7You've just been teleported to &ebottom&7."),
     COMMAND_TOP_ERROR("<error>Unable to find a position to transport you safely."),
+    COMMAND_BOTTOM_ERROR("<error>Unable to find a position to transport you safely."),
     COMMAND_SPEED_INVALID("<error>You need to specify a valid player."),
     COMMAND_SPEED_FLY("&7You have just set your &nfly&r&7 speed to &f%speed%&7 for &f%player%&7. &8(&f2 &7by default&8)"),
     COMMAND_SPEED_WALK("&7You have just set your &nwalk&r&7 speed to &f%speed%&7 for &f%player%&7. &8(&f2 &7by default&8)"),
@@ -97,7 +99,8 @@ public enum Message {
 
     COMMAND_COMPACT_TYPE("<error>Impossible to compact the material &f%material%<error>."),
     COMMAND_COMPACT_ERROR("<error>You have no &f%item%<error> in your inventory."),
-    COMMAND_COMPACT_SUCCESS("&7You have just transformed #0EEA93x%amount% #34cfe0%item% &7en #0EEA93x%toAmount% #34cfe0%toItem%&7."),
+    COMMAND_COMPACT_SUCCESS("&7You have just transformed #0EEA93x%amount% #34cfe0%item% &7into #0EEA93x%toAmount% #34cfe0%toItem%&7."),
+    COMMAND_COMPACT_SUCCESS_ALL("&7You just converted all your items."),
     COMMAND_HAT_SUCCESS("&7You just put #0ef0ce%item% &7on your head."),
     COMMAND_HAT_ERROR("<error>You cannot put air on your head."),
     COMMAND_PLAYER_WEATHER_RESET("&7You just changed the weather to that of the server."),
@@ -120,6 +123,7 @@ public enum Message {
     DESCRIPTION_ENDERCHEST("Open your enderchest"),
     DESCRIPTION_ENDERSEE("Open a player enderchest"),
     DESCRIPTION_TOP("Teleporting to top"),
+    DESCRIPTION_BOTTOM("Teleporting to top"),
     DESCRIPTION_SPEED("Change player speed"),
     DESCRIPTION_TPA("Teleport to a player"),
     DESCRIPTION_TP("Teleport to a player"),
@@ -142,7 +146,7 @@ public enum Message {
     DESCRIPTION_STONECUTTER("Open a stone cutter"),
     DESCRIPTION_SMITHINGTABLE("Open a smithing table"),
     DESCRIPTION_INVSEE("Open player's inventory"),
-    DESCRIPTION_COMPACT("Compact material"),
+    DESCRIPTION_COMPACT("Compact the items in your hand"),
     DESCRIPTION_HAT("Create your custom hat !"),
     DESCRIPTION_PLAYER_WEATHER("Change your weather"),
     DESCRIPTION_PLAYER_TIME("Change your time"),
@@ -181,6 +185,11 @@ public enum Message {
     DESCRIPTION_REPLY("Reply to a private message"),
     DESCRIPTION_MESSAGE_TOGGLE("Toggle private message"),
     DESCRIPTION_SOCIALSPY("Display private messages of players"),
+    DESCRIPTION_COMPACT_ALL("Compact items in your inventories"),
+    DESCRIPTION_FURNACE("Smelt all the items in your hand"),
+    DESCRIPTION_SKULL("Gets the head of a player"),
+    DESCRIPTION_REPAIR("Fix the item in your hand"),
+    DESCRIPTION_REPAIR_ALL("Repair all items in your inventory"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -217,7 +226,7 @@ public enum Message {
     COMMAND_ECONOMY_SHOW_EMPTY("&f%player% <error>has no money."),
     COMMAND_ECONOMY_SHOW_INFO("&7- #99E0FF%economy% &f%amount%."),
     COMMAND_MONEY(
-            "#99E0FFYou have&8:" ,
+            "#99E0FFYou have&8:",
             " &7- #99E0FF%economy-name-money% &f%economy-money%.",
             " &7- #99E0FF%economy-name-coins% &f%economy-coins%."
     ),
@@ -252,7 +261,7 @@ public enum Message {
     COMMAND_WARP_CREATE(
             "<success>You just created the warp &f%name% <success>to your position.",
             "&7Warp Permission is: <hover:show_text:'&fCopy command to add permission to a player'><click:SUGGEST_COMMAND:'/lp user <username> permission set nessentials.warp.%name%'>&f&nessentials.warp.%name%</click></hover>"
-            ),
+    ),
     COMMAND_WARP_USE(
             "<error>Usage&8: &f/warp <destination>",
             "&7Warps&8:&f%destinations%"
@@ -391,6 +400,15 @@ public enum Message {
     COMMAND_SOCIAL_SPY_ENABLE("&7Social spy <success>enable &7for &f%player%<success>."),
     COMMAND_SOCIAL_SPY_DISABLE("&7Social spy <error>disable &7for &f%player%<success>."),
 
+    COMMAND_FURNACE_TYPE("<error>Impossible to smelt the material &f%material%<error>."),
+    COMMAND_FURNACE_ERROR("<error>You have no &f%item%<error> in your inventory."),
+    COMMAND_FURNACE_SUCCESS("&7You have just transformed #0EEA93x%amount% #34cfe0%item% &7into #0EEA93x%toAmount% #34cfe0%toItem%&7."),
+    COMMAND_SKULL("<success>You just got the player’s head &f%name%<success>."),
+    COMMAND_REPAIR_ERROR("<error>The item in your hand cannot be repaired."),
+    COMMAND_REPAIR_SUCCESS("<success>You just fixed the item in your hand."),
+    COMMAND_REPAIR_ALL_ERROR("<error>You have no items to repair."),
+    COMMAND_REPAIR_ALL_SUCCESS("<success>You have just repaired all the items in your inventory"),
+
     ;
 
     private String message;
@@ -423,20 +441,20 @@ public enum Message {
         return message;
     }
 
-    public List<String> getMessages() {
-        return messages;
-    }
-
-    public MessageType getMessageType() {
-        return messageType;
-    }
-
     public void setMessage(String message) {
         this.message = message;
     }
 
+    public List<String> getMessages() {
+        return messages;
+    }
+
     public void setMessages(List<String> messages) {
         this.messages = messages;
+    }
+
+    public MessageType getMessageType() {
+        return messageType;
     }
 
     public void setMessageType(MessageType messageType) {

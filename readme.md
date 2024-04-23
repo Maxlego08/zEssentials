@@ -19,8 +19,11 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 
 - [x] Command /hat
 - [x] Command /top
-- [ ] Command /repair all & hand (ability to set custom cooldown by grade/permission)
+- [x] Command /bottom
+- [ ] Command /repair - Hand
+- [ ] Command /repairall - All Inventory
 - [x] Command /compact
+- [x] Command /compactall
 - [x] Command /trash
 - [x] Command /ec (alias: enderchest)
 - [x] Command /endersee 
@@ -30,10 +33,11 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 - [x] Command /anvil
 - [x] Command /back
 - [x] Command /feed
+- [x] Command /furnace
 
 - [x] Command /gm 1, gm0, gm3
 - [x] Command /speed <1;2;3….>
-- [ ] Command /bc (alias: broadcast)
+- [x] Command /bc (alias: broadcast)
 - [ ] Command /list
 - [x] Command /invsee
 - [ ] Command /kill
@@ -41,7 +45,7 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 - [ ] Command /give
 - [x] Command /fly
 - [x] Command /god
-- [ ] Command /skull
+- [x] Command /skull
 - [ ] Command /ci
 - [ ] Command /itemdb
 - [ ] Command /exp give, set, show

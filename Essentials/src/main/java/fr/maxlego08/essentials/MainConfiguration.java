@@ -7,8 +7,8 @@ import fr.maxlego08.essentials.api.server.ServerType;
 import fr.maxlego08.essentials.api.storage.DatabaseConfiguration;
 import fr.maxlego08.essentials.api.storage.StorageType;
 import fr.maxlego08.essentials.api.utils.ChatCooldown;
-import fr.maxlego08.essentials.api.utils.CompactMaterial;
 import fr.maxlego08.essentials.api.utils.MessageColor;
+import fr.maxlego08.essentials.api.utils.TransformMaterial;
 import fr.maxlego08.essentials.zutils.utils.YamlLoader;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.permissions.Permissible;
@@ -22,7 +22,8 @@ public class MainConfiguration extends YamlLoader implements Configuration {
 
     private final ZEssentialsPlugin plugin;
     private final List<CommandCooldown> commandCooldowns = new ArrayList<>();
-    private final List<CompactMaterial> compactMaterials = new ArrayList<>();
+    private final List<TransformMaterial> compactMaterials = new ArrayList<>();
+    private final List<TransformMaterial> smeltableMaterials = new ArrayList<>();
     private final StorageType storageType = StorageType.JSON;
     private final List<MessageColor> messageColors = new ArrayList<>();
     private final List<ChatCooldown> cooldowns = new ArrayList<>();
@@ -75,7 +76,7 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     }
 
     @Override
-    public List<CompactMaterial> getCompactMaterials() {
+    public List<TransformMaterial> getCompactMaterials() {
         return this.compactMaterials;
     }
 
@@ -112,5 +113,10 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     @Override
     public long[] getCooldownCommands() {
         return cooldownCommands;
+    }
+
+    @Override
+    public List<TransformMaterial> getSmeltableMaterials() {
+        return this.smeltableMaterials;
     }
 }

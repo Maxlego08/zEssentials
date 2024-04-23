@@ -49,6 +49,20 @@ public abstract class ZUtils extends MessageUtils {
 
     }
 
+    protected Optional<Location> bottomLocation(Location location, int step, int y) {
+
+        if (step > location.getWorld().getMaxHeight()) {
+            return Optional.empty();
+        }
+
+        location.setY(y);
+        if (!location.getBlock().getType().isSolid() && !location.getBlock().getRelative(BlockFace.UP).getType().isSolid() && location.getBlock().getRelative(BlockFace.DOWN).getType().isSolid()) {
+            return Optional.of(location);
+        }
+        return this.bottomLocation(location.getBlock().getRelative(BlockFace.UP).getLocation(), step + 1, y + 1);
+
+    }
+
     protected boolean same(Location l1, Location l2) {
         return (l1.getBlockX() == l2.getBlockX()) && (l1.getBlockY() == l2.getBlockY()) && (l1.getBlockZ() == l2.getBlockZ()) && l1.getWorld().getName().equals(l2.getWorld().getName());
     }

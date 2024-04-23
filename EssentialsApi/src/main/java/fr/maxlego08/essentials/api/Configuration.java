@@ -6,7 +6,7 @@ import fr.maxlego08.essentials.api.server.ServerType;
 import fr.maxlego08.essentials.api.storage.DatabaseConfiguration;
 import fr.maxlego08.essentials.api.storage.StorageType;
 import fr.maxlego08.essentials.api.utils.ChatCooldown;
-import fr.maxlego08.essentials.api.utils.CompactMaterial;
+import fr.maxlego08.essentials.api.utils.TransformMaterial;
 import fr.maxlego08.essentials.api.utils.MessageColor;
 import org.bukkit.permissions.Permissible;
 
@@ -65,7 +65,7 @@ public interface Configuration extends ConfigurationFile {
      *
      * @return The list of CompactMaterial objects representing compact material configurations.
      */
-    List<CompactMaterial> getCompactMaterials();
+    List<TransformMaterial> getCompactMaterials();
 
     /**
      * Gets the storage type configured in the plugin.
@@ -98,6 +98,8 @@ public interface Configuration extends ConfigurationFile {
     List<MessageColor> getMessageColors();
 
     List<ChatCooldown> getCooldowns();
+
     long[] getCooldownCommands();
 
+    List<TransformMaterial> getSmeltableMaterials();
 }

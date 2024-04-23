@@ -44,12 +44,15 @@ import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportRandom;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportTo;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportWorld;
 import fr.maxlego08.essentials.commands.commands.utils.CommandAnvil;
+import fr.maxlego08.essentials.commands.commands.utils.CommandBottom;
 import fr.maxlego08.essentials.commands.commands.utils.CommandCartographyTable;
 import fr.maxlego08.essentials.commands.commands.utils.CommandCompact;
+import fr.maxlego08.essentials.commands.commands.utils.CommandCompactAll;
 import fr.maxlego08.essentials.commands.commands.utils.CommandCraft;
 import fr.maxlego08.essentials.commands.commands.utils.CommandEnchanting;
 import fr.maxlego08.essentials.commands.commands.utils.CommandFeed;
 import fr.maxlego08.essentials.commands.commands.utils.CommandFly;
+import fr.maxlego08.essentials.commands.commands.utils.CommandFurnace;
 import fr.maxlego08.essentials.commands.commands.utils.CommandGod;
 import fr.maxlego08.essentials.commands.commands.utils.CommandGrindStone;
 import fr.maxlego08.essentials.commands.commands.utils.CommandHat;
@@ -58,6 +61,9 @@ import fr.maxlego08.essentials.commands.commands.utils.CommandInvsee;
 import fr.maxlego08.essentials.commands.commands.utils.CommandKittyCannon;
 import fr.maxlego08.essentials.commands.commands.utils.CommandLoom;
 import fr.maxlego08.essentials.commands.commands.utils.CommandMore;
+import fr.maxlego08.essentials.commands.commands.utils.CommandRepair;
+import fr.maxlego08.essentials.commands.commands.utils.CommandRepairAll;
+import fr.maxlego08.essentials.commands.commands.utils.CommandSkull;
 import fr.maxlego08.essentials.commands.commands.utils.CommandSmithingTable;
 import fr.maxlego08.essentials.commands.commands.utils.CommandSpeed;
 import fr.maxlego08.essentials.commands.commands.utils.CommandStoneCutter;
@@ -107,6 +113,7 @@ public class CommandLoader {
         register("endersee", CommandEnderSee.class, "ecsee");
 
         register("top", CommandTop.class);
+        register("bottom", CommandBottom.class);
         register("speed", CommandSpeed.class);
         register("god", CommandGod.class);
         register("heal", CommandHeal.class);
@@ -117,7 +124,8 @@ public class CommandLoader {
         register("craft", CommandCraft.class);
         register("enchanting", CommandEnchanting.class);
         register("invsee", CommandInvsee.class);
-        register("compact", CommandCompact.class, "blocks");
+        register("compact", CommandCompact.class, "blocks", "condense");
+        register("compactall", CommandCompactAll.class, "blocksall", "condenseall");
         register("hat", CommandHat.class);
         register("fly", CommandFly.class);
         register("anvil", CommandAnvil.class);
@@ -126,6 +134,8 @@ public class CommandLoader {
         register("loom", CommandLoom.class);
         register("stonecutter", CommandStoneCutter.class);
         register("smithingtable", CommandSmithingTable.class);
+        register("furnace", CommandFurnace.class, "burn");
+        register("skull", CommandSkull.class);
 
         register("tp", CommandTeleport.class);
         register("tphere", CommandTeleportHere.class, "s");
@@ -172,6 +182,9 @@ public class CommandLoader {
         register("reply", CommandReply.class, "r");
         register("messagetoggle", CommandMessageToggle.class, "msgtoggle", "mtg");
         register("socialspy", CommandSocialSpy.class);
+
+        register("repair", CommandRepair.class, "fix");
+        register("repairall", CommandRepairAll.class, "fixall");
 
         File file = new File(plugin.getDataFolder(), "commands.yml");
         if (!file.exists()) this.plugin.saveResource("commands.yml", false);
