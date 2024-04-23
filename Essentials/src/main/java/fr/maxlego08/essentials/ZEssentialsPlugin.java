@@ -51,6 +51,7 @@ import fr.maxlego08.essentials.storage.adapter.UserTypeAdapter;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.user.placeholders.UserHomePlaceholders;
 import fr.maxlego08.essentials.user.placeholders.UserPlaceholders;
+import fr.maxlego08.essentials.user.placeholders.UserPlayTimePlaceholders;
 import fr.maxlego08.essentials.zutils.ZPlugin;
 import fr.maxlego08.essentials.zutils.utils.CommandMarkdownGenerator;
 import fr.maxlego08.essentials.zutils.utils.PlaceholderMarkdownGenerator;
@@ -154,6 +155,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.registerListener(new PlayerListener(this));
         this.registerPlaceholder(UserPlaceholders.class);
         this.registerPlaceholder(UserHomePlaceholders.class);
+        this.registerPlaceholder(UserPlayTimePlaceholders.class);
 
         this.generateDocs();
     }

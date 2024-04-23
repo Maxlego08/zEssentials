@@ -8,7 +8,6 @@ import fr.maxlego08.essentials.api.placeholders.PlaceholderRegister;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
-import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 
 import java.math.BigDecimal;
@@ -21,29 +20,6 @@ public class UserPlaceholders extends ZUtils implements PlaceholderRegister {
 
         IStorage iStorage = plugin.getStorageManager().getStorage();
         EconomyProvider economyProvider = plugin.getEconomyProvider();
-
-        // Play time
-
-        placeholder.register("play_time", player -> {
-            User user = iStorage.getUser(player.getUniqueId());
-            return String.valueOf(user.getPlayTime());
-        }, "Returns the player’s playing time");
-
-        placeholder.register("play_time_formatted", player -> {
-            User user = iStorage.getUser(player.getUniqueId());
-            return TimerBuilder.getStringTime(user.getPlayTime() * 1000);
-        }, "Returns the player’s playing time formatted");
-
-        placeholder.register("current_session_play_time", player -> {
-            User user = iStorage.getUser(player.getUniqueId());
-            return String.valueOf((System.currentTimeMillis() - user.getCurrentSessionPlayTime()) / 1000);
-        }, "Returns the player’s playing time of the current session");
-
-        placeholder.register("current_session_play_time_formatted", player -> {
-            User user = iStorage.getUser(player.getUniqueId());
-            return TimerBuilder.getStringTime(System.currentTimeMillis() - user.getCurrentSessionPlayTime());
-        }, "Returns the player’s playing time of the current session formatted");
-
 
         // Target
 
@@ -91,5 +67,15 @@ public class UserPlaceholders extends ZUtils implements PlaceholderRegister {
             Economy economy = optional.get();
             return user.getBalance(economy).toString();
         }, "Returns the number for a given economy", "economy");
+
+        placeholder.register("user_option_", (player, args) -> {
+            User user = iStorage.getUser(player.getUniqueId());
+            try {
+                Option option = Option.valueOf(args.toUpperCase());
+                return String.valueOf(user.getOption(option));
+            } catch (Exception exception) {
+                return "Option " + args + " was not found";
+            }
+        }, "Returns the value for an option", "option name");
     }
 }
