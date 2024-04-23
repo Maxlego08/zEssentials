@@ -85,3 +85,4 @@ repair: true
 repairall: true
 ext: true
 near: true
+playtime: true

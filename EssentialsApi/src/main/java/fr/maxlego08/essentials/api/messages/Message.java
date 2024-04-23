@@ -192,6 +192,7 @@ public enum Message {
     DESCRIPTION_REPAIR_ALL("Repair all items in your inventory"),
     DESCRIPTION_EXT("Stop burning"),
     DESCRIPTION_NEAR("Show players close to you"),
+    DESCRIPTION_PLAY_TIME("Show player's playtime"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -415,6 +416,11 @@ public enum Message {
     COMMAND_NEAR_EMPTY("<error>No player near to you."),
     COMMAND_NEAR_PLAYER("&fPlayers near to you&7:%players%"),
     COMMAND_NEAR_INFO(" &7%player% &8(&e%distance%m&8)"),
+    COMMAND_PLAY_TIME(
+            "&7You played&8: <primary>%playtime%",
+            "&7Current session&8: <primary>%playtime_session%"
+    ),
+
 
     ;
 

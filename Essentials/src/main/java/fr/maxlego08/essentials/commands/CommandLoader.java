@@ -63,6 +63,7 @@ import fr.maxlego08.essentials.commands.commands.utils.CommandKittyCannon;
 import fr.maxlego08.essentials.commands.commands.utils.CommandLoom;
 import fr.maxlego08.essentials.commands.commands.utils.CommandMore;
 import fr.maxlego08.essentials.commands.commands.utils.CommandNear;
+import fr.maxlego08.essentials.commands.commands.utils.CommandPlayTime;
 import fr.maxlego08.essentials.commands.commands.utils.CommandRepair;
 import fr.maxlego08.essentials.commands.commands.utils.CommandRepairAll;
 import fr.maxlego08.essentials.commands.commands.utils.CommandSkull;
@@ -189,6 +190,7 @@ public class CommandLoader {
         register("repairall", CommandRepairAll.class, "fixall");
         register("ext", CommandExt.class);
         register("near", CommandNear.class);
+        register("playtime", CommandPlayTime.class);
 
         File file = new File(plugin.getDataFolder(), "commands.yml");
         if (!file.exists()) this.plugin.saveResource("commands.yml", false);
