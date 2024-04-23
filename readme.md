@@ -49,7 +49,7 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 - [ ] Command /ci
 - [ ] Command /itemdb
 - [ ] Command /exp give, set, show
-- [ ] Command /playtime
+- [x] Command /playtime
 - [ ] Command /spawner
 - [x] Command /weather
 - [ ] Command /seen, whois

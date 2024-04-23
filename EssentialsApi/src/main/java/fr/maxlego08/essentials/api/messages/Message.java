@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.api.messages;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 public enum Message {
 
@@ -193,6 +194,8 @@ public enum Message {
     DESCRIPTION_EXT("Stop burning"),
     DESCRIPTION_NEAR("Show players close to you"),
     DESCRIPTION_PLAY_TIME("Show player's playtime"),
+    DESCRIPTION_VERSION("Show plugin version"),
+    DESCRIPTION_KILL_ALL("Kill entities"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -421,6 +424,7 @@ public enum Message {
             "&7Current session&8: <primary>%playtime_session%"
     ),
 
+    COMMAND_REMOVE("&7Removed <success>%amount% &7entities."),
 
     ;
 

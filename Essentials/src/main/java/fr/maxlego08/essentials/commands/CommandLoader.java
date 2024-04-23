@@ -59,6 +59,7 @@ import fr.maxlego08.essentials.commands.commands.utils.CommandGrindStone;
 import fr.maxlego08.essentials.commands.commands.utils.CommandHat;
 import fr.maxlego08.essentials.commands.commands.utils.CommandHeal;
 import fr.maxlego08.essentials.commands.commands.utils.CommandInvsee;
+import fr.maxlego08.essentials.commands.commands.utils.CommandKillAll;
 import fr.maxlego08.essentials.commands.commands.utils.CommandKittyCannon;
 import fr.maxlego08.essentials.commands.commands.utils.CommandLoom;
 import fr.maxlego08.essentials.commands.commands.utils.CommandMore;
@@ -72,6 +73,7 @@ import fr.maxlego08.essentials.commands.commands.utils.CommandSpeed;
 import fr.maxlego08.essentials.commands.commands.utils.CommandStoneCutter;
 import fr.maxlego08.essentials.commands.commands.utils.CommandTop;
 import fr.maxlego08.essentials.commands.commands.utils.CommandTrash;
+import fr.maxlego08.essentials.commands.commands.utils.CommandVersion;
 import fr.maxlego08.essentials.commands.commands.warp.CommandDelWarp;
 import fr.maxlego08.essentials.commands.commands.warp.CommandSetWarp;
 import fr.maxlego08.essentials.commands.commands.warp.CommandWarp;
@@ -191,6 +193,8 @@ public class CommandLoader {
         register("ext", CommandExt.class);
         register("near", CommandNear.class);
         register("playtime", CommandPlayTime.class);
+        register("essversion", CommandVersion.class, "ev");
+        register("killall", CommandKillAll.class);
 
         File file = new File(plugin.getDataFolder(), "commands.yml");
         if (!file.exists()) this.plugin.saveResource("commands.yml", false);

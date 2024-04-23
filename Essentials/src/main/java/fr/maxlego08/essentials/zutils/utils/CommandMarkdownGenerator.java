@@ -32,6 +32,7 @@ public class CommandMarkdownGenerator {
 
             // Escape special Markdown characters in descriptions
             desc = desc == null ? "" : desc.replace("|", "\\|");
+            perm = perm == null ? "" : perm;
 
             // Add row to the Markdown table
             sb.append(String.format("| `%s` | %s | %s | %s |\n", cmd, aliases, perm, desc));

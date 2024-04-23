@@ -86,3 +86,5 @@ repairall: true
 ext: true
 near: true
 playtime: true
+essversion: true
+killall: true
