@@ -21,6 +21,8 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 public class PlayerListener extends ZUtils implements Listener {
@@ -99,7 +101,6 @@ public class PlayerListener extends ZUtils implements Listener {
         if (cooldown != 0 && !hasPermission(player, Permission.ESSENTIALS_COOLDOWN_COMMAND_BYPASS)) {
             message(player, Message.COOLDOWN_COMMANDS, "%cooldown%", TimerBuilder.getStringTime(cooldown));
             event.setCancelled(true);
-            return;
         }
     }
 
@@ -122,6 +123,23 @@ public class PlayerListener extends ZUtils implements Listener {
         }
 
         return wait != 0L ? wait : 0.0;
+    }
+
+    @EventHandler
+    public void onJoin(PlayerJoinEvent event) {
+
+        User user = this.plugin.getUser(event.getPlayer().getUniqueId());
+        if (user == null) return;
+        user.startCurrentSessionPlayTime();
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onQuid(PlayerQuitEvent event) {
+        User user = this.plugin.getUser(event.getPlayer().getUniqueId());
+        if (user == null) return;
+        long sessionPlayTime = (System.currentTimeMillis() - user.getCurrentSessionPlayTime()) / 1000;
+        long playtime = user.getPlayTime();
+        this.plugin.getStorageManager().getStorage().insertPlayTime(user.getUniqueId(), sessionPlayTime, playtime);
     }
 
 }

@@ -12,7 +12,9 @@ import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
+import org.bukkit.event.player.PlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.time.Duration;
@@ -55,8 +57,11 @@ public class ZStorageManager extends ZUtils implements StorageManager {
         return this.plugin.getStorageManager().getType();
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onLogin(AsyncPlayerPreLoginEvent event) {
+
+        PlayerPreLoginEvent.Result result = event.getResult();
+        if (result != PlayerPreLoginEvent.Result.ALLOWED) return;
 
         UUID playerUuid = event.getUniqueId();
         String playerName = event.getName();
@@ -71,7 +76,7 @@ public class ZStorageManager extends ZUtils implements StorageManager {
         this.iStorage.createOrLoad(playerUuid, playerName);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onDisconnect(PlayerQuitEvent event) {
         this.iStorage.onPlayerQuit(event.getPlayer().getUniqueId());
     }

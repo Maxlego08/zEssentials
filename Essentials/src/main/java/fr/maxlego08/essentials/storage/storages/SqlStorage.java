@@ -23,6 +23,7 @@ import fr.maxlego08.essentials.storage.database.repositeries.UserCooldownsReposi
 import fr.maxlego08.essentials.storage.database.repositeries.UserEconomyRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserHomeRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserOptionRepository;
+import fr.maxlego08.essentials.storage.database.repositeries.UserPlayTimeRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserSanctionRepository;
 import fr.maxlego08.essentials.user.ZUser;
@@ -67,6 +68,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
         this.repositories.register(UserSanctionRepository.class);
         this.repositories.register(ChatMessagesRepository.class);
         this.repositories.register(CommandsRepository.class);
+        this.repositories.register(UserPlayTimeRepository.class);
         // this.repositories.register(ServerStorageRepository.class);
 
         plugin.getMigrationManager().execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), this.plugin.getLogger());
@@ -121,6 +123,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
                 user.setSanction(userDTO.ban_sanction_id(), userDTO.mute_sanction_id());
                 user.setLastLocation(stringAsLocation(userDTO.last_location()));
+                user.setPlayTime(userDTO.play_time());
                 user.setOptions(this.repositories.getTable(UserOptionRepository.class).selectOptions(uniqueId));
                 user.setCooldowns(this.repositories.getTable(UserCooldownsRepository.class).selectCooldowns(uniqueId));
                 user.setEconomies(this.repositories.getTable(UserEconomyRepository.class).selectEconomies(uniqueId));
@@ -313,6 +316,14 @@ public class SqlStorage extends StorageHelper implements IStorage {
     @Override
     public void insertCommand(UUID uuid, String command) {
         async(() -> this.repositories.getTable(CommandsRepository.class).insert(new CommandDTO(uuid, command, new Date())));
+    }
+
+    @Override
+    public void insertPlayTime(UUID uniqueId, long sessionPlayTime, long playtime) {
+        async(() -> {
+            this.repositories.getTable(UserPlayTimeRepository.class).insert(uniqueId, sessionPlayTime);
+            this.repositories.getTable(UserRepository.class).updatePlayTime(uniqueId, playtime);
+        });
     }
 
     @Override

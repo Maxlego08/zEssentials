@@ -81,4 +81,6 @@ public interface IStorage {
     Map<Option, Boolean> getOptions(UUID uuid);
 
     void insertCommand(UUID uuid, String command);
+
+    void insertPlayTime(UUID uniqueId, long sessionPlayTime, long playtime);
 }

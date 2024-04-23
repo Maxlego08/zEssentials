@@ -273,12 +273,17 @@ public class JsonStorage extends StorageHelper implements IStorage {
 
     @Override
     public void insertChatMessage(UUID uuid, String content) {
-        throw new NotImplementedException("insertChatMessage is not implemented, use MYSQL storage");
+        // throw new NotImplementedException("insertChatMessage is not implemented, use MYSQL storage");
     }
 
     @Override
     public void insertCommand(UUID uuid, String command) {
-        throw new NotImplementedException("insertCommand is not implemented, use MYSQL storage");
+        // throw new NotImplementedException("insertCommand is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public void insertPlayTime(UUID uniqueId, long sessionPlayTime, long playtime) {
+        // throw new NotImplementedException("insertPlayTime is not implemented, use MYSQL storage");
     }
 
     @Override

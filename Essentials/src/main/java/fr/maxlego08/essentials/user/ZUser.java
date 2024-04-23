@@ -59,6 +59,8 @@ public class ZUser extends ZUtils implements User {
     private List<Sanction> fakeSanctions;
     private String lastMessage;
     private PrivateMessage privateMessage;
+    private long playTime;
+    private long currentSessionPlayTime;
 
     public ZUser(EssentialsPlugin plugin, UUID uniqueId) {
         this.plugin = plugin;
@@ -557,5 +559,25 @@ public class ZUser extends ZUtils implements User {
     @Override
     public boolean hasPrivateMessage() {
         return this.privateMessage != null;
+    }
+
+    @Override
+    public long getPlayTime() {
+        return this.playTime + ((System.currentTimeMillis() - this.currentSessionPlayTime) / 1000);
+    }
+
+    @Override
+    public void setPlayTime(long playtime) {
+        this.playTime = playtime;
+    }
+
+    @Override
+    public long getCurrentSessionPlayTime() {
+        return this.currentSessionPlayTime;
+    }
+
+    @Override
+    public void startCurrentSessionPlayTime() {
+        this.currentSessionPlayTime = System.currentTimeMillis();
     }
 }

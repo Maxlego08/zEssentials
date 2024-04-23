@@ -13,6 +13,7 @@ import fr.maxlego08.essentials.database.migrations.CreateUserCooldownTableMigrat
 import fr.maxlego08.essentials.database.migrations.CreateUserEconomyMigration;
 import fr.maxlego08.essentials.database.migrations.CreateUserHomeTableMigration;
 import fr.maxlego08.essentials.database.migrations.CreateUserOptionTableMigration;
+import fr.maxlego08.essentials.database.migrations.CreateUserPlayTimeTableMigration;
 import fr.maxlego08.essentials.database.migrations.CreateUserTableMigration;
 import fr.maxlego08.essentials.database.migrations.UpdateUserTableAddSanctionColumns;
 
@@ -50,6 +51,7 @@ public class ZMigrationManager implements MigrationManager {
         this.migrations.add(new UpdateUserTableAddSanctionColumns());
         this.migrations.add(new CreateChatMessageMigration());
         this.migrations.add(new CreateCommandsMigration());
+        this.migrations.add(new CreateUserPlayTimeTableMigration());
     }
 
     @Override

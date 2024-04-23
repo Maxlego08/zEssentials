@@ -10,6 +10,7 @@ public class CreateUserTableMigration extends Migration {
             table.uuid("unique_id").primary();
             table.string("name", 16);
             table.text("last_location").nullable();
+            table.bigInt("play_time").defaultValue("0");
             table.timestamps();
         });
     }

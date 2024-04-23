@@ -63,7 +63,7 @@ public class UserRepository extends Repository {
     /**
      * Updates the ban sanction ID for a specified user.
      *
-     * @param uuid The UUID of the user.
+     * @param uuid  The UUID of the user.
      * @param index The index of the ban sanction ID.
      */
     public void updateBanId(UUID uuid, Integer index) {
@@ -76,7 +76,7 @@ public class UserRepository extends Repository {
     /**
      * Updates the mute sanction ID for a specified user.
      *
-     * @param uuid The UUID of the user.
+     * @param uuid  The UUID of the user.
      * @param index The index of the mute sanction ID.
      */
     public void updateMuteId(UUID uuid, Integer index) {
@@ -116,4 +116,10 @@ public class UserRepository extends Repository {
         });
     }
 
+    public void updatePlayTime(UUID uniqueId, long sessionPlayTime) {
+        update(table -> {
+            table.decimal("play_time", sessionPlayTime);
+            table.where("unique_id", uniqueId);
+        });
+    }
 }

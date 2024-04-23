@@ -491,4 +491,12 @@ public interface User {
     PrivateMessage getPrivateMessage();
 
     boolean hasPrivateMessage();
+
+    long getPlayTime();
+
+    void setPlayTime(long playtime);
+
+    long getCurrentSessionPlayTime();
+
+    void startCurrentSessionPlayTime();
 }
