@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.module.modules;
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.cache.ExpiringCache;
 import fr.maxlego08.essentials.api.commands.Permission;
+import fr.maxlego08.essentials.api.database.dto.UserDTO;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.sanction.SanctionType;
@@ -10,6 +11,7 @@ import fr.maxlego08.essentials.api.server.EssentialsServer;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
+import fr.maxlego08.essentials.api.user.UserRecord;
 import fr.maxlego08.essentials.listener.paper.ChatListener;
 import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.essentials.user.ZUser;
@@ -25,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class SanctionModule extends ZModule {
 
@@ -354,5 +357,29 @@ public class SanctionModule extends ZModule {
 
     private boolean isProtected(String username) {
         return this.protections.stream().anyMatch(name -> name.equalsIgnoreCase(username));
+    }
+
+    public void seen(CommandSender sender, UUID uuid) {
+
+        IStorage iStorage = this.plugin.getStorageManager().getStorage();
+        UserRecord record = iStorage.fetchUserRecord(uuid);
+        UserDTO user = record.userDTO();
+
+        boolean isOnline = Bukkit.getPlayer(user.unique_id()) != null;
+        if (isOnline) sendOnline(sender, record);
+        else sendOffline(sender, record);
+
+        message(sender, Message.COMMAND_SEEN_PLAYTIME, "%playtime%", TimerBuilder.getStringTime(user.play_time() * 1000));
+        message(sender, Message.COMMAND_SEEN_UUID, "%uuid%", uuid.toString());
+        message(sender, Message.COMMAND_SEEN_IP, "%ips%", record.playTimeDTOS().stream().map(timeDTO -> getMessage(Message.COMMAND_SEEN_ADDRESS, "%ip%", timeDTO.address())).collect(Collectors.joining(",")));
+    }
+
+    private void sendOnline(CommandSender sender, UserRecord record) {
+        User user = this.plugin.getUser(record.userDTO().unique_id());
+        message(sender, Message.COMMAND_SEEN_ONLINE, "%player%", record.userDTO().name(), "%date%", TimerBuilder.getStringTime(System.currentTimeMillis() - user.getCurrentSessionPlayTime()));
+    }
+
+    private void sendOffline(CommandSender sender, UserRecord record) {
+        message(sender, Message.COMMAND_SEEN_OFFLINE, "%player%", record.userDTO().name(), "%date%", this.simpleDateFormat.format(record.userDTO().updated_at()));
     }
 }

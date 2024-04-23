@@ -11,6 +11,7 @@ import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.modules.Module;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -473,10 +474,11 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
     }
 
     protected void fetchUniqueId(String userName, Consumer<UUID> consumer) {
+        CommandSender commandSender = this.sender;
         this.plugin.getStorageManager().getStorage().fetchUniqueId(userName, uuid -> {
 
             if (uuid == null) {
-                message(sender, Message.PLAYER_NOT_FOUND, "%player%", userName);
+                message(commandSender, Message.PLAYER_NOT_FOUND, "%player%", userName);
                 return;
             }
 
@@ -485,10 +487,11 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
     }
 
     protected void isOnline(String userName, Runnable runnable) {
+        CommandSender commandSender = this.sender;
         this.plugin.getScheduler().runAsync(wrappedTask -> {
 
             if (!this.plugin.getEssentialsServer().isOnline(userName)) {
-                message(sender, Message.PLAYER_NOT_FOUND, "%player%", userName);
+                message(commandSender, Message.PLAYER_NOT_FOUND, "%player%", userName);
                 return;
             }
 

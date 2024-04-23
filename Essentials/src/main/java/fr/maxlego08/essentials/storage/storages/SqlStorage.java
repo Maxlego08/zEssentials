@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.database.dto.ChatMessageDTO;
 import fr.maxlego08.essentials.api.database.dto.CommandDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.OptionDTO;
+import fr.maxlego08.essentials.api.database.dto.PlayTimeDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.database.dto.UserDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
@@ -14,6 +15,7 @@ import fr.maxlego08.essentials.api.sanction.SanctionType;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
+import fr.maxlego08.essentials.api.user.UserRecord;
 import fr.maxlego08.essentials.storage.database.Repositories;
 import fr.maxlego08.essentials.storage.database.SqlConnection;
 import fr.maxlego08.essentials.storage.database.repositeries.ChatMessagesRepository;
@@ -326,6 +328,16 @@ public class SqlStorage extends StorageHelper implements IStorage {
             }
             this.repositories.getTable(UserRepository.class).updatePlayTime(uniqueId, playtime);
         });
+    }
+
+
+    @Override
+    public UserRecord fetchUserRecord(UUID uuid) {
+
+        UserDTO userDTO = this.repositories.getTable(UserRepository.class).selectUser(uuid).get(0);
+        List<PlayTimeDTO> playTimeDTOS = this.repositories.getTable(UserPlayTimeRepository.class).select(uuid);
+
+        return new UserRecord(userDTO, playTimeDTOS);
     }
 
     @Override

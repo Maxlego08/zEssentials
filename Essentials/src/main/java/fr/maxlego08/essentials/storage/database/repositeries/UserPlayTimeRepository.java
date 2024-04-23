@@ -1,8 +1,10 @@
 package fr.maxlego08.essentials.storage.database.repositeries;
 
+import fr.maxlego08.essentials.api.database.dto.PlayTimeDTO;
 import fr.maxlego08.essentials.storage.database.Repository;
 import fr.maxlego08.essentials.storage.database.SqlConnection;
 
+import java.util.List;
 import java.util.UUID;
 
 public class UserPlayTimeRepository extends Repository {
@@ -16,5 +18,9 @@ public class UserPlayTimeRepository extends Repository {
             table.decimal("play_time", playtime);
             table.string("address", address);
         });
+    }
+
+    public List<PlayTimeDTO> select(UUID uuid) {
+        return this.select(PlayTimeDTO.class, table -> table.where("unique_id", uuid));
     }
 }

@@ -30,6 +30,7 @@ import fr.maxlego08.essentials.commands.commands.sanction.CommandKick;
 import fr.maxlego08.essentials.commands.commands.sanction.CommandKickAll;
 import fr.maxlego08.essentials.commands.commands.sanction.CommandMute;
 import fr.maxlego08.essentials.commands.commands.sanction.CommandSanction;
+import fr.maxlego08.essentials.commands.commands.sanction.CommandSeen;
 import fr.maxlego08.essentials.commands.commands.sanction.CommandUnBan;
 import fr.maxlego08.essentials.commands.commands.sanction.CommandUnMute;
 import fr.maxlego08.essentials.commands.commands.spawn.CommandSetSpawn;
@@ -195,6 +196,7 @@ public class CommandLoader {
         register("playtime", CommandPlayTime.class);
         register("essversion", CommandVersion.class, "ev");
         register("killall", CommandKillAll.class);
+        register("seen", CommandSeen.class, "whois");
 
         File file = new File(plugin.getDataFolder(), "commands.yml");
         if (!file.exists()) this.plugin.saveResource("commands.yml", false);

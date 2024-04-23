@@ -8,6 +8,7 @@ import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
+import fr.maxlego08.essentials.api.user.UserRecord;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -82,4 +83,6 @@ public interface IStorage {
     void insertCommand(UUID uuid, String command);
 
     void insertPlayTime(UUID uniqueId, long sessionPlayTime, long playtime, String address);
+
+    UserRecord fetchUserRecord(UUID uuid);
 }

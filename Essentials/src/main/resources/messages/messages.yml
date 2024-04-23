@@ -93,6 +93,23 @@ command-play-time:
 command-compact-success-all: "&7You just converted all your items."
 command-bottom: "&7You've just been teleported to &ebottom&7."
 command-bottom-error: "<error>Unable to find a position to transport you safely."
+command-remove: "&7Removed <success>%amount% &7entities."
+command-seen-offline:
+  type: WITHOUT_PREFIX
+  message: "#99E0FFPlayer &f%player% #99E0FFhas been <error>offline #99E0FFsince &7%date%#99E0FF."
+command-seen-online:
+  type: WITHOUT_PREFIX
+  message: "#99E0FFPlayer &f%player% #99E0FFhas been <success>online #99E0FFsince %date%#99E0FF."
+command-seen-playtime:
+  type: WITHOUT_PREFIX
+  message: "#99E0FFPlayTime&8: &f%playtime%"
+command-seen-uuid:
+  type: WITHOUT_PREFIX
+  message: "#99E0FFUUID&8: &f%uuid%"
+command-seen-ip:
+  type: WITHOUT_PREFIX
+  message: "#99E0FFIP Address&8:&f%ips%"
+command-seen-address: " <click:run_command:'/seenip %ip%'><hover:show_text:'&fShow players who have the same address'>%ip%</hover></click>"
 
 
 # Economy
@@ -259,6 +276,9 @@ description-near: "Show players close to you"
 description-play-time: "Show player's playtime"
 description-bottom: "Teleporting to top"
 description-compact-all: "Compact items in your inventories"
+description-version: "Show plugin version"
+description-kill-all: "Kill entities"
+description-seen: "Show player informations"
 
 
 # Time format

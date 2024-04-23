@@ -196,6 +196,7 @@ public enum Message {
     DESCRIPTION_PLAY_TIME("Show player's playtime"),
     DESCRIPTION_VERSION("Show plugin version"),
     DESCRIPTION_KILL_ALL("Kill entities"),
+    DESCRIPTION_SEEN("Show player informations"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -425,6 +426,14 @@ public enum Message {
     ),
 
     COMMAND_REMOVE("&7Removed <success>%amount% &7entities."),
+
+    COMMAND_SEEN_OFFLINE(MessageType.WITHOUT_PREFIX, "#99E0FFPlayer &f%player% #99E0FFhas been <error>offline #99E0FFsince &7%date%#99E0FF."),
+    COMMAND_SEEN_ONLINE(MessageType.WITHOUT_PREFIX, "#99E0FFPlayer &f%player% #99E0FFhas been <success>online #99E0FFsince %date%#99E0FF."),
+    COMMAND_SEEN_PLAYTIME(MessageType.WITHOUT_PREFIX, "#99E0FFPlayTime&8: &f%playtime%"),
+    COMMAND_SEEN_UUID(MessageType.WITHOUT_PREFIX, "#99E0FFUUID&8: &f%uuid%"),
+    COMMAND_SEEN_IP(MessageType.WITHOUT_PREFIX, "#99E0FFIP Address&8:&f%ips%"),
+
+    COMMAND_SEEN_ADDRESS(MessageType.WITHOUT_PREFIX, " <click:run_command:'/seenip %ip%'><hover:show_text:'&fShow players who have the same address'>%ip%</hover></click>"),
 
     ;
 

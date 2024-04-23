@@ -12,6 +12,7 @@ import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
+import fr.maxlego08.essentials.api.user.UserRecord;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.utils.StorageHelper;
 import org.apache.commons.lang3.NotImplementedException;
@@ -283,6 +284,11 @@ public class JsonStorage extends StorageHelper implements IStorage {
     @Override
     public void insertPlayTime(UUID uniqueId, long sessionPlayTime, long playtime, String address) {
         // throw new NotImplementedException("insertPlayTime is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public UserRecord fetchUserRecord(UUID uuid) {
+        throw new NotImplementedException("UserRecord is not implemented, use MYSQL storage");
     }
 
     @Override
