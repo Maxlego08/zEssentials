@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.storage.database.repositeries;
 
 import fr.maxlego08.essentials.api.database.dto.PlayTimeDTO;
+import fr.maxlego08.essentials.api.database.dto.UserDTO;
 import fr.maxlego08.essentials.storage.database.Repository;
 import fr.maxlego08.essentials.storage.database.SqlConnection;
 

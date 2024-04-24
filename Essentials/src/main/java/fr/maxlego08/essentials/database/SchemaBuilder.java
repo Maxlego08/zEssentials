@@ -41,6 +41,7 @@ public class SchemaBuilder extends ZUtils implements Schema {
     private final List<JoinCondition> joinConditions = new ArrayList<>();
     private String orderBy;
     private Migration migration;
+    private boolean isDistinct;
 
     private SchemaBuilder(String tableName, SchemaType schemaType) {
         this.tableName = tableName;
@@ -327,7 +328,7 @@ public class SchemaBuilder extends ZUtils implements Schema {
     @Override
     public List<Map<String, Object>> executeSelect(Connection connection, DatabaseConfiguration databaseConfiguration, Logger logger) throws SQLException {
         List<Map<String, Object>> results = new ArrayList<>();
-        StringBuilder selectQuery = new StringBuilder("SELECT * FROM " + tableName);
+        StringBuilder selectQuery = this.isDistinct ? new StringBuilder("SELECT DISTINCT " + this.tableName + ".* FROM " + this.tableName) : new StringBuilder("SELECT * FROM " + this.tableName);
 
         if (!this.joinConditions.isEmpty()) {
             for (JoinCondition join : this.joinConditions) {
@@ -443,6 +444,16 @@ public class SchemaBuilder extends ZUtils implements Schema {
     @Override
     public String getOrderBy() {
         return this.orderBy;
+    }
+
+    @Override
+    public void distinct() {
+        this.isDistinct = true;
+    }
+
+    @Override
+    public boolean isDistinct() {
+        return this.isDistinct;
     }
 
     @Override

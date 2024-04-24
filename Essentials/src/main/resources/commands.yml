@@ -89,3 +89,4 @@ playtime: true
 essversion: true
 killall: true
 seen: true
+seenip: true

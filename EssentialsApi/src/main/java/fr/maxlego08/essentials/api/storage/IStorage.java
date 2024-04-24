@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.api.storage;
 import fr.maxlego08.essentials.api.database.dto.ChatMessageDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
+import fr.maxlego08.essentials.api.database.dto.UserDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.sanction.Sanction;
@@ -85,4 +86,6 @@ public interface IStorage {
     void insertPlayTime(UUID uniqueId, long sessionPlayTime, long playtime, String address);
 
     UserRecord fetchUserRecord(UUID uuid);
+
+    List<UserDTO> getUsers(String ip);
 }

@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.database.dto.ChatMessageDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.HomeDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
+import fr.maxlego08.essentials.api.database.dto.UserDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.sanction.Sanction;
@@ -289,6 +290,11 @@ public class JsonStorage extends StorageHelper implements IStorage {
     @Override
     public UserRecord fetchUserRecord(UUID uuid) {
         throw new NotImplementedException("UserRecord is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public List<UserDTO> getUsers(String ip) {
+        throw new NotImplementedException("getUsers is not implemented, use MYSQL storage");
     }
 
     @Override

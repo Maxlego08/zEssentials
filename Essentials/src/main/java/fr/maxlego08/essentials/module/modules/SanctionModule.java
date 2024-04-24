@@ -369,7 +369,6 @@ public class SanctionModule extends ZModule {
         if (isOnline) sendOnline(sender, record);
         else sendOffline(sender, record);
 
-        message(sender, Message.COMMAND_SEEN_PLAYTIME, "%playtime%", TimerBuilder.getStringTime(user.play_time() * 1000));
         message(sender, Message.COMMAND_SEEN_UUID, "%uuid%", uuid.toString());
         message(sender, Message.COMMAND_SEEN_IP, "%ips%", record.playTimeDTOS().stream().map(timeDTO -> getMessage(Message.COMMAND_SEEN_ADDRESS, "%ip%", timeDTO.address())).distinct().collect(Collectors.joining(",")));
     }
@@ -377,9 +376,24 @@ public class SanctionModule extends ZModule {
     private void sendOnline(CommandSender sender, UserRecord record) {
         User user = this.plugin.getUser(record.userDTO().unique_id());
         message(sender, Message.COMMAND_SEEN_ONLINE, "%player%", record.userDTO().name(), "%date%", TimerBuilder.getStringTime(System.currentTimeMillis() - user.getCurrentSessionPlayTime()));
+        message(sender, Message.COMMAND_SEEN_PLAYTIME, "%playtime%", TimerBuilder.getStringTime(user.getPlayTime() * 1000));
     }
 
     private void sendOffline(CommandSender sender, UserRecord record) {
         message(sender, Message.COMMAND_SEEN_OFFLINE, "%player%", record.userDTO().name(), "%date%", this.simpleDateFormat.format(record.userDTO().updated_at()));
+        message(sender, Message.COMMAND_SEEN_PLAYTIME, "%playtime%", TimerBuilder.getStringTime(record.userDTO().play_time() * 1000));
+    }
+
+    public void seen(CommandSender sender, String ip) {
+
+        IStorage iStorage = this.plugin.getStorageManager().getStorage();
+        List<UserDTO> userDTOS = iStorage.getUsers(ip);
+
+        if (userDTOS.isEmpty()) {
+            message(sender, Message.COMMAND_SEEN_IP_EMPTY, "%ip%", ip);
+            return;
+        }
+
+        message(sender, Message.COMMAND_SEEN_IP_LINE, "%ip%", ip, "%players%", userDTOS.stream().map(user -> getMessage(Message.COMMAND_SEEN_IP_INFO, "%name%", user.name())).collect(Collectors.joining(",")));
     }
 }

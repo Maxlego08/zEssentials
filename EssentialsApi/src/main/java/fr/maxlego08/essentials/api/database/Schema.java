@@ -79,5 +79,9 @@ public interface Schema {
     void orderByDesc(String columnName);
 
     String getOrderBy();
+
+    void distinct();
+
+    boolean isDistinct();
 }
 

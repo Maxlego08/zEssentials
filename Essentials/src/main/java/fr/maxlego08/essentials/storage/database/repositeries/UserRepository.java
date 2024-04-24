@@ -122,4 +122,12 @@ public class UserRepository extends Repository {
             table.where("unique_id", uniqueId);
         });
     }
+
+    public List<UserDTO> getUsers(String ip) {
+        return select(UserDTO.class, table -> {
+            table.distinct();
+            table.leftJoin("%prefix%user_play_times", "pt", "unique_id", "%prefix%users", "unique_id");
+            table.where("pt.address", ip);
+        });
+    }
 }

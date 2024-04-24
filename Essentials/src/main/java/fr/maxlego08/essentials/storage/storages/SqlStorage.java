@@ -330,6 +330,10 @@ public class SqlStorage extends StorageHelper implements IStorage {
         });
     }
 
+    @Override
+    public List<UserDTO> getUsers(String ip) {
+        return this.repositories.getTable(UserRepository.class).getUsers(ip);
+    }
 
     @Override
     public UserRecord fetchUserRecord(UUID uuid) {

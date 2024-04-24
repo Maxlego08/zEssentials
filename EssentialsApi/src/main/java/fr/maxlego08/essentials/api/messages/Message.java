@@ -197,6 +197,7 @@ public enum Message {
     DESCRIPTION_VERSION("Show plugin version"),
     DESCRIPTION_KILL_ALL("Kill entities"),
     DESCRIPTION_SEEN("Show player informations"),
+    DESCRIPTION_SEEN_IP("Show players who have the same IP"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -434,6 +435,10 @@ public enum Message {
     COMMAND_SEEN_IP(MessageType.WITHOUT_PREFIX, "#99E0FFIP Address&8:&f%ips%"),
 
     COMMAND_SEEN_ADDRESS(MessageType.WITHOUT_PREFIX, " <click:run_command:'/seenip %ip%'><hover:show_text:'&fShow players who have the same address'>%ip%</hover></click>"),
+
+    COMMAND_SEEN_IP_EMPTY("<error>Unable to find players with ip &f%ip%<error>."),
+    COMMAND_SEEN_IP_LINE("#99E0FFPlayers with the ip &f%ip%&8:%players%"),
+    COMMAND_SEEN_IP_INFO(" <click:run_command:'/seen %name%'><hover:show_text:'&fShow player's information'>%name%</hover></click>"),
 
     ;
 
