@@ -438,7 +438,7 @@ public enum Message {
 
     COMMAND_SEEN_IP_EMPTY("<error>Unable to find players with ip &f%ip%<error>."),
     COMMAND_SEEN_IP_LINE("#99E0FFPlayers with the ip &f%ip%&8:%players%"),
-    COMMAND_SEEN_IP_INFO(" <click:run_command:'/seen %name%'><hover:show_text:'&fShow player's information'>%name%</hover></click>"),
+    COMMAND_SEEN_IP_INFO(" <white><click:run_command:'/seen %name%'><hover:show_text:'&fShow player's information'>%name%</hover></click><dark_gray>"),
 
     ;
 
