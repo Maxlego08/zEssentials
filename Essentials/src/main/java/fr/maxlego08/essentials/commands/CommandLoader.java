@@ -21,6 +21,7 @@ import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeSurviva
 import fr.maxlego08.essentials.commands.commands.home.CommandDelHome;
 import fr.maxlego08.essentials.commands.commands.home.CommandHome;
 import fr.maxlego08.essentials.commands.commands.home.CommandSetHome;
+import fr.maxlego08.essentials.commands.commands.kits.CommandKit;
 import fr.maxlego08.essentials.commands.commands.messages.CommandMessage;
 import fr.maxlego08.essentials.commands.commands.messages.CommandMessageToggle;
 import fr.maxlego08.essentials.commands.commands.messages.CommandReply;
@@ -199,6 +200,8 @@ public class CommandLoader {
         register("killall", CommandKillAll.class);
         register("seen", CommandSeen.class, "whois");
         register("seenip", CommandSeenIp.class, "whoisip");
+
+        register("kit", CommandKit.class, "kits");
 
         File file = new File(plugin.getDataFolder(), "commands.yml");
         if (!file.exists()) this.plugin.saveResource("commands.yml", false);

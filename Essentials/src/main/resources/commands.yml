@@ -90,3 +90,4 @@ essversion: true
 killall: true
 seen: true
 seenip: true
+kit: true

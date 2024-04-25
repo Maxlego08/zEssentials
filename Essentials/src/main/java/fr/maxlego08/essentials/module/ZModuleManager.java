@@ -4,6 +4,7 @@ import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.modules.Module;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
 import fr.maxlego08.essentials.economy.EconomyManager;
+import fr.maxlego08.essentials.kit.KitModule;
 import fr.maxlego08.essentials.module.modules.ChatModule;
 import fr.maxlego08.essentials.module.modules.HomeModule;
 import fr.maxlego08.essentials.module.modules.JoinQuitModule;
@@ -49,6 +50,7 @@ public class ZModuleManager implements ModuleManager {
             this.modules.put(ChatModule.class, new ChatModule(this.plugin));
         }
         this.modules.put(MessageModule.class, new MessageModule(this.plugin));
+        this.modules.put(KitModule.class, new KitModule(this.plugin));
 
         this.loadConfigurations();
 

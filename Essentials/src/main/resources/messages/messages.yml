@@ -110,6 +110,9 @@ command-seen-ip:
   type: WITHOUT_PREFIX
   message: "#99E0FFIP Address&8:&f%ips%"
 command-seen-address: " <click:run_command:'/seenip %ip%'><hover:show_text:'&fShow players who have the same address'>%ip%</hover></click>"
+command-seen-ip-empty: "<error>Unable to find players with ip &f%ip%<error>."
+command-seen-ip-line: "#99E0FFPlayers with the ip &f%ip%&8:%players%"
+command-seen-ip-info: " <white><click:run_command:'/seen %name%'><hover:show_text:'&fShow player's information'>%name%</hover></click><dark_gray>"
 
 
 # Economy
@@ -279,6 +282,7 @@ description-compact-all: "Compact items in your inventories"
 description-version: "Show plugin version"
 description-kill-all: "Kill entities"
 description-seen: "Show player informations"
+description-seen-ip: "Show players who have the same IP"
 
 
 # Time format

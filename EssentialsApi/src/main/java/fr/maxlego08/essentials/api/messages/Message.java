@@ -198,6 +198,7 @@ public enum Message {
     DESCRIPTION_KILL_ALL("Kill entities"),
     DESCRIPTION_SEEN("Show player informations"),
     DESCRIPTION_SEEN_IP("Show players who have the same IP"),
+    DESCRIPTION_KIT("Gets a kit"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -439,6 +440,8 @@ public enum Message {
     COMMAND_SEEN_IP_EMPTY("<error>Unable to find players with ip &f%ip%<error>."),
     COMMAND_SEEN_IP_LINE("#99E0FFPlayers with the ip &f%ip%&8:%players%"),
     COMMAND_SEEN_IP_INFO(" <white><click:run_command:'/seen %name%'><hover:show_text:'&fShow player's information'>%name%</hover></click><dark_gray>"),
+
+    COMMAND_KIT_NOT_FOUND("<error>Unable to find the kit &f%kit%<error>."),
 
     ;
 
