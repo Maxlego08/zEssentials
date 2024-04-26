@@ -10,6 +10,7 @@ import fr.maxlego08.essentials.api.database.dto.OptionDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
+import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.storage.IStorage;
@@ -590,5 +591,20 @@ public class ZUser extends ZUtils implements User {
     @Override
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @Override
+    public long getKitCooldown(Kit kit) {
+        return this.getCooldown("kit:" + kit.getName());
+    }
+
+    @Override
+    public boolean isKitCooldown(Kit kit) {
+        return isCooldown("kit:" + kit.getName());
+    }
+
+    @Override
+    public void addKitCooldown(Kit kit, long cooldown) {
+        this.addCooldown("kit:" + kit.getName(), cooldown);
     }
 }

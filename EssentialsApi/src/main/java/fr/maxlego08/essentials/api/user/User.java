@@ -8,6 +8,7 @@ import fr.maxlego08.essentials.api.database.dto.OptionDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
+import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import org.bukkit.Location;
@@ -503,4 +504,10 @@ public interface User {
     void setAddress(String address);
 
     String getAddress();
+
+    long getKitCooldown(Kit kit);
+
+    boolean isKitCooldown(Kit kit);
+
+    void addKitCooldown(Kit kit, long cooldown);
 }

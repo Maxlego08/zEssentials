@@ -98,10 +98,9 @@ public class KitModule extends ZModule {
     public boolean giveKit(User user, Kit kit, boolean bypassCooldown) {
 
         long cooldown = kit.getCooldown();
-        String key = "kit:" + kit.getName();
         if (cooldown != 0 && !bypassCooldown && !user.hasPermission(Permission.ESSENTIALS_KIT_BYPASS_COOLDOWN)) {
-            if (user.isCooldown(key)) {
-                long milliSeconds = user.getCooldown(key) - System.currentTimeMillis();
+            if (user.isKitCooldown(kit)) {
+                long milliSeconds = user.getKitCooldown(kit) - System.currentTimeMillis();
                 message(user, Message.COOLDOWN, "%cooldown%", TimerBuilder.getStringTime(milliSeconds));
                 return false;
             }
@@ -110,7 +109,7 @@ public class KitModule extends ZModule {
         kit.give(user.getPlayer());
 
         if (cooldown != 0 && !bypassCooldown && !user.hasPermission(Permission.ESSENTIALS_KIT_BYPASS_COOLDOWN)) {
-            user.addCooldown(key, cooldown);
+            user.addKitCooldown(kit, cooldown);
         }
 
         return true;
@@ -128,15 +127,27 @@ public class KitModule extends ZModule {
                     String key = "kit:" + kit.getName();
                     long cooldown = kit.getCooldown();
                     long milliSeconds = 0;
-                    if (cooldown != 0 && !user.hasPermission(Permission.ESSENTIALS_KIT_BYPASS_COOLDOWN)) {
-                        milliSeconds = user.getCooldown(key) - System.currentTimeMillis();
+                    if (cooldown != 0 && !user.hasPermission(Permission.ESSENTIALS_KIT_BYPASS_COOLDOWN) && user.isKitCooldown(kit)) {
+                        milliSeconds = user.getKitCooldown(kit) - System.currentTimeMillis();
                     }
 
                     return getMessage(milliSeconds != 0 ? Message.COMMAND_KIT_INFORMATION_IN_LINE_INFO_UNAVAILABLE : Message.COMMAND_KIT_INFORMATION_IN_LINE_INFO_AVAILABLE, "%name%", kit.getName(), "%time%", TimerBuilder.getStringTime(milliSeconds));
                 }).toList();
                 message(user, Message.COMMAND_KIT_INFORMATION_IN_LINE, "%kits%", Strings.join(homesAsString, ','));
             } else {
+                message(user, Message.COMMAND_KIT_INFORMATION_MULTI_LINE_HEADER);
+                kits.forEach(kit -> {
 
+                    String key = "kit:" + kit.getName();
+                    long cooldown = kit.getCooldown();
+                    long milliSeconds = 0;
+                    if (cooldown != 0 && !user.hasPermission(Permission.ESSENTIALS_KIT_BYPASS_COOLDOWN) && user.isKitCooldown(kit)) {
+                        milliSeconds = user.getKitCooldown(kit) - System.currentTimeMillis();
+                    }
+
+                    message(user, milliSeconds != 0 ? Message.COMMAND_KIT_INFORMATION_MULTI_LINE_CONTENT_UNAVAILABLE : Message.COMMAND_KIT_INFORMATION_MULTI_LINE_CONTENT_AVAILABLE, "%name%", kit.getName(), "%time%", TimerBuilder.getStringTime(milliSeconds));
+                });
+                message(user, Message.COMMAND_KIT_INFORMATION_MULTI_LINE_FOOTER);
             }
 
         } else {
