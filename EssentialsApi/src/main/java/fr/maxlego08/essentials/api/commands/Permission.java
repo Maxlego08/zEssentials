@@ -107,7 +107,7 @@ public enum Permission {
      * @return The permission string with the suffix.
      */
     public String asPermission(String with) {
-        return String.format(asPermission() + ".%s", with);
+        return String.format(asPermission() + "%s", with);
     }
 
     }

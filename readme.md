@@ -26,7 +26,7 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 - [x] Command /compactall
 - [x] Command /trash
 - [x] Command /ec (alias: enderchest)
-- [x] Command /endersee 
+- [x] Command /endersee
 - [x] Command /ext
 - [x] Command /near (ability to set custom radius by grade/permission)
 - [x] Command /craft
@@ -86,3 +86,5 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 
 - [x] Command /setspawn
 - [x] Command /spawn
+
+- [x] Command /cooldown (display a player’s cooldowns and add button for delete a cooldown)

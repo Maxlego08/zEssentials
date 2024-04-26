@@ -11,6 +11,7 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandManager;
 import fr.maxlego08.essentials.api.database.MigrationManager;
 import fr.maxlego08.essentials.api.economy.EconomyProvider;
+import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.placeholders.PlaceholderRegister;
@@ -34,7 +35,10 @@ import fr.maxlego08.essentials.commands.commands.essentials.CommandEssentials;
 import fr.maxlego08.essentials.database.ZMigrationManager;
 import fr.maxlego08.essentials.economy.EconomyManager;
 import fr.maxlego08.essentials.hooks.VaultEconomy;
+import fr.maxlego08.essentials.kit.KitModule;
 import fr.maxlego08.essentials.listener.PlayerListener;
+import fr.maxlego08.essentials.loader.ButtonKitCooldownLoader;
+import fr.maxlego08.essentials.loader.ButtonKitGetLoader;
 import fr.maxlego08.essentials.loader.ButtonSanctionLoader;
 import fr.maxlego08.essentials.loader.ButtonWarpLoader;
 import fr.maxlego08.essentials.messages.MessageLoader;
@@ -50,6 +54,7 @@ import fr.maxlego08.essentials.storage.ZStorageManager;
 import fr.maxlego08.essentials.storage.adapter.UserTypeAdapter;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.user.placeholders.UserHomePlaceholders;
+import fr.maxlego08.essentials.user.placeholders.UserKitPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.UserPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.UserPlayTimePlaceholders;
 import fr.maxlego08.essentials.zutils.Metrics;
@@ -157,6 +162,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.registerPlaceholder(UserPlaceholders.class);
         this.registerPlaceholder(UserHomePlaceholders.class);
         this.registerPlaceholder(UserPlayTimePlaceholders.class);
+        this.registerPlaceholder(UserKitPlaceholders.class);
 
         new Metrics(this, 21703);
 
@@ -196,6 +202,8 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.buttonManager.register(new NoneLoader(this, ButtonSanctions.class, "zessentials_sanctions"));
         this.buttonManager.register(new ButtonWarpLoader(this));
         this.buttonManager.register(new ButtonSanctionLoader(this));
+        this.buttonManager.register(new ButtonKitCooldownLoader(this));
+        this.buttonManager.register(new ButtonKitGetLoader(this));
 
     }
 
@@ -428,5 +436,15 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         } catch (Exception exception) {
             exception.printStackTrace();
         }
+    }
+
+    @Override
+    public Optional<Kit> getKit(String kitName) {
+        return this.moduleManager.getModule(KitModule.class).getKit(kitName);
+    }
+
+    @Override
+    public void giveKit(User user, Kit kit, boolean bypassCooldown) {
+        this.moduleManager.getModule(KitModule.class).giveKit(user, kit, bypassCooldown);
     }
 }

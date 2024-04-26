@@ -5,6 +5,7 @@ import com.tcoded.folialib.impl.ServerImplementation;
 import fr.maxlego08.essentials.api.commands.CommandManager;
 import fr.maxlego08.essentials.api.database.MigrationManager;
 import fr.maxlego08.essentials.api.economy.EconomyProvider;
+import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.server.EssentialsServer;
@@ -220,4 +221,8 @@ public interface EssentialsPlugin extends Plugin {
     void saveOrUpdateConfiguration(String toPath);
 
     void saveOrUpdateConfiguration(String resourcePath, String toPath);
+
+    Optional<Kit> getKit(String kitName);
+
+    void giveKit(User user, Kit kit, boolean bypassCooldown);
 }

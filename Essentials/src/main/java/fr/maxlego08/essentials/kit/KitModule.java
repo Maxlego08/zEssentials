@@ -25,7 +25,7 @@ import java.util.Optional;
 public class KitModule extends ZModule {
 
     private final List<Kit> kits = new ArrayList<>();
-    private KitDisplay display = KitDisplay.IN_LINE;
+    private final KitDisplay display = KitDisplay.IN_LINE;
 
     public KitModule(ZEssentialsPlugin plugin) {
         super(plugin, "kits");
@@ -38,7 +38,7 @@ public class KitModule extends ZModule {
 
         this.loadKits();
 
-        // this.loadInventory("kits");
+        this.loadInventory("kits");
     }
 
     public boolean exist(String name) {
@@ -124,7 +124,6 @@ public class KitModule extends ZModule {
             if (display == KitDisplay.IN_LINE) {
                 List<String> homesAsString = kits.stream().map(kit -> {
 
-                    String key = "kit:" + kit.getName();
                     long cooldown = kit.getCooldown();
                     long milliSeconds = 0;
                     if (cooldown != 0 && !user.hasPermission(Permission.ESSENTIALS_KIT_BYPASS_COOLDOWN) && user.isKitCooldown(kit)) {
@@ -138,7 +137,6 @@ public class KitModule extends ZModule {
                 message(user, Message.COMMAND_KIT_INFORMATION_MULTI_LINE_HEADER);
                 kits.forEach(kit -> {
 
-                    String key = "kit:" + kit.getName();
                     long cooldown = kit.getCooldown();
                     long milliSeconds = 0;
                     if (cooldown != 0 && !user.hasPermission(Permission.ESSENTIALS_KIT_BYPASS_COOLDOWN) && user.isKitCooldown(kit)) {
@@ -151,7 +149,8 @@ public class KitModule extends ZModule {
             }
 
         } else {
-            // ToDo
+
+            this.plugin.openInventory(user.getPlayer(), "kits");
         }
     }
 }
