@@ -8,6 +8,7 @@ import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.kit.KitModule;
 import fr.maxlego08.essentials.module.modules.SanctionModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
+import org.bukkit.command.ConsoleCommandSender;
 
 import java.util.Optional;
 
@@ -28,7 +29,13 @@ public class CommandKit extends VCommand {
         String kitName = this.argAsString(0, null);
 
         if (kitName == null) {
-            kitModule.showKits(sender);
+
+            if (sender instanceof ConsoleCommandSender) {
+                // TODO
+                return CommandResultType.SUCCESS;
+            }
+
+            kitModule.showKits(user);
             return CommandResultType.DEFAULT;
         }
 

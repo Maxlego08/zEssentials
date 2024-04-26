@@ -12,7 +12,7 @@ import fr.maxlego08.menu.MenuItemStack;
 import fr.maxlego08.menu.exceptions.InventoryException;
 import fr.maxlego08.menu.loader.MenuItemStackLoader;
 import fr.maxlego08.menu.zcore.utils.loader.Loader;
-import org.bukkit.command.CommandSender;
+import org.apache.logging.log4j.util.Strings;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.permissions.Permissible;
@@ -116,9 +116,28 @@ public class KitModule extends ZModule {
         return true;
     }
 
-    public void showKits(CommandSender sender) {
+    public void showKits(User user) {
 
         if (display != KitDisplay.INVENTORY) {
+
+            List<Kit> kits = getKits(user.getPlayer());
+
+            if (display == KitDisplay.IN_LINE) {
+                List<String> homesAsString = kits.stream().map(kit -> {
+
+                    String key = "kit:" + kit.getName();
+                    long cooldown = kit.getCooldown();
+                    long milliSeconds = 0;
+                    if (cooldown != 0 && !user.hasPermission(Permission.ESSENTIALS_KIT_BYPASS_COOLDOWN)) {
+                        milliSeconds = user.getCooldown(key) - System.currentTimeMillis();
+                    }
+
+                    return getMessage(milliSeconds != 0 ? Message.COMMAND_KIT_INFORMATION_IN_LINE_INFO_UNAVAILABLE : Message.COMMAND_KIT_INFORMATION_IN_LINE_INFO_AVAILABLE, "%name%", kit.getName(), "%time%", TimerBuilder.getStringTime(milliSeconds));
+                }).toList();
+                message(user, Message.COMMAND_KIT_INFORMATION_IN_LINE, "%kits%", Strings.join(homesAsString, ','));
+            } else {
+
+            }
 
         } else {
             // ToDo

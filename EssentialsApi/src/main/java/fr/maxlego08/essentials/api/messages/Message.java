@@ -442,6 +442,10 @@ public enum Message {
     COMMAND_SEEN_IP_INFO(" <white><click:run_command:'/seen %name%'><hover:show_text:'&fShow player's information'>%name%</hover></click><dark_gray>"),
 
     COMMAND_KIT_NOT_FOUND("<error>Unable to find the kit &f%kit%<error>."),
+    COMMAND_KIT_INFORMATION_IN_LINE_EMPTY(MessageType.WITHOUT_PREFIX, "#8cc0ccʏᴏᴜʀ ᴋɪᴛs <success>♦ &7(%count%/%max%)&8: <error>ɴᴏ ᴋɪᴛ ᴀᴠᴀɪʟᴀʙʟᴇ"),
+    COMMAND_KIT_INFORMATION_IN_LINE(MessageType.WITHOUT_PREFIX, "#8cc0ccʏᴏᴜʀ ᴋɪᴛs&8:&f%kits%"),
+    COMMAND_KIT_INFORMATION_IN_LINE_INFO_AVAILABLE(" <hover:show_text:'&7Click to get the kit &f&n%name%'><click:run_command:'/kit %name%'><#1fde65>%name%</click></hover>&7"),
+    COMMAND_KIT_INFORMATION_IN_LINE_INFO_UNAVAILABLE(" <hover:show_text:'&7You must wait <u>%time%</u> before getting the kit &f&n%name%'><st><#de1f1f>%name%</st></hover>&7"),
 
     ;
 
