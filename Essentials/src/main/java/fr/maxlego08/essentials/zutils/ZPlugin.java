@@ -5,7 +5,6 @@ import com.tcoded.folialib.impl.ServerImplementation;
 import fr.maxlego08.essentials.api.Configuration;
 import fr.maxlego08.essentials.api.ConfigurationFile;
 import fr.maxlego08.essentials.api.commands.CommandManager;
-import fr.maxlego08.essentials.api.database.MigrationManager;
 import fr.maxlego08.essentials.api.economy.EconomyProvider;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
@@ -35,7 +34,6 @@ public class ZPlugin extends JavaPlugin {
     protected ModuleManager moduleManager;
     protected Placeholder placeholder;
     protected Configuration configuration;
-    protected MigrationManager migrationManager;
     protected EconomyProvider economyProvider;
     protected Gson gson;
     protected Persist persist;

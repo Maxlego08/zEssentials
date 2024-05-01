@@ -1,15 +1,16 @@
 package fr.maxlego08.essentials.storage.database.repositeries;
 
+import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.database.dto.ChatMessageDTO;
 import fr.maxlego08.essentials.storage.database.Repository;
-import fr.maxlego08.essentials.storage.database.SqlConnection;
+import fr.maxlego08.sarah.DatabaseConnection;
 
 import java.util.List;
 import java.util.UUID;
 
 public class ChatMessagesRepository extends Repository {
-    public ChatMessagesRepository(SqlConnection connection) {
-        super(connection, "chat_message");
+    public ChatMessagesRepository(EssentialsPlugin plugin, DatabaseConnection connection) {
+        super(plugin, connection, "chat_message");
     }
 
     public void insert(ChatMessageDTO chatMessage) {

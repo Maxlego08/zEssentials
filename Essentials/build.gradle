@@ -36,6 +36,7 @@ shadowJar {
     from(project(':Hooks:Redis').sourceSets.main.output)
 
     relocate 'com.tcoded.folialib', 'fr.maxlego08.essentials.folialib'
+    relocate 'fr.maxlego08.sarah', 'fr.maxlego08.essentials.database.sarah'
 }
 
 assemble.dependsOn shadowJar

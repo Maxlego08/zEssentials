@@ -3,7 +3,6 @@ package fr.maxlego08.essentials.api;
 import com.google.gson.Gson;
 import com.tcoded.folialib.impl.ServerImplementation;
 import fr.maxlego08.essentials.api.commands.CommandManager;
-import fr.maxlego08.essentials.api.database.MigrationManager;
 import fr.maxlego08.essentials.api.economy.EconomyProvider;
 import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
@@ -114,13 +113,6 @@ public interface EssentialsPlugin extends Plugin {
      * @return The configuration.
      */
     Configuration getConfiguration();
-
-    /**
-     * Gets the migration manager for handling database migrations.
-     *
-     * @return The migration manager.
-     */
-    MigrationManager getMigrationManager();
 
     /**
      * Checks if the economy feature is enabled.

@@ -1,15 +1,16 @@
 package fr.maxlego08.essentials.storage.database.repositeries;
 
+import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.database.dto.CommandDTO;
 import fr.maxlego08.essentials.storage.database.Repository;
-import fr.maxlego08.essentials.storage.database.SqlConnection;
+import fr.maxlego08.sarah.DatabaseConnection;
 
 import java.util.List;
 import java.util.UUID;
 
 public class CommandsRepository extends Repository {
-    public CommandsRepository(SqlConnection connection) {
-        super(connection, "commands");
+    public CommandsRepository(EssentialsPlugin plugin, DatabaseConnection connection) {
+        super(plugin, connection, "commands");
     }
 
     public void insert(CommandDTO chatMessage) {

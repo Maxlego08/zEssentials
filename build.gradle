@@ -56,6 +56,7 @@ subprojects {
 
     dependencies {
         implementation "com.tcoded:FoliaLib:0.3.1"
+        implementation 'com.github.Maxlego08:Sarah:c972094748'
         implementation('redis.clients:jedis:5.1.2') {
             exclude group: 'com.google.code.gson', module: 'gson'
             exclude group: 'org.slf4j', module: 'slf4j-api'

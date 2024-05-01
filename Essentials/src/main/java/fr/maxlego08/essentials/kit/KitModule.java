@@ -172,7 +172,7 @@ public class KitModule extends ZModule {
             Kit kit = inventoryHolder.getKit();
             List<MenuItemStack> menuItemStacks = new ArrayList<>();
             for (ItemStack itemStack : event.getInventory().getContents()) {
-                menuItemStacks.add(new MenuItemStack(itemStack));
+                // menuItemStacks.add(new MenuItemStack(itemStack));
             }
 
         }

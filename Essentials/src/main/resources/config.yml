@@ -28,7 +28,7 @@ server-type: PAPER
 # Configuration of your database, it is recommended to use the database to store your data, JSON does not support everything
 database-configuration:
   # For Pterodactyl panel: when you create a database it creates a <prefix>_<database name you chose>. Set "prefix"'s value to the prefix of the database
-  prefix: "zessentials_"
+  tablePrefix: "zessentials_"
   # IP Address of the machine the database is hosted on
   host: 192.168.10.10
   # Port of the database, by default MYSQL's port is 3306

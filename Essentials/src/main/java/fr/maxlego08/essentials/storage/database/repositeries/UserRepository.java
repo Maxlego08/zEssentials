@@ -1,9 +1,10 @@
 package fr.maxlego08.essentials.storage.database.repositeries;
 
+import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.database.dto.UserDTO;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.storage.database.Repository;
-import fr.maxlego08.essentials.storage.database.SqlConnection;
+import fr.maxlego08.sarah.DatabaseConnection;
 
 import java.util.Date;
 import java.util.List;
@@ -11,8 +12,8 @@ import java.util.UUID;
 
 public class UserRepository extends Repository {
 
-    public UserRepository(SqlConnection connection) {
-        super(connection, "users");
+    public UserRepository(EssentialsPlugin plugin, DatabaseConnection connection) {
+        super(plugin, connection, "users");
     }
 
     /**
@@ -37,7 +38,7 @@ public class UserRepository extends Repository {
         upsert(table -> {
             table.uuid("unique_id", user.getUniqueId());
             table.string("name", user.getName());
-            table.location("last_location", user.getLastLocation());
+            table.string("last_location", locationAsString(user.getLastLocation()));
         });
     }
 

@@ -4,13 +4,13 @@ import fr.maxlego08.essentials.api.Configuration;
 import fr.maxlego08.essentials.api.commands.CommandCooldown;
 import fr.maxlego08.essentials.api.server.RedisConfiguration;
 import fr.maxlego08.essentials.api.server.ServerType;
-import fr.maxlego08.essentials.api.storage.DatabaseConfiguration;
 import fr.maxlego08.essentials.api.storage.StorageType;
 import fr.maxlego08.essentials.api.utils.ChatCooldown;
 import fr.maxlego08.essentials.api.utils.MessageColor;
 import fr.maxlego08.essentials.api.utils.NearDistance;
 import fr.maxlego08.essentials.api.utils.TransformMaterial;
 import fr.maxlego08.essentials.zutils.utils.YamlLoader;
+import fr.maxlego08.sarah.DatabaseConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.permissions.Permissible;
 

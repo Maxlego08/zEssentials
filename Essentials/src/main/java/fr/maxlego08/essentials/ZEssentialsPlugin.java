@@ -9,7 +9,6 @@ import fr.maxlego08.essentials.api.Configuration;
 import fr.maxlego08.essentials.api.ConfigurationFile;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandManager;
-import fr.maxlego08.essentials.api.database.MigrationManager;
 import fr.maxlego08.essentials.api.economy.EconomyProvider;
 import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
@@ -33,7 +32,17 @@ import fr.maxlego08.essentials.buttons.sanction.ButtonSanctions;
 import fr.maxlego08.essentials.commands.CommandLoader;
 import fr.maxlego08.essentials.commands.ZCommandManager;
 import fr.maxlego08.essentials.commands.commands.essentials.CommandEssentials;
-import fr.maxlego08.essentials.database.ZMigrationManager;
+import fr.maxlego08.essentials.database.migrations.CreateChatMessageMigration;
+import fr.maxlego08.essentials.database.migrations.CreateCommandsMigration;
+import fr.maxlego08.essentials.database.migrations.CreateEconomyTransactionMigration;
+import fr.maxlego08.essentials.database.migrations.CreateSanctionsTableMigration;
+import fr.maxlego08.essentials.database.migrations.CreateUserCooldownTableMigration;
+import fr.maxlego08.essentials.database.migrations.CreateUserEconomyMigration;
+import fr.maxlego08.essentials.database.migrations.CreateUserHomeTableMigration;
+import fr.maxlego08.essentials.database.migrations.CreateUserOptionTableMigration;
+import fr.maxlego08.essentials.database.migrations.CreateUserPlayTimeTableMigration;
+import fr.maxlego08.essentials.database.migrations.CreateUserTableMigration;
+import fr.maxlego08.essentials.database.migrations.UpdateUserTableAddSanctionColumns;
 import fr.maxlego08.essentials.economy.EconomyManager;
 import fr.maxlego08.essentials.hooks.VaultEconomy;
 import fr.maxlego08.essentials.kit.KitModule;
@@ -69,6 +78,7 @@ import fr.maxlego08.menu.api.ButtonManager;
 import fr.maxlego08.menu.api.InventoryManager;
 import fr.maxlego08.menu.api.pattern.PatternManager;
 import fr.maxlego08.menu.button.loader.NoneLoader;
+import fr.maxlego08.sarah.MigrationManager;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -108,8 +118,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.essentialsUtils = isPaperVersion() ? new PaperUtils(this) : new SpigotUtils(this);
         this.essentialsServer = isPaperVersion() ? new PaperServer(this) : new SpigotServer(this);
 
-        this.migrationManager = new ZMigrationManager(this);
-        this.migrationManager.registerMigration();
+        this.registerMigrations();
 
         this.placeholder = new LocalPlaceholder(this);
         DistantPlaceholder distantPlaceholder = new DistantPlaceholder(this, this.placeholder);
@@ -209,6 +218,24 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
     }
 
+    private void registerMigrations() {
+
+        MigrationManager.setMigrationTableName("zessentials_migrations");
+
+        // MigrationManager.registerMigration(new CreateServerStorageTableMigration());
+        MigrationManager.registerMigration(new CreateUserTableMigration());
+        MigrationManager.registerMigration(new CreateUserOptionTableMigration());
+        MigrationManager.registerMigration(new CreateUserCooldownTableMigration());
+        MigrationManager.registerMigration(new CreateUserEconomyMigration());
+        MigrationManager.registerMigration(new CreateEconomyTransactionMigration());
+        MigrationManager.registerMigration(new CreateUserHomeTableMigration());
+        MigrationManager.registerMigration(new CreateSanctionsTableMigration());
+        MigrationManager.registerMigration(new UpdateUserTableAddSanctionColumns());
+        MigrationManager.registerMigration(new CreateChatMessageMigration());
+        MigrationManager.registerMigration(new CreateCommandsMigration());
+        MigrationManager.registerMigration(new CreateUserPlayTimeTableMigration());
+    }
+
     @Override
     public CommandManager getCommandManager() {
         return this.commandManager;
@@ -280,11 +307,6 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     @Override
     public Configuration getConfiguration() {
         return this.configuration;
-    }
-
-    @Override
-    public MigrationManager getMigrationManager() {
-        return this.migrationManager;
     }
 
     @Override

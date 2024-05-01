@@ -17,7 +17,6 @@ import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.user.UserRecord;
 import fr.maxlego08.essentials.storage.database.Repositories;
-import fr.maxlego08.essentials.storage.database.SqlConnection;
 import fr.maxlego08.essentials.storage.database.repositeries.ChatMessagesRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.CommandsRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.EconomyTransactionsRepository;
@@ -30,6 +29,8 @@ import fr.maxlego08.essentials.storage.database.repositeries.UserRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserSanctionRepository;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.utils.StorageHelper;
+import fr.maxlego08.sarah.DatabaseConnection;
+import fr.maxlego08.sarah.MigrationManager;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
@@ -46,12 +47,12 @@ import java.util.stream.Collectors;
 
 public class SqlStorage extends StorageHelper implements IStorage {
 
-    private final SqlConnection connection;
+    private final DatabaseConnection connection;
     private final Repositories repositories;
 
     public SqlStorage(EssentialsPlugin plugin) {
         super(plugin);
-        this.connection = new SqlConnection(plugin);
+        this.connection = new DatabaseConnection(plugin.getConfiguration().getDatabaseConfiguration());
 
         if (!this.connection.isValid()) {
             plugin.getLogger().severe("Unable to connect to database !");
@@ -60,7 +61,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
             plugin.getLogger().info("The database connection is valid ! (" + connection.getDatabaseConfiguration().host() + ")");
         }
 
-        this.repositories = new Repositories(this.connection);
+        this.repositories = new Repositories(plugin, this.connection);
         this.repositories.register(UserRepository.class);
         this.repositories.register(UserOptionRepository.class);
         this.repositories.register(UserCooldownsRepository.class);
@@ -73,7 +74,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
         this.repositories.register(UserPlayTimeRepository.class);
         // this.repositories.register(ServerStorageRepository.class);
 
-        plugin.getMigrationManager().execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), this.plugin.getLogger());
+        MigrationManager.execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), this.plugin.getLogger());
 
         this.repositories.getTable(UserCooldownsRepository.class).deleteExpiredCooldowns();
         this.repositories.getTable(UserRepository.class).clearExpiredSanctions();

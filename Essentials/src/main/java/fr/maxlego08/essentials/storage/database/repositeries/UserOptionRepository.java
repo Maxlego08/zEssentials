@@ -1,19 +1,18 @@
 package fr.maxlego08.essentials.storage.database.repositeries;
 
+import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.database.dto.OptionDTO;
 import fr.maxlego08.essentials.storage.database.Repository;
-import fr.maxlego08.essentials.storage.database.SqlConnection;
+import fr.maxlego08.sarah.DatabaseConnection;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 public class UserOptionRepository extends Repository {
 
-    public UserOptionRepository(SqlConnection connection) {
-        super(connection, "user_options");
+    public UserOptionRepository(EssentialsPlugin plugin, DatabaseConnection connection) {
+        super(plugin, connection, "user_options");
     }
 
     public void upsert(UUID uuid, Option option, boolean optionValue) {
