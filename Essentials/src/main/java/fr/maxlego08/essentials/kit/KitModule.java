@@ -15,6 +15,11 @@ import fr.maxlego08.menu.zcore.utils.loader.Loader;
 import org.apache.logging.log4j.util.Strings;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.Permissible;
 
 import java.io.File;
@@ -39,6 +44,7 @@ public class KitModule extends ZModule {
         this.loadKits();
 
         this.loadInventory("kits");
+        this.loadInventory("kit_preview");
     }
 
     public boolean exist(String name) {
@@ -151,6 +157,24 @@ public class KitModule extends ZModule {
         } else {
 
             this.plugin.openInventory(user.getPlayer(), "kits");
+        }
+    }
+
+    public void openKitEditor(Player player, Kit kit) {
+        InventoryHolder inventoryHolder = new KitInventoryHolder(player, kit);
+        player.openInventory(inventoryHolder.getInventory());
+    }
+
+    @EventHandler
+    public void onClose(InventoryCloseEvent event) {
+        if (event.getInventory().getHolder() instanceof KitInventoryHolder inventoryHolder) {
+
+            Kit kit = inventoryHolder.getKit();
+            List<MenuItemStack> menuItemStacks = new ArrayList<>();
+            for (ItemStack itemStack : event.getInventory().getContents()) {
+                menuItemStacks.add(new MenuItemStack(itemStack));
+            }
+
         }
     }
 }

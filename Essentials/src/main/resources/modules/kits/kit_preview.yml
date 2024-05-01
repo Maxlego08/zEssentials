@@ -1,0 +1,14 @@
+name: "#3f3f3fᴋɪᴛs"
+size: 54
+items:
+  items:
+    type: ZESSENTIALS_KIT_PREVIEW
+    slots:
+      - 0-44
+  back:
+    type: INVENTORY
+    plugin: zEssentials
+    inventory: "kit_preview"
+    item:
+      material: BARRIER
+      name: '&f➥ &nClick&r&7 to go back'

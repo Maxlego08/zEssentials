@@ -63,6 +63,7 @@ public class ZUser extends ZUtils implements User {
     private long playTime;
     private long currentSessionPlayTime;
     private String address;
+    private Kit previewKit;
 
     public ZUser(EssentialsPlugin plugin, UUID uniqueId) {
         this.plugin = plugin;
@@ -606,5 +607,16 @@ public class ZUser extends ZUtils implements User {
     @Override
     public void addKitCooldown(Kit kit, long cooldown) {
         this.addCooldown("kit:" + kit.getName(), cooldown);
+    }
+
+    @Override
+    public void openKitPreview(Kit kit) {
+        this.previewKit = kit;
+        this.plugin.openInventory(getPlayer(), "kit_preview");
+    }
+
+    @Override
+    public Kit getKitPreview() {
+        return this.previewKit;
     }
 }

@@ -27,6 +27,7 @@ import fr.maxlego08.essentials.api.utils.Warp;
 import fr.maxlego08.essentials.buttons.ButtonHomes;
 import fr.maxlego08.essentials.buttons.ButtonPayConfirm;
 import fr.maxlego08.essentials.buttons.ButtonTeleportationConfirm;
+import fr.maxlego08.essentials.buttons.kit.ButtonKitPreview;
 import fr.maxlego08.essentials.buttons.sanction.ButtonSanctionInformation;
 import fr.maxlego08.essentials.buttons.sanction.ButtonSanctions;
 import fr.maxlego08.essentials.commands.CommandLoader;
@@ -200,6 +201,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.buttonManager.register(new NoneLoader(this, ButtonHomes.class, "zessentials_homes"));
         this.buttonManager.register(new NoneLoader(this, ButtonSanctionInformation.class, "zessentials_sanction_information"));
         this.buttonManager.register(new NoneLoader(this, ButtonSanctions.class, "zessentials_sanctions"));
+        this.buttonManager.register(new NoneLoader(this, ButtonKitPreview.class, "zessentials_kit_preview"));
         this.buttonManager.register(new ButtonWarpLoader(this));
         this.buttonManager.register(new ButtonSanctionLoader(this));
         this.buttonManager.register(new ButtonKitCooldownLoader(this));

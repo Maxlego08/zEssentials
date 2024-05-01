@@ -510,4 +510,8 @@ public interface User {
     boolean isKitCooldown(Kit kit);
 
     void addKitCooldown(Kit kit, long cooldown);
+
+    Kit getKitPreview();
+
+    void openKitPreview(Kit kit);
 }

@@ -8,6 +8,7 @@ import fr.maxlego08.menu.api.utils.Placeholders;
 import fr.maxlego08.menu.button.ZButton;
 import fr.maxlego08.menu.inventory.inventories.InventoryDefault;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
@@ -22,6 +23,25 @@ public class ButtonKitCooldown extends ZButton {
         this.plugin = plugin;
         this.kitName = kitName;
     }
+
+    @Override
+    public void onClick(Player player, InventoryClickEvent event, InventoryDefault inventory, int slot, Placeholders placeholders) {
+
+        User user = this.plugin.getUser(player.getUniqueId());
+        if (user == null) return;
+
+        Optional<Kit> optional = this.plugin.getKit(this.kitName);
+        if (optional.isEmpty()) return;
+
+        Kit kit = optional.get();
+
+        if (event.getClick().isRightClick()) {
+            user.openKitPreview(kit);
+        }
+
+        super.onClick(player, event, inventory, slot, placeholders);
+    }
+
 
     @Override
     public ItemStack getCustomItemStack(Player player) {

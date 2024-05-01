@@ -29,11 +29,17 @@ public class ButtonKitGet extends ZButton {
 
         User user = this.plugin.getUser(player.getUniqueId());
         if (user == null) return;
+
         Optional<Kit> optional = this.plugin.getKit(this.kitName);
         if (optional.isEmpty()) return;
 
         Kit kit = optional.get();
-        this.plugin.giveKit(user, kit, false);
+
+        if (event.getClick().isLeftClick()) {
+            this.plugin.giveKit(user, kit, false);
+        } else if (event.getClick().isRightClick()) {
+            user.openKitPreview(kit);
+        }
 
         super.onClick(player, event, inventory, slot, placeholders);
     }
