@@ -31,6 +31,7 @@ import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.utils.StorageHelper;
 import fr.maxlego08.sarah.DatabaseConnection;
 import fr.maxlego08.sarah.MigrationManager;
+import fr.maxlego08.sarah.MySqlConnection;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
@@ -52,7 +53,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     public SqlStorage(EssentialsPlugin plugin) {
         super(plugin);
-        this.connection = new DatabaseConnection(plugin.getConfiguration().getDatabaseConfiguration());
+        this.connection = new MySqlConnection(plugin.getConfiguration().getDatabaseConfiguration());
 
         if (!this.connection.isValid()) {
             plugin.getLogger().severe("Unable to connect to database !");
