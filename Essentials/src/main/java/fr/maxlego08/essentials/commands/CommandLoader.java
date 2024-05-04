@@ -22,6 +22,8 @@ import fr.maxlego08.essentials.commands.commands.home.CommandDelHome;
 import fr.maxlego08.essentials.commands.commands.home.CommandHome;
 import fr.maxlego08.essentials.commands.commands.home.CommandSetHome;
 import fr.maxlego08.essentials.commands.commands.kits.CommandKit;
+import fr.maxlego08.essentials.commands.commands.kits.CommandKitCreate;
+import fr.maxlego08.essentials.commands.commands.kits.CommandKitEditor;
 import fr.maxlego08.essentials.commands.commands.messages.CommandMessage;
 import fr.maxlego08.essentials.commands.commands.messages.CommandMessageToggle;
 import fr.maxlego08.essentials.commands.commands.messages.CommandReply;
@@ -202,6 +204,8 @@ public class CommandLoader {
         register("seenip", CommandSeenIp.class, "whoisip");
 
         register("kit", CommandKit.class, "kits");
+        register("kiteditor", CommandKitEditor.class, "keditor");
+        register("kitcreate", CommandKitCreate.class, "kcreate");
 
         File file = new File(plugin.getDataFolder(), "commands.yml");
         if (!file.exists()) this.plugin.saveResource("commands.yml", false);

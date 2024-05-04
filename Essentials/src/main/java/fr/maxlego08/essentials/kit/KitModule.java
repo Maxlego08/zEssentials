@@ -23,9 +23,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.Permissible;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class KitModule extends ZModule {
 
@@ -91,10 +93,45 @@ public class KitModule extends ZModule {
                 return;
             }
 
-            Kit kit = new ZKit(name, cooldown, menuItemStacks);
+            Kit kit = new ZKit(name, key, cooldown, menuItemStacks);
             this.kits.add(kit);
             this.plugin.getLogger().info("Register kit: " + name);
         }
+    }
+
+    public void saveKits() {
+
+        YamlConfiguration configuration = getConfiguration();
+        File file = new File(getFolder(), "config.yml");
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
+        }
+
+        this.kits.forEach(kit -> {
+
+            String path = "kits." + kit.getName() + ".";
+            ConfigurationSection configurationSection = configuration.getConfigurationSection(path);
+            if (configurationSection != null) {
+                configurationSection.getKeys(true).forEach(key -> configurationSection.set(key, null));
+            }
+            configuration.set(path + "name", kit.getDisplayName());
+            if (kit.getCooldown() > 0) configuration.set(path + "cooldown", kit.getCooldown());
+            Loader<MenuItemStack> loader = new MenuItemStackLoader(this.plugin.getInventoryManager());
+            AtomicInteger atomicInteger = new AtomicInteger(1);
+            kit.getMenuItemStacks().forEach(menuItemStack -> loader.save(menuItemStack, configuration, path + "items.item" + atomicInteger.getAndIncrement() + ".", file));
+
+        });
+
+        try {
+            configuration.save(file);
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+
     }
 
     public List<Kit> getKits(Permissible permissible) {
@@ -153,7 +190,6 @@ public class KitModule extends ZModule {
                 });
                 message(user, Message.COMMAND_KIT_INFORMATION_MULTI_LINE_FOOTER);
             }
-
         } else {
 
             this.plugin.openInventory(user.getPlayer(), "kits");
@@ -172,9 +208,22 @@ public class KitModule extends ZModule {
             Kit kit = inventoryHolder.getKit();
             List<MenuItemStack> menuItemStacks = new ArrayList<>();
             for (ItemStack itemStack : event.getInventory().getContents()) {
-                // menuItemStacks.add(new MenuItemStack(itemStack));
+                if (itemStack != null) {
+                    menuItemStacks.add(MenuItemStack.fromItemStack(this.plugin.getInventoryManager(), itemStack));
+                }
             }
-
+            kit.setItems(menuItemStacks);
+            this.saveKits();
+            message(event.getPlayer(), Message.COMMAND_KIT_EDITOR_SAVE, "%kit%", kit.getName());
         }
+    }
+
+    public void createKit(Player player, String kitName, int cooldown) {
+
+        Kit kit = new ZKit(kitName, kitName, cooldown, new ArrayList<>());
+        kits.add(kit);
+        this.saveKits();
+
+        message(player, Message.COMMAND_KIT_CREATE, "%kit%", kit.getName());
     }
 }

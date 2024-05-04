@@ -9,11 +9,13 @@ import java.util.List;
 
 public class ZKit extends ZUtils implements Kit {
 
+    private final String displayName;
     private final String name;
     private final long cooldown;
-    private final List<MenuItemStack> menuItemStacks;
+    private List<MenuItemStack> menuItemStacks;
 
-    public ZKit(String name, long cooldown, List<MenuItemStack> menuItemStacks) {
+    public ZKit(String displayName, String name, long cooldown, List<MenuItemStack> menuItemStacks) {
+        this.displayName = displayName;
         this.name = name;
         this.cooldown = cooldown;
         this.menuItemStacks = menuItemStacks;
@@ -30,6 +32,11 @@ public class ZKit extends ZUtils implements Kit {
     }
 
     @Override
+    public String getDisplayName() {
+        return this.displayName;
+    }
+
+    @Override
     public List<MenuItemStack> getMenuItemStacks() {
         return menuItemStacks;
     }
@@ -37,5 +44,10 @@ public class ZKit extends ZUtils implements Kit {
     @Override
     public void give(Player player) {
         this.menuItemStacks.forEach(menuItemStack -> give(player, menuItemStack.build(player, false)));
+    }
+
+    @Override
+    public void setItems(List<MenuItemStack> menuItemStacks) {
+        this.menuItemStacks = menuItemStacks;
     }
 }

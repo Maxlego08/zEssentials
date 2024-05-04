@@ -9,9 +9,13 @@ public interface Kit {
 
     String getName();
 
+    String getDisplayName();
+
     long getCooldown();
 
     List<MenuItemStack> getMenuItemStacks();
 
     void give(Player player);
+
+    void setItems(List<MenuItemStack> menuItemStacks);
 }

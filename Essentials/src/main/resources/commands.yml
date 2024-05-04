@@ -91,3 +91,5 @@ killall: true
 seen: true
 seenip: true
 kit: true
+kiteditor: true
+kitcreate: true
