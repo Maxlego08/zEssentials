@@ -236,4 +236,11 @@ public class KitModule extends ZModule {
 
         message(player, Message.COMMAND_KIT_CREATE, "%kit%", kit.getName());
     }
+
+    public void deleteKit(Player player, Kit kit) {
+        kits.remove(kit);
+        this.saveKits();
+
+        message(player, Message.COMMAND_KIT_DELETE, "%kit%", kit.getName());
+    }
 }

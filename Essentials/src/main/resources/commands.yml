@@ -93,3 +93,4 @@ seenip: true
 kit: true
 kiteditor: true
 kitcreate: true
+kitdelete: true

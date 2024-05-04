@@ -201,6 +201,7 @@ public enum Message {
     DESCRIPTION_KIT("Get a kit"),
     DESCRIPTION_KIT_EDITOR("Edit a kit"),
     DESCRIPTION_KIT_CREATE("Create a new kit"),
+    DESCRIPTION_KIT_DELETE("Delete a kit"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -459,6 +460,7 @@ public enum Message {
     COMMAND_KIT_INFORMATION_MULTI_LINE_FOOTER(MessageType.WITHOUT_PREFIX, ""),
     COMMAND_KIT_EDITOR_SAVE( "<success>You have just modified the kit &f%kit%<success>."),
     COMMAND_KIT_CREATE( "<success>You just created the kit &f%kit%<success>."),
+    COMMAND_KIT_DELETE( "<success>You just deleted the kit &f%kit%<success>."),
 
     ;
 

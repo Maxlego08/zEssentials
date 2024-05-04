@@ -78,13 +78,13 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 - [x] Command /eco give, take, set,reset
 - [x] Command /pay
 
-- [ ] Command /createkit <name> <delay>
-- [ ] Command /kitreset
-- [ ] Command /deletekit
-- [ ] Command /kit (as gui or not)
+- [x] Command /createkit <name> <delay>
+- [x] Command /kiteditor
+- [x] Command /deletekit
+- [x] Command /kit (as gui or not)
 - [ ] Command /showkit <kit> (Preview kit as gui)
 
 - [x] Command /setspawn
 - [x] Command /spawn
 
-- [x] Command /cooldown (display a player’s cooldowns and add button for delete a cooldown)
+- [ ] Command /cooldown (display a player’s cooldowns and add button for delete a cooldown)
