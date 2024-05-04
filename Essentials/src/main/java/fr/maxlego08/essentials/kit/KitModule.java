@@ -9,6 +9,8 @@ import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.menu.MenuItemStack;
+import fr.maxlego08.menu.api.requirement.Action;
+import fr.maxlego08.menu.api.utils.Placeholders;
 import fr.maxlego08.menu.exceptions.InventoryException;
 import fr.maxlego08.menu.loader.MenuItemStackLoader;
 import fr.maxlego08.menu.zcore.utils.loader.Loader;
@@ -26,6 +28,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -93,7 +96,9 @@ public class KitModule extends ZModule {
                 return;
             }
 
-            Kit kit = new ZKit(name, key, cooldown, menuItemStacks);
+            List<Action> actions = this.plugin.getButtonManager().loadActions((List<Map<String, Object>>) configuration.getList(path + "actions", new ArrayList<>()), path, file);
+
+            Kit kit = new ZKit(name, key, cooldown, menuItemStacks, actions);
             this.kits.add(kit);
             this.plugin.getLogger().info("Register kit: " + name);
         }
@@ -114,12 +119,15 @@ public class KitModule extends ZModule {
         this.kits.forEach(kit -> {
 
             String path = "kits." + kit.getName() + ".";
-            ConfigurationSection configurationSection = configuration.getConfigurationSection(path);
+            ConfigurationSection configurationSection = configuration.getConfigurationSection(path + "items");
             if (configurationSection != null) {
                 configurationSection.getKeys(true).forEach(key -> configurationSection.set(key, null));
             }
             configuration.set(path + "name", kit.getDisplayName());
+
             if (kit.getCooldown() > 0) configuration.set(path + "cooldown", kit.getCooldown());
+            else configuration.set(path + "cooldown", null);
+
             Loader<MenuItemStack> loader = new MenuItemStackLoader(this.plugin.getInventoryManager());
             AtomicInteger atomicInteger = new AtomicInteger(1);
             kit.getMenuItemStacks().forEach(menuItemStack -> loader.save(menuItemStack, configuration, path + "items.item" + atomicInteger.getAndIncrement() + ".", file));
@@ -154,6 +162,8 @@ public class KitModule extends ZModule {
         if (cooldown != 0 && !bypassCooldown && !user.hasPermission(Permission.ESSENTIALS_KIT_BYPASS_COOLDOWN)) {
             user.addKitCooldown(kit, cooldown);
         }
+
+        kit.getActions().forEach(action -> action.preExecute(user.getPlayer(), null, this.plugin.getInventoryManager().getFakeInventory(), new Placeholders()));
 
         return true;
     }
@@ -220,7 +230,7 @@ public class KitModule extends ZModule {
 
     public void createKit(Player player, String kitName, int cooldown) {
 
-        Kit kit = new ZKit(kitName, kitName, cooldown, new ArrayList<>());
+        Kit kit = new ZKit(kitName, kitName, cooldown, new ArrayList<>(), new ArrayList<>());
         kits.add(kit);
         this.saveKits();
 
