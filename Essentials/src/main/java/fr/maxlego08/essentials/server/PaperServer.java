@@ -105,4 +105,9 @@ public class PaperServer extends ZUtils implements EssentialsServer {
         PrivateMessage privateMessageReply = targetUser.setPrivateMessage(user.getUniqueId(), user.getName());
         this.plugin.getUtils().sendPrivateMessage(targetUser, privateMessageReply, Message.COMMAND_MESSAGE_OTHER, message);
     }
+
+    @Override
+    public void deleteCooldown(UUID uniqueId, String cooldownName) {
+        this.plugin.getUtils().deleteCooldown(uniqueId, cooldownName);
+    }
 }

@@ -88,4 +88,11 @@ public abstract class BaseServer extends ZUtils implements EssentialsUtils {
             }
         });
     }
+
+    @Override
+    public void deleteCooldown(UUID uniqueId, String cooldownName) {
+        User user = this.plugin.getUser(uniqueId);
+        if (user == null) return;
+        user.removeCooldown(cooldownName);
+    }
 }

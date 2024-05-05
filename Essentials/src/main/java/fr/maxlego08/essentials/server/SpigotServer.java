@@ -4,6 +4,7 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.server.EssentialsServer;
+import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.PrivateMessage;
 import fr.maxlego08.essentials.api.user.User;
@@ -81,6 +82,16 @@ public class SpigotServer implements EssentialsServer {
 
     @Override
     public void sendPrivateMessage(User user, PrivateMessage privateMessage, String message) {
+        IStorage iStorage = this.plugin.getStorageManager().getStorage();
+        User targetUser = iStorage.getUser(privateMessage.uuid());
+        if (targetUser == null) return;
 
+        PrivateMessage privateMessageReply = targetUser.setPrivateMessage(user.getUniqueId(), user.getName());
+        this.plugin.getUtils().sendPrivateMessage(targetUser, privateMessageReply, Message.COMMAND_MESSAGE_OTHER, message);
+    }
+
+    @Override
+    public void deleteCooldown(UUID uniqueId, String cooldownName) {
+        this.plugin.getUtils().deleteCooldown(uniqueId, cooldownName);
     }
 }

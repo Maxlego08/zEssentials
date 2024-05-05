@@ -616,6 +616,11 @@ public class ZUser extends ZUtils implements User {
     }
 
     @Override
+    public void removeCooldown(String cooldownName) {
+        this.cooldowns.remove(cooldownName);
+    }
+
+    @Override
     public Kit getKitPreview() {
         return this.previewKit;
     }

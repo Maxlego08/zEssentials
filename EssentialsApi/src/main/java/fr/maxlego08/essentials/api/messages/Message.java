@@ -202,6 +202,8 @@ public enum Message {
     DESCRIPTION_KIT_CREATE("Create a new kit"),
     DESCRIPTION_KIT_DELETE("Delete a kit"),
     DESCRIPTION_COOLDOWN("Display a player’s cooldowns"),
+    DESCRIPTION_COOLDOWN_DELETE("Delete a cooldown"),
+    DESCRIPTION_COOLDOWN_CREATE("Create a cooldown"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -463,8 +465,10 @@ public enum Message {
     COMMAND_KIT_DELETE("<success>You just deleted the kit &f%kit%<success>."),
 
     COMMAND_COOLDOWN_HEADER("&fPlayer cooldown %player% &8(&7%amount%&8)"),
-    COMMAND_COOLDOWN_EMPTY("&f%player% &chas no cooldown."),
+    COMMAND_COOLDOWN_EMPTY("&f%player% <error>has no cooldown."),
     COMMAND_COOLDOWN_LINE(MessageType.WITHOUT_PREFIX, "&f%key% <secondary>- &7%createdAt% <secondary>- <success>%timeLeft% <secondary>- <hover:show_text:'&fClick to remove the cooldown'><click:run_command:'/cooldown delete %player% %key%'>&8[<error>ᴅᴇʟᴇᴛᴇ&8]</click></hover>"),
+    COMMAND_COOLDOWN_NOT_FOUND("&f%cooldown% <error>was not found."),
+    COMMAND_COOLDOWN_DELETE("<success>You just removed the cooldown &f%cooldown% <success>from &n%player%&r<success>."),
 
     ;
 

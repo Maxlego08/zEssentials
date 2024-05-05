@@ -38,6 +38,8 @@ public interface IStorage {
 
     void updateEconomy(UUID uniqueId, Economy economy, BigDecimal bigDecimal);
 
+    void deleteCooldown(UUID uniqueId, String key);
+
     void updateUserMoney(UUID uniqueId, Consumer<User> consumer);
 
     void getUserEconomy(String userName, Consumer<List<EconomyDTO>> consumer);

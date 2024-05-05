@@ -9,6 +9,7 @@ import fr.maxlego08.essentials.api.server.RedisConfiguration;
 import fr.maxlego08.essentials.api.server.ServerMessageType;
 import fr.maxlego08.essentials.api.server.messages.ChatClear;
 import fr.maxlego08.essentials.api.server.messages.ChatToggle;
+import fr.maxlego08.essentials.api.server.messages.ClearCooldown;
 import fr.maxlego08.essentials.api.server.messages.KickMessage;
 import fr.maxlego08.essentials.api.server.messages.ServerMessage;
 import fr.maxlego08.essentials.api.server.messages.ServerPrivateMessage;
@@ -20,6 +21,7 @@ import fr.maxlego08.essentials.api.utils.EssentialsUtils;
 import fr.maxlego08.essentials.api.utils.PlayerCache;
 import fr.maxlego08.essentials.server.redis.listener.ChatClearListener;
 import fr.maxlego08.essentials.server.redis.listener.ChatToggleListener;
+import fr.maxlego08.essentials.server.redis.listener.ClearCooldownListener;
 import fr.maxlego08.essentials.server.redis.listener.KickListener;
 import fr.maxlego08.essentials.server.redis.listener.MessageListener;
 import fr.maxlego08.essentials.server.redis.listener.PrivateMessageListener;
@@ -92,6 +94,7 @@ public class RedisServer implements EssentialsServer, Listener {
         this.redisSubscriberRunnable.registerListener(ChatClear.class, new ChatClearListener(this));
         this.redisSubscriberRunnable.registerListener(ChatToggle.class, new ChatToggleListener(this.utils));
         this.redisSubscriberRunnable.registerListener(ServerPrivateMessage.class, new PrivateMessageListener(this.plugin));
+        this.redisSubscriberRunnable.registerListener(ClearCooldown.class, new ClearCooldownListener(this.utils));
     }
 
     @Override
@@ -181,6 +184,12 @@ public class RedisServer implements EssentialsServer, Listener {
     public void toggleChat(boolean value) {
         this.utils.toggleChat(value);
         sendMessage(new ChatToggle(value));
+    }
+
+    @Override
+    public void deleteCooldown(UUID uniqueId, String cooldownName) {
+        this.utils.deleteCooldown(uniqueId, cooldownName);
+        sendMessage(new ClearCooldown(uniqueId, cooldownName));
     }
 
     public void clearLocalChat() {

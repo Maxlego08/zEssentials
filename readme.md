@@ -4,8 +4,8 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 
 # ToDo
 
-- [x] Command /sethome <name> (limit by grade/permission)
-- [x] Command /delhome <name>
+- [x] Command `/sethome <name>` (limit by grade/permission)
+- [x] Command `/delhome <name>`
 - [x] Command /home (as gui or not)
 
 - [ ] Command /tpall
@@ -78,13 +78,15 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 - [x] Command /eco give, take, set,reset
 - [x] Command /pay
 
-- [x] Command /createkit <name> <delay>
+- [x] Command /`createkit <name> <delay>`
 - [x] Command /kiteditor
 - [x] Command /deletekit
 - [x] Command /kit (as gui or not)
-- [ ] Command /showkit <kit> (Preview kit as gui)
+- [ ] Command `/showkit <kit>` (Preview kit as gui)
 
 - [x] Command /setspawn
 - [x] Command /spawn
 
-- [ ] Command /cooldown (display a player’s cooldowns and add button for delete a cooldown)
+- [x] Command /cooldown (display a player’s cooldowns and add button for delete a cooldown)
+- [ ] Command `/cooldown delete <player> <name>`
+- [ ] Command `/cooldown create <player> <name> <cooldown>`

@@ -36,4 +36,6 @@ public interface EssentialsServer {
     void broadcast(String message);
 
     void sendPrivateMessage(User user, PrivateMessage privateMessage, String message);
+
+    void deleteCooldown(UUID uniqueId, String cooldownName);
 }

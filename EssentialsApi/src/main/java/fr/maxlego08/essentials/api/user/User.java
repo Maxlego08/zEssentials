@@ -514,4 +514,6 @@ public interface User {
     Kit getKitPreview();
 
     void openKitPreview(Kit kit);
+
+    void removeCooldown(String cooldownName);
 }

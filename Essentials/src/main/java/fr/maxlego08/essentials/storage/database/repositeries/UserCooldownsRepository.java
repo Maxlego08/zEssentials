@@ -29,4 +29,8 @@ public class UserCooldownsRepository extends Repository {
     public void deleteExpiredCooldowns() {
         delete(table -> table.where("cooldown_value", "<", System.currentTimeMillis()));
     }
+
+    public void delete(UUID uniqueId, String key) {
+        delete(table -> table.where("cooldown_name", key).where("unique_id", uniqueId.toString()));
+    }
 }

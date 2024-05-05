@@ -132,6 +132,11 @@ public class JsonStorage extends StorageHelper implements IStorage {
     }
 
     @Override
+    public void deleteCooldown(UUID uniqueId, String key) {
+        this.saveFileAsync(uniqueId);
+    }
+
+    @Override
     public void updateUserMoney(UUID uniqueId, Consumer<User> consumer) {
         User loadUser = createOrLoad(uniqueId, "offline");
         consumer.accept(loadUser);

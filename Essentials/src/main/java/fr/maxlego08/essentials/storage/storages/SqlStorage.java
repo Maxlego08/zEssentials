@@ -160,6 +160,11 @@ public class SqlStorage extends StorageHelper implements IStorage {
     }
 
     @Override
+    public void deleteCooldown(UUID uniqueId, String key) {
+        async(() -> this.repositories.getTable(UserCooldownsRepository.class).delete(uniqueId, key));
+    }
+
+    @Override
     public void updateEconomy(UUID uniqueId, Economy economy, BigDecimal bigDecimal) {
         async(() -> this.repositories.getTable(UserEconomyRepository.class).upsert(uniqueId, economy, bigDecimal));
     }

@@ -6,20 +6,19 @@ import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.storage.IStorage;
-import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 import org.bukkit.command.CommandSender;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class CommandCooldown extends VCommand {
-    public CommandCooldown(EssentialsPlugin plugin) {
+public class CommandCooldownDelete extends VCommand {
+    public CommandCooldownDelete(EssentialsPlugin plugin) {
         super(plugin);
-        this.setPermission(Permission.ESSENTIALS_COOLDOWN);
-        this.setDescription(Message.DESCRIPTION_COOLDOWN);
+        this.setPermission(Permission.ESSENTIALS_COOLDOWN_DELETE);
+        this.setDescription(Message.DESCRIPTION_COOLDOWN_DELETE);
+        this.addSubCommand("delete");
         this.addRequireArg("player");
-        this.addSubCommand(new CommandCooldownDelete(plugin));
+        this.addRequireArg("cooldown");
     }
 
     @Override
@@ -27,6 +26,7 @@ public class CommandCooldown extends VCommand {
 
         CommandSender sender = this.sender;
         String userName = this.argAsString(0);
+        String cooldownName = this.argAsString(1);
 
         fetchUniqueId(userName, uniqueId -> {
 
@@ -38,13 +38,14 @@ public class CommandCooldown extends VCommand {
                 return;
             }
 
-            SimpleDateFormat simpleDateFormat = plugin.getConfiguration().getGlobalDateFormat();
-            message(sender, Message.COMMAND_COOLDOWN_HEADER, "%player%", userName, "%amount%", cooldownDTOS.size());
-            cooldownDTOS.forEach(cooldownDTO -> {
-                long ms = cooldownDTO.cooldown_value() - System.currentTimeMillis();
-                message(sender, Message.COMMAND_COOLDOWN_LINE, "%key%", cooldownDTO.cooldown_name(), "%value%", cooldownDTO.cooldown_value(),
-                        "%createdAt%", simpleDateFormat.format(cooldownDTO.created_at()), "%timeLeft%", TimerBuilder.getStringTime(ms), "%player%", userName);
-            });
+            if (cooldownDTOS.stream().noneMatch(dto -> dto.cooldown_name().equalsIgnoreCase(cooldownName))) {
+                message(sender, Message.COMMAND_COOLDOWN_NOT_FOUND, "%cooldown%", cooldownName);
+                return;
+            }
+
+            iStorage.deleteCooldown(uniqueId, cooldownName);
+            plugin.getEssentialsServer().deleteCooldown(uniqueId, cooldownName);
+            message(sender, Message.COMMAND_COOLDOWN_DELETE, "%cooldown%", cooldownName, "%player%", userName);
         });
 
         return CommandResultType.SUCCESS;

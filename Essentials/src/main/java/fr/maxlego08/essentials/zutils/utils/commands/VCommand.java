@@ -11,7 +11,6 @@ import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.modules.Module;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -245,16 +244,23 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
     }
 
     private String generateDefaultSyntax(String syntax) {
-        boolean update = syntax.isEmpty();
+
+        if (this.subCommands.isEmpty()) {
+            this.plugin.getLogger().severe("Command " + this.getClass().getName() + " doesnt have command !");
+            return "ERROR !";
+        }
+
+        boolean update = this.syntax == null || this.syntax.isEmpty();
 
         StringBuilder syntaxBuilder = new StringBuilder();
         if (update) {
             appendRequiredArguments(syntaxBuilder);
             appendOptionalArguments(syntaxBuilder);
-            syntax = syntaxBuilder.toString();
+            this.syntax = syntaxBuilder.toString();
         }
-        String tmpString = subCommands.get(0) + syntax;
-        return parent == null ? "/" + tmpString : parent.generateDefaultSyntax(" " + tmpString);
+
+        String tmpString = this.subCommands.get(0) + syntax;
+        return this.parent == null ? "/" + tmpString : this.parent.generateDefaultSyntax(" " + tmpString);
     }
 
     private void appendRequiredArguments(StringBuilder syntaxBuilder) {

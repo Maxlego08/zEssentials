@@ -92,4 +92,6 @@ public interface EssentialsUtils {
     void sendPrivateMessage(User user, PrivateMessage privateMessage, Message message, String content);
 
     void broadcast(Option option, Message message, Object... objects);
+
+    void deleteCooldown(UUID uniqueId, String cooldownName);
 }
