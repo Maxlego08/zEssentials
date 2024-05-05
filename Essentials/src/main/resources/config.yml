@@ -147,3 +147,6 @@ near-permissions:
     distance: 100.0
   - permission: "essentials.near.staff"
     distance: 200.0
+
+# Date format that will be used if no other format is available
+global-date-format: "yyyy-MM-dd HH:mm:ss"

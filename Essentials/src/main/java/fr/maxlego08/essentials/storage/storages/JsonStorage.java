@@ -2,6 +2,7 @@ package fr.maxlego08.essentials.storage.storages;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.database.dto.ChatMessageDTO;
+import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.HomeDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
@@ -308,5 +309,10 @@ public class JsonStorage extends StorageHelper implements IStorage {
             return this.users.get(uuid).getOptions();
         }
         return new HashMap<>();
+    }
+
+    @Override
+    public List<CooldownDTO> getCooldowns(UUID uniqueId) {
+        return new ArrayList<>();
     }
 }

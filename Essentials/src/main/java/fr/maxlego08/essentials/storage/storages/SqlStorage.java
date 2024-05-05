@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.storage.storages;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.database.dto.ChatMessageDTO;
 import fr.maxlego08.essentials.api.database.dto.CommandDTO;
+import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.OptionDTO;
 import fr.maxlego08.essentials.api.database.dto.PlayTimeDTO;
@@ -357,5 +358,10 @@ public class SqlStorage extends StorageHelper implements IStorage {
             return this.users.get(uuid).getOptions();
         }
         return this.repositories.getTable(UserOptionRepository.class).selectOptions(uuid).stream().collect(Collectors.toMap(OptionDTO::option_name, OptionDTO::option_value));
+    }
+
+    @Override
+    public List<CooldownDTO> getCooldowns(UUID uniqueId) {
+        return this.repositories.getTable(UserCooldownsRepository.class).selectCooldowns(uniqueId);
     }
 }

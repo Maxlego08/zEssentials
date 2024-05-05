@@ -17,6 +17,7 @@ import org.bukkit.Location;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -150,7 +151,7 @@ public class UserTypeAdapter extends TypeAdapter<User> {
         // Now, set the other properties
         user.setName(name);
         user.setOptions(options.entrySet().stream().map(entry -> new OptionDTO(entry.getKey(), entry.getValue())).collect(Collectors.toList()));
-        user.setCooldowns(cooldowns.entrySet().stream().map(entry -> new CooldownDTO(entry.getKey(), entry.getValue())).collect(Collectors.toList()));
+        user.setCooldowns(cooldowns.entrySet().stream().map(entry -> new CooldownDTO(entry.getKey(), entry.getValue(), new Date())).collect(Collectors.toList()));
         user.setLastLocation(lastLocation);
         user.setHomes(homeDTOS);
         balances.forEach(user::setBalance);

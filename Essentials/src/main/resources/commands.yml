@@ -94,3 +94,4 @@ kit: true
 kiteditor: true
 kitcreate: true
 kitdelete: true
+cooldown: true

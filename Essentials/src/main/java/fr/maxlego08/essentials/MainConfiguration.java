@@ -14,6 +14,7 @@ import fr.maxlego08.sarah.DatabaseConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.permissions.Permissible;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -33,11 +34,13 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     private boolean enableCooldownBypass;
     private boolean enableCommandLog;
     private int trashSize;
+    private String globalDateFormat;
     private DatabaseConfiguration databaseConfiguration;
     private ServerType serverType;
     private RedisConfiguration redisConfiguration;
     private double nearDistance;
     private final List<NearDistance> nearPermissions = new ArrayList<>();
+    private SimpleDateFormat simpleDateFormat;
 
     public MainConfiguration(ZEssentialsPlugin plugin) {
         this.plugin = plugin;
@@ -72,6 +75,7 @@ public class MainConfiguration extends YamlLoader implements Configuration {
         this.loadYamlConfirmation(configuration);
 
         this.cooldownCommands = this.cooldowns.stream().flatMapToLong(cooldown -> LongStream.of(cooldown.cooldown(), cooldown.messages())).toArray();
+        this.simpleDateFormat = new SimpleDateFormat(this.globalDateFormat);
     }
 
     @Override
@@ -142,5 +146,10 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     @Override
     public boolean isEnableCommandLog() {
         return this.enableCommandLog;
+    }
+
+    @Override
+    public SimpleDateFormat getGlobalDateFormat() {
+        return this.simpleDateFormat;
     }
 }

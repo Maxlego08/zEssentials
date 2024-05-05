@@ -8,6 +8,7 @@ import fr.maxlego08.essentials.commands.commands.chat.CommandChatClear;
 import fr.maxlego08.essentials.commands.commands.chat.CommandChatDisable;
 import fr.maxlego08.essentials.commands.commands.chat.CommandChatEnable;
 import fr.maxlego08.essentials.commands.commands.chat.CommandChatHistory;
+import fr.maxlego08.essentials.commands.commands.cooldown.CommandCooldown;
 import fr.maxlego08.essentials.commands.commands.economy.CommandEconomy;
 import fr.maxlego08.essentials.commands.commands.economy.CommandMoney;
 import fr.maxlego08.essentials.commands.commands.economy.CommandPay;
@@ -208,6 +209,8 @@ public class CommandLoader {
         register("kiteditor", CommandKitEditor.class, "keditor");
         register("kitcreate", CommandKitCreate.class, "kcreate");
         register("kitdelete", CommandKitDelete.class, "delete");
+
+        register("cooldown", CommandCooldown.class);
 
         File file = new File(plugin.getDataFolder(), "commands.yml");
         if (!file.exists()) this.plugin.saveResource("commands.yml", false);

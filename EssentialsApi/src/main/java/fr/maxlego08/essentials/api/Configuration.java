@@ -11,6 +11,7 @@ import fr.maxlego08.essentials.api.utils.TransformMaterial;
 import fr.maxlego08.sarah.DatabaseConfiguration;
 import org.bukkit.permissions.Permissible;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -111,4 +112,6 @@ public interface Configuration extends ConfigurationFile {
     double getNearDistance(Permissible permissible);
 
     boolean isEnableCommandLog();
+
+    SimpleDateFormat getGlobalDateFormat();
 }

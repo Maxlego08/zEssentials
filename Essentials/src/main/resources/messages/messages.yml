@@ -525,3 +525,33 @@ command-message-toggle-enable: "&7Private message <success>enable &7for &f%playe
 command-message-toggle-disable: "&7Private message <error>disable &7for &f%player%<success>."
 command-social-spy-enable: "&7Social spy <success>enable &7for &f%player%<success>."
 command-social-spy-disable: "&7Social spy <error>disable &7for &f%player%<success>."
+
+
+# Kit
+command-kit-not-found: "<error>Unable to find the kit &f%kit%<error>."
+command-kit-already-exists: "<error>The &f%kit% <error>kit already exists."
+command-kit-information-in-line-empty: "#8cc0ccʏᴏᴜʀ ᴋɪᴛs <success>♦ &7(%count%/%max%)&8: <error>ɴᴏ ᴋɪᴛ ᴀᴠᴀɪʟᴀʙʟᴇ"
+command-kit-information-in-line: "#8cc0ccʏᴏᴜʀ ᴋɪᴛs&8:&f%kits%"
+command-kit-information-in-line-info-available: " <hover:show_text:'&7Click to get the kit &f&n%name%'><click:run_command:'/kit %name%'><#1fde65>%name%</click></hover>&7"
+command-kit-information-in-line-info-unavailable: " <hover:show_text:'&7You must wait <u>%time%</u> before getting the kit &f&n%name%'><st><#de1f1f>%name%</st></hover>&7"
+command-kit-information-multi-line-header: ""
+command-kit-information-multi-line-content-available: "<#8cc0cc>♢ <hover:show_text:'&7Click to get the kit &f&n%name%'><click:run_command:'/kit %name%'><#1fde65>%name% </click></hover>"
+command-kit-information-multi-line-content-unavailable: "<#8cc0cc>♢ <hover:show_text:'&7You must wait <u>%time%</u> before getting the kit &f&n%name%'><st><#de1f1f>%name%</st></hover> &8(&7%time%&8)"
+command-kit-information-multi-line-footer: ""
+command-kit-editor-save: "<success>You have just modified the kit &f%kit%<success>."
+command-kit-create: "<success>You just created the kit &f%kit%<success>."
+command-kit-delete: "<success>You just deleted the kit &f%kit%<success>."
+
+
+# Cooldown
+command-cooldown-header: "&fPlayer cooldown %player% &8(&7%amount%&8)"
+command-cooldown-empty: "&f%player% &chas no cooldown."
+# Available placeholders:
+# %key% - The key to the cooldown
+# %value% - The cooldown expiration timestamp
+# %timeLeft% - The time remaining before cooldown expiration
+# %createdAt% - Cooldown creation date
+# %player% - the Player's nickname
+command-cooldown-line:
+  type: WITHOUT_PREFIX
+  message: "&f%key% <secondary>- &7%createdAt% <secondary>- <success>%timeLeft% <secondary>- <hover:show_text:'&fClick to remove the cooldown'><click:run_command:'/cooldown delete %player% %key%'>&8[<error>ᴅᴇʟᴇᴛᴇ&8]</click></hover>"

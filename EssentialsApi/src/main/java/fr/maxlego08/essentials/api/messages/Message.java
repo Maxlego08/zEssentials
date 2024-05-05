@@ -3,7 +3,6 @@ package fr.maxlego08.essentials.api.messages;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 public enum Message {
 
@@ -202,6 +201,7 @@ public enum Message {
     DESCRIPTION_KIT_EDITOR("Edit a kit"),
     DESCRIPTION_KIT_CREATE("Create a new kit"),
     DESCRIPTION_KIT_DELETE("Delete a kit"),
+    DESCRIPTION_COOLDOWN("Display a player’s cooldowns"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -445,7 +445,7 @@ public enum Message {
     COMMAND_SEEN_IP_INFO(" <white><click:run_command:'/seen %name%'><hover:show_text:'&fShow player's information'>%name%</hover></click><dark_gray>"),
 
     COMMAND_KIT_NOT_FOUND("<error>Unable to find the kit &f%kit%<error>."),
-    COMMAND_KIT_ALREADY_EXIT("<error>The &f%kit% <error>kit already exists."),
+    COMMAND_KIT_ALREADY_EXISTS("<error>The &f%kit% <error>kit already exists."),
     COMMAND_KIT_INFORMATION_IN_LINE_EMPTY(MessageType.WITHOUT_PREFIX, "#8cc0ccʏᴏᴜʀ ᴋɪᴛs <success>♦ &7(%count%/%max%)&8: <error>ɴᴏ ᴋɪᴛ ᴀᴠᴀɪʟᴀʙʟᴇ"),
     COMMAND_KIT_INFORMATION_IN_LINE(MessageType.WITHOUT_PREFIX, "#8cc0ccʏᴏᴜʀ ᴋɪᴛs&8:&f%kits%"),
     COMMAND_KIT_INFORMATION_IN_LINE_INFO_AVAILABLE(" <hover:show_text:'&7Click to get the kit &f&n%name%'><click:run_command:'/kit %name%'><#1fde65>%name%</click></hover>&7"),
@@ -458,9 +458,13 @@ public enum Message {
     COMMAND_KIT_INFORMATION_MULTI_LINE_CONTENT_AVAILABLE(MessageType.WITHOUT_PREFIX, "<#8cc0cc>♢ <hover:show_text:'&7Click to get the kit &f&n%name%'><click:run_command:'/kit %name%'><#1fde65>%name% </click></hover>"),
     COMMAND_KIT_INFORMATION_MULTI_LINE_CONTENT_UNAVAILABLE(MessageType.WITHOUT_PREFIX, "<#8cc0cc>♢ <hover:show_text:'&7You must wait <u>%time%</u> before getting the kit &f&n%name%'><st><#de1f1f>%name%</st></hover> &8(&7%time%&8)"),
     COMMAND_KIT_INFORMATION_MULTI_LINE_FOOTER(MessageType.WITHOUT_PREFIX, ""),
-    COMMAND_KIT_EDITOR_SAVE( "<success>You have just modified the kit &f%kit%<success>."),
-    COMMAND_KIT_CREATE( "<success>You just created the kit &f%kit%<success>."),
-    COMMAND_KIT_DELETE( "<success>You just deleted the kit &f%kit%<success>."),
+    COMMAND_KIT_EDITOR_SAVE("<success>You have just modified the kit &f%kit%<success>."),
+    COMMAND_KIT_CREATE("<success>You just created the kit &f%kit%<success>."),
+    COMMAND_KIT_DELETE("<success>You just deleted the kit &f%kit%<success>."),
+
+    COMMAND_COOLDOWN_HEADER("&fPlayer cooldown %player% &8(&7%amount%&8)"),
+    COMMAND_COOLDOWN_EMPTY("&f%player% &chas no cooldown."),
+    COMMAND_COOLDOWN_LINE(MessageType.WITHOUT_PREFIX, "&f%key% <secondary>- &7%createdAt% <secondary>- <success>%timeLeft% <secondary>- <hover:show_text:'&fClick to remove the cooldown'><click:run_command:'/cooldown delete %player% %key%'>&8[<error>ᴅᴇʟᴇᴛᴇ&8]</click></hover>"),
 
     ;
 

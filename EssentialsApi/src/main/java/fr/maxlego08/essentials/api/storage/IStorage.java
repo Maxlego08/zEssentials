@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.api.storage;
 
 import fr.maxlego08.essentials.api.database.dto.ChatMessageDTO;
+import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.database.dto.UserDTO;
@@ -88,4 +89,6 @@ public interface IStorage {
     UserRecord fetchUserRecord(UUID uuid);
 
     List<UserDTO> getUsers(String ip);
+
+    List<CooldownDTO> getCooldowns(UUID uniqueId);
 }

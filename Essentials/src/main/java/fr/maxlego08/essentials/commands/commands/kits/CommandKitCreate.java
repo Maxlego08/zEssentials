@@ -30,7 +30,7 @@ public class CommandKitCreate extends VCommand {
 
         Optional<Kit> optional = kitModule.getKit(kitName);
         if (optional.isPresent()) {
-            message(sender, Message.COMMAND_KIT_ALREADY_EXIT, "%kit%", kitName);
+            message(sender, Message.COMMAND_KIT_ALREADY_EXISTS, "%kit%", kitName);
             return CommandResultType.DEFAULT;
         }
 
