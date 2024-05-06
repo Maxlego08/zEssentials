@@ -1,7 +1,6 @@
 package fr.maxlego08.essentials.user.placeholders;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
-import fr.maxlego08.essentials.api.economy.EconomyProvider;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.placeholders.PlaceholderRegister;
 import fr.maxlego08.essentials.api.storage.IStorage;
@@ -26,7 +25,7 @@ public class UserHomePlaceholders extends ZUtils implements PlaceholderRegister 
 
         // Check if home exist
         placeholder.register("home_exist_", (player, homeName) -> Optional.ofNullable(iStorage.getUser(player.getUniqueId()))
-                .map(user -> String.valueOf(user.isHomeName(homeName))).orElse("false"), "Returns true if home exists, otherwise false");
+                .map(user -> String.valueOf(user.isHomeName(homeName))).orElse("false"), "Returns true if home exists, otherwise false", "home name");
 
     }
 }

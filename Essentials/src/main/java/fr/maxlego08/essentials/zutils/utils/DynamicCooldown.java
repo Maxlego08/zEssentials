@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class DynamicCooldown {
 
-    private long[] samples;
+    private long[] samples = new long[50];
     private final Map<UUID, Integer> latestSamplePos = new HashMap<>();
 
     public void setSamples(int maxSamples) {

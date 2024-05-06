@@ -3,12 +3,15 @@ package fr.maxlego08.essentials.api;
 import fr.maxlego08.essentials.api.commands.CommandCooldown;
 import fr.maxlego08.essentials.api.server.RedisConfiguration;
 import fr.maxlego08.essentials.api.server.ServerType;
-import fr.maxlego08.essentials.api.storage.DatabaseConfiguration;
 import fr.maxlego08.essentials.api.storage.StorageType;
-import fr.maxlego08.essentials.api.utils.CompactMaterial;
+import fr.maxlego08.essentials.api.utils.ChatCooldown;
 import fr.maxlego08.essentials.api.utils.MessageColor;
+import fr.maxlego08.essentials.api.utils.NearDistance;
+import fr.maxlego08.essentials.api.utils.TransformMaterial;
+import fr.maxlego08.sarah.DatabaseConfiguration;
 import org.bukkit.permissions.Permissible;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,7 +67,7 @@ public interface Configuration extends ConfigurationFile {
      *
      * @return The list of CompactMaterial objects representing compact material configurations.
      */
-    List<CompactMaterial> getCompactMaterials();
+    List<TransformMaterial> getCompactMaterials();
 
     /**
      * Gets the storage type configured in the plugin.
@@ -96,4 +99,19 @@ public interface Configuration extends ConfigurationFile {
 
     List<MessageColor> getMessageColors();
 
+    List<ChatCooldown> getCooldowns();
+
+    long[] getCooldownCommands();
+
+    List<TransformMaterial> getSmeltableMaterials();
+
+    double getDefaultNearDistance();
+
+    List<NearDistance> getNearPermissions();
+
+    double getNearDistance(Permissible permissible);
+
+    boolean isEnableCommandLog();
+
+    SimpleDateFormat getGlobalDateFormat();
 }

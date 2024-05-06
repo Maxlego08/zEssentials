@@ -11,6 +11,7 @@ import redis.clients.jedis.JedisPubSub;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class RedisSubscriberRunnable implements Runnable {
 
@@ -44,6 +45,8 @@ public class RedisSubscriberRunnable implements Runnable {
 
                     plugin.debug("Receive: " + message + " from " + channel);
 
+                    if (!Objects.equals(channel, messagesChannel)) return;
+
                     RedisMessage<?> redisMessage = gson.fromJson(message, RedisMessage.class);
                     if (redisMessage == null) {
                         plugin.getLogger().severe("Server instance not found ! Message: " + message);
@@ -53,10 +56,16 @@ public class RedisSubscriberRunnable implements Runnable {
                     if (redisMessage.serverId().equals(server.getInstanceId())) return;
 
                     Map<?, ?> map = (Map<?, ?>) redisMessage.t();
+
+                    plugin.debug("Map: " + map);
+
                     try {
                         Class<?> messageClass = Class.forName(redisMessage.className());
                         RedisListener<?> listener = getListener(messageClass);
                         Object result = plugin.getUtils().createInstanceFromMap(messageClass.getConstructors()[0], map);
+                        plugin.debug("MessageClass: " + messageClass);
+                        plugin.debug("Listener: " + listener);
+                        plugin.debug("Result: " + result);
 
                         if (listener != null) {
                             listener.message(result);

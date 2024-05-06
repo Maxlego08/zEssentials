@@ -11,6 +11,7 @@ public class CommandChatHistory extends VCommand {
 
     public CommandChatHistory(EssentialsPlugin plugin) {
         super(plugin);
+        this.setModule(ChatModule.class);
         this.setPermission(Permission.ESSENTIALS_CHAT_HISTORY);
         this.setDescription(Message.DESCRIPTION_CHAT_HISTORY);
         this.addRequirePlayerNameArg();

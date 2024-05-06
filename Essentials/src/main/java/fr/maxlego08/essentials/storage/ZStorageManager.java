@@ -6,13 +6,16 @@ import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.storage.StorageManager;
 import fr.maxlego08.essentials.api.storage.StorageType;
+import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.storage.storages.JsonStorage;
 import fr.maxlego08.essentials.storage.storages.SqlStorage;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
+import org.bukkit.event.player.PlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.time.Duration;
@@ -55,26 +58,27 @@ public class ZStorageManager extends ZUtils implements StorageManager {
         return this.plugin.getStorageManager().getType();
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onLogin(AsyncPlayerPreLoginEvent event) {
 
+        PlayerPreLoginEvent.Result result = event.getResult();
+        if (result != PlayerPreLoginEvent.Result.ALLOWED) return;
+
         UUID playerUuid = event.getUniqueId();
-        String playerName = event.getPlayerProfile().getName();
+        String playerName = event.getName();
 
         if (this.iStorage.isBan(playerUuid)) {
             Sanction sanction = this.iStorage.getBan(playerUuid);
             Duration duration = sanction.getDurationRemaining();
-            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, getComponentMessage(Message.MESSAGE_BAN_JOIN,
-                    "%reason%", sanction.getReason(),
-                    "%remaining%", TimerBuilder.getStringTime(duration.toMillis())
-            ));
+            this.plugin.getUtils().disallow(event, AsyncPlayerPreLoginEvent.Result.KICK_BANNED, Message.MESSAGE_BAN_JOIN, "%reason%", sanction.getReason(), "%remaining%", TimerBuilder.getStringTime(duration.toMillis()));
             return;
         }
 
-        this.iStorage.createOrLoad(playerUuid, playerName);
+        User user = this.iStorage.createOrLoad(playerUuid, playerName);
+        user.setAddress(event.getAddress().getHostAddress());
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onDisconnect(PlayerQuitEvent event) {
         this.iStorage.onPlayerQuit(event.getPlayer().getUniqueId());
     }

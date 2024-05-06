@@ -8,7 +8,7 @@ public enum Message {
 
     // Rework message for a better system
 
-    PREFIX("&8(&6zEssentials&8) "),
+    PREFIX("<primary>zEssentials <secondary>• "),
     CONSOLE("Console"),
     EXPIRED("Expired"),
     PLAYER_NOT_FOUND("&f%player% <error>was not found."),
@@ -31,55 +31,57 @@ public enum Message {
     FORMAT_DAY("d"),
     FORMAT_DAYS("days"),
 
-    COMMAND_SYNTAX_ERROR("&cYou must execute the command like this&7: &a%syntax%"),
-    COMMAND_NO_PERMISSION("&cYou do not have permission to run this command."),
-    COMMAND_NO_CONSOLE("&cOnly one player can execute this command."),
-    COMMAND_NO_ARG("&cImpossible to find the command with its arguments."),
+    COMMAND_SYNTAX_ERROR("<error>You must execute the command like this&7: <success>%syntax%"),
+    COMMAND_NO_PERMISSION("<error>You do not have permission to run this command."),
+    COMMAND_NO_CONSOLE("<error>Only one player can execute this command."),
+    COMMAND_NO_ARG("<error>Impossible to find the command with its arguments."),
     COMMAND_SYNTAXE_HELP("&f%syntax% &7» &7%description%"),
 
-    COMMAND_RELOAD("&aYou have just reloaded the configuration files."),
+    COMMAND_RELOAD("<success>You have just reloaded the configuration files."),
     COMMAND_ESSENTIALS("zEssentials, version %version%"),
     COMMAND_GAMEMODE("&fSet game mode&e %gamemode% &ffor &b%player%&f."),
-    COMMAND_GAMEMODE_INVALID("&cYou need to specify a valid player."),
-    COMMAND_DAY("&fYou have just brought &edaylight&f into the world &a%world%&f."),
-    COMMAND_NIGHT("&fYou have just brought &enightfall&f into the world &a%world%&f."),
-    COMMAND_SUN("&fYou have just brought the &esun&f into the world &a%world%&f."),
+    COMMAND_GAMEMODE_INVALID("<error>You need to specify a valid player."),
+    COMMAND_DAY("&fYou have just brought &edaylight&f into the world <success>%world%&f."),
+    COMMAND_NIGHT("&fYou have just brought &enightfall&f into the world <success>%world%&f."),
+    COMMAND_SUN("&fYou have just brought the &esun&f into the world <success>%world%&f."),
     COMMAND_TOP("&7You've just been teleported to &etop&7."),
-    COMMAND_TOP_ERROR("&cUnable to find a position to transport you safely."),
-    COMMAND_SPEED_INVALID("&cYou need to specify a valid player."),
+    COMMAND_BOTTOM("&7You've just been teleported to &ebottom&7."),
+    COMMAND_BOTTOM_ERROR("<error>Unable to find a position to transport you safely."),
+    COMMAND_TOP_ERROR("<error>Unable to find a position to transport you safely."),
+    COMMAND_SPEED_INVALID("<error>You need to specify a valid player."),
     COMMAND_SPEED_FLY("&7You have just set your &nfly&r&7 speed to &f%speed%&7 for &f%player%&7. &8(&f2 &7by default&8)"),
     COMMAND_SPEED_WALK("&7You have just set your &nwalk&r&7 speed to &f%speed%&7 for &f%player%&7. &8(&f2 &7by default&8)"),
-    COMMAND_SPEED_ERROR("&cYou must enter a number between &60&c and &610&c. &8(&f2 &7by default&8)"),
+    COMMAND_SPEED_ERROR("<error>You must enter a number between &60<error> and &610<error>. &8(&f2 &7by default&8)"),
 
-    COMMAND_FLY_ENABLE("&7Flight mode &aenable &7for &f%player%&a."),
-    COMMAND_FLY_DISABLE("&7Flight mode &cdisable &7for &f%player%&a."),
-    COMMAND_GOD_ENABLE("&7God mode &aenable &7for &f%player%&a."),
-    COMMAND_GOD_DISABLE("&7God mode &cdisable &7for &f%player%&a."),
+    COMMAND_FLY_ENABLE("&7Flight mode <success>enable &7for &f%player%<success>."),
+    COMMAND_FLY_DISABLE("&7Flight mode <error>disable &7for &f%player%<success>."),
+    COMMAND_GOD_ENABLE("&7God mode <success>enable &7for &f%player%<success>."),
+    COMMAND_GOD_DISABLE("&7God mode <error>disable &7for &f%player%<success>."),
     COMMAND_HEAL_SENDER("&7You just healed the player &f%player%&7."),
-    COMMAND_HEAL_RECEIVER("&aYou have been healed."),
-    COMMAND_HEAL_ERROR("&cYou cannot heal someone who is dead !"),
+    COMMAND_HEAL_RECEIVER("<success>You have been healed."),
+    COMMAND_HEAL_ERROR("<error>You cannot heal someone who is dead !"),
     COMMAND_FEED_SENDER("&7You just feed the player &f%player%&7."),
-    COMMAND_FEED_RECEIVER("&aYou have been feed."),
-    COMMAND_FEED_ERROR("&cYou cannot feed someone who is dead !"),
+    COMMAND_FEED_RECEIVER("<success>You have been feed."),
+    COMMAND_FEED_ERROR("<error>You cannot feed someone who is dead !"),
 
     // Teleport Command
-    COMMAND_TPA_ERROR("&cYou have already sent a request to #34cfe0%player%&c."),
-    COMMAND_TPA_ERROR_SAME("&cYou cannot teleport to yourself."),
-    COMMAND_TPA_ERROR_OFFLINE("&cUnable to find player, must be offline."),
-    COMMAND_TPA_ERROR_TO_LATE_EMPTY("&cYou do not have a teleport request."),
-    COMMAND_TPA_ERROR_TO_LATE_EXPIRE("&cThe teleport request has expired."),
+    COMMAND_TPA_ERROR("<error>You have already sent a request to #34cfe0%player%<error>."),
+    COMMAND_TPA_ERROR_SAME("<error>You cannot teleport to yourself."),
+    COMMAND_TPA_ERROR_OFFLINE("<error>Unable to find player, must be offline."),
+    COMMAND_TPA_ERROR_TO_LATE_EMPTY("<error>You do not have a teleport request."),
+    COMMAND_TPA_ERROR_TO_LATE_EXPIRE("<error>The teleport request has expired."),
     COMMAND_TPA_SENDER("&7You have just sent a teleport request to #34cfe0%player%&7."),
     COMMAND_TPA_RECEIVER(
             "&7You have just received a teleport request from #34cfe0%player%&7.",
-            "&7You have &c60 &6seconds&e to accept the teleport request.",
+            "&7You have <error>60 &6seconds&e to accept the teleport request.",
             "&7To accept the request do #0EEA93/tpaccept&7."
     ),
-    COMMAND_TPA_ACCEPT_RECEIVER("&aYou have just accepted the teleport request from #34cfe0%player%&a."),
-    COMMAND_TPA_ACCEPT_SENDER("#34cfe0%player%&a has just accepted your teleport request."),
-    COMMAND_TELEPORT_IGNORE_PLAYER("&cYou cannot send a teleport request to #34cfe0%player%&c they are ignoring you."),
-    COMMAND_TELEPORT_WORLD("&cYou need to be in the same world to teleport."),
-    COMMAND_TPA_ERROR_TO_LATE("&cYou do not have a teleport request."),
-    COMMAND_TPA_ERROR_TO_LATE_2("&cThe request has expired."),
+    COMMAND_TPA_ACCEPT_RECEIVER("<success>You have just accepted the teleport request from #34cfe0%player%<success>."),
+    COMMAND_TPA_ACCEPT_SENDER("#34cfe0%player%<success> has just accepted your teleport request."),
+    COMMAND_TELEPORT_IGNORE_PLAYER("<error>You cannot send a teleport request to #34cfe0%player%<error> they are ignoring you."),
+    COMMAND_TELEPORT_WORLD("<error>You need to be in the same world to teleport."),
+    COMMAND_TPA_ERROR_TO_LATE("<error>You do not have a teleport request."),
+    COMMAND_TPA_ERROR_TO_LATE_2("<error>The request has expired."),
     COMMAND_TP_DENY_SENDER("Denied %player% teleport request."),
     COMMAND_TP_DENY_RECEIVER("%player% has denied your teleport request"),
     COMMAND_TP_CANCEL_ERROR("<error>You did not send a teleport request at &f%player%<error>."),
@@ -90,16 +92,17 @@ public enum Message {
     COMMAND_BACK("&7Returning to previous location."),
     COMMAND_BACK_ERROR("<error>You have no last location. Impossible to go back."),
 
-    COMMAND_MORE_ERROR("&cYou cannot make this order in item in hand."),
+    COMMAND_MORE_ERROR("<error>You cannot make this order in item in hand."),
     COMMAND_MORE_SUCCESS("&7You just put your item to &f64&7."),
-    COMMAND_WORLD_TELEPORT_SELF("&aYou have just been teleported into the world &f%world%&a."),
-    COMMAND_WORLD_TELEPORT_OTHER("&aYou just teleported the player &f%player% &ain the world &f%world%&a."),
+    COMMAND_WORLD_TELEPORT_SELF("<success>You have just been teleported into the world &f%world%<success>."),
+    COMMAND_WORLD_TELEPORT_OTHER("<success>You just teleported the player &f%player% <success>in the world &f%world%<success>."),
 
-    COMMAND_COMPACT_TYPE("&cImpossible to compact the material &f%material%&c."),
-    COMMAND_COMPACT_ERROR("&cYou have no &f%item%&c in your inventory."),
-    COMMAND_COMPACT_SUCCESS("&7You have just transformed #0EEA93x%amount% #34cfe0%item% &7en #0EEA93x%toAmount% #34cfe0%toItem%&7."),
+    COMMAND_COMPACT_TYPE("<error>Impossible to compact the material &f%material%<error>."),
+    COMMAND_COMPACT_ERROR("<error>You have no &f%item%<error> in your inventory."),
+    COMMAND_COMPACT_SUCCESS("&7You have just transformed #0EEA93x%amount% #34cfe0%item% &7into #0EEA93x%toAmount% #34cfe0%toItem%&7."),
+    COMMAND_COMPACT_SUCCESS_ALL("&7You just converted all your items."),
     COMMAND_HAT_SUCCESS("&7You just put #0ef0ce%item% &7on your head."),
-    COMMAND_HAT_ERROR("&cYou cannot put air on your head."),
+    COMMAND_HAT_ERROR("<error>You cannot put air on your head."),
     COMMAND_PLAYER_WEATHER_RESET("&7You just changed the weather to that of the server."),
     COMMAND_PLAYER_WEATHER_DOWNFALL("&7You just put the rain on for yourself."),
     COMMAND_PLAYER_TIME_RESET("&7You just changed the time to that of the server."),
@@ -120,6 +123,7 @@ public enum Message {
     DESCRIPTION_ENDERCHEST("Open your enderchest"),
     DESCRIPTION_ENDERSEE("Open a player enderchest"),
     DESCRIPTION_TOP("Teleporting to top"),
+    DESCRIPTION_BOTTOM("Teleporting to top"),
     DESCRIPTION_SPEED("Change player speed"),
     DESCRIPTION_TPA("Teleport to a player"),
     DESCRIPTION_TP("Teleport to a player"),
@@ -142,7 +146,7 @@ public enum Message {
     DESCRIPTION_STONECUTTER("Open a stone cutter"),
     DESCRIPTION_SMITHINGTABLE("Open a smithing table"),
     DESCRIPTION_INVSEE("Open player's inventory"),
-    DESCRIPTION_COMPACT("Compact material"),
+    DESCRIPTION_COMPACT("Compact the items in your hand"),
     DESCRIPTION_HAT("Create your custom hat !"),
     DESCRIPTION_PLAYER_WEATHER("Change your weather"),
     DESCRIPTION_PLAYER_TIME("Change your time"),
@@ -173,13 +177,40 @@ public enum Message {
     DESCRIPTION_UN_BAN("Unban a player"),
     DESCRIPTION_SANCTION("Open sanction inventory"),
     DESCRIPTION_CHAT_HISTORY("Show player's chat messages"),
+    DESCRIPTION_CHAT_CLEAR("Clear chat"),
+    DESCRIPTION_CHAT_DISABLE("Disable chat"),
+    DESCRIPTION_CHAT_ENABLE("Enable chat"),
+    DESCRIPTION_CHAT_BROADCAST("Broadcast a message"),
+    DESCRIPTION_MESSAGE("Send a private message to a player"),
+    DESCRIPTION_REPLY("Reply to a private message"),
+    DESCRIPTION_MESSAGE_TOGGLE("Toggle private message"),
+    DESCRIPTION_SOCIALSPY("Display private messages of players"),
+    DESCRIPTION_COMPACT_ALL("Compact items in your inventories"),
+    DESCRIPTION_FURNACE("Smelt all the items in your hand"),
+    DESCRIPTION_SKULL("Gets the head of a player"),
+    DESCRIPTION_REPAIR("Fix the item in your hand"),
+    DESCRIPTION_REPAIR_ALL("Repair all items in your inventory"),
+    DESCRIPTION_EXT("Stop burning"),
+    DESCRIPTION_NEAR("Show players close to you"),
+    DESCRIPTION_PLAY_TIME("Show player's playtime"),
+    DESCRIPTION_VERSION("Show plugin version"),
+    DESCRIPTION_KILL_ALL("Kill entities"),
+    DESCRIPTION_SEEN("Show player informations"),
+    DESCRIPTION_SEEN_IP("Show players who have the same IP"),
+    DESCRIPTION_KIT("Get a kit"),
+    DESCRIPTION_KIT_EDITOR("Edit a kit"),
+    DESCRIPTION_KIT_CREATE("Create a new kit"),
+    DESCRIPTION_KIT_DELETE("Delete a kit"),
+    DESCRIPTION_COOLDOWN("Display a player’s cooldowns"),
+    DESCRIPTION_COOLDOWN_DELETE("Delete a cooldown"),
+    DESCRIPTION_COOLDOWN_CREATE("Create a cooldown"),
 
     YOU("you"),
     TRASH("&8Trash"),
 
     // Teleportation
 
-    TELEPORT_MOVE("&cYou must not move!"),
+    TELEPORT_MOVE("<error>You must not move!"),
     TELEPORT_MESSAGE(MessageType.ACTION, "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."),
     TELEPORT_SUCCESS(MessageType.ACTION, "#99E0FFYou have just teleported successfully!"),
     TELEPORT_MESSAGE_RANDOM(MessageType.ACTION, "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."),
@@ -190,10 +221,11 @@ public enum Message {
     TELEPORT_SUCCESS_WARP(MessageType.TCHAT_AND_ACTION, "&7You just teleported to warp #0EEA93%name% &7!"),
     TELEPORT_MESSAGE_HOME(MessageType.TCHAT_AND_ACTION, "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."),
     TELEPORT_SUCCESS_HOME(MessageType.TCHAT_AND_ACTION, "&7You just teleported to home #0EEA93%name% &7!"),
-    TELEPORT_DAMAGE("&cYou must not take damage during teleportation."),
-    TELEPORT_ERROR_LOCATION("&cUnable to teleport you safely."),
+    TELEPORT_DAMAGE("<error>You must not take damage during teleportation."),
+    TELEPORT_ERROR_LOCATION("<error>Unable to teleport you safely."),
 
     COOLDOWN("<error>✘ You must wait for &f%cooldown% <error>before performing this action."),
+    COOLDOWN_COMMANDS("<error>✘ You must wait for &f%cooldown% <error>before performing this commands."),
 
     // Economy
 
@@ -208,7 +240,7 @@ public enum Message {
     COMMAND_ECONOMY_SHOW_EMPTY("&f%player% <error>has no money."),
     COMMAND_ECONOMY_SHOW_INFO("&7- #99E0FF%economy% &f%amount%."),
     COMMAND_MONEY(
-            "#99E0FFYou have&8:" ,
+            "#99E0FFYou have&8:",
             " &7- #99E0FF%economy-name-money% &f%economy-money%.",
             " &7- #99E0FF%economy-name-coins% &f%economy-coins%."
     ),
@@ -227,7 +259,7 @@ public enum Message {
     FIRST_JOIN_MESSAGE("&7Welcome #99E0FF%player% &7on <your server name>! &8(&f%totalUserFormat% &7registered players&8)"),
     FIRST_JOIN_MOTD(
             "",
-            "#00FF00✔ #99E0FFWelcome %player%#99E0FF !",
+            "<success>✔ #99E0FFWelcome %player%#99E0FF !",
             "",
             "#858ef8Discord&8: #99E0FF<hover:show_text:'&fJoin the server #858ef8Discord &f!'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>",
             "&7Website&8: #99E0FF<hover:show_text:'&fOpen the Website &f!'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>",
@@ -235,23 +267,23 @@ public enum Message {
     ),
 
     COMMAND_SET_SPAWN("&fYou just set the spawn location."),
-    COMMAND_SPAWN_NOT_DEFINE("&cThe spawn does not exist. Please contact an administrator."),
+    COMMAND_SPAWN_NOT_DEFINE("<error>The spawn does not exist. Please contact an administrator."),
 
     COMMAND_WARP_ALREADY_EXIST("<error>Warp &f%name% <error>already exists. &7Use &n<hover:show_text:'&fUse this command'><click:suggest_command:'/setwarp %name% true'>/setwarp %name% true</click></hover>&r command to modify the warp"),
     COMMAND_WARP_DOESNT_EXIST("<error>Warp &f%name% <error> does not exist."),
     COMMAND_WARP_NO_PERMISSION("<error>You do not have permission to use the warp &f%name%<error>."),
     COMMAND_WARP_CREATE(
-            "#00ff00You just created the warp &f%name% #00ff00to your position.",
+            "<success>You just created the warp &f%name% <success>to your position.",
             "&7Warp Permission is: <hover:show_text:'&fCopy command to add permission to a player'><click:SUGGEST_COMMAND:'/lp user <username> permission set nessentials.warp.%name%'>&f&nessentials.warp.%name%</click></hover>"
-            ),
+    ),
     COMMAND_WARP_USE(
-            "&cUsage&8: &f/warp <destination>",
+            "<error>Usage&8: &f/warp <destination>",
             "&7Warps&8:&f%destinations%"
     ),
     COMMAND_WARP_DESTINATION(" <hover:show_text:'&fClick to teleport to warp &n%name%'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"),
     COMMAND_WARP_LIST("&7Warps&8:&f%destinations%"),
     COMMAND_WARP_LIST_INFO(" <hover:show_text:'&fClick to teleport to warp &n%name%'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"),
-    COMMAND_WARP_DELETE("#00ff00You just removed the warp &f%name%#00ff00."),
+    COMMAND_WARP_DELETE("<success>You just removed the warp &f%name%<success>."),
 
     COMMAND_RANDOM_TP_ERROR("<error>No safe location found after multiple attempts, please try again."),
 
@@ -270,19 +302,19 @@ public enum Message {
 
     COMMAND_HOME_INFORMATION_MULTI_LINE_HEADER(
             "",
-            "#8cc0ccʏᴏᴜʀ ʜᴏᴍᴇs &a♦ &7(%count%) &8- &7(Max: %max%)"
+            "#8cc0ccʏᴏᴜʀ ʜᴏᴍᴇs <success>♦ &7(%count%) &8- &7(Max: %max%)"
     ),
     COMMAND_HOME_INFORMATION_MULTI_LINE_CONTENT(MessageType.WITHOUT_PREFIX,
-            " #8cc0cc♢ &f%name% &7in %world% (%environment%) &a<hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %name%'>[CLICK]</click></hover>"),
+            " #8cc0cc♢ &f%name% &7in %world% (%environment%) <success><hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %name%'>[CLICK]</click></hover>"),
     COMMAND_HOME_INFORMATION_MULTI_LINE_FOOTER(MessageType.WITHOUT_PREFIX, ""),
-    COMMAND_HOME_INFORMATION_IN_LINE(MessageType.WITHOUT_PREFIX, "#8cc0ccʏᴏᴜʀ ʜᴏᴍᴇs &a♦ &7(%count%/%max%)&8:&f%homes%"),
+    COMMAND_HOME_INFORMATION_IN_LINE(MessageType.WITHOUT_PREFIX, "#8cc0ccʏᴏᴜʀ ʜᴏᴍᴇs <success>♦ &7(%count%/%max%)&8:&f%homes%"),
     COMMAND_HOME_INFORMATION_IN_LINE_INFO(" <hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %name%'>&f%name%</click></hover>&7"),
     COMMAND_HOME_ICON_ERROR("<error>You must have an item in your hand to change the icon of your home."),
-    COMMAND_HOME_ICON_SUCCESS("#00ff00You just changed the home icon &f%name%#00ff00."),
-    COMMAND_HOME_ICON_RESET("#00ff00You just reset the home icon &f%name%#00ff00."),
+    COMMAND_HOME_ICON_SUCCESS("<success>You just changed the home icon &f%name%<success>."),
+    COMMAND_HOME_ICON_RESET("<success>You just reset the home icon &f%name%<success>."),
     COMMAND_HOME_DELETE("#99E0FFYou just deleted the home &f%name%#99E0FF."),
-    COMMAND_HOME_ADMIN_DELETE("#00ff00You just deleted home &f%name%#00ff00 of &b%player%#00ff00."),
-    COMMAND_HOME_ADMIN_SET("#00ff00You just created home &f%name%#00ff00 of &b%player%#00ff00."),
+    COMMAND_HOME_ADMIN_DELETE("<success>You just deleted home &f%name%<success> of &b%player%<success>."),
+    COMMAND_HOME_ADMIN_SET("<success>You just created home &f%name%<success> of &b%player%<success>."),
     COMMAND_HOME_ADMIN_LIST("#8cc0cc%player% ʜᴏᴍᴇs&8:&f%homes%"),
     COMMAND_HOME_ADMIN_LIST_INFO(" <hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %player%:%name%'>&f%name%</click></hover>&7"),
 
@@ -299,7 +331,7 @@ public enum Message {
 
     MESSAGE_KICK(
             "",
-            "&cYou have just been kicked from the server for the reason:",
+            "<error>You have just been kicked from the server for the reason:",
             "%reason%",
             "",
             "&fMinecraft-Inventory-Builder.com",
@@ -332,7 +364,7 @@ public enum Message {
 
     MESSAGE_BAN(
             "",
-            "&cYou have just been ban from the server for the reason:",
+            "<error>You have just been ban from the server for the reason:",
             "&f%reason%",
             "&fDuration&8: &7%duration%",
             "",
@@ -342,7 +374,7 @@ public enum Message {
 
     MESSAGE_BAN_JOIN(
             "",
-            "&cYou are banned on server:",
+            "<error>You are banned on server:",
             "&f%reason%",
             "&fRemaining time&8: &7%remaining%",
             "",
@@ -362,6 +394,83 @@ public enum Message {
     CHAT_MESSAGES_EMPTY("&f%player% <error>did not write a message."),
     CHAT_MESSAGES_LINE(MessageType.WITHOUT_PREFIX, "&f%date% &7%message%"),
     CHAT_MESSAGES_FOOTER(MessageType.WITHOUT_PREFIX, "<click:run_command:'/chathistory %player% %previousPage%'><hover:show_text:'Previous Page'><white>⬅</hover></click> <gray>%page%/%maxPage% <click:run_command:'/chathistory %player% %nextPage%'><hover:show_text:'Next Page'><white>➡</hover></click>"),
+
+    COMMAND_CHAT_CLEAR("<success>The chat just got clear."),
+    COMMAND_CHAT_DISABLE_ERROR("<error>Chat is already disable."),
+    COMMAND_CHAT_DISABLE_SUCCESS("<success>You just deactivated the chat."),
+    COMMAND_CHAT_ENABLE_ERROR("<error>Chat is already enable."),
+    COMMAND_CHAT_ENABLE_SUCCESS("<success>You just activated the chat."),
+    COMMAND_CHAT_BROADCAST(MessageType.WITHOUT_PREFIX, "<primary>ʙʀᴏᴀᴅᴄᴀsᴛ <secondary>• <white>%message%"),
+
+    COMMAND_MESSAGE_SELF("<error>You can’t talk to yourself."),
+    COMMAND_MESSAGE_DISABLE("&f%%player% <error>has disabled private messages."),
+    COMMAND_MESSAGE_MUTE("<error>You’re not allowed to speak."),
+    COMMAND_MESSAGE_ME("<hover:show_text:'&fClick to reply'><click:suggest_command:'/r '>&8(#f533f5me &7-> #34cfe0%target%&8) #e6e1e6<message></click></hover>"),
+    COMMAND_MESSAGE_OTHER("<hover:show_text:'&fClick to reply'><click:suggest_command:'/r '>&8(#34cfe0%target% &7-> #f533f5me&8) #e6e1e6<message></click></hover>"),
+    COMMAND_MESSAGE_SOCIAL_SPY(MessageType.WITHOUT_PREFIX, "&8(&7SocialSpy&8) &8(<hover:show_text:'&fOpen sanction for %sender%'><click:run_command:'/sc %sender%'>#34cfe0%sender%</click></hover> &7-> <hover:show_text:'&fOpen sanction for %receiver%'><click:run_command:'/sc %receiver%'>#f533f5%receiver%</click></hover>&8) #e6e1e6%message%"),
+    COMMAND_MESSAGE_ERROR("<error>You have no one to answer."),
+    COMMAND_MESSAGE_TOGGLE_ENABLE("&7Private message <success>enable &7for &f%player%<success>."),
+    COMMAND_MESSAGE_TOGGLE_DISABLE("&7Private message <error>disable &7for &f%player%<success>."),
+    COMMAND_SOCIAL_SPY_ENABLE("&7Social spy <success>enable &7for &f%player%<success>."),
+    COMMAND_SOCIAL_SPY_DISABLE("&7Social spy <error>disable &7for &f%player%<success>."),
+
+    COMMAND_FURNACE_TYPE("<error>Impossible to smelt the material &f%material%<error>."),
+    COMMAND_FURNACE_ERROR("<error>You have no &f%item%<error> in your inventory."),
+    COMMAND_FURNACE_SUCCESS("&7You have just transformed #0EEA93x%amount% #34cfe0%item% &7into #0EEA93x%toAmount% #34cfe0%toItem%&7."),
+    COMMAND_SKULL("<success>You just got the player’s head &f%name%<success>."),
+    COMMAND_REPAIR_ERROR("<error>The item in your hand cannot be repaired."),
+    COMMAND_REPAIR_SUCCESS("<success>You just fixed the item in your hand."),
+    COMMAND_REPAIR_ALL_ERROR("<error>You have no items to repair."),
+    COMMAND_REPAIR_ALL_SUCCESS("<success>You have just repaired all the items in your inventory"),
+    COMMAND_EXT("&fBy the will of Maxlego08, you no longer burn."),
+
+    COMMAND_NEAR_EMPTY("<error>No player near to you."),
+    COMMAND_NEAR_PLAYER("&fPlayers near to you&7:%players%"),
+    COMMAND_NEAR_INFO(" &7%player% &8(&e%distance%m&8)"),
+    COMMAND_PLAY_TIME(
+            "&7You played&8: <primary>%playtime%",
+            "&7Current session&8: <primary>%playtime_session%"
+    ),
+
+    COMMAND_REMOVE("&7Removed <success>%amount% &7entities."),
+
+    COMMAND_SEEN_OFFLINE(MessageType.WITHOUT_PREFIX, "#99E0FFPlayer &f%player% #99E0FFhas been <error>offline #99E0FFsince &7%date%#99E0FF."),
+    COMMAND_SEEN_ONLINE(MessageType.WITHOUT_PREFIX, "#99E0FFPlayer &f%player% #99E0FFhas been <success>online #99E0FFsince %date%#99E0FF."),
+    COMMAND_SEEN_PLAYTIME(MessageType.WITHOUT_PREFIX, "#99E0FFPlayTime&8: &f%playtime%"),
+    COMMAND_SEEN_UUID(MessageType.WITHOUT_PREFIX, "#99E0FFUUID&8: &f%uuid%"),
+    COMMAND_SEEN_IP(MessageType.WITHOUT_PREFIX, "#99E0FFIP Address&8:&f%ips%"),
+
+    COMMAND_SEEN_ADDRESS(MessageType.WITHOUT_PREFIX, " <click:run_command:'/seenip %ip%'><hover:show_text:'&fShow players who have the same address'>%ip%</hover></click>"),
+
+    COMMAND_SEEN_IP_EMPTY("<error>Unable to find players with ip &f%ip%<error>."),
+    COMMAND_SEEN_IP_LINE("#99E0FFPlayers with the ip &f%ip%&8:%players%"),
+    COMMAND_SEEN_IP_INFO(" <white><click:run_command:'/seen %name%'><hover:show_text:'&fShow player's information'>%name%</hover></click><dark_gray>"),
+
+    COMMAND_KIT_NOT_FOUND("<error>Unable to find the kit &f%kit%<error>."),
+    COMMAND_KIT_ALREADY_EXISTS("<error>The &f%kit% <error>kit already exists."),
+    COMMAND_KIT_INFORMATION_IN_LINE_EMPTY(MessageType.WITHOUT_PREFIX, "#8cc0ccʏᴏᴜʀ ᴋɪᴛs <success>♦ &7(%count%/%max%)&8: <error>ɴᴏ ᴋɪᴛ ᴀᴠᴀɪʟᴀʙʟᴇ"),
+    COMMAND_KIT_INFORMATION_IN_LINE(MessageType.WITHOUT_PREFIX, "#8cc0ccʏᴏᴜʀ ᴋɪᴛs&8:&f%kits%"),
+    COMMAND_KIT_INFORMATION_IN_LINE_INFO_AVAILABLE(" <hover:show_text:'&7Click to get the kit &f&n%name%'><click:run_command:'/kit %name%'><#1fde65>%name%</click></hover>&7"),
+    COMMAND_KIT_INFORMATION_IN_LINE_INFO_UNAVAILABLE(" <hover:show_text:'&7You must wait <u>%time%</u> before getting the kit &f&n%name%'><st><#de1f1f>%name%</st></hover>&7"),
+
+    COMMAND_KIT_INFORMATION_MULTI_LINE_HEADER(
+            "",
+            "#8cc0ccʏᴏᴜʀ ᴋɪᴛs&8:"
+    ),
+    COMMAND_KIT_INFORMATION_MULTI_LINE_CONTENT_AVAILABLE(MessageType.WITHOUT_PREFIX, "<#8cc0cc>♢ <hover:show_text:'&7Click to get the kit &f&n%name%'><click:run_command:'/kit %name%'><#1fde65>%name% </click></hover>"),
+    COMMAND_KIT_INFORMATION_MULTI_LINE_CONTENT_UNAVAILABLE(MessageType.WITHOUT_PREFIX, "<#8cc0cc>♢ <hover:show_text:'&7You must wait <u>%time%</u> before getting the kit &f&n%name%'><st><#de1f1f>%name%</st></hover> &8(&7%time%&8)"),
+    COMMAND_KIT_INFORMATION_MULTI_LINE_FOOTER(MessageType.WITHOUT_PREFIX, ""),
+    COMMAND_KIT_EDITOR_SAVE("<success>You have just modified the kit &f%kit%<success>."),
+    COMMAND_KIT_CREATE("<success>You just created the kit &f%kit%<success>."),
+    COMMAND_KIT_DELETE("<success>You just deleted the kit &f%kit%<success>."),
+
+    COMMAND_COOLDOWN_HEADER("&fPlayer cooldown %player% &8(&7%amount%&8)"),
+    COMMAND_COOLDOWN_EMPTY("&f%player% <error>has no cooldown."),
+    COMMAND_COOLDOWN_LINE(MessageType.WITHOUT_PREFIX, "&f%key% <secondary>- &7%createdAt% <secondary>- <success>%timeLeft% <secondary>- <hover:show_text:'&fClick to remove the cooldown'><click:run_command:'/cooldown delete %player% %key%'>&8[<error>ᴅᴇʟᴇᴛᴇ&8]</click></hover>"),
+    COMMAND_COOLDOWN_NOT_FOUND("&f%cooldown% <error>was not found."),
+    COMMAND_COOLDOWN_DELETE("<success>You just removed the cooldown &f%cooldown% <success>from &n%player%&r<success>."),
+    COMMAND_COOLDOWN_CREATE("<success>You just created the cooldown &f%key% <success>for &n%player%&r<success>."),
+
     ;
 
     private String message;
@@ -394,20 +503,20 @@ public enum Message {
         return message;
     }
 
-    public List<String> getMessages() {
-        return messages;
-    }
-
-    public MessageType getMessageType() {
-        return messageType;
-    }
-
     public void setMessage(String message) {
         this.message = message;
     }
 
+    public List<String> getMessages() {
+        return messages;
+    }
+
     public void setMessages(List<String> messages) {
         this.messages = messages;
+    }
+
+    public MessageType getMessageType() {
+        return messageType;
     }
 
     public void setMessageType(MessageType messageType) {

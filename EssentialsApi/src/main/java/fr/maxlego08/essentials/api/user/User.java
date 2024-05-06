@@ -8,6 +8,7 @@ import fr.maxlego08.essentials.api.database.dto.OptionDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
+import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import org.bukkit.Location;
@@ -212,6 +213,14 @@ public interface User {
      * @param expiredAt The expiration timestamp of the cooldown.
      */
     void setCooldown(String key, long expiredAt);
+
+    /**
+     * Sets a cooldown for the user with the specified key and expiration timestamp without updating the database
+     *
+     * @param key       The key of the cooldown.
+     * @param expiredAt The expiration timestamp of the cooldown.
+     */
+    void setCooldownSilent(String key, long expiredAt);
 
     /**
      * Checks if the user has a cooldown with the specified key.
@@ -485,4 +494,34 @@ public interface User {
     String getLastMessage();
 
     void setLastMessage(String message);
+
+    PrivateMessage setPrivateMessage(UUID uuid, String userName);
+
+    PrivateMessage getPrivateMessage();
+
+    boolean hasPrivateMessage();
+
+    long getPlayTime();
+
+    void setPlayTime(long playtime);
+
+    long getCurrentSessionPlayTime();
+
+    void startCurrentSessionPlayTime();
+
+    void setAddress(String address);
+
+    String getAddress();
+
+    long getKitCooldown(Kit kit);
+
+    boolean isKitCooldown(Kit kit);
+
+    void addKitCooldown(Kit kit, long cooldown);
+
+    Kit getKitPreview();
+
+    void openKitPreview(Kit kit);
+
+    void removeCooldown(String cooldownName);
 }

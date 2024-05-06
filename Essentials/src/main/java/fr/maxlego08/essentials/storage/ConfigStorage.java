@@ -12,7 +12,7 @@ public class ConfigStorage {
 
     public static Location spawnLocation;
     public static List<Warp> warps = new ArrayList<>();
-    public static boolean chatDisable = false;
+    public static boolean chatEnable = true;
 
     /**
      * static Singleton instance.

@@ -9,7 +9,7 @@ public enum Option {
     /**
      * Option for enabling social psy feature.
      */
-    SOCIAL_PSY,
+    SOCIAL_SPY,
 
     /**
      * Option for enabling god mode.
@@ -26,5 +26,7 @@ public enum Option {
     /**
      * Option for enabling inventory inspection.
      */
-    INVSEE
+    INVSEE,
+    VANISH,
+    PRIVATE_MESSAGE_DISABLE,
 }

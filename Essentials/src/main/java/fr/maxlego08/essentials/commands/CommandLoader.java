@@ -3,7 +3,12 @@ package fr.maxlego08.essentials.commands;
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandManager;
+import fr.maxlego08.essentials.commands.commands.chat.CommandChatBroadcast;
+import fr.maxlego08.essentials.commands.commands.chat.CommandChatClear;
+import fr.maxlego08.essentials.commands.commands.chat.CommandChatDisable;
+import fr.maxlego08.essentials.commands.commands.chat.CommandChatEnable;
 import fr.maxlego08.essentials.commands.commands.chat.CommandChatHistory;
+import fr.maxlego08.essentials.commands.commands.cooldown.CommandCooldown;
 import fr.maxlego08.essentials.commands.commands.economy.CommandEconomy;
 import fr.maxlego08.essentials.commands.commands.economy.CommandMoney;
 import fr.maxlego08.essentials.commands.commands.economy.CommandPay;
@@ -17,10 +22,21 @@ import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeSurviva
 import fr.maxlego08.essentials.commands.commands.home.CommandDelHome;
 import fr.maxlego08.essentials.commands.commands.home.CommandHome;
 import fr.maxlego08.essentials.commands.commands.home.CommandSetHome;
+import fr.maxlego08.essentials.commands.commands.kits.CommandKit;
+import fr.maxlego08.essentials.commands.commands.kits.CommandKitCreate;
+import fr.maxlego08.essentials.commands.commands.kits.CommandKitDelete;
+import fr.maxlego08.essentials.commands.commands.kits.CommandKitEditor;
+import fr.maxlego08.essentials.commands.commands.messages.CommandMessage;
+import fr.maxlego08.essentials.commands.commands.messages.CommandMessageToggle;
+import fr.maxlego08.essentials.commands.commands.messages.CommandReply;
+import fr.maxlego08.essentials.commands.commands.messages.CommandSocialSpy;
 import fr.maxlego08.essentials.commands.commands.sanction.CommandBan;
+import fr.maxlego08.essentials.commands.commands.sanction.CommandKick;
 import fr.maxlego08.essentials.commands.commands.sanction.CommandKickAll;
 import fr.maxlego08.essentials.commands.commands.sanction.CommandMute;
 import fr.maxlego08.essentials.commands.commands.sanction.CommandSanction;
+import fr.maxlego08.essentials.commands.commands.sanction.CommandSeen;
+import fr.maxlego08.essentials.commands.commands.sanction.CommandSeenIp;
 import fr.maxlego08.essentials.commands.commands.sanction.CommandUnBan;
 import fr.maxlego08.essentials.commands.commands.sanction.CommandUnMute;
 import fr.maxlego08.essentials.commands.commands.spawn.CommandSetSpawn;
@@ -35,26 +51,36 @@ import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportRandom;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportTo;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportWorld;
 import fr.maxlego08.essentials.commands.commands.utils.CommandAnvil;
+import fr.maxlego08.essentials.commands.commands.utils.CommandBottom;
 import fr.maxlego08.essentials.commands.commands.utils.CommandCartographyTable;
 import fr.maxlego08.essentials.commands.commands.utils.CommandCompact;
+import fr.maxlego08.essentials.commands.commands.utils.CommandCompactAll;
 import fr.maxlego08.essentials.commands.commands.utils.CommandCraft;
 import fr.maxlego08.essentials.commands.commands.utils.CommandEnchanting;
+import fr.maxlego08.essentials.commands.commands.utils.CommandExt;
 import fr.maxlego08.essentials.commands.commands.utils.CommandFeed;
 import fr.maxlego08.essentials.commands.commands.utils.CommandFly;
+import fr.maxlego08.essentials.commands.commands.utils.CommandFurnace;
 import fr.maxlego08.essentials.commands.commands.utils.CommandGod;
 import fr.maxlego08.essentials.commands.commands.utils.CommandGrindStone;
 import fr.maxlego08.essentials.commands.commands.utils.CommandHat;
 import fr.maxlego08.essentials.commands.commands.utils.CommandHeal;
 import fr.maxlego08.essentials.commands.commands.utils.CommandInvsee;
-import fr.maxlego08.essentials.commands.commands.sanction.CommandKick;
+import fr.maxlego08.essentials.commands.commands.utils.CommandKillAll;
 import fr.maxlego08.essentials.commands.commands.utils.CommandKittyCannon;
 import fr.maxlego08.essentials.commands.commands.utils.CommandLoom;
 import fr.maxlego08.essentials.commands.commands.utils.CommandMore;
+import fr.maxlego08.essentials.commands.commands.utils.CommandNear;
+import fr.maxlego08.essentials.commands.commands.utils.CommandPlayTime;
+import fr.maxlego08.essentials.commands.commands.utils.CommandRepair;
+import fr.maxlego08.essentials.commands.commands.utils.CommandRepairAll;
+import fr.maxlego08.essentials.commands.commands.utils.CommandSkull;
 import fr.maxlego08.essentials.commands.commands.utils.CommandSmithingTable;
 import fr.maxlego08.essentials.commands.commands.utils.CommandSpeed;
 import fr.maxlego08.essentials.commands.commands.utils.CommandStoneCutter;
 import fr.maxlego08.essentials.commands.commands.utils.CommandTop;
 import fr.maxlego08.essentials.commands.commands.utils.CommandTrash;
+import fr.maxlego08.essentials.commands.commands.utils.CommandVersion;
 import fr.maxlego08.essentials.commands.commands.warp.CommandDelWarp;
 import fr.maxlego08.essentials.commands.commands.warp.CommandSetWarp;
 import fr.maxlego08.essentials.commands.commands.warp.CommandWarp;
@@ -99,6 +125,7 @@ public class CommandLoader {
         register("endersee", CommandEnderSee.class, "ecsee");
 
         register("top", CommandTop.class);
+        register("bottom", CommandBottom.class);
         register("speed", CommandSpeed.class);
         register("god", CommandGod.class);
         register("heal", CommandHeal.class);
@@ -109,7 +136,8 @@ public class CommandLoader {
         register("craft", CommandCraft.class);
         register("enchanting", CommandEnchanting.class);
         register("invsee", CommandInvsee.class);
-        register("compact", CommandCompact.class, "blocks");
+        register("compact", CommandCompact.class, "blocks", "condense");
+        register("compactall", CommandCompactAll.class, "blocksall", "condenseall");
         register("hat", CommandHat.class);
         register("fly", CommandFly.class);
         register("anvil", CommandAnvil.class);
@@ -118,6 +146,8 @@ public class CommandLoader {
         register("loom", CommandLoom.class);
         register("stonecutter", CommandStoneCutter.class);
         register("smithingtable", CommandSmithingTable.class);
+        register("furnace", CommandFurnace.class, "burn");
+        register("skull", CommandSkull.class);
 
         register("tp", CommandTeleport.class);
         register("tphere", CommandTeleportHere.class, "s");
@@ -155,6 +185,32 @@ public class CommandLoader {
         register("kittycannon", CommandKittyCannon.class);
 
         register("chathistory", CommandChatHistory.class, "ct");
+        register("chatclear", CommandChatClear.class, "cl");
+        register("chatenable", CommandChatEnable.class, "ce");
+        register("chatdisable", CommandChatDisable.class, "cd");
+        register("broadcast", CommandChatBroadcast.class, "bc");
+
+        register("message", CommandMessage.class, "msg", "tell", "whisper", "m");
+        register("reply", CommandReply.class, "r");
+        register("messagetoggle", CommandMessageToggle.class, "msgtoggle", "mtg");
+        register("socialspy", CommandSocialSpy.class);
+
+        register("repair", CommandRepair.class, "fix");
+        register("repairall", CommandRepairAll.class, "fixall");
+        register("ext", CommandExt.class);
+        register("near", CommandNear.class);
+        register("playtime", CommandPlayTime.class);
+        register("essversion", CommandVersion.class, "ev");
+        register("killall", CommandKillAll.class);
+        register("seen", CommandSeen.class, "whois");
+        register("seenip", CommandSeenIp.class, "whoisip");
+
+        register("kit", CommandKit.class, "kits");
+        register("kiteditor", CommandKitEditor.class, "keditor");
+        register("kitcreate", CommandKitCreate.class, "kcreate");
+        register("kitdelete", CommandKitDelete.class, "delete");
+
+        register("cooldown", CommandCooldown.class);
 
         File file = new File(plugin.getDataFolder(), "commands.yml");
         if (!file.exists()) this.plugin.saveResource("commands.yml", false);

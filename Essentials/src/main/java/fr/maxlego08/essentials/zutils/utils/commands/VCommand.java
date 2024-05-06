@@ -244,16 +244,23 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
     }
 
     private String generateDefaultSyntax(String syntax) {
-        boolean update = syntax.isEmpty();
+
+        if (this.subCommands.isEmpty()) {
+            this.plugin.getLogger().severe("Command " + this.getClass().getName() + " doesnt have command !");
+            return "ERROR !";
+        }
+
+        boolean update = this.syntax == null || this.syntax.isEmpty();
 
         StringBuilder syntaxBuilder = new StringBuilder();
         if (update) {
             appendRequiredArguments(syntaxBuilder);
             appendOptionalArguments(syntaxBuilder);
-            syntax = syntaxBuilder.toString();
+            this.syntax = syntaxBuilder.toString();
         }
-        String tmpString = subCommands.get(0) + syntax;
-        return parent == null ? "/" + tmpString : parent.generateDefaultSyntax(" " + tmpString);
+
+        String tmpString = this.subCommands.get(0) + syntax;
+        return this.parent == null ? "/" + tmpString : this.parent.generateDefaultSyntax(" " + tmpString);
     }
 
     private void appendRequiredArguments(StringBuilder syntaxBuilder) {
@@ -473,10 +480,11 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
     }
 
     protected void fetchUniqueId(String userName, Consumer<UUID> consumer) {
+        CommandSender commandSender = this.sender;
         this.plugin.getStorageManager().getStorage().fetchUniqueId(userName, uuid -> {
 
             if (uuid == null) {
-                message(sender, Message.PLAYER_NOT_FOUND, "%player%", userName);
+                message(commandSender, Message.PLAYER_NOT_FOUND, "%player%", userName);
                 return;
             }
 
@@ -485,10 +493,11 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
     }
 
     protected void isOnline(String userName, Runnable runnable) {
+        CommandSender commandSender = this.sender;
         this.plugin.getScheduler().runAsync(wrappedTask -> {
 
             if (!this.plugin.getEssentialsServer().isOnline(userName)) {
-                message(sender, Message.PLAYER_NOT_FOUND, "%player%", userName);
+                message(commandSender, Message.PLAYER_NOT_FOUND, "%player%", userName);
                 return;
             }
 

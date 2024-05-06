@@ -4,7 +4,7 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
-import fr.maxlego08.essentials.api.utils.CompactMaterial;
+import fr.maxlego08.essentials.api.utils.TransformMaterial;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
@@ -26,28 +26,28 @@ public class CommandCompact extends VCommand {
 
         Material material = Material.valueOf(this.argAsString(0).toUpperCase());
 
-        Optional<CompactMaterial> optional = this.configuration.getCompactMaterials().stream().filter(e -> e.from().equals(material)).findFirst();
+        Optional<TransformMaterial> optional = this.configuration.getCompactMaterials().stream().filter(e -> e.from().equals(material)).findFirst();
         if (optional.isEmpty()) {
 
             message(sender, Message.COMMAND_COMPACT_TYPE, "%material%", name(material.name()));
             return CommandResultType.DEFAULT;
         }
 
-        CompactMaterial compactMaterial = optional.get();
+        TransformMaterial compactMaterial = optional.get();
         Material newMaterial = compactMaterial.to();
 
         Inventory inventory = this.player.getInventory();
         int amountOf = count(inventory, material);
 
-        if (amountOf <= 0) {
+        if (amountOf < 9) {
             message(getPlayer(), Message.COMMAND_COMPACT_ERROR, "%item%", name(material.name()));
             return CommandResultType.DEFAULT;
         }
 
         int realAmount = amountOf / 9;
         removeItems(inventory, new ItemStack(material), realAmount * 9);
-        give(getPlayer(), new ItemStack(newMaterial, realAmount));
-        message(getPlayer(), Message.COMMAND_COMPACT_SUCCESS, "%amount%", realAmount * 9, "%item%", name(material.name()),
+        give(this.player, new ItemStack(newMaterial, realAmount));
+        message(this.player, Message.COMMAND_COMPACT_SUCCESS, "%amount%", realAmount * 9, "%item%", name(material.name()),
                 "%toAmount%", realAmount, "%toItem%", name(newMaterial.name()));
 
         return CommandResultType.SUCCESS;

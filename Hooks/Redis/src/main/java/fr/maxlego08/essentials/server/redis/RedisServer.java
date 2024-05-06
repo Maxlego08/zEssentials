@@ -1,18 +1,35 @@
 package fr.maxlego08.essentials.server.redis;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.cache.ExpiringCache;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.server.EssentialsServer;
 import fr.maxlego08.essentials.api.server.RedisConfiguration;
 import fr.maxlego08.essentials.api.server.ServerMessageType;
+import fr.maxlego08.essentials.api.server.messages.ChatClear;
+import fr.maxlego08.essentials.api.server.messages.ChatToggle;
+import fr.maxlego08.essentials.api.server.messages.ClearCooldown;
 import fr.maxlego08.essentials.api.server.messages.KickMessage;
 import fr.maxlego08.essentials.api.server.messages.ServerMessage;
+import fr.maxlego08.essentials.api.server.messages.ServerPrivateMessage;
+import fr.maxlego08.essentials.api.server.messages.UpdateCooldown;
+import fr.maxlego08.essentials.api.storage.IStorage;
+import fr.maxlego08.essentials.api.user.Option;
+import fr.maxlego08.essentials.api.user.PrivateMessage;
+import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.EssentialsUtils;
 import fr.maxlego08.essentials.api.utils.PlayerCache;
+import fr.maxlego08.essentials.server.redis.listener.ChatClearListener;
+import fr.maxlego08.essentials.server.redis.listener.ChatToggleListener;
+import fr.maxlego08.essentials.server.redis.listener.ClearCooldownListener;
 import fr.maxlego08.essentials.server.redis.listener.KickListener;
 import fr.maxlego08.essentials.server.redis.listener.MessageListener;
+import fr.maxlego08.essentials.server.redis.listener.PrivateMessageListener;
+import fr.maxlego08.essentials.server.redis.listener.UpdateCooldownListener;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -37,6 +54,7 @@ public class RedisServer implements EssentialsServer, Listener {
     private final EssentialsPlugin plugin;
     private final EssentialsUtils utils;
     private final String playersKey = "essentials:playerlist";
+    private final ExpiringCache<String, Boolean> onlineCache = new ExpiringCache<>(1000 * 30);
     private JedisPool jedisPool;
 
     public RedisServer(EssentialsPlugin plugin) {
@@ -61,8 +79,7 @@ public class RedisServer implements EssentialsServer, Listener {
         this.plugin.getLogger().info("Redis connected to " + redisConfiguration.host() + ":" + redisConfiguration.port());
 
         // Register listeners
-        this.redisSubscriberRunnable.registerListener(KickMessage.class, new KickListener(this.utils));
-        this.redisSubscriberRunnable.registerListener(ServerMessage.class, new MessageListener(this.utils));
+        this.registerListener();
 
         Thread thread = new Thread(this.redisSubscriberRunnable);
         thread.start();
@@ -71,6 +88,16 @@ public class RedisServer implements EssentialsServer, Listener {
 
         // Fetch players name every minute
         plugin.getScheduler().runTimerAsync(() -> this.playerCache.setPlayers(jedisPool.getResource().smembers(this.playersKey)), 1, 1, TimeUnit.MINUTES);
+    }
+
+    private void registerListener() {
+        this.redisSubscriberRunnable.registerListener(KickMessage.class, new KickListener(this.utils));
+        this.redisSubscriberRunnable.registerListener(ServerMessage.class, new MessageListener(this.utils));
+        this.redisSubscriberRunnable.registerListener(ChatClear.class, new ChatClearListener(this));
+        this.redisSubscriberRunnable.registerListener(ChatToggle.class, new ChatToggleListener(this.utils));
+        this.redisSubscriberRunnable.registerListener(ServerPrivateMessage.class, new PrivateMessageListener(this.plugin));
+        this.redisSubscriberRunnable.registerListener(ClearCooldown.class, new ClearCooldownListener(this.utils));
+        this.redisSubscriberRunnable.registerListener(UpdateCooldown.class, new UpdateCooldownListener(this.utils));
     }
 
     @Override
@@ -95,21 +122,50 @@ public class RedisServer implements EssentialsServer, Listener {
             return;
         }
 
-        sendMessage(new ServerMessage(ServerMessageType.SINGLE, uuid, null, message, objects));
+        sendMessage(ServerMessage.single(uuid, message, objects));
     }
 
     @Override
     public void broadcastMessage(Permission permission, Message message, Object... objects) {
 
         this.utils.broadcast(permission, message, objects);
-        sendMessage(new ServerMessage(ServerMessageType.BROADCAST, null, permission, message, objects));
+        sendMessage(new ServerMessage(ServerMessageType.BROADCAST_PERMISSION, null, permission, null, message, objects));
+    }
+
+    @Override
+    public void broadcastMessage(Option option, Message message, Object... objects) {
+        this.utils.broadcast(option, message, objects);
+        sendMessage(new ServerMessage(ServerMessageType.BROADCAST_OPTION, null, null, option, message, objects));
+    }
+
+    @Override
+    public void broadcast(String message) {
+        this.utils.broadcast(Message.COMMAND_CHAT_BROADCAST, "%message%", message);
+        sendMessage(new ServerMessage(ServerMessageType.BROADCAST, null, null, null, Message.COMMAND_CHAT_BROADCAST, new String[]{"%message%", message}));
+    }
+
+    @Override
+    public void sendPrivateMessage(User user, PrivateMessage privateMessage, String message) {
+
+        // First check if player is online on this server
+        IStorage iStorage = this.plugin.getStorageManager().getStorage();
+        User targetUser = iStorage.getUser(privateMessage.uuid());
+        if (targetUser == null) {
+
+            ServerPrivateMessage serverPrivateMessage = new ServerPrivateMessage(user.getUniqueId(), user.getName(), privateMessage.uuid(), message);
+            sendMessage(serverPrivateMessage);
+            return;
+        }
+
+        PrivateMessage privateMessageReply = targetUser.setPrivateMessage(user.getUniqueId(), user.getName());
+        this.plugin.getUtils().sendPrivateMessage(targetUser, privateMessageReply, Message.COMMAND_MESSAGE_OTHER, message);
     }
 
     @Override
     public void kickPlayer(UUID uuid, Message message, Object... objects) {
         Player player = Bukkit.getPlayer(uuid);
         if (player != null && player.isOnline()) {
-            player.kick(utils.getComponentMessage(message, objects));
+            utils.kick(player, message, objects);
             return;
         }
 
@@ -118,7 +174,39 @@ public class RedisServer implements EssentialsServer, Listener {
 
     @Override
     public boolean isOnline(String userName) {
-        return jedisPool.getResource().sismember(playersKey, userName);
+        return this.onlineCache.get(userName, () -> jedisPool.getResource().sismember(playersKey, userName));
+    }
+
+    @Override
+    public void clearChat(CommandSender sender) {
+        clearLocalChat();
+        sendMessage(new ChatClear());
+    }
+
+    @Override
+    public void toggleChat(boolean value) {
+        this.utils.toggleChat(value);
+        sendMessage(new ChatToggle(value));
+    }
+
+    @Override
+    public void deleteCooldown(UUID uniqueId, String cooldownName) {
+        this.utils.deleteCooldown(uniqueId, cooldownName);
+        sendMessage(new ClearCooldown(uniqueId, cooldownName));
+    }
+
+    @Override
+    public void updateCooldown(UUID uniqueId, String cooldownName, long expiredAt) {
+        this.utils.updateCooldown(uniqueId, cooldownName, expiredAt);
+        sendMessage(new UpdateCooldown(uniqueId, cooldownName, expiredAt));
+    }
+
+    public void clearLocalChat() {
+        Bukkit.getOnlinePlayers().forEach(player -> {
+            for (int i = 0; i != 300; i++) player.sendMessage(Component.text(""));
+            this.utils.message(player, Message.COMMAND_CHAT_CLEAR);
+        });
+        this.utils.message(Bukkit.getConsoleSender(), Message.COMMAND_CHAT_CLEAR);
     }
 
     private <T> void sendMessage(T message) {

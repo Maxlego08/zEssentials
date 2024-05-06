@@ -8,6 +8,7 @@ import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.modules.joinquit.JoinQuitMessageType;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.ZModule;
+import fr.maxlego08.essentials.zutils.utils.paper.PaperComponent;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -15,7 +16,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
 public class JoinQuitModule extends ZModule {
 
@@ -61,7 +61,8 @@ public class JoinQuitModule extends ZModule {
         } else if (this.customJoinMessage == JoinQuitMessageType.DISABLE) {
             event.joinMessage(Component.empty());
         } else if (this.customJoinMessage == JoinQuitMessageType.CUSTOM) {
-            event.joinMessage(componentMessage.getComponent(getMessage(Message.JOIN_MESSAGE, "%player%", player.getName(), "%displayName%", player.getDisplayName())));
+            PaperComponent paperComponent = (PaperComponent) this.componentMessage;
+            event.joinMessage(paperComponent.getComponent(getMessage(Message.JOIN_MESSAGE, "%player%", player.getName(), "%displayName%", player.getDisplayName())));
         }
 
         if (user != null && user.isFirstJoin() && this.allowFirstJoinMotd) {
@@ -83,7 +84,8 @@ public class JoinQuitModule extends ZModule {
         } else if (this.customJoinMessage == JoinQuitMessageType.DISABLE) {
             event.quitMessage(Component.empty());
         } else if (this.customJoinMessage == JoinQuitMessageType.CUSTOM) {
-            event.quitMessage(componentMessage.getComponent(getMessage(Message.QUIT_MESSAGE, "%player%", player.getName(), "%displayName%", player.getDisplayName())));
+            PaperComponent paperComponent = (PaperComponent) this.componentMessage;
+            event.quitMessage(paperComponent.getComponent(getMessage(Message.QUIT_MESSAGE, "%player%", player.getName(), "%displayName%", player.getDisplayName())));
         }
     }
 }

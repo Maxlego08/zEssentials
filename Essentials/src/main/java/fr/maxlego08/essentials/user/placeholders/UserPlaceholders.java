@@ -67,5 +67,15 @@ public class UserPlaceholders extends ZUtils implements PlaceholderRegister {
             Economy economy = optional.get();
             return user.getBalance(economy).toString();
         }, "Returns the number for a given economy", "economy");
+
+        placeholder.register("user_option_", (player, args) -> {
+            User user = iStorage.getUser(player.getUniqueId());
+            try {
+                Option option = Option.valueOf(args.toUpperCase());
+                return String.valueOf(user.getOption(option));
+            } catch (Exception exception) {
+                return "Option " + args + " was not found";
+            }
+        }, "Returns the value for an option", "option name");
     }
 }

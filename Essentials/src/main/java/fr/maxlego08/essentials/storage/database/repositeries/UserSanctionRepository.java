@@ -1,17 +1,18 @@
 package fr.maxlego08.essentials.storage.database.repositeries;
 
+import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.storage.database.Repository;
-import fr.maxlego08.essentials.storage.database.SqlConnection;
+import fr.maxlego08.sarah.DatabaseConnection;
 
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
 
 public class UserSanctionRepository extends Repository {
-    public UserSanctionRepository(SqlConnection connection) {
-        super(connection, "sanctions");
+    public UserSanctionRepository(EssentialsPlugin plugin, DatabaseConnection connection) {
+        super(plugin, connection, "sanctions");
     }
 
     public void insert(Sanction sanction, Consumer<Integer> consumer) {

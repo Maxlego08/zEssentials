@@ -2,7 +2,11 @@ package fr.maxlego08.essentials.storage.storages;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.database.dto.ChatMessageDTO;
+import fr.maxlego08.essentials.api.database.dto.CommandDTO;
+import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
+import fr.maxlego08.essentials.api.database.dto.OptionDTO;
+import fr.maxlego08.essentials.api.database.dto.PlayTimeDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.database.dto.UserDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
@@ -12,18 +16,23 @@ import fr.maxlego08.essentials.api.sanction.SanctionType;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
+import fr.maxlego08.essentials.api.user.UserRecord;
 import fr.maxlego08.essentials.storage.database.Repositories;
-import fr.maxlego08.essentials.storage.database.SqlConnection;
 import fr.maxlego08.essentials.storage.database.repositeries.ChatMessagesRepository;
+import fr.maxlego08.essentials.storage.database.repositeries.CommandsRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.EconomyTransactionsRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserCooldownsRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserEconomyRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserHomeRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserOptionRepository;
+import fr.maxlego08.essentials.storage.database.repositeries.UserPlayTimeRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserSanctionRepository;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.utils.StorageHelper;
+import fr.maxlego08.sarah.DatabaseConnection;
+import fr.maxlego08.sarah.MigrationManager;
+import fr.maxlego08.sarah.MySqlConnection;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
@@ -31,19 +40,21 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class SqlStorage extends StorageHelper implements IStorage {
 
-    private final SqlConnection connection;
+    private final DatabaseConnection connection;
     private final Repositories repositories;
 
     public SqlStorage(EssentialsPlugin plugin) {
         super(plugin);
-        this.connection = new SqlConnection(plugin);
+        this.connection = new MySqlConnection(plugin.getConfiguration().getDatabaseConfiguration());
 
         if (!this.connection.isValid()) {
             plugin.getLogger().severe("Unable to connect to database !");
@@ -52,7 +63,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
             plugin.getLogger().info("The database connection is valid ! (" + connection.getDatabaseConfiguration().host() + ")");
         }
 
-        this.repositories = new Repositories(this.connection);
+        this.repositories = new Repositories(plugin, this.connection);
         this.repositories.register(UserRepository.class);
         this.repositories.register(UserOptionRepository.class);
         this.repositories.register(UserCooldownsRepository.class);
@@ -61,9 +72,11 @@ public class SqlStorage extends StorageHelper implements IStorage {
         this.repositories.register(UserHomeRepository.class);
         this.repositories.register(UserSanctionRepository.class);
         this.repositories.register(ChatMessagesRepository.class);
+        this.repositories.register(CommandsRepository.class);
+        this.repositories.register(UserPlayTimeRepository.class);
         // this.repositories.register(ServerStorageRepository.class);
 
-        plugin.getMigrationManager().execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), this.plugin.getLogger());
+        MigrationManager.execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), this.plugin.getLogger());
 
         this.repositories.getTable(UserCooldownsRepository.class).deleteExpiredCooldowns();
         this.repositories.getTable(UserRepository.class).clearExpiredSanctions();
@@ -115,6 +128,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
                 user.setSanction(userDTO.ban_sanction_id(), userDTO.mute_sanction_id());
                 user.setLastLocation(stringAsLocation(userDTO.last_location()));
+                user.setPlayTime(userDTO.play_time());
                 user.setOptions(this.repositories.getTable(UserOptionRepository.class).selectOptions(uniqueId));
                 user.setCooldowns(this.repositories.getTable(UserCooldownsRepository.class).selectCooldowns(uniqueId));
                 user.setEconomies(this.repositories.getTable(UserEconomyRepository.class).selectEconomies(uniqueId));
@@ -143,6 +157,11 @@ public class SqlStorage extends StorageHelper implements IStorage {
     @Override
     public void updateCooldown(UUID uniqueId, String key, long expiredAt) {
         async(() -> this.repositories.getTable(UserCooldownsRepository.class).upsert(uniqueId, key, expiredAt));
+    }
+
+    @Override
+    public void deleteCooldown(UUID uniqueId, String key) {
+        async(() -> this.repositories.getTable(UserCooldownsRepository.class).delete(uniqueId, key));
     }
 
     @Override
@@ -305,7 +324,49 @@ public class SqlStorage extends StorageHelper implements IStorage {
     }
 
     @Override
+    public void insertCommand(UUID uuid, String command) {
+        async(() -> this.repositories.getTable(CommandsRepository.class).insert(new CommandDTO(uuid, command, new Date())));
+    }
+
+    @Override
+    public void insertPlayTime(UUID uniqueId, long sessionPlayTime, long playtime, String address) {
+        async(() -> {
+            if (sessionPlayTime > 0) {
+                this.repositories.getTable(UserPlayTimeRepository.class).insert(uniqueId, sessionPlayTime, address);
+            }
+            this.repositories.getTable(UserRepository.class).updatePlayTime(uniqueId, playtime);
+        });
+    }
+
+    @Override
+    public List<UserDTO> getUsers(String ip) {
+        return this.repositories.getTable(UserRepository.class).getUsers(ip);
+    }
+
+    @Override
+    public UserRecord fetchUserRecord(UUID uuid) {
+
+        UserDTO userDTO = this.repositories.getTable(UserRepository.class).selectUser(uuid).get(0);
+        List<PlayTimeDTO> playTimeDTOS = this.repositories.getTable(UserPlayTimeRepository.class).select(uuid);
+
+        return new UserRecord(userDTO, playTimeDTOS);
+    }
+
+    @Override
     public List<ChatMessageDTO> getMessages(UUID targetUuid) {
         return this.repositories.getTable(ChatMessagesRepository.class).getMessages(targetUuid);
+    }
+
+    @Override
+    public Map<Option, Boolean> getOptions(UUID uuid) {
+        if (this.users.containsKey(uuid)) {
+            return this.users.get(uuid).getOptions();
+        }
+        return this.repositories.getTable(UserOptionRepository.class).selectOptions(uuid).stream().collect(Collectors.toMap(OptionDTO::option_name, OptionDTO::option_value));
+    }
+
+    @Override
+    public List<CooldownDTO> getCooldowns(UUID uniqueId) {
+        return this.repositories.getTable(UserCooldownsRepository.class).selectCooldowns(uniqueId);
     }
 }

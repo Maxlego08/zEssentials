@@ -1,5 +1,6 @@
 package fr.maxlego08.essentials.api.database.dto;
 
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -8,5 +9,5 @@ import java.util.UUID;
  * ban sanction ID, and mute sanction ID.
  */
 public record UserDTO(UUID unique_id, String name, String last_location, Integer ban_sanction_id,
-                      Integer mute_sanction_id) {
+                      Integer mute_sanction_id, long play_time, Date created_at, Date updated_at) {
 }

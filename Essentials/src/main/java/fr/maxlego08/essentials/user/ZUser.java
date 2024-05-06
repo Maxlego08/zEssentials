@@ -10,10 +10,12 @@ import fr.maxlego08.essentials.api.database.dto.OptionDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
+import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.Option;
+import fr.maxlego08.essentials.api.user.PrivateMessage;
 import fr.maxlego08.essentials.api.user.TeleportRequest;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.modules.TeleportationModule;
@@ -57,6 +59,11 @@ public class ZUser extends ZUtils implements User {
     private Sanction banSanction;
     private List<Sanction> fakeSanctions;
     private String lastMessage;
+    private PrivateMessage privateMessage;
+    private long playTime;
+    private long currentSessionPlayTime;
+    private String address;
+    private Kit previewKit;
 
     public ZUser(EssentialsPlugin plugin, UUID uniqueId) {
         this.plugin = plugin;
@@ -312,6 +319,11 @@ public class ZUser extends ZUtils implements User {
     }
 
     @Override
+    public void setCooldownSilent(String key, long expiredAt) {
+        this.cooldowns.put(key, expiredAt);
+    }
+
+    @Override
     public boolean isCooldown(String key) {
         return this.cooldowns.containsKey(key) && this.cooldowns.get(key) >= System.currentTimeMillis();
     }
@@ -540,5 +552,81 @@ public class ZUser extends ZUtils implements User {
     @Override
     public void setLastMessage(String lastMessage) {
         this.lastMessage = lastMessage;
+    }
+
+    @Override
+    public PrivateMessage setPrivateMessage(UUID uuid, String userName) {
+        return this.privateMessage = new PrivateMessage(uuid, userName);
+    }
+
+    @Override
+    public PrivateMessage getPrivateMessage() {
+        return this.privateMessage;
+    }
+
+    @Override
+    public boolean hasPrivateMessage() {
+        return this.privateMessage != null;
+    }
+
+    @Override
+    public long getPlayTime() {
+        return this.playTime + ((System.currentTimeMillis() - this.currentSessionPlayTime) / 1000);
+    }
+
+    @Override
+    public void setPlayTime(long playtime) {
+        this.playTime = playtime;
+    }
+
+    @Override
+    public long getCurrentSessionPlayTime() {
+        return this.currentSessionPlayTime;
+    }
+
+    @Override
+    public void startCurrentSessionPlayTime() {
+        this.currentSessionPlayTime = System.currentTimeMillis();
+    }
+
+    @Override
+    public String getAddress() {
+        return address;
+    }
+
+    @Override
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    @Override
+    public long getKitCooldown(Kit kit) {
+        return this.getCooldown("kit:" + kit.getName());
+    }
+
+    @Override
+    public boolean isKitCooldown(Kit kit) {
+        return isCooldown("kit:" + kit.getName());
+    }
+
+    @Override
+    public void addKitCooldown(Kit kit, long cooldown) {
+        this.addCooldown("kit:" + kit.getName(), cooldown);
+    }
+
+    @Override
+    public void openKitPreview(Kit kit) {
+        this.previewKit = kit;
+        this.plugin.openInventory(getPlayer(), "kit_preview");
+    }
+
+    @Override
+    public void removeCooldown(String cooldownName) {
+        this.cooldowns.remove(cooldownName);
+    }
+
+    @Override
+    public Kit getKitPreview() {
+        return this.previewKit;
     }
 }

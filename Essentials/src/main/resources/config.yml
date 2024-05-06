@@ -7,27 +7,31 @@
 #  ███████╗███████╗██████╔╝██████╔╝███████╗██║░╚███║░░░██║░░░██║██║░░██║███████╗██████╔╝
 #  ╚══════╝╚══════╝╚═════╝░╚═════╝░╚══════╝╚═╝░░╚══╝░░░╚═╝░░░╚═╝╚═╝░░╚═╝╚══════╝╚═════╝░
 #
-# Placeholders:
-# %zessentials_user_target_player_name%
-# %zessentials_user_target_pay_amount%
-# %zessentials_user_balance_<economy>%
+# Documentation: https://zessentials.groupez.dev/
 #
 ########################################################################################################################
 
+# Displays debug items in the console, if you request support please enable debug and send logs with debugs
 enable-debug: false
 
+# Storage:
+# JSON
+# MYSQL
+#
+# We advise you to use MYSQL, the JSON storage is only there to install the plugin and do some testing.
 storage-type: JSON
 
 # PAPER
 # REDIS
 server-type: PAPER
 
+# Configuration of your database, it is recommended to use the database to store your data, JSON does not support everything
 database-configuration:
   # For Pterodactyl panel: when you create a database it creates a <prefix>_<database name you chose>. Set "prefix"'s value to the prefix of the database
-  prefix: "zessentials_"
+  tablePrefix: "zessentials_"
   # IP Address of the machine the database is hosted on
   host: 192.168.10.10
-  # Port of the database, by default MySQL's port is 3306
+  # Port of the database, by default MYSQL's port is 3306
   port: 3306
   user: homestead
   password: 'secret'
@@ -39,11 +43,13 @@ database-configuration:
   # ToDo - Se système va permettre de load les données des joueurs plus rapidement, en cas de crash serveurs si des centaines de joueurs veulent revenir en même temps cela peut être problématique.
   # ToDo - Cette solution sera très bien pour se genre de cas.
 
+# Configuration for your redis server
 redis-configuration:
   host: "192.168.10.10"
   port: 6379
   password: "123456a"
 
+# If you have enabled this option, players with the essentials.bypass.cooldown permission you can execute commands in command-cooldowns without being assigned
 enable-cooldown-bypass: false
 
 # Create command cooldowns (can run a command after X amount of seconds)
@@ -62,6 +68,7 @@ command-cooldowns:
 # Trash can GUI size. Must be 9, 18, 27, 36, 45, 54.
 trash-size: 27
 
+# Compact materials with the /compact command
 compact-materials:
   - from: COAL
     to: COAL_BLOCK
@@ -86,6 +93,7 @@ compact-materials:
   - from: NETHERITE_INGOT
     to: NETHERITE_BLOCK
 
+# Transforms keys by color, used in messages
 message-colors:
   - key: "<primary>"
     color: "#24d65d"
@@ -93,3 +101,52 @@ message-colors:
     color: "#656665"
   - key: "<error>"
     color: "#ff0000"
+  - key: "<success>"
+    color: "#00ff00"
+
+# Allows you to add a cooldown on commands, we will prevent players spam commands for nothing.
+# If you want to disable the cooldown on the commands, do this: cooldowns: []
+cooldowns:
+  - messages: 2
+    cooldown: 1500 # max 1.5s
+  - messages: 4
+    cooldown: 5000 # max 5s
+  - messages: 8
+    cooldown: 10000 # max 10s
+
+# Stores commands in database, works only with MYSQL storage
+enable-command-log: true
+
+# Materials that can be put into furnace, use the /furnace command
+smeltable-materials:
+  - from: RAW_IRON
+    to: IRON_INGOT
+  - from: RAW_COPPER
+    to: COPPER_INGOT
+  - from: RAW_GOLD
+    to: GOLD_INGOT
+  - from: SAND
+    to: GLASS
+  - from: CLAY_BALL
+    to: BRICK
+  - from: ANCIENT_DEBRIS
+    to: NETHERITE_SCRAP
+  - from: WET_SPONGE
+    to: SPONGE
+  - from: CACTUS
+    to: GREEN_DYE
+  - from: KELP
+    to: DRIED_KELP
+
+# Default distance for /near
+near-distance: 50.0
+
+# Set a distance by permission for /near
+near-permissions:
+  - permission: "essentials.near.vip"
+    distance: 100.0
+  - permission: "essentials.near.staff"
+    distance: 200.0
+
+# Date format that will be used if no other format is available
+global-date-format: "yyyy-MM-dd HH:mm:ss"

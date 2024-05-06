@@ -1,18 +1,19 @@
 package fr.maxlego08.essentials.storage.database.repositeries;
 
+import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.database.dto.HomeDTO;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.storage.database.Repository;
-import fr.maxlego08.essentials.storage.database.SqlConnection;
 import fr.maxlego08.essentials.user.ZHome;
+import fr.maxlego08.sarah.DatabaseConnection;
 
 import java.util.List;
 import java.util.UUID;
 
 public class UserHomeRepository extends Repository {
 
-    public UserHomeRepository(SqlConnection connection) {
-        super(connection, "user_homes");
+    public UserHomeRepository(EssentialsPlugin plugin, DatabaseConnection connection) {
+        super(plugin, connection, "user_homes");
     }
 
     public void upsert(UUID uuid, Home home) {
