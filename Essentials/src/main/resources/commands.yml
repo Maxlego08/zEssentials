@@ -95,3 +95,5 @@ kiteditor: true
 kitcreate: true
 kitdelete: true
 cooldown: true
+itemname: true
+itemlore: true

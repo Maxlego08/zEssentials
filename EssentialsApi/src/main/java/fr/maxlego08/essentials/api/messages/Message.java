@@ -204,6 +204,10 @@ public enum Message {
     DESCRIPTION_COOLDOWN("Display a player’s cooldowns"),
     DESCRIPTION_COOLDOWN_DELETE("Delete a cooldown"),
     DESCRIPTION_COOLDOWN_CREATE("Create a cooldown"),
+    DESCRIPTION_ITEM_NAME("Change the item name"),
+    DESCRIPTION_ITEM_LORE("Show commands for the lore"),
+    DESCRIPTION_ITEM_LORE_SET("Define a line of a lore"),
+    DESCRIPTION_ITEM_LORE_ADD("Add a line to lore"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -470,6 +474,13 @@ public enum Message {
     COMMAND_COOLDOWN_NOT_FOUND("&f%cooldown% <error>was not found."),
     COMMAND_COOLDOWN_DELETE("<success>You just removed the cooldown &f%cooldown% <success>from &n%player%&r<success>."),
     COMMAND_COOLDOWN_CREATE("<success>You just created the cooldown &f%key% <success>for &n%player%&r<success>."),
+
+    COMMAND_ITEM_EMPTY("<error>You have no item in your hand."),
+    COMMAND_ITEM_CLEAR("<success>You have cleared this item's name"),
+    COMMAND_ITEM_SET("<success>You have renamed your held item to &f%name%<success>."),
+    COMMAND_ITEM_LORE_ADD("<success>You just added the line &f%text%<success>."),
+    COMMAND_ITEM_LORE_SET("<success>You just set line %line% to &f%text%<success>."),
+    COMMAND_ITEM_LORE_SET_ERROR("<error>Can’t find the line &f%line%<error>."),
 
     ;
 

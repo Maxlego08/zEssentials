@@ -50,6 +50,8 @@ import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportHere;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportRandom;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportTo;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportWorld;
+import fr.maxlego08.essentials.commands.commands.utils.admins.items.CommandItemLore;
+import fr.maxlego08.essentials.commands.commands.utils.admins.items.CommandItemName;
 import fr.maxlego08.essentials.commands.commands.utils.blocks.CommandAnvil;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandBottom;
 import fr.maxlego08.essentials.commands.commands.utils.blocks.CommandCartographyTable;
@@ -211,6 +213,8 @@ public class CommandLoader {
         register("kitdelete", CommandKitDelete.class, "delete");
 
         register("cooldown", CommandCooldown.class);
+        register("itemname", CommandItemName.class, "iname", "itemrename", "irename");
+        register("itemlore", CommandItemLore.class, "ilore", "itemlore", "lore");
 
         File file = new File(plugin.getDataFolder(), "commands.yml");
         if (!file.exists()) this.plugin.saveResource("commands.yml", false);

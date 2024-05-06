@@ -63,6 +63,8 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 - [x] Command /kickall
 - [x] Command /mute
 - [x] Command /ban
+- [x] Command /itemlore
+- [x] Command /itemname
 
 - [ ] Command /setwarp
 - [ ] Command /delwarp
