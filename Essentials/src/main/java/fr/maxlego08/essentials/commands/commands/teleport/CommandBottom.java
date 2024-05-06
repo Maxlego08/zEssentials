@@ -1,4 +1,4 @@
-package fr.maxlego08.essentials.commands.commands.utils;
+package fr.maxlego08.essentials.commands.commands.teleport;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
@@ -9,18 +9,18 @@ import org.bukkit.Location;
 
 import java.util.Optional;
 
-public class CommandTop extends VCommand {
-    public CommandTop(EssentialsPlugin plugin) {
+public class CommandBottom extends VCommand {
+    public CommandBottom(EssentialsPlugin plugin) {
         super(plugin);
-        this.setPermission(Permission.ESSENTIALS_TOP);
-        this.setDescription(Message.DESCRIPTION_TOP);
+        this.setPermission(Permission.ESSENTIALS_BOTTOM);
+        this.setDescription(Message.DESCRIPTION_BOTTOM);
         this.onlyPlayers();
     }
 
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
-        Optional<Location> optional = this.topLocation(this.player.getLocation(), 0, this.player.getWorld().getMaxHeight());
+        Optional<Location> optional = this.bottomLocation(this.player.getLocation(), 0, this.player.getWorld().getMinHeight());
         if (optional.isPresent()) {
 
             Location location = optional.get();
@@ -28,10 +28,10 @@ public class CommandTop extends VCommand {
             location.setYaw(this.player.getLocation().getYaw());
             location.add(0.5, 0, 0.5);
             this.player.teleport(location);
-            message(this.sender, Message.COMMAND_TOP);
+            message(this.sender, Message.COMMAND_BOTTOM);
         } else {
 
-            message(this.sender, Message.COMMAND_TOP_ERROR);
+            message(this.sender, Message.COMMAND_BOTTOM_ERROR);
         }
 
         return CommandResultType.SUCCESS;
