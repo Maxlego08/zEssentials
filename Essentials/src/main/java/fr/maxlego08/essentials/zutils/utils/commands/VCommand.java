@@ -245,18 +245,13 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
 
     private String generateDefaultSyntax(String syntax) {
 
-        if (this.subCommands.isEmpty()) {
-            this.plugin.getLogger().severe("Command " + this.getClass().getName() + " doesnt have command !");
-            return "ERROR !";
-        }
-
-        boolean update = this.syntax == null || this.syntax.isEmpty();
+        boolean update = syntax.isEmpty();
 
         StringBuilder syntaxBuilder = new StringBuilder();
         if (update) {
             appendRequiredArguments(syntaxBuilder);
             appendOptionalArguments(syntaxBuilder);
-            this.syntax = syntaxBuilder.toString();
+            syntax = syntaxBuilder.toString();
         }
 
         String tmpString = this.subCommands.get(0) + syntax;
