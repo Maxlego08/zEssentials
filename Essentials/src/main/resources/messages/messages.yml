@@ -545,7 +545,7 @@ command-kit-delete: "<success>You just deleted the kit &f%kit%<success>."
 
 # Cooldown
 command-cooldown-header: "&fPlayer cooldown %player% &8(&7%amount%&8)"
-command-cooldown-empty: "&f%player% &chas no cooldown."
+command-cooldown-empty: "&f%player% <error>has no cooldown."
 # Available placeholders:
 # %key% - The key to the cooldown
 # %value% - The cooldown expiration timestamp
@@ -555,3 +555,10 @@ command-cooldown-empty: "&f%player% &chas no cooldown."
 command-cooldown-line:
   type: WITHOUT_PREFIX
   message: "&f%key% <secondary>- &7%createdAt% <secondary>- <success>%timeLeft% <secondary>- <hover:show_text:'&fClick to remove the cooldown'><click:run_command:'/cooldown delete %player% %key%'>&8[<error>ᴅᴇʟᴇᴛᴇ&8]</click></hover>"
+command-cooldown-not-found: "&f%cooldown% <error>was not found."
+command-cooldown-delete: "<success>You just removed the cooldown &f%cooldown% <success>from &n%player%&r<success>."
+# Available placeholders:
+# %key% - The key to the cooldown
+# %player% - the Player's nickname
+# %duration% - the duration of the cooldown
+command-cooldown-create: "<success>You just created the cooldown &f%key% <success>for &n%player%&r<success>."

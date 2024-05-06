@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.storage.IStorage;
+import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 import org.bukkit.command.CommandSender;
 
@@ -37,7 +38,7 @@ public class CommandCooldownCreate extends VCommand {
             iStorage.updateCooldown(uniqueId, cooldownName, expiredAt);
 
             plugin.getEssentialsServer().updateCooldown(uniqueId, cooldownName, expiredAt);
-            message(sender, Message.COMMAND_COOLDOWN_CREATE, "%cooldown%", cooldownName, "%player%", userName);
+            message(sender, Message.COMMAND_COOLDOWN_CREATE, "%key%", cooldownName, "%player%", userName, "%duration%", TimerBuilder.getStringTime(duration.toMillis()));
         });
 
         return CommandResultType.SUCCESS;
