@@ -20,6 +20,7 @@ public class CommandCooldown extends VCommand {
         this.setDescription(Message.DESCRIPTION_COOLDOWN);
         this.addRequireArg("player");
         this.addSubCommand(new CommandCooldownDelete(plugin));
+        this.addSubCommand(new CommandCooldownCreate(plugin));
     }
 
     @Override

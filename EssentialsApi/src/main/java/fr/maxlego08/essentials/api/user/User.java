@@ -215,6 +215,14 @@ public interface User {
     void setCooldown(String key, long expiredAt);
 
     /**
+     * Sets a cooldown for the user with the specified key and expiration timestamp without updating the database
+     *
+     * @param key       The key of the cooldown.
+     * @param expiredAt The expiration timestamp of the cooldown.
+     */
+    void setCooldownSilent(String key, long expiredAt);
+
+    /**
      * Checks if the user has a cooldown with the specified key.
      *
      * @param key The key of the cooldown to check.

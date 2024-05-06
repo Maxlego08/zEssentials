@@ -469,6 +469,7 @@ public enum Message {
     COMMAND_COOLDOWN_LINE(MessageType.WITHOUT_PREFIX, "&f%key% <secondary>- &7%createdAt% <secondary>- <success>%timeLeft% <secondary>- <hover:show_text:'&fClick to remove the cooldown'><click:run_command:'/cooldown delete %player% %key%'>&8[<error>ᴅᴇʟᴇᴛᴇ&8]</click></hover>"),
     COMMAND_COOLDOWN_NOT_FOUND("&f%cooldown% <error>was not found."),
     COMMAND_COOLDOWN_DELETE("<success>You just removed the cooldown &f%cooldown% <success>from &n%player%&r<success>."),
+    COMMAND_COOLDOWN_CREATE("<success>You just created the cooldown &f%key% <success>for &n%player%&r<success>."),
 
     ;
 

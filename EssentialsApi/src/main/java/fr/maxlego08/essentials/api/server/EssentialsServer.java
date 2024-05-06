@@ -38,4 +38,6 @@ public interface EssentialsServer {
     void sendPrivateMessage(User user, PrivateMessage privateMessage, String message);
 
     void deleteCooldown(UUID uniqueId, String cooldownName);
+
+    void updateCooldown(UUID uniqueId, String cooldownName, long expiredAt);
 }

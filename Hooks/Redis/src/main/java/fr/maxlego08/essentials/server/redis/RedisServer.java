@@ -13,6 +13,7 @@ import fr.maxlego08.essentials.api.server.messages.ClearCooldown;
 import fr.maxlego08.essentials.api.server.messages.KickMessage;
 import fr.maxlego08.essentials.api.server.messages.ServerMessage;
 import fr.maxlego08.essentials.api.server.messages.ServerPrivateMessage;
+import fr.maxlego08.essentials.api.server.messages.UpdateCooldown;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.PrivateMessage;
@@ -25,6 +26,7 @@ import fr.maxlego08.essentials.server.redis.listener.ClearCooldownListener;
 import fr.maxlego08.essentials.server.redis.listener.KickListener;
 import fr.maxlego08.essentials.server.redis.listener.MessageListener;
 import fr.maxlego08.essentials.server.redis.listener.PrivateMessageListener;
+import fr.maxlego08.essentials.server.redis.listener.UpdateCooldownListener;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -95,6 +97,7 @@ public class RedisServer implements EssentialsServer, Listener {
         this.redisSubscriberRunnable.registerListener(ChatToggle.class, new ChatToggleListener(this.utils));
         this.redisSubscriberRunnable.registerListener(ServerPrivateMessage.class, new PrivateMessageListener(this.plugin));
         this.redisSubscriberRunnable.registerListener(ClearCooldown.class, new ClearCooldownListener(this.utils));
+        this.redisSubscriberRunnable.registerListener(UpdateCooldown.class, new UpdateCooldownListener(this.utils));
     }
 
     @Override
@@ -190,6 +193,12 @@ public class RedisServer implements EssentialsServer, Listener {
     public void deleteCooldown(UUID uniqueId, String cooldownName) {
         this.utils.deleteCooldown(uniqueId, cooldownName);
         sendMessage(new ClearCooldown(uniqueId, cooldownName));
+    }
+
+    @Override
+    public void updateCooldown(UUID uniqueId, String cooldownName, long expiredAt) {
+        this.utils.updateCooldown(uniqueId, cooldownName, expiredAt);
+        sendMessage(new UpdateCooldown(uniqueId, cooldownName, expiredAt));
     }
 
     public void clearLocalChat() {

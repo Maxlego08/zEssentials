@@ -319,6 +319,11 @@ public class ZUser extends ZUtils implements User {
     }
 
     @Override
+    public void setCooldownSilent(String key, long expiredAt) {
+        this.cooldowns.put(key, expiredAt);
+    }
+
+    @Override
     public boolean isCooldown(String key) {
         return this.cooldowns.containsKey(key) && this.cooldowns.get(key) >= System.currentTimeMillis();
     }

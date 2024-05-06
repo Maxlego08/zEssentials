@@ -94,4 +94,9 @@ public class SpigotServer implements EssentialsServer {
     public void deleteCooldown(UUID uniqueId, String cooldownName) {
         this.plugin.getUtils().deleteCooldown(uniqueId, cooldownName);
     }
+
+    @Override
+    public void updateCooldown(UUID uniqueId, String cooldownName, long expiredAt) {
+        this.plugin.getUtils().deleteCooldown(uniqueId, cooldownName);
+    }
 }

@@ -94,4 +94,6 @@ public interface EssentialsUtils {
     void broadcast(Option option, Message message, Object... objects);
 
     void deleteCooldown(UUID uniqueId, String cooldownName);
+
+    void updateCooldown(UUID uniqueId, String cooldownName, long expiredAt);
 }
