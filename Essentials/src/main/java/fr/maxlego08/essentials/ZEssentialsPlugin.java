@@ -80,6 +80,7 @@ import fr.maxlego08.menu.api.pattern.PatternManager;
 import fr.maxlego08.menu.button.loader.NoneLoader;
 import fr.maxlego08.sarah.MigrationManager;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -92,6 +93,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.lang.reflect.Modifier;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -100,6 +102,7 @@ import java.util.UUID;
 public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin {
 
     private final UUID consoleUniqueId = UUID.fromString("00000000-0000-0000-0000-000000000000");
+    private final List<Material> materials = Arrays.stream(Material.values()).filter(e -> !e.name().startsWith("LEGACY_")).toList();
     private EssentialsUtils essentialsUtils;
     private ServerStorage serverStorage = new ZServerStorage();
     private InventoryManager inventoryManager;
@@ -470,5 +473,10 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     @Override
     public void giveKit(User user, Kit kit, boolean bypassCooldown) {
         this.moduleManager.getModule(KitModule.class).giveKit(user, kit, bypassCooldown);
+    }
+
+    @Override
+    public List<Material> getMaterials() {
+        return this.materials;
     }
 }

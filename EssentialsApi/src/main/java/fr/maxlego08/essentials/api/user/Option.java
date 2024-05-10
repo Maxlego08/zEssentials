@@ -29,4 +29,5 @@ public enum Option {
     INVSEE,
     VANISH,
     PRIVATE_MESSAGE_DISABLE,
+    PAY_DISABLE,
 }

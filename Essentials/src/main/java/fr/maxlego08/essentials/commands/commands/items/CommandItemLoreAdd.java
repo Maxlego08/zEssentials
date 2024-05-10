@@ -1,9 +1,10 @@
-package fr.maxlego08.essentials.commands.commands.utils.admins.items;
+package fr.maxlego08.essentials.commands.commands.items;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.module.modules.ItemModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 import fr.maxlego08.essentials.zutils.utils.paper.PaperComponent;
 import net.kyori.adventure.text.Component;
@@ -14,22 +15,22 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommandItemLoreSet extends VCommand {
-    public CommandItemLoreSet(EssentialsPlugin plugin) {
+public class CommandItemLoreAdd extends VCommand {
+    public CommandItemLoreAdd(EssentialsPlugin plugin) {
         super(plugin);
-        this.setPermission(Permission.ESSENTIALS_ITEM_LORE_SET);
-        this.setDescription(Message.DESCRIPTION_ITEM_LORE_SET);
-        this.addSubCommand("set");
-        this.addRequireArg("index");
+        this.setModule(ItemModule.class);
+        this.setPermission(Permission.ESSENTIALS_ITEM_LORE_ADD);
+        this.setDescription(Message.DESCRIPTION_ITEM_LORE_ADD);
+        this.addSubCommand("add");
         this.addRequireArg("line");
         this.setExtendedArgs(true);
+        this.onlyPlayers();
     }
 
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
-        int index = this.argAsInteger(0);
-        String loreLine = this.getArgs(2);
+        String loreLine = this.getArgs(1);
         if (loreLine.isEmpty()) return CommandResultType.SYNTAX_ERROR;
 
         ItemStack itemStack = this.player.getInventory().getItemInMainHand();
@@ -43,19 +44,12 @@ public class CommandItemLoreSet extends VCommand {
         List<Component> components = itemMeta.hasLore() ? itemMeta.lore() : new ArrayList<>();
         if (components == null) components = new ArrayList<>();
 
-        if (components.size() < index) {
-            message(sender, Message.COMMAND_ITEM_LORE_SET_ERROR, "%line%", index);
-            return CommandResultType.DEFAULT;
-        }
-
-
         PaperComponent paperComponent = (PaperComponent) this.componentMessage;
-        components.set(index - 1, paperComponent.getComponent(loreLine).decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE));
-
+        components.add(paperComponent.getComponent(loreLine).decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE));
         itemMeta.lore(components);
         itemStack.setItemMeta(itemMeta);
 
-        message(sender, Message.COMMAND_ITEM_LORE_SET, "%text%", loreLine, "%line%", index);
+        message(sender, Message.COMMAND_ITEM_LORE_ADD, "%text%", loreLine);
 
         return CommandResultType.SUCCESS;
     }

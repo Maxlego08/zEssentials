@@ -1,9 +1,10 @@
-package fr.maxlego08.essentials.commands.commands.utils.admins.items;
+package fr.maxlego08.essentials.commands.commands.items;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.module.modules.ItemModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 import fr.maxlego08.essentials.zutils.utils.paper.PaperComponent;
 import net.kyori.adventure.text.Component;
@@ -14,10 +15,12 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class CommandItemName extends VCommand {
     public CommandItemName(EssentialsPlugin plugin) {
         super(plugin);
+        this.setModule(ItemModule.class);
         this.setPermission(Permission.ESSENTIALS_ITEM_NAME);
         this.setDescription(Message.DESCRIPTION_ITEM_NAME);
         this.addOptionalArg("name");
         this.setExtendedArgs(true);
+        this.onlyPlayers();
     }
 
     @Override

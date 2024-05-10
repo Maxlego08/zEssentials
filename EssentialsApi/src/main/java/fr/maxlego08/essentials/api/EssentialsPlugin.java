@@ -17,6 +17,7 @@ import fr.maxlego08.essentials.api.utils.Warp;
 import fr.maxlego08.menu.api.ButtonManager;
 import fr.maxlego08.menu.api.InventoryManager;
 import fr.maxlego08.menu.api.pattern.PatternManager;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permissible;
 import org.bukkit.plugin.Plugin;
@@ -217,4 +218,6 @@ public interface EssentialsPlugin extends Plugin {
     Optional<Kit> getKit(String kitName);
 
     void giveKit(User user, Kit kit, boolean bypassCooldown);
+
+    List<Material> getMaterials();
 }

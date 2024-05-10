@@ -159,6 +159,7 @@ public enum Message {
     DESCRIPTION_ECO_RESET("Resets the specified player's balance to the server's starting balance"),
     DESCRIPTION_ECO_SHOW("Show player money"),
     DESCRIPTION_PAY("Pays another player from your balance"),
+    DESCRIPTION_PAY_TOGGLE("Activate or not the receipt of money"),
     DESCRIPTION_SET_SPAWN("Set server spawn"),
     DESCRIPTION_SPAWN("Teleport to spawn"),
     DESCRIPTION_WARP_SET("Create a warp"),
@@ -208,6 +209,9 @@ public enum Message {
     DESCRIPTION_ITEM_LORE("Show commands for the lore"),
     DESCRIPTION_ITEM_LORE_SET("Define a line of a lore"),
     DESCRIPTION_ITEM_LORE_ADD("Add a line to lore"),
+    DESCRIPTION_ITEM_LORE_CLEAR("Clear item lore"),
+    DESCRIPTION_GIVE("Give items"),
+    DESCRIPTION_GIVE_ALL("Give items to online players"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -284,6 +288,7 @@ public enum Message {
             "<error>Usage&8: &f/warp <destination>",
             "&7Warps&8:&f%destinations%"
     ),
+    COMMAND_WARP_EMPTY("<error>No warp defined, use command &f/setwarp <name>"),
     COMMAND_WARP_DESTINATION(" <hover:show_text:'&fClick to teleport to warp &n%name%'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"),
     COMMAND_WARP_LIST("&7Warps&8:&f%destinations%"),
     COMMAND_WARP_LIST_INFO(" <hover:show_text:'&fClick to teleport to warp &n%name%'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"),
@@ -417,6 +422,8 @@ public enum Message {
     COMMAND_MESSAGE_TOGGLE_DISABLE("&7Private message <error>disable &7for &f%player%<success>."),
     COMMAND_SOCIAL_SPY_ENABLE("&7Social spy <success>enable &7for &f%player%<success>."),
     COMMAND_SOCIAL_SPY_DISABLE("&7Social spy <error>disable &7for &f%player%<success>."),
+    COMMAND_PAY_TOGGLE_ENABLE("&7Pay <success>enable &7for &f%player%<success>."),
+    COMMAND_PAY_TOGGLE_DISABLE("&7Pay <error>disable &7for &f%player%<success>."),
 
     COMMAND_FURNACE_TYPE("<error>Impossible to smelt the material &f%material%<error>."),
     COMMAND_FURNACE_ERROR("<error>You have no &f%item%<error> in your inventory."),
@@ -480,7 +487,11 @@ public enum Message {
     COMMAND_ITEM_SET("<success>You have renamed your held item to &f%name%<success>."),
     COMMAND_ITEM_LORE_ADD("<success>You just added the line &f%text%<success>."),
     COMMAND_ITEM_LORE_SET("<success>You just set line %line% to &f%text%<success>."),
+    COMMAND_ITEM_LORE_CLEAR("<success>You just clear the item lore."),
     COMMAND_ITEM_LORE_SET_ERROR("<error>Can’t find the line &f%line%<error>."),
+    COMMAND_GIVE_ERROR("<error>Can’t find the item &f%item%<error>."),
+    COMMAND_GIVE("<success>You just gave &n&fx1 %item%&r <success>to player &f%player%<success>."),
+    COMMAND_GIVE_ALL("<success>You just gave &n&fx1 %item%&r <success>to online player."),
 
     ;
 

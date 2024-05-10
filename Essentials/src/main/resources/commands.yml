@@ -45,6 +45,7 @@ tphere: true
 economy: true
 money: true
 pay: true
+paytoggle: true
 fly: true
 anvil: true
 cartographytable: true
@@ -97,3 +98,5 @@ kitdelete: true
 cooldown: true
 itemname: true
 itemlore: true
+give: true
+giveall: true

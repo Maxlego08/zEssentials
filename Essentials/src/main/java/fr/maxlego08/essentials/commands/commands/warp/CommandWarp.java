@@ -36,9 +36,15 @@ public class CommandWarp extends VCommand {
             if (warpModule.isEnableNoArgumentMessage()) {
 
                 List<String> warps = plugin.getWarps().stream().filter(warp -> warp.hasPermission(sender)).map(warp -> getMessage(Message.COMMAND_WARP_DESTINATION, "%name%", warp.name())).toList();
+
+                if (warps.isEmpty()) {
+                    message(sender, Message.COMMAND_WARP_EMPTY);
+                    return CommandResultType.DEFAULT;
+                }
+
                 message(sender, Message.COMMAND_WARP_USE, "%destinations%", Strings.join(warps, ','));
 
-                return CommandResultType.DEFAULT;
+                return CommandResultType.SUCCESS;
             }
 
             if (warpModule.isEnableInventory()) {

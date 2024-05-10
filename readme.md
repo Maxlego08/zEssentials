@@ -52,7 +52,7 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 - [x] Command /playtime
 - [ ] Command /spawner
 - [x] Command /weather
-- [ ] Command /seen, whois
+- [x] Command /seen, whois
 - [ ] Command /vanish
 - [x] Command /time
 - [x] Command /pweather
@@ -66,15 +66,15 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 - [x] Command /itemlore
 - [x] Command /itemname
 
-- [ ] Command /setwarp
-- [ ] Command /delwarp
-- [ ] Command /warp
+- [x] Command /setwarp
+- [x] Command /delwarp
+- [x] Command /warp
 
-- [ ] Command /msg
-- [ ] Command /msgtoggle
-- [ ] Command /socialspy
+- [x] Command /msg
+- [x] Command /msgtoggle
+- [x] Command /socialspy
 
-- [ ] Command /paytoggle
+- [x] Command /paytoggle
 - [ ] Command /balancetop (alias: baltop)
 - [x] Command /balance (alias: money)
 - [x] Command /eco give, take, set,reset
