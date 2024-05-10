@@ -7,6 +7,7 @@ import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.OptionDTO;
 import fr.maxlego08.essentials.api.database.dto.PlayTimeDTO;
+import fr.maxlego08.essentials.api.database.dto.PowerToolsDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.database.dto.UserDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
@@ -26,6 +27,7 @@ import fr.maxlego08.essentials.storage.database.repositeries.UserEconomyReposito
 import fr.maxlego08.essentials.storage.database.repositeries.UserHomeRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserOptionRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserPlayTimeRepository;
+import fr.maxlego08.essentials.storage.database.repositeries.UserPowerToolsRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserSanctionRepository;
 import fr.maxlego08.essentials.user.ZUser;
@@ -34,6 +36,7 @@ import fr.maxlego08.sarah.DatabaseConnection;
 import fr.maxlego08.sarah.MigrationManager;
 import fr.maxlego08.sarah.MySqlConnection;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 
 import java.math.BigDecimal;
@@ -74,6 +77,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
         this.repositories.register(ChatMessagesRepository.class);
         this.repositories.register(CommandsRepository.class);
         this.repositories.register(UserPlayTimeRepository.class);
+        this.repositories.register(UserPowerToolsRepository.class);
         // this.repositories.register(ServerStorageRepository.class);
 
         MigrationManager.execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), this.plugin.getLogger());
@@ -133,6 +137,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
                 user.setCooldowns(this.repositories.getTable(UserCooldownsRepository.class).selectCooldowns(uniqueId));
                 user.setEconomies(this.repositories.getTable(UserEconomyRepository.class).selectEconomies(uniqueId));
                 user.setHomes(this.repositories.getTable(UserHomeRepository.class).selectHomes(uniqueId));
+                user.setPowerTools(this.repositories.getTable(UserPowerToolsRepository.class).getPowerTools(uniqueId).stream().collect(Collectors.toMap(PowerToolsDTO::material, PowerToolsDTO::command)));
             }
         });
 
@@ -368,5 +373,15 @@ public class SqlStorage extends StorageHelper implements IStorage {
     @Override
     public List<CooldownDTO> getCooldowns(UUID uniqueId) {
         return this.repositories.getTable(UserCooldownsRepository.class).selectCooldowns(uniqueId);
+    }
+
+    @Override
+    public void setPowerTools(UUID uniqueId, Material material, String command) {
+        async(() -> this.repositories.getTable(UserPowerToolsRepository.class).upsert(uniqueId, material, command));
+    }
+
+    @Override
+    public void deletePowerTools(UUID uniqueId, Material material) {
+        async(() -> this.repositories.getTable(UserPowerToolsRepository.class).delete(uniqueId, material));
     }
 }

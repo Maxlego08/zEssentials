@@ -30,4 +30,5 @@ public enum Option {
     VANISH,
     PRIVATE_MESSAGE_DISABLE,
     PAY_DISABLE,
+    POWER_TOOLS_DISABLE,
 }

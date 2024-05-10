@@ -13,6 +13,7 @@ import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.utils.LocationUtils;
 import org.bukkit.Location;
+import org.bukkit.Material;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -75,6 +76,11 @@ public class UserTypeAdapter extends TypeAdapter<User> {
         }
         out.endArray();
 
+        out.name("power-tools").beginObject();
+        for (Map.Entry<Material, String> entry : value.getPowerTools().entrySet()) {
+            out.name(entry.getKey().name()).value(entry.getValue());
+        }
+        out.endObject();
 
         out.endObject();
     }
@@ -83,6 +89,7 @@ public class UserTypeAdapter extends TypeAdapter<User> {
     public User read(JsonReader in) throws IOException {
         String name = null;
         UUID uniqueId = null; // Temporary storage for the UUID
+        Map<Material, String > powerTools = new HashMap<>();
         Map<Option, Boolean> options = new HashMap<>();
         Map<String, Long> cooldowns = new HashMap<>();
         Map<String, BigDecimal> balances = new HashMap<>();
@@ -106,6 +113,13 @@ public class UserTypeAdapter extends TypeAdapter<User> {
                     in.beginObject();
                     while (in.hasNext()) {
                         cooldowns.put(in.nextName(), in.nextLong());
+                    }
+                    in.endObject();
+                }
+                case "power-tools" -> {
+                    in.beginObject();
+                    while (in.hasNext()) {
+                        powerTools.put(Material.valueOf(in.nextName()), in.nextString());
                     }
                     in.endObject();
                 }
@@ -154,6 +168,7 @@ public class UserTypeAdapter extends TypeAdapter<User> {
         user.setCooldowns(cooldowns.entrySet().stream().map(entry -> new CooldownDTO(entry.getKey(), entry.getValue(), new Date())).collect(Collectors.toList()));
         user.setLastLocation(lastLocation);
         user.setHomes(homeDTOS);
+        user.setPowerTools(powerTools);
         balances.forEach(user::setBalance);
 
         return user;

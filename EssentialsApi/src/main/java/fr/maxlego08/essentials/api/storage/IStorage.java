@@ -11,6 +11,7 @@ import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.user.UserRecord;
+import org.bukkit.Material;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -93,4 +94,8 @@ public interface IStorage {
     List<UserDTO> getUsers(String ip);
 
     List<CooldownDTO> getCooldowns(UUID uniqueId);
+
+    void setPowerTools(UUID uniqueId, Material material, String command);
+
+    void deletePowerTools(UUID uniqueId, Material material);
 }

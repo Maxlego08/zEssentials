@@ -64,6 +64,7 @@ public class ZUser extends ZUtils implements User {
     private long currentSessionPlayTime;
     private String address;
     private Kit previewKit;
+    private Map<Material, String> powerTools = new HashMap<>();
 
     public ZUser(EssentialsPlugin plugin, UUID uniqueId) {
         this.plugin = plugin;
@@ -626,7 +627,34 @@ public class ZUser extends ZUtils implements User {
     }
 
     @Override
+    public void setPowerTools(Material type, String command) {
+        this.powerTools.put(type, command);
+        this.getStorage().setPowerTools(this.uniqueId, type, command);
+    }
+
+    @Override
+    public Map<Material, String> getPowerTools() {
+        return null;
+    }
+
+    @Override
+    public void setPowerTools(Map<Material, String> powerTools) {
+        this.powerTools = powerTools;
+    }
+
+    @Override
+    public Optional<String> getPowerTool(Material material) {
+        return Optional.ofNullable(this.powerTools.get(material));
+    }
+
+    @Override
     public Kit getKitPreview() {
         return this.previewKit;
+    }
+
+    @Override
+    public void deletePowerTools(Material material) {
+        this.powerTools.remove(material);
+        this.getStorage().deletePowerTools(this.uniqueId, material);
     }
 }

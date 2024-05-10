@@ -23,7 +23,10 @@ import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeSurviva
 import fr.maxlego08.essentials.commands.commands.home.CommandDelHome;
 import fr.maxlego08.essentials.commands.commands.home.CommandHome;
 import fr.maxlego08.essentials.commands.commands.home.CommandSetHome;
+import fr.maxlego08.essentials.commands.commands.items.CommandGive;
 import fr.maxlego08.essentials.commands.commands.items.CommandGiveAll;
+import fr.maxlego08.essentials.commands.commands.items.CommandItemLore;
+import fr.maxlego08.essentials.commands.commands.items.CommandItemName;
 import fr.maxlego08.essentials.commands.commands.kits.CommandKit;
 import fr.maxlego08.essentials.commands.commands.kits.CommandKitCreate;
 import fr.maxlego08.essentials.commands.commands.kits.CommandKitDelete;
@@ -70,15 +73,14 @@ import fr.maxlego08.essentials.commands.commands.utils.CommandRepairAll;
 import fr.maxlego08.essentials.commands.commands.utils.CommandTrash;
 import fr.maxlego08.essentials.commands.commands.utils.CommandVersion;
 import fr.maxlego08.essentials.commands.commands.utils.admins.CommandFly;
-import fr.maxlego08.essentials.commands.commands.items.CommandGive;
 import fr.maxlego08.essentials.commands.commands.utils.admins.CommandGod;
 import fr.maxlego08.essentials.commands.commands.utils.admins.CommandInvsee;
 import fr.maxlego08.essentials.commands.commands.utils.admins.CommandKillAll;
 import fr.maxlego08.essentials.commands.commands.utils.admins.CommandKittyCannon;
+import fr.maxlego08.essentials.commands.commands.utils.admins.CommandPowerTools;
+import fr.maxlego08.essentials.commands.commands.utils.admins.CommandPowerToolsToggle;
 import fr.maxlego08.essentials.commands.commands.utils.admins.CommandSkull;
 import fr.maxlego08.essentials.commands.commands.utils.admins.CommandSpeed;
-import fr.maxlego08.essentials.commands.commands.items.CommandItemLore;
-import fr.maxlego08.essentials.commands.commands.items.CommandItemName;
 import fr.maxlego08.essentials.commands.commands.utils.blocks.CommandAnvil;
 import fr.maxlego08.essentials.commands.commands.utils.blocks.CommandCartographyTable;
 import fr.maxlego08.essentials.commands.commands.utils.blocks.CommandEnchanting;
@@ -221,6 +223,8 @@ public class CommandLoader {
         register("itemlore", CommandItemLore.class, "ilore", "itemlore", "lore");
         register("give", CommandGive.class);
         register("giveall", CommandGiveAll.class);
+        register("powertools", CommandPowerTools.class, "pt");
+        register("powertools-toggle", CommandPowerToolsToggle.class, "pt-toggle");
 
         File file = new File(plugin.getDataFolder(), "commands.yml");
         if (!file.exists()) this.plugin.saveResource("commands.yml", false);

@@ -42,7 +42,7 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 - [x] Command /invsee
 - [ ] Command /kill
 - [ ] Command /enchant
-- [ ] Command /give
+- [x] Command /give
 - [x] Command /fly
 - [x] Command /god
 - [x] Command /skull
@@ -90,5 +90,5 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 - [x] Command /spawn
 
 - [x] Command /cooldown (display a player’s cooldowns and add button for delete a cooldown)
-- [ ] Command `/cooldown delete <player> <name>`
-- [ ] Command `/cooldown create <player> <name> <cooldown>`
+- [x] Command `/cooldown delete <player> <name>`
+- [x] Command `/cooldown create <player> <name> <cooldown>`

@@ -100,3 +100,5 @@ itemname: true
 itemlore: true
 give: true
 giveall: true
+powertools: true
+powertools-toggle: true

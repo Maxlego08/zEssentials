@@ -19,6 +19,7 @@ import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.utils.StorageHelper;
 import org.apache.commons.lang3.NotImplementedException;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 
 import java.io.File;
@@ -319,5 +320,15 @@ public class JsonStorage extends StorageHelper implements IStorage {
     @Override
     public List<CooldownDTO> getCooldowns(UUID uniqueId) {
         return new ArrayList<>();
+    }
+
+    @Override
+    public void setPowerTools(UUID uniqueId, Material type, String command) {
+        this.saveFileAsync(uniqueId);
+    }
+
+    @Override
+    public void deletePowerTools(UUID uniqueId, Material material) {
+        this.saveFileAsync(uniqueId);
     }
 }

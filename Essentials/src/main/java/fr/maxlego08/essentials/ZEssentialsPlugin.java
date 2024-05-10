@@ -41,6 +41,7 @@ import fr.maxlego08.essentials.database.migrations.CreateUserEconomyMigration;
 import fr.maxlego08.essentials.database.migrations.CreateUserHomeTableMigration;
 import fr.maxlego08.essentials.database.migrations.CreateUserOptionTableMigration;
 import fr.maxlego08.essentials.database.migrations.CreateUserPlayTimeTableMigration;
+import fr.maxlego08.essentials.database.migrations.CreateUserPowerToolsMigration;
 import fr.maxlego08.essentials.database.migrations.CreateUserTableMigration;
 import fr.maxlego08.essentials.database.migrations.UpdateUserTableAddSanctionColumns;
 import fr.maxlego08.essentials.economy.EconomyManager;
@@ -237,6 +238,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         MigrationManager.registerMigration(new CreateChatMessageMigration());
         MigrationManager.registerMigration(new CreateCommandsMigration());
         MigrationManager.registerMigration(new CreateUserPlayTimeTableMigration());
+        MigrationManager.registerMigration(new CreateUserPowerToolsMigration());
     }
 
     @Override

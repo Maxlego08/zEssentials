@@ -185,6 +185,7 @@ public enum Message {
     DESCRIPTION_MESSAGE("Send a private message to a player"),
     DESCRIPTION_REPLY("Reply to a private message"),
     DESCRIPTION_MESSAGE_TOGGLE("Toggle private message"),
+    DESCRIPTION_POWER_TOOLS_TOGGLE("Toggle power tools"),
     DESCRIPTION_SOCIALSPY("Display private messages of players"),
     DESCRIPTION_COMPACT_ALL("Compact items in your inventories"),
     DESCRIPTION_FURNACE("Smelt all the items in your hand"),
@@ -212,6 +213,7 @@ public enum Message {
     DESCRIPTION_ITEM_LORE_CLEAR("Clear item lore"),
     DESCRIPTION_GIVE("Give items"),
     DESCRIPTION_GIVE_ALL("Give items to online players"),
+    DESCRIPTION_POWER_TOOLS("Add command to your items"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -419,11 +421,13 @@ public enum Message {
     COMMAND_MESSAGE_SOCIAL_SPY(MessageType.WITHOUT_PREFIX, "&8(&7SocialSpy&8) &8(<hover:show_text:'&fOpen sanction for %sender%'><click:run_command:'/sc %sender%'>#34cfe0%sender%</click></hover> &7-> <hover:show_text:'&fOpen sanction for %receiver%'><click:run_command:'/sc %receiver%'>#f533f5%receiver%</click></hover>&8) #e6e1e6%message%"),
     COMMAND_MESSAGE_ERROR("<error>You have no one to answer."),
     COMMAND_MESSAGE_TOGGLE_ENABLE("&7Private message <success>enable &7for &f%player%<success>."),
-    COMMAND_MESSAGE_TOGGLE_DISABLE("&7Private message <error>disable &7for &f%player%<success>."),
+    COMMAND_MESSAGE_TOGGLE_DISABLE("&7Private message <error>disable &7for &f%player%<error>."),
     COMMAND_SOCIAL_SPY_ENABLE("&7Social spy <success>enable &7for &f%player%<success>."),
-    COMMAND_SOCIAL_SPY_DISABLE("&7Social spy <error>disable &7for &f%player%<success>."),
+    COMMAND_SOCIAL_SPY_DISABLE("&7Social spy <error>disable &7for &f%player%<error>."),
     COMMAND_PAY_TOGGLE_ENABLE("&7Pay <success>enable &7for &f%player%<success>."),
-    COMMAND_PAY_TOGGLE_DISABLE("&7Pay <error>disable &7for &f%player%<success>."),
+    COMMAND_PAY_TOGGLE_DISABLE("<error>All of your power tools have been disabled &7for &f%player%<error>."),
+    COMMAND_POWER_TOOLS_TOGGLE_ENABLE("<success>All of your power tools have been enabled &7for &f%player%<success>."),
+    COMMAND_POWER_TOOLS_TOGGLE_DISABLE("&7Pay <error>disable &7for &f%player%<error>."),
 
     COMMAND_FURNACE_TYPE("<error>Impossible to smelt the material &f%material%<error>."),
     COMMAND_FURNACE_ERROR("<error>You have no &f%item%<error> in your inventory."),
@@ -492,6 +496,11 @@ public enum Message {
     COMMAND_GIVE_ERROR("<error>Can’t find the item &f%item%<error>."),
     COMMAND_GIVE("<success>You just gave &n&fx1 %item%&r <success>to player &f%player%<success>."),
     COMMAND_GIVE_ALL("<success>You just gave &n&fx1 %item%&r <success>to online player."),
+
+    COMMAND_POWER_TOOL_ERROR_ITEM("<error>You have no item in your hand."),
+    COMMAND_POWER_TOOL_ERROR_RESET("<error>This item has no recorded command."),
+    COMMAND_POWER_TOOL_INFO("<success>You just put the command &f/%command%<success> on the item &f%item<success>."),
+    COMMAND_POWER_TOOL_RESET("<success>You have just deleted the command on the item &f%item<success>."),
 
     ;
 

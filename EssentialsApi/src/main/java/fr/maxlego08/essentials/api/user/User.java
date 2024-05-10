@@ -12,6 +12,7 @@ import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
@@ -524,4 +525,14 @@ public interface User {
     void openKitPreview(Kit kit);
 
     void removeCooldown(String cooldownName);
+
+    void setPowerTools(Material type, String command);
+
+    Map<Material, String> getPowerTools();
+
+    Optional<String> getPowerTool(Material material);
+
+    void setPowerTools(Map<Material, String> powerTools);
+
+    void deletePowerTools(Material material);
 }
