@@ -38,6 +38,7 @@ public class ButtonKitGet extends ZButton {
             this.plugin.giveKit(user, kit, false);
         } else if (event.getClick().isRightClick()) {
             user.openKitPreview(kit);
+            return;
         }
 
         super.onClick(player, event, inventory, slot, placeholders);
