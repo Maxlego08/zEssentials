@@ -14,6 +14,7 @@ import fr.maxlego08.essentials.module.modules.SanctionModule;
 import fr.maxlego08.essentials.module.modules.SpawnModule;
 import fr.maxlego08.essentials.module.modules.TeleportationModule;
 import fr.maxlego08.essentials.module.modules.WarpModule;
+import fr.maxlego08.essentials.scoreboard.ZScoreboardManager;
 import org.bukkit.Bukkit;
 
 import java.io.File;
@@ -53,6 +54,7 @@ public class ZModuleManager implements ModuleManager {
         this.modules.put(MessageModule.class, new MessageModule(this.plugin));
         this.modules.put(KitModule.class, new KitModule(this.plugin));
         this.modules.put(ItemModule.class, new ItemModule(this.plugin));
+        this.modules.put(ZScoreboardManager.class, this.plugin.getScoreboardManager());
 
         this.loadConfigurations();
 

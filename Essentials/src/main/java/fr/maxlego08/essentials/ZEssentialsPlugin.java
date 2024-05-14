@@ -14,6 +14,7 @@ import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.placeholders.PlaceholderRegister;
+import fr.maxlego08.essentials.api.scoreboard.ScoreboardManager;
 import fr.maxlego08.essentials.api.server.EssentialsServer;
 import fr.maxlego08.essentials.api.server.ServerType;
 import fr.maxlego08.essentials.api.storage.Persist;
@@ -57,6 +58,7 @@ import fr.maxlego08.essentials.module.ZModuleManager;
 import fr.maxlego08.essentials.module.modules.HomeModule;
 import fr.maxlego08.essentials.placeholders.DistantPlaceholder;
 import fr.maxlego08.essentials.placeholders.LocalPlaceholder;
+import fr.maxlego08.essentials.scoreboard.ZScoreboardManager;
 import fr.maxlego08.essentials.server.PaperServer;
 import fr.maxlego08.essentials.server.SpigotServer;
 import fr.maxlego08.essentials.server.redis.RedisServer;
@@ -110,6 +112,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     private ButtonManager buttonManager;
     private PatternManager patternManager;
     private EssentialsServer essentialsServer;
+    private ScoreboardManager scoreboardManager;
 
     @Override
     public void onEnable() {
@@ -169,6 +172,8 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.storageManager = new ZStorageManager(this);
         this.registerListener(this.storageManager);
         this.storageManager.onEnable();
+
+        this.scoreboardManager = new ZScoreboardManager(this);
 
         this.moduleManager.loadModules();
 
@@ -480,5 +485,10 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     @Override
     public List<Material> getMaterials() {
         return this.materials;
+    }
+
+    @Override
+    public ScoreboardManager getScoreboardManager() {
+        return this.scoreboardManager;
     }
 }

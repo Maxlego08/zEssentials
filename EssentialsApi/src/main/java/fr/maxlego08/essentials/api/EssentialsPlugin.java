@@ -7,6 +7,7 @@ import fr.maxlego08.essentials.api.economy.EconomyProvider;
 import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
+import fr.maxlego08.essentials.api.scoreboard.ScoreboardManager;
 import fr.maxlego08.essentials.api.server.EssentialsServer;
 import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.essentials.api.storage.ServerStorage;
@@ -220,4 +221,6 @@ public interface EssentialsPlugin extends Plugin {
     void giveKit(User user, Kit kit, boolean bypassCooldown);
 
     List<Material> getMaterials();
+
+    ScoreboardManager getScoreboardManager();
 }

@@ -7,6 +7,7 @@ dependencies {
     compileOnly project(':EssentialsApi')
     compileOnly project(':Hooks:Vault')
     compileOnly project(':Hooks:Redis')
+    implementation 'fr.mrmicky:fastboard:2.1.2'
 }
 
 jar {
@@ -37,6 +38,7 @@ shadowJar {
 
     relocate 'com.tcoded.folialib', 'fr.maxlego08.essentials.folialib'
     relocate 'fr.maxlego08.sarah', 'fr.maxlego08.essentials.database.sarah'
+    relocate 'fr.mrmicky.fastboard', 'fr.maxlego08.essentials.fastboard'
 }
 
 assemble.dependsOn shadowJar

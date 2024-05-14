@@ -84,7 +84,7 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 - [x] Command /kiteditor
 - [x] Command /deletekit
 - [x] Command /kit (as gui or not)
-- [ ] Command `/showkit <kit>` (Preview kit as gui)
+- [x] Command `/showkit <kit>` (Preview kit as gui)
 
 - [x] Command /setspawn
 - [x] Command /spawn
