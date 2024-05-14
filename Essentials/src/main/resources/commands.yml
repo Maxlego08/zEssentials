@@ -102,3 +102,4 @@ give: true
 giveall: true
 powertools: true
 powertools-toggle: true
+showkit: true

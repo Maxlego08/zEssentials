@@ -31,6 +31,7 @@ import fr.maxlego08.essentials.commands.commands.kits.CommandKit;
 import fr.maxlego08.essentials.commands.commands.kits.CommandKitCreate;
 import fr.maxlego08.essentials.commands.commands.kits.CommandKitDelete;
 import fr.maxlego08.essentials.commands.commands.kits.CommandKitEditor;
+import fr.maxlego08.essentials.commands.commands.kits.CommandShowKit;
 import fr.maxlego08.essentials.commands.commands.messages.CommandMessage;
 import fr.maxlego08.essentials.commands.commands.messages.CommandMessageToggle;
 import fr.maxlego08.essentials.commands.commands.messages.CommandReply;
@@ -214,6 +215,7 @@ public class CommandLoader {
         register("seenip", CommandSeenIp.class, "whoisip");
 
         register("kit", CommandKit.class, "kits");
+        register("showkit", CommandShowKit.class);
         register("kiteditor", CommandKitEditor.class, "keditor");
         register("kitcreate", CommandKitCreate.class, "kcreate");
         register("kitdelete", CommandKitDelete.class, "delete");

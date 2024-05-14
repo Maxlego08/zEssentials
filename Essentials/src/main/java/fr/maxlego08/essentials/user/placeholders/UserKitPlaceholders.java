@@ -1,7 +1,6 @@
 package fr.maxlego08.essentials.user.placeholders;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
-import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.placeholders.PlaceholderRegister;
@@ -18,7 +17,7 @@ public class UserKitPlaceholders extends ZUtils implements PlaceholderRegister {
 
         placeholder.register("user_has_kit_", (player, kitName) -> {
             Optional<Kit> optional = plugin.getKit(kitName);
-            return optional.map(kit -> String.valueOf(player.hasPermission(Permission.ESSENTIALS_KIT_.asPermission(kit.getName())))).orElseGet(() -> "Kit " + kitName + " was not found");
+            return optional.map(kit -> String.valueOf(kit.hasPermission(player))).orElseGet(() -> "Kit " + kitName + " was not found");
         }, "Returns true or false if the player has the kit", "kit name");
 
         placeholder.register("user_kit_is_available_", (player, kitName) -> {

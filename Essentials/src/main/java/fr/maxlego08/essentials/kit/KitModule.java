@@ -15,6 +15,7 @@ import fr.maxlego08.menu.exceptions.InventoryException;
 import fr.maxlego08.menu.loader.MenuItemStackLoader;
 import fr.maxlego08.menu.zcore.utils.loader.Loader;
 import org.apache.logging.log4j.util.Strings;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -166,6 +167,11 @@ public class KitModule extends ZModule {
         kit.getActions().forEach(action -> action.preExecute(user.getPlayer(), null, this.plugin.getInventoryManager().getFakeInventory(), new Placeholders()));
 
         return true;
+    }
+
+    public void sendInLine(CommandSender sender){
+        List<String> homesAsString = kits.stream().map(kit -> getMessage(Message.COMMAND_KIT_INFORMATION_IN_LINE_INFO_AVAILABLE, "%name%", kit.getName())).toList();
+        message(sender, Message.COMMAND_KIT_INFORMATION_IN_LINE, "%kits%", Strings.join(homesAsString, ','));
     }
 
     public void showKits(User user) {

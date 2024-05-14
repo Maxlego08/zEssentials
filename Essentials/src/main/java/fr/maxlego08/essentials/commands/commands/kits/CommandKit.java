@@ -18,7 +18,7 @@ public class CommandKit extends VCommand {
         this.setModule(SanctionModule.class);
         this.setPermission(Permission.ESSENTIALS_KIT);
         this.setDescription(Message.DESCRIPTION_KIT);
-        this.addOptionalArg("kit", (sender, b) -> plugin.getModuleManager().getModule(KitModule.class).getKits(sender).stream().map(Kit::getName).toList());
+        this.addOptionalArg("kit", (sender, b) -> plugin.getModuleManager().getModule(KitModule.class).getKits(sender).stream().filter(kit -> kit.hasPermission(sender)).map(Kit::getName).toList());
         this.onlyPlayers();
     }
 
@@ -31,7 +31,7 @@ public class CommandKit extends VCommand {
         if (kitName == null) {
 
             if (sender instanceof ConsoleCommandSender) {
-                // TODO
+                kitModule.sendInLine(sender);
                 return CommandResultType.SUCCESS;
             }
 
@@ -46,6 +46,12 @@ public class CommandKit extends VCommand {
         }
 
         Kit kit = optional.get();
+
+        if (!kit.hasPermission(sender)) {
+            message(sender, Message.COMMAND_KIT_NO_PERMISSION, "%kit%", kitName);
+            return CommandResultType.DEFAULT;
+        }
+
         if (kitModule.giveKit(this.user, kit, false)) {
             return CommandResultType.SUCCESS;
         }

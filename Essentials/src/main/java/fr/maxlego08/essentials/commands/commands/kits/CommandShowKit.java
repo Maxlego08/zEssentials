@@ -8,17 +8,18 @@ import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.kit.KitModule;
 import fr.maxlego08.essentials.module.modules.SanctionModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
+import org.bukkit.command.ConsoleCommandSender;
 
 import java.util.Optional;
 
-public class CommandKitCreate extends VCommand {
-    public CommandKitCreate(EssentialsPlugin plugin) {
+public class CommandShowKit extends VCommand {
+    public CommandShowKit(EssentialsPlugin plugin) {
         super(plugin);
         this.setModule(KitModule.class);
-        this.setPermission(Permission.ESSENTIALS_KIT_CREATE);
-        this.setDescription(Message.DESCRIPTION_KIT_CREATE);
-        this.addRequireArg("name");
-        this.addRequireArg("cooldown");
+        this.setPermission(Permission.ESSENTIALS_KIT_SHOW);
+        this.setDescription(Message.DESCRIPTION_KIT_SHOW);
+        this.addRequireArg("kit", (sender, b) -> plugin.getModuleManager().getModule(KitModule.class).getKits(sender).stream().map(Kit::getName).toList());
+        this.onlyPlayers();
     }
 
     @Override
@@ -26,15 +27,15 @@ public class CommandKitCreate extends VCommand {
 
         KitModule kitModule = plugin.getModuleManager().getModule(KitModule.class);
         String kitName = this.argAsString(0);
-        int cooldown = this.argAsInteger(1);
 
         Optional<Kit> optional = kitModule.getKit(kitName);
-        if (optional.isPresent()) {
-            message(sender, Message.COMMAND_KIT_ALREADY_EXISTS, "%kit%", kitName);
+        if (optional.isEmpty()) {
+            message(sender, Message.COMMAND_KIT_NOT_FOUND, "%kit%", kitName);
             return CommandResultType.DEFAULT;
         }
 
-        kitModule.createKit(this.player, kitName, Math.max(1, cooldown));
-        return CommandResultType.SUCCESS;
+        user.openKitPreview(optional.get());
+
+        return CommandResultType.DEFAULT;
     }
 }

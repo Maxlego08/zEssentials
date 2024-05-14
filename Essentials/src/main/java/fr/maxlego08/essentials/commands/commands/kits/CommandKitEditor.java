@@ -14,7 +14,7 @@ import java.util.Optional;
 public class CommandKitEditor extends VCommand {
     public CommandKitEditor(EssentialsPlugin plugin) {
         super(plugin);
-        this.setModule(SanctionModule.class);
+        this.setModule(KitModule.class);
         this.setPermission(Permission.ESSENTIALS_KIT_EDITOR);
         this.setDescription(Message.DESCRIPTION_KIT_EDITOR);
         this.addOptionalArg("kit", (sender, b) -> plugin.getModuleManager().getModule(KitModule.class).getKits(sender).stream().map(Kit::getName).toList());

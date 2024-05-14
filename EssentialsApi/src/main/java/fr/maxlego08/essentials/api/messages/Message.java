@@ -200,6 +200,7 @@ public enum Message {
     DESCRIPTION_SEEN("Show player informations"),
     DESCRIPTION_SEEN_IP("Show players who have the same IP"),
     DESCRIPTION_KIT("Get a kit"),
+    DESCRIPTION_KIT_SHOW("Show a kit"),
     DESCRIPTION_KIT_EDITOR("Edit a kit"),
     DESCRIPTION_KIT_CREATE("Create a new kit"),
     DESCRIPTION_KIT_DELETE("Delete a kit"),
@@ -461,6 +462,7 @@ public enum Message {
     COMMAND_SEEN_IP_LINE("#99E0FFPlayers with the ip &f%ip%&8:%players%"),
     COMMAND_SEEN_IP_INFO(" <white><click:run_command:'/seen %name%'><hover:show_text:'&fShow player's information'>%name%</hover></click><dark_gray>"),
 
+    COMMAND_KIT_NO_PERMISSION("<error>You do not have permission to use the kit &f%kit%<error>."),
     COMMAND_KIT_NOT_FOUND("<error>Unable to find the kit &f%kit%<error>."),
     COMMAND_KIT_ALREADY_EXISTS("<error>The &f%kit% <error>kit already exists."),
     COMMAND_KIT_INFORMATION_IN_LINE_EMPTY(MessageType.WITHOUT_PREFIX, "#8cc0ccʏᴏᴜʀ ᴋɪᴛs <success>♦ &7(%count%/%max%)&8: <error>ɴᴏ ᴋɪᴛ ᴀᴠᴀɪʟᴀʙʟᴇ"),
