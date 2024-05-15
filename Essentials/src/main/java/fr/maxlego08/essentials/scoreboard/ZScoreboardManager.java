@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.scoreboard;
 
 import fr.maxlego08.essentials.ZEssentialsPlugin;
+import fr.maxlego08.essentials.api.event.UserEvent;
 import fr.maxlego08.essentials.api.scoreboard.EssentialsScoreboard;
 import fr.maxlego08.essentials.api.scoreboard.PlayerBoard;
 import fr.maxlego08.essentials.api.scoreboard.ScoreboardLine;
@@ -16,6 +17,7 @@ import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
+import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.PluginManager;
@@ -26,12 +28,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 
 public class ZScoreboardManager extends ZModule implements ScoreboardManager {
 
 
     private final List<EssentialsScoreboard> essentialsScoreboards = new ArrayList<>();
-    private final Map<Player, PlayerBoard> boards = new HashMap<>();
+    private final Map<UUID, PlayerBoard> boards = new HashMap<>();
     private EssentialsScoreboard defaultScoreboard;
 
     public ZScoreboardManager(ZEssentialsPlugin plugin) {
@@ -73,7 +76,8 @@ public class ZScoreboardManager extends ZModule implements ScoreboardManager {
         PluginManager pluginManager = Bukkit.getServer().getPluginManager();
         pluginManager.registerEvents(this, this.plugin);
 
-        List<String> events = essentialsScoreboards.stream().map(EssentialsScoreboard::getLines).flatMap(List::stream).map(ScoreboardLine::getEventName).filter(Objects::nonNull).distinct().toList();
+        List<String> events = essentialsScoreboards.stream().map(EssentialsScoreboard::getLines).flatMap(List::stream)
+                .map(ScoreboardLine::getEventName).filter(Objects::nonNull).distinct().toList();
 
         events.forEach(eventName -> {
 
@@ -85,7 +89,7 @@ public class ZScoreboardManager extends ZModule implements ScoreboardManager {
                     return;
                 }
 
-                pluginManager.registerEvent(eventClass.asSubclass(Event.class), this, EventPriority.NORMAL, (listener, event) -> updateLineWithEvent(eventName), this.plugin);
+                pluginManager.registerEvent(eventClass.asSubclass(Event.class), this, EventPriority.NORMAL, (listener, event) -> updateLineWithEvent(eventName, event), this.plugin);
             } catch (ClassNotFoundException exception) {
                 this.plugin.getLogger().severe("Class " + eventName + " was not found !");
                 exception.printStackTrace();
@@ -93,14 +97,32 @@ public class ZScoreboardManager extends ZModule implements ScoreboardManager {
         });
     }
 
-    private void updateLineWithEvent(String eventName) {
-        System.out.println("Mise à jour de " + eventName);
-        for (PlayerBoard board : this.boards.values()) {
-            EssentialsScoreboard essentialsScoreboard = board.getScoreboard();
-            this.plugin.getScheduler().runAsync(wrappedTask -> {
-                essentialsScoreboard.getLines().stream().filter(scoreboardLine -> scoreboardLine.getEventName() != null && scoreboardLine.getEventName().equals(eventName)).forEach(scoreboardLine -> scoreboardLine.update(board));
-            });
+    private void updateLineWithEvent(String eventName, Event event) {
+
+        if (event instanceof PlayerEvent playerEvent) {
+            Player player = playerEvent.getPlayer();
+            if (this.boards.containsKey(player.getUniqueId())) {
+                PlayerBoard board = this.boards.get(player.getUniqueId());
+                updatePlayerBoard(board, eventName);
+            }
+        } else if (event instanceof UserEvent userEvent) {
+            UUID uuid = userEvent.getUser().getUniqueId();
+            if (this.boards.containsKey(uuid)) {
+                PlayerBoard board = this.boards.get(uuid);
+                updatePlayerBoard(board, eventName);
+            }
+        } else {
+            this.plugin.getLogger().severe("Event : " + eventName + " is not a Player or User event ! You cant use it");
         }
+    }
+
+    private void updatePlayerBoard(PlayerBoard board, String eventName) {
+        this.plugin.getScheduler().runNextTick(wrappedTask -> {
+            EssentialsScoreboard essentialsScoreboard = board.getScoreboard();
+            essentialsScoreboard.getLines().stream()
+                    .filter(scoreboardLine -> scoreboardLine.getEventName() != null && scoreboardLine.getEventName().equals(eventName))
+                    .forEach(scoreboardLine -> scoreboardLine.update(board));
+        });
     }
 
 
@@ -108,7 +130,7 @@ public class ZScoreboardManager extends ZModule implements ScoreboardManager {
     public void reloadPlayers() {
         for (Player player : Bukkit.getOnlinePlayers()) {
 
-            PlayerBoard board = this.boards.remove(player);
+            PlayerBoard board = this.boards.remove(player.getUniqueId());
             if (board != null) {
                 board.delete();
                 Optional<EssentialsScoreboard> optional = this.getScoreboard(board.getScoreboard().getName());
@@ -133,7 +155,7 @@ public class ZScoreboardManager extends ZModule implements ScoreboardManager {
     public PlayerBoard createScoreboard(Player player, EssentialsScoreboard essentialsScoreboard) {
 
         PlayerBoard playerBoard = this.plugin.isPaperVersion() ? new ComponentBoard(player, essentialsScoreboard) : new ClassicBoard(player, essentialsScoreboard);
-        this.boards.put(player.getPlayer(), playerBoard);
+        this.boards.put(player.getUniqueId(), playerBoard);
 
         essentialsScoreboard.create(playerBoard);
 
@@ -142,13 +164,13 @@ public class ZScoreboardManager extends ZModule implements ScoreboardManager {
 
     @Override
     public void deleteBoard(Player player) {
-        PlayerBoard board = this.boards.remove(player);
+        PlayerBoard board = this.boards.remove(player.getUniqueId());
         if (board != null) board.delete();
     }
 
     @Override
     public Optional<PlayerBoard> getBoard(Player player) {
-        return Optional.ofNullable(this.boards.get(player));
+        return Optional.ofNullable(this.boards.get(player.getUniqueId()));
     }
 
     @Override
