@@ -9,6 +9,8 @@ import fr.maxlego08.essentials.api.database.dto.HomeDTO;
 import fr.maxlego08.essentials.api.database.dto.OptionDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
+import fr.maxlego08.essentials.api.event.events.UserEconomyPostUpdateEvent;
+import fr.maxlego08.essentials.api.event.events.UserEconomyUpdateEvent;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.messages.Message;
@@ -357,13 +359,27 @@ public class ZUser extends ZUtils implements User {
 
     @Override
     public void set(UUID fromUuid, Economy economy, BigDecimal bigDecimal) {
+        this.plugin.getScheduler().runNextTick(wrappedTask -> {
+            UserEconomyUpdateEvent event = new UserEconomyUpdateEvent(this, economy, bigDecimal);
+            event.callEvent();
 
-        BigDecimal fromAmount = this.balances.getOrDefault(economy.getName(), BigDecimal.ZERO);
-        BigDecimal toAmount = (bigDecimal.compareTo(economy.getMinValue()) < 0) ? economy.getMinValue() : (bigDecimal.compareTo(economy.getMaxValue()) > 0) ? economy.getMaxValue() : bigDecimal;
-        this.balances.put(economy.getName(), toAmount);
+            if (event.isCancelled()) return;
 
-        getStorage().updateEconomy(this.uniqueId, economy, bigDecimal);
-        getStorage().storeTransactions(fromUuid, this.uniqueId, economy, fromAmount, toAmount);
+            Economy finalEconomy = event.getEconomy();
+            BigDecimal finalBigDecimal = event.getAmount();
+
+            BigDecimal fromAmount = this.balances.getOrDefault(finalEconomy.getName(), BigDecimal.ZERO);
+            BigDecimal toAmount = (finalBigDecimal.compareTo(finalEconomy.getMinValue()) < 0) ? finalEconomy.getMinValue() : (finalBigDecimal.compareTo(finalEconomy.getMaxValue()) > 0) ? finalEconomy.getMaxValue() : finalBigDecimal;
+            this.balances.put(finalEconomy.getName(), toAmount);
+
+            getStorage().updateEconomy(this.uniqueId, finalEconomy, finalBigDecimal);
+            getStorage().storeTransactions(fromUuid, this.uniqueId, finalEconomy, fromAmount, toAmount);
+
+            System.out.println("Mise à jour de l'event du joueur !");
+
+            UserEconomyPostUpdateEvent postUpdateEvent = new UserEconomyPostUpdateEvent(this, finalEconomy, finalBigDecimal);
+            postUpdateEvent.callEvent();
+        });
     }
 
     @Override
@@ -378,7 +394,7 @@ public class ZUser extends ZUtils implements User {
 
     @Override
     public void set(Economy economy, BigDecimal bigDecimal) {
-        this.set(this.plugin.getConsoleUniqueId(), economy, bigDecimal);
+        set(this.plugin.getConsoleUniqueId(), economy, bigDecimal);
     }
 
     @Override
