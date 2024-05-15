@@ -17,15 +17,23 @@ enable: true
 scoreboards:
   default:
     default: true
-    title: "#b3722dzEssentials"
+    title: "#53edd6zEssentials"
     lines:
       - line: 1
-        text: "&7Joueurs: &a%online%"
+        text: ""
       - line: 2
-        text: "&7Argent: &a$%vault_eco_balance_formatted%"
+        text: "&7Balance: &a%zessentials_user_formatted_balance_money%"
+        event: "fr.maxlego08.essentials.api.event.events.UserEconomyPostUpdateEvent"
       - line: 3
-        text: "&7Kills: &a%statistic_player_kills%"
+        text: "&7Coins: &a%zessentials_user_formatted_balance_coins%"
+        event: "fr.maxlego08.essentials.api.event.events.UserEconomyPostUpdateEvent"
       - line: 4
-        text: "&7Décès: &a%statistic_deaths%"
+        text: ""
       - line: 5
-        text: "&7Animation: &a{animation}"
+        text: "play.essentials.fr"
+        animation: COLOR_WAVE
+        fromColor: "#ffffff"
+        toColor: "#55ff55"
+        length: 10 # animation length
+        delayBetween: 5000 # in milliseconds
+        animationSpeed: 25 # in milliseconds

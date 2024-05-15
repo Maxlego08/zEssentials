@@ -31,6 +31,6 @@ public class AutoUpdateAnimation extends ScoreboardAnimation {
 
             playerBoard.updateLine(this.line, PlaceholderUtils.PapiHelper.papi(this.text, playerBoard.getPlayer()));
 
-        }, this.configuration.update(), this.configuration.update(), TimeUnit.MILLISECONDS);
+        }, 0, this.configuration.update(), TimeUnit.MILLISECONDS);
     }
 }

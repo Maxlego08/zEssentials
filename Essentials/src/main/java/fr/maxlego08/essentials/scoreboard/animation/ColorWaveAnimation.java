@@ -48,7 +48,7 @@ public class ColorWaveAnimation extends ScoreboardAnimation {
                 future.cancel(false);
             }
 
-        }, this.configuration.animationSpeed(), this.configuration.animationSpeed(), TimeUnit.MILLISECONDS);
+        }, 0, this.configuration.animationSpeed(), TimeUnit.MILLISECONDS);
     }
 
     private String getAnimatedText(String text, String baseColorHex, String highlightColorHex, int highlightIndex) {
