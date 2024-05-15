@@ -6,7 +6,7 @@ public interface ScoreboardLine {
 
     String getText();
 
-    ScoreboardAnimation getAnimation();
+    ScoreboardAnimationType getAnimation();
 
     void startAnimation(PlayerBoard playerBoard);
 }

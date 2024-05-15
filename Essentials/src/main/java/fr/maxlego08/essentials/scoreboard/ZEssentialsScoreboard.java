@@ -2,14 +2,17 @@ package fr.maxlego08.essentials.scoreboard;
 
 import fr.maxlego08.essentials.api.scoreboard.EssentialsScoreboard;
 import fr.maxlego08.essentials.api.scoreboard.PlayerBoard;
-import fr.maxlego08.essentials.api.scoreboard.ScoreboardAnimation;
+import fr.maxlego08.essentials.api.scoreboard.ScoreboardAnimationType;
 import fr.maxlego08.essentials.api.scoreboard.ScoreboardLine;
+import fr.maxlego08.essentials.api.scoreboard.configurations.ColorWaveConfiguration;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
+import fr.maxlego08.menu.api.utils.TypedMapAccessor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ZEssentialsScoreboard extends ZUtils implements EssentialsScoreboard {
     private final String name;
@@ -29,15 +32,18 @@ public class ZEssentialsScoreboard extends ZUtils implements EssentialsScoreboar
         this.title = configurationSection.getString("title", "");
         configurationSection.getMapList("lines").forEach(currentLine -> {
 
-            int line = ((Number) currentLine.get("line")).intValue() - 1;
-            String text = (String) currentLine.get("text");
-            ScoreboardAnimation animationValue = currentLine.containsKey("animation") ? ScoreboardAnimation.valueOf((String) currentLine.get("animation")) : ScoreboardAnimation.NONE;
+            TypedMapAccessor accessor = new TypedMapAccessor((Map<String, Object>) currentLine);
 
-            switch (animationValue) {
-                case COLOR -> {
-                    String fromColor = (String) currentLine.get("fromColor");
-                    String toColor = (String) currentLine.get("toColor");
-                    this.lines.add(new ZScoreboardLine(line, text, fromColor, toColor));
+            int line = accessor.getInt("line") - 1;
+            String text = accessor.getString("text", "text not found for line " + line);
+            ScoreboardAnimationType animationType = ScoreboardAnimationType.valueOf(accessor.getString("animation", ScoreboardAnimationType.NONE.name()));
+
+            switch (animationType) {
+                case COLOR_WAVE -> {
+                    String fromColor = accessor.getString("fromColor");
+                    String toColor = accessor.getString("toColor");
+                    int length = accessor.getInt("length", text.length());
+                    this.lines.add(new ZScoreboardLine(line, text, animationType, new ColorWaveConfiguration(fromColor, toColor, length)));
                 }
                 case NONE -> this.lines.add(new ZScoreboardLine(line, text));
             }
