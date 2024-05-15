@@ -29,8 +29,8 @@ public abstract class PlaceholderUtils extends LocationUtils {
         }
 
         public boolean isValid() {
-            // Check if the cache entry is still valid (not older than 1000 milliseconds)
-            return System.currentTimeMillis() - timeStamp < 1000L;
+            // Check if the cache entry is still valid (not older than 100 milliseconds)
+            return System.currentTimeMillis() - timeStamp < 100L;
         }
     }
 

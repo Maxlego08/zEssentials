@@ -95,7 +95,7 @@ public class MainConfiguration extends YamlLoader implements Configuration {
 
         for (Map<?, ?> placeholderMap : placeholdersList) {
 
-            if (!placeholderMap.containsKey("placeholder") || !placeholderMap.containsKey("defaultValue")) {
+            if (!placeholderMap.containsKey("placeholder") || !placeholderMap.containsKey("default")) {
                 this.plugin.getLogger().severe("Your replace-placeholders is wrong ! Please check your configuration.");
                 continue;
             }
@@ -120,14 +120,13 @@ public class MainConfiguration extends YamlLoader implements Configuration {
                     int max = (int) replaceMap.get("max");
                     elements.add(new NumberPlaceholder(value, max));
                 } else if (type == ReplacePlaceholderType.STRING) {
-                    String string = (String) replaceMap.get("equalsTo");
+                    String string = String.valueOf(replaceMap.get("equalsTo"));
                     elements.add(new StringPlaceholder(value, string));
                 }
             }
 
             this.replacePlaceholders.add(new ReplacePlaceholder(placeholder, defaultValue, elements));
-        }
-        System.out.println(replacePlaceholders);
+        };
     }
 
     @Override

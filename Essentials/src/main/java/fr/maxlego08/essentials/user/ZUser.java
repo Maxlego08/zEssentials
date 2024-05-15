@@ -375,8 +375,6 @@ public class ZUser extends ZUtils implements User {
             getStorage().updateEconomy(this.uniqueId, finalEconomy, finalBigDecimal);
             getStorage().storeTransactions(fromUuid, this.uniqueId, finalEconomy, fromAmount, toAmount);
 
-            System.out.println("Mise à jour de l'event du joueur !");
-
             UserEconomyPostUpdateEvent postUpdateEvent = new UserEconomyPostUpdateEvent(this, finalEconomy, finalBigDecimal);
             postUpdateEvent.callEvent();
         });
@@ -650,7 +648,7 @@ public class ZUser extends ZUtils implements User {
 
     @Override
     public Map<Material, String> getPowerTools() {
-        return null;
+        return this.powerTools;
     }
 
     @Override
