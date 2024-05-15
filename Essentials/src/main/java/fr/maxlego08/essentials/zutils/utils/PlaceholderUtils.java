@@ -9,30 +9,14 @@ import java.util.stream.Collectors;
 
 public abstract class PlaceholderUtils extends LocationUtils {
 
-    private final ConcurrentHashMap<String, CacheEntry> cache = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<String, CacheEntry> CACHE = new ConcurrentHashMap<>();
 
     protected String papi(String placeHolder, Player player) {
-
-        if (placeHolder == null) return null;
-        if (player == null) return placeHolder;
-        if (!placeHolder.contains("%")) return placeHolder;
-
-        String cacheKey = placeHolder + ";" + player.getUniqueId();
-        CacheEntry cachedResult = cache.get(cacheKey);
-
-        if (cachedResult != null && cachedResult.isValid()) {
-            return cachedResult.value;
-        }
-
-        String result = PlaceholderAPI.setPlaceholders(player, placeHolder).replace("%player%", player.getName());
-
-        cache.put(cacheKey, new CacheEntry(result, System.currentTimeMillis()));
-        return result;
+        return PapiHelper.papi(placeHolder, player);
     }
 
     protected List<String> papi(List<String> placeHolders, Player player) {
-        if (player == null) return placeHolders;
-        return placeHolders.stream().map(placeHolder -> papi(placeHolder, player)).collect(Collectors.toList());
+        return PapiHelper.papi(placeHolders, player);
     }
 
     private static class CacheEntry {
@@ -47,6 +31,32 @@ public abstract class PlaceholderUtils extends LocationUtils {
         public boolean isValid() {
             // Check if the cache entry is still valid (not older than 1000 milliseconds)
             return System.currentTimeMillis() - timeStamp < 1000L;
+        }
+    }
+
+    public static class PapiHelper {
+        public static String papi(String placeHolder, Player player) {
+
+            if (placeHolder == null) return null;
+            if (player == null) return placeHolder;
+            if (!placeHolder.contains("%")) return placeHolder;
+
+            String cacheKey = placeHolder + ";" + player.getUniqueId();
+            CacheEntry cachedResult = CACHE.get(cacheKey);
+
+            if (cachedResult != null && cachedResult.isValid()) {
+                return cachedResult.value;
+            }
+
+            String result = PlaceholderAPI.setPlaceholders(player, placeHolder).replace("%player%", player.getName());
+
+            CACHE.put(cacheKey, new CacheEntry(result, System.currentTimeMillis()));
+            return result;
+        }
+
+        public static List<String> papi(List<String> placeHolders, Player player) {
+            if (player == null) return placeHolders;
+            return placeHolders.stream().map(placeHolder -> papi(placeHolder, player)).collect(Collectors.toList());
         }
     }
 

@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.scoreboard.PlayerBoard;
 import fr.maxlego08.essentials.api.scoreboard.ScoreboardAnimationType;
 import fr.maxlego08.essentials.api.scoreboard.ScoreboardLine;
 import fr.maxlego08.essentials.api.scoreboard.configurations.ColorWaveConfiguration;
+import fr.maxlego08.essentials.api.scoreboard.configurations.NoneConfiguration;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import fr.maxlego08.menu.api.utils.TypedMapAccessor;
 import org.bukkit.configuration.ConfigurationSection;
@@ -43,9 +44,18 @@ public class ZEssentialsScoreboard extends ZUtils implements EssentialsScoreboar
                     String fromColor = accessor.getString("fromColor");
                     String toColor = accessor.getString("toColor");
                     int length = accessor.getInt("length", text.length());
-                    this.lines.add(new ZScoreboardLine(line, text, animationType, new ColorWaveConfiguration(fromColor, toColor, length)));
+                    int delayBetween = accessor.getInt("delayBetween", 5000);
+                    int animationSpeed = accessor.getInt("animationSpeed", 25);
+                    this.lines.add(new ZScoreboardLine(line, text, animationType, new ColorWaveConfiguration(fromColor, toColor, length, delayBetween, animationSpeed)));
                 }
-                case NONE -> this.lines.add(new ZScoreboardLine(line, text));
+                case NONE -> {
+                    int update = accessor.getInt("update", 0);
+                    if (update <= 0) {
+                        this.lines.add(new ZScoreboardLine(line, text));
+                    } else {
+                        this.lines.add(new ZScoreboardLine(line, text, animationType, new NoneConfiguration(update)));
+                    }
+                }
             }
         });
     }

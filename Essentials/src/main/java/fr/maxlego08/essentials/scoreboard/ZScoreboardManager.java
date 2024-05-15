@@ -7,6 +7,7 @@ import fr.maxlego08.essentials.api.scoreboard.ScoreboardManager;
 import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.essentials.scoreboard.board.ClassicBoard;
 import fr.maxlego08.essentials.scoreboard.board.ComponentBoard;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -51,6 +52,21 @@ public class ZScoreboardManager extends ZModule implements ScoreboardManager {
             }
             essentialsScoreboards.add(essentialsScoreboard);
         });
+
+        reloadPlayers();
+    }
+
+    @Override
+    public void reloadPlayers() {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+
+            PlayerBoard board = this.boards.remove(player);
+            if (board != null) {
+                board.delete();
+                Optional<EssentialsScoreboard> optional = this.getScoreboard(board.getScoreboard().getName());
+                optional.ifPresent(essentialsScoreboard -> this.createScoreboard(player, essentialsScoreboard));
+            }
+        }
     }
 
     @EventHandler
@@ -95,5 +111,10 @@ public class ZScoreboardManager extends ZModule implements ScoreboardManager {
     @Override
     public EssentialsScoreboard getDefaultScoreboard() {
         return this.defaultScoreboard;
+    }
+
+    @Override
+    public Optional<EssentialsScoreboard> getScoreboard(String name) {
+        return this.essentialsScoreboards.stream().filter(essentialsScoreboard -> essentialsScoreboard.getName().equalsIgnoreCase(name)).findFirst();
     }
 }

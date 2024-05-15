@@ -55,7 +55,7 @@ public class UserPlaceholders extends ZUtils implements PlaceholderRegister {
             }
             Economy economy = optional.get();
             BigDecimal decimal = user.getBalance(economy);
-            return decimal == null ? "0" : color(economyProvider.format(economy, decimal));
+            return decimal == null ? "0" : economyProvider.format(economy, decimal);
         }, "Returns the formatted number for a given economy", "economy");
 
         placeholder.register("user_balance_", (player, args) -> {

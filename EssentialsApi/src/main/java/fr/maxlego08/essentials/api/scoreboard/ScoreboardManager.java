@@ -18,4 +18,7 @@ public interface ScoreboardManager extends Module {
 
     Optional<PlayerBoard> getBoard(Player player);
 
+    void reloadPlayers();
+
+    Optional<EssentialsScoreboard> getScoreboard(String name);
 }

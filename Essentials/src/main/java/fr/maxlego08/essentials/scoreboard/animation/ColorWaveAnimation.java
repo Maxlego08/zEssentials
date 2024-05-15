@@ -23,7 +23,7 @@ public class ColorWaveAnimation extends ScoreboardAnimation {
     @Override
     public void start() {
         playerBoard.updateLine(this.line, this.configuration.fromColor() + this.text);
-        EXECUTOR_SERVICE.schedule(this::animation, 5, TimeUnit.SECONDS);
+        EXECUTOR_SERVICE.schedule(this::animation, this.configuration.delayBetween(), TimeUnit.MILLISECONDS);
     }
 
     private void animation() {
@@ -44,11 +44,11 @@ public class ColorWaveAnimation extends ScoreboardAnimation {
 
             if (step > this.text.length() + this.configuration.length()) {
                 playerBoard.updateLine(this.line, this.configuration.fromColor() + this.text);
-                EXECUTOR_SERVICE.schedule(this::animation, 5, TimeUnit.SECONDS);
+                EXECUTOR_SERVICE.schedule(this::animation, this.configuration.delayBetween(), TimeUnit.MILLISECONDS);
                 future.cancel(false);
             }
 
-        }, 25, 25, TimeUnit.MILLISECONDS);
+        }, this.configuration.animationSpeed(), this.configuration.animationSpeed(), TimeUnit.MILLISECONDS);
     }
 
     private String getAnimatedText(String text, String baseColorHex, String highlightColorHex, int highlightIndex) {

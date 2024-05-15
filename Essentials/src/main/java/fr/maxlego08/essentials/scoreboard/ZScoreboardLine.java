@@ -6,6 +6,8 @@ import fr.maxlego08.essentials.api.scoreboard.ScoreboardAnimation;
 import fr.maxlego08.essentials.api.scoreboard.ScoreboardAnimationType;
 import fr.maxlego08.essentials.api.scoreboard.ScoreboardLine;
 import fr.maxlego08.essentials.api.scoreboard.configurations.ColorWaveConfiguration;
+import fr.maxlego08.essentials.api.scoreboard.configurations.NoneConfiguration;
+import fr.maxlego08.essentials.scoreboard.animation.AutoUpdateAnimation;
 import fr.maxlego08.essentials.scoreboard.animation.ColorWaveAnimation;
 
 public class ZScoreboardLine implements ScoreboardLine {
@@ -48,8 +50,16 @@ public class ZScoreboardLine implements ScoreboardLine {
 
         ScoreboardAnimation scoreboardAnimation;
         switch (this.animation) {
-            case COLOR_WAVE -> scoreboardAnimation = new ColorWaveAnimation(playerBoard, this.text, this.line, (ColorWaveConfiguration) this.configuration);
-            default ->  scoreboardAnimation = null;
+            case COLOR_WAVE -> {
+                ColorWaveConfiguration configuration = (ColorWaveConfiguration) this.configuration;
+                scoreboardAnimation = new ColorWaveAnimation(playerBoard, this.text, this.line, configuration);
+            }
+            default -> {
+                if (this.configuration != null) {
+                    NoneConfiguration configuration = (NoneConfiguration) this.configuration;
+                    scoreboardAnimation = new AutoUpdateAnimation(playerBoard, this.line, this.text, configuration);
+                } else scoreboardAnimation = null;
+            }
         }
 
         if (scoreboardAnimation != null) {
