@@ -9,4 +9,8 @@ public interface ScoreboardLine {
     ScoreboardAnimationType getAnimation();
 
     void startAnimation(PlayerBoard playerBoard);
+
+    String getEventName();
+
+    void update(PlayerBoard board);
 }

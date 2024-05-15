@@ -36,6 +36,7 @@ public class ZEssentialsScoreboard extends ZUtils implements EssentialsScoreboar
             TypedMapAccessor accessor = new TypedMapAccessor((Map<String, Object>) currentLine);
 
             int line = accessor.getInt("line") - 1;
+            String eventName = currentLine.containsKey("event") ? accessor.getString("event") : null;
             String text = accessor.getString("text", "text not found for line " + line);
             ScoreboardAnimationType animationType = ScoreboardAnimationType.valueOf(accessor.getString("animation", ScoreboardAnimationType.NONE.name()));
 
@@ -51,7 +52,7 @@ public class ZEssentialsScoreboard extends ZUtils implements EssentialsScoreboar
                 case NONE -> {
                     int update = accessor.getInt("update", 0);
                     if (update <= 0) {
-                        this.lines.add(new ZScoreboardLine(line, text));
+                        this.lines.add(new ZScoreboardLine(line, text, eventName));
                     } else {
                         this.lines.add(new ZScoreboardLine(line, text, animationType, new NoneConfiguration(update)));
                     }
