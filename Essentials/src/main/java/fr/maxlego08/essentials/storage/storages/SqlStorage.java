@@ -12,6 +12,7 @@ import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.database.dto.UserDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
+import fr.maxlego08.essentials.api.mailbox.MailBoxItem;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.sanction.SanctionType;
 import fr.maxlego08.essentials.api.storage.IStorage;
@@ -22,6 +23,7 @@ import fr.maxlego08.essentials.storage.database.Repositories;
 import fr.maxlego08.essentials.storage.database.repositeries.ChatMessagesRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.CommandsRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.EconomyTransactionsRepository;
+import fr.maxlego08.essentials.storage.database.repositeries.UserMailBoxRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserCooldownsRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserEconomyRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserHomeRepository;
@@ -78,6 +80,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
         this.repositories.register(CommandsRepository.class);
         this.repositories.register(UserPlayTimeRepository.class);
         this.repositories.register(UserPowerToolsRepository.class);
+        this.repositories.register(UserMailBoxRepository.class);
         // this.repositories.register(ServerStorageRepository.class);
 
         MigrationManager.execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), this.plugin.getLogger());
@@ -138,6 +141,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
                 user.setEconomies(this.repositories.getTable(UserEconomyRepository.class).selectEconomies(uniqueId));
                 user.setHomes(this.repositories.getTable(UserHomeRepository.class).selectHomes(uniqueId));
                 user.setPowerTools(this.repositories.getTable(UserPowerToolsRepository.class).getPowerTools(uniqueId).stream().collect(Collectors.toMap(PowerToolsDTO::material, PowerToolsDTO::command)));
+                user.setMailBoxItems(this.repositories.getTable(UserMailBoxRepository.class).select(uniqueId));
             }
         });
 
@@ -383,5 +387,10 @@ public class SqlStorage extends StorageHelper implements IStorage {
     @Override
     public void deletePowerTools(UUID uniqueId, Material material) {
         async(() -> this.repositories.getTable(UserPowerToolsRepository.class).delete(uniqueId, material));
+    }
+
+    @Override
+    public void addMailBoxItem(MailBoxItem mailBoxItem) {
+        async(() -> this.repositories.getTable(UserMailBoxRepository.class).insert(mailBoxItem));
     }
 }

@@ -40,6 +40,7 @@ import fr.maxlego08.essentials.database.migrations.CreateSanctionsTableMigration
 import fr.maxlego08.essentials.database.migrations.CreateUserCooldownTableMigration;
 import fr.maxlego08.essentials.database.migrations.CreateUserEconomyMigration;
 import fr.maxlego08.essentials.database.migrations.CreateUserHomeTableMigration;
+import fr.maxlego08.essentials.database.migrations.CreateUserMailBoxMigration;
 import fr.maxlego08.essentials.database.migrations.CreateUserOptionTableMigration;
 import fr.maxlego08.essentials.database.migrations.CreateUserPlayTimeTableMigration;
 import fr.maxlego08.essentials.database.migrations.CreateUserPowerToolsMigration;
@@ -56,6 +57,7 @@ import fr.maxlego08.essentials.loader.ButtonWarpLoader;
 import fr.maxlego08.essentials.messages.MessageLoader;
 import fr.maxlego08.essentials.module.ZModuleManager;
 import fr.maxlego08.essentials.module.modules.HomeModule;
+import fr.maxlego08.essentials.module.modules.MailBoxModule;
 import fr.maxlego08.essentials.placeholders.DistantPlaceholder;
 import fr.maxlego08.essentials.placeholders.LocalPlaceholder;
 import fr.maxlego08.essentials.scoreboard.ZScoreboardManager;
@@ -88,6 +90,8 @@ import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.permissions.Permissible;
 
 import java.io.File;
@@ -246,6 +250,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         MigrationManager.registerMigration(new CreateCommandsMigration());
         MigrationManager.registerMigration(new CreateUserPlayTimeTableMigration());
         MigrationManager.registerMigration(new CreateUserPowerToolsMigration());
+        MigrationManager.registerMigration(new CreateUserMailBoxMigration());
     }
 
     @Override
@@ -492,5 +497,16 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     @Override
     public ScoreboardManager getScoreboardManager() {
         return this.scoreboardManager;
+    }
+
+    @Override
+    public void give(Player player, ItemStack itemStack) {
+
+        PlayerInventory inventory = player.getInventory();
+        if (inventory.firstEmpty() != -1) {
+            inventory.addItem(itemStack);
+        } else {
+            moduleManager.getModule(MailBoxModule.class).addItem(player.getUniqueId(), itemStack);
+        }
     }
 }

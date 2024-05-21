@@ -44,7 +44,7 @@ public class CommandFurnace extends VCommand {
         }
 
         removeItems(inventory, new ItemStack(material), realAmount);
-        give(this.player, new ItemStack(newMaterial, realAmount));
+        this.plugin.give(this.player, new ItemStack(newMaterial, realAmount));
         message(this.player, Message.COMMAND_FURNACE_SUCCESS, "%amount%", realAmount, "%item%", name(material.name()), "%toAmount%", realAmount, "%toItem%", name(newMaterial.name()));
 
         return CommandResultType.SUCCESS;

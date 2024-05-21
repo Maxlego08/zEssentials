@@ -30,7 +30,7 @@ public class CommandSkull extends VCommand {
             meta.setOwningPlayer(player);
             itemStack.setItemMeta(meta);
 
-            give(this.player, itemStack);
+            this.plugin.give(this.player, itemStack);
             message(this.sender, Message.COMMAND_SKULL, "%name%", offlinePlayer.getName());
         });
 

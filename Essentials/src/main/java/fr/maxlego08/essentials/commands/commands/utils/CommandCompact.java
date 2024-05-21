@@ -46,7 +46,7 @@ public class CommandCompact extends VCommand {
 
         int realAmount = amountOf / 9;
         removeItems(inventory, new ItemStack(material), realAmount * 9);
-        give(this.player, new ItemStack(newMaterial, realAmount));
+        this.plugin.give(this.player, new ItemStack(newMaterial, realAmount));
         message(this.player, Message.COMMAND_COMPACT_SUCCESS, "%amount%", realAmount * 9, "%item%", name(material.name()),
                 "%toAmount%", realAmount, "%toItem%", name(newMaterial.name()));
 

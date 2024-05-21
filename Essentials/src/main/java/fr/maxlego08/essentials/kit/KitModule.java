@@ -99,7 +99,7 @@ public class KitModule extends ZModule {
 
             List<Action> actions = this.plugin.getButtonManager().loadActions((List<Map<String, Object>>) configuration.getList(path + "actions", new ArrayList<>()), path, file);
 
-            Kit kit = new ZKit(name, key, cooldown, menuItemStacks, actions);
+            Kit kit = new ZKit(plugin, name, key, cooldown, menuItemStacks, actions);
             this.kits.add(kit);
             this.plugin.getLogger().info("Register kit: " + name);
         }
@@ -236,7 +236,7 @@ public class KitModule extends ZModule {
 
     public void createKit(Player player, String kitName, int cooldown) {
 
-        Kit kit = new ZKit(kitName, kitName, cooldown, new ArrayList<>(), new ArrayList<>());
+        Kit kit = new ZKit(plugin, kitName, kitName, cooldown, new ArrayList<>(), new ArrayList<>());
         kits.add(kit);
         this.saveKits();
 

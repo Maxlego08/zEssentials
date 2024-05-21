@@ -137,14 +137,6 @@ public abstract class ZUtils extends MessageUtils {
         }
     }
 
-    protected void give(Player player, ItemStack itemStack) {
-        /*if (!player.isOnline() || hasInventoryFull(player)) {
-            MailManager.getInstance().addItems(player, itemStack);
-        } else {
-        }*/
-        player.getInventory().addItem(itemStack);
-    }
-
     protected EventPriority getPriority(final String priority) {
         if (priority == null) {
             return EventPriority.NORMAL; // Default case or handle null appropriately

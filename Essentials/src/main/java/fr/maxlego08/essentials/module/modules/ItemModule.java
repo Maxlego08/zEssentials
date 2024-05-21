@@ -93,7 +93,7 @@ public class ItemModule extends ZModule {
         }
 
         itemStack.setAmount(Math.max(1, amount));
-        give(player, itemStack);
+        this.plugin.give(player, itemStack);
 
         message(sender, Message.COMMAND_GIVE, "%item%", itemName, "%player%", player.getName(), "%amount%", amount);
     }
@@ -111,7 +111,7 @@ public class ItemModule extends ZModule {
             if (itemStack == null) return;
 
             itemStack.setAmount(Math.max(1, amount));
-            give(player, itemStack);
+            this.plugin.give(player, itemStack);
         });
 
         message(sender, Message.COMMAND_GIVE_ALL, "%item%", itemName, "%amount%", amount);

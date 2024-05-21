@@ -6,6 +6,7 @@ import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.HomeDTO;
+import fr.maxlego08.essentials.api.database.dto.MailBoxDTO;
 import fr.maxlego08.essentials.api.database.dto.OptionDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
@@ -13,6 +14,7 @@ import fr.maxlego08.essentials.api.event.events.UserEconomyPostUpdateEvent;
 import fr.maxlego08.essentials.api.event.events.UserEconomyUpdateEvent;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.kit.Kit;
+import fr.maxlego08.essentials.api.mailbox.MailBoxItem;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.storage.IStorage;
@@ -67,6 +69,7 @@ public class ZUser extends ZUtils implements User {
     private String address;
     private Kit previewKit;
     private Map<Material, String> powerTools = new HashMap<>();
+    private List<MailBoxItem> mailBoxItems = new ArrayList<>();
 
     public ZUser(EssentialsPlugin plugin, UUID uniqueId) {
         this.plugin = plugin;
@@ -670,5 +673,23 @@ public class ZUser extends ZUtils implements User {
     public void deletePowerTools(Material material) {
         this.powerTools.remove(material);
         this.getStorage().deletePowerTools(this.uniqueId, material);
+    }
+
+    @Override
+    public List<MailBoxItem> getMailBoxItems() {
+        return this.mailBoxItems;
+    }
+
+    @Override
+    public void setMailBoxItems(List<MailBoxDTO> mailBoxItems) {
+        this.mailBoxItems.clear();
+        this.mailBoxItems.addAll(mailBoxItems.stream().map(MailBoxItem::new).toList());
+        System.out.println(this.mailBoxItems);
+    }
+
+    @Override
+    public void addMailBoxItem(MailBoxItem mailBoxItem) {
+        this.mailBoxItems.add(mailBoxItem);
+        this.getStorage().addMailBoxItem(mailBoxItem);
     }
 }

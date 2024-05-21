@@ -7,6 +7,7 @@ import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.database.dto.UserDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
+import fr.maxlego08.essentials.api.mailbox.MailBoxItem;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
@@ -98,4 +99,6 @@ public interface IStorage {
     void setPowerTools(UUID uniqueId, Material material, String command);
 
     void deletePowerTools(UUID uniqueId, Material material);
+
+    void addMailBoxItem(MailBoxItem mailBoxItem);
 }

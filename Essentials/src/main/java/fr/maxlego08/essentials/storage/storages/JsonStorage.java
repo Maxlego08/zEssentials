@@ -9,6 +9,7 @@ import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.database.dto.UserDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
+import fr.maxlego08.essentials.api.mailbox.MailBoxItem;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.storage.Persist;
@@ -330,5 +331,10 @@ public class JsonStorage extends StorageHelper implements IStorage {
     @Override
     public void deletePowerTools(UUID uniqueId, Material material) {
         this.saveFileAsync(uniqueId);
+    }
+
+    @Override
+    public void addMailBoxItem(MailBoxItem mailBoxItem) {
+        throw new NotImplementedException("addMailBoxItem is not implemented, use MYSQL storage");
     }
 }
