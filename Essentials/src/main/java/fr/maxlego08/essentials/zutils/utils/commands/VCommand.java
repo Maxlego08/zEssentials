@@ -476,6 +476,7 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
 
     protected void fetchUniqueId(String userName, Consumer<UUID> consumer) {
         CommandSender commandSender = this.sender;
+
         this.plugin.getStorageManager().getStorage().fetchUniqueId(userName, uuid -> {
 
             if (uuid == null) {

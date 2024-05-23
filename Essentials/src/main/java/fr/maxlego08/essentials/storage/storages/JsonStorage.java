@@ -173,24 +173,24 @@ public class JsonStorage extends StorageHelper implements IStorage {
             return;
         }
 
-        async(() -> {
-            // User plugin cache first
-            getLocalUniqueId(userName).ifPresentOrElse(uuid -> {
-                this.localUUIDS.put(userName, uuid);
-                consumer.accept(uuid);
-            }, () -> {
-                // User server cache
-                OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayerIfCached(userName);
-                if (offlinePlayer != null) {
-                    this.localUUIDS.put(userName, offlinePlayer.getUniqueId());
-                    consumer.accept(offlinePlayer.getUniqueId());
-                    return;
-                }
-                // Try load offline player
-                offlinePlayer = Bukkit.getOfflinePlayer(userName);
+        // User plugin cache first
+        getLocalUniqueId(userName).ifPresentOrElse(uuid -> {
+            this.localUUIDS.put(userName, uuid);
+            consumer.accept(uuid);
+        }, () -> {
+
+            // User server cache
+            OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayerIfCached(userName);
+            if (offlinePlayer != null) {
                 this.localUUIDS.put(userName, offlinePlayer.getUniqueId());
                 consumer.accept(offlinePlayer.getUniqueId());
-            });
+                return;
+            }
+
+            // Try load offline player
+            offlinePlayer = Bukkit.getOfflinePlayer(userName);
+            this.localUUIDS.put(userName, offlinePlayer.getUniqueId());
+            consumer.accept(offlinePlayer.getUniqueId());
         });
     }
 

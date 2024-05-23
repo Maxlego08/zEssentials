@@ -12,7 +12,7 @@ import java.util.UUID;
 
 public class UserMailBoxRepository extends Repository {
     public UserMailBoxRepository(EssentialsPlugin plugin, DatabaseConnection connection) {
-        super(plugin, connection, "mail_boxes");
+        super(plugin, connection, "user_mail_boxes");
     }
 
     public List<MailBoxDTO> select(UUID uuid) {

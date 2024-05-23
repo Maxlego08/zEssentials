@@ -69,7 +69,7 @@ public class ZUser extends ZUtils implements User {
     private String address;
     private Kit previewKit;
     private Map<Material, String> powerTools = new HashMap<>();
-    private List<MailBoxItem> mailBoxItems = new ArrayList<>();
+    private final List<MailBoxItem> mailBoxItems = new ArrayList<>();
 
     public ZUser(EssentialsPlugin plugin, UUID uniqueId) {
         this.plugin = plugin;
@@ -362,25 +362,34 @@ public class ZUser extends ZUtils implements User {
 
     @Override
     public void set(UUID fromUuid, Economy economy, BigDecimal bigDecimal) {
-        this.plugin.getScheduler().runNextTick(wrappedTask -> {
+        Economy finalEconomy;
+        BigDecimal finalBigDecimal;
+
+        if (isOnline()) {
             UserEconomyUpdateEvent event = new UserEconomyUpdateEvent(this, economy, bigDecimal);
             event.callEvent();
 
             if (event.isCancelled()) return;
 
-            Economy finalEconomy = event.getEconomy();
-            BigDecimal finalBigDecimal = event.getAmount();
+            finalEconomy = event.getEconomy();
+            finalBigDecimal = event.getAmount();
+        } else {
 
-            BigDecimal fromAmount = this.balances.getOrDefault(finalEconomy.getName(), BigDecimal.ZERO);
-            BigDecimal toAmount = (finalBigDecimal.compareTo(finalEconomy.getMinValue()) < 0) ? finalEconomy.getMinValue() : (finalBigDecimal.compareTo(finalEconomy.getMaxValue()) > 0) ? finalEconomy.getMaxValue() : finalBigDecimal;
-            this.balances.put(finalEconomy.getName(), toAmount);
+            finalBigDecimal = bigDecimal;
+            finalEconomy = economy;
+        }
 
-            getStorage().updateEconomy(this.uniqueId, finalEconomy, finalBigDecimal);
-            getStorage().storeTransactions(fromUuid, this.uniqueId, finalEconomy, fromAmount, toAmount);
+        BigDecimal fromAmount = this.balances.getOrDefault(finalEconomy.getName(), BigDecimal.ZERO);
+        BigDecimal toAmount = (finalBigDecimal.compareTo(finalEconomy.getMinValue()) < 0) ? finalEconomy.getMinValue() : (finalBigDecimal.compareTo(finalEconomy.getMaxValue()) > 0) ? finalEconomy.getMaxValue() : finalBigDecimal;
+        this.balances.put(finalEconomy.getName(), toAmount);
 
+        getStorage().updateEconomy(this.uniqueId, finalEconomy, finalBigDecimal);
+        getStorage().storeTransactions(fromUuid, this.uniqueId, finalEconomy, fromAmount, toAmount);
+
+        if (isOnline()) {
             UserEconomyPostUpdateEvent postUpdateEvent = new UserEconomyPostUpdateEvent(this, finalEconomy, finalBigDecimal);
             postUpdateEvent.callEvent();
-        });
+        }
     }
 
     @Override

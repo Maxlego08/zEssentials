@@ -23,10 +23,10 @@ import fr.maxlego08.essentials.storage.database.Repositories;
 import fr.maxlego08.essentials.storage.database.repositeries.ChatMessagesRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.CommandsRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.EconomyTransactionsRepository;
-import fr.maxlego08.essentials.storage.database.repositeries.UserMailBoxRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserCooldownsRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserEconomyRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserHomeRepository;
+import fr.maxlego08.essentials.storage.database.repositeries.UserMailBoxRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserOptionRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserPlayTimeRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserPowerToolsRepository;
@@ -217,21 +217,21 @@ public class SqlStorage extends StorageHelper implements IStorage {
             return;
         }
 
+        // User server cache
+        OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayerIfCached(userName);
+        if (offlinePlayer != null) {
+            this.localUUIDS.put(userName, offlinePlayer.getUniqueId());
+            consumer.accept(offlinePlayer.getUniqueId());
+            return;
+        }
+
         async(() -> {
             // User plugin cache first
             getLocalUniqueId(userName).ifPresentOrElse(uuid -> {
                 this.localUUIDS.put(userName, uuid);
                 consumer.accept(uuid);
             }, () -> {
-
-                // User server cache
-                OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayerIfCached(userName);
-                if (offlinePlayer != null) {
-                    this.localUUIDS.put(userName, offlinePlayer.getUniqueId());
-                    consumer.accept(offlinePlayer.getUniqueId());
-                    return;
-                }
-
+                
                 // Get uuid from database
                 List<UserDTO> userDTOS = this.repositories.getTable(UserRepository.class).selectUsers(userName);
                 if (userDTOS.isEmpty()) {
