@@ -8,6 +8,7 @@ public class CreateUserMailBoxMigration extends Migration {
     @Override
     public void up() {
         SchemaBuilder.create(this, "%prefix%user_mail_boxes", table -> {
+            table.autoIncrement("id");
             table.uuid("unique_id").foreignKey("%prefix%users");
             table.longText("itemstack");
             table.timestamp("expired_at");

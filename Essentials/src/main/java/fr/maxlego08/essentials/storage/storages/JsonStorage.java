@@ -337,4 +337,9 @@ public class JsonStorage extends StorageHelper implements IStorage {
     public void addMailBoxItem(MailBoxItem mailBoxItem) {
         throw new NotImplementedException("addMailBoxItem is not implemented, use MYSQL storage");
     }
+
+    @Override
+    public void removeMailBoxItem(int id) {
+        throw new NotImplementedException("removeMailBoxItem is not implemented, use MYSQL storage");
+    }
 }

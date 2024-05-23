@@ -66,6 +66,7 @@ import fr.maxlego08.essentials.commands.commands.utils.CommandFeed;
 import fr.maxlego08.essentials.commands.commands.utils.CommandFurnace;
 import fr.maxlego08.essentials.commands.commands.utils.CommandHat;
 import fr.maxlego08.essentials.commands.commands.utils.CommandHeal;
+import fr.maxlego08.essentials.commands.commands.utils.CommandMail;
 import fr.maxlego08.essentials.commands.commands.utils.CommandMore;
 import fr.maxlego08.essentials.commands.commands.utils.CommandNear;
 import fr.maxlego08.essentials.commands.commands.utils.CommandPlayTime;
@@ -223,6 +224,7 @@ public class CommandLoader {
         register("cooldown", CommandCooldown.class);
         register("itemname", CommandItemName.class, "iname", "itemrename", "irename");
         register("itemlore", CommandItemLore.class, "ilore", "itemlore", "lore");
+        register("mail", CommandMail.class, "mailbox", "mb");
         register("give", CommandGive.class);
         register("giveall", CommandGiveAll.class);
         register("powertools", CommandPowerTools.class, "pt");

@@ -215,6 +215,7 @@ public enum Message {
     DESCRIPTION_GIVE("Give items"),
     DESCRIPTION_GIVE_ALL("Give items to online players"),
     DESCRIPTION_POWER_TOOLS("Add command to your items"),
+    DESCRIPTION_MAIL("Open mailbox"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -503,6 +504,10 @@ public enum Message {
     COMMAND_POWER_TOOL_ERROR_RESET("<error>This item has no recorded command."),
     COMMAND_POWER_TOOL_INFO("<success>You just put the command &f/%command%<success> on the item &f%item<success>."),
     COMMAND_POWER_TOOL_RESET("<success>You have just deleted the command on the item &f%item<success>."),
+
+    MAILBOX_REMOVE_FULL("<error>You must have space in your inventory to retrieve an item."),
+    MAILBOX_REMOVE_EXPIRE("<error>You can no longer retrieve this item, it has expired."),
+    MAILBOX_ADD(MessageType.ACTION, "<success>An item has just been added to your mailbox &8(&f/mail&8)"),
 
     ;
 

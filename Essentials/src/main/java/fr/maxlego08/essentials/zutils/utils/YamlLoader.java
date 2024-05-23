@@ -1,6 +1,5 @@
 package fr.maxlego08.essentials.zutils.utils;
 
-import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.modules.Loadable;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -10,7 +9,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,13 +23,15 @@ public abstract class YamlLoader extends ZUtils {
             String configKey = field.getName().replaceAll("([A-Z])", "-$1").toLowerCase();
 
             try {
-                if (field.getType().equals(boolean.class)) {
+                if (field.getType().equals(boolean.class) || field.getType().equals(Boolean.class)) {
                     field.setBoolean(this, configuration.getBoolean(configKey));
-                } else if (field.getType().equals(int.class)) {
+                } else if (field.getType().equals(int.class) || field.getType().equals(Integer.class)) {
                     field.setInt(this, configuration.getInt(configKey));
+                } else if (field.getType().equals(long.class) || field.getType().equals(Long.class)) {
+                    field.setLong(this, configuration.getLong(configKey));
                 } else if (field.getType().equals(String.class)) {
                     field.set(this, configuration.getString(configKey));
-                } else if (field.getType().equals(double.class)) {
+                } else if (field.getType().equals(double.class) || field.getType().equals(Double.class)) {
                     field.set(this, configuration.getDouble(configKey));
                 } else if (field.getType().equals(BigDecimal.class)) {
                     field.set(this, new BigDecimal(configuration.getString(configKey, "0")));

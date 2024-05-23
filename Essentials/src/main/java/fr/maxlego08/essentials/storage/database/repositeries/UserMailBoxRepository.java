@@ -7,6 +7,7 @@ import fr.maxlego08.essentials.storage.database.Repository;
 import fr.maxlego08.menu.zcore.utils.nms.ItemStackUtils;
 import fr.maxlego08.sarah.DatabaseConnection;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,4 +28,11 @@ public class UserMailBoxRepository extends Repository {
         }, mailBoxItem::setId);
     }
 
+    public void delete(int id) {
+        this.delete(table -> table.where("id", id));
+    }
+
+    public void deleteExpiredItems() {
+        delete(table -> table.where("expired_at", "<", new Date()));
+    }
 }

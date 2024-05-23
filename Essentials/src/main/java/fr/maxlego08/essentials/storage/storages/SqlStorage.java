@@ -87,6 +87,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
         this.repositories.getTable(UserCooldownsRepository.class).deleteExpiredCooldowns();
         this.repositories.getTable(UserRepository.class).clearExpiredSanctions();
+        this.repositories.getTable(UserMailBoxRepository.class).deleteExpiredItems();
         this.setActiveSanctions(this.repositories.getTable(UserSanctionRepository.class).getActiveBan());
 
         /*List<ServerStorageDTO> serverStorageDTOS = this.repositories.getTable(ServerStorageRepository.class).select();
@@ -231,7 +232,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
                 this.localUUIDS.put(userName, uuid);
                 consumer.accept(uuid);
             }, () -> {
-                
+
                 // Get uuid from database
                 List<UserDTO> userDTOS = this.repositories.getTable(UserRepository.class).selectUsers(userName);
                 if (userDTOS.isEmpty()) {
@@ -392,5 +393,10 @@ public class SqlStorage extends StorageHelper implements IStorage {
     @Override
     public void addMailBoxItem(MailBoxItem mailBoxItem) {
         async(() -> this.repositories.getTable(UserMailBoxRepository.class).insert(mailBoxItem));
+    }
+
+    @Override
+    public void removeMailBoxItem(int id) {
+        async(() -> this.repositories.getTable(UserMailBoxRepository.class).delete(id));
     }
 }

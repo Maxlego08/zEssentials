@@ -1,11 +1,17 @@
 package fr.maxlego08.essentials.zutils.utils.spigot;
 
 import fr.maxlego08.essentials.api.utils.ComponentMessage;
+import fr.maxlego08.menu.api.utils.Placeholders;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SpigotComponent implements ComponentMessage {
 
@@ -22,5 +28,14 @@ public class SpigotComponent implements ComponentMessage {
     @Override
     public Inventory createInventory(String message, int size, InventoryHolder inventoryHolder) {
         return Bukkit.createInventory(inventoryHolder, size, message);
+    }
+
+    @Override
+    public void addToLore(ItemStack itemStack, List<String> lore, Placeholders placeholders) {
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        List<String> currentLore = itemMeta.hasLore() ? itemMeta.getLore() : new ArrayList<>();
+        currentLore.addAll(lore.stream().map(placeholders::parse).toList());
+        itemMeta.setLore(currentLore);
+        itemStack.setItemMeta(itemMeta);
     }
 }

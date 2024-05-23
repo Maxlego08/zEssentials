@@ -1,9 +1,13 @@
 package fr.maxlego08.essentials.api.utils;
 
+import fr.maxlego08.menu.api.utils.Placeholders;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.List;
 
 public interface ComponentMessage {
 
@@ -18,4 +22,6 @@ public interface ComponentMessage {
     void sendActionBar(Player player, String message);
 
     Inventory createInventory(String message, int size, InventoryHolder inventoryHolder);
+
+    void addToLore(ItemStack itemStack, List<String> lore, Placeholders placeholders);
 }

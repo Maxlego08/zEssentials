@@ -46,4 +46,8 @@ public class MailBoxItem {
     public Date getExpiredAt() {
         return expiredAt;
     }
+
+    public boolean isExpired() {
+        return System.currentTimeMillis() > this.expiredAt.getTime();
+    }
 }

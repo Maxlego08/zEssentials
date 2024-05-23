@@ -25,6 +25,7 @@ import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.EssentialsUtils;
 import fr.maxlego08.essentials.api.utils.Warp;
 import fr.maxlego08.essentials.buttons.ButtonHomes;
+import fr.maxlego08.essentials.buttons.ButtonMailBox;
 import fr.maxlego08.essentials.buttons.ButtonPayConfirm;
 import fr.maxlego08.essentials.buttons.ButtonTeleportationConfirm;
 import fr.maxlego08.essentials.buttons.kit.ButtonKitPreview;
@@ -103,6 +104,7 @@ import java.lang.reflect.Modifier;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -226,6 +228,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.buttonManager.register(new NoneLoader(this, ButtonSanctionInformation.class, "zessentials_sanction_information"));
         this.buttonManager.register(new NoneLoader(this, ButtonSanctions.class, "zessentials_sanctions"));
         this.buttonManager.register(new NoneLoader(this, ButtonKitPreview.class, "zessentials_kit_preview"));
+        this.buttonManager.register(new NoneLoader(this, ButtonMailBox.class, "zessentials_mailbox"));
         this.buttonManager.register(new ButtonWarpLoader(this));
         this.buttonManager.register(new ButtonSanctionLoader(this));
         this.buttonManager.register(new ButtonKitCooldownLoader(this));
@@ -503,10 +506,11 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     public void give(Player player, ItemStack itemStack) {
 
         PlayerInventory inventory = player.getInventory();
-        if (inventory.firstEmpty() != -1) {
-            inventory.addItem(itemStack);
-        } else {
-            moduleManager.getModule(MailBoxModule.class).addItem(player.getUniqueId(), itemStack);
-        }
+
+        Map<Integer, ItemStack> result = inventory.addItem(itemStack);
+        System.out.println(result);
+        if (result.isEmpty()) return;
+
+        result.values().forEach(item -> moduleManager.getModule(MailBoxModule.class).addItem(player.getUniqueId(), item));
     }
 }

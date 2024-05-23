@@ -101,4 +101,6 @@ public interface IStorage {
     void deletePowerTools(UUID uniqueId, Material material);
 
     void addMailBoxItem(MailBoxItem mailBoxItem);
+
+    void removeMailBoxItem(int id);
 }

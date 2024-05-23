@@ -290,6 +290,18 @@ description-kit-delete: "Delete a kit"
 description-cooldown: "Display a player’s cooldowns"
 description-cooldown-delete: "Delete a cooldown"
 description-cooldown-create: "Create a cooldown"
+description-item-name: "Change the item name"
+description-item-lore: "Show commands for the lore"
+description-item-lore-set: "Define a line of a lore"
+description-item-lore-add: "Add a line to lore"
+description-item-lore-clear: "Clear item lore"
+description-give: "Give items"
+description-give-all: "Give items to online players"
+description-power-tools: "Add command to your items"
+description-pay-toggle: "Activate or not the receipt of money"
+description-power-tools-toggle: "Toggle power tools"
+description-kit-show: "Show a kit"
+description-mail: "Open mailbox"
 
 
 # Time format
@@ -532,9 +544,15 @@ command-message-toggle-enable: "&7Private message <success>enable &7for &f%playe
 command-message-toggle-disable: "&7Private message <error>disable &7for &f%player%<success>."
 command-social-spy-enable: "&7Social spy <success>enable &7for &f%player%<success>."
 command-social-spy-disable: "&7Social spy <error>disable &7for &f%player%<success>."
+command-warp-empty: "<error>No warp defined, use command &f/setwarp <name>"
+command-pay-toggle-enable: "&7Pay <success>enable &7for &f%player%<success>."
+command-pay-toggle-disable: "&7Pay <error>disable &7for &f%player%<error>."
+command-power-tools-toggle-enable: "<success>All of your power tools have been enabled &7for &f%player%<success>."
+command-power-tools-toggle-disable: "<error>All of your power tools have been disabled &7for &f%player%<error>."
 
 
 # Kit
+command-kit-no-permission: "<error>You do not have permission to use the kit &f%kit%<error>."
 command-kit-not-found: "<error>Unable to find the kit &f%kit%<error>."
 command-kit-already-exists: "<error>The &f%kit% <error>kit already exists."
 command-kit-information-in-line-empty: "#8cc0ccʏᴏᴜʀ ᴋɪᴛs <success>♦ &7(%count%/%max%)&8: <error>ɴᴏ ᴋɪᴛ ᴀᴠᴀɪʟᴀʙʟᴇ"
@@ -569,3 +587,26 @@ command-cooldown-delete: "<success>You just removed the cooldown &f%cooldown% <s
 # %player% - the Player's nickname
 # %duration% - the duration of the cooldown
 command-cooldown-create: "<success>You just created the cooldown &f%key% <success>for &n%player%&r<success>."
+
+
+command-item-empty: "<error>You have no item in your hand."
+command-item-clear: "<success>You have cleared this item's name"
+command-item-set: "<success>You have renamed your held item to &f%name%<success>."
+command-item-lore-add: "<success>You just added the line &f%text%<success>."
+command-item-lore-set: "<success>You just set line %line% to &f%text%<success>."
+command-item-lore-clear: "<success>You just clear the item lore."
+command-item-lore-set-error: "<error>Can’t find the line &f%line%<error>."
+command-give-error: "<error>Can’t find the item &f%item%<error>."
+command-give: "<success>You just gave &n&fx1 %item%&r <success>to player &f%player%<success>."
+command-give-all: "<success>You just gave &n&fx1 %item%&r <success>to online player."
+
+command-power-tool-error-item: "<error>You have no item in your hand."
+command-power-tool-error-reset: "<error>This item has no recorded command."
+command-power-tool-info: "<success>You just put the command &f/%command%<success> on the item &f%item<success>."
+command-power-tool-reset: "<success>You have just deleted the command on the item &f%item<success>."
+
+mailbox-remove-full: "<error>You must have space in your inventory to retrieve an item."
+mailbox-remove-expire: "<error>You can no longer retrieve this item, it has expired."
+mailbox-add:
+  type: ACTION
+  message: "<success>An item has just been added to your mailbox &8(&f/mail&8)"
