@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+    id("io.papermc.paperweight.userdev") version "1.7.1"
+}
+
+repositories {
+    maven { url 'https://jitpack.io' }
+    maven {
+        name = 'papermc'
+        url = 'https://repo.papermc.io/repository/maven-public/'
+    }
+}
+
+dependencies {
+    paperweight.paperDevBundle("1.20.4-R0.1-SNAPSHOT")
+    compileOnly project(':EssentialsApi')
+}
+
+tasks.assemble {
+    dependsOn(reobfJar)
+}

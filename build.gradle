@@ -77,6 +77,7 @@ tasks.register("buildAll") {
             ":EssentialsApi:build",
             ":Hooks:Vault:build",
             ":Hooks:Redis:build",
+            ":NMS:R3_1_20:build",
             ":Essentials:build"
     )
 }
