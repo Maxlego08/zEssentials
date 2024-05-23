@@ -8,7 +8,7 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 - [x] Command `/delhome <name>`
 - [x] Command /home (as gui or not)
 
-- [ ] Command /tpall
+- [x] Command /tpall
 - [ ] Command /tpaall
 - [x] Command /tpa
 - [x] Command /tp

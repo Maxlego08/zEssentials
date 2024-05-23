@@ -24,6 +24,15 @@ console: "Console"
 expired: "Expired"
 player-not-found: "&f%player% <error>was not found."
 module-disable: "<error>The &f%name% <error>module is disabled. You cannot use this command."
+rules:
+  - "#ffd353ℹ sᴇʀᴠᴇʀ ʀᴜʟᴇs#3f3f3f:"
+  - "#3f3f3f• &7Respect all players and staff."
+  - "#3f3f3f• &7No grieging or stealing."
+  - "#3f3f3f• &7No cheating or hacking."
+  - "#3f3f3f• &7Keep chat clean and respectful."
+  - "#3f3f3f• &7No spamming or advertising."
+
+
 
 # Commands
 command-syntax-error: "<error>You must execute the command like this#656665: &f%syntax%"
@@ -170,6 +179,7 @@ command-tp-cancel-receiver: "&f%player% <error>cancelled their teleport request 
 command-world-teleport-self: "<success>You have just been teleported into the world &f%world%<success>."
 command-world-teleport-other: "<success>You just teleported the player &f%player% <success>in the world &f%world%<success>."
 command-tp: "&7You just teleport to the player #34cfe0%player%&f."
+command-tp-all: "&7You just teleported all the players onto you."
 command-tp-self: "&7You just teleported #34cfe0%player%&7 to your position."
 command-back: "&7Returning to previous location."
 command-back-error: "<error>You have no last location. Impossible to go back."
@@ -211,6 +221,7 @@ description-tpa: "Teleport to a player"
 description-tpa-accept: "Accept a teleportation request"
 description-tpa-deny: "Denied a teleportation request"
 description-tpa-cancel: "Cancel a teleportation request"
+description-tp-all: "Teleport all players to your position"
 description-god: "Toggle god mode"
 description-heal: "Heal a player"
 description-more: "Get more items"
@@ -302,6 +313,7 @@ description-pay-toggle: "Activate or not the receipt of money"
 description-power-tools-toggle: "Toggle power tools"
 description-kit-show: "Show a kit"
 description-mail: "Open mailbox"
+description-rules: "Read server rules"
 
 
 # Time format

@@ -693,7 +693,6 @@ public class ZUser extends ZUtils implements User {
     public void setMailBoxItems(List<MailBoxDTO> mailBoxItems) {
         this.mailBoxItems.clear();
         this.mailBoxItems.addAll(mailBoxItems.stream().map(MailBoxItem::new).toList());
-        System.out.println(this.mailBoxItems);
     }
 
     @Override

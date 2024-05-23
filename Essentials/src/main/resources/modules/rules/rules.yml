@@ -1,0 +1,30 @@
+name: "#3f3f3fʀᴜʟᴇs"
+size: 27
+items:
+  info:
+    slot: 12
+    item:
+      material: RED_BANNER
+      name: "#ff0000ʀᴜʟᴇs ɪɴғᴏʀᴍᴀᴛɪᴏɴs"
+      lore:
+        - ''
+        - '#ffd353ℹ Informations#3f3f3f:'
+        - '#3f3f3f• &7Following the rules ensures'
+        - '#3f3f3f• &7a fair and &aenjoyable &7experience'
+        - '#3f3f3f• &7for everyone, fostering a &apositive'
+        - '#3f3f3f• &7community atmophere !'
+        - ''
+  r1:
+    slot: 14
+    item:
+      material: RED_DYE
+      name: "#ff0000sᴇʀᴠᴇʀ ʀᴜʟᴇs #1"
+      lore:
+        - ''
+        - '#ffd353ℹ Informations#3f3f3f:'
+        - '#3f3f3f• &7Respect all players and staff.'
+        - '#3f3f3f• &7No grieging or stealing.'
+        - '#3f3f3f• &7No cheating or hacking.'
+        - '#3f3f3f• &7Keep chat clean and respectful.'
+        - '#3f3f3f• &7No spamming or advertising.'
+        - ''

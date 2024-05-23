@@ -11,6 +11,7 @@ import fr.maxlego08.essentials.module.modules.ItemModule;
 import fr.maxlego08.essentials.module.modules.JoinQuitModule;
 import fr.maxlego08.essentials.module.modules.MailBoxModule;
 import fr.maxlego08.essentials.module.modules.MessageModule;
+import fr.maxlego08.essentials.module.modules.RuleModule;
 import fr.maxlego08.essentials.module.modules.SanctionModule;
 import fr.maxlego08.essentials.module.modules.SpawnModule;
 import fr.maxlego08.essentials.module.modules.TeleportationModule;
@@ -57,6 +58,7 @@ public class ZModuleManager implements ModuleManager {
         this.modules.put(ItemModule.class, new ItemModule(this.plugin));
         this.modules.put(ZScoreboardManager.class, this.plugin.getScoreboardManager());
         this.modules.put(MailBoxModule.class, new MailBoxModule(this.plugin));
+        this.modules.put(RuleModule.class, new RuleModule(this.plugin));
 
         this.loadConfigurations();
 

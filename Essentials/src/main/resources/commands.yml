@@ -41,6 +41,7 @@ hat: true
 player-weather: true
 player-time: true
 tp: true
+tpall: true
 tphere: true
 economy: true
 money: true
@@ -104,3 +105,4 @@ powertools: true
 powertools-toggle: true
 showkit: true
 mail: true
+rules: true

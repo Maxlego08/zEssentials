@@ -50,6 +50,7 @@ import fr.maxlego08.essentials.commands.commands.spawn.CommandSpawn;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandBottom;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleport;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportAccept;
+import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportAll;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportBack;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportCancel;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportDeny;
@@ -72,6 +73,7 @@ import fr.maxlego08.essentials.commands.commands.utils.CommandNear;
 import fr.maxlego08.essentials.commands.commands.utils.CommandPlayTime;
 import fr.maxlego08.essentials.commands.commands.utils.CommandRepair;
 import fr.maxlego08.essentials.commands.commands.utils.CommandRepairAll;
+import fr.maxlego08.essentials.commands.commands.utils.CommandRules;
 import fr.maxlego08.essentials.commands.commands.utils.CommandTrash;
 import fr.maxlego08.essentials.commands.commands.utils.CommandVersion;
 import fr.maxlego08.essentials.commands.commands.utils.admins.CommandFly;
@@ -157,8 +159,10 @@ public class CommandLoader {
         register("smithingtable", CommandSmithingTable.class);
         register("furnace", CommandFurnace.class, "burn");
         register("skull", CommandSkull.class);
+        register("rules", CommandRules.class, "?", "help", "aide");
 
         register("tp", CommandTeleport.class);
+        register("tpall", CommandTeleportAll.class);
         register("tphere", CommandTeleportHere.class, "s");
         register("tpa", CommandTeleportTo.class);
         register("tpaccept", CommandTeleportAccept.class, "tpyes");

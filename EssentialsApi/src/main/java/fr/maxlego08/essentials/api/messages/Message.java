@@ -13,6 +13,14 @@ public enum Message {
     EXPIRED("Expired"),
     PLAYER_NOT_FOUND("&f%player% <error>was not found."),
     MODULE_DISABLE("<error>The &f%name% <error>module is disabled. You cannot use this command."),
+    RULES(
+            "#ffd353ℹ sᴇʀᴠᴇʀ ʀᴜʟᴇs#3f3f3f:",
+            "#3f3f3f• &7Respect all players and staff.",
+            "#3f3f3f• &7No grieging or stealing.",
+            "#3f3f3f• &7No cheating or hacking.",
+            "#3f3f3f• &7Keep chat clean and respectful.",
+            "#3f3f3f• &7No spamming or advertising."
+    ),
 
     TIME_DAY("%02d %day% %02d %hour% %02d %minute% %02d %second%"),
     TIME_HOUR("%02d %hour% %02d minute(s) %02d %second%"),
@@ -88,6 +96,7 @@ public enum Message {
     COMMAND_TP_CANCEL_SENDER("<error>Cancelled #99E0FFyour teleport request to %player%."),
     COMMAND_TP_CANCEL_RECEIVER("&f%player% <error>cancelled their teleport request to you."),
     COMMAND_TP("&7You just teleport to the player #34cfe0%player%&f."),
+    COMMAND_TP_ALL("&7You just teleported all the players onto you."),
     COMMAND_TP_SELF("&7You just teleported #34cfe0%player%&7 to your position."),
     COMMAND_BACK("&7Returning to previous location."),
     COMMAND_BACK_ERROR("<error>You have no last location. Impossible to go back."),
@@ -127,6 +136,7 @@ public enum Message {
     DESCRIPTION_SPEED("Change player speed"),
     DESCRIPTION_TPA("Teleport to a player"),
     DESCRIPTION_TP("Teleport to a player"),
+    DESCRIPTION_TP_ALL("Teleport all player to your position"),
     DESCRIPTION_TP_RANDOM("Random Teleport in the world"),
     DESCRIPTION_BACK("Teleport to your previous location"),
     DESCRIPTION_TP_SELF("Teleport a player to your location"),
@@ -216,6 +226,7 @@ public enum Message {
     DESCRIPTION_GIVE_ALL("Give items to online players"),
     DESCRIPTION_POWER_TOOLS("Add command to your items"),
     DESCRIPTION_MAIL("Open mailbox"),
+    DESCRIPTION_RULES("Read server rules"),
 
     YOU("you"),
     TRASH("&8Trash"),
