@@ -4,6 +4,7 @@ import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.modules.Module;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
 import fr.maxlego08.essentials.economy.EconomyManager;
+import fr.maxlego08.essentials.hologram.HologramModule;
 import fr.maxlego08.essentials.kit.KitModule;
 import fr.maxlego08.essentials.module.modules.ChatModule;
 import fr.maxlego08.essentials.module.modules.HomeModule;
@@ -16,7 +17,7 @@ import fr.maxlego08.essentials.module.modules.SanctionModule;
 import fr.maxlego08.essentials.module.modules.SpawnModule;
 import fr.maxlego08.essentials.module.modules.TeleportationModule;
 import fr.maxlego08.essentials.module.modules.WarpModule;
-import fr.maxlego08.essentials.scoreboard.ZScoreboardManager;
+import fr.maxlego08.essentials.scoreboard.ScoreboardModule;
 import org.bukkit.Bukkit;
 
 import java.io.File;
@@ -56,7 +57,8 @@ public class ZModuleManager implements ModuleManager {
         this.modules.put(MessageModule.class, new MessageModule(this.plugin));
         this.modules.put(KitModule.class, new KitModule(this.plugin));
         this.modules.put(ItemModule.class, new ItemModule(this.plugin));
-        this.modules.put(ZScoreboardManager.class, this.plugin.getScoreboardManager());
+        this.modules.put(ScoreboardModule.class, this.plugin.getScoreboardManager());
+        this.modules.put(HologramModule.class, this.plugin.getHologramManager());
         this.modules.put(MailBoxModule.class, new MailBoxModule(this.plugin));
         this.modules.put(RuleModule.class, new RuleModule(this.plugin));
 

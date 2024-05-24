@@ -1,6 +1,6 @@
 package fr.maxlego08.essentials.zutils.utils.spigot;
 
-import fr.maxlego08.essentials.api.utils.ComponentMessage;
+import fr.maxlego08.essentials.api.utils.component.ComponentMessage;
 import fr.maxlego08.menu.api.utils.Placeholders;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;

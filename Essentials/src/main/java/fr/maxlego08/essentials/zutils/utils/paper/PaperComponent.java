@@ -3,8 +3,8 @@ package fr.maxlego08.essentials.zutils.utils.paper;
 import fr.maxlego08.essentials.api.cache.SimpleCache;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
-import fr.maxlego08.essentials.api.utils.ComponentMessage;
 import fr.maxlego08.essentials.api.utils.TagPermission;
+import fr.maxlego08.essentials.api.utils.component.AdventureComponent;
 import fr.maxlego08.essentials.zutils.utils.PlaceholderUtils;
 import fr.maxlego08.menu.api.utils.Placeholders;
 import net.kyori.adventure.text.Component;
@@ -29,7 +29,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class PaperComponent extends PlaceholderUtils implements ComponentMessage {
+public class PaperComponent extends PlaceholderUtils implements AdventureComponent {
 
     private final List<TagPermission> tagPermissions = List.of(new TagPermission(Permission.ESSENTIALS_CHAT_COLOR, StandardTags.color()), new TagPermission(Permission.ESSENTIALS_CHAT_CLICK, StandardTags.clickEvent()), new TagPermission(Permission.ESSENTIALS_CHAT_HOVER, StandardTags.hoverEvent()), new TagPermission(Permission.ESSENTIALS_CHAT_GRADIENT, StandardTags.gradient()), new TagPermission(Permission.ESSENTIALS_CHAT_RAINBOW, StandardTags.rainbow()), new TagPermission(Permission.ESSENTIALS_CHAT_NEWLINE, StandardTags.newline()), new TagPermission(Permission.ESSENTIALS_CHAT_RESET, StandardTags.reset()), new TagPermission(Permission.ESSENTIALS_CHAT_FONT, StandardTags.font()), new TagPermission(Permission.ESSENTIALS_CHAT_KEYBIND, StandardTags.keybind()), new TagPermission(Permission.ESSENTIALS_CHAT_DECORATION, StandardTags.decorations()));
 
@@ -122,6 +122,7 @@ public class PaperComponent extends PlaceholderUtils implements ComponentMessage
         return newMessage;
     }
 
+    @Override
     public Component getComponent(String message) {
         return this.cache.get(message, () -> this.MINI_MESSAGE.deserialize(colorMiniMessage(message)));
     }

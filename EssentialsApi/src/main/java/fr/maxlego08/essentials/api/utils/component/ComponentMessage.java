@@ -1,4 +1,4 @@
-package fr.maxlego08.essentials.api.utils;
+package fr.maxlego08.essentials.api.utils.component;
 
 import fr.maxlego08.menu.api.utils.Placeholders;
 import org.bukkit.command.CommandSender;

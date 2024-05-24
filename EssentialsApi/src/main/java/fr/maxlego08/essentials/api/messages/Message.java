@@ -227,6 +227,16 @@ public enum Message {
     DESCRIPTION_POWER_TOOLS("Add command to your items"),
     DESCRIPTION_MAIL("Open mailbox"),
     DESCRIPTION_RULES("Read server rules"),
+    DESCRIPTION_HOLOGRAM("Show hologram commands"),
+    DESCRIPTION_HOLOGRAM_CREATE("Create a hologram"),
+    DESCRIPTION_HOLOGRAM_DELETE("Delete a hologram"),
+    DESCRIPTION_HOLOGRAM_EDIT("Edit a hologram"),
+    DESCRIPTION_HOLOGRAM_LIST("Display hologram list"),
+    DESCRIPTION_HOLOGRAM_REMOVE_LINE("Remove a line from a hologram"),
+    DESCRIPTION_HOLOGRAM_ADD_LINE("Add a line from a hologram"),
+    DESCRIPTION_HOLOGRAM_SET_LINE("Define a line from a hologram"),
+    DESCRIPTION_HOLOGRAM_MOVE_HERE("Move a hologram to your position"),
+
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -519,6 +529,12 @@ public enum Message {
     MAILBOX_REMOVE_FULL("<error>You must have space in your inventory to retrieve an item."),
     MAILBOX_REMOVE_EXPIRE("<error>You can no longer retrieve this item, it has expired."),
     MAILBOX_ADD(MessageType.ACTION, "<success>An item has just been added to your mailbox &8(&f/mail&8)"),
+
+    HOLOGRAM_CREATE_ERROR("<error>Hologram &f%name% <error>already exists."),
+    HOLOGRAM_CREATE(MessageType.WITHOUT_PREFIX,
+            "<success>You just created the hologram &f%name%<success>.",
+            "&7Use &n<click:run_command:'/hologram edit %name%'>/hologram edit %name%</click>&r&7 command to edit the hologram"
+    ),
 
     ;
 

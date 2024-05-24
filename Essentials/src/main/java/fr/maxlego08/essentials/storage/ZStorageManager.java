@@ -1,25 +1,20 @@
 package fr.maxlego08.essentials.storage;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
-import fr.maxlego08.essentials.api.hologram.Hologram;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.storage.StorageManager;
 import fr.maxlego08.essentials.api.storage.StorageType;
 import fr.maxlego08.essentials.api.user.User;
-import fr.maxlego08.essentials.nms.r3_1_20.CraftHologram;
 import fr.maxlego08.essentials.storage.storages.JsonStorage;
 import fr.maxlego08.essentials.storage.storages.SqlStorage;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
@@ -86,13 +81,5 @@ public class ZStorageManager extends ZUtils implements StorageManager {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onDisconnect(PlayerQuitEvent event) {
         this.iStorage.onPlayerQuit(event.getPlayer().getUniqueId());
-    }
-
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void onDisconnect(PlayerJoinEvent event) {
-        Player player = event.getPlayer();
-        Location location = player.getLocation();
-        Hologram hologram = new CraftHologram(location);
-        hologram.create(player);
     }
 }

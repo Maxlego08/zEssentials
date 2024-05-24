@@ -30,14 +30,14 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
-public class ZScoreboardManager extends ZModule implements ScoreboardManager {
+public class ScoreboardModule extends ZModule implements ScoreboardManager {
 
 
     private final List<EssentialsScoreboard> essentialsScoreboards = new ArrayList<>();
     private final Map<UUID, PlayerBoard> boards = new HashMap<>();
     private EssentialsScoreboard defaultScoreboard;
 
-    public ZScoreboardManager(ZEssentialsPlugin plugin) {
+    public ScoreboardModule(ZEssentialsPlugin plugin) {
         super(plugin, "scoreboard");
     }
 

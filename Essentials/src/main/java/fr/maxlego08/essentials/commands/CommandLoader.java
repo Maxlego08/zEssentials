@@ -20,6 +20,7 @@ import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeAdventu
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeCreative;
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeSpectator;
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeSurvival;
+import fr.maxlego08.essentials.commands.commands.hologram.CommandHologram;
 import fr.maxlego08.essentials.commands.commands.home.CommandDelHome;
 import fr.maxlego08.essentials.commands.commands.home.CommandHome;
 import fr.maxlego08.essentials.commands.commands.home.CommandSetHome;
@@ -233,6 +234,8 @@ public class CommandLoader {
         register("giveall", CommandGiveAll.class);
         register("powertools", CommandPowerTools.class, "pt");
         register("powertools-toggle", CommandPowerToolsToggle.class, "pt-toggle");
+
+        register("hologram", CommandHologram.class, "holo", "ho");
 
         File file = new File(plugin.getDataFolder(), "commands.yml");
         if (!file.exists()) this.plugin.saveResource("commands.yml", false);

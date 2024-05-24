@@ -1,14 +1,39 @@
 package fr.maxlego08.essentials.api.hologram;
 
+import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.hologram.configuration.HologramConfiguration;
+import fr.maxlego08.essentials.api.utils.component.AdventureComponent;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public abstract class Hologram {
 
-    private final Location location;
+    public static final int LINE_WIDTH = 1200;
+    public static final TextColor TRANSPARENT = () -> 0;
 
-    public Hologram(Location location) {
+    protected final EssentialsPlugin plugin;
+    protected final HologramType hologramType;
+    protected final String name;
+    protected final Location location;
+    protected final List<HologramLine> hologramLines = new ArrayList<>();
+    protected final Map<Player, ComponentCache> caches = new HashMap<>();
+    protected final HologramConfiguration configuration;
+
+    public Hologram(EssentialsPlugin plugin, HologramType hologramType, String name, Location location, HologramConfiguration configuration) {
+        this.plugin = plugin;
+        this.hologramType = hologramType;
+        this.name = name;
         this.location = location;
+        this.configuration = configuration;
     }
 
     public abstract void create(Player player);
@@ -17,4 +42,68 @@ public abstract class Hologram {
 
     public abstract void update(Player player);
 
+    public abstract void update();
+
+    public abstract void create();
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public List<HologramLine> getHologramLines() {
+        return hologramLines;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void addLine(HologramLine hologramLine) {
+        this.hologramLines.add(hologramLine);
+    }
+
+    public int getNextIndex() {
+        return this.hologramLines.size() + 1;
+    }
+
+    public EssentialsPlugin getPlugin() {
+        return plugin;
+    }
+
+    public HologramType getHologramType() {
+        return hologramType;
+    }
+
+    public HologramConfiguration getConfiguration() {
+        return configuration;
+    }
+
+    public void createForAllPlayers() {
+        Bukkit.getOnlinePlayers().forEach(this::create);
+    }
+
+    public void deleteForAllPlayers() {
+        Bukkit.getOnlinePlayers().forEach(this::delete);
+    }
+
+    public Map<Player, ComponentCache> getCaches() {
+        return caches;
+    }
+
+    public void removePlayer(Player player) {
+        this.caches.remove(player);
+    }
+
+    public Component getComponentText(Player player) {
+        AdventureComponent componentMessage = (AdventureComponent) plugin.getComponentMessage();
+
+        ComponentCache componentCache = this.caches.computeIfAbsent(player, k -> new ComponentCache());
+
+        if (componentCache.isEmpty()) {
+            List<Component> components = this.hologramLines.stream().sorted(Comparator.comparingInt(HologramLine::getLine)).map(HologramLine::getText).map(line -> this.plugin.papi(player, line)).map(componentMessage::getComponent).toList();
+            componentCache.setComponents(components);
+        }
+
+        return componentCache.merge();
+    }
 }

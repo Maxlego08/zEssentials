@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.tcoded.folialib.impl.ServerImplementation;
 import fr.maxlego08.essentials.api.commands.CommandManager;
 import fr.maxlego08.essentials.api.economy.EconomyProvider;
+import fr.maxlego08.essentials.api.hologram.HologramManager;
 import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
@@ -15,6 +16,7 @@ import fr.maxlego08.essentials.api.storage.StorageManager;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.EssentialsUtils;
 import fr.maxlego08.essentials.api.utils.Warp;
+import fr.maxlego08.essentials.api.utils.component.ComponentMessage;
 import fr.maxlego08.menu.api.ButtonManager;
 import fr.maxlego08.menu.api.InventoryManager;
 import fr.maxlego08.menu.api.pattern.PatternManager;
@@ -226,4 +228,10 @@ public interface EssentialsPlugin extends Plugin {
     ScoreboardManager getScoreboardManager();
 
     void give(Player player, ItemStack itemStack);
+
+    HologramManager getHologramManager();
+
+    ComponentMessage getComponentMessage();
+
+    String papi(Player player, String string);
 }

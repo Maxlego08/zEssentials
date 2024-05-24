@@ -10,6 +10,7 @@ import fr.maxlego08.essentials.api.ConfigurationFile;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandManager;
 import fr.maxlego08.essentials.api.economy.EconomyProvider;
+import fr.maxlego08.essentials.api.hologram.HologramManager;
 import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
@@ -24,6 +25,7 @@ import fr.maxlego08.essentials.api.storage.adapter.LocationAdapter;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.EssentialsUtils;
 import fr.maxlego08.essentials.api.utils.Warp;
+import fr.maxlego08.essentials.api.utils.component.ComponentMessage;
 import fr.maxlego08.essentials.buttons.ButtonHomes;
 import fr.maxlego08.essentials.buttons.ButtonMailBox;
 import fr.maxlego08.essentials.buttons.ButtonPayConfirm;
@@ -48,6 +50,7 @@ import fr.maxlego08.essentials.database.migrations.CreateUserPowerToolsMigration
 import fr.maxlego08.essentials.database.migrations.CreateUserTableMigration;
 import fr.maxlego08.essentials.database.migrations.UpdateUserTableAddSanctionColumns;
 import fr.maxlego08.essentials.economy.EconomyManager;
+import fr.maxlego08.essentials.hologram.HologramModule;
 import fr.maxlego08.essentials.hooks.VaultEconomy;
 import fr.maxlego08.essentials.kit.KitModule;
 import fr.maxlego08.essentials.listener.PlayerListener;
@@ -61,7 +64,7 @@ import fr.maxlego08.essentials.module.modules.HomeModule;
 import fr.maxlego08.essentials.module.modules.MailBoxModule;
 import fr.maxlego08.essentials.placeholders.DistantPlaceholder;
 import fr.maxlego08.essentials.placeholders.LocalPlaceholder;
-import fr.maxlego08.essentials.scoreboard.ZScoreboardManager;
+import fr.maxlego08.essentials.scoreboard.ScoreboardModule;
 import fr.maxlego08.essentials.server.PaperServer;
 import fr.maxlego08.essentials.server.SpigotServer;
 import fr.maxlego08.essentials.server.redis.RedisServer;
@@ -77,7 +80,9 @@ import fr.maxlego08.essentials.user.placeholders.UserPlayTimePlaceholders;
 import fr.maxlego08.essentials.zutils.Metrics;
 import fr.maxlego08.essentials.zutils.ZPlugin;
 import fr.maxlego08.essentials.zutils.utils.CommandMarkdownGenerator;
+import fr.maxlego08.essentials.zutils.utils.ComponentMessageHelper;
 import fr.maxlego08.essentials.zutils.utils.PlaceholderMarkdownGenerator;
+import fr.maxlego08.essentials.zutils.utils.PlaceholderUtils;
 import fr.maxlego08.essentials.zutils.utils.ZServerStorage;
 import fr.maxlego08.essentials.zutils.utils.paper.PaperUtils;
 import fr.maxlego08.essentials.zutils.utils.spigot.SpigotUtils;
@@ -120,6 +125,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     private PatternManager patternManager;
     private EssentialsServer essentialsServer;
     private ScoreboardManager scoreboardManager;
+    private HologramManager hologramManager;
 
     @Override
     public void onEnable() {
@@ -180,7 +186,8 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.registerListener(this.storageManager);
         this.storageManager.onEnable();
 
-        this.scoreboardManager = new ZScoreboardManager(this);
+        this.scoreboardManager = new ScoreboardModule(this);
+        this.hologramManager = new HologramModule(this);
 
         this.moduleManager.loadModules();
 
@@ -512,5 +519,20 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         if (result.isEmpty()) return;
 
         result.values().forEach(item -> moduleManager.getModule(MailBoxModule.class).addItem(player.getUniqueId(), item));
+    }
+
+    @Override
+    public HologramManager getHologramManager() {
+        return this.hologramManager;
+    }
+
+    @Override
+    public ComponentMessage getComponentMessage() {
+        return ComponentMessageHelper.componentMessage;
+    }
+
+    @Override
+    public String papi(Player player, String string) {
+        return PlaceholderUtils.PapiHelper.papi(string, player);
     }
 }
