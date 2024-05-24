@@ -33,7 +33,6 @@ processResources {
 }
 
 shadowJar {
-
     from(project(':EssentialsApi').sourceSets.main.output)
     from(project(':Hooks:Vault').sourceSets.main.output)
     from(project(':Hooks:Redis').sourceSets.main.output)
