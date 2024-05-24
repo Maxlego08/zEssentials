@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id("com.dorongold.task-tree") version "2.1.1"
+    id("io.papermc.paperweight.userdev") version "1.7.1"
 }
 
 group = 'fr.maxlego08.essentials'
@@ -37,8 +38,14 @@ processResources {
     }
 }
 
+// needed by paperweight plugin
+dependencies {
+    paperweight.paperDevBundle("1.20.4-R0.1-SNAPSHOT")
+}
+
 subprojects {
     apply plugin: 'java'
+    apply plugin: 'io.papermc.paperweight.userdev'
 
     group = 'fr.maxlego08.essentials'
     version = property('version')
@@ -51,10 +58,11 @@ subprojects {
             url = "https://nexuslite.gcnt.net/repos/other/"
         }
         maven { url 'https://jitpack.io' }
-        maven {url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/'}
+        maven { url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/' }
     }
 
     dependencies {
+        paperweight.paperDevBundle("1.20.4-R0.1-SNAPSHOT")
         implementation "com.tcoded:FoliaLib:0.3.1"
         implementation 'com.github.Maxlego08:Sarah:1.2'
         implementation('redis.clients:jedis:5.1.2') {
