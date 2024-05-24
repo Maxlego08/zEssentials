@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.hologram;
 
 import fr.maxlego08.essentials.ZEssentialsPlugin;
+import fr.maxlego08.essentials.api.commands.TabCompletion;
 import fr.maxlego08.essentials.api.hologram.Hologram;
 import fr.maxlego08.essentials.api.hologram.HologramManager;
 import fr.maxlego08.essentials.api.hologram.HologramType;
@@ -31,6 +32,8 @@ import java.util.stream.Stream;
 
 public class HologramModule extends ZModule implements HologramManager {
 
+    // Ajouter une commande pour activer/désactiver un hologram sans avoir besoin de le supprimer
+
     private final List<Hologram> holograms = new ArrayList<>();
 
     public HologramModule(ZEssentialsPlugin plugin) {
@@ -39,12 +42,10 @@ public class HologramModule extends ZModule implements HologramManager {
 
     @Override
     public void loadConfiguration() {
+
+        this.holograms.forEach(Hologram::deleteForAllPlayers);
+
         super.loadConfiguration();
-
-        if (!this.holograms.isEmpty()) {
-            this.holograms.forEach(Hologram::deleteForAllPlayers);
-        }
-
         this.loadHolograms();
     }
 
@@ -79,11 +80,9 @@ public class HologramModule extends ZModule implements HologramManager {
         message(player, Message.HOLOGRAM_CREATE, "%name%", name);
 
         HologramConfiguration hologramConfiguration;
-        switch (hologramType) {
-            default -> hologramConfiguration = new TextHologramConfiguration();
-        }
+        hologramConfiguration = new TextHologramConfiguration();
 
-        Hologram hologram = new CraftHologram(this.plugin, hologramType, hologramConfiguration, name, player.getLocation());
+        Hologram hologram = new CraftHologram(this.plugin, hologramType, hologramConfiguration, name, name, player.getLocation());
 
         if (hologramType == HologramType.TEXT) {
             hologram.addLine(new ZHologramLine(1, "&fUse #ff9966/holo edit " + name + " &f!"));
@@ -96,6 +95,25 @@ public class HologramModule extends ZModule implements HologramManager {
         addHologram(hologram);
 
         return hologram;
+    }
+
+    @Override
+    public void delete(Player player, String name) {
+
+        Optional<Hologram> optional = getHologram(name);
+        if (optional.isEmpty()) {
+            message(player, Message.HOLOGRAM_DOESNT_EXIST, "%name%", name);
+            return;
+        }
+
+        Hologram hologram = optional.get();
+        File file = new File(getHologramsFolder(), hologram.getName() + ".yml");
+        if (file.exists()) file.delete();
+
+        hologram.deleteForAllPlayers();
+        this.holograms.remove(hologram);
+
+        message(player, Message.HOLOGRAM_DELETE, "%name%", name);
     }
 
     @Override
@@ -126,7 +144,7 @@ public class HologramModule extends ZModule implements HologramManager {
         }
 
         try {
-            File file = new File(folder, hologram.getName() + ".yml");
+            File file = new File(folder, hologram.getFileName() + ".yml");
 
             if (!file.exists()) {
                 file.createNewFile();
@@ -148,7 +166,7 @@ public class HologramModule extends ZModule implements HologramManager {
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
 
         try {
-            Hologram hologram = loader.load(configuration, "");
+            Hologram hologram = loader.load(configuration, "", file.getName().replace(".yml", ""));
             hologram.create();
             hologram.createForAllPlayers();
             this.holograms.add(hologram);
@@ -170,5 +188,15 @@ public class HologramModule extends ZModule implements HologramManager {
     public void onQuid(PlayerQuitEvent event) {
         Player player = event.getPlayer();
         this.holograms.forEach(hologram -> hologram.removePlayer(player));
+    }
+
+    @Override
+    public TabCompletion getHologramCompletion() {
+        return (sender, args) -> this.holograms.stream().map(Hologram::getName).toList();
+    }
+
+    @Override
+    public TabCompletion getHologramCompletion(HologramType hologramType) {
+        return (sender, args) -> this.holograms.stream().filter(hologram -> hologram.getHologramType() == hologramType).map(Hologram::getName).toList();
     }
 }

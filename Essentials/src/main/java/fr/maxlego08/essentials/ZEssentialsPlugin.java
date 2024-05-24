@@ -145,6 +145,8 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         distantPlaceholder.register();
 
         this.economyProvider = new EconomyManager(this);
+        this.scoreboardManager = new ScoreboardModule(this);
+        this.hologramManager = new HologramModule(this);
 
         this.inventoryManager = this.getProvider(InventoryManager.class);
         this.buttonManager = this.getProvider(ButtonManager.class);
@@ -185,9 +187,6 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.storageManager = new ZStorageManager(this);
         this.registerListener(this.storageManager);
         this.storageManager.onEnable();
-
-        this.scoreboardManager = new ScoreboardModule(this);
-        this.hologramManager = new HologramModule(this);
 
         this.moduleManager.loadModules();
 

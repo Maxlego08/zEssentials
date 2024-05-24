@@ -30,8 +30,8 @@ public class CraftHologram extends Hologram {
 
     private Display display = null;
 
-    public CraftHologram(EssentialsPlugin plugin, HologramType hologramType, HologramConfiguration configuration, String name, Location location) {
-        super(plugin, hologramType, name, location, configuration);
+    public CraftHologram(EssentialsPlugin plugin, HologramType hologramType, HologramConfiguration configuration, String fileName, String name, Location location) {
+        super(plugin, hologramType, name, fileName, location, configuration);
     }
 
     @Override
@@ -43,6 +43,7 @@ public class CraftHologram extends Hologram {
 
     @Override
     public void delete(Player player) {
+        System.out.println("JE SUPPRIMER l'entité id: " + display.getId());
         this.send(player, new ClientboundRemoveEntitiesPacket(display.getId()));
     }
 

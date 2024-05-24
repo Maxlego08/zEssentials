@@ -7,22 +7,25 @@ import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.hologram.HologramModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 
-public class CommandHologram extends VCommand {
+public class CommandHologramDelete extends VCommand {
 
-    public CommandHologram(EssentialsPlugin plugin) {
+    public CommandHologramDelete(EssentialsPlugin plugin) {
         super(plugin);
         this.setModule(HologramModule.class);
-        this.setPermission(Permission.ESSENTIALS_HOLOGRAM);
-        this.setDescription(Message.DESCRIPTION_HOLOGRAM);
-
-        this.addSubCommand(new CommandHologramCreate(plugin));
-        this.addSubCommand(new CommandHologramDelete(plugin));
-        this.addSubCommand(new CommandHologramAddLine(plugin));
+        this.setPermission(Permission.ESSENTIALS_HOLOGRAM_DELETE);
+        this.setDescription(Message.DESCRIPTION_HOLOGRAM_DELETE);
+        this.addSubCommand("delete");
+        this.addRequireArg("name", plugin.getHologramManager().getHologramCompletion());
+        this.onlyPlayers();
     }
 
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
-        syntaxMessage();
+
+        String name = this.argAsString(1);
+
+        plugin.getHologramManager().delete(player, name);
+
         return CommandResultType.SUCCESS;
     }
 }

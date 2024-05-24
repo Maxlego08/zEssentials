@@ -1,5 +1,6 @@
 package fr.maxlego08.essentials.api.hologram;
 
+import fr.maxlego08.essentials.api.commands.TabCompletion;
 import fr.maxlego08.essentials.api.modules.Module;
 import org.bukkit.entity.Player;
 
@@ -19,6 +20,8 @@ public interface HologramManager extends Module {
 
     Hologram create(Player player, HologramType hologramType, String name);
 
+    void delete(Player player, String name);
+
     void loadHolograms();
 
     void saveHolograms();
@@ -27,4 +30,7 @@ public interface HologramManager extends Module {
 
     void loadHologram(File file);
 
+    TabCompletion getHologramCompletion();
+
+    TabCompletion getHologramCompletion(HologramType hologramType);
 }

@@ -536,6 +536,13 @@ public enum Message {
             "&7Use &n<click:run_command:'/hologram edit %name%'>/hologram edit %name%</click>&r&7 command to edit the hologram"
     ),
 
+    HOLOGRAM_DELETE("<success>Hologram &f%name% <success>has been deleted."),
+
+    HOLOGRAM_DOESNT_EXIST("<error>Hologram &f%name% <error>doesn't exists."),
+    HOLOGRAM_IS_NOT_A_TEXT("<error>Hologram &f%name% <error>is not a text hologram."),
+    HOLOGRAM_ADD_LINE("<success>You just added a line to the hologram &f%name%<success>."),
+
+
     ;
 
     private String message;

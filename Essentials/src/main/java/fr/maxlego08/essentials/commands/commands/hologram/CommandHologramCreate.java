@@ -20,7 +20,6 @@ public class CommandHologramCreate extends VCommand {
         this.addSubCommand("create");
         this.addRequireArg("type", (a, b) -> Arrays.stream(HologramType.values()).map(HologramType::name).toList());
         this.addRequireArg("name");
-        this.setExtendedArgs(true);
         this.onlyPlayers();
     }
 

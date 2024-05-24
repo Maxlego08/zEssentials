@@ -23,15 +23,17 @@ public abstract class Hologram {
     protected final EssentialsPlugin plugin;
     protected final HologramType hologramType;
     protected final String name;
+    protected final String fileName;
     protected final Location location;
     protected final List<HologramLine> hologramLines = new ArrayList<>();
     protected final Map<Player, ComponentCache> caches = new HashMap<>();
     protected final HologramConfiguration configuration;
 
-    public Hologram(EssentialsPlugin plugin, HologramType hologramType, String name, Location location, HologramConfiguration configuration) {
+    public Hologram(EssentialsPlugin plugin, HologramType hologramType, String name, String fileName, Location location, HologramConfiguration configuration) {
         this.plugin = plugin;
         this.hologramType = hologramType;
         this.name = name;
+        this.fileName = fileName;
         this.location = location;
         this.configuration = configuration;
     }
@@ -45,6 +47,10 @@ public abstract class Hologram {
     public abstract void update();
 
     public abstract void create();
+
+    public String getFileName() {
+        return fileName;
+    }
 
     public Location getLocation() {
         return location;
@@ -84,6 +90,11 @@ public abstract class Hologram {
 
     public void deleteForAllPlayers() {
         Bukkit.getOnlinePlayers().forEach(this::delete);
+    }
+
+    public void updateForAllPlayers() {
+        this.caches.clear();
+        Bukkit.getOnlinePlayers().forEach(this::update);
     }
 
     public Map<Player, ComponentCache> getCaches() {

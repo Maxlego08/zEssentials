@@ -46,7 +46,7 @@ public class HologramLoader extends ZUtils implements Loader<Hologram> {
         HologramConfiguration hologramConfiguration;
         hologramConfiguration = new TextHologramConfiguration();
 
-        Hologram hologram = new CraftHologram(this.plugin, hologramType, hologramConfiguration, name, location);
+        Hologram hologram = new CraftHologram(this.plugin, hologramType, hologramConfiguration, (String) objects[0], name, location);
 
         loadConfiguration(configuration, hologramConfiguration);
 
