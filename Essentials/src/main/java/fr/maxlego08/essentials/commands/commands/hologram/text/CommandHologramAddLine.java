@@ -1,4 +1,4 @@
-package fr.maxlego08.essentials.commands.commands.hologram;
+package fr.maxlego08.essentials.commands.commands.hologram.text;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.Permission;
@@ -6,6 +6,7 @@ import fr.maxlego08.essentials.api.hologram.Hologram;
 import fr.maxlego08.essentials.api.hologram.HologramManager;
 import fr.maxlego08.essentials.api.hologram.HologramType;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.commands.commands.hologram.VCommandHologram;
 import fr.maxlego08.essentials.hologram.ZHologramLine;
 
 public class CommandHologramAddLine extends VCommandHologram {

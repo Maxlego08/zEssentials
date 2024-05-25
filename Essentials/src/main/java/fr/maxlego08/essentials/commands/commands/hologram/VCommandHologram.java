@@ -3,12 +3,15 @@ package fr.maxlego08.essentials.commands.commands.hologram;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.hologram.Hologram;
+import fr.maxlego08.essentials.api.hologram.HologramLine;
 import fr.maxlego08.essentials.api.hologram.HologramManager;
 import fr.maxlego08.essentials.api.hologram.HologramType;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.hologram.HologramModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public abstract class VCommandHologram extends VCommand {
@@ -47,4 +50,23 @@ public abstract class VCommandHologram extends VCommand {
     }
 
     protected abstract void perform(EssentialsPlugin plugin, Hologram hologram, HologramManager manager);
+
+    protected void addRequireArgHologram(String message, TabCompletionHologram runnable) {
+        HologramManager manager = this.plugin.getHologramManager();
+        this.addRequireArg(message, (sender, args) -> {
+            if (args.length >= 2) {
+                String hologramName = args[1];
+                Optional<Hologram> optional = manager.getHologram(hologramName);
+                if (optional.isPresent()) {
+                    return runnable.accept(sender, optional.get());
+                }
+            }
+            return new ArrayList<>();
+        });
+    }
+
+    protected List<String> lineToList(Hologram hologram) {
+        return hologram.getHologramLines().stream().map(HologramLine::getLine).map(String::valueOf).toList();
+    }
+
 }

@@ -14,6 +14,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public abstract class Hologram {
 
@@ -116,5 +117,13 @@ public abstract class Hologram {
         }
 
         return componentCache.merge();
+    }
+
+    public Optional<HologramLine> getHologramLine(int line) {
+        return this.hologramLines.stream().filter(hologramLine -> hologramLine.getLine() == line).findFirst();
+    }
+
+    public void removeLine(int line) {
+        this.hologramLines.removeIf(hologramLine -> hologramLine.getLine() == line);
     }
 }

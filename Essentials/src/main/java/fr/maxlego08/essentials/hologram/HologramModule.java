@@ -197,6 +197,6 @@ public class HologramModule extends ZModule implements HologramManager {
 
     @Override
     public TabCompletion getHologramCompletion(HologramType hologramType) {
-        return (sender, args) -> this.holograms.stream().filter(hologram -> hologram.getHologramType() == hologramType).map(Hologram::getName).toList();
+        return hologramType == null ? getHologramCompletion() : (sender, args) -> this.holograms.stream().filter(hologram -> hologram.getHologramType() == hologramType).map(Hologram::getName).toList();
     }
 }

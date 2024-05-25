@@ -236,6 +236,8 @@ public enum Message {
     DESCRIPTION_HOLOGRAM_ADD_LINE("Add a line from a hologram"),
     DESCRIPTION_HOLOGRAM_SET_LINE("Define a line from a hologram"),
     DESCRIPTION_HOLOGRAM_MOVE_HERE("Move a hologram to your position"),
+    DESCRIPTION_HOLOGRAM_SCALE("Change hologram scale"),
+    DESCRIPTION_HOLOGRAM_TRANSLATION("Change hologram translation"),
 
 
     YOU("you"),
@@ -541,6 +543,11 @@ public enum Message {
     HOLOGRAM_DOESNT_EXIST("<error>Hologram &f%name% <error>doesn't exists."),
     HOLOGRAM_IS_NOT_A_TEXT("<error>Hologram &f%name% <error>is not a text hologram."),
     HOLOGRAM_ADD_LINE("<success>You just added a line to the hologram &f%name%<success>."),
+    HOLOGRAM_SET_LINE("<success>You just set the line &f%line%<success> to the hologram &f%name%<success>."),
+    HOLOGRAM_LINE_DOESNT_EXIST("<error>The line &f%line% <error>does not exist for the hologram &f%name%<error>."),
+    HOLOGRAM_REMOVE_LINE("<success>You just remove the line &f%line%<success> to the hologram &f%name%<success>."),
+    HOLOGRAM_SCALE("<success>You just changed the scale of the hologram &f%name% <success>to &7%x%&8, &7%y%&8, &7%z%"),
+    HOLOGRAM_TRANSLATION("<success>You just changed the translation of the hologram &f%name% <success>to &7%x%&8, &7%y%&8, &7%z%"),
 
 
     ;

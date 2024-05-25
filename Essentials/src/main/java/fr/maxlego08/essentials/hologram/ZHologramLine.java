@@ -5,8 +5,8 @@ import fr.maxlego08.essentials.api.hologram.HologramLine;
 public class ZHologramLine implements HologramLine {
 
     private final int line;
-    private final String text;
     private final String eventName;
+    private String text;
 
 
     public ZHologramLine(int line, String text, String eventName) {
@@ -30,6 +30,11 @@ public class ZHologramLine implements HologramLine {
     @Override
     public String getText() {
         return this.text;
+    }
+
+    @Override
+    public void setText(String text) {
+        this.text = text;
     }
 
     @Override

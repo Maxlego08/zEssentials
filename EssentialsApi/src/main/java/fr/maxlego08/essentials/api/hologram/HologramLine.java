@@ -6,6 +6,8 @@ public interface HologramLine {
 
     String getText();
 
+    void setText(String text);
+
     String getEventName();
 
 

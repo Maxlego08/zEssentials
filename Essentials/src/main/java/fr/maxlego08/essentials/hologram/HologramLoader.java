@@ -152,12 +152,14 @@ public class HologramLoader extends ZUtils implements Loader<Hologram> {
 
     public String getColor(TextHologramConfiguration textHologramConfiguration) {
         TextColor background = textHologramConfiguration.getBackground();
-        return Optional.ofNullable(background).map(bg -> bg == Hologram.TRANSPARENT ? "transparent" : bg instanceof NamedTextColor named ? named.toString() : bg.asHexString()).orElse(null);
+        return Optional.ofNullable(background).map(bg -> bg == Hologram.TRANSPARENT ? "transparent" : bg instanceof NamedTextColor named ? named.toString() : bg.asHexString()).orElse("default");
     }
 
     public TextColor configureBackground(YamlConfiguration configuration) {
         String backgroundStr = configuration.getString("text-background", null);
-        if (backgroundStr == null || backgroundStr.equalsIgnoreCase("transparent")) {
+        if (backgroundStr == null || backgroundStr.equalsIgnoreCase("default")) {
+            return null;
+        } else if (backgroundStr.equalsIgnoreCase("transparent")) {
             return Hologram.TRANSPARENT;
         } else if (backgroundStr.startsWith("#")) {
             return TextColor.fromHexString(backgroundStr);

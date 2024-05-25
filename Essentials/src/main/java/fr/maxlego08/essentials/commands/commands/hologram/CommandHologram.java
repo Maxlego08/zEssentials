@@ -4,6 +4,9 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.commands.commands.hologram.text.CommandHologramAddLine;
+import fr.maxlego08.essentials.commands.commands.hologram.text.CommandHologramRemoveLine;
+import fr.maxlego08.essentials.commands.commands.hologram.text.CommandHologramSetLine;
 import fr.maxlego08.essentials.hologram.HologramModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 
@@ -18,6 +21,8 @@ public class CommandHologram extends VCommand {
         this.addSubCommand(new CommandHologramCreate(plugin));
         this.addSubCommand(new CommandHologramDelete(plugin));
         this.addSubCommand(new CommandHologramAddLine(plugin));
+        this.addSubCommand(new CommandHologramSetLine(plugin));
+        this.addSubCommand(new CommandHologramRemoveLine(plugin));
     }
 
     @Override
