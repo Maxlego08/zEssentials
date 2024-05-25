@@ -9,14 +9,21 @@ import fr.maxlego08.essentials.commands.commands.hologram.global.CommandHologram
 import fr.maxlego08.essentials.commands.commands.hologram.global.CommandHologramMoveTo;
 import fr.maxlego08.essentials.commands.commands.hologram.global.CommandHologramPitch;
 import fr.maxlego08.essentials.commands.commands.hologram.global.CommandHologramScale;
+import fr.maxlego08.essentials.commands.commands.hologram.global.CommandHologramShadowRadius;
+import fr.maxlego08.essentials.commands.commands.hologram.global.CommandHologramShadowStrength;
+import fr.maxlego08.essentials.commands.commands.hologram.global.CommandHologramTeleport;
 import fr.maxlego08.essentials.commands.commands.hologram.global.CommandHologramTranslation;
+import fr.maxlego08.essentials.commands.commands.hologram.global.CommandHologramViewDistance;
 import fr.maxlego08.essentials.commands.commands.hologram.global.CommandHologramYaw;
 import fr.maxlego08.essentials.commands.commands.hologram.text.CommandHologramAddLine;
+import fr.maxlego08.essentials.commands.commands.hologram.text.CommandHologramBackground;
 import fr.maxlego08.essentials.commands.commands.hologram.text.CommandHologramInsertAfterLine;
 import fr.maxlego08.essentials.commands.commands.hologram.text.CommandHologramInsertBeforeLine;
 import fr.maxlego08.essentials.commands.commands.hologram.text.CommandHologramRemoveLine;
 import fr.maxlego08.essentials.commands.commands.hologram.text.CommandHologramSetLine;
-import fr.maxlego08.essentials.commands.commands.hologram.text.CommandHologramTestAlignment;
+import fr.maxlego08.essentials.commands.commands.hologram.text.CommandHologramTextAlignment;
+import fr.maxlego08.essentials.commands.commands.hologram.text.CommandHologramTextSeeThrough;
+import fr.maxlego08.essentials.commands.commands.hologram.text.CommandHologramTextShadow;
 import fr.maxlego08.essentials.hologram.HologramModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 
@@ -37,12 +44,20 @@ public class CommandHologram extends VCommand {
         this.addSubCommand(new CommandHologramTranslation(plugin));
         this.addSubCommand(new CommandHologramMoveHere(plugin));
         this.addSubCommand(new CommandHologramBillBoard(plugin));
-        this.addSubCommand(new CommandHologramTestAlignment(plugin));
+        this.addSubCommand(new CommandHologramTextAlignment(plugin));
         this.addSubCommand(new CommandHologramYaw(plugin));
         this.addSubCommand(new CommandHologramPitch(plugin));
         this.addSubCommand(new CommandHologramMoveTo(plugin));
         this.addSubCommand(new CommandHologramInsertBeforeLine(plugin));
         this.addSubCommand(new CommandHologramInsertAfterLine(plugin));
+        this.addSubCommand(new CommandHologramBackground(plugin));
+        this.addSubCommand(new CommandHologramList(plugin));
+        this.addSubCommand(new CommandHologramTeleport(plugin));
+        this.addSubCommand(new CommandHologramTextSeeThrough(plugin));
+        this.addSubCommand(new CommandHologramTextShadow(plugin));
+        this.addSubCommand(new CommandHologramShadowStrength(plugin));
+        this.addSubCommand(new CommandHologramShadowRadius(plugin));
+        this.addSubCommand(new CommandHologramViewDistance(plugin));
     }
 
     @Override

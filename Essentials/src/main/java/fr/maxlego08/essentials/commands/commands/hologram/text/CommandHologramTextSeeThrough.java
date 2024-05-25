@@ -8,30 +8,30 @@ import fr.maxlego08.essentials.api.hologram.HologramType;
 import fr.maxlego08.essentials.api.hologram.configuration.TextHologramConfiguration;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.commands.commands.hologram.VCommandHologram;
-import org.bukkit.entity.TextDisplay;
 
 import java.util.Arrays;
 
-public class CommandHologramTestAlignment extends VCommandHologram {
+public class CommandHologramTextSeeThrough extends VCommandHologram {
 
-    public CommandHologramTestAlignment(EssentialsPlugin plugin) {
+    public CommandHologramTextSeeThrough(EssentialsPlugin plugin) {
         super(plugin, HologramType.TEXT);
-        this.setPermission(Permission.ESSENTIALS_HOLOGRAM_TEXT_ALIGNMENT);
-        this.setDescription(Message.DESCRIPTION_HOLOGRAM_TEXT_ALIGNMENT);
-        this.addSubCommand("textalignment");
-        this.addRequireArg("text alignment", (a, b) -> Arrays.stream(TextDisplay.TextAlignment.values()).map(TextDisplay.TextAlignment::name).toList());
+        this.setPermission(Permission.ESSENTIALS_HOLOGRAM_SEE_THROUGH);
+        this.setDescription(Message.DESCRIPTION_HOLOGRAM_SEE_THROUGH);
+        this.addSubCommand("seethrough");
+        this.addRequireArg("boolean", (a, b) -> Arrays.asList("true", "false"));
     }
 
     @Override
     protected void perform(EssentialsPlugin plugin, Hologram hologram, HologramManager manager) {
 
-        TextDisplay.TextAlignment textAlignment = TextDisplay.TextAlignment.valueOf(this.argAsString(1));
-        ((TextHologramConfiguration) hologram.getConfiguration()).setTextAlignment(textAlignment);
+        boolean seethrough = this.argAsBoolean(1);
 
+        ((TextHologramConfiguration) hologram.getConfiguration()).setSeeThrough(seethrough);
         hologram.update();
         hologram.updateForAllPlayers();
+
         manager.saveHologram(hologram);
 
-        message(sender, Message.HOLOGRAM_TEXT_ALIGNMENT, "%name%", hologram.getName(), "%textAlignment%", textAlignment.name());
+        message(sender, Message.HOLOGRAM_SEE_THROUGH, "%name%", hologram.getName(), "%seethrough%", seethrough);
     }
 }

@@ -244,10 +244,13 @@ public enum Message {
     DESCRIPTION_HOLOGRAM_BILLBOARD("Change hologram billboard"),
     DESCRIPTION_HOLOGRAM_TEXT_ALIGNMENT("Change hologram text alignment"),
     DESCRIPTION_HOLOGRAM_TEXT_SHADOW("Change hologram text shadow"),
+    DESCRIPTION_HOLOGRAM_SHADOW_STRENGTH("Change hologram shadow strength"),
+    DESCRIPTION_HOLOGRAM_SHADOW_RADIUS("Change hologram shadow radius"),
     DESCRIPTION_HOLOGRAM_TEXT_BACKGROUND("Change hologram text background"),
     DESCRIPTION_HOLOGRAM_SEE_THROUGH("Change hologram see through"),
     DESCRIPTION_HOLOGRAM_YAW("Change hologram yaw"),
     DESCRIPTION_HOLOGRAM_PITCH("Change hologram pitch"),
+    DESCRIPTION_HOLOGRAM_TELEPORT("Teleport to a hologram"),
 
 
     YOU("you"),
@@ -364,11 +367,11 @@ public enum Message {
     COMMAND_HOME_ADMIN_LIST("#8cc0cc%player% ʜᴏᴍᴇs&8:&f%homes%"),
     COMMAND_HOME_ADMIN_LIST_INFO(" <hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %player%:%name%'>&f%name%</click></hover>&7"),
 
-    COMMAND_KICK_NOTIFY(MessageType.WITHOUT_PREFIX, "<hover:show_text:'<gray>By: <white>%sender%<newline><gray>Duration: <white>%duration%<newline><gray>Reason: <white>%reason%<newline><gray>Date: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just kicked the player #e0d12d%target%#e33414.</click></hover>"),
-    COMMAND_BAN_NOTIFY(MessageType.WITHOUT_PREFIX, "<hover:show_text:'<gray>By: <white>%sender%<newline><gray>Duration: <white>%duration%<newline><gray>Reason: <white>%reason%<newline><gray>Date: <white>%created_at%<newline><gray>Expires: <white>%expired_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just banned the player #e0d12d%target%#e33414.</click></hover>"),
-    COMMAND_MUTE_NOTIFY(MessageType.WITHOUT_PREFIX, "<hover:show_text:'<gray>By: <white>%sender%<newline><gray>Duration: <white>%duration%<newline><gray>Reason: <white>%reason%<newline><gray>Date: <white>%created_at%<newline><gray>Expires: <white>%expired_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just muted the player #e0d12d%target%#e33414.</click></hover>"),
-    COMMAND_UNMUTE_NOTIFY(MessageType.WITHOUT_PREFIX, "<hover:show_text:'<gray>By: <white>%sender%<newline><gray>Duration: <white>%duration%<newline><gray>Reason: <white>%reason%<newline><gray>Date: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just unmuted the player #e0d12d%target%#e33414.</click></hover>"),
-    COMMAND_UNBAN_NOTIFY(MessageType.WITHOUT_PREFIX, "<hover:show_text:'<gray>By: <white>%sender%<newline><gray>Duration: <white>%duration%<newline><gray>Reason: <white>%reason%<newline><gray>Date: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just unbanned the player #e0d12d%target%#e33414.</click></hover>"),
+    COMMAND_KICK_NOTIFY(MessageType.WITHOUT_PREFIX, "<hover:show_text:'&7By: <white>%sender%<newline>&7Duration: <white>%duration%<newline>&7Reason: <white>%reason%<newline>&7Date: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just kicked the player #e0d12d%target%#e33414.</click></hover>"),
+    COMMAND_BAN_NOTIFY(MessageType.WITHOUT_PREFIX, "<hover:show_text:'&7By: <white>%sender%<newline>&7Duration: <white>%duration%<newline>&7Reason: <white>%reason%<newline>&7Date: <white>%created_at%<newline>&7Expires: <white>%expired_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just banned the player #e0d12d%target%#e33414.</click></hover>"),
+    COMMAND_MUTE_NOTIFY(MessageType.WITHOUT_PREFIX, "<hover:show_text:'&7By: <white>%sender%<newline>&7Duration: <white>%duration%<newline>&7Reason: <white>%reason%<newline>&7Date: <white>%created_at%<newline>&7Expires: <white>%expired_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just muted the player #e0d12d%target%#e33414.</click></hover>"),
+    COMMAND_UNMUTE_NOTIFY(MessageType.WITHOUT_PREFIX, "<hover:show_text:'&7By: <white>%sender%<newline>&7Duration: <white>%duration%<newline>&7Reason: <white>%reason%<newline>&7Date: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just unmuted the player #e0d12d%target%#e33414.</click></hover>"),
+    COMMAND_UNBAN_NOTIFY(MessageType.WITHOUT_PREFIX, "<hover:show_text:'&7By: <white>%sender%<newline>&7Duration: <white>%duration%<newline>&7Reason: <white>%reason%<newline>&7Date: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just unbanned the player #e0d12d%target%#e33414.</click></hover>"),
     COMMAND_BAN_ERROR_DURATION("<error>The duration of a banishment must be at least 1 second."),
     COMMAND_MUTE_ERROR_DURATION("<error>The duration of a mute must be at least 1 second."),
     COMMAND_UN_MUTE_ERROR("&f%player% <error>is not mute."),
@@ -436,10 +439,10 @@ public enum Message {
     CHAT_LINK("<error>You cannot send a link in the chat."),
     CHAT_DISABLE("<error>The chat is currently unavailable."),
 
-    CHAT_DEFAULT_FORMAT("<white>%displayName% <#656665>• <gray>%message%"),
+    CHAT_DEFAULT_FORMAT("<white>%displayName% <#656665>• &7%message%"),
     CHAT_MESSAGES_EMPTY("&f%player% <error>did not write a message."),
     CHAT_MESSAGES_LINE(MessageType.WITHOUT_PREFIX, "&f%date% &7%message%"),
-    CHAT_MESSAGES_FOOTER(MessageType.WITHOUT_PREFIX, "<click:run_command:'/chathistory %player% %previousPage%'><hover:show_text:'Previous Page'><white>⬅</hover></click> <gray>%page%/%maxPage% <click:run_command:'/chathistory %player% %nextPage%'><hover:show_text:'Next Page'><white>➡</hover></click>"),
+    CHAT_MESSAGES_FOOTER(MessageType.WITHOUT_PREFIX, "<click:run_command:'/chathistory %player% %previousPage%'><hover:show_text:'Previous Page'><white>⬅</hover></click> &7%page%/%maxPage% <click:run_command:'/chathistory %player% %nextPage%'><hover:show_text:'Next Page'><white>➡</hover></click>"),
 
     COMMAND_CHAT_CLEAR("<success>The chat just got clear."),
     COMMAND_CHAT_DISABLE_ERROR("<error>Chat is already disable."),
@@ -494,7 +497,7 @@ public enum Message {
 
     COMMAND_SEEN_IP_EMPTY("<error>Unable to find players with ip &f%ip%<error>."),
     COMMAND_SEEN_IP_LINE("#99E0FFPlayers with the ip &f%ip%&8:%players%"),
-    COMMAND_SEEN_IP_INFO(" <white><click:run_command:'/seen %name%'><hover:show_text:'&fShow player's information'>%name%</hover></click><dark_gray>"),
+    COMMAND_SEEN_IP_INFO(" <white><click:run_command:'/seen %name%'><hover:show_text:'&fShow player's information'>%name%</hover></click>&8"),
 
     COMMAND_KIT_NO_PERMISSION("<error>You do not have permission to use the kit &f%kit%<error>."),
     COMMAND_KIT_NOT_FOUND("<error>Unable to find the kit &f%kit%<error>."),
@@ -568,6 +571,15 @@ public enum Message {
     HOLOGRAM_TEXT_ALIGNMENT("<success>You just change the text alignment of the hologram &f%name%<success> to &f%textAlignment%<success>."),
     HOLOGRAM_YAW("<success>You just change the yaw of the hologram &f%name%<success> to &f%yaw%<success>."),
     HOLOGRAM_PITCH("<success>You just change the pitch of the hologram &f%name%<success> to &f%pitch%<success>."),
+    HOLOGRAM_TEXT_BACKGROUND("<success>You just change the background color of the hologram &f%name%<success> to &f%color%<success>."),
+    HOLOGRAM_TEXT_BACKGROUND_ERROR("<error>Could not parse background color."),
+    HOLOGRAM_TEXT_SHADOW("<success>You set the text shadow to &f%textshadow% <success>for the hologram &f%name%<success>."),
+    HOLOGRAM_SEE_THROUGH("<success>You set the see through to &f%seethrough% <success>for the hologram &f%name%<success>."),
+    HOLOGRAM_SHADOW_STRENGTH("<success>You set the shadow strength to &f%shadow% <success>for the hologram &f%name%<success>."),
+    HOLOGRAM_SHADOW_RADIUS("<success>You set the shadow radius to &f%shadow% <success>for the hologram &f%name%<success>."),
+    HOLOGRAM_VIEW_DISTANCE("<success>You set the view distance to &f%distance% <success>for the hologram &f%name%<success>."),
+    HOLOGRAM_LIST_EMPTY("<error>There is no hologram, to create one please use the command &f/holo create <name>"),
+    HOLOGRAM_LIST(MessageType.WITHOUT_PREFIX, "&f%name% &8- &7%world%: %x%, %y%, %z% &8- <hover:show_text:'&7Click to be teleported to this hologram'><click:run_command:'/holo tp %name%'><green>ᴛᴇʟᴇᴘᴏʀᴛ</click> </hover><hover:show_text:'<red>Click to delete this hologram'><click:suggest_command:'/holo delete %name%'><red>ᴅᴇʟᴇᴛᴇ</click></hover>"),
 
 
     ;
