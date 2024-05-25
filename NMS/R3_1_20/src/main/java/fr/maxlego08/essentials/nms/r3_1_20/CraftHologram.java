@@ -4,11 +4,14 @@ import com.mojang.math.Transformation;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.hologram.Hologram;
 import fr.maxlego08.essentials.api.hologram.HologramType;
+import fr.maxlego08.essentials.api.hologram.configuration.BlockHologramConfiguration;
 import fr.maxlego08.essentials.api.hologram.configuration.HologramConfiguration;
+import fr.maxlego08.essentials.api.hologram.configuration.ItemHologramConfiguration;
 import fr.maxlego08.essentials.api.hologram.configuration.TextHologramConfiguration;
 import fr.maxlego08.essentials.api.utils.ReflectionUtils;
 import io.papermc.paper.adventure.PaperAdventure;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.protocol.game.ClientboundRemoveEntitiesPacket;
@@ -16,10 +19,13 @@ import net.minecraft.network.protocol.game.ClientboundSetEntityDataPacket;
 import net.minecraft.network.protocol.game.ClientboundTeleportEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Brightness;
 import net.minecraft.world.entity.Display;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
@@ -112,6 +118,13 @@ public class CraftHologram extends Hologram {
             flags = (byte) (textHologramConfiguration.isSeeThrough() ? (flags | Display.TextDisplay.FLAG_SEE_THROUGH) : (flags & ~Display.TextDisplay.FLAG_SEE_THROUGH));
             flags = (byte) (textHologramConfiguration.getTextAlignment() == org.bukkit.entity.TextDisplay.TextAlignment.RIGHT ? (flags | Display.TextDisplay.FLAG_ALIGN_RIGHT) : (flags & ~Display.TextDisplay.FLAG_ALIGN_RIGHT));
             textDisplay.setFlags(flags);
+        } else if (display instanceof Display.ItemDisplay itemDisplay && configuration instanceof ItemHologramConfiguration itemHologramConfiguration) {
+
+            itemDisplay.setItemStack(ItemStack.fromBukkitCopy(itemHologramConfiguration.getItemStack()));
+        } else if (display instanceof Display.BlockDisplay blockDisplay && configuration instanceof BlockHologramConfiguration blockData) {
+
+            Block block = BuiltInRegistries.BLOCK.get(ResourceLocation.of("minecraft:" + blockData.getMaterial().name().toLowerCase(), ':'));
+            blockDisplay.setBlockState(block.defaultBlockState());
         }
 
 

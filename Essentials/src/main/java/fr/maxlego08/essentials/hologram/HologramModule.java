@@ -5,7 +5,9 @@ import fr.maxlego08.essentials.api.commands.TabCompletion;
 import fr.maxlego08.essentials.api.hologram.Hologram;
 import fr.maxlego08.essentials.api.hologram.HologramManager;
 import fr.maxlego08.essentials.api.hologram.HologramType;
+import fr.maxlego08.essentials.api.hologram.configuration.BlockHologramConfiguration;
 import fr.maxlego08.essentials.api.hologram.configuration.HologramConfiguration;
+import fr.maxlego08.essentials.api.hologram.configuration.ItemHologramConfiguration;
 import fr.maxlego08.essentials.api.hologram.configuration.TextHologramConfiguration;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.module.ZModule;
@@ -79,8 +81,12 @@ public class HologramModule extends ZModule implements HologramManager {
 
         message(player, Message.HOLOGRAM_CREATE, "%name%", name);
 
-        HologramConfiguration hologramConfiguration;
-        hologramConfiguration = new TextHologramConfiguration();
+        HologramConfiguration hologramConfiguration = null;
+        switch (hologramType) {
+            case TEXT -> hologramConfiguration = new TextHologramConfiguration();
+            case BLOCK -> hologramConfiguration = new BlockHologramConfiguration();
+            case ITEM -> hologramConfiguration = new ItemHologramConfiguration();
+        }
 
         Hologram hologram = new CraftHologram(this.plugin, hologramType, hologramConfiguration, name, name, player.getLocation());
 

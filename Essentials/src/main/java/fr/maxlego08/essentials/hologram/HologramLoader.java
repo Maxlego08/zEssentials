@@ -4,15 +4,19 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.hologram.Hologram;
 import fr.maxlego08.essentials.api.hologram.HologramLine;
 import fr.maxlego08.essentials.api.hologram.HologramType;
+import fr.maxlego08.essentials.api.hologram.configuration.BlockHologramConfiguration;
 import fr.maxlego08.essentials.api.hologram.configuration.HologramConfiguration;
+import fr.maxlego08.essentials.api.hologram.configuration.ItemHologramConfiguration;
 import fr.maxlego08.essentials.api.hologram.configuration.TextHologramConfiguration;
 import fr.maxlego08.essentials.nms.r3_1_20.CraftHologram;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import fr.maxlego08.menu.exceptions.InventoryException;
 import fr.maxlego08.menu.zcore.utils.loader.Loader;
+import fr.maxlego08.menu.zcore.utils.nms.ItemStackUtils;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Display;
@@ -44,18 +48,21 @@ public class HologramLoader extends ZUtils implements Loader<Hologram> {
         Location location = stringAsLocation(configuration.getString("location"));
 
         HologramConfiguration hologramConfiguration;
-        hologramConfiguration = new TextHologramConfiguration();
+        hologramConfiguration = hologramType == HologramType.BLOCK ? new BlockHologramConfiguration() : hologramType == HologramType.ITEM ? new ItemHologramConfiguration() : new TextHologramConfiguration();
 
         Hologram hologram = new CraftHologram(this.plugin, hologramType, hologramConfiguration, (String) objects[0], name, location);
 
         loadConfiguration(configuration, hologramConfiguration);
 
         switch (hologramType) {
-            case TEXT ->
-                    this.loadTextConfiguration(hologram, configuration, (TextHologramConfiguration) hologramConfiguration);
+            case TEXT -> {
+                this.loadTextConfiguration(hologram, configuration, (TextHologramConfiguration) hologramConfiguration);
+            }
             case BLOCK -> {
+                this.loadBlockConfiguration(configuration, (BlockHologramConfiguration) hologramConfiguration);
             }
             case ITEM -> {
+                this.loadItemConfiguration(configuration, (ItemHologramConfiguration) hologramConfiguration);
             }
         }
 
@@ -74,6 +81,14 @@ public class HologramLoader extends ZUtils implements Loader<Hologram> {
         if (configurationSection != null) {
             hologramConfiguration.setBrightness(new Display.Brightness(configurationSection.getInt("block"), configurationSection.getInt("sky")));
         }
+    }
+
+    private void loadItemConfiguration(YamlConfiguration configuration, ItemHologramConfiguration itemHologramConfiguration) {
+        itemHologramConfiguration.setItemStack(ItemStackUtils.deserializeItemStack(configuration.getString("itemstack", "null")));
+    }
+
+    private void loadBlockConfiguration(YamlConfiguration configuration, BlockHologramConfiguration blockHologramConfiguration) {
+        blockHologramConfiguration.setMaterial(Material.valueOf(configuration.getString("block-material", "GRASS_BLOCK").toUpperCase()));
     }
 
     private void loadTextConfiguration(Hologram hologram, YamlConfiguration configuration, TextHologramConfiguration textHologramConfiguration) {
@@ -137,6 +152,12 @@ public class HologramLoader extends ZUtils implements Loader<Hologram> {
             });
 
             configuration.set("lines", lines);
+        } else if (hologramConfiguration instanceof BlockHologramConfiguration blockHologramConfiguration) {
+
+            configuration.set("block-material", blockHologramConfiguration.getMaterial().name());
+        } else if (hologramConfiguration instanceof ItemHologramConfiguration itemHologramConfiguration) {
+
+            configuration.set("itemstack", ItemStackUtils.serializeItemStack(itemHologramConfiguration.getItemStack()));
         }
     }
 

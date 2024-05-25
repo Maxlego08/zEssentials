@@ -580,6 +580,9 @@ public enum Message {
     HOLOGRAM_VIEW_DISTANCE("<success>You set the view distance to &f%distance% <success>for the hologram &f%name%<success>."),
     HOLOGRAM_LIST_EMPTY("<error>There is no hologram, to create one please use the command &f/holo create <name>"),
     HOLOGRAM_LIST(MessageType.WITHOUT_PREFIX, "&f%name% &8- &7%world%: %x%, %y%, %z% &8- <hover:show_text:'&7Click to be teleported to this hologram'><click:run_command:'/holo tp %name%'><green>ᴛᴇʟᴇᴘᴏʀᴛ</click> </hover><hover:show_text:'<red>Click to delete this hologram'><click:suggest_command:'/holo delete %name%'><red>ᴅᴇʟᴇᴛᴇ</click></hover>"),
+    HOLOGRAM_ITEM_ERROR("<error>You can't use air for this hologram."),
+    HOLOGRAM_ITEM("<success>You just modified the item of the hologram &f%name%<success>."),
+    HOLOGRAM_BLOCK("<success>You just modified the block of the hologram &f%name%<success> to &f%material%<success>."),
 
 
     ;

@@ -4,6 +4,7 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.commands.commands.hologram.block.CommandHologramBlock;
 import fr.maxlego08.essentials.commands.commands.hologram.global.CommandHologramBillBoard;
 import fr.maxlego08.essentials.commands.commands.hologram.global.CommandHologramMoveHere;
 import fr.maxlego08.essentials.commands.commands.hologram.global.CommandHologramMoveTo;
@@ -15,6 +16,7 @@ import fr.maxlego08.essentials.commands.commands.hologram.global.CommandHologram
 import fr.maxlego08.essentials.commands.commands.hologram.global.CommandHologramTranslation;
 import fr.maxlego08.essentials.commands.commands.hologram.global.CommandHologramViewDistance;
 import fr.maxlego08.essentials.commands.commands.hologram.global.CommandHologramYaw;
+import fr.maxlego08.essentials.commands.commands.hologram.item.CommandHologramItem;
 import fr.maxlego08.essentials.commands.commands.hologram.text.CommandHologramAddLine;
 import fr.maxlego08.essentials.commands.commands.hologram.text.CommandHologramBackground;
 import fr.maxlego08.essentials.commands.commands.hologram.text.CommandHologramInsertAfterLine;
@@ -58,6 +60,8 @@ public class CommandHologram extends VCommand {
         this.addSubCommand(new CommandHologramShadowStrength(plugin));
         this.addSubCommand(new CommandHologramShadowRadius(plugin));
         this.addSubCommand(new CommandHologramViewDistance(plugin));
+        this.addSubCommand(new CommandHologramItem(plugin));
+        this.addSubCommand(new CommandHologramBlock(plugin));
     }
 
     @Override
