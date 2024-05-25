@@ -50,6 +50,7 @@ public class ZUser extends ZUtils implements User {
     private final Map<Option, Boolean> options = new HashMap<>();
     private final Map<String, BigDecimal> balances = new HashMap<>();
     private final List<Home> homes = new ArrayList<>();
+    private final List<MailBoxItem> mailBoxItems = new ArrayList<>();
     private String name;
     private TeleportRequest teleportRequest;
     private User targetUser;
@@ -69,7 +70,6 @@ public class ZUser extends ZUtils implements User {
     private String address;
     private Kit previewKit;
     private Map<Material, String> powerTools = new HashMap<>();
-    private final List<MailBoxItem> mailBoxItems = new ArrayList<>();
 
     public ZUser(EssentialsPlugin plugin, UUID uniqueId) {
         this.plugin = plugin;

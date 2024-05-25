@@ -1,16 +1,27 @@
 package fr.maxlego08.essentials.module;
 
 import fr.maxlego08.essentials.ZEssentialsPlugin;
+import fr.maxlego08.essentials.api.event.UserEvent;
 import fr.maxlego08.essentials.api.modules.Module;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.zutils.utils.YamlLoader;
 import fr.maxlego08.menu.api.InventoryManager;
 import fr.maxlego08.menu.api.pattern.PatternManager;
 import fr.maxlego08.menu.exceptions.InventoryException;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.player.PlayerEvent;
+import org.bukkit.plugin.PluginManager;
 
 import java.io.File;
+import java.util.List;
+import java.util.UUID;
 
 public abstract class ZModule extends YamlLoader implements Module {
 
@@ -120,5 +131,48 @@ public abstract class ZModule extends YamlLoader implements Module {
 
     public boolean isCopyAndUpdate() {
         return copyAndUpdate;
+    }
+
+    protected void registerEvents(List<String> events) {
+        PluginManager pluginManager = Bukkit.getServer().getPluginManager();
+        events.forEach(eventName -> {
+
+            try {
+                Class<?> eventClass = Class.forName(eventName);
+
+                if (!org.bukkit.event.Event.class.isAssignableFrom(eventClass)) {
+                    this.plugin.getLogger().severe("Class " + eventName + " is not an event !");
+                    return;
+                }
+
+                pluginManager.registerEvent(eventClass.asSubclass(Event.class), this, EventPriority.NORMAL, (listener, event) -> updateLineWithEvent(eventName, event), this.plugin);
+            } catch (ClassNotFoundException exception) {
+                this.plugin.getLogger().severe("Class " + eventName + " was not found !");
+                exception.printStackTrace();
+            }
+        });
+    }
+
+    private void updateLineWithEvent(String eventName, Event event) {
+        if (event instanceof PlayerEvent playerEvent) {
+            updateEventPlayer(playerEvent.getPlayer(), eventName);
+        } else if (event instanceof BlockBreakEvent playerEvent) {
+            updateEventPlayer(playerEvent.getPlayer(), eventName);
+        } else if (event instanceof BlockPlaceEvent playerEvent) {
+            updateEventPlayer(playerEvent.getPlayer(), eventName);
+        } else if (event instanceof UserEvent userEvent) {
+            UUID uuid = userEvent.getUser().getUniqueId();
+            updateEventUniqueId(uuid, eventName);
+        } else {
+            this.plugin.getLogger().severe("Event : " + eventName + " is not a Player or User event ! You cant use it");
+        }
+    }
+
+    protected void updateEventPlayer(Player player, String eventName) {
+
+    }
+
+    protected void updateEventUniqueId(UUID uniqueId, String eventName) {
+
     }
 }

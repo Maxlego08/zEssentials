@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.hologram;
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.TabCompletion;
 import fr.maxlego08.essentials.api.hologram.Hologram;
+import fr.maxlego08.essentials.api.hologram.HologramLine;
 import fr.maxlego08.essentials.api.hologram.HologramManager;
 import fr.maxlego08.essentials.api.hologram.HologramType;
 import fr.maxlego08.essentials.api.hologram.configuration.BlockHologramConfiguration;
@@ -14,11 +15,14 @@ import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.essentials.nms.r3_1_20.CraftHologram;
 import fr.maxlego08.menu.exceptions.InventoryException;
 import fr.maxlego08.menu.zcore.utils.loader.Loader;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.plugin.PluginManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,7 +33,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 public class HologramModule extends ZModule implements HologramManager {
@@ -49,6 +55,38 @@ public class HologramModule extends ZModule implements HologramManager {
 
         super.loadConfiguration();
         this.loadHolograms();
+
+        HandlerList.unregisterAll(this);
+        this.registerEvents();
+    }
+
+    private void registerEvents() {
+
+        PluginManager pluginManager = Bukkit.getServer().getPluginManager();
+        pluginManager.registerEvents(this, this.plugin);
+
+        List<String> events = this.holograms.stream().map(Hologram::getHologramLines).flatMap(List::stream).map(HologramLine::getEventName).filter(Objects::nonNull).distinct().toList();
+        this.registerEvents(events);
+    }
+
+    @Override
+    protected void updateEventPlayer(Player player, String eventName) {
+
+        List<Hologram> holograms = this.getHologramByEvent(eventName);
+        System.out.println(" > " + holograms);
+        this.plugin.getScheduler().runNextTick(wrappedTask -> holograms.forEach(hologram -> hologram.updateLine(player, eventName)));
+    }
+
+    private List<Hologram> getHologramByEvent(String eventName) {
+        return this.holograms.stream().filter(hologram -> hologram.getHologramLines().stream().anyMatch(hologramLine -> hologramLine.getEventName() != null && hologramLine.getEventName().equalsIgnoreCase(eventName))).toList();
+    }
+
+    @Override
+    protected void updateEventUniqueId(UUID uniqueId, String eventName) {
+        Player player = Bukkit.getPlayer(uniqueId);
+        if (player != null) {
+            updateEventPlayer(player, eventName);
+        }
     }
 
     @Override

@@ -1,7 +1,6 @@
 package fr.maxlego08.essentials.scoreboard;
 
 import fr.maxlego08.essentials.ZEssentialsPlugin;
-import fr.maxlego08.essentials.api.event.UserEvent;
 import fr.maxlego08.essentials.api.scoreboard.EssentialsScoreboard;
 import fr.maxlego08.essentials.api.scoreboard.PlayerBoard;
 import fr.maxlego08.essentials.api.scoreboard.ScoreboardLine;
@@ -13,11 +12,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
-import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.PluginManager;
@@ -76,55 +72,32 @@ public class ScoreboardModule extends ZModule implements ScoreboardManager {
         PluginManager pluginManager = Bukkit.getServer().getPluginManager();
         pluginManager.registerEvents(this, this.plugin);
 
-        List<String> events = essentialsScoreboards.stream().map(EssentialsScoreboard::getLines).flatMap(List::stream)
-                .map(ScoreboardLine::getEventName).filter(Objects::nonNull).distinct().toList();
-
-        events.forEach(eventName -> {
-
-            try {
-                Class<?> eventClass = Class.forName(eventName);
-
-                if (!org.bukkit.event.Event.class.isAssignableFrom(eventClass)) {
-                    this.plugin.getLogger().severe("Class " + eventName + " is not an event !");
-                    return;
-                }
-
-                pluginManager.registerEvent(eventClass.asSubclass(Event.class), this, EventPriority.NORMAL, (listener, event) -> updateLineWithEvent(eventName, event), this.plugin);
-            } catch (ClassNotFoundException exception) {
-                this.plugin.getLogger().severe("Class " + eventName + " was not found !");
-                exception.printStackTrace();
-            }
-        });
+        List<String> events = essentialsScoreboards.stream().map(EssentialsScoreboard::getLines).flatMap(List::stream).map(ScoreboardLine::getEventName).filter(Objects::nonNull).distinct().toList();
+        this.registerEvents(events);
     }
 
-    private void updateLineWithEvent(String eventName, Event event) {
+    @Override
+    protected void updateEventPlayer(Player player, String eventName) {
+        if (this.boards.containsKey(player.getUniqueId())) {
+            PlayerBoard board = this.boards.get(player.getUniqueId());
+            updatePlayerBoard(board, eventName);
+        }
+    }
 
-        if (event instanceof PlayerEvent playerEvent) {
-            Player player = playerEvent.getPlayer();
-            if (this.boards.containsKey(player.getUniqueId())) {
-                PlayerBoard board = this.boards.get(player.getUniqueId());
-                updatePlayerBoard(board, eventName);
-            }
-        } else if (event instanceof UserEvent userEvent) {
-            UUID uuid = userEvent.getUser().getUniqueId();
-            if (this.boards.containsKey(uuid)) {
-                PlayerBoard board = this.boards.get(uuid);
-                updatePlayerBoard(board, eventName);
-            }
-        } else {
-            this.plugin.getLogger().severe("Event : " + eventName + " is not a Player or User event ! You cant use it");
+    @Override
+    protected void updateEventUniqueId(UUID uniqueId, String eventName) {
+        if (this.boards.containsKey(uniqueId)) {
+            PlayerBoard board = this.boards.get(uniqueId);
+            updatePlayerBoard(board, eventName);
         }
     }
 
     private void updatePlayerBoard(PlayerBoard board, String eventName) {
         this.plugin.getScheduler().runNextTick(wrappedTask -> {
             EssentialsScoreboard essentialsScoreboard = board.getScoreboard();
-            essentialsScoreboard.getLines().stream()
-                    .filter(scoreboardLine -> scoreboardLine.getEventName() != null && scoreboardLine.getEventName().equals(eventName))
-                    .forEach(scoreboardLine -> scoreboardLine.update(board));
+            essentialsScoreboard.getLines().stream().filter(scoreboardLine -> scoreboardLine.getEventName() != null && scoreboardLine.getEventName().equals(eventName)).forEach(scoreboardLine -> scoreboardLine.update(board));
         });
     }
-
 
     @Override
     public void reloadPlayers() {

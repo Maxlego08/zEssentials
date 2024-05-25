@@ -11,9 +11,10 @@ public class ComponentCache {
     private Component component;
     private List<Component> components = new ArrayList<>();
 
-    public void updateLine(int index, Component component) {
-        if (this.components.size() >= index) return;
+    public void updateComponent(int index, Component component) {
+        if (index >= this.components.size()) return;
         this.components.set(index, component);
+        this.component = null;
     }
 
     public List<Component> getComponents() {
@@ -21,7 +22,7 @@ public class ComponentCache {
     }
 
     public void setComponents(List<Component> components) {
-        this.components = components;
+        this.components = new ArrayList<>(components);
     }
 
     public Component merge() {

@@ -160,4 +160,14 @@ public abstract class Hologram {
         hologramLines.add(newLine);
         hologramLines.sort(Comparator.comparingInt(HologramLine::getLine));
     }
+
+    public void updateLine(Player player, String eventName) {
+
+        AdventureComponent componentMessage = (AdventureComponent) plugin.getComponentMessage();
+        ComponentCache componentCache = this.caches.computeIfAbsent(player, k -> new ComponentCache());
+        List<HologramLine> hologramLines = this.hologramLines.stream().filter(hologramLine -> hologramLine.getEventName() != null && hologramLine.getEventName().equalsIgnoreCase(eventName)).toList();
+        hologramLines.forEach(hologramLine -> componentCache.updateComponent(hologramLine.getLine() - 1, componentMessage.getComponent(this.plugin.papi(player, hologramLine.getText()))));
+
+        this.update(player);
+    }
 }
