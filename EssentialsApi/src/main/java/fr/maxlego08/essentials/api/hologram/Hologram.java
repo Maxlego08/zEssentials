@@ -25,10 +25,10 @@ public abstract class Hologram {
     protected final HologramType hologramType;
     protected final String name;
     protected final String fileName;
-    protected final Location location;
     protected final List<HologramLine> hologramLines = new ArrayList<>();
     protected final Map<Player, ComponentCache> caches = new HashMap<>();
     protected final HologramConfiguration configuration;
+    protected Location location;
 
     public Hologram(EssentialsPlugin plugin, HologramType hologramType, String name, String fileName, Location location, HologramConfiguration configuration) {
         this.plugin = plugin;
@@ -48,6 +48,8 @@ public abstract class Hologram {
     public abstract void update();
 
     public abstract void create();
+
+    public abstract void updateLocation();
 
     public String getFileName() {
         return fileName;
@@ -125,5 +127,37 @@ public abstract class Hologram {
 
     public void removeLine(int line) {
         this.hologramLines.removeIf(hologramLine -> hologramLine.getLine() == line);
+        for (HologramLine hologramLine : hologramLines) {
+            if (hologramLine.getLine() > line) {
+                hologramLine.setLine(hologramLine.getLine() - 1);
+            }
+        }
+    }
+
+    public void teleport(Location location) {
+        this.location = location;
+        this.updateLocation();
+    }
+
+    public void insertLineBefore(int line, HologramLine newLine) {
+        for (HologramLine hologramLine : hologramLines) {
+            if (hologramLine.getLine() >= line) {
+                hologramLine.setLine(hologramLine.getLine() + 1);
+            }
+        }
+        newLine.setLine(line);
+        hologramLines.add(newLine);
+        hologramLines.sort(Comparator.comparingInt(HologramLine::getLine));
+    }
+
+    public void insertAfterLine(int line, HologramLine newLine) {
+        for (HologramLine hologramLine : hologramLines) {
+            if (hologramLine.getLine() > line) {
+                hologramLine.setLine(hologramLine.getLine() + 1);
+            }
+        }
+        newLine.setLine(line + 1);
+        hologramLines.add(newLine);
+        hologramLines.sort(Comparator.comparingInt(HologramLine::getLine));
     }
 }

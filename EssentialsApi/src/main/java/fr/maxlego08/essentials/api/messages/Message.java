@@ -235,9 +235,19 @@ public enum Message {
     DESCRIPTION_HOLOGRAM_REMOVE_LINE("Remove a line from a hologram"),
     DESCRIPTION_HOLOGRAM_ADD_LINE("Add a line from a hologram"),
     DESCRIPTION_HOLOGRAM_SET_LINE("Define a line from a hologram"),
+    DESCRIPTION_HOLOGRAM_INSERT_BEFORE_LINE("Insert a line before another"),
+    DESCRIPTION_HOLOGRAM_INSERT_AFTER_LINE("Define a line after another"),
     DESCRIPTION_HOLOGRAM_MOVE_HERE("Move a hologram to your position"),
+    DESCRIPTION_HOLOGRAM_MOVE_TO("Move a hologram to a location"),
     DESCRIPTION_HOLOGRAM_SCALE("Change hologram scale"),
     DESCRIPTION_HOLOGRAM_TRANSLATION("Change hologram translation"),
+    DESCRIPTION_HOLOGRAM_BILLBOARD("Change hologram billboard"),
+    DESCRIPTION_HOLOGRAM_TEXT_ALIGNMENT("Change hologram text alignment"),
+    DESCRIPTION_HOLOGRAM_TEXT_SHADOW("Change hologram text shadow"),
+    DESCRIPTION_HOLOGRAM_TEXT_BACKGROUND("Change hologram text background"),
+    DESCRIPTION_HOLOGRAM_SEE_THROUGH("Change hologram see through"),
+    DESCRIPTION_HOLOGRAM_YAW("Change hologram yaw"),
+    DESCRIPTION_HOLOGRAM_PITCH("Change hologram pitch"),
 
 
     YOU("you"),
@@ -542,12 +552,22 @@ public enum Message {
 
     HOLOGRAM_DOESNT_EXIST("<error>Hologram &f%name% <error>doesn't exists."),
     HOLOGRAM_IS_NOT_A_TEXT("<error>Hologram &f%name% <error>is not a text hologram."),
+    HOLOGRAM_IS_NOT_A_BLOCK("<error>Hologram &f%name% <error>is not a block hologram."),
+    HOLOGRAM_IS_NOT_A_ITEM("<error>Hologram &f%name% <error>is not a item hologram."),
     HOLOGRAM_ADD_LINE("<success>You just added a line to the hologram &f%name%<success>."),
     HOLOGRAM_SET_LINE("<success>You just set the line &f%line%<success> to the hologram &f%name%<success>."),
+    HOLOGRAM_INSERT_BEFORE_LINE("<success>You just set a new line before the line &f%line%<success> to the hologram &f%name%<success>."),
+    HOLOGRAM_INSERT_AFTER_LINE("<success>You just set a new line after the line &f%line%<success> to the hologram &f%name%<success>."),
     HOLOGRAM_LINE_DOESNT_EXIST("<error>The line &f%line% <error>does not exist for the hologram &f%name%<error>."),
     HOLOGRAM_REMOVE_LINE("<success>You just remove the line &f%line%<success> to the hologram &f%name%<success>."),
     HOLOGRAM_SCALE("<success>You just changed the scale of the hologram &f%name% <success>to &7%x%&8, &7%y%&8, &7%z%"),
     HOLOGRAM_TRANSLATION("<success>You just changed the translation of the hologram &f%name% <success>to &7%x%&8, &7%y%&8, &7%z%"),
+    HOLOGRAM_MOVE_HERE("<success>You just teleported the hologram &f%name%<success> to your position."),
+    HOLOGRAM_MOVE_TO("<success>You just teleported the hologram &f%name% <success>to &7%x%&8, &7%y%&8, &7%z%"),
+    HOLOGRAM_BILLBOARD("<success>You just change the billboard of the hologram &f%name%<success> to &f%billboard%<success>."),
+    HOLOGRAM_TEXT_ALIGNMENT("<success>You just change the text alignment of the hologram &f%name%<success> to &f%textAlignment%<success>."),
+    HOLOGRAM_YAW("<success>You just change the yaw of the hologram &f%name%<success> to &f%yaw%<success>."),
+    HOLOGRAM_PITCH("<success>You just change the pitch of the hologram &f%name%<success> to &f%pitch%<success>."),
 
 
     ;

@@ -22,8 +22,7 @@ public class CommandHologramDelete extends VCommand {
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
-        String name = this.argAsString(1);
-
+        String name = this.argAsString(0);
         plugin.getHologramManager().delete(player, name);
 
         return CommandResultType.SUCCESS;

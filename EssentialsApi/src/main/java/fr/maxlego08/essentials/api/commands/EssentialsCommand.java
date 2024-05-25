@@ -52,6 +52,9 @@ public interface EssentialsCommand {
      */
     EssentialsCommand getParent();
 
+
+    EssentialsCommand getMainParent();
+
     /**
      * Checks if this command can be used by the console.
      *
@@ -106,5 +109,9 @@ public interface EssentialsCommand {
      * @return The description of this command.
      */
     String getDescription();
+
+    String getMainCommand();
+
+    List<EssentialsCommand> getSubEssentialsCommands();
 }
 

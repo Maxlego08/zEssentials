@@ -30,11 +30,11 @@ public class CommandHologramTranslation extends VCommandHologram {
         float y = (float) this.argAsDouble(2, x);
         float z = (float) this.argAsDouble(3, x);
 
-        hologram.getConfiguration().setScale(new Vector3f(x, y, z));
+        hologram.getConfiguration().setTranslation(new Vector3f(x, y, z));
         hologram.update();
         hologram.updateForAllPlayers();
         manager.saveHologram(hologram);
 
-        message(sender, Message.HOLOGRAM_SCALE, "%name%", hologram.getName(), "%x%", x, "%y%", y, "%z%", z);
+        message(sender, Message.HOLOGRAM_TRANSLATION, "%name%", hologram.getName(), "%x%", x, "%y%", y, "%z%", z);
     }
 }

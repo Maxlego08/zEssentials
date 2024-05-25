@@ -74,6 +74,11 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
     }
 
     @Override
+    public List<EssentialsCommand> getSubEssentialsCommands() {
+        return subVCommands.stream().map(e -> (EssentialsCommand) e).toList();
+    }
+
+    @Override
     public List<String> getSubCommands() {
         return subCommands;
     }
@@ -93,6 +98,13 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
     @Override
     public VCommand getParent() {
         return parent;
+    }
+
+    @Override
+    public EssentialsCommand getMainParent() {
+        if (parent == null) return null;
+        if (parent.getParent() == null) return parent;
+        else return parent.getMainParent();
     }
 
     public void setParent(VCommand parent) {
@@ -305,7 +317,8 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
         this.setTabCompleter();
     }
 
-    private String getMainCommand() {
+    @Override
+    public String getMainCommand() {
         return this.subCommands.get(0);
     }
 

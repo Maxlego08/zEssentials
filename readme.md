@@ -4,6 +4,8 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 
 # ToDo
 
+- [ ] Add bossbar to message configuration
+
 - [x] Command `/sethome <name>` (limit by grade/permission)
 - [x] Command `/delhome <name>`
 - [x] Command /home (as gui or not)

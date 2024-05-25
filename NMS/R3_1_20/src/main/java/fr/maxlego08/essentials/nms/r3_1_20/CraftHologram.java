@@ -8,12 +8,14 @@ import fr.maxlego08.essentials.api.hologram.configuration.HologramConfiguration;
 import fr.maxlego08.essentials.api.hologram.configuration.TextHologramConfiguration;
 import fr.maxlego08.essentials.api.utils.ReflectionUtils;
 import io.papermc.paper.adventure.PaperAdventure;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.protocol.game.ClientboundRemoveEntitiesPacket;
 import net.minecraft.network.protocol.game.ClientboundSetEntityDataPacket;
 import net.minecraft.network.protocol.game.ClientboundTeleportEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Brightness;
 import net.minecraft.world.entity.Display;
@@ -43,7 +45,6 @@ public class CraftHologram extends Hologram {
 
     @Override
     public void delete(Player player) {
-        System.out.println("JE SUPPRIMER l'entité id: " + display.getId());
         this.send(player, new ClientboundRemoveEntitiesPacket(display.getId()));
     }
 
@@ -56,8 +57,11 @@ public class CraftHologram extends Hologram {
             textDisplay.setText(PaperAdventure.asVanilla(getComponentText(player)));
         }
 
-        final var values = display.getEntityData().getNonDefaultValues();
-        send(player, new ClientboundSetEntityDataPacket(display.getId(), values == null ? new ArrayList<>() : values));
+        final var values = new ArrayList<SynchedEntityData.DataValue<?>>();
+        for (final var item : ((Int2ObjectMap<SynchedEntityData.DataItem<?>>) ReflectionUtils.getValue(display.getEntityData(), "e")).values()) {
+            values.add(item.value());
+        }
+        send(player, new ClientboundSetEntityDataPacket(display.getId(), values));
     }
 
     @Override
@@ -69,13 +73,18 @@ public class CraftHologram extends Hologram {
             case TEXT -> this.display = new Display.TextDisplay(EntityType.TEXT_DISPLAY, serverLevel);
         }
 
+        display.getEntityData().set((EntityDataAccessor<Integer>) ReflectionUtils.getStaticValue(Display.class, "r"), 1); // Transformation duration
+        display.getEntityData().set((EntityDataAccessor<Integer>) ReflectionUtils.getStaticValue(Display.class, "q"), 0); // Interpolation start
+
+        this.updateLocation();
+        this.update();
+    }
+
+    @Override
+    public void updateLocation() {
         display.setPosRaw(location.x(), location.y(), location.z());
         display.setYRot(location.getYaw());
         display.setXRot(location.getPitch());
-
-        this.display.setBillboardConstraints(Display.BillboardConstraints.CENTER);
-
-        this.update();
     }
 
     @Override
@@ -88,51 +97,23 @@ public class CraftHologram extends Hologram {
             case CENTER -> Display.BillboardConstraints.CENTER;
         });
 
-        if (display instanceof Display.TextDisplay textDisplay && configuration instanceof TextHologramConfiguration configuration) {
-            // line width
-            final var DATA_LINE_WIDTH_ID = ReflectionUtils.getStaticValue(Display.TextDisplay.class, "aN");
-            display.getEntityData().set((EntityDataAccessor<Integer>) DATA_LINE_WIDTH_ID, Hologram.LINE_WIDTH);
+        if (display instanceof Display.TextDisplay textDisplay && configuration instanceof TextHologramConfiguration textHologramConfiguration) {
 
-            // background
-            final var DATA_BACKGROUND_COLOR_ID = ReflectionUtils.getStaticValue(Display.TextDisplay.class, "aO");
+            display.getEntityData().set((EntityDataAccessor<Integer>) ReflectionUtils.getStaticValue(Display.TextDisplay.class, "aN"), Hologram.LINE_WIDTH);
 
-            final var background = configuration.getBackground();
-            if (background == null) {
-                display.getEntityData().set((EntityDataAccessor<Integer>) DATA_BACKGROUND_COLOR_ID, Display.TextDisplay.INITIAL_BACKGROUND);
-            } else if (background == Hologram.TRANSPARENT) {
-                display.getEntityData().set((EntityDataAccessor<Integer>) DATA_BACKGROUND_COLOR_ID, 0);
-            } else {
-                display.getEntityData().set((EntityDataAccessor<Integer>) DATA_BACKGROUND_COLOR_ID, background.value() | 0xC8000000);
-            }
+            var backgroundColor = (EntityDataAccessor<Integer>) ReflectionUtils.getStaticValue(Display.TextDisplay.class, "aO");
+            var background = textHologramConfiguration.getBackground();
+            int backgroundValue = (background == null) ? Display.TextDisplay.INITIAL_BACKGROUND : (background == Hologram.TRANSPARENT) ? 0 : background.value() | 0xC8000000;
+            display.getEntityData().set(backgroundColor, backgroundValue);
 
-            // text shadow
-            if (configuration.isTextShadow()) {
-                textDisplay.setFlags((byte) (textDisplay.getFlags() | Display.TextDisplay.FLAG_SHADOW));
-            } else {
-                textDisplay.setFlags((byte) (textDisplay.getFlags() & ~Display.TextDisplay.FLAG_SHADOW));
-            }
-
-            // text alignment
-            if (configuration.getTextAlignment() == org.bukkit.entity.TextDisplay.TextAlignment.LEFT) {
-                textDisplay.setFlags((byte) (textDisplay.getFlags() | Display.TextDisplay.FLAG_ALIGN_LEFT));
-            } else {
-                textDisplay.setFlags((byte) (textDisplay.getFlags() & ~Display.TextDisplay.FLAG_ALIGN_LEFT));
-            }
-
-            // see through
-            if (configuration.isSeeThrough()) {
-                textDisplay.setFlags((byte) (textDisplay.getFlags() | Display.TextDisplay.FLAG_SEE_THROUGH));
-            } else {
-                textDisplay.setFlags((byte) (textDisplay.getFlags() & ~Display.TextDisplay.FLAG_SEE_THROUGH));
-            }
-
-            if (configuration.getTextAlignment() == org.bukkit.entity.TextDisplay.TextAlignment.RIGHT) {
-                textDisplay.setFlags((byte) (textDisplay.getFlags() | Display.TextDisplay.FLAG_ALIGN_RIGHT));
-            } else {
-                textDisplay.setFlags((byte) (textDisplay.getFlags() & ~Display.TextDisplay.FLAG_ALIGN_RIGHT));
-            }
-
+            byte flags = textDisplay.getFlags();
+            flags = (byte) (textHologramConfiguration.isTextShadow() ? (flags | Display.TextDisplay.FLAG_SHADOW) : (flags & ~Display.TextDisplay.FLAG_SHADOW));
+            flags = (byte) (textHologramConfiguration.getTextAlignment() == org.bukkit.entity.TextDisplay.TextAlignment.LEFT ? (flags | Display.TextDisplay.FLAG_ALIGN_LEFT) : (flags & ~Display.TextDisplay.FLAG_ALIGN_LEFT));
+            flags = (byte) (textHologramConfiguration.isSeeThrough() ? (flags | Display.TextDisplay.FLAG_SEE_THROUGH) : (flags & ~Display.TextDisplay.FLAG_SEE_THROUGH));
+            flags = (byte) (textHologramConfiguration.getTextAlignment() == org.bukkit.entity.TextDisplay.TextAlignment.RIGHT ? (flags | Display.TextDisplay.FLAG_ALIGN_RIGHT) : (flags & ~Display.TextDisplay.FLAG_ALIGN_RIGHT));
+            textDisplay.setFlags(flags);
         }
+
 
         if (this.configuration.getBrightness() != null) {
             display.setBrightnessOverride(new Brightness(this.configuration.getBrightness().getBlockLight(), this.configuration.getBrightness().getSkyLight()));

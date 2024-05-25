@@ -39,8 +39,8 @@ public abstract class VCommandHologram extends VCommand {
         }
 
         Hologram hologram = optional.get();
-        if (hologram.getHologramType() != this.hologramType) {
-            message(player, Message.HOLOGRAM_IS_NOT_A_TEXT, "%name%", name);
+        if (this.hologramType != null && hologram.getHologramType() != this.hologramType) {
+            message(player, this.hologramType == HologramType.TEXT ? Message.HOLOGRAM_IS_NOT_A_TEXT : this.hologramType == HologramType.BLOCK ? Message.HOLOGRAM_IS_NOT_A_BLOCK : Message.HOLOGRAM_IS_NOT_A_ITEM, "%name%", name);
             return CommandResultType.DEFAULT;
         }
 

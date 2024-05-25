@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.placeholders.AutoPlaceholder;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,6 +17,7 @@ public class PlaceholderMarkdownGenerator {
         sb.append("| Placeholder | Description |\n");
         sb.append("|--------------|-------------|\n");
 
+        placeholders.sort(Comparator.comparing(AutoPlaceholder::getStartWith));
         for (AutoPlaceholder placeholder : placeholders) {
             // Format placeholder with arguments
             String placeholderText = "%zessentials_" + placeholder.getStartWith();

@@ -10,5 +10,5 @@ public interface HologramLine {
 
     String getEventName();
 
-
+    void setLine(int line);
 }
