@@ -1,13 +1,22 @@
 package fr.maxlego08.essentials.scoreboard;
 
+import com.tcoded.folialib.wrapper.task.WrappedTask;
 import fr.maxlego08.essentials.ZEssentialsPlugin;
+import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.scoreboard.EssentialsScoreboard;
+import fr.maxlego08.essentials.api.scoreboard.JoinCondition;
 import fr.maxlego08.essentials.api.scoreboard.PlayerBoard;
 import fr.maxlego08.essentials.api.scoreboard.ScoreboardLine;
 import fr.maxlego08.essentials.api.scoreboard.ScoreboardManager;
+import fr.maxlego08.essentials.api.scoreboard.TaskCondition;
+import fr.maxlego08.essentials.api.user.Option;
+import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.essentials.scoreboard.board.ClassicBoard;
 import fr.maxlego08.essentials.scoreboard.board.ComponentBoard;
+import fr.maxlego08.menu.api.ButtonManager;
+import fr.maxlego08.menu.api.requirement.Permissible;
+import fr.maxlego08.menu.api.utils.Placeholders;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -18,20 +27,28 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.PluginManager;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class ScoreboardModule extends ZModule implements ScoreboardManager {
 
 
     private final List<EssentialsScoreboard> essentialsScoreboards = new ArrayList<>();
     private final Map<UUID, PlayerBoard> boards = new HashMap<>();
+    private final List<JoinCondition> joinConditions = new ArrayList<>();
+    private final List<TaskCondition> taskConditions = new ArrayList<>();
+    private boolean enableTaskConditions;
+    private int taskConditionsInterval;
     private EssentialsScoreboard defaultScoreboard;
+    private WrappedTask wrappedTask;
 
     public ScoreboardModule(ZEssentialsPlugin plugin) {
         super(plugin, "scoreboard");
@@ -40,6 +57,10 @@ public class ScoreboardModule extends ZModule implements ScoreboardManager {
     @Override
     public void loadConfiguration() {
         super.loadConfiguration();
+
+        if (wrappedTask != null) {
+            wrappedTask.cancel();
+        }
 
         YamlConfiguration configuration = getConfiguration();
         ConfigurationSection configurationSection = configuration.getConfigurationSection("scoreboards");
@@ -58,6 +79,13 @@ public class ScoreboardModule extends ZModule implements ScoreboardManager {
             essentialsScoreboards.add(essentialsScoreboard);
         });
 
+        loadJoinConditions(configuration);
+        loadTaskConditions(configuration);
+
+        System.out.println(this.taskConditionsInterval);
+        System.out.println(this.enableTaskConditions);
+        System.out.println(this.taskConditions);
+        System.out.println(this.joinConditions);
 
         HandlerList.unregisterAll(this);
 
@@ -65,6 +93,41 @@ public class ScoreboardModule extends ZModule implements ScoreboardManager {
             reloadPlayers();
             registerEvents();
         }
+
+        this.wrappedTask = this.plugin.getScheduler().runTimerAsync(this::updateScoreboards, this.taskConditionsInterval, this.taskConditionsInterval, TimeUnit.SECONDS);
+    }
+
+    private void loadJoinConditions(YamlConfiguration configuration) {
+        this.joinConditions.clear();
+
+        ButtonManager manager = plugin.getButtonManager();
+
+        List<Map<?, ?>> mapList = configuration.getMapList("join-conditions");
+        mapList.forEach(map -> {
+
+            int priority = ((Number) map.get("priority")).intValue();
+            String scoreboard = (String) map.get("scoreboard");
+            List<Map<String, Object>> mapPermissibles = (List<Map<String, Object>>) map.get("requirements");
+            List<Permissible> permissibles = mapPermissibles == null ? new ArrayList<>() : manager.loadPermissible(mapPermissibles, "join-conditions", new File(getFolder(), "config.yml"));
+
+            this.joinConditions.add(new JoinCondition(priority, scoreboard, permissibles));
+        });
+    }
+
+    private void loadTaskConditions(YamlConfiguration configuration) {
+        this.taskConditions.clear();
+
+        ButtonManager manager = plugin.getButtonManager();
+
+        List<Map<?, ?>> mapList = configuration.getMapList("task-conditions");
+        mapList.forEach(map -> {
+
+            String scoreboard = (String) map.get("scoreboard");
+            List<Map<String, Object>> mapPermissibles = (List<Map<String, Object>>) map.get("requirements");
+            List<Permissible> permissibles = mapPermissibles == null ? new ArrayList<>() : manager.loadPermissible(mapPermissibles, "task-conditions", new File(getFolder(), "config.yml"));
+
+            this.taskConditions.add(new TaskCondition(scoreboard, permissibles));
+        });
     }
 
     private void registerEvents() {
@@ -116,7 +179,11 @@ public class ScoreboardModule extends ZModule implements ScoreboardManager {
     public void onJoin(PlayerJoinEvent event) {
         if (this.defaultScoreboard == null) return;
 
-        this.createScoreboard(event.getPlayer(), this.defaultScoreboard);
+        User user = plugin.getUser(event.getPlayer().getUniqueId());
+        if (user != null && user.getOption(Option.DISABLE_SCOREBOARD)) return;
+
+        Player player = event.getPlayer();
+        this.createScoreboard(player, getJoinScoreboard(player));
     }
 
     @EventHandler
@@ -159,5 +226,57 @@ public class ScoreboardModule extends ZModule implements ScoreboardManager {
     @Override
     public Optional<EssentialsScoreboard> getScoreboard(String name) {
         return this.essentialsScoreboards.stream().filter(essentialsScoreboard -> essentialsScoreboard.getName().equalsIgnoreCase(name)).findFirst();
+    }
+
+    @Override
+    public void toggleScoreboard(Player player, boolean silent) {
+
+        User user = plugin.getUser(player.getUniqueId());
+
+        if (this.boards.containsKey(player.getUniqueId())) {
+            if (user != null) user.setOption(Option.DISABLE_SCOREBOARD, true);
+            this.deleteBoard(player);
+            if (!silent) {
+                message(player, Message.SCOREBOARD_DISABLE);
+            }
+        } else {
+            if (user != null) user.setOption(Option.DISABLE_SCOREBOARD, false);
+            this.createScoreboard(player, getJoinScoreboard(player));
+            if (!silent) {
+                message(player, Message.SCOREBOARD_ENABLE);
+            }
+        }
+    }
+
+    @Override
+    public EssentialsScoreboard getJoinScoreboard(Player player) {
+        return this.joinConditions.stream().sorted(Comparator.comparingInt(JoinCondition::priority)).filter(joinCondition -> {
+            return joinCondition.permissibles().isEmpty() || joinCondition.permissibles().stream().allMatch(permissible -> permissible.hasPermission(player, null, null, new Placeholders()));
+        }).map(joinCondition -> getScoreboard(joinCondition.scoreboard())).filter(Optional::isPresent).map(Optional::get).findFirst().orElse(this.defaultScoreboard);
+    }
+
+    @Override
+    public EssentialsScoreboard getTaskScoreboard(Player player) {
+        return this.taskConditions.stream().filter(taskCondition -> {
+            return taskCondition.permissibles().isEmpty() || taskCondition.permissibles().stream().allMatch(permissible -> permissible.hasPermission(player, null, null, new Placeholders()));
+        }).map(joinCondition -> getScoreboard(joinCondition.scoreboard())).filter(Optional::isPresent).map(Optional::get).findFirst().orElse(this.defaultScoreboard);
+    }
+
+    private void updateScoreboards() {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+
+            User user = plugin.getUser(player.getUniqueId());
+            if (user != null && user.getOption(Option.DISABLE_SCOREBOARD)) continue;
+
+            getBoard(player).ifPresent(playerBoard -> {
+
+                EssentialsScoreboard essentialsScoreboard = getTaskScoreboard(player);
+                if (playerBoard.getScoreboard() != essentialsScoreboard) {
+
+                    deleteBoard(player);
+                    createScoreboard(player, essentialsScoreboard);
+                }
+            });
+        }
     }
 }

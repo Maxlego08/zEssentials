@@ -71,7 +71,7 @@ subprojects {
         }
 
         compileOnly 'io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT'
-        compileOnly 'com.github.Maxlego08:zMenu-API:2fe96ac6ab'
+        compileOnly 'com.github.Maxlego08:zMenu-API:1.0.3.1'
         compileOnly 'me.clip:placeholderapi:2.11.5'
 
         testImplementation 'junit:junit:4.12'

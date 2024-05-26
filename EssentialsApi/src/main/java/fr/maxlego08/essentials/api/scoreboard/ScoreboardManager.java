@@ -21,4 +21,10 @@ public interface ScoreboardManager extends Module {
     void reloadPlayers();
 
     Optional<EssentialsScoreboard> getScoreboard(String name);
+
+    void toggleScoreboard(Player player, boolean silent);
+
+    EssentialsScoreboard getJoinScoreboard(Player player);
+
+    EssentialsScoreboard getTaskScoreboard(Player player);
 }

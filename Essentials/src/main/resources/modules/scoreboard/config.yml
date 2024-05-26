@@ -14,6 +14,34 @@
 
 enable: true
 
+# The conditions when connecting the player to choose the scoreboard
+# When connecting the scoreboard displayed will be the one with the highest priority and or the player to all requirements
+join-conditions:
+  - priority: 0
+    scoreboard: default
+  - priority: 1
+    scoreboard: admin
+    # For requirements please use zMenu: https://docs.zmenu.dev/configurations/buttons/requirements
+    requirements:
+      - type: permission
+        permission: "zessentials.scoreboard.admin"
+
+# Enables task for conditions
+enable-task-conditions: false
+
+# The second interval for conditions
+task-conditions-interval: 2
+
+# Conditions that will be checked all x seconds to change scoreboard
+task-conditions:
+  - scoreboard: event
+    # For requirements please use zMenu: https://docs.zmenu.dev/configurations/buttons/requirements
+    requirements:
+      - type: placeholder
+        placeholder: "%player_world%"
+        value: "event"
+        action: EQUALS_STRING
+
 scoreboards:
   default:
     default: true
@@ -32,8 +60,31 @@ scoreboards:
       - line: 5
         text: "play.essentials.fr"
         animation: COLOR_WAVE
-        fromColor: "#ffffff"
-        toColor: "#55ff55"
-        length: 10 # animation length
+        fromColor: "#5599ff"
+        toColor: "#ffffff"
+        length: 5 # animation length
         delayBetween: 5000 # in milliseconds
-        animationSpeed: 25 # in milliseconds
+        animationSpeed: 30 # in milliseconds
+  admin:
+    title: "#53edd6zEssentials"
+    lines:
+      - line: 1
+        text: ""
+      - line: 2
+        text: "&7Balance: &a%zessentials_user_formatted_balance_money%"
+        event: "fr.maxlego08.essentials.api.event.events.UserEconomyPostUpdateEvent"
+      - line: 3
+        text: "&7Coins: &a%zessentials_user_formatted_balance_coins%"
+        event: "fr.maxlego08.essentials.api.event.events.UserEconomyPostUpdateEvent"
+      - line: 4
+        text: "&7Rank: &cAdmin"
+      - line: 5
+        text: ""
+      - line: 6
+        text: "play.essentials.fr"
+        animation: COLOR_WAVE
+        fromColor: "#5599ff"
+        toColor: "#ffffff"
+        length: 5 # animation length
+        delayBetween: 5000 # in milliseconds
+        animationSpeed: 30 # in milliseconds

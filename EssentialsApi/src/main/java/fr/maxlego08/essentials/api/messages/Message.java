@@ -251,6 +251,7 @@ public enum Message {
     DESCRIPTION_HOLOGRAM_YAW("Change hologram yaw"),
     DESCRIPTION_HOLOGRAM_PITCH("Change hologram pitch"),
     DESCRIPTION_HOLOGRAM_TELEPORT("Teleport to a hologram"),
+    DESCRIPTION_SCOREBOARD("Enable/Disable scoreboard"),
 
 
     YOU("you"),
@@ -584,6 +585,8 @@ public enum Message {
     HOLOGRAM_ITEM("<success>You just modified the item of the hologram &f%name%<success>."),
     HOLOGRAM_BLOCK("<success>You just modified the block of the hologram &f%name%<success> to &f%material%<success>."),
 
+    SCOREBOARD_DISABLE("<error>You just disabled the scoreboard."),
+    SCOREBOARD_ENABLE("<success>You just enabled the scoreboard."),
 
     ;
 

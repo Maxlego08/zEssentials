@@ -46,6 +46,7 @@ import fr.maxlego08.essentials.commands.commands.sanction.CommandSeen;
 import fr.maxlego08.essentials.commands.commands.sanction.CommandSeenIp;
 import fr.maxlego08.essentials.commands.commands.sanction.CommandUnBan;
 import fr.maxlego08.essentials.commands.commands.sanction.CommandUnMute;
+import fr.maxlego08.essentials.commands.commands.scoreboard.CommandScoreboard;
 import fr.maxlego08.essentials.commands.commands.spawn.CommandSetSpawn;
 import fr.maxlego08.essentials.commands.commands.spawn.CommandSpawn;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandBottom;
@@ -236,6 +237,7 @@ public class CommandLoader {
         register("powertools-toggle", CommandPowerToolsToggle.class, "pt-toggle");
 
         register("hologram", CommandHologram.class, "holo", "ho");
+        register("sb", CommandScoreboard.class);
 
         File file = new File(plugin.getDataFolder(), "commands.yml");
         if (!file.exists()) this.plugin.saveResource("commands.yml", false);

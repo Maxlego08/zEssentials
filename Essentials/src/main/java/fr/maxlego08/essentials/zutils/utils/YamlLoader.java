@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.zutils.utils;
 
 import fr.maxlego08.essentials.api.modules.Loadable;
+import fr.maxlego08.essentials.api.modules.NonLoadable;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -46,6 +47,8 @@ public abstract class YamlLoader extends ZUtils {
 
                         if (Loadable.class.isAssignableFrom(fieldArgClass)) {
                             field.set(this, loadObjects(fieldArgClass, configuration.getMapList(configKey)));
+                            continue;
+                        } else if (NonLoadable.class.isAssignableFrom(fieldArgClass)) {
                             continue;
                         }
                     }
