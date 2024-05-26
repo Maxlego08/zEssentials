@@ -52,6 +52,7 @@ public class ScoreboardModule extends ZModule implements ScoreboardManager {
 
     public ScoreboardModule(ZEssentialsPlugin plugin) {
         super(plugin, "scoreboard");
+        this.isRegisterEvent = false;
     }
 
     @Override
@@ -82,11 +83,6 @@ public class ScoreboardModule extends ZModule implements ScoreboardManager {
         loadJoinConditions(configuration);
         loadTaskConditions(configuration);
 
-        System.out.println(this.taskConditionsInterval);
-        System.out.println(this.enableTaskConditions);
-        System.out.println(this.taskConditions);
-        System.out.println(this.joinConditions);
-
         HandlerList.unregisterAll(this);
 
         if (this.isEnable()) {
@@ -94,7 +90,9 @@ public class ScoreboardModule extends ZModule implements ScoreboardManager {
             registerEvents();
         }
 
-        this.wrappedTask = this.plugin.getScheduler().runTimerAsync(this::updateScoreboards, this.taskConditionsInterval, this.taskConditionsInterval, TimeUnit.SECONDS);
+        if (this.enableTaskConditions) {
+            this.wrappedTask = this.plugin.getScheduler().runTimer(this::updateScoreboards, this.taskConditionsInterval, this.taskConditionsInterval, TimeUnit.SECONDS);
+        }
     }
 
     private void loadJoinConditions(YamlConfiguration configuration) {
@@ -183,7 +181,8 @@ public class ScoreboardModule extends ZModule implements ScoreboardManager {
         if (user != null && user.getOption(Option.DISABLE_SCOREBOARD)) return;
 
         Player player = event.getPlayer();
-        this.createScoreboard(player, getJoinScoreboard(player));
+        EssentialsScoreboard essentialsScoreboard = getJoinScoreboard(player);
+        this.createScoreboard(player, essentialsScoreboard);
     }
 
     @EventHandler
@@ -250,7 +249,7 @@ public class ScoreboardModule extends ZModule implements ScoreboardManager {
 
     @Override
     public EssentialsScoreboard getJoinScoreboard(Player player) {
-        return this.joinConditions.stream().sorted(Comparator.comparingInt(JoinCondition::priority)).filter(joinCondition -> {
+        return this.joinConditions.stream().sorted(Comparator.comparingInt(JoinCondition::priority).reversed()).filter(joinCondition -> {
             return joinCondition.permissibles().isEmpty() || joinCondition.permissibles().stream().allMatch(permissible -> permissible.hasPermission(player, null, null, new Placeholders()));
         }).map(joinCondition -> getScoreboard(joinCondition.scoreboard())).filter(Optional::isPresent).map(Optional::get).findFirst().orElse(this.defaultScoreboard);
     }

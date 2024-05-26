@@ -46,6 +46,7 @@ public class HologramModule extends ZModule implements HologramManager {
 
     public HologramModule(ZEssentialsPlugin plugin) {
         super(plugin, "hologram");
+        this.isRegisterEvent = false;
     }
 
     @Override
