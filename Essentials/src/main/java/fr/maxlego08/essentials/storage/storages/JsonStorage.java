@@ -7,6 +7,7 @@ import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.HomeDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.database.dto.UserDTO;
+import fr.maxlego08.essentials.api.database.dto.UserEconomyRankingDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.mailbox.MailBoxItem;
@@ -341,5 +342,10 @@ public class JsonStorage extends StorageHelper implements IStorage {
     @Override
     public void removeMailBoxItem(int id) {
         throw new NotImplementedException("removeMailBoxItem is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public List<UserEconomyRankingDTO> getEconomyRanking(Economy economy) {
+        return new ArrayList<>();
     }
 }

@@ -3,7 +3,7 @@ package fr.maxlego08.essentials.api;
 import com.google.gson.Gson;
 import com.tcoded.folialib.impl.ServerImplementation;
 import fr.maxlego08.essentials.api.commands.CommandManager;
-import fr.maxlego08.essentials.api.economy.EconomyProvider;
+import fr.maxlego08.essentials.api.economy.EconomyManager;
 import fr.maxlego08.essentials.api.hologram.HologramManager;
 import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
@@ -127,11 +127,11 @@ public interface EssentialsPlugin extends Plugin {
     boolean isEconomyEnable();
 
     /**
-     * Gets the economy provider for handling economy-related operations.
+     * Gets the economy manager for handling economy-related operations.
      *
      * @return The economy provider.
      */
-    EconomyProvider getEconomyProvider();
+    EconomyManager getEconomyManager();
 
     /**
      * Gets the unique ID of the console.

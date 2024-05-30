@@ -22,7 +22,7 @@ public class PlaceholderMarkdownGenerator {
             // Format placeholder with arguments
             String placeholderText = "%zessentials_" + placeholder.getStartWith();
             if (!placeholder.getArgs().isEmpty()) {
-                String args = placeholder.getArgs().stream().collect(Collectors.joining("_", "<", ">"));
+                String args = placeholder.getArgs().stream().map(argument -> "<" + argument + ">").collect(Collectors.joining("_"));
                 placeholderText += args;
             }
             placeholderText += "%";

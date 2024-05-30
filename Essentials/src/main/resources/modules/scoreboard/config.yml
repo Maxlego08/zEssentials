@@ -51,10 +51,10 @@ scoreboards:
         text: ""
       - line: 2
         text: "&7Balance: &a%zessentials_user_formatted_balance_money%"
-        event: "fr.maxlego08.essentials.api.event.events.UserEconomyPostUpdateEvent"
+        event: "fr.maxlego08.essentials.api.event.events.user.UserEconomyPostUpdateEvent"
       - line: 3
         text: "&7Coins: &a%zessentials_user_formatted_balance_coins%"
-        event: "fr.maxlego08.essentials.api.event.events.UserEconomyPostUpdateEvent"
+        event: "fr.maxlego08.essentials.api.event.events.user.UserEconomyPostUpdateEvent"
       - line: 4
         text: ""
       - line: 5
@@ -72,10 +72,10 @@ scoreboards:
         text: ""
       - line: 2
         text: "&7Balance: &a%zessentials_user_formatted_balance_money%"
-        event: "fr.maxlego08.essentials.api.event.events.UserEconomyPostUpdateEvent"
+        event: "fr.maxlego08.essentials.api.event.events.user.UserEconomyPostUpdateEvent"
       - line: 3
         text: "&7Coins: &a%zessentials_user_formatted_balance_coins%"
-        event: "fr.maxlego08.essentials.api.event.events.UserEconomyPostUpdateEvent"
+        event: "fr.maxlego08.essentials.api.event.events.user.UserEconomyPostUpdateEvent"
       - line: 4
         text: "&7Rank: &cAdmin"
       - line: 5

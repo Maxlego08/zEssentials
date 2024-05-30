@@ -3,7 +3,7 @@ package fr.maxlego08.essentials.module;
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.modules.Module;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
-import fr.maxlego08.essentials.economy.EconomyManager;
+import fr.maxlego08.essentials.economy.EconomyModule;
 import fr.maxlego08.essentials.hologram.HologramModule;
 import fr.maxlego08.essentials.kit.KitModule;
 import fr.maxlego08.essentials.module.modules.ChatModule;
@@ -47,7 +47,7 @@ public class ZModuleManager implements ModuleManager {
         this.modules.put(TeleportationModule.class, new TeleportationModule(this.plugin));
         this.modules.put(SpawnModule.class, new SpawnModule(this.plugin));
         this.modules.put(WarpModule.class, new WarpModule(this.plugin));
-        this.modules.put(EconomyManager.class, this.plugin.getEconomyProvider());
+        this.modules.put(EconomyModule.class, this.plugin.getEconomyManager());
         this.modules.put(HomeModule.class, new HomeModule(this.plugin));
         this.modules.put(SanctionModule.class, new SanctionModule(this.plugin));
         if (plugin.isPaperVersion()) {

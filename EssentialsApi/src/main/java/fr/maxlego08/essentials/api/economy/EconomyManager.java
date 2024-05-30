@@ -12,7 +12,7 @@ import java.util.UUID;
 /**
  * Represents a provider for handling economy-related operations in the plugin.
  */
-public interface EconomyProvider extends Module {
+public interface EconomyManager extends Module {
 
     /**
      * Checks if the specified player has enough money in the specified economy.
@@ -135,12 +135,12 @@ public interface EconomyProvider extends Module {
     /**
      * Initiates a payment from one player to another with the specified economy and amount.
      *
-     * @param fromUuid  The UUID of the player making the payment.
-     * @param fromName  The name of the player making the payment.
-     * @param toUuid    The UUID of the player receiving the payment.
-     * @param toName    The name of the player receiving the payment.
-     * @param economy   The economy to use for the payment.
-     * @param amount    The amount of currency to pay.
+     * @param fromUuid The UUID of the player making the payment.
+     * @param fromName The name of the player making the payment.
+     * @param toUuid   The UUID of the player receiving the payment.
+     * @param toName   The name of the player receiving the payment.
+     * @param economy  The economy to use for the payment.
+     * @param amount   The amount of currency to pay.
      */
     void pay(UUID fromUuid, String fromName, UUID toUuid, String toName, Economy economy, BigDecimal amount);
 
@@ -164,5 +164,13 @@ public interface EconomyProvider extends Module {
      * @return The decimal format string used for formatting prices.
      */
     String getPriceDecimalFormat();
+
+    String getBaltopPlaceholderUserEmpty();
+
+    Baltop getBaltop(Economy economy);
+
+    Optional<UserBaltop> getPosition(String economyName, int position);
+
+    long getUserPosition(String economyName, UUID uuid);
 
 }

@@ -131,3 +131,12 @@ price-reductions:
     maxAmount: 1000000000000000
   - format: "%.2fQ"
     maxAmount: 100000000000000000
+
+# Baltop
+
+enable-baltop: true
+
+# Time in seconds for baltop to update
+baltop-refresh-seconds: 900
+
+baltop-placeholder-user-empty: "..."

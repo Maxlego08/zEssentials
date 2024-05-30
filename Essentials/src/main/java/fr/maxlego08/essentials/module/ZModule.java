@@ -2,6 +2,7 @@ package fr.maxlego08.essentials.module;
 
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.event.UserEvent;
+import fr.maxlego08.essentials.api.event.events.economy.EconomyBaltopUpdateEvent;
 import fr.maxlego08.essentials.api.modules.Module;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.zutils.utils.YamlLoader;
@@ -39,9 +40,9 @@ public abstract class ZModule extends YamlLoader implements Module {
     @Override
     public void loadConfiguration() {
 
-        File folfer = getFolder();
-        if (!folfer.exists()) {
-            folfer.mkdirs();
+        File folder = getFolder();
+        if (!folder.exists()) {
+            folder.mkdirs();
         }
 
         if (this.copyAndUpdate) {
@@ -133,6 +134,11 @@ public abstract class ZModule extends YamlLoader implements Module {
         return copyAndUpdate;
     }
 
+    /**
+     * Registers a list of event classes by their names with the plugin manager.
+     *
+     * @param events a list of event class names to be registered
+     */
     protected void registerEvents(List<String> events) {
         PluginManager pluginManager = Bukkit.getServer().getPluginManager();
         events.forEach(eventName -> {
@@ -153,6 +159,12 @@ public abstract class ZModule extends YamlLoader implements Module {
         });
     }
 
+    /**
+     * Updates the event handling logic for the specified event.
+     *
+     * @param eventName the name of the event
+     * @param event     the event object
+     */
     private void updateLineWithEvent(String eventName, Event event) {
         if (event instanceof PlayerEvent playerEvent) {
             updateEventPlayer(playerEvent.getPlayer(), eventName);
@@ -163,16 +175,39 @@ public abstract class ZModule extends YamlLoader implements Module {
         } else if (event instanceof UserEvent userEvent) {
             UUID uuid = userEvent.getUser().getUniqueId();
             updateEventUniqueId(uuid, eventName);
+        } else if (event instanceof EconomyBaltopUpdateEvent) {
+            updateEvent(eventName);
         } else {
             this.plugin.getLogger().severe("Event : " + eventName + " is not a Player or User event ! You cant use it");
         }
     }
 
+    /**
+     * Updates the player-related event handling logic.
+     *
+     * @param player    the Player involved in the event
+     * @param eventName the name of the event
+     */
     protected void updateEventPlayer(Player player, String eventName) {
 
     }
 
+    /**
+     * Updates the UUID-related event handling logic.
+     *
+     * @param uniqueId  the UUID involved in the event
+     * @param eventName the name of the event
+     */
     protected void updateEventUniqueId(UUID uniqueId, String eventName) {
 
+    }
+
+    /**
+     * Updates the event handling logic for the specified event name.
+     *
+     * @param eventName the name of the event to update
+     */
+    protected void updateEvent(String eventName) {
+        Bukkit.getOnlinePlayers().forEach(player -> updateEventPlayer(player, eventName));
     }
 }

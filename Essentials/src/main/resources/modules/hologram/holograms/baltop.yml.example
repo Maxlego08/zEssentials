@@ -1,0 +1,59 @@
+type: TEXT
+name: baltop
+location: world,2.864991099541321,84.99900772335636,17.911295076116716,168.8418,16.200148
+bill-board: CENTER
+shadow-radius: 0.0
+shadow-strength: 1.0
+visibility-distance: -1
+brightness:
+  block: 15
+  sky: 15
+scale:
+  x: 1.0
+  y: 1.0
+  z: 1.0
+translation:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+text-alignment: CENTER
+text-shadow: false
+text-background: default
+see-through: false
+lines:
+  - line: 1
+    text: '#00f986ᴍᴏsᴛ ᴍᴏɴᴇʏ'
+  - line: 2
+    text: '#00f986#1 &f%zessentials_economy_baltop_name_money_1%: %zessentials_economy_baltop_formatted_amount_money_1%'
+    event: fr.maxlego08.essentials.api.event.events.economy.EconomyBaltopUpdateEvent
+  - line: 3
+    text: '#00f986#2 &f%zessentials_economy_baltop_name_money_2%: %zessentials_economy_baltop_formatted_amount_money_2%'
+    event: fr.maxlego08.essentials.api.event.events.economy.EconomyBaltopUpdateEvent
+  - line: 4
+    text: '#00f986#3 &f%zessentials_economy_baltop_name_money_3%: %zessentials_economy_baltop_formatted_amount_money_3%'
+    event: fr.maxlego08.essentials.api.event.events.economy.EconomyBaltopUpdateEvent
+  - line: 5
+    text: '#00f986#4 &f%zessentials_economy_baltop_name_money_4%: %zessentials_economy_baltop_formatted_amount_money_4%'
+    event: fr.maxlego08.essentials.api.event.events.economy.EconomyBaltopUpdateEvent
+  - line: 6
+    text: '#00f986#5 &f%zessentials_economy_baltop_name_money_5%: %zessentials_economy_baltop_formatted_amount_money_5%'
+    event: fr.maxlego08.essentials.api.event.events.economy.EconomyBaltopUpdateEvent
+  - line: 7
+    text: '#00f986#6 &f%zessentials_economy_baltop_name_money_6%: %zessentials_economy_baltop_formatted_amount_money_6%'
+    event: fr.maxlego08.essentials.api.event.events.economy.EconomyBaltopUpdateEvent
+  - line: 8
+    text: '#00f986#7 &f%zessentials_economy_baltop_name_money_7%: %zessentials_economy_baltop_formatted_amount_money_7%'
+    event: fr.maxlego08.essentials.api.event.events.economy.EconomyBaltopUpdateEvent
+  - line: 9
+    text: '#00f986#8 &f%zessentials_economy_baltop_name_money_8%: %zessentials_economy_baltop_formatted_amount_money_8%'
+    event: fr.maxlego08.essentials.api.event.events.economy.EconomyBaltopUpdateEvent
+  - line: 10
+    text: '#00f986#9 &f%zessentials_economy_baltop_name_money_9%: %zessentials_economy_baltop_formatted_amount_money_9%'
+    event: fr.maxlego08.essentials.api.event.events.economy.EconomyBaltopUpdateEvent
+  - line: 11
+    text: ''
+  - line: 12
+    text: '#00f986#%zessentials_user_position_money% &f%player_name%: %zessentials_user_formatted_balance_money%'
+    event: fr.maxlego08.essentials.api.event.events.user.UserEconomyPostUpdateEvent
+
+

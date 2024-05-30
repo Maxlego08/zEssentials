@@ -9,7 +9,7 @@ import fr.maxlego08.essentials.api.Configuration;
 import fr.maxlego08.essentials.api.ConfigurationFile;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandManager;
-import fr.maxlego08.essentials.api.economy.EconomyProvider;
+import fr.maxlego08.essentials.api.economy.EconomyManager;
 import fr.maxlego08.essentials.api.hologram.HologramManager;
 import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
@@ -49,7 +49,7 @@ import fr.maxlego08.essentials.database.migrations.CreateUserPlayTimeTableMigrat
 import fr.maxlego08.essentials.database.migrations.CreateUserPowerToolsMigration;
 import fr.maxlego08.essentials.database.migrations.CreateUserTableMigration;
 import fr.maxlego08.essentials.database.migrations.UpdateUserTableAddSanctionColumns;
-import fr.maxlego08.essentials.economy.EconomyManager;
+import fr.maxlego08.essentials.economy.EconomyModule;
 import fr.maxlego08.essentials.hologram.HologramModule;
 import fr.maxlego08.essentials.hooks.VaultEconomy;
 import fr.maxlego08.essentials.kit.KitModule;
@@ -72,6 +72,7 @@ import fr.maxlego08.essentials.storage.ConfigStorage;
 import fr.maxlego08.essentials.storage.ZStorageManager;
 import fr.maxlego08.essentials.storage.adapter.UserTypeAdapter;
 import fr.maxlego08.essentials.user.ZUser;
+import fr.maxlego08.essentials.user.placeholders.EconomyBaltopPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.ReplacePlaceholders;
 import fr.maxlego08.essentials.user.placeholders.UserHomePlaceholders;
 import fr.maxlego08.essentials.user.placeholders.UserKitPlaceholders;
@@ -144,7 +145,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         DistantPlaceholder distantPlaceholder = new DistantPlaceholder(this, this.placeholder);
         distantPlaceholder.register();
 
-        this.economyProvider = new EconomyManager(this);
+        this.economyManager = new EconomyModule(this);
         this.scoreboardManager = new ScoreboardModule(this);
         this.hologramManager = new HologramModule(this);
 
@@ -196,6 +197,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.registerPlaceholder(UserPlayTimePlaceholders.class);
         this.registerPlaceholder(UserKitPlaceholders.class);
         this.registerPlaceholder(ReplacePlaceholders.class);
+        this.registerPlaceholder(EconomyBaltopPlaceholders.class);
 
         new Metrics(this, 21703);
 
@@ -337,12 +339,12 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
     @Override
     public boolean isEconomyEnable() {
-        return this.economyProvider.isEnable();
+        return this.economyManager.isEnable();
     }
 
     @Override
-    public EconomyProvider getEconomyProvider() {
-        return this.economyProvider;
+    public EconomyManager getEconomyManager() {
+        return this.economyManager;
     }
 
     @Override
@@ -514,7 +516,6 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         PlayerInventory inventory = player.getInventory();
 
         Map<Integer, ItemStack> result = inventory.addItem(itemStack);
-        System.out.println(result);
         if (result.isEmpty()) return;
 
         result.values().forEach(item -> moduleManager.getModule(MailBoxModule.class).addItem(player.getUniqueId(), item));

@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.database.dto.UserDTO;
+import fr.maxlego08.essentials.api.database.dto.UserEconomyRankingDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.mailbox.MailBoxItem;
@@ -103,4 +104,6 @@ public interface IStorage {
     void addMailBoxItem(MailBoxItem mailBoxItem);
 
     void removeMailBoxItem(int id);
+
+    List<UserEconomyRankingDTO> getEconomyRanking(Economy economy);
 }

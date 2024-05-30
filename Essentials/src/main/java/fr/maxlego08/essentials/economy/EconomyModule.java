@@ -1,11 +1,17 @@
 package fr.maxlego08.essentials.economy;
 
+import com.tcoded.folialib.impl.ServerImplementation;
+import com.tcoded.folialib.wrapper.task.WrappedTask;
 import fr.maxlego08.essentials.ZEssentialsPlugin;
+import fr.maxlego08.essentials.api.database.dto.UserEconomyRankingDTO;
+import fr.maxlego08.essentials.api.economy.Baltop;
 import fr.maxlego08.essentials.api.economy.Economy;
-import fr.maxlego08.essentials.api.economy.EconomyProvider;
+import fr.maxlego08.essentials.api.economy.EconomyManager;
 import fr.maxlego08.essentials.api.economy.NumberFormatReduction;
 import fr.maxlego08.essentials.api.economy.NumberMultiplicationFormat;
 import fr.maxlego08.essentials.api.economy.PriceFormat;
+import fr.maxlego08.essentials.api.economy.UserBaltop;
+import fr.maxlego08.essentials.api.event.events.economy.EconomyBaltopUpdateEvent;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.User;
@@ -20,23 +26,31 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
-public class EconomyManager extends ZModule implements EconomyProvider {
+public class EconomyModule extends ZModule implements EconomyManager {
 
     private final List<Economy> economies = new ArrayList<>();
     private final List<NumberMultiplicationFormat> numberFormatSellMultiplication = new ArrayList<>();
+    private final Map<Economy, Baltop> baltops = new HashMap<>();
     private String defaultEconomy;
     private BigDecimal minimumPayAmount;
     private PriceFormat priceFormat;
     private List<NumberFormatReduction> priceReductions;
     private String priceDecimalFormat;
     private DecimalFormat decimalFormat;
+    private boolean enableBaltop;
+    private long baltopRefreshSeconds;
+    private String baltopPlaceholderUserEmpty;
+    private WrappedTask baltopTask;
 
-    public EconomyManager(ZEssentialsPlugin plugin) {
+    public EconomyModule(ZEssentialsPlugin plugin) {
         super(plugin, "economy");
     }
 
@@ -45,6 +59,7 @@ public class EconomyManager extends ZModule implements EconomyProvider {
         super.loadConfiguration();
 
         this.economies.clear();
+        this.baltops.clear();
 
         YamlConfiguration configuration = getConfiguration();
         ConfigurationSection configurationSection = configuration.getConfigurationSection("economies");
@@ -61,6 +76,38 @@ public class EconomyManager extends ZModule implements EconomyProvider {
 
         this.loadInventory("confirm_pay_inventory");
         this.decimalFormat = new DecimalFormat(this.priceDecimalFormat);
+
+        if (this.enableBaltop) startBaltopTask();
+    }
+
+    private void startBaltopTask() {
+
+        if (this.baltopTask != null) this.baltopTask.cancel();
+
+        this.baltopTask = this.plugin.getScheduler().runTimer(() -> this.economies.forEach(this::refreshBaltop), 2, this.baltopRefreshSeconds, TimeUnit.SECONDS);
+    }
+
+    public void refreshBaltop(Economy economy) {
+        ServerImplementation serverImplementation = this.plugin.getScheduler();
+        serverImplementation.runAsync(wrappedTask -> {
+
+            IStorage iStorage = this.plugin.getStorageManager().getStorage();
+            var rankings = iStorage.getEconomyRanking(economy);
+
+            Map<UUID, Long> userPositions = new HashMap<>();
+            List<UserBaltop> userBaltops = new ArrayList<>();
+
+            long position = 1;
+            for (UserEconomyRankingDTO ranking : rankings) {
+                userPositions.put(ranking.unique_id(), position++);
+                userBaltops.add(new ZUserBaltop(ranking.unique_id(), ranking.name(), ranking.amount()));
+            }
+
+            Baltop baltop = new ZBaltop(economy, userBaltops, userPositions);
+            this.baltops.put(economy, baltop);
+
+            serverImplementation.runNextTick(wrappedTask1 -> new EconomyBaltopUpdateEvent(baltop).callEvent());
+        });
     }
 
     @Override
@@ -194,5 +241,41 @@ public class EconomyManager extends ZModule implements EconomyProvider {
     @Override
     public String getPriceDecimalFormat() {
         return this.priceDecimalFormat;
+    }
+
+    @Override
+    public String getBaltopPlaceholderUserEmpty() {
+        return this.baltopPlaceholderUserEmpty;
+    }
+
+    @Override
+    public Baltop getBaltop(Economy economy) {
+        return this.baltops.get(economy);
+    }
+
+    @Override
+    public Optional<UserBaltop> getPosition(String economyName, int position) {
+        Optional<Economy> optional = getEconomy(economyName);
+        if (optional.isPresent()) {
+            Economy economy = optional.get();
+            Baltop baltop = getBaltop(economy);
+            if (baltop != null) {
+                return baltop.getPosition(position);
+            }
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public long getUserPosition(String economyName, UUID uuid) {
+        Optional<Economy> optional = getEconomy(economyName);
+        if (optional.isPresent()) {
+            Economy economy = optional.get();
+            Baltop baltop = getBaltop(economy);
+            if (baltop != null) {
+                return baltop.getUserPosition(uuid);
+            }
+        }
+        return -1;
     }
 }

@@ -10,6 +10,7 @@ import fr.maxlego08.essentials.api.database.dto.PlayTimeDTO;
 import fr.maxlego08.essentials.api.database.dto.PowerToolsDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.database.dto.UserDTO;
+import fr.maxlego08.essentials.api.database.dto.UserEconomyRankingDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.mailbox.MailBoxItem;
@@ -398,5 +399,10 @@ public class SqlStorage extends StorageHelper implements IStorage {
     @Override
     public void removeMailBoxItem(int id) {
         async(() -> this.repositories.getTable(UserMailBoxRepository.class).delete(id));
+    }
+
+    @Override
+    public List<UserEconomyRankingDTO> getEconomyRanking(Economy economy) {
+        return this.repositories.getTable(UserRepository.class).getBalanceRanking(economy.getName());
     }
 }

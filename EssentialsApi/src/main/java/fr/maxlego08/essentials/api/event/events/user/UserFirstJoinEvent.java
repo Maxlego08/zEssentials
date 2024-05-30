@@ -1,4 +1,4 @@
-package fr.maxlego08.essentials.api.event.events;
+package fr.maxlego08.essentials.api.event.events.user;
 
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.event.UserEvent;

@@ -74,7 +74,6 @@ public class HologramModule extends ZModule implements HologramManager {
     protected void updateEventPlayer(Player player, String eventName) {
 
         List<Hologram> holograms = this.getHologramByEvent(eventName);
-        System.out.println(" > " + holograms);
         this.plugin.getScheduler().runNextTick(wrappedTask -> holograms.forEach(hologram -> hologram.updateLine(player, eventName)));
     }
 

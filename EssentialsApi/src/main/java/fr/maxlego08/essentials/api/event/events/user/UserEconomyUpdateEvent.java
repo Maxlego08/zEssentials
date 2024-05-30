@@ -1,7 +1,7 @@
-package fr.maxlego08.essentials.api.event.events;
+package fr.maxlego08.essentials.api.event.events.user;
 
 import fr.maxlego08.essentials.api.economy.Economy;
-import fr.maxlego08.essentials.api.event.UserEvent;
+import fr.maxlego08.essentials.api.event.CancellableUserEvent;
 import fr.maxlego08.essentials.api.user.User;
 
 import java.math.BigDecimal;
@@ -9,10 +9,10 @@ import java.math.BigDecimal;
 /**
  * This event is triggered when a user's economy is updated.
  */
-public class UserEconomyPostUpdateEvent extends UserEvent {
+public class UserEconomyUpdateEvent extends CancellableUserEvent {
 
-    private final Economy economy;
-    private final BigDecimal amount;
+    private Economy economy;
+    private BigDecimal amount;
 
     /**
      * Constructs a new UserEconomyUpdateEvent.
@@ -21,7 +21,7 @@ public class UserEconomyPostUpdateEvent extends UserEvent {
      * @param economy the economy system being used
      * @param amount  the amount by which the economy is updated
      */
-    public UserEconomyPostUpdateEvent(User user, Economy economy, BigDecimal amount) {
+    public UserEconomyUpdateEvent(User user, Economy economy, BigDecimal amount) {
         super(user);
         this.economy = economy;
         this.amount = amount;
@@ -37,12 +37,30 @@ public class UserEconomyPostUpdateEvent extends UserEvent {
     }
 
     /**
+     * Sets the economy system associated with this event.
+     *
+     * @param economy the new economy system
+     */
+    public void setEconomy(Economy economy) {
+        this.economy = economy;
+    }
+
+    /**
      * Gets the amount by which the user's economy is updated.
      *
      * @return the update amount
      */
     public BigDecimal getAmount() {
         return amount;
+    }
+
+    /**
+     * Sets the amount by which the user's economy is updated.
+     *
+     * @param amount the new update amount
+     */
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 }
 
