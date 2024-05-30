@@ -10,11 +10,13 @@ public class ZUserBaltop implements UserBaltop {
     private final UUID uuid;
     private final String name;
     private final BigDecimal bigDecimal;
+    private final long position;
 
-    public ZUserBaltop(UUID uuid, String name, BigDecimal bigDecimal) {
+    public ZUserBaltop(UUID uuid, String name, BigDecimal bigDecimal, long position) {
         this.uuid = uuid;
         this.name = name;
         this.bigDecimal = bigDecimal;
+        this.position = position;
     }
 
     @Override
@@ -33,11 +35,17 @@ public class ZUserBaltop implements UserBaltop {
     }
 
     @Override
+    public long getPosition() {
+        return position;
+    }
+
+    @Override
     public String toString() {
         return "ZUserBaltop{" +
                 "uuid=" + uuid +
                 ", name='" + name + '\'' +
                 ", bigDecimal=" + bigDecimal +
+                ", position=" + position +
                 '}';
     }
 }

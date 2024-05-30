@@ -28,4 +28,6 @@ public interface UserBaltop {
      * @return the amount as a BigDecimal
      */
     BigDecimal getAmount();
+
+    long getPosition();
 }

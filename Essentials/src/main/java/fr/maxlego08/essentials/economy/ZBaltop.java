@@ -51,4 +51,9 @@ public class ZBaltop implements Baltop {
     public String toString() {
         return "ZBaltop{" + "economy=" + economy.getName() + ", baltops=" + baltops + ", userPositions=" + userPositions + ", createdAt=" + createdAt + '}';
     }
+
+    @Override
+    public List<UserBaltop> getUsers() {
+        return this.baltops;
+    }
 }

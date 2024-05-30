@@ -165,6 +165,12 @@ public class HologramModule extends ZModule implements HologramManager {
 
         this.holograms.clear();
 
+        File folder = getHologramsFolder();
+        if (!folder.exists()) {
+            folder.mkdirs();
+            this.plugin.saveResource("modules/hologram/holograms/baltop.yml.example", false);
+        }
+
         try (Stream<Path> stream = Files.walk(Paths.get(getHologramsFolder().getPath()))) {
             stream.skip(1).map(Path::toFile).filter(File::isFile).filter(e -> e.getName().endsWith(".yml")).forEach(this::loadHologram);
         } catch (IOException exception) {

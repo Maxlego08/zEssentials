@@ -134,9 +134,20 @@ price-reductions:
 
 # Baltop
 
+# Enable or disable baltop
 enable-baltop: true
 
 # Time in seconds for baltop to update
 baltop-refresh-seconds: 900
 
+# Default value if a player does not exist for a position
 baltop-placeholder-user-empty: "..."
+
+# How to display baltop with/baltop command
+baltop-display: MESSAGE
+
+# Economy used to be displayed in baltop
+baltop-message-economy: money
+
+# Number of players to display in the message
+baltop-message-amount: 10

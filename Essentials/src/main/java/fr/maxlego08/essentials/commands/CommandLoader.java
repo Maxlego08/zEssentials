@@ -9,6 +9,7 @@ import fr.maxlego08.essentials.commands.commands.chat.CommandChatDisable;
 import fr.maxlego08.essentials.commands.commands.chat.CommandChatEnable;
 import fr.maxlego08.essentials.commands.commands.chat.CommandChatHistory;
 import fr.maxlego08.essentials.commands.commands.cooldown.CommandCooldown;
+import fr.maxlego08.essentials.commands.commands.economy.CommandBalanceTop;
 import fr.maxlego08.essentials.commands.commands.economy.CommandEconomy;
 import fr.maxlego08.essentials.commands.commands.economy.CommandMoney;
 import fr.maxlego08.essentials.commands.commands.economy.CommandPay;
@@ -173,6 +174,7 @@ public class CommandLoader {
         register("back", CommandTeleportBack.class);
         register("tpr", CommandTeleportRandom.class, "rtp");
 
+        register("balancetop", CommandBalanceTop.class, "baltop");
         register("economy", CommandEconomy.class, "eco");
         register("money", CommandMoney.class, "balance");
         register("pay", CommandPay.class);

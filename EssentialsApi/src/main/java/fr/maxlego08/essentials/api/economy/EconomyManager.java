@@ -2,6 +2,7 @@ package fr.maxlego08.essentials.api.economy;
 
 import fr.maxlego08.essentials.api.modules.Module;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -173,4 +174,5 @@ public interface EconomyManager extends Module {
 
     long getUserPosition(String economyName, UUID uuid);
 
+    void sendBaltop(Player player, int page);
 }

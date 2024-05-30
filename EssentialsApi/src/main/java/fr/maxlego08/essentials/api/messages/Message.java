@@ -252,6 +252,8 @@ public enum Message {
     DESCRIPTION_HOLOGRAM_PITCH("Change hologram pitch"),
     DESCRIPTION_HOLOGRAM_TELEPORT("Teleport to a hologram"),
     DESCRIPTION_SCOREBOARD("Enable/Disable scoreboard"),
+    DESCRIPTION_BALANCE_TOP("Show baltop"),
+    DESCRIPTION_BALANCE_TOP_REFRESH("Refresh baltop"),
 
 
     YOU("you"),
@@ -587,6 +589,10 @@ public enum Message {
 
     SCOREBOARD_DISABLE("<error>You just disabled the scoreboard."),
     SCOREBOARD_ENABLE("<success>You just enabled the scoreboard."),
+
+    COMMAND_BALTOP_ERROR("<error>Can’t find the economy &f%name%<error>."),
+    COMMAND_BALTOP_HEADER(MessageType.WITHOUT_PREFIX, "#00f986ᴍᴏsᴛ ᴍᴏɴᴇʏ &8(&f%page%&8/&7%maxPage%&8) <click:run_command:'/baltop %previousPage%'>&f◀</click> &8- <click:run_command:'/baltop %nextPage%'>&f▶</click>"),
+    COMMAND_BALTOP(MessageType.WITHOUT_PREFIX, "#00f986#%position% &f%name%&8: %amount%"),
 
     ;
 

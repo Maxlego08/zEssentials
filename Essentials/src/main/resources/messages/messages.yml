@@ -314,6 +314,33 @@ description-power-tools-toggle: "Toggle power tools"
 description-kit-show: "Show a kit"
 description-mail: "Open mailbox"
 description-rules: "Read server rules"
+description-hologram: "Show hologram commands"
+description-hologram-create: "Create a hologram"
+description-hologram-delete: "Delete a hologram"
+description-hologram-edit: "Edit a hologram"
+description-hologram-list: "Display hologram list"
+description-hologram-remove-line: "Remove a line from a hologram"
+description-hologram-add-line: "Add a line to a hologram"
+description-hologram-set-line: "Define a line of a hologram"
+description-hologram-insert-before-line: "Insert a line before another"
+description-hologram-insert-after-line: "Define a line after another"
+description-hologram-move-here: "Move a hologram to your position"
+description-hologram-move-to: "Move a hologram to a location"
+description-hologram-scale: "Change hologram scale"
+description-hologram-translation: "Change hologram translation"
+description-hologram-billboard: "Change hologram billboard"
+description-hologram-text-alignment: "Change hologram text alignment"
+description-hologram-text-shadow: "Change hologram text shadow"
+description-hologram-shadow-strength: "Change hologram shadow strength"
+description-hologram-shadow-radius: "Change hologram shadow radius"
+description-hologram-text-background: "Change hologram text background"
+description-hologram-see-through: "Change hologram see through"
+description-hologram-yaw: "Change hologram yaw"
+description-hologram-pitch: "Change hologram pitch"
+description-hologram-teleport: "Teleport to a hologram"
+description-scoreboard: "Enable/Disable scoreboard"
+description-balance-top: "Show baltop"
+description-balance-top-refresh: "Refresh baltop"
 
 
 # Time format
@@ -622,3 +649,54 @@ mailbox-remove-expire: "<error>You can no longer retrieve this item, it has expi
 mailbox-add:
   type: ACTION
   message: "<success>An item has just been added to your mailbox &8(&f/mail&8)"
+
+hologram-create-error: "<error>Hologram &f%name% <error>already exists."
+hologram-create:
+  type: WITHOUT_PREFIX
+  messages:
+    - "<success>You just created the hologram &f%name%<success>."
+    - "&7Use &n<click:run_command:'/hologram edit %name%'>/hologram edit %name%</click>&r&7 command to edit the hologram"
+hologram-delete: "<success>Hologram &f%name% <success>has been deleted."
+hologram-doesnt-exist: "<error>Hologram &f%name% <error>doesn't exist."
+hologram-is-not-a-text: "<error>Hologram &f%name% <error>is not a text hologram."
+hologram-is-not-a-block: "<error>Hologram &f%name% <error>is not a block hologram."
+hologram-is-not-a-item: "<error>Hologram &f%name% <error>is not an item hologram."
+hologram-add-line: "<success>You just added a line to the hologram &f%name%<success>."
+hologram-set-line: "<success>You just set the line &f%line%<success> to the hologram &f%name%<success>."
+hologram-insert-before-line: "<success>You just set a new line before the line &f%line%<success> to the hologram &f%name%<success>."
+hologram-insert-after-line: "<success>You just set a new line after the line &f%line%<success> to the hologram &f%name%<success>."
+hologram-line-doesnt-exist: "<error>The line &f%line% <error>does not exist for the hologram &f%name%<error>."
+hologram-remove-line: "<success>You just removed the line &f%line%<success> from the hologram &f%name%<success>."
+hologram-scale: "<success>You just changed the scale of the hologram &f%name% <success>to &7%x%&8, &7%y%&8, &7%z%<success>."
+hologram-translation: "<success>You just changed the translation of the hologram &f%name% <success>to &7%x%&8, &7%y%&8, &7%z%<success>."
+hologram-move-here: "<success>You just teleported the hologram &f%name%<success> to your position."
+hologram-move-to: "<success>You just teleported the hologram &f%name% <success>to &7%x%&8, &7%y%&8, &7%z%<success>."
+hologram-billboard: "<success>You just changed the billboard of the hologram &f%name%<success> to &f%billboard%<success>."
+hologram-text-alignment: "<success>You just changed the text alignment of the hologram &f%name%<success> to &f%textAlignment%<success>."
+hologram-yaw: "<success>You just changed the yaw of the hologram &f%name%<success> to &f%yaw%<success>."
+hologram-pitch: "<success>You just changed the pitch of the hologram &f%name%<success> to &f%pitch%<success>."
+hologram-text-background: "<success>You just changed the background color of the hologram &f%name%<success> to &f%color%<success>."
+hologram-text-background-error: "<error>Could not parse background color."
+hologram-text-shadow: "<success>You set the text shadow to &f%textshadow% <success>for the hologram &f%name%<success>."
+hologram-see-through: "<success>You set the see-through to &f%seethrough% <success>for the hologram &f%name%<success>."
+hologram-shadow-strength: "<success>You set the shadow strength to &f%shadow% <success>for the hologram &f%name%<success>."
+hologram-shadow-radius: "<success>You set the shadow radius to &f%shadow% <success>for the hologram &f%name%<success>."
+hologram-view-distance: "<success>You set the view distance to &f%distance% <success>for the hologram &f%name%<success>."
+hologram-list-empty: "<error>There is no hologram, to create one please use the command &f/holo create <name>"
+hologram-list:
+  type: WITHOUT_PREFIX
+  message: "&f%name% &8- &7%world%: %x%, %y%, %z% &8- <hover:show_text:'&7Click to be teleported to this hologram'><click:run_command:'/holo tp %name%'><green>ᴛᴇʟᴇᴘᴏʀᴛ</click> </hover><hover:show_text:'<red>Click to delete this hologram'><click:suggest_command:'/holo delete %name%'><red>ᴅᴇʟᴇᴛᴇ</click></hover>"
+hologram-item-error: "<error>You can't use air for this hologram."
+hologram-item: "<success>You just modified the item of the hologram &f%name%<success>."
+hologram-block: "<success>You just modified the block of the hologram &f%name%<success> to &f%material%<success>."
+
+scoreboard-disable: "<error>You just disabled the scoreboard."
+scoreboard-enable: "<success>You just enabled the scoreboard."
+
+command-baltop-error: "<error>Can’t find the economy &f%name%<error>."
+command-baltop-header:
+  type: WITHOUT_PREFIX
+  message: "#00f986ᴍᴏsᴛ ᴍᴏɴᴇʏ &8(&f%page%&8/&7%maxPage%&8) <click:run_command:'/baltop %previousPage%'>&f◀</click> &8- <click:run_command:'/baltop %nextPage%'>&f▶</click>"
+command-baltop:
+  type: WITHOUT_PREFIX
+  message: "#00f986#%position% &f%name%&8: %amount%"

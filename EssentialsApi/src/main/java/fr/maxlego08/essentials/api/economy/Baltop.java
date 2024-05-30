@@ -1,5 +1,6 @@
 package fr.maxlego08.essentials.api.economy;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -37,4 +38,6 @@ public interface Baltop {
      * @return the creation time as a long value representing milliseconds since epoch
      */
     long getCreatedAt();
+
+    List<UserBaltop> getUsers();
 }

@@ -5,6 +5,7 @@ import com.tcoded.folialib.wrapper.task.WrappedTask;
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.database.dto.UserEconomyRankingDTO;
 import fr.maxlego08.essentials.api.economy.Baltop;
+import fr.maxlego08.essentials.api.economy.BaltopDisplay;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.economy.EconomyManager;
 import fr.maxlego08.essentials.api.economy.NumberFormatReduction;
@@ -16,9 +17,11 @@ import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.ZModule;
+import fr.maxlego08.menu.zcore.utils.inventory.Pagination;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -48,6 +51,9 @@ public class EconomyModule extends ZModule implements EconomyManager {
     private boolean enableBaltop;
     private long baltopRefreshSeconds;
     private String baltopPlaceholderUserEmpty;
+    private String baltopMessageEconomy;
+    private int baltopMessageAmount;
+    private BaltopDisplay baltopDisplay;
     private WrappedTask baltopTask;
 
     public EconomyModule(ZEssentialsPlugin plugin) {
@@ -99,8 +105,9 @@ public class EconomyModule extends ZModule implements EconomyManager {
 
             long position = 1;
             for (UserEconomyRankingDTO ranking : rankings) {
-                userPositions.put(ranking.unique_id(), position++);
-                userBaltops.add(new ZUserBaltop(ranking.unique_id(), ranking.name(), ranking.amount()));
+                long currentPosition = position++;
+                userPositions.put(ranking.unique_id(), currentPosition);
+                userBaltops.add(new ZUserBaltop(ranking.unique_id(), ranking.name(), ranking.amount(), currentPosition));
             }
 
             Baltop baltop = new ZBaltop(economy, userBaltops, userPositions);
@@ -277,5 +284,39 @@ public class EconomyModule extends ZModule implements EconomyManager {
             }
         }
         return -1;
+    }
+
+    @Override
+    public void sendBaltop(Player player, int page) {
+
+        if (this.baltopDisplay == BaltopDisplay.MESSAGE) {
+            this.sendMessageBaltop(player, page);
+        } else {
+
+        }
+
+    }
+
+    private void sendMessageBaltop(Player player, int page) {
+
+        Optional<Economy> optional = this.getEconomy(this.baltopMessageEconomy);
+        if (optional.isEmpty()) {
+            message(player, Message.COMMAND_BALTOP_ERROR, "%name%", this.baltopMessageEconomy);
+            return;
+        }
+
+        Economy economy = optional.get();
+        Baltop baltop = getBaltop(economy);
+        List<UserBaltop> userBaltops = baltop.getUsers();
+
+        Pagination<UserBaltop> pagination = new Pagination<>();
+        int maxPage = getMaxPage(userBaltops, baltopMessageAmount);
+        page = page > maxPage ? maxPage : Math.max(page, 1);
+
+        message(player, Message.COMMAND_BALTOP_HEADER, "%page%", page, "%nextPage%", page + 1, "%previousPage%", page - 1, "%maxPage%", maxPage);
+
+        for (UserBaltop userBaltop : pagination.paginate(userBaltops, baltopMessageAmount, page)) {
+            message(player, Message.COMMAND_BALTOP, "%name%", userBaltop.getName(), "%uuid%", userBaltop.getUniqueId(), "%position%", userBaltop.getPosition(), "%amount%", format(economy, userBaltop.getAmount()));
+        }
     }
 }
