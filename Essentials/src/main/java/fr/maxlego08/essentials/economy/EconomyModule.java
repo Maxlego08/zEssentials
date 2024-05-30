@@ -81,6 +81,7 @@ public class EconomyModule extends ZModule implements EconomyManager {
         });
 
         this.loadInventory("confirm_pay_inventory");
+        this.loadInventory("baltop");
         this.decimalFormat = new DecimalFormat(this.priceDecimalFormat);
 
         if (this.enableBaltop) startBaltopTask();
@@ -292,9 +293,8 @@ public class EconomyModule extends ZModule implements EconomyManager {
         if (this.baltopDisplay == BaltopDisplay.MESSAGE) {
             this.sendMessageBaltop(player, page);
         } else {
-
+            this.plugin.openInventory(player, "baltop");
         }
-
     }
 
     private void sendMessageBaltop(Player player, int page) {

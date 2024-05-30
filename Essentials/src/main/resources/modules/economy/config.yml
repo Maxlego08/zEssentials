@@ -144,6 +144,8 @@ baltop-refresh-seconds: 900
 baltop-placeholder-user-empty: "..."
 
 # How to display baltop with/baltop command
+# MESSAGE - Send a message
+# INVENTORY - Open an inventory
 baltop-display: MESSAGE
 
 # Economy used to be displayed in baltop
