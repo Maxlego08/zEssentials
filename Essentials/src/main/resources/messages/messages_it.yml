@@ -24,6 +24,7 @@ you: "Tu"
 trash: "&8Cestino della Spazzatura"
 player-not-found: "&f%player% <error>non è stato trovato."
 module-disable: "<error>Il modulo &f%name% <error> è disabilitato, non puoi usare questo comando."
+
 # Commands
 command-syntax-error: "<error>Devi eseguire il comando segunedo questo formato#656665: &f%syntax%"
 command-no-permission: "<error>Non puoi eseguire questo comando."
@@ -73,7 +74,44 @@ command-player-weather-downfall: "&7Hai appena messo pioggia su di te."
 command-player-time-reset: "&7Hai appena cambiato il tempo aa quello del server."
 command-player-time-change: "&7Sei qui per cambiare il tuo tempo."
 command-fly-enable: "&7Modalità volo <success>abilitata &7per &f%player%<success>."
-command-fly-disable: "&7Modalità volo  <error>disabilitata &7per &f%player%<success>."
+command-fly-disable: "&7Modalità volo <error>disabilitata &7per &f%player%<success>."
+command-furnace-type: "<error>Impossibile fondere &f%material%<error>."
+command-furnace-error: "<error>Non hai &f%item%<error> nel tuo inventario."
+command-furnace-success: "&7Hai appena trasformato #0EEA93x%amount% #34cfe0%item% &7in #0EEA93x%toAmount% #34cfe0%toItem%&7."
+command-skull: "<success>Hai appena ottenuto la testa di &f%name%<success>."
+command-repair-error: "<error>L'oggetto che stai tenendo non può essere riparato."
+command-repair-success: "<success>Hai riparato l'oggetto che stai tenendo in mano."
+command-repair-all-error: "<error>Non hai nessun oggetto da riparare."
+command-repair-all-success: "<success>Hai appena riparato tutti gli oggetti nel tuo inventario."
+command-ext: "&fPer il volere di Maxlego08, non bruci più."
+command-near-empty: "<error>Nessun giocatore in vicinanza."
+command-near-player: "&fGiocaatori vicini a te&7:%players%"
+command-near-info: " &7%player% &8(&e%distance%m&8)"
+command-play-time:
+  - "&7You played&8: <primary>%playtime%"
+  - "&7Current session&8: <primary>%playtime_session%"
+command-bottom: "&7Sei stato teletrasportato sul &efondo&7."
+command-bottom-error: "<error>Non è stato possibile trovare un punto sicuro in cui teletrasportarti."
+command-remove: "&7Tolte <success>%amount% &7entità."
+command-seen-offline:
+  type: WITHOUT_PREFIX
+  message: "#99E0FF&f%player% #99E0FFè stato <error>offline #99E0FFdal &7%date%#99E0FF."
+command-seen-online:
+  type: WITHOUT_PREFIX
+  message: "#99E0FF&f%player% #99E0FFè stato <success> online #99E0FFdal %date%#99E0FF."
+command-seen-playtime:
+  type: WITHOUT_PREFIX
+  message: "#99E0FFPlayTime&8: &f%playtime%"
+command-seen-uuid:
+  type: WITHOUT_PREFIX
+  message: "#99E0FFUUID&8: &f%uuid%"
+command-seen-ip:
+  type: WITHOUT_PREFIX
+  message: "#99E0FFIndirizzo IP&8:&f%ips%"
+command-seen-address: " <click:run_command:'/seenip %ip%'><hover:show_text:'&fShow players who have the same address'>%ip%</hover></click>"
+command-seen-ip-empty: "<error>Non è stato possibile trovare giocatori con l'indirizzo IP &f%ip%<error>."
+command-seen-ip-line: "#99E0FFGiocatori con l'indirizzo IP &f%ip%&8:%players%"
+command-seen-ip-info: " <white><click:run_command:'/seen %name%'><hover:show_text:'&fMostra le informazioni del giocatore'>%name%</hover></click><dark_gray>"
 
 # Economy
 command-economy-not-found: "<error> Non riesco a trovare una valuta di nome &f%name%<error>."
@@ -211,7 +249,43 @@ description-tp-random: "Teletrasporto casuale nel mondo"
 description-set-home: "Crea una casa"
 description-del-home: "Elimina una casa"
 description-home: "Teletrasportati a una casa"
-
+description-kick: "Caccia un giocatore"
+description-kick-all: "Caccia tutti i giocatori"
+description-kitty-cannon: "Lancia gattini, perche ca##o lo vorresti fare? Mostro"
+description-ban: "Banna un giocatore per sempre"
+description-mute: "Muta un giocatore"
+description-un-mute: "Smuta un giocatore"
+description-un-ban: "Sbanna un giocatore"
+description-sanction: "Apre un inventario delle sanzioni"
+description-chat-history: "Mostra i messaggi di un giocatore"
+description-chat-clear: "Pulisce la chat"
+description-chat-disable: "Disabilita la chat"
+description-chat-enable: "Abilita la chat"
+description-chat-broadcast: "Trasmetti un messaggio a tutti i giocatori online"
+description-message: "Manda un messaggio privato a un giocatore"
+description-reply: "Rispondi ad un messaggio privato"
+description-message-toggle: "Abilita/disabilita la funzione messaggi privati"
+description-socialspy: "Mostra messaggi privati tra giocatori"
+description-furnace: "Fonde gli oggetti in mano"
+description-skull: "Ottieni la testa di un giocatore"
+description-repair: "Ripara l'oggetto in mano"
+description-repair-all: "Ripara tutti gli oggetti nell'inventario"
+description-ext: "Smetti di bruciare"
+description-near: "Mostra giocatori vicino a te"
+description-play-time: "Mostra il playtime/tempo di gioco, di un giocatore"
+description-bottom: "Teletrasportati sul fondo"
+description-compact-all: "Compatta gli oggetti nel tuo inventario"
+description-version: "Mostra la versione del plugin"
+description-kill-all: "Uccidi le entità"
+description-seen: "Show player informations"
+description-seen-ip: "Show players who have the same IP"
+description-kit: "Ottieni un kit"
+description-kit-editor: "Modifica un kit"
+description-kit-create: "Crea un nuovo kit"
+description-kit-delete: "Elimina un kit"
+description-cooldown: "Mostra i cooldowns di un giocatore"
+description-cooldown-delete: "Elimina un cooldown"
+description-cooldown-create: "Crea un cooldown"
 
 # Time format
 time-day: "%02d giorno %02d ora %02d minuto %02d secondo"
@@ -227,7 +301,7 @@ format-hours: "ore"
 format-day: "giorno"
 format-days: "giorni"
 cooldown: "<error>✘ Devi aspettare &f%cooldown% <error>prima di poter ripetere questa azione."
-
+cooldown-commands: "<error>✘ Devi aaspettare &f%cooldown% <error>per poter eseguire di nuovo questo comando."
 
 # Teleportation
 teleport-move: "<error>Non devi muoverti!"
@@ -348,3 +422,144 @@ command-home-admin-delete: "<success>Hai rimosso la casa &f%name%<success> di &b
 command-home-admin-set: "<success>Hai creato la casa &f%name%<success> per &b%player%<success>."
 command-home-admin-list: "#8cc0ccᴄᴀsᴇ ᴅɪ %player%&8:&f%homes%"
 command-home-admin-list-info: " <hover:show_text:'&7Clicca per teletrasportarti alla casa &f&n%name%'><click:run_command:'/home %player%:%name%'>&f%name%</click></hover>&7"
+
+# Sanction
+command-kick-notify:
+  type: WITHOUT_PREFIX
+  message: "<hover:show_text:'<gray>Da parte di: <white>%sender%<newline><gray>Durata: <white>%duration%<newline><gray>Motivo: <white>%reason%<newline><gray>Data: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanzione&8) #8aebeb%player% #e33414ha appena cacciato #e0d12d%target%#e33414.</click></hover>"
+command-ban-notify:
+  type: WITHOUT_PREFIX
+  message: "<hover:show_text:'<gray>Da parte di: <white>%sender%<newline><gray>Durata: <white>%duration%<newline><gray>Motivo: <white>%reason%<newline><gray>Data: <white>%created_at%<newline><gray>Expires: <white>%expired_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanzione&8) #8aebeb%player% #e33414ha appena bannato #e0d12d%target%#e33414.</click></hover>"
+command-mute-notify:
+  type: WITHOUT_PREFIX
+  message: "<hover:show_text:'<gray>Da parte di: <white>%sender%<newline><gray>Durata: <white>%duration%<newline><gray>Motivo: <white>%reason%<newline><gray>Data: <white>%created_at%<newline><gray>Expires: <white>%expired_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanzione&8) #8aebeb%player% #e33414ha appena mutato #e0d12d%target%#e33414.</click></hover>"
+command-unmute-notify:
+  type: WITHOUT_PREFIX
+  message: "<hover:show_text:'<gray>Da parte di: <white>%sender%<newline><gray>Durata: <white>%duration%<newline><gray>Motivo: <white>%reason%<newline><gray>Data: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanzione&8) #8aebeb%player% #e33414ha appena smutato #e0d12d%target%#e33414.</click></hover>"
+command-unban-notify:
+  type: WITHOUT_PREFIX
+  message: "<hover:show_text:'<gray>Da parte di: <white>%sender%<newline><gray>Durata: <white>%duration%<newline><gray>Motivo: <white>%reason%<newline><gray>Data: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanzione&8) #8aebeb%player% #e33414just ha appena unbannato #e0d12d%target%#e33414.</click></hover>"
+command-ban-error-duration: "<error>La durata del ban deve essre almeno di 1 secondo."
+command-mute-error-duration: "<error>La durata del mute deve essre almeno di 1 secondo."
+command-un-mute-error: "&f%player% <error>mom è mutato."
+command-un-ban-error: "&f%player% <error>non è bannato."
+command-sanction-error: "<error>Non puoi sanzionare questo giocatore. È protetto."
+message-kick:
+  - ""
+  - "<error>Sei appena stato cacciato dal server per il seguente motivo:"
+  - "%reason%"
+  - ""
+  - "&fMinecraft-Inventory-Builder.com"
+  - ""
+message-mute:
+  - ""
+  - "&fHai appena perso la tua <u>voce</u>."
+  - "&fDurata&8: <gradient:#7ae856:#a1d909>%duration%</gradient>"
+  - "&fMotivo&8: #82d1ff%reason%"
+  - ""
+message-unmute:
+  - ""
+  - "&fHai appena riottenuto la tua <u>voce</u>, congratulazioni!"
+  - "&fMotivo&8: #82d1ff%reason%"
+  - ""
+message-mute-talk:
+  - ""
+  - "&fNon hai il diritto di parlare adesso!."
+  - ""
+  - "&fDurata&8: <gradient:#7ae856:#a1d909>%duration%</gradient>"
+  - "&fMotivo&8: #82d1ff%reason%"
+  - ""
+message-ban:
+  - ""
+  - "<error>Sei stato bannato per il seguente motivo:"
+  - "&f%reason%"
+  - "&fDurata&8: &7%duration%"
+  - ""
+  - "&fMinecraft-Inventory-Builder.com"
+  - ""
+message-ban-join:
+  - ""
+  - "<error>Sei bannato dal server per il seguene motivo:"
+  - "&f%reason%"
+  - "&fTempo rimanente&8: &7%remaining%"
+  - ""
+  - "&fMinecraft-Inventory-Builder.com"
+  - ""
+
+# Chat
+chat-error: "<error>Impossibile lasciarti scrivere, i tuoi dati non sono caricati."
+chat-alphanumeric-regex: "<error>Hai usato un caratterre proibito."
+chat-cooldown: "<error>Aspetta prima di mandare il prossimo messaggio. &8(&7%cooldown%&8)"
+chat-same: "<error>Non puoi riscrivere la stessa frase."
+chat-link: "<error>Non puoi mandare link nella chat."
+chat-disable: "<error>La chat non è disponibile al momento."
+
+chat-default-format: "<white>%displayName% <#656665>• <gray>%message%"
+chat-messages-empty: "&f%player% <error>non ha scritto un messaggio."
+chat-messages-line:
+  type: WITHOUT_PREFIX
+  message: "&f%date% &7%message%"
+chat-messages-footer:
+  type: WITHOUT_PREFIX
+  message: "<click:run_command:'/chathistory %player% %previousPage%'><hover:show_text:'Pagina Precedente'><white>⬅</hover></click> <gray>%page%/%maxPage% <click:run_command:'/chathistory %player% %nextPage%'><hover:show_text:'Pagina Seguente'><white>➡</hover></click>"
+command-chat-clear: "<success>La chat è stata pulita."
+command-chat-disable-error: "<error>La chat è gia disabilitata."
+command-chat-disable-success: "<success>Hai disabilitato la chat."
+command-chat-enable-error: "<error>La chat è gia abilitata."
+command-chat-enable-success: "<success>Hai appena abilitato la chat."
+command-chat-broadcast:
+  type: WITHOUT_PREFIX
+  message: "<primary>ᴀɴɴᴜɴᴄɪᴏ <secondary>• <white>%message%"
+
+
+# Messages
+command-message-self: "<error>Non puoi scrivere a te stesso."
+command-message-disable: "<error>I messaggi privati per &f%player% <error> sono disabilitati."
+command-message-mute: "<error>Non puoi scrivere."
+command-message-me: "<hover:show_text:'&fClicca per rispondere'><click:suggest_command:'/r '>&8(#f533f5me &7-> #34cfe0%target%&8) #e6e1e6<message></click></hover>"
+command-message-other: "<hover:show_text:'&fClicca per rispondere'><click:suggest_command:'/r '>&8(#34cfe0%target% &7-> #f533f5me&8) #e6e1e6<message></click></hover>"
+command-message-social-spy:
+  type: WITHOUT_PREFIX
+  message: "&8(&7SocialSpy&8) &8(<hover:show_text:'&fMostra le sanzioni per %sender%'><click:run_command:'/sc %sender%'>#34cfe0%sender%</click></hover> &7-> <hover:show_text:'&fMostra le sanzioni per %receiver%'><click:run_command:'/sc %receiver%'>#f533f5%receiver%</click></hover>&8) #e6e1e6%message%"
+command-message-error: "<error>Non hai nessuno a cui rispondere."
+command-message-toggle-enable: "&7Messaggi privati <success>abilitati &7per &f%player%<success>."
+command-message-toggle-disable: "&7Messaggi privati <error>disabilitati &7per &f%player%<success>."
+command-social-spy-enable: "&7Social spy <success>abilitato &7per &f%player%<success>."
+command-social-spy-disable: "&7Social spy <error>disable &7per &f%player%<success>."
+
+
+# Kit
+command-kit-not-found: "<error>Non è stato possibile trovare il kit &f%kit%<error>."
+command-kit-already-exists: "<error>Il kit &f%kit% <error>esiste già."
+command-kit-information-in-line-empty: "#8cc0ccʏᴏᴜʀ ᴋɪᴛs <success>♦ &7(%count%/%max%)&8: <error>ɴᴏ ᴋɪᴛ ᴀᴠᴀɪʟᴀʙʟᴇ"
+command-kit-information-in-line: "#8cc0ccɪ ᴛᴜᴏɪ ᴋɪᴛs&8:&f%kits%"
+command-kit-information-in-line-info-available: " <hover:show_text:'&7Clicca per ottenere il kit &f&n%name%'><click:run_command:'/kit %name%'><#1fde65>%name%</click></hover>&7"
+command-kit-information-in-line-info-unavailable: " <hover:show_text:'&7Devi aspettare<u>%time%</u> prima di ottenere il kit &f&n%name%'><st><#de1f1f>%name%</st></hover>&7"
+command-kit-information-multi-line-header: ""
+command-kit-information-multi-line-content-available: "<#8cc0cc>♢ <hover:show_text:'&7Clicca per ottenere il kit &f&n%name%'><click:run_command:'/kit %name%'><#1fde65>%name% </click></hover>"
+command-kit-information-multi-line-content-unavailable: "<#8cc0cc>♢ <hover:show_text:'&7Devi aspettare<u>%time%</u> prima di ottenere il kit &f&n%name%'><st><#de1f1f>%name%</st></hover> &8(&7%time%&8)"
+command-kit-information-multi-line-footer: ""
+command-kit-editor-save: "<success>Hai appena modificato il kit &f%kit%<success>."
+command-kit-create: "<success>Hai appena creato il kit &f%kit%<success>."
+command-kit-delete: "<success>Hai appena eliminato il kit &f%kit%<success>."
+
+
+# Cooldown
+command-cooldown-header: "&fCooldown di %player% &8(&7%amount%&8)"
+command-cooldown-empty: "&f%player% <error>non ha nessun cooldown."
+# Available placeholders:
+# %key% - The key to the cooldown
+# %value% - The cooldown expiration timestamp
+# %timeLeft% - The time remaining before cooldown expiration
+# %createdAt% - Cooldown creation date
+# %player% - the Player's nickname
+command-cooldown-line:
+  type: WITHOUT_PREFIX
+  message: "&f%key% <secondary>- &7%createdAt% <secondary>- <success>%timeLeft% <secondary>- <hover:show_text:'&fClicca per togliere il cooldown'><click:run_command:'/cooldown delete %player% %key%'>&8[<error>ᴇʟɪᴍɪɴᴀ&8]</click></hover>"
+command-cooldown-not-found: "&f%cooldown% <error>non è stato trovato."
+command-cooldown-delete: "<success>Hai appena rimosso il cooldown &f%cooldown% <success>da &n%player%&r<success>."
+# Available placeholders:
+# %key% - The key to the cooldown
+# %player% - the Player's nickname
+# %duration% - the duration of the cooldown
+command-cooldown-create: "<success>Hai appena creato il cooldown &f%key% <success>per &n%player%&r<success>."
