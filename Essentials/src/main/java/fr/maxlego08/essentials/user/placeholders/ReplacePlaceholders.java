@@ -8,7 +8,6 @@ import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.placeholders.PlaceholderRegister;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 
-import java.util.Arrays;
 import java.util.Optional;
 
 public class ReplacePlaceholders extends ZUtils implements PlaceholderRegister {
@@ -30,7 +29,6 @@ public class ReplacePlaceholders extends ZUtils implements PlaceholderRegister {
         placeholder.register("center_", (player, args) -> {
 
             String[] values = args.split("\\|");
-            System.out.println(args + " - " + Arrays.asList(values));
             if (values.length != 3) return "The format is invalid! Please try again";
 
             try {
