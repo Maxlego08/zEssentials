@@ -46,6 +46,8 @@ public enum Message {
     COMMAND_SYNTAXE_HELP("&f%syntax% &7» &7%description%"),
 
     COMMAND_RELOAD("<success>You have just reloaded the configuration files."),
+    COMMAND_RELOAD_MODULE("<success>You have just reloaded the configuration files of the module &f%module%<success>."),
+    COMMAND_RELOAD_ERROR("&f%module% <error>was not found !"),
     COMMAND_ESSENTIALS("zEssentials, version %version%"),
     COMMAND_GAMEMODE("&fSet game mode&e %gamemode% &ffor &b%player%&f."),
     COMMAND_GAMEMODE_INVALID("<error>You need to specify a valid player."),

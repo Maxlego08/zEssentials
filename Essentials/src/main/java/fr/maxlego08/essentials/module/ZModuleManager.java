@@ -21,7 +21,9 @@ import fr.maxlego08.essentials.scoreboard.ScoreboardModule;
 import org.bukkit.Bukkit;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ZModuleManager implements ModuleManager {
@@ -75,5 +77,10 @@ public class ZModuleManager implements ModuleManager {
     @Override
     public <T extends Module> T getModule(Class<T> module) {
         return (T) this.modules.get(module);
+    }
+
+    @Override
+    public List<Module> getModules() {
+        return new ArrayList<>(this.modules.values());
     }
 }
