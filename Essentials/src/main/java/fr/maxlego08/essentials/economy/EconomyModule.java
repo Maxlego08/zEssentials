@@ -203,10 +203,14 @@ public class EconomyModule extends ZModule implements EconomyManager {
 
         for (NumberFormatReduction config : this.priceReductions) {
             if (numValue.compareTo(config.maxAmount()) < 0) {
+                
                 String displayText = config.display();
-                if (config.format().isEmpty()) {
-                    return displayText.replace("%amount%", numValue.toString());
+                String format = config.format();
+
+                if (format.isEmpty() || format.contains("#")) {
+                    return displayText.replace("%amount%", config.format().contains("#") ? new DecimalFormat(config.format()).format(numValue) : numValue.toString());
                 }
+
                 BigDecimal divisor = config.maxAmount().equals(BigDecimal.valueOf(1000)) ? BigDecimal.valueOf(1000.0) : config.maxAmount().divide(BigDecimal.valueOf(1000.0), 2, RoundingMode.HALF_UP);
                 String formattedAmount = String.format(config.format(), numValue.divide(divisor, 2, RoundingMode.HALF_UP));
                 return displayText.replace("%amount%", formattedAmount);
