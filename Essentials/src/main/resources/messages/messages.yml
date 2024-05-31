@@ -520,7 +520,7 @@ command-chat-broadcast:
 
 # Messages
 command-message-self: "<error>You can’t talk to yourself."
-command-message-disable: "&f%%player% <error>has disabled private messages."
+command-message-disable: "&f%player% <error>has disabled private messages."
 command-message-mute: "<error>You’re not allowed to speak."
 command-message-me: "<hover:show_text:'&fClick to reply'><click:suggest_command:'/r '>&8(#f533f5me &7-> #34cfe0%target%&8) #e6e1e6<message></click></hover>"
 command-message-other: "<hover:show_text:'&fClick to reply'><click:suggest_command:'/r '>&8(#34cfe0%target% &7-> #f533f5me&8) #e6e1e6<message></click></hover>"
