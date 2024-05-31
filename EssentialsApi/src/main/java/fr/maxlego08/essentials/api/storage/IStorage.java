@@ -1,14 +1,23 @@
 package fr.maxlego08.essentials.api.storage;
 
+import fr.maxlego08.essentials.api.database.dto.ChatMessageDTO;
+import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
+import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
+import fr.maxlego08.essentials.api.database.dto.UserDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
+import fr.maxlego08.essentials.api.home.Home;
+import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
-import org.bukkit.Location;
+import fr.maxlego08.essentials.api.user.UserRecord;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 import java.util.function.Consumer;
 
 public interface IStorage {
@@ -29,6 +38,8 @@ public interface IStorage {
 
     void updateEconomy(UUID uniqueId, Economy economy, BigDecimal bigDecimal);
 
+    void deleteCooldown(UUID uniqueId, String key);
+
     void updateUserMoney(UUID uniqueId, Consumer<User> consumer);
 
     void getUserEconomy(String userName, Consumer<List<EconomyDTO>> consumer);
@@ -42,4 +53,44 @@ public interface IStorage {
     void upsertUser(User user);
 
     void upsertStorage(String key, Object value);
+
+    void upsertHome(UUID uniqueId, Home home);
+
+    void deleteHome(UUID uniqueId, String name);
+
+    CompletableFuture<List<Home>> getHome(UUID uuid, String homeName);
+
+    CompletionStage<List<Home>> getHomes(UUID uuid);
+
+    void insertSanction(Sanction sanction, Consumer<Integer> consumer);
+
+    void updateUserBan(UUID uuid, Integer index);
+
+    void updateUserMute(UUID uuid, Integer index);
+
+    boolean isBan(UUID uuid);
+
+    Sanction getBan(UUID uuid);
+
+    boolean isMute(UUID uuid);
+
+    Sanction getMute(UUID uuid);
+
+    List<SanctionDTO> getSanctions(UUID uuid);
+
+    void insertChatMessage(UUID uuid, String content);
+
+    List<ChatMessageDTO> getMessages(UUID targetUuid);
+
+    Map<Option, Boolean> getOptions(UUID uuid);
+
+    void insertCommand(UUID uuid, String command);
+
+    void insertPlayTime(UUID uniqueId, long sessionPlayTime, long playtime, String address);
+
+    UserRecord fetchUserRecord(UUID uuid);
+
+    List<UserDTO> getUsers(String ip);
+
+    List<CooldownDTO> getCooldowns(UUID uniqueId);
 }

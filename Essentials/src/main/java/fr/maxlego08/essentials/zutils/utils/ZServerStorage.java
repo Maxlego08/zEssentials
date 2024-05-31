@@ -5,7 +5,7 @@ import fr.maxlego08.essentials.api.storage.ServerStorage;
 
 import java.util.List;
 
-public class ZServerStorage extends ZUtils implements ServerStorage {
+public class ZServerStorage implements ServerStorage {
 
 
     @Override

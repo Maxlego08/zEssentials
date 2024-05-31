@@ -13,7 +13,7 @@ public class CommandEnderSee extends VCommand {
         super(plugin);
         this.setPermission(Permission.ESSENTIALS_ENDERSEE);
         this.setDescription(Message.DESCRIPTION_ENDERSEE);
-        this.addRequireArg("player");
+        this.addRequirePlayerNameArg();
         this.onlyPlayers();
     }
 

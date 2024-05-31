@@ -23,7 +23,7 @@ public class CommandEconomyReset extends VCommand {
         this.setDescription(Message.DESCRIPTION_ECO_RESET);
         this.addSubCommand("reset");
         this.addRequireArg("economy", (a, b) -> plugin.getEconomyProvider().getEconomies().stream().map(Economy::getName).toList());
-        this.addRequireArg("player");
+        this.addRequirePlayerNameArg();
         this.addBooleanOptionalArg("silent");
     }
 

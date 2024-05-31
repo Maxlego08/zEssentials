@@ -4,7 +4,12 @@ import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.modules.Module;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
 import fr.maxlego08.essentials.economy.EconomyManager;
+import fr.maxlego08.essentials.kit.KitModule;
+import fr.maxlego08.essentials.module.modules.ChatModule;
+import fr.maxlego08.essentials.module.modules.HomeModule;
 import fr.maxlego08.essentials.module.modules.JoinQuitModule;
+import fr.maxlego08.essentials.module.modules.MessageModule;
+import fr.maxlego08.essentials.module.modules.SanctionModule;
 import fr.maxlego08.essentials.module.modules.SpawnModule;
 import fr.maxlego08.essentials.module.modules.TeleportationModule;
 import fr.maxlego08.essentials.module.modules.WarpModule;
@@ -37,12 +42,19 @@ public class ZModuleManager implements ModuleManager {
         this.modules.put(TeleportationModule.class, new TeleportationModule(this.plugin));
         this.modules.put(SpawnModule.class, new SpawnModule(this.plugin));
         this.modules.put(WarpModule.class, new WarpModule(this.plugin));
-        this.modules.put(JoinQuitModule.class, new JoinQuitModule(this.plugin));
         this.modules.put(EconomyManager.class, this.plugin.getEconomyProvider());
-
-        this.modules.values().stream().filter(Module::isRegisterEvent).forEach(module -> Bukkit.getPluginManager().registerEvents(module, this.plugin));
+        this.modules.put(HomeModule.class, new HomeModule(this.plugin));
+        this.modules.put(SanctionModule.class, new SanctionModule(this.plugin));
+        if (plugin.isPaperVersion()) {
+            this.modules.put(JoinQuitModule.class, new JoinQuitModule(this.plugin));
+            this.modules.put(ChatModule.class, new ChatModule(this.plugin));
+        }
+        this.modules.put(MessageModule.class, new MessageModule(this.plugin));
+        this.modules.put(KitModule.class, new KitModule(this.plugin));
 
         this.loadConfigurations();
+
+        this.modules.values().stream().filter(Module::isRegisterEvent).filter(Module::isEnable).forEach(module -> Bukkit.getPluginManager().registerEvents(module, this.plugin));
     }
 
     @Override

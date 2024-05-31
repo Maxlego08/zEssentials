@@ -1,0 +1,69 @@
+name: "#3f3f3fᴋɪᴛs"
+size: 27
+items:
+  tools:
+    slot: 11
+    type: ZESSENTIALS_KIT_COOLDOWN
+    kit: "tools"
+    update: true
+    refreshOnClick: true
+    item:
+      material: IRON_PICKAXE
+      name: '&fᴋɪᴛ&8: #c1c1c3ɪʀᴏɴ ᴛᴏᴏʟs'
+      lore:
+        - ''
+        - '#ffd353ℹ Informations#3f3f3f:'
+        - '#3f3f3f• &7Cooldown#3f3f3f: #4cd5ff%cooldown%'
+        - ''
+        - '&f➥ <st>&nLeft Click&r&7 to get the kit'
+        - '&f➦ &nRight Click&r&7 to view the contents'
+    else:
+      type: ZESSENTIALS_KIT_GET
+      kit: "tools"
+      closeInventory: true
+      item:
+        material: IRON_PICKAXE
+        name: '&fᴋɪᴛ&8: #c1c1c3ɪʀᴏɴ ᴛᴏᴏʟs'
+        lore:
+          - ''
+          - '#ffd353ℹ Informations#3f3f3f:'
+          - '#3f3f3f• &7Cooldown#3f3f3f: #4cd5ff%cooldown%'
+          - ''
+          - '&f➥ &nLeft Click&r&7 to get the kit'
+          - '&f➦ &nRight Click&r&7 to view the contents'
+      else:
+        item:
+          material: IRON_PICKAXE
+          name: '&fᴋɪᴛ&8: #c1c1c3ɪʀᴏɴ ᴛᴏᴏʟs'
+          lore:
+            - ''
+            - '#ffd353ℹ Informations#3f3f3f:'
+            - "#3f3f3f• #ff0000You don't have permission"
+            - ''
+            - '&f➥ <st>&nLeft Click&r&7 to get the kit'
+            - '&f➦ &nRight Click&r&7 to view the contents'
+
+  food:
+    slot: 13
+    item:
+      material: COOKED_BEEF
+      name: '&fᴋɪᴛ&8: #884f42ғᴏᴏᴅs'
+      lore:
+        - ''
+        - '#ffd353ℹ Informations#3f3f3f:'
+        - '#3f3f3f• &7Cooldown#3f3f3f: #4cd5ff%cooldown%'
+        - ''
+        - '&f➥ &nLeft Click&r&7 to get the kit'
+        - '&f➦ &nRight Click&r&7 to view the contents'
+  fight:
+    slot: 15
+    item:
+      material: DIAMOND_SWORD
+      name: '&fᴋɪᴛ&8: #91ffe1ғɪɢʜᴛ'
+      lore:
+        - ''
+        - '#ffd353ℹ Informations#3f3f3f:'
+        - '#3f3f3f• &7Cooldown#3f3f3f: #4cd5ff%cooldown%'
+        - ''
+        - '&f➥ &nLeft Click&r&7 to get the kit'
+        - '&f➦ &nRight Click&r&7 to view the contents'

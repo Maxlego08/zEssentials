@@ -1,5 +1,6 @@
 package fr.maxlego08.essentials.zutils.utils;
 
+import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.modules.Loadable;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -30,6 +31,8 @@ public abstract class YamlLoader extends ZUtils {
                     field.setInt(this, configuration.getInt(configKey));
                 } else if (field.getType().equals(String.class)) {
                     field.set(this, configuration.getString(configKey));
+                } else if (field.getType().equals(double.class)) {
+                    field.set(this, configuration.getDouble(configKey));
                 } else if (field.getType().equals(BigDecimal.class)) {
                     field.set(this, new BigDecimal(configuration.getString(configKey, "0")));
                 } else if (field.getType().isEnum()) {
@@ -64,28 +67,5 @@ public abstract class YamlLoader extends ZUtils {
     private List<Object> loadObjects(Class<?> fieldArgClass, List<Map<?, ?>> maps) {
         Constructor<?> constructor = fieldArgClass.getConstructors()[0];
         return maps.stream().map(map -> createInstanceFromMap(constructor, map)).collect(Collectors.toList());
-    }
-
-    private Object createInstanceFromMap(Constructor<?> constructor, Map<?, ?> map) {
-        try {
-            Object[] arguments = new Object[constructor.getParameterCount()];
-            java.lang.reflect.Parameter[] parameters = constructor.getParameters();
-            for (int i = 0; i < parameters.length; i++) {
-                Class<?> paramType = parameters[i].getType();
-                String paramName = parameters[i].getName();
-                Object value = map.get(paramName);
-                if (paramType.isEnum()) {
-                    @SuppressWarnings("unchecked")
-                    Class<? extends Enum> enumType = (Class<? extends Enum>) paramType;
-                    value = Enum.valueOf(enumType, (String) value);
-                } else if (paramType == BigDecimal.class) {
-                    value = new BigDecimal(value.toString());
-                }
-                arguments[i] = value;
-            }
-            return constructor.newInstance(arguments);
-        } catch (Exception exception) {
-            throw new RuntimeException("Failed to create instance from map", exception);
-        }
     }
 }

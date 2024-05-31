@@ -1,12 +1,12 @@
 package fr.maxlego08.essentials.database.migrations;
 
-import fr.maxlego08.essentials.api.database.Migration;
-import fr.maxlego08.essentials.database.SchemaBuilder;
+import fr.maxlego08.sarah.SchemaBuilder;
+import fr.maxlego08.sarah.database.Migration;
 
 public class CreateEconomyTransactionMigration extends Migration {
     @Override
     public void up() {
-        SchemaBuilder.create("%prefix%economy_transactions", table -> {
+        SchemaBuilder.create(this, "%prefix%economy_transactions", table -> {
             table.uuid("from_unique_id");
             table.uuid("to_unique_id");
             table.string("economy_name", 255);

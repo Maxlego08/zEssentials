@@ -5,17 +5,24 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
+import fr.maxlego08.essentials.api.database.dto.HomeDTO;
 import fr.maxlego08.essentials.api.database.dto.OptionDTO;
+import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
+import fr.maxlego08.essentials.api.home.Home;
+import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.Option;
+import fr.maxlego08.essentials.api.user.PrivateMessage;
 import fr.maxlego08.essentials.api.user.TeleportRequest;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.modules.TeleportationModule;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
@@ -26,6 +33,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -37,6 +45,7 @@ public class ZUser extends ZUtils implements User {
     private final UUID uniqueId;
     private final Map<Option, Boolean> options = new HashMap<>();
     private final Map<String, BigDecimal> balances = new HashMap<>();
+    private final List<Home> homes = new ArrayList<>();
     private String name;
     private TeleportRequest teleportRequest;
     private User targetUser;
@@ -44,10 +53,27 @@ public class ZUser extends ZUtils implements User {
     private Economy targetEconomy;
     private Location lastLocation;
     private boolean firstJoin;
+    private int banId;
+    private int muteId;
+    private Sanction muteSanction;
+    private Sanction banSanction;
+    private List<Sanction> fakeSanctions;
+    private String lastMessage;
+    private PrivateMessage privateMessage;
+    private long playTime;
+    private long currentSessionPlayTime;
+    private String address;
+    private Kit previewKit;
 
     public ZUser(EssentialsPlugin plugin, UUID uniqueId) {
         this.plugin = plugin;
         this.uniqueId = uniqueId;
+    }
+
+    public static User fakeUser(EssentialsPlugin plugin, UUID uniqueId, String userName) {
+        User user = new ZUser(plugin, uniqueId);
+        user.setName(userName);
+        return user;
     }
 
     private IStorage getStorage() {
@@ -259,6 +285,11 @@ public class ZUser extends ZUtils implements User {
     }
 
     @Override
+    public void setFakeOption(Option option, boolean value) {
+        this.options.put(option, value);
+    }
+
+    @Override
     public Map<Option, Boolean> getOptions() {
         return this.options;
     }
@@ -285,6 +316,11 @@ public class ZUser extends ZUtils implements User {
     public void setCooldown(String key, long expiredAt) {
         this.cooldowns.put(key, expiredAt);
         this.getStorage().updateCooldown(this.uniqueId, key, expiredAt);
+    }
+
+    @Override
+    public void setCooldownSilent(String key, long expiredAt) {
+        this.cooldowns.put(key, expiredAt);
     }
 
     @Override
@@ -412,5 +448,185 @@ public class ZUser extends ZUtils implements User {
     @Override
     public void setFirstJoin() {
         this.firstJoin = true;
+    }
+
+    @Override
+    public void setHome(String name, Location location) {
+        // Delete home with the same name before
+        removeHome(name);
+
+        Home home = new ZHome(location, name, null);
+        this.homes.add(home);
+        this.getStorage().upsertHome(this.uniqueId, home);
+    }
+
+    @Override
+    public Optional<Home> getHome(String name) {
+        return this.homes.stream().filter(home -> home.getName().equalsIgnoreCase(name)).findFirst();
+    }
+
+    @Override
+    public List<Home> getHomes() {
+        return this.homes;
+    }
+
+    @Override
+    public void setHomes(List<HomeDTO> homeDTOS) {
+        this.homes.addAll(homeDTOS.stream().map(homeDTO -> new ZHome(stringAsLocation(homeDTO.location()), homeDTO.name(), homeDTO.material() == null ? null : Material.valueOf(homeDTO.material()))).toList());
+    }
+
+    @Override
+    public int countHomes() {
+        return this.homes.size();
+    }
+
+    @Override
+    public void removeHome(String name) {
+        this.homes.removeIf(home -> home.getName().equalsIgnoreCase(name));
+        this.getStorage().deleteHome(this.uniqueId, name);
+    }
+
+    @Override
+    public boolean isHomeName(String homeName) {
+        return getHome(homeName).isPresent();
+    }
+
+    @Override
+    public int getActiveBanId() {
+        return this.banId;
+    }
+
+    @Override
+    public int getActiveMuteId() {
+        return this.muteId;
+    }
+
+    @Override
+    public void setSanction(Integer banId, Integer muteId) {
+        this.banId = banId == null ? 0 : banId;
+        this.muteId = muteId == null ? 0 : muteId;
+    }
+
+    @Override
+    public Sanction getMuteSanction() {
+        return this.muteSanction;
+    }
+
+    @Override
+    public void setMuteSanction(Sanction sanction) {
+        this.muteId = sanction == null ? 0 : sanction.getId();
+        this.muteSanction = sanction;
+    }
+
+    @Override
+    public boolean isMute() {
+        return this.muteSanction != null && this.muteSanction.isActive();
+    }
+
+    @Override
+    public List<Sanction> getFakeSanctions() {
+        return this.fakeSanctions;
+    }
+
+    @Override
+    public void setFakeSanctions(List<SanctionDTO> sanctions) {
+        this.fakeSanctions = sanctions.stream().map(Sanction::fromDTO).toList();
+    }
+
+    @Override
+    public Sanction getBanSanction() {
+        return banSanction;
+    }
+
+    @Override
+    public void setBanSanction(Sanction banSanction) {
+        this.banId = banSanction != null ? banSanction.getId() : 0;
+        this.banSanction = banSanction;
+    }
+
+    @Override
+    public String getLastMessage() {
+        return lastMessage;
+    }
+
+    @Override
+    public void setLastMessage(String lastMessage) {
+        this.lastMessage = lastMessage;
+    }
+
+    @Override
+    public PrivateMessage setPrivateMessage(UUID uuid, String userName) {
+        return this.privateMessage = new PrivateMessage(uuid, userName);
+    }
+
+    @Override
+    public PrivateMessage getPrivateMessage() {
+        return this.privateMessage;
+    }
+
+    @Override
+    public boolean hasPrivateMessage() {
+        return this.privateMessage != null;
+    }
+
+    @Override
+    public long getPlayTime() {
+        return this.playTime + ((System.currentTimeMillis() - this.currentSessionPlayTime) / 1000);
+    }
+
+    @Override
+    public void setPlayTime(long playtime) {
+        this.playTime = playtime;
+    }
+
+    @Override
+    public long getCurrentSessionPlayTime() {
+        return this.currentSessionPlayTime;
+    }
+
+    @Override
+    public void startCurrentSessionPlayTime() {
+        this.currentSessionPlayTime = System.currentTimeMillis();
+    }
+
+    @Override
+    public String getAddress() {
+        return address;
+    }
+
+    @Override
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    @Override
+    public long getKitCooldown(Kit kit) {
+        return this.getCooldown("kit:" + kit.getName());
+    }
+
+    @Override
+    public boolean isKitCooldown(Kit kit) {
+        return isCooldown("kit:" + kit.getName());
+    }
+
+    @Override
+    public void addKitCooldown(Kit kit, long cooldown) {
+        this.addCooldown("kit:" + kit.getName(), cooldown);
+    }
+
+    @Override
+    public void openKitPreview(Kit kit) {
+        this.previewKit = kit;
+        this.plugin.openInventory(getPlayer(), "kit_preview");
+    }
+
+    @Override
+    public void removeCooldown(String cooldownName) {
+        this.cooldowns.remove(cooldownName);
+    }
+
+    @Override
+    public Kit getKitPreview() {
+        return this.previewKit;
     }
 }

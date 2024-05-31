@@ -2,27 +2,45 @@ package fr.maxlego08.essentials;
 
 import fr.maxlego08.essentials.api.Configuration;
 import fr.maxlego08.essentials.api.commands.CommandCooldown;
-import fr.maxlego08.essentials.api.storage.DatabaseConfiguration;
+import fr.maxlego08.essentials.api.server.RedisConfiguration;
+import fr.maxlego08.essentials.api.server.ServerType;
 import fr.maxlego08.essentials.api.storage.StorageType;
-import fr.maxlego08.essentials.api.utils.CompactMaterial;
+import fr.maxlego08.essentials.api.utils.ChatCooldown;
+import fr.maxlego08.essentials.api.utils.MessageColor;
+import fr.maxlego08.essentials.api.utils.NearDistance;
+import fr.maxlego08.essentials.api.utils.TransformMaterial;
 import fr.maxlego08.essentials.zutils.utils.YamlLoader;
+import fr.maxlego08.sarah.DatabaseConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.permissions.Permissible;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.LongStream;
 
 public class MainConfiguration extends YamlLoader implements Configuration {
 
     private final ZEssentialsPlugin plugin;
     private final List<CommandCooldown> commandCooldowns = new ArrayList<>();
-    private final List<CompactMaterial> compactMaterials = new ArrayList<>();
+    private final List<TransformMaterial> compactMaterials = new ArrayList<>();
+    private final List<TransformMaterial> smeltableMaterials = new ArrayList<>();
     private final StorageType storageType = StorageType.JSON;
+    private final List<MessageColor> messageColors = new ArrayList<>();
+    private final List<ChatCooldown> cooldowns = new ArrayList<>();
+    private long[] cooldownCommands;
     private boolean enableDebug;
     private boolean enableCooldownBypass;
+    private boolean enableCommandLog;
     private int trashSize;
+    private String globalDateFormat;
     private DatabaseConfiguration databaseConfiguration;
+    private ServerType serverType;
+    private RedisConfiguration redisConfiguration;
+    private double nearDistance;
+    private final List<NearDistance> nearPermissions = new ArrayList<>();
+    private SimpleDateFormat simpleDateFormat;
 
     public MainConfiguration(ZEssentialsPlugin plugin) {
         this.plugin = plugin;
@@ -55,6 +73,9 @@ public class MainConfiguration extends YamlLoader implements Configuration {
 
         YamlConfiguration configuration = (YamlConfiguration) this.plugin.getConfig();
         this.loadYamlConfirmation(configuration);
+
+        this.cooldownCommands = this.cooldowns.stream().flatMapToLong(cooldown -> LongStream.of(cooldown.cooldown(), cooldown.messages())).toArray();
+        this.simpleDateFormat = new SimpleDateFormat(this.globalDateFormat);
     }
 
     @Override
@@ -63,7 +84,7 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     }
 
     @Override
-    public List<CompactMaterial> getCompactMaterials() {
+    public List<TransformMaterial> getCompactMaterials() {
         return this.compactMaterials;
     }
 
@@ -75,5 +96,60 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     @Override
     public DatabaseConfiguration getDatabaseConfiguration() {
         return this.databaseConfiguration;
+    }
+
+    @Override
+    public ServerType getServerType() {
+        return serverType;
+    }
+
+    @Override
+    public RedisConfiguration getRedisConfiguration() {
+        return redisConfiguration;
+    }
+
+    @Override
+    public List<MessageColor> getMessageColors() {
+        return messageColors;
+    }
+
+    @Override
+    public List<ChatCooldown> getCooldowns() {
+        return this.cooldowns;
+    }
+
+    @Override
+    public long[] getCooldownCommands() {
+        return cooldownCommands;
+    }
+
+    @Override
+    public List<TransformMaterial> getSmeltableMaterials() {
+        return this.smeltableMaterials;
+    }
+
+    @Override
+    public List<NearDistance> getNearPermissions() {
+        return nearPermissions;
+    }
+
+    @Override
+    public double getDefaultNearDistance() {
+        return nearDistance;
+    }
+
+    @Override
+    public double getNearDistance(Permissible permissible) {
+        return this.nearPermissions.stream().filter(nearDistance -> permissible.hasPermission(nearDistance.permission())).map(NearDistance::distance).findFirst().orElse(this.nearDistance);
+    }
+
+    @Override
+    public boolean isEnableCommandLog() {
+        return this.enableCommandLog;
+    }
+
+    @Override
+    public SimpleDateFormat getGlobalDateFormat() {
+        return this.simpleDateFormat;
     }
 }

@@ -1,0 +1,31 @@
+name: '#3f3f3fᴄᴏɴғɪʀᴍ ᴅᴇʟᴇᴛᴇ'
+size: 27
+items:
+
+  information:
+    slot: 13
+    item:
+      material: BLUE_DYE
+      name: '#00a4fcʜᴏᴍᴇ %zmenu_player_value_home_to_delete%'
+
+  cancel:
+    type: inventory
+    inventory: 'home'
+    plugin: 'zMenu'
+    slot: 11
+    item:
+      material: RED_STAINED_GLASS_PANE
+      name: '#ff0000ᴄᴀɴᴄᴇʟ'
+      lore:
+        - '#fcfcfcClick to cancel'
+
+  confirm:
+    slot: 15
+    commands:
+      - 'delhome %zmenu_player_value_home_to_delete%'
+    closeInventory: true
+    item:
+      material: GREEN_STAINED_GLASS_PANE
+      name: '#00fc00ᴄᴏɴғɪʀᴍ'
+      lore:
+        - '#fcfcfcClick to delete'

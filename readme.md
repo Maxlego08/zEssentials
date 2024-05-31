@@ -4,9 +4,9 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 
 # ToDo
 
-- [ ] Command /sethome <name> (limit by grade/permission)
-- [ ] Command /delhome <name>
-- [ ] Command /home (as gui or not)
+- [x] Command `/sethome <name>` (limit by grade/permission)
+- [x] Command `/delhome <name>`
+- [x] Command /home (as gui or not)
 
 - [ ] Command /tpall
 - [ ] Command /tpaall
@@ -19,33 +19,37 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 
 - [x] Command /hat
 - [x] Command /top
-- [ ] Command /repair all & hand (ability to set custom cooldown by grade/permission)
+- [x] Command /bottom
+- [x] Command /repair - Hand
+- [x] Command /repairall - All Inventory
 - [x] Command /compact
+- [x] Command /compactall
 - [x] Command /trash
 - [x] Command /ec (alias: enderchest)
-- [x] Command /endersee 
-- [ ] Command /ext
-- [ ] Command /near (ability to set custom radius by grade/permission)
+- [x] Command /endersee
+- [x] Command /ext
+- [x] Command /near (ability to set custom radius by grade/permission)
 - [x] Command /craft
-- [ ] Command /anvil
-- [ ] Command /back
+- [x] Command /anvil
+- [x] Command /back
 - [x] Command /feed
+- [x] Command /furnace
 
 - [x] Command /gm 1, gm0, gm3
 - [x] Command /speed <1;2;3….>
-- [ ] Command /bc (alias: broadcast)
+- [x] Command /bc (alias: broadcast)
 - [ ] Command /list
 - [x] Command /invsee
 - [ ] Command /kill
 - [ ] Command /enchant
 - [ ] Command /give
-- [ ] Command /fly
+- [x] Command /fly
 - [x] Command /god
-- [ ] Command /skull
+- [x] Command /skull
 - [ ] Command /ci
 - [ ] Command /itemdb
 - [ ] Command /exp give, set, show
-- [ ] Command /playtime
+- [x] Command /playtime
 - [ ] Command /spawner
 - [x] Command /weather
 - [ ] Command /seen, whois
@@ -54,6 +58,11 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 - [x] Command /pweather
 - [x] Command /ptime
 - [x] Command /heal
+- [x] Command /kittycannon
+- [x] Command /kick
+- [x] Command /kickall
+- [x] Command /mute
+- [x] Command /ban
 
 - [ ] Command /setwarp
 - [ ] Command /delwarp
@@ -65,15 +74,19 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 
 - [ ] Command /paytoggle
 - [ ] Command /balancetop (alias: baltop)
-- [ ] Command /balance (alias: money)
-- [ ] Command /eco give, take, set,reset
-- [ ] Command /pay
+- [x] Command /balance (alias: money)
+- [x] Command /eco give, take, set,reset
+- [x] Command /pay
 
-- [ ] Command /createkit <name> <delay>
-- [ ] Command /kitreset
-- [ ] Command /deletekit
-- [ ] Command /kit (as gui or not)
-- [ ] Command /showkit <kit> (Preview kit as gui)
+- [x] Command /`createkit <name> <delay>`
+- [x] Command /kiteditor
+- [x] Command /deletekit
+- [x] Command /kit (as gui or not)
+- [ ] Command `/showkit <kit>` (Preview kit as gui)
 
-- [ ] Command /setspawn
-- [ ] Command /spawn
+- [x] Command /setspawn
+- [x] Command /spawn
+
+- [x] Command /cooldown (display a player’s cooldowns and add button for delete a cooldown)
+- [ ] Command `/cooldown delete <player> <name>`
+- [ ] Command `/cooldown create <player> <name> <cooldown>`

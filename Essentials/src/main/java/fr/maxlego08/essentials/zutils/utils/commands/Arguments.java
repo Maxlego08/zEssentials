@@ -7,6 +7,8 @@ import org.bukkit.World;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
+import java.time.Duration;
+
 /**
  * This abstract class is designed to handle command arguments, allowing for easy retrieval
  * and conversion of argument values into various data types. It supports operations such as
@@ -248,6 +250,14 @@ public abstract class Arguments extends ZUtils {
             return Bukkit.getWorld(argAsString(index));
         } catch (Exception ignored) {
             return defaultValue;
+        }
+    }
+
+    protected Duration argAsDuration(int index) {
+        try {
+            return stringToDuration(argAsString(index));
+        } catch (Exception ignored) {
+            return null;
         }
     }
 

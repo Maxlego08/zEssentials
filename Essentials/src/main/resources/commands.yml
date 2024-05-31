@@ -7,9 +7,9 @@
 #  ███████╗███████╗██████╔╝██████╔╝███████╗██║░╚███║░░░██║░░░██║██║░░██║███████╗██████╔╝
 #  ╚══════╝╚══════╝╚═════╝░╚═════╝░╚══════╝╚═╝░░╚══╝░░░╚═╝░░░╚═╝╚═╝░░╚═╝╚══════╝╚═════╝░
 #
-########################################################################################################################
-
 # In this file you can choose which commands to enable or disable
+#
+########################################################################################################################
 
 gamemode: true
 gmc: true
@@ -60,3 +60,38 @@ warp: true
 delwarp: true
 warps: true
 tpr: true
+sethome: true
+home: true
+ban: true
+mute: true
+unmute: true
+unban: true
+kick: true
+kickall: true
+sanction: true
+kittycannon: true
+chathistory: true
+chatclear: true
+chatenable: true
+chatdisable: true
+broadcast: true
+reply: true
+messagetoggle: true
+socialspy: true
+compactall: true
+furnace: true
+skull: true
+repair: true
+repairall: true
+ext: true
+near: true
+playtime: true
+essversion: true
+killall: true
+seen: true
+seenip: true
+kit: true
+kiteditor: true
+kitcreate: true
+kitdelete: true
+cooldown: true

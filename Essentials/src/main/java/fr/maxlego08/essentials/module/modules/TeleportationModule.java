@@ -32,7 +32,7 @@ public class TeleportationModule extends ZModule {
     private int rtpCenterZ;
     private int rtpRadiusX;
     private int rtpRadiusZ;
-    private String rtpWorld;
+    private String rtpWorld = "world";
 
 
     public TeleportationModule(ZEssentialsPlugin plugin) {

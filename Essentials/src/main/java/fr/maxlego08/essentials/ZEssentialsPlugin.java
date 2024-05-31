@@ -9,71 +9,116 @@ import fr.maxlego08.essentials.api.Configuration;
 import fr.maxlego08.essentials.api.ConfigurationFile;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandManager;
-import fr.maxlego08.essentials.api.database.MigrationManager;
 import fr.maxlego08.essentials.api.economy.EconomyProvider;
+import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.placeholders.PlaceholderRegister;
+import fr.maxlego08.essentials.api.server.EssentialsServer;
+import fr.maxlego08.essentials.api.server.ServerType;
 import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.essentials.api.storage.ServerStorage;
 import fr.maxlego08.essentials.api.storage.StorageManager;
 import fr.maxlego08.essentials.api.storage.adapter.LocationAdapter;
 import fr.maxlego08.essentials.api.user.User;
+import fr.maxlego08.essentials.api.utils.EssentialsUtils;
 import fr.maxlego08.essentials.api.utils.Warp;
+import fr.maxlego08.essentials.buttons.ButtonHomes;
 import fr.maxlego08.essentials.buttons.ButtonPayConfirm;
 import fr.maxlego08.essentials.buttons.ButtonTeleportationConfirm;
+import fr.maxlego08.essentials.buttons.kit.ButtonKitPreview;
+import fr.maxlego08.essentials.buttons.sanction.ButtonSanctionInformation;
+import fr.maxlego08.essentials.buttons.sanction.ButtonSanctions;
 import fr.maxlego08.essentials.commands.CommandLoader;
 import fr.maxlego08.essentials.commands.ZCommandManager;
 import fr.maxlego08.essentials.commands.commands.essentials.CommandEssentials;
-import fr.maxlego08.essentials.database.ZMigrationManager;
+import fr.maxlego08.essentials.database.migrations.CreateChatMessageMigration;
+import fr.maxlego08.essentials.database.migrations.CreateCommandsMigration;
+import fr.maxlego08.essentials.database.migrations.CreateEconomyTransactionMigration;
+import fr.maxlego08.essentials.database.migrations.CreateSanctionsTableMigration;
+import fr.maxlego08.essentials.database.migrations.CreateUserCooldownTableMigration;
+import fr.maxlego08.essentials.database.migrations.CreateUserEconomyMigration;
+import fr.maxlego08.essentials.database.migrations.CreateUserHomeTableMigration;
+import fr.maxlego08.essentials.database.migrations.CreateUserOptionTableMigration;
+import fr.maxlego08.essentials.database.migrations.CreateUserPlayTimeTableMigration;
+import fr.maxlego08.essentials.database.migrations.CreateUserTableMigration;
+import fr.maxlego08.essentials.database.migrations.UpdateUserTableAddSanctionColumns;
 import fr.maxlego08.essentials.economy.EconomyManager;
 import fr.maxlego08.essentials.hooks.VaultEconomy;
+import fr.maxlego08.essentials.kit.KitModule;
 import fr.maxlego08.essentials.listener.PlayerListener;
+import fr.maxlego08.essentials.loader.ButtonKitCooldownLoader;
+import fr.maxlego08.essentials.loader.ButtonKitGetLoader;
+import fr.maxlego08.essentials.loader.ButtonSanctionLoader;
 import fr.maxlego08.essentials.loader.ButtonWarpLoader;
 import fr.maxlego08.essentials.messages.MessageLoader;
 import fr.maxlego08.essentials.module.ZModuleManager;
+import fr.maxlego08.essentials.module.modules.HomeModule;
 import fr.maxlego08.essentials.placeholders.DistantPlaceholder;
 import fr.maxlego08.essentials.placeholders.LocalPlaceholder;
+import fr.maxlego08.essentials.server.PaperServer;
+import fr.maxlego08.essentials.server.SpigotServer;
+import fr.maxlego08.essentials.server.redis.RedisServer;
 import fr.maxlego08.essentials.storage.ConfigStorage;
 import fr.maxlego08.essentials.storage.ZStorageManager;
 import fr.maxlego08.essentials.storage.adapter.UserTypeAdapter;
-import fr.maxlego08.essentials.user.UserPlaceholders;
 import fr.maxlego08.essentials.user.ZUser;
+import fr.maxlego08.essentials.user.placeholders.UserHomePlaceholders;
+import fr.maxlego08.essentials.user.placeholders.UserKitPlaceholders;
+import fr.maxlego08.essentials.user.placeholders.UserPlaceholders;
+import fr.maxlego08.essentials.user.placeholders.UserPlayTimePlaceholders;
+import fr.maxlego08.essentials.zutils.Metrics;
 import fr.maxlego08.essentials.zutils.ZPlugin;
 import fr.maxlego08.essentials.zutils.utils.CommandMarkdownGenerator;
 import fr.maxlego08.essentials.zutils.utils.PlaceholderMarkdownGenerator;
 import fr.maxlego08.essentials.zutils.utils.ZServerStorage;
+import fr.maxlego08.essentials.zutils.utils.paper.PaperUtils;
+import fr.maxlego08.essentials.zutils.utils.spigot.SpigotUtils;
 import fr.maxlego08.menu.api.ButtonManager;
 import fr.maxlego08.menu.api.InventoryManager;
 import fr.maxlego08.menu.api.pattern.PatternManager;
 import fr.maxlego08.menu.button.loader.NoneLoader;
+import fr.maxlego08.sarah.MigrationManager;
 import org.bukkit.Location;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.permissions.Permissible;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.lang.reflect.Modifier;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin {
 
     private final UUID consoleUniqueId = UUID.fromString("00000000-0000-0000-0000-000000000000");
+    private EssentialsUtils essentialsUtils;
     private ServerStorage serverStorage = new ZServerStorage();
     private InventoryManager inventoryManager;
     private ButtonManager buttonManager;
     private PatternManager patternManager;
+    private EssentialsServer essentialsServer;
 
     @Override
     public void onEnable() {
 
         this.saveDefaultConfig();
+        this.saveOrUpdateConfiguration("config.yml");
 
         FoliaLib foliaLib = new FoliaLib(this);
         this.serverImplementation = foliaLib.getImpl();
+        this.essentialsUtils = isPaperVersion() ? new PaperUtils(this) : new SpigotUtils(this);
+        this.essentialsServer = isPaperVersion() ? new PaperServer(this) : new SpigotServer(this);
 
-        this.migrationManager = new ZMigrationManager(this);
-        this.migrationManager.registerMigration();
+        this.registerMigrations();
 
         this.placeholder = new LocalPlaceholder(this);
         DistantPlaceholder distantPlaceholder = new DistantPlaceholder(this, this.placeholder);
@@ -92,8 +137,8 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.persist = new Persist(this);
 
         // Configurations files
-        this.registerConfiguration(new MessageLoader(this));
         this.registerConfiguration(this.configuration = new MainConfiguration(this));
+        this.registerConfiguration(new MessageLoader(this));
 
         // Load configuration files
         this.configurationFiles.forEach(ConfigurationFile::load);
@@ -108,6 +153,14 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
         this.getLogger().info("Create " + this.commandManager.countCommands() + " commands.");
 
+        // Essentials Server
+        if (this.configuration.getServerType() == ServerType.REDIS) {
+            this.essentialsServer = new RedisServer(this);
+            this.getLogger().info("Using Redis server.");
+        }
+
+        this.essentialsServer.onEnable();
+
         // Storage
         this.storageManager = new ZStorageManager(this);
         this.registerListener(this.storageManager);
@@ -117,6 +170,11 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
         this.registerListener(new PlayerListener(this));
         this.registerPlaceholder(UserPlaceholders.class);
+        this.registerPlaceholder(UserHomePlaceholders.class);
+        this.registerPlaceholder(UserPlayTimePlaceholders.class);
+        this.registerPlaceholder(UserKitPlaceholders.class);
+
+        new Metrics(this, 21703);
 
         this.generateDocs();
     }
@@ -141,14 +199,41 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         if (this.storageManager != null) this.storageManager.onDisable();
         if (this.persist != null) ConfigStorage.getInstance().save(this.persist);
 
+        this.essentialsServer.onDisable();
+
     }
 
     private void registerButtons() {
 
-        this.buttonManager.register(new NoneLoader(this, ButtonTeleportationConfirm.class, "essentials_teleportation_confirm"));
-        this.buttonManager.register(new NoneLoader(this, ButtonPayConfirm.class, "essentials_pay_confirm"));
+        this.buttonManager.register(new NoneLoader(this, ButtonTeleportationConfirm.class, "zessentials_teleportation_confirm"));
+        this.buttonManager.register(new NoneLoader(this, ButtonPayConfirm.class, "zessentials_pay_confirm"));
+        this.buttonManager.register(new NoneLoader(this, ButtonHomes.class, "zessentials_homes"));
+        this.buttonManager.register(new NoneLoader(this, ButtonSanctionInformation.class, "zessentials_sanction_information"));
+        this.buttonManager.register(new NoneLoader(this, ButtonSanctions.class, "zessentials_sanctions"));
+        this.buttonManager.register(new NoneLoader(this, ButtonKitPreview.class, "zessentials_kit_preview"));
         this.buttonManager.register(new ButtonWarpLoader(this));
+        this.buttonManager.register(new ButtonSanctionLoader(this));
+        this.buttonManager.register(new ButtonKitCooldownLoader(this));
+        this.buttonManager.register(new ButtonKitGetLoader(this));
 
+    }
+
+    private void registerMigrations() {
+
+        MigrationManager.setMigrationTableName("zessentials_migrations");
+
+        // MigrationManager.registerMigration(new CreateServerStorageTableMigration());
+        MigrationManager.registerMigration(new CreateUserTableMigration());
+        MigrationManager.registerMigration(new CreateUserOptionTableMigration());
+        MigrationManager.registerMigration(new CreateUserCooldownTableMigration());
+        MigrationManager.registerMigration(new CreateUserEconomyMigration());
+        MigrationManager.registerMigration(new CreateEconomyTransactionMigration());
+        MigrationManager.registerMigration(new CreateUserHomeTableMigration());
+        MigrationManager.registerMigration(new CreateSanctionsTableMigration());
+        MigrationManager.registerMigration(new UpdateUserTableAddSanctionColumns());
+        MigrationManager.registerMigration(new CreateChatMessageMigration());
+        MigrationManager.registerMigration(new CreateCommandsMigration());
+        MigrationManager.registerMigration(new CreateUserPlayTimeTableMigration());
     }
 
     @Override
@@ -225,11 +310,6 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     }
 
     @Override
-    public MigrationManager getMigrationManager() {
-        return this.migrationManager;
-    }
-
-    @Override
     public boolean isEconomyEnable() {
         return this.economyProvider.isEnable();
     }
@@ -289,6 +369,106 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
     @Override
     public Optional<Warp> getWarp(String name) {
-        return getWarps().stream().filter(warp -> warp.getName().equalsIgnoreCase(name)).findFirst();
+        return getWarps().stream().filter(warp -> warp.name().equalsIgnoreCase(name)).findFirst();
+    }
+
+    @Override
+    public int getMaxHome(Permissible permissible) {
+        return this.moduleManager.getModule(HomeModule.class).getMaxHome(permissible);
+    }
+
+    @Override
+    public User getUser(UUID uniqueId) {
+        return this.storageManager.getStorage().getUser(uniqueId);
+    }
+
+    @Override
+    public EssentialsServer getEssentialsServer() {
+        return this.essentialsServer;
+    }
+
+    @Override
+    public EssentialsUtils getUtils() {
+        return this.essentialsUtils;
+    }
+
+    @Override
+    public void debug(String string) {
+        if (this.configuration.isEnableDebug()) {
+            this.getLogger().info(string);
+        }
+    }
+
+    @Override
+    public void openInventory(Player player, String inventoryName) {
+        this.inventoryManager.getInventory(this, inventoryName).ifPresent(inventory -> {
+            this.serverImplementation.runAtLocation(player.getLocation(), wrappedTask -> {
+                this.inventoryManager.getCurrentPlayerInventory(player).ifPresentOrElse(oldInventory -> {
+                    this.inventoryManager.openInventory(player, inventory, 1, oldInventory);
+                }, () -> this.inventoryManager.openInventory(player, inventory));
+            });
+        });
+    }
+
+
+    @Override
+    public void saveOrUpdateConfiguration(String resourcePath) {
+        this.saveOrUpdateConfiguration(resourcePath, resourcePath);
+    }
+
+    @Override
+    public void saveOrUpdateConfiguration(String resourcePath, String toPath) {
+
+        File file = new File(getDataFolder(), toPath);
+        if (!file.exists()) {
+            saveResource(resourcePath, toPath, false);
+            return;
+        }
+
+        FileConfiguration config = YamlConfiguration.loadConfiguration(file);
+
+        try {
+
+            InputStream inputStream = this.getResource(resourcePath);
+
+            if (inputStream == null) {
+                this.getLogger().severe("Cannot find file " + resourcePath);
+                return;
+            }
+
+            Reader defConfigStream = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+            YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
+
+
+            Set<String> defaultKeys = defConfig.getKeys(true);
+
+            boolean configUpdated = false;
+            for (String key : defaultKeys) {
+                if (!config.contains(key)) {
+                    configUpdated = true;
+                }
+            }
+
+            config.setDefaults(defConfig);
+            config.options().copyDefaults(true);
+
+            if (configUpdated) {
+                this.getLogger().info("Update file " + toPath);
+                config.save(file);
+            }
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    @Override
+    public Optional<Kit> getKit(String kitName) {
+        return this.moduleManager.getModule(KitModule.class).getKit(kitName);
+    }
+
+    @Override
+    public void giveKit(User user, Kit kit, boolean bypassCooldown) {
+        this.moduleManager.getModule(KitModule.class).giveKit(user, kit, bypassCooldown);
     }
 }

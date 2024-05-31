@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.modules.Module;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.zutils.utils.YamlLoader;
 import fr.maxlego08.menu.api.InventoryManager;
+import fr.maxlego08.menu.api.pattern.PatternManager;
 import fr.maxlego08.menu.exceptions.InventoryException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
@@ -17,6 +18,7 @@ public abstract class ZModule extends YamlLoader implements Module {
     protected final String name;
     protected boolean isEnable = false;
     protected boolean isRegisterEvent = true;
+    protected boolean copyAndUpdate = true;
 
     public ZModule(ZEssentialsPlugin plugin, String name) {
         this.plugin = plugin;
@@ -30,9 +32,14 @@ public abstract class ZModule extends YamlLoader implements Module {
         if (!folfer.exists()) {
             folfer.mkdirs();
         }
-        File configFile = new File(this.plugin.getDataFolder(), "modules/" + this.name + "/config.yml");
-        if (!configFile.exists()) {
-            this.plugin.saveResource("modules/" + name + "/config.yml", false);
+
+        if (this.copyAndUpdate) {
+            this.plugin.saveOrUpdateConfiguration("modules/" + this.name + "/config.yml");
+        } else {
+            File file = new File(getFolder(), "config.yml");
+            if (!file.exists()) {
+                this.plugin.saveResource("modules/" + this.name + "/config.yml", false);
+            }
         }
 
         YamlConfiguration configuration = getConfiguration();
@@ -76,7 +83,42 @@ public abstract class ZModule extends YamlLoader implements Module {
         }
     }
 
+    protected void loadPattern(String patternName) {
+        PatternManager patternManager = this.plugin.getPatternManager();
+
+        File file = new File(this.plugin.getDataFolder(), "patterns/" + patternName + ".yml");
+        if (!file.exists()) {
+            this.plugin.saveResource("patterns/" + patternName + ".yml", false);
+        }
+
+        try {
+            patternManager.loadPattern(file);
+        } catch (InventoryException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    protected void savePattern(String patternName) {
+        File file = new File(this.plugin.getDataFolder(), "patterns/" + patternName + ".yml");
+        if (!file.exists()) {
+            this.plugin.saveResource("patterns/" + patternName + ".yml", false);
+        }
+    }
+
     protected User getUser(Entity entity) {
         return this.plugin.getStorageManager().getStorage().getUser(entity.getUniqueId());
+    }
+
+    protected boolean isPaperVersion() {
+        try {
+            Class.forName("net.kyori.adventure.text.Component");
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
+    }
+
+    public boolean isCopyAndUpdate() {
+        return copyAndUpdate;
     }
 }

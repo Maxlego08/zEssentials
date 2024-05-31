@@ -1,8 +1,12 @@
 package fr.maxlego08.essentials.zutils.utils;
 
+import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.DefaultFontInfo;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.messages.MessageType;
+import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
+import fr.maxlego08.essentials.api.utils.ComponentMessage;
 import fr.maxlego08.menu.zcore.utils.nms.NMSUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -10,7 +14,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.regex.Matcher;
@@ -18,7 +21,11 @@ import java.util.regex.Pattern;
 
 public abstract class MessageUtils extends PlaceholderUtils {
 
-    protected final ComponentMessage componentMessage = new ComponentMessage();
+    protected final ComponentMessage componentMessage = ComponentMessageHelper.componentMessage;
+
+    protected void message(CommandSender sender, String message) {
+        sender.sendMessage(message);
+    }
 
     protected void message(User sender, Message message, Object... args) {
         message(sender.getPlayer(), message, args);
@@ -30,6 +37,21 @@ public abstract class MessageUtils extends PlaceholderUtils {
         message(player, message, args);
     }
 
+
+    protected void broadcast(Permission permission, Message message, Object... args) {
+        Bukkit.getOnlinePlayers().forEach(player -> {
+            if (player.hasPermission(permission.asPermission())) {
+                message(player, message, args);
+            }
+        });
+        message(Bukkit.getConsoleSender(), message, args);
+    }
+
+    protected void broadcast(Message message, Object... args) {
+        Bukkit.getOnlinePlayers().forEach(player -> message(player, message, args));
+        message(Bukkit.getConsoleSender(), message, args);
+    }
+
     protected void message(CommandSender sender, Message message, Object... args) {
 
         if (sender instanceof Player player) {
@@ -37,12 +59,12 @@ public abstract class MessageUtils extends PlaceholderUtils {
 
                 case TCHAT_AND_ACTION -> {
                     sendTchatMessage(sender, message, args);
-                    this.componentMessage.sendActionBar(sender, getMessage(message, args));
+                    this.componentMessage.sendActionBar(player, getMessage(message, args));
                 }
                 case ACTION -> {
-                    this.componentMessage.sendActionBar(sender, getMessage(message, args));
+                    this.componentMessage.sendActionBar(player, getMessage(message, args));
                 }
-                case TCHAT -> {
+                case TCHAT, WITHOUT_PREFIX -> {
                     sendTchatMessage(sender, message, args);
                 }
                 case TITLE -> {
@@ -66,12 +88,12 @@ public abstract class MessageUtils extends PlaceholderUtils {
         if (message.getMessages().size() > 0) {
             message.getMessages().forEach(msg -> this.componentMessage.sendMessage(sender, getMessage(msg, args)));
         } else {
-            this.componentMessage.sendMessage(sender, Message.PREFIX.getMessage() + getMessage(message, args));
+            this.componentMessage.sendMessage(sender, (message.getMessageType() == MessageType.WITHOUT_PREFIX ? "" : Message.PREFIX.getMessage()) + getMessage(message, args));
         }
     }
 
     protected String getMessage(Message message, Object... args) {
-        return getMessage(message.getMessage(), args);
+        return getMessage(message.getMessage() == null ? String.join("\n", message.getMessages()) : message.getMessage(), args);
     }
 
     protected String getMessage(String message, Object... args) {
@@ -123,7 +145,7 @@ public abstract class MessageUtils extends PlaceholderUtils {
         boolean isBold = false;
 
         for (char c : message.toCharArray()) {
-            if (c == "§".charAt(0)) {
+            if (c == '§') {
                 previousCode = true;
             } else if (previousCode) {
                 previousCode = false;

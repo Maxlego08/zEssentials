@@ -1,9 +1,14 @@
 package fr.maxlego08.essentials.listener;
 
+import fr.maxlego08.essentials.api.Configuration;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.Permission;
+import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
+import fr.maxlego08.essentials.zutils.utils.DynamicCooldown;
+import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
+import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
@@ -11,16 +16,19 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityTeleportEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
-public class PlayerListener implements Listener {
+public class PlayerListener extends ZUtils implements Listener {
 
     private final EssentialsPlugin plugin;
+    private final DynamicCooldown dynamicCooldown = new DynamicCooldown();
 
     public PlayerListener(EssentialsPlugin plugin) {
         this.plugin = plugin;
@@ -80,6 +88,58 @@ public class PlayerListener implements Listener {
         if (user == null) return;
 
         user.setLastLocation();
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onCommand(PlayerCommandPreprocessEvent event) {
+
+        Configuration configuration = this.plugin.getConfiguration();
+        long[] cooldownsArray = configuration.getCooldownCommands();
+        if (cooldownsArray.length == 0) return;
+        Player player = event.getPlayer();
+        double cooldown = handleCooldown(player, cooldownsArray);
+        if (cooldown != 0 && !hasPermission(player, Permission.ESSENTIALS_COOLDOWN_COMMAND_BYPASS)) {
+            message(player, Message.COOLDOWN_COMMANDS, "%cooldown%", TimerBuilder.getStringTime(cooldown));
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onCommandHighest(PlayerCommandPreprocessEvent event) {
+
+        Configuration configuration = this.plugin.getConfiguration();
+        if (configuration.isEnableCommandLog()) {
+            this.plugin.getStorageManager().getStorage().insertCommand(event.getPlayer().getUniqueId(), event.getMessage());
+        }
+    }
+
+    private double handleCooldown(Player player, long[] cooldownsArray) {
+
+        long wait;
+
+        synchronized (this.dynamicCooldown) {
+            wait = this.dynamicCooldown.limited(player.getUniqueId(), cooldownsArray);
+            if (wait == 0L) this.dynamicCooldown.add(player.getUniqueId());
+        }
+
+        return wait != 0L ? wait : 0.0;
+    }
+
+    @EventHandler
+    public void onJoin(PlayerJoinEvent event) {
+
+        User user = this.plugin.getUser(event.getPlayer().getUniqueId());
+        if (user == null) return;
+        user.startCurrentSessionPlayTime();
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onQuid(PlayerQuitEvent event) {
+        User user = this.plugin.getUser(event.getPlayer().getUniqueId());
+        if (user == null) return;
+        long sessionPlayTime = (System.currentTimeMillis() - user.getCurrentSessionPlayTime()) / 1000;
+        long playtime = user.getPlayTime();
+        this.plugin.getStorageManager().getStorage().insertPlayTime(user.getUniqueId(), sessionPlayTime, playtime, user.getAddress());
     }
 
 }

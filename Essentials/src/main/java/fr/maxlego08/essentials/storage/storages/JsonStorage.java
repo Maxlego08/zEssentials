@@ -1,22 +1,36 @@
 package fr.maxlego08.essentials.storage.storages;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.database.dto.ChatMessageDTO;
+import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
+import fr.maxlego08.essentials.api.database.dto.HomeDTO;
+import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
+import fr.maxlego08.essentials.api.database.dto.UserDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
+import fr.maxlego08.essentials.api.home.Home;
+import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
+import fr.maxlego08.essentials.api.user.UserRecord;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.utils.StorageHelper;
+import org.apache.commons.lang3.NotImplementedException;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 import java.util.function.Consumer;
 
 public class JsonStorage extends StorageHelper implements IStorage {
@@ -118,6 +132,11 @@ public class JsonStorage extends StorageHelper implements IStorage {
     }
 
     @Override
+    public void deleteCooldown(UUID uniqueId, String key) {
+        this.saveFileAsync(uniqueId);
+    }
+
+    @Override
     public void updateUserMoney(UUID uniqueId, Consumer<User> consumer) {
         User loadUser = createOrLoad(uniqueId, "offline");
         consumer.accept(loadUser);
@@ -181,5 +200,124 @@ public class JsonStorage extends StorageHelper implements IStorage {
     @Override
     public void upsertStorage(String key, Object value) {
 
+    }
+
+    @Override
+    public void upsertHome(UUID uniqueId, Home home) {
+        User user = getUser(uniqueId);
+        if (user == null) {
+            user = createOrLoad(uniqueId, "");
+            user.setHomes(List.of(new HomeDTO(locationAsString(home.getLocation()), home.getName(), home.getMaterial() == null ? null : home.getMaterial().name())));
+            User finalUser = user;
+            this.plugin.getScheduler().runAsync(wrappedTask -> {
+                Persist persist = this.plugin.getPersist();
+                persist.save(finalUser, getUserFile(uniqueId));
+            });
+            return;
+        }
+        this.saveFileAsync(uniqueId);
+    }
+
+    @Override
+    public void deleteHome(UUID uniqueId, String name) {
+        User user = getUser(uniqueId);
+        if (user == null) {
+            user = createOrLoad(uniqueId, "");
+            user.removeHome(name);
+            User finalUser = user;
+            this.plugin.getScheduler().runAsync(wrappedTask -> {
+                Persist persist = this.plugin.getPersist();
+                persist.save(finalUser, getUserFile(uniqueId));
+            });
+            return;
+        }
+        this.saveFileAsync(uniqueId);
+    }
+
+    @Override
+    public CompletableFuture<List<Home>> getHome(UUID uuid, String homeName) {
+        CompletableFuture<List<Home>> future = new CompletableFuture<>();
+        future.complete(createOrLoad(uuid, "").getHomes().stream().filter(home -> home.getName().equalsIgnoreCase(homeName)).toList());
+        return future;
+    }
+
+    @Override
+    public CompletionStage<List<Home>> getHomes(UUID uuid) {
+        CompletableFuture<List<Home>> future = new CompletableFuture<>();
+        future.complete(createOrLoad(uuid, "").getHomes());
+        return future;
+    }
+
+    @Override
+    public void insertSanction(Sanction sanction, Consumer<Integer> consumer) {
+        throw new NotImplementedException("insertSanction is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public void updateUserBan(UUID uuid, Integer index) {
+        throw new NotImplementedException("updateUserBan is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public void updateUserMute(UUID uuid, Integer index) {
+        throw new NotImplementedException("updateMuteBan is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public boolean isMute(UUID uuid) {
+        throw new NotImplementedException("isMute is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public Sanction getMute(UUID uuid) {
+        throw new NotImplementedException("getMute is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public List<SanctionDTO> getSanctions(UUID uuid) {
+        throw new NotImplementedException("getSanctions is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public void insertChatMessage(UUID uuid, String content) {
+        // throw new NotImplementedException("insertChatMessage is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public void insertCommand(UUID uuid, String command) {
+        // throw new NotImplementedException("insertCommand is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public void insertPlayTime(UUID uniqueId, long sessionPlayTime, long playtime, String address) {
+        // throw new NotImplementedException("insertPlayTime is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public UserRecord fetchUserRecord(UUID uuid) {
+        throw new NotImplementedException("UserRecord is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public List<UserDTO> getUsers(String ip) {
+        throw new NotImplementedException("getUsers is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public List<ChatMessageDTO> getMessages(UUID targetUuid) {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public Map<Option, Boolean> getOptions(UUID uuid) {
+        if (this.users.containsKey(uuid)) {
+            return this.users.get(uuid).getOptions();
+        }
+        return new HashMap<>();
+    }
+
+    @Override
+    public List<CooldownDTO> getCooldowns(UUID uniqueId) {
+        return new ArrayList<>();
     }
 }

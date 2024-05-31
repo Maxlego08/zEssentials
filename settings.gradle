@@ -12,3 +12,6 @@ project(':EssentialsChat').projectDir = file("EssentialsChat")
 include 'Hooks:Vault'
 project(':Hooks:Vault').projectDir = file("Hooks/Vault")
 
+include 'Hooks:Redis'
+project(':Hooks:Redis').projectDir = file("Hooks/Redis")
+

@@ -16,7 +16,7 @@ public class CommandTeleportTo extends VCommand {
         this.setModule(TeleportationModule.class);
         this.setPermission(Permission.ESSENTIALS_TPA);
         this.setDescription(Message.DESCRIPTION_TPA);
-        this.addRequireArg("player");
+        this.addRequirePlayerNameArg();
         this.onlyPlayers();
     }
 

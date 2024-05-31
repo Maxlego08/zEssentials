@@ -5,7 +5,9 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
+import fr.maxlego08.essentials.api.database.dto.HomeDTO;
 import fr.maxlego08.essentials.api.database.dto.OptionDTO;
+import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.user.ZUser;
@@ -14,7 +16,10 @@ import org.bukkit.Location;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -58,6 +63,18 @@ public class UserTypeAdapter extends TypeAdapter<User> {
         }
         out.endObject();
 
+        out.name("homes").beginArray();
+        for (Home home : value.getHomes()) {
+            out.beginObject();
+            out.name("name").value(home.getName());
+            out.name("location").value(locationUtils.locationAsString(home.getLocation()));
+            if (home.getMaterial() != null) {
+                out.name("material").value(home.getMaterial().name());
+            }
+            out.endObject();
+        }
+        out.endArray();
+
 
         out.endObject();
     }
@@ -69,6 +86,7 @@ public class UserTypeAdapter extends TypeAdapter<User> {
         Map<Option, Boolean> options = new HashMap<>();
         Map<String, Long> cooldowns = new HashMap<>();
         Map<String, BigDecimal> balances = new HashMap<>();
+        List<HomeDTO> homeDTOS = new ArrayList<>();
         Location lastLocation = null;
 
         in.beginObject();
@@ -100,6 +118,26 @@ public class UserTypeAdapter extends TypeAdapter<User> {
                     }
                     in.endObject();
                 }
+                case "homes" -> {
+                    in.beginArray();
+                    while (in.hasNext()) {
+                        in.beginObject();
+                        String homeName = null;
+                        String location = null;
+                        String material = null;
+                        while (in.hasNext()) {
+                            switch (in.nextName()) {
+                                case "name" -> homeName = in.nextString();
+                                case "location" -> location = in.nextString();
+                                case "material" -> material = in.nextString();
+                            }
+                        }
+                        in.endObject();
+                        homeDTOS.add(new HomeDTO(location, homeName, material));
+                    }
+                    in.endArray();
+                }
+
             }
         }
         in.endObject();
@@ -112,9 +150,10 @@ public class UserTypeAdapter extends TypeAdapter<User> {
 
         // Now, set the other properties
         user.setName(name);
-        user.setOptions(options.entrySet().stream().map(e -> new OptionDTO(e.getKey(), e.getValue())).collect(Collectors.toList()));
-        user.setCooldowns(cooldowns.entrySet().stream().map(e -> new CooldownDTO(e.getKey(), e.getValue())).collect(Collectors.toList()));
+        user.setOptions(options.entrySet().stream().map(entry -> new OptionDTO(entry.getKey(), entry.getValue())).collect(Collectors.toList()));
+        user.setCooldowns(cooldowns.entrySet().stream().map(entry -> new CooldownDTO(entry.getKey(), entry.getValue(), new Date())).collect(Collectors.toList()));
         user.setLastLocation(lastLocation);
+        user.setHomes(homeDTOS);
         balances.forEach(user::setBalance);
 
         return user;

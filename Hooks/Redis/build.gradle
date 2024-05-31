@@ -1,0 +1,10 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+dependencies {
+    compileOnly project(':EssentialsApi')
+}

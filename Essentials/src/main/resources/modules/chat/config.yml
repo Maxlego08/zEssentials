@@ -1,0 +1,114 @@
+########################################################################################################################
+#
+# ░█████╗░██╗░░██╗░█████╗░████████╗
+# ██╔══██╗██║░░██║██╔══██╗╚══██╔══╝
+# ██║░░╚═╝███████║███████║░░░██║░░░
+# ██║░░██╗██╔══██║██╔══██║░░░██║░░░
+# ╚█████╔╝██║░░██║██║░░██║░░░██║░░░
+# ░╚════╝░╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░
+#
+# Permissions
+# essentials.chat.bypass.alphanumeric - Allows bypass check alphanumeric
+# essentials.chat.bypass.dynamic.cooldown - Allows bypass dynamic cooldown
+# essentials.chat.bypass.link - Allows bypass link
+# essentials.chat.bypass.same.message - Allows bypass same message
+# essentials.chat.bypass.disable - Allows bypass disable
+# essentials.chat.moderator - Allows to display the moderator-action
+# essentials.chat.color - Allows color format https://docs.advntr.dev/minimessage/format.html#color
+# essentials.chat.decoration - Allows decoration format https://docs.advntr.dev/minimessage/format.html#decoration
+# essentials.chat.rainbow - Allows rainbow format https://docs.advntr.dev/minimessage/format.html#rainbow
+# essentials.chat.gradient - Allows gradient format https://docs.advntr.dev/minimessage/format.html#gradient
+# essentials.chat.click - Allows click format https://docs.advntr.dev/minimessage/format.html#click
+# essentials.chat.hover - Allows hover format https://docs.advntr.dev/minimessage/format.html#hover
+# essentials.chat.newline - Allows newline format https://docs.advntr.dev/minimessage/format.html#newline
+# essentials.chat.reset - Allows reset format https://docs.advntr.dev/minimessage/format.html#reset
+# essentials.chat.font - Allows font format https://docs.advntr.dev/minimessage/format.html#font
+# essentials.chat.keybind - Allows keybind format https://docs.advntr.dev/minimessage/format.html#keybind
+# essentials.chat.link - Turns your links into clickable links automatically
+#
+########################################################################################################################
+
+enable: true
+
+# Enables verification of authorized characters in chat
+enable-alphanumeric-regex: true
+
+# Check whether the message contains links
+enable-link-regex: true
+
+# Remove images that players are trying to put in the chat, for example: the message 'hey:auction:' will become: 'hey auction'
+enable-itemadders-font-regex: true
+
+# Allows to apply a dynamic cooldown between each message of a player, the more the player will spam the more he will have a great cooldown
+enable-chat-dynamic-cooldown: true
+
+# Check player tries to put the same message multiple times
+enable-same-message-cancel: true
+
+# Apply a format to the chat, disabled on if you want another plugin to handle this
+enable-chat-format: true
+
+# Turns links into clickable links if the player has the essentials.chat.link permission, the player must also have permission: essentials.chat.click
+# check out link-transform
+enable-link-transform: true
+
+# Stores all player messages in the database. Works only with MYSQL storage
+# Also provides access to all player messages with /sc command
+enable-chat-messages: true
+
+# Regex to check allowed characters
+# You can test the regex here before changing the default one: https://regex101.com/
+alphanumeric-regex: '^[a-zA-Z0-9_.?!^¨%ù*&é"#''{(\[-|èêë`\\çà)\]=}ûî+<>:²€$/\\-\\,-â@;ô ]+$'
+
+# Regex to check links
+# You can test the regex here before changing the default one: https://regex101.com/
+link-regex: '[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)'
+
+# Regex to check itemAdders font
+itemadders-font-regex: '(?<=:)(.*?)(?=\s*\:)'
+
+# Set the number of messages and cooldown between each message in milliseconds
+# The faster the player will send message the faster the cooldown between each message will be
+chat-cooldowns:
+  - messages: 2
+    cooldown: 1500 # max 1.5s
+  - messages: 4
+    cooldown: 12000 # max 12s
+  - messages: 10
+    cooldown: 60000 # max 60s
+
+# Number of messages that will be in memory to be analyzed during the cooldown
+chat-cooldown-max: 50
+
+# Chat format with permissions
+#
+# Use https://webui.advntr.dev/ to create your format quickly
+#
+# Available placeholder (you can use PlaceholderAPI here):
+# %player% - Player's name
+# %displayName% - Player's display name
+# <message> - Player's message, Attention for message it's not %message% !
+# %moderator_action% - Moderation action, see moderator-action
+chat-formats:
+  - priority: 1
+    permission: "essentials.chat.format.vip"
+    format: "<hover:show_text:'&cReport this message'><click:run_command:'/report %player% chat'><#ff0000>⚠</click></hover> %moderator_action%<#ffffff><hover:show_text:'#ffd353ℹ Informations#3f3f3f:<newline>#3f3f3f• &7Money#3f3f3f: #4cd5ff%zessentials_user_formatted_balance_money%<newline>#3f3f3f• &7Coins#3f3f3f: #4cd5ff%zessentials_user_formatted_balance_coins%<newline><newline>&f➥ &7Click for more information'>%player%</hover> <#333333>» <#ffff6b><click:suggest_command:'/msg %player% '><hover:show_text:'&fSend a private message'><message></hover></click>"
+  - priority: 2
+    permission: "essentials.chat.format.admin"
+    format: "<#ffffff><hover:show_text:'#ffd353ℹ Informations#3f3f3f:<newline>#3f3f3f• &7Money#3f3f3f: #4cd5ff%zessentials_user_formatted_balance_money%<newline>#3f3f3f• &7Coins#3f3f3f: #4cd5ff%zessentials_user_formatted_balance_coins%<newline><newline>&f➥ &7Click for more information'>%player%</hover> <#333333>» <#ff4444><click:suggest_command:'/msg %player% '><hover:show_text:'&fSend a private message'><message></hover></click>"
+
+# Default chat format
+default-chat-format: "<hover:show_text:'&cReport this message'><click:run_command:'/report %player% chat'><#ff0000>⚠</click></hover> %moderator_action%<#ffffff><hover:show_text:'#ffd353ℹ Informations#3f3f3f:<newline>#3f3f3f• &7Money#3f3f3f: #4cd5ff%zessentials_user_formatted_balance_money%<newline>#3f3f3f• &7Coins#3f3f3f: #4cd5ff%zessentials_user_formatted_balance_coins%<newline><newline>&f➥ &7Click for more information'>%player%</hover> <#333333>» <gray><click:suggest_command:'/msg %player% '><hover:show_text:'&fSend a private message'><message></hover></click>"
+
+# Allows players who have the essentials.chat.moderator permission to have a different view from other players.
+# By default, moderators will have a button to punish the player
+#
+# Available placeholder (you can use PlaceholderAPI here):
+# %player% - Player's name
+moderator-action: "<hover:show_text:'<#ff8888>Punish the player'><click:run_command:'/sc %player%'><#ff8888>✗</click></hover> "
+
+# Turns a link into a clickable link by players
+link-transform: "<hover:show_text:'&fOpen the link'><click:open_url:'%url%'>%url%</click></hover>"
+
+# Date format for /chathistory
+date-format: "yyyy-MM-dd HH:mm:ss"

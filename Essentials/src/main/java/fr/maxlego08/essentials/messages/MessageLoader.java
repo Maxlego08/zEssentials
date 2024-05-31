@@ -41,16 +41,14 @@ public class MessageLoader implements ConfigurationFile {
     }
 
     private void copyFile(File file) {
-        if (!file.exists()) {
 
-            String messageFileName = "messages";
-            String localMessageName = "messages_" + locale.getLanguage();
-            if (this.plugin.resourceExist("messages/" + localMessageName + ".yml")) {
-                messageFileName = localMessageName;
-            }
-
-            this.plugin.saveResource("messages/" + messageFileName + ".yml", "messages.yml", false);
+        String messageFileName = "messages";
+        String localMessageName = "messages_" + locale.getLanguage();
+        if (this.plugin.resourceExist("messages/" + localMessageName + ".yml")) {
+            messageFileName = localMessageName;
         }
+
+        this.plugin.saveOrUpdateConfiguration("messages/" + messageFileName + ".yml", "messages.yml");
     }
 
     private void loadMessages(YamlConfiguration configuration) {
@@ -63,19 +61,20 @@ public class MessageLoader implements ConfigurationFile {
             try {
 
                 Message message = Message.valueOf(messageKey);
+
                 if (configuration.contains(key + ".type")) {
 
                     MessageType messageType = MessageType.valueOf(configuration.getString(key + ".type", "TCHAT").toUpperCase());
                     message.setMessageType(messageType);
                     switch (messageType) {
                         case ACTION, TCHAT_AND_ACTION -> {
-                            message.setMessage(configuration.getString(key + ".message"));
+                            message.setMessage(replaceMessagesColors(configuration.getString(key + ".message")));
                         }
-                        case CENTER, TCHAT -> {
-                            List<String> messages = configuration.getStringList(key + ".messages");
+                        case CENTER, TCHAT, WITHOUT_PREFIX -> {
+                            List<String> messages = replaceMessagesColors(configuration.getStringList(key + ".messages"));
                             if (messages.isEmpty()) {
-                                message.setMessage(configuration.getString(key + "message"));
-                            } else message.setMessages(messages);
+                                message.setMessage(replaceMessagesColors(configuration.getString(key + ".message")));
+                            } else message.setMessages(replaceMessagesColors(messages));
                         }
                     }
 
@@ -83,8 +82,8 @@ public class MessageLoader implements ConfigurationFile {
                     message.setMessageType(MessageType.TCHAT);
                     List<String> messages = configuration.getStringList(key);
                     if (messages.isEmpty()) {
-                        message.setMessage(configuration.getString(key));
-                    } else message.setMessages(messages);
+                        message.setMessage(replaceMessagesColors(configuration.getString(key)));
+                    } else message.setMessages(replaceMessagesColors(messages));
                 }
 
                 this.loadedMessages.add(message);
@@ -95,4 +94,14 @@ public class MessageLoader implements ConfigurationFile {
             }
         }
     }
+
+    private String replaceMessagesColors(String message) {
+        return this.plugin.getConfiguration().getMessageColors().stream().reduce(message, (msg, color) -> msg.replace(color.key(), color.color()), (msg1, msg2) -> msg1);
+    }
+
+    private List<String> replaceMessagesColors(List<String> messages) {
+        return messages.stream().map(this::replaceMessagesColors).toList();
+    }
+
+
 }

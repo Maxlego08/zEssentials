@@ -1,5 +1,4 @@
 name: zEssentials
-prefix: zEssentials
 version: '${version}'
 main: fr.maxlego08.essentials.ZEssentialsPlugin
 folia-supported: true

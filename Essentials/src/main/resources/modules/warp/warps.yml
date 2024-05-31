@@ -2,7 +2,7 @@ name: '#3f3f3fᴡᴀʀᴘѕ'
 size: 27
 items:
   example:
-    type: ESSENTIALS_WARP
+    type: ZESSENTIALS_WARP
     warp: example
     slot: 13
     item:

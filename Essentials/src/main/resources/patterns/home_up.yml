@@ -1,0 +1,43 @@
+name: "ESSENTIALS_HOME_UP"
+type: BUTTON
+button:
+  slot: '%slot%'
+  view_requirement:
+    requirements:
+      - type: placeholder
+        placeholder: "%zessentials_home_max%"
+        value: '%home%'
+        action: LOWER
+  item:
+    material: RED_BED
+    name: '#ff0000ɴᴏ ᴘᴇʀᴍɪssɪᴏɴ'
+    lore:
+      - '#fcfcfcYou need a higher rank for this home'
+
+  else:
+    view_requirement:
+      requirements:
+        - type: placeholder
+          placeholder: "%zessentials_home_exist_home_%remove_one_home%%"
+          value: false
+          action: BOOLEAN
+
+    commands:
+      - 'sethome home_%zessentials_home_count%'
+    closeInventory: true
+
+    item:
+      material: LIGHT_GRAY_BED
+      name: '#cfcfcfɴᴏ ʜᴏᴍᴇ sᴇᴛ'
+      lore:
+        - '#fcfcfc- Click to create a home'
+
+    else:
+      closeInventory: true
+      commands:
+        - 'home home_%remove_one_home%'
+      item:
+        material: LIGHT_BLUE_BED
+        name: '#00a4fcʜᴏᴍᴇ %home%'
+        lore:
+          - '#fcfcfcClick to teleport to your home'

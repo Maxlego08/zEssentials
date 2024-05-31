@@ -6,13 +6,13 @@ import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.EssentialsCommand;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
-import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
+import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -182,6 +182,10 @@ public class ZCommandManager extends ZUtils implements CommandManager {
 
             if (!commandMap.register(command.getName(), plugin.getDescription().getName(), command)) {
                 plugin.getLogger().info("Unable to add the command " + vCommand.getSyntax());
+            }
+
+            if (vCommand.getPermission() != null) {
+                Bukkit.getPluginManager().addPermission(new Permission(vCommand.getPermission(), vCommand.getDescription() == null ? "No description" : vCommand.getDescription()));
             }
         } catch (Exception exception) {
             exception.printStackTrace();
