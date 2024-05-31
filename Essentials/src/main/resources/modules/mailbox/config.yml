@@ -13,4 +13,6 @@
 
 enable: true
 
+# The expiration time of items when added to the mailbox
+# If the player does not recover his items with expiration they will be deleted permanently.
 expiration: 86400

@@ -42,6 +42,8 @@ command-no-arg: "<error>Impossible to find the command with its arguments."
 command-syntaxe-help: "&f%syntax% #656665» &7%description%"
 
 command-reload: "#00ff40You have just reloaded the configuration files."
+command-reload-module: "<success>You have just reloaded the configuration files of the module &f%module%<success>."
+command-reload-error: "&f%module% <error>was not found !"
 command-essentials: "&ezEssentials&8, &eVersion &f%version%"
 
 
@@ -288,7 +290,7 @@ description-repair-all: "Repair all items in your inventory"
 description-ext: "Stop burning"
 description-near: "Show players close to you"
 description-play-time: "Show player's playtime"
-description-bottom: "Teleporting to top"
+description-bottom: "Teleporting to bottom"
 description-compact-all: "Compact items in your inventories"
 description-version: "Show plugin version"
 description-kill-all: "Kill entities"
