@@ -518,7 +518,23 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         Map<Integer, ItemStack> result = inventory.addItem(itemStack);
         if (result.isEmpty()) return;
 
-        result.values().forEach(item -> moduleManager.getModule(MailBoxModule.class).addItem(player.getUniqueId(), item));
+        MailBoxModule mailBoxModule = this.moduleManager.getModule(MailBoxModule.class);
+        result.values().forEach(item -> {
+            int amount = itemStack.getAmount();
+            if (amount > itemStack.getMaxStackSize()) {
+                while (amount > 0) {
+                    int currentAmount = Math.min(itemStack.getMaxStackSize(), amount);
+                    amount -= currentAmount;
+
+                    ItemStack clonedItemStacks = item.clone();
+                    clonedItemStacks.setAmount(currentAmount);
+
+                    mailBoxModule.addItem(player.getUniqueId(), clonedItemStacks);
+                }
+            } else {
+                mailBoxModule.addItem(player.getUniqueId(), item);
+            }
+        });
     }
 
     @Override

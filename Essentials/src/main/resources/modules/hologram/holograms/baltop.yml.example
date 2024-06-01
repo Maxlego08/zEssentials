@@ -24,34 +24,34 @@ lines:
 - line: 1
   text: '#00f986ᴍᴏsᴛ ᴍᴏɴᴇʏ'
 - line: 2
-  text: ' #00f986#1 &f%zessentials_center_::zessentials_economy_baltop_name_money_1::&7|::zessentials_economy_baltop_formatted_amount_money_1::|120%'
+  text: ' #00f986#1 &f%zessentials_center_{zessentials_economy_baltop_name_money_1}&7_{zessentials_economy_baltop_formatted_amount_money_1}_120%'
   event: fr.maxlego08.essentials.api.event.events.economy.EconomyBaltopUpdateEvent
 - line: 3
-  text: ' #00f986#2 &f%zessentials_center_::zessentials_economy_baltop_name_money_2::&7|::zessentials_economy_baltop_formatted_amount_money_2::|120%'
+  text: ' #00f986#2 &f%zessentials_center_{zessentials_economy_baltop_name_money_2}&7_{zessentials_economy_baltop_formatted_amount_money_2}_120%'
   event: fr.maxlego08.essentials.api.event.events.economy.EconomyBaltopUpdateEvent
 - line: 4
-  text: ' #00f986#3 &f%zessentials_center_::zessentials_economy_baltop_name_money_3::&7|::zessentials_economy_baltop_formatted_amount_money_3::|120%'
+  text: ' #00f986#3 &f%zessentials_center_{zessentials_economy_baltop_name_money_3}&7_{zessentials_economy_baltop_formatted_amount_money_3}_120%'
   event: fr.maxlego08.essentials.api.event.events.economy.EconomyBaltopUpdateEvent
 - line: 5
-  text: ' #00f986#4 &f%zessentials_center_::zessentials_economy_baltop_name_money_4::&7|::zessentials_economy_baltop_formatted_amount_money_4::|120%'
+  text: ' #00f986#4 &f%zessentials_center_{zessentials_economy_baltop_name_money_4}&7_{zessentials_economy_baltop_formatted_amount_money_4}_120%'
   event: fr.maxlego08.essentials.api.event.events.economy.EconomyBaltopUpdateEvent
 - line: 6
-  text: ' #00f986#5 &f%zessentials_center_::zessentials_economy_baltop_name_money_5::&7|::zessentials_economy_baltop_formatted_amount_money_5::|120%'
+  text: ' #00f986#5 &f%zessentials_center_{zessentials_economy_baltop_name_money_5}&7_{zessentials_economy_baltop_formatted_amount_money_5}_120%'
   event: fr.maxlego08.essentials.api.event.events.economy.EconomyBaltopUpdateEvent
 - line: 7
-  text: ' #00f986#6 &f%zessentials_center_::zessentials_economy_baltop_name_money_6::&7|::zessentials_economy_baltop_formatted_amount_money_6::|120%'
+  text: ' #00f986#6 &f%zessentials_center_{zessentials_economy_baltop_name_money_6}&7_{zessentials_economy_baltop_formatted_amount_money_6}_120%'
   event: fr.maxlego08.essentials.api.event.events.economy.EconomyBaltopUpdateEvent
 - line: 8
-  text: ' #00f986#7 &f%zessentials_center_::zessentials_economy_baltop_name_money_7::&7|::zessentials_economy_baltop_formatted_amount_money_7::|120%'
+  text: ' #00f986#7 &f%zessentials_center_{zessentials_economy_baltop_name_money_7}&7_{zessentials_economy_baltop_formatted_amount_money_7}_120%'
   event: fr.maxlego08.essentials.api.event.events.economy.EconomyBaltopUpdateEvent
 - line: 9
-  text: ' #00f986#8 &f%zessentials_center_::zessentials_economy_baltop_name_money_8::&7|::zessentials_economy_baltop_formatted_amount_money_8::|120%'
+  text: ' #00f986#8 &f%zessentials_center_{zessentials_economy_baltop_name_money_8}&7_{zessentials_economy_baltop_formatted_amount_money_8}_120%'
   event: fr.maxlego08.essentials.api.event.events.economy.EconomyBaltopUpdateEvent
 - line: 10
-  text: ' #00f986#9 &f%zessentials_center_::zessentials_economy_baltop_name_money_9::&7|::zessentials_economy_baltop_formatted_amount_money_9::|120%'
+  text: ' #00f986#9 &f%zessentials_center_{zessentials_economy_baltop_name_money_9}&7_{zessentials_economy_baltop_formatted_amount_money_9}_120%'
   event: fr.maxlego08.essentials.api.event.events.economy.EconomyBaltopUpdateEvent
 - line: 11
-  text: '#00f986#10 &f%zessentials_center_::zessentials_economy_baltop_name_money_10::&7|::zessentials_economy_baltop_formatted_amount_money_10::|120%'
+  text: '#00f986#10 &f%zessentials_center_{zessentials_economy_baltop_name_money_10}&7_{zessentials_economy_baltop_formatted_amount_money_10}_120%'
   event: fr.maxlego08.essentials.api.event.events.economy.EconomyBaltopUpdateEvent
 - line: 12
   text: ''

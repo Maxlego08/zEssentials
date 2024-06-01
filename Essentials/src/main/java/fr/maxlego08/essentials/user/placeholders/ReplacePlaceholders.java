@@ -8,6 +8,8 @@ import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.placeholders.PlaceholderRegister;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class ReplacePlaceholders extends ZUtils implements PlaceholderRegister {
@@ -28,17 +30,47 @@ public class ReplacePlaceholders extends ZUtils implements PlaceholderRegister {
 
         placeholder.register("center_", (player, args) -> {
 
-            String[] values = args.split("\\|");
-            if (values.length != 3) return "The format is invalid! Please try again";
+            List<String> values = splitIgnoringBraces(args).stream().map(e -> e.replace("{", "%").replace("}", "%")).toList();
+            if (values.size() != 3) return "The format is invalid! Please try again";
 
             try {
-                String start = PapiHelper.papi(values[0].replaceAll("::", "%"), player);
-                String end = PapiHelper.papi(values[1].replaceAll("::", "%"), player);
-                int size = Integer.parseInt(values[2]);
+                String start = PapiHelper.papi(values.get(0), player);
+                String end = PapiHelper.papi(values.get(1), player);
+                int size = Integer.parseInt(values.get(2));
                 return MessageHelper.getFormattedString(start, end, size);
             } catch (Exception exception) {
                 return "The format is invalid! Please try again";
             }
-        }, "Transforms two placeholders to add space between them. This allows to create texts that will have the same space between the name of the player and his score for example.", "arguments");
+        }, "Transforms two placeholders to add space between them. This allows to create texts that will have the same space between the name of the player and his score for example.", "first text", "second text", "text length");
     }
+
+    public List<String> splitIgnoringBraces(String input) {
+        List<String> result = new ArrayList<>();
+        StringBuilder current = new StringBuilder();
+        boolean insideBraces = false;
+
+        for (char c : input.toCharArray()) {
+            if (c == '{') {
+                insideBraces = true;
+            } else if (c == '}') {
+                insideBraces = false;
+            }
+
+            if (c == '_' && !insideBraces) {
+                if (current.length() > 0) {
+                    result.add(current.toString());
+                    current.setLength(0);
+                }
+            } else {
+                current.append(c);
+            }
+        }
+
+        if (current.length() > 0) {
+            result.add(current.toString());
+        }
+
+        return result;
+    }
+
 }

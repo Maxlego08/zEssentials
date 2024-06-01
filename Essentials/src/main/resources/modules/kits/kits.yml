@@ -27,7 +27,7 @@ items:
         lore:
           - ''
           - '#ffd353ℹ Informations#3f3f3f:'
-          - '#3f3f3f• &7Cooldown#3f3f3f: #4cd5ff%cooldown%'
+          - '#3f3f3f• &7Cooldown#3f3f3f: #43ff15Available !'
           - ''
           - '&f➥ &nLeft Click&r&7 to get the kit'
           - '&f➦ &nRight Click&r&7 to view the contents'
@@ -69,7 +69,7 @@ items:
         lore:
           - ''
           - '#ffd353ℹ Informations#3f3f3f:'
-          - '#3f3f3f• &7Cooldown#3f3f3f: #4cd5ff%cooldown%'
+          - '#3f3f3f• &7Cooldown#3f3f3f: #43ff15Available !'
           - ''
           - '&f➥ &nLeft Click&r&7 to get the kit'
           - '&f➦ &nRight Click&r&7 to view the contents'
@@ -111,7 +111,7 @@ items:
         lore:
           - ''
           - '#ffd353ℹ Informations#3f3f3f:'
-          - '#3f3f3f• &7Cooldown#3f3f3f: #4cd5ff%cooldown%'
+          - '#3f3f3f• &7Cooldown#3f3f3f: #43ff15Available !'
           - ''
           - '&f➥ &nLeft Click&r&7 to get the kit'
           - '&f➦ &nRight Click&r&7 to view the contents'

@@ -31,17 +31,18 @@ public class MailBoxModule extends ZModule {
 
     public void addItem(UUID uuid, ItemStack itemStack) {
 
-        MailBoxItem mailBoxItem = new MailBoxItem(uuid, itemStack, new Date(System.currentTimeMillis() + expiration));
+        MailBoxItem mailBoxItem = new MailBoxItem(uuid, itemStack, new Date(System.currentTimeMillis() + (this.expiration * 1000)));
 
         User user = this.plugin.getUser(uuid);
         if (user != null) {
+
             user.addMailBoxItem(mailBoxItem);
             message(user, Message.MAILBOX_ADD);
         } else {
+
             IStorage iStorage = this.plugin.getStorageManager().getStorage();
             iStorage.addMailBoxItem(mailBoxItem);
         }
-
     }
 
     public void openMailBox(Player player) {

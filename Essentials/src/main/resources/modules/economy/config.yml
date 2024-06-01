@@ -105,9 +105,9 @@ number-format-sell-multiplication:
     multiplication: 1000000000000000000000000000000000000000000
 
 # Price format available
-# - PRICE_RAW
-# - PRICE_WITH_DECIMAL_FORMAT
-# - PRICE_WITH_REDUCTION
+# - PRICE_RAW - Display the number without any changes
+# - PRICE_WITH_DECIMAL_FORMAT - Display the number with the price-decimal-format configuration
+# - PRICE_WITH_REDUCTION - Display the number with the price-reduction configuration
 price-format: PRICE_WITH_REDUCTION
 
 price-decimal-format: '#,###.#'
