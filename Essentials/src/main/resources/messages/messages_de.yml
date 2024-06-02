@@ -47,72 +47,72 @@ command-night: "&fDu hast gerade &eNacht&f in der Welt <success>%world%&f gesetz
 command-sun: "&fDu hast gerade &eSonne&f in der Welt <success>%world%&f gesetzt."
 
 
-# Admins commands
+# Admin-Befehle
 command-top: "&7Du wurdest gerade zur &Spitze&7 teleportiert."
 command-top-error: "<error>Es wurde keine sichere Position gefunden!"
 command-speed-invalid: "<error>Du musst den Spieler bestimmen!"
-command-speed-fly: "&7You have just set your &nfly&r&7 speed to &f%speed%&7 for &f%player%&7. &8(&f2 &7by default&8)"
-command-speed-walk: "&7You have just set your &nwalk&r&7 speed to &f%speed%&7 for &f%player%&7. &8(&f2 &7by default&8)"
-command-speed-error: "<error>You must enter a number between &60<error> and &610<error>. &8(&f2 &7by default&8)"
-command-god-enable: "&7God mode <success>enable &7for &f%player%<success>."
-command-god-disable: "&7God mode <error>disable &7for &f%player%<success>."
-command-heal-sender: "&7You just healed the player &f%player%&7."
-command-heal-receiver: "<success>You have been healed."
-command-heal-error: "<error>You cannot heal someone who is dead !"
-command-more-error: "<error>You cannot make this order in item in hand."
-command-more-success: "&7You just put your item to &f64&7."
-command-feed-sender: "&7You just feed the player &f%player%&7."
-command-feed-receiver: "<success>You have been feed."
-command-feed-error: "<error>You cannot feed someone who is dead !"
-command-compact-type: "<error>Impossible to compact the material &f%material%<error>."
-command-compact-error: "<error>You have no &f%item%<error> in your inventory."
-command-compact-success: "&7You have just transformed #0EEA93x%amount% #99E0FF%item% &7into #0EEA93x%toAmount% #99E0FF%toItem%&7."
-command-compact-success-all: "&7You just converted all your items."
-command-hat-success: "&7You just put #0ef0ce%item% &7on your head."
-command-hat-error: "<error>You cannot put air on your head."
-command-player-weather-reset: "&7You just changed the weather to that of the server."
-command-player-weather-downfall: "&7You just put the rain on for yourself."
-command-player-time-reset: "&7You just changed the time to that of the server."
-command-player-time-change: "&7You’re here to change your time."
-command-fly-enable: "&7Flight mode <success>enable &7for &f%player%<success>."
-command-fly-disable: "&7Flight mode <error>disable &7for &f%player%<success>."
-command-furnace-type: "<error>Impossible to smelt the material &f%material%<error>."
-command-furnace-error: "<error>You have no &f%item%<error> in your inventory."
-command-furnace-success: "&7You have just transformed #0EEA93x%amount% #34cfe0%item% &7into #0EEA93x%toAmount% #34cfe0%toItem%&7."
-command-skull: "<success>You just got the player’s head &f%name%<success>."
-command-repair-error: "<error>The item in your hand cannot be repaired."
-command-repair-success: "<success>You just fixed the item in your hand."
-command-repair-all-error: "<error>You have no items to repair."
-command-repair-all-success: "<success>You have just repaired all the items in your inventory."
-command-ext: "&fBy the will of Maxlego08, you no longer burn."
-command-near-empty: "<error>No player near to you."
-command-near-player: "&fPlayers near to you&7:%players%"
+command-speed-fly: "&7Du hast gerade deine &nFlug&r&7-Geschwindigkeit auf &f%speed%&7 für &f%player%&7 gesetzt. &8(&f2 &7standardmäßig&8)"
+command-speed-walk: "&7Du hast gerade deine &nGeh&r&7-Geschwindigkeit auf &f%speed%&7 für &f%player%&7 gesetzt. &8(&f2 &7standardmäßig&8)"
+command-speed-error: "<error>Du musst eine Zahl zwischen &60<error> und &610<error> eingeben. &8(&f2 &7standardmäßig&8)"
+command-god-enable: "&7Gottmodus <success>aktiviert &7für &f%player%<success>."
+command-god-disable: "&7Gottmodus <error>deaktiviert &7für &f%player%<success>."
+command-heal-sender: "&7Du hast den Spieler &f%player%&7 geheilt."
+command-heal-receiver: "<success>Du wurdest geheilt."
+command-heal-error: "<error>Du kannst niemanden heilen, der tot ist!"
+command-more-error: "<error>Du kannst diesen Befehl nicht für das Item in der Hand ausführen."
+command-more-success: "&7Du hast dein Item auf &f64&7 gesetzt."
+command-feed-sender: "&7Du hast den Spieler &f%player%&7 gefüttert."
+command-feed-receiver: "<success>Du wurdest gefüttert."
+command-feed-error: "<error>Du kannst niemanden füttern, der tot ist!"
+command-compact-type: "<error>Es ist unmöglich, das Material &f%material%<error> zu komprimieren."
+command-compact-error: "<error>Du hast kein &f%item%<error> in deinem Inventar."
+command-compact-success: "&7Du hast gerade #0EEA93x%amount% #99E0FF%item% &7in #0EEA93x%toAmount% #99E0FF%toItem%&7 umgewandelt."
+command-compact-success-all: "&7Du hast gerade alle deine Items umgewandelt."
+command-hat-success: "&7Du hast gerade #0ef0ce%item% &7auf deinen Kopf gesetzt."
+command-hat-error: "<error>Du kannst keine Luft auf deinen Kopf setzen."
+command-player-weather-reset: "&7Du hast das Wetter auf das des Servers geändert."
+command-player-weather-downfall: "&7Du hast den Regen für dich aktiviert."
+command-player-time-reset: "&7Du hast die Zeit auf die des Servers geändert."
+command-player-time-change: "&7Du bist hier, um deine Zeit zu ändern."
+command-fly-enable: "&7Flugmodus <success>aktiviert &7für &f%player%<success>."
+command-fly-disable: "&7Flugmodus <error>deaktiviert &7für &f%player%<success>."
+command-furnace-type: "<error>Es ist unmöglich, das Material &f%material%<error> zu schmelzen."
+command-furnace-error: "<error>Du hast kein &f%item%<error> in deinem Inventar."
+command-furnace-success: "&7Du hast gerade #0EEA93x%amount% #34cfe0%item% &7in #0EEA93x%toAmount% #34cfe0%toItem%&7 umgewandelt."
+command-skull: "<success>Du hast gerade den Kopf des Spielers &f%name%<success> erhalten."
+command-repair-error: "<error>Das Item in deiner Hand kann nicht repariert werden."
+command-repair-success: "<success>Du hast gerade das Item in deiner Hand repariert."
+command-repair-all-error: "<error>Du hast keine Items zum Reparieren."
+command-repair-all-success: "<success>Du hast gerade alle Items in deinem Inventar repariert."
+command-ext: "&fDurch den Willen von Maxlego08 brennst du nicht mehr."
+command-near-empty: "<error>Kein Spieler in deiner Nähe."
+command-near-player: "&fSpieler in deiner Nähe&7:%players%"
 command-near-info: " &7%player% &8(&e%distance%m&8)"
 command-play-time:
   - "&7Deine Spielzeit&8: <primary>%playtime%"
-  - "&7Derzeitige Session&8: <primary>%playtime_session%"
-command-bottom: "&7You've just been teleported to &ebottom&7."
+  - "&7Aktuelle Session&8: <primary>%playtime_session%"
+command-bottom: "&7Du wurdest gerade zum &unten&7 teleportiert."
 command-bottom-error: "<error>Es wurde keine sichere Position gefunden!"
-command-remove: "&7Removed <success>%amount% &7entities."
+command-remove: "&7%amount% &7Entitäten entfernt."
 command-seen-offline:
   type: WITHOUT_PREFIX
-  message: "#99E0FFPlayer &f%player% #99E0FFhas been <error>offline #99E0FFsince &7%date%#99E0FF."
+  message: "#99E0FFSpieler &f%player% #99E0FFist seit <error>offline #99E0FFseit &7%date%#99E0FF."
 command-seen-online:
   type: WITHOUT_PREFIX
-  message: "#99E0FFPlayer &f%player% #99E0FFhas been <success>online #99E0FFsince %date%#99E0FF."
+  message: "#99E0FFSpieler &f%player% #99E0FFist seit <success>online #99E0FFseit %date%#99E0FF."
 command-seen-playtime:
   type: WITHOUT_PREFIX
-  message: "#99E0FFPlayTime&8: &f%playtime%"
+  message: "#99E0FFSpielzeit&8: &f%playtime%"
 command-seen-uuid:
   type: WITHOUT_PREFIX
   message: "#99E0FFUUID&8: &f%uuid%"
 command-seen-ip:
   type: WITHOUT_PREFIX
-  message: "#99E0FFIP Address&8:&f%ips%"
-command-seen-address: " <click:run_command:'/seenip %ip%'><hover:show_text:'&fShow players who have the same address'>%ip%</hover></click>"
-command-seen-ip-empty: "<error>Unable to find players with ip &f%ip%<error>."
-command-seen-ip-line: "#99E0FFPlayers with the ip &f%ip%&8:%players%"
-command-seen-ip-info: " <white><click:run_command:'/seen %name%'><hover:show_text:'&fShow player's information'>%name%</hover></click><dark_gray>"
+  message: "#99E0FFIP-Adresse&8:&f%ips%"
+command-seen-address: " <click:run_command:'/seenip %ip%'><hover:show_text:'&fZeige Spieler mit derselben Adresse'>%ip%</hover></click>"
+command-seen-ip-empty: "<error>Spieler mit IP &f%ip%<error> nicht gefunden."
+command-seen-ip-line: "#99E0FFSpieler mit der IP &f%ip%&8:%players%"
+command-seen-ip-info: " <white><click:run_command:'/seen %name%'><hover:show_text:'&fZeige Spielerinformationen'>%name%</hover></click><dark_gray>"
 
 
 # Wirtschaft
@@ -194,103 +194,104 @@ command-spawn-not-define: "<error>Der Spawnpunkt existiert nicht. Bitte kontakti
 
 
 
-# Command description
-description-reload: "Reload configuration files"
-description-gamemode: "Change player gamemode"
-description-gamemode-creative: "Change player gamemode to creative"
-description-gamemode-survival: "Change player gamemode to survival"
-description-gamemode-adventure: "Change player gamemode to adventure"
-description-gamemode-spectator: "Change player gamemode to spectator"
-description-day: "Set the day in your world"
-description-night: "Set the night in your world"
-description-sun: "Set the sun in your world"
-description-top: "Teleporting to top"
-description-speed: "Change player speed"
-description-enderchest: "Open your enderchest"
-description-endersee: "Open a player enderchest"
-description-tpa: "Teleport to a player"
-description-tpa-accept: "Accept a teleportation request"
-description-tpa-deny: "Denied a teleportation request"
-description-tpa-cancel: "Cancel a teleportation request"
-description-god: "Toggle god mode"
-description-heal: "Heal a player"
-description-more: "Get more items"
-description-tp-world: "Teleport to another world"
-description-trash: "Open a trash can"
-description-feed: "Feed a player"
-description-craft: "Open workbench"
-description-enchanting: "Open enchantment table"
-description-invsee: "Open player's inventory"
-description-compact: "Compact material"
-description-hat: "Create yourself a pretty hat"
-description-tp: "Teleport to a player"
-description-tp-self: "Teleport a player to your location"
-description-player-weather: "Change your weather"
-description-player-time: "Change your time"
-description-money: "Show your money"
-description-eco: "Manages the server economies"
-description-eco-set: "Sets the specified player's balance to the specified amount of money"
-description-eco-take: "Takes the specified amount of money from the specified player"
-description-eco-give: "Gives the specified player the specified amount of money"
-description-eco-give-all: "Gives for all players the specified amount of money"
-description-eco-reset: "Resets the specified player's balance to the server's starting balance"
-description-eco-show: "Show player money"
-description-pay: "Pays another player from your balance"
-description-fly: "Toggle flight"
-description-anvil: "Open an anvil"
-description-cartographytable: "Open a cartography table"
-description-grindstone: "Open a grind stone"
-description-loom: "Open a loom"
-description-stonecutter: "Open a stone cutter"
-description-smithingtable: "Open a smithing table"
-description-back: "Teleport to your previous location"
-description-set-spawn: "Set server spawn"
-description-spawn: "Teleport to spawn"
-description-warp-set: "Create a warp"
-description-warp-use: "Teleport to a warp"
-description-warp-del: "Delete a warp"
-description-warp-list: "Show warp list"
-description-tp-random: "Random Teleport in the world"
-description-set-home: "Create a home"
-description-del-home: "Delete a home"
-description-home: "Teleport to a home"
-description-kick: "Kick a player"
-description-kick-all: "Kick all players"
-description-kitty-cannon: "Launch kitty, wtf you want to do that ? monster"
-description-ban: "Ban a player"
-description-mute: "Mute a player"
-description-un-mute: "Unmute a player"
-description-un-ban: "Unban a player"
-description-sanction: "Open sanction inventory"
-description-chat-history: "Show player's chat messages"
-description-chat-clear: "Clear chat"
-description-chat-disable: "Disable chat"
-description-chat-enable: "Enable chat"
-description-chat-broadcast: "Broadcast a message"
-description-message: "Send a private message to a player"
-description-reply: "Reply to a private message"
-description-message-toggle: "Toggle private message"
-description-socialspy: "Display private messages of players"
-description-furnace: "Smelt all the items in your hand"
-description-skull: "Gets the head of a player"
-description-repair: "Fix the item in your hand"
-description-repair-all: "Repair all items in your inventory"
-description-ext: "Stop burning"
-description-near: "Show players close to you"
-description-play-time: "Show player's playtime"
-description-bottom: "Teleporting to top"
-description-compact-all: "Compact items in your inventories"
-description-version: "Show plugin version"
-description-kill-all: "Kill entities"
-description-seen: "Show player informations"
-description-seen-ip: "Show players who have the same IP"
-description-kit: "Get a kit"
-description-kit-editor: "Edit a kit"
-description-kit-create: "Create a new kit"
-description-kit-delete: "Delete a kit"
-description-cooldown: "Display a player’s cooldowns"
-description-cooldown-delete: "Delete a cooldown"
-description-cooldown-create: "Create a cooldown"
+# Befehlsbeschreibung
+description-reload: "Konfigurationsdateien neu laden"
+description-gamemode: "Spielmodus des Spielers ändern"
+description-gamemode-creative: "Spielmodus des Spielers in Kreativmodus ändern"
+description-gamemode-survival: "Spielmodus des Spielers in Überlebensmodus ändern"
+description-gamemode-adventure: "Spielmodus des Spielers in Abenteuermodus ändern"
+description-gamemode-spectator: "Spielmodus des Spielers in Zuschauermodus ändern"
+description-day: "Tag in deiner Welt setzen"
+description-night: "Nacht in deiner Welt setzen"
+description-sun: "Sonne in deiner Welt setzen"
+description-top: "Zur Spitze teleportieren"
+description-speed: "Geschwindigkeit des Spielers ändern"
+description-enderchest: "Öffne dein Endertruh"
+description-endersee: "Öffne die Endertruhe eines Spielers"
+description-tpa: "Zu einem Spieler teleportieren"
+description-tpa-accept: "Eine Teleportationsanfrage akzeptieren"
+description-tpa-deny: "Eine Teleportationsanfrage ablehnen"
+description-tpa-cancel: "Eine Teleportationsanfrage abbrechen"
+description-god: "Gottmodus umschalten"
+description-heal: "Einen Spieler heilen"
+description-more: "Mehr Gegenstände erhalten"
+description-tp-world: "In eine andere Welt teleportieren"
+description-trash: "Einen Mülleimer öffnen"
+description-feed: "Einen Spieler füttern"
+description-craft: "Werkbank öffnen"
+description-enchanting: "Zaubertisch öffnen"
+description-invsee: "Inventar eines Spielers öffnen"
+description-compact: "Material komprimieren"
+description-hat: "Setze dir einen hübschen Hut auf"
+description-tp: "Zu einem Spieler teleportieren"
+description-tp-self: "Einen Spieler zu deinem Standort teleportieren"
+description-player-weather: "Dein Wetter ändern"
+description-player-time: "Deine Zeit ändern"
+description-money: "Zeige dein Geld"
+description-eco: "Verwaltet die Wirtschaft des Servers"
+description-eco-set: "Setzt das Guthaben des angegebenen Spielers auf den angegebenen Betrag"
+description-eco-take: "Nimmt den angegebenen Betrag vom angegebenen Spieler"
+description-eco-give: "Gibt dem angegebenen Spieler den angegebenen Betrag"
+description-eco-give-all: "Gibt allen Spielern den angegebenen Betrag"
+description-eco-reset: "Setzt das Guthaben des angegebenen Spielers auf das Startguthaben des Servers zurück"
+description-eco-show: "Zeige das Geld eines Spielers"
+description-pay: "Zahle einen anderen Spieler von deinem Guthaben"
+description-fly: "Flugmodus umschalten"
+description-anvil: "Amboss öffnen"
+description-cartographytable: "Kartentisch öffnen"
+description-grindstone: "Schleifstein öffnen"
+description-loom: "Webstuhl öffnen"
+description-stonecutter: "Steinschneider öffnen"
+description-smithingtable: "Schmiedetisch öffnen"
+description-back: "Zu deinem vorherigen Standort teleportieren"
+description-set-spawn: "Server-Spawn setzen"
+description-spawn: "Zum Spawn teleportieren"
+description-warp-set: "Einen Warp erstellen"
+description-warp-use: "Zu einem Warp teleportieren"
+description-warp-del: "Einen Warp löschen"
+description-warp-list: "Warpliste anzeigen"
+description-tp-random: "Zufällige Teleportation in der Welt"
+description-set-home: "Ein Zuhause erstellen"
+description-del-home: "Ein Zuhause löschen"
+description-home: "Zu einem Zuhause teleportieren"
+description-kick: "Einen Spieler kicken"
+description-kick-all: "Alle Spieler kicken"
+description-kitty-cannon: "Katze abschießen, warum willst du das tun? Monster"
+description-ban: "Einen Spieler bannen"
+description-mute: "Einen Spieler stummschalten"
+description-un-mute: "Einen Spieler freischalten"
+description-un-ban: "Einen Spieler entbannen"
+description-sanction: "Sanktionsinventar öffnen"
+description-chat-history: "Chatnachrichten eines Spielers anzeigen"
+description-chat-clear: "Chat leeren"
+description-chat-disable: "Chat deaktivieren"
+description-chat-enable: "Chat aktivieren"
+description-chat-broadcast: "Eine Nachricht senden"
+description-message: "Eine private Nachricht an einen Spieler senden"
+description-reply: "Auf eine private Nachricht antworten"
+description-message-toggle: "Private Nachricht umschalten"
+description-socialspy: "Private Nachrichten der Spieler anzeigen"
+description-furnace: "Schmelze alle Gegenstände in deiner Hand"
+description-skull: "Erhalte den Kopf eines Spielers"
+description-repair: "Repariere den Gegenstand in deiner Hand"
+description-repair-all: "Alle Gegenstände in deinem Inventar reparieren"
+description-ext: "Hör auf zu brennen"
+description-near: "Spieler in deiner Nähe anzeigen"
+description-play-time: "Spielzeit eines Spielers anzeigen"
+description-bottom: "Zum Boden teleportieren"
+description-compact-all: "Gegenstände in deinen Inventaren komprimieren"
+description-version: "Plugin-Version anzeigen"
+description-kill-all: "Entitäten töten"
+description-seen: "Spielerinformationen anzeigen"
+description-seen-ip: "Spieler anzeigen, die dieselbe IP haben"
+description-kit: "Erhalte ein Kit"
+description-kit-editor: "Ein Kit bearbeiten"
+description-kit-create: "Ein neues Kit erstellen"
+description-kit-delete: "Ein Kit löschen"
+description-cooldown: "Cooldowns eines Spielers anzeigen"
+description-cooldown-delete: "Einen Cooldown löschen"
+description-cooldown-create: "Einen Cooldown erstellen"
+
 
 
 # Zeitformat
@@ -312,123 +313,124 @@ cooldown-commands: "<error>✘ Du musst &f%cooldown% <error>warten, bevor du die
 
 
 # Teleportation
-teleport-move: "<error>You must not move!"
-teleport-damage: "<error>You must not take damage during teleportation."
-teleport-error-location: "<error>Unable to teleport you safely."
+teleport-move: "<error>Du darfst dich nicht bewegen!"
+teleport-damage: "<error>Du darfst während der Teleportation keinen Schaden nehmen."
+teleport-error-location: "<error>Du kannst nicht sicher teleportiert werden."
 
 teleport-message:
   type: ACTION
-  message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
+  message: "&7Teleportiere in #0EEA93%seconds% &7Sekunden, du darfst dich nicht bewegen."
 teleport-success:
   type: ACTION
-  message: "#99E0FFYou have just teleported successfully!"
+  message: "#99E0FFDu wurdest erfolgreich teleportiert!"
 
 teleport-message-spawn:
   type: TCHAT_AND_ACTION
-  message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
+  message: "&7Teleportiere in #0EEA93%seconds% &7Sekunden, du darfst dich nicht bewegen."
 teleport-success-spawn:
   type: TCHAT_AND_ACTION
-  message: "&7You just teleported to #0EEA93spawn &7!"
+  message: "&7Du wurdest zum #0EEA93Spawn &7teleportiert!"
 
 teleport-message-warp:
   type: TCHAT_AND_ACTION
-  message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
+  message: "&7Teleportiere in #0EEA93%seconds% &7Sekunden, du darfst dich nicht bewegen."
 teleport-success-warp:
   type: TCHAT_AND_ACTION
-  message: "&7You just teleported to warp #0EEA93%name% &7!"
+  message: "&7Du wurdest zum Warp #0EEA93%name% &7teleportiert!"
 
 teleport-message-random:
   type: ACTION
-  message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
+  message: "&7Teleportiere in #0EEA93%seconds% &7Sekunden, du darfst dich nicht bewegen."
 teleport-success-random:
   type: ACTION
-  message: "#99E0FFYou have just teleported successfully!"
+  message: "#99E0FFDu wurdest erfolgreich teleportiert!"
 
 teleport-message-home:
   type: TCHAT_AND_ACTION
-  message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
+  message: "&7Teleportiere in #0EEA93%seconds% &7Sekunden, du darfst dich nicht bewegen."
 teleport-success-home:
   type: TCHAT_AND_ACTION
-  message: "&7You just teleported to home #0EEA93%name% &7!"
+  message: "&7Du wurdest zum Zuhause #0EEA93%name% &7teleportiert!"
+
 
 
 # Warps
-command-warp-already-exist: "<error>Warp &f%name% <error>already exists. &7Use &n<hover:show_text:'&fUse this command'><click:suggest_command:'/setwarp %name% true'>/setwarp %name% true</click></hover>&r command to modify the warp"
-command-warp-doesnt-exist: "<error>Warp &f%name% <error> does not exist."
-command-warp-no-permission: "<error>You do not have permission to use the warp &f%name%<error>."
+command-warp-already-exist: "<error>Der Warp &f%name% <error> existiert bereits. &7Verwende den Befehl &n<hover:show_text:'&fVerwende diesen Befehl'><click:suggest_command:'/setwarp %name% true'>/setwarp %name% true</click></hover>&r, um den Warp zu bearbeiten."
+command-warp-doesnt-exist: "<error>Der Warp &f%name% <error> existiert nicht."
+command-warp-no-permission: "<error>Du hast keine Berechtigung, den Warp &f%name%<error> zu verwenden."
 command-warp-create:
-  - "#00ff00You just created the warp &f%name% #00ff00to your position."
-  - "&7Warp Permission is: <hover:show_text:'&fCopy command to add permission to a player'><click:SUGGEST_COMMAND:'/lp user <username> permission set nessentials.warp.%name%'>&f&nessentials.warp.%name%</click></hover>"
+  - "#00ff00Du hast den Warp &f%name% #00ff00an deiner Position erstellt."
+  - "&7Warp-Berechtigung ist: <hover:show_text:'&fBefehl zum Hinzufügen der Berechtigung für einen Spieler kopieren'><click:SUGGEST_COMMAND:'/lp user <Benutzername> permission set nessentials.warp.%name%'>&f&nessentials.warp.%name%</click></hover>"
 command-warp-use:
-  - "<error>Usage&8: &f/warp <destination>"
+  - "<error>Verwendung&8: &f/warp <Ziel>"
   - "&7Warps&8:&f%destinations%"
-command-warp-destination: " <hover:show_text:'&fClick to teleport to warp &n%name%'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"
+command-warp-destination: " <hover:show_text:'&fZum Warp &n%name% &nteleportieren'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"
 command-warp-list: "&7Warps&8:&f%destinations%"
-command-warp-list-info: " <hover:show_text:'&fClick to teleport to warp &n%name%'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"
-command-warp-delete: "#00ff00You just removed the warp &f%name%#00ff00."
+command-warp-list-info: " <hover:show_text:'&fZum Warp &n%name% &nteleportieren'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"
+command-warp-delete: "#00ff00Du hast den Warp &f%name%#00ff00 entfernt."
+
 
 
 # Homes
-command-set-home-invalide-name: "&f%name% <error>is not a valid name, please choose another one."
-command-set-home-too-long: "&f%name% <error>is too long, please choose another one."
-command-set-home-too-short: "&f%name% <error>is too short name, please choose another one."
-command-set-home-max: "<error>You cannot have more than &f%max%<error> homes."
+command-set-home-invalide-name: "&f%name% <error>ist kein gültiger Name, bitte wähle einen anderen."
+command-set-home-too-long: "&f%name% <error>ist zu lang, bitte wähle einen anderen."
+command-set-home-too-short: "&f%name% <error>ist ein zu kurzer Name, bitte wähle einen anderen."
+command-set-home-max: "<error>Du kannst nicht mehr als &f%max%<error> Zuhause haben."
 command-set-home-create:
   - ""
-  - "#99E0FFYou just created the home &f%name%#99E0FF. &8(&7%current%&8/&7%max%&8)"
-  - "&fUse &n<hover:show_text:'&fClick to teleport to home'><click:suggest_command:'/home %name%'>/home %name%</click></hover>&r command to teleport to it"
+  - "#99E0FFDu hast das Zuhause &f%name%#99E0FF erstellt. &8(&7%current%&8/&7%max%&8)"
+  - "&fBenutze den Befehl &n<hover:show_text:'&fKlicke, um zum Zuhause zu teleportieren'><click:suggest_command:'/home %name%'>/home %name%</click></hover>&r, um dich dorthin zu teleportieren."
   - ""
-command-home-doesnt-exist: "<error>The home &f%name%<error> does not exist."
+command-home-doesnt-exist: "<error>Das Zuhause &f%name%<error> existiert nicht."
 
-# Available placeholders:
-# %count% - Home count
-# %max% - Max player's home
+# Verfügbarer Platzhalter:
+# %count% - Anzahl der Zuhause
+# %max% - Maximalanzahl der Zuhause eines Spielers
 command-home-information-multi-line-header:
   - ""
   - "#8cc0ccʏᴏᴜʀ ʜᴏᴍᴇs <success>♦ &7(%count%) &8- &7(Max: %max%)"
 
-# Available placeholders:
-# %count% - Home count
-# %max% - Max player's home
-# %name% - Home name
-# %world% - Home world
-# %environment% - Home world environment
-# %x% - Home location x
-# %y% - Home location y
-# %z% - Home location z
+# Verfügbarer Platzhalter:
+# %count% - Anzahl der Zuhause
+# %max% - Maximalanzahl der Zuhause eines Spielers
+# %name% - Name des Zuhause
+# %world% - Welt des Zuhause
+# %environment% - Umgebung der Welt des Zuhause
+# %x% - X-Koordinate des Zuhause
+# %y% - Y-Koordinate des Zuhause
+# %z% - Z-Koordinate des Zuhause
 command-home-information-multi-line-content:
   type: WITHOUT_PREFIX
-  message: " #8cc0cc♢ &f%name% &7in %world% (%environment%) <success><hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %name%'>[CLICK]</click></hover>"
+  message: " #8cc0cc♢ &f%name% &7in %world% (%environment%) <success><hover:show_text:'&7Klicke, um zum Zuhause &f&n%name%&r zu teleportieren'><click:run_command:'/home %name%'>[KLICK]</click></hover>"
 
-# Available placeholders:
-# %count% - Home count
-# %max% - Max player's home
+# Verfügbarer Platzhalter:
+# %count% - Anzahl der Zuhause
+# %max% - Maximalanzahl der Zuhause eines Spielers
 command-home-information-multi-line-footer:
   type: WITHOUT_PREFIX
   message: ""
 
-# Available placeholders:
-# %count% - Home count
-# %max% - Max player's home
-# %name% - Home name
-# %world% - Home world
-# %environment% - Home world environment
-# %x% - Home location x
-# %y% - Home location y
-# %z% - Home location z
+# Verfügbarer Platzhalter:
+# %count% - Anzahl der Zuhause
+# %max% - Maximalanzahl der Zuhause eines Spielers
+# %name% - Name des Zuhause
+# %world% - Welt des Zuhause
+# %environment% - Umgebung der Welt des Zuhause
+# %x% - X-Koordinate des Zuhause
+# %y% - Y-Koordinate des Zuhause
+# %z% - Z-Koordinate des Zuhause
 command-home-information-in-line:
   type: WITHOUT_PREFIX
   message: "#8cc0ccʏᴏᴜʀ ʜᴏᴍᴇs <success>♦ &7(%count%/%max%) &8:&f%homes%"
-command-home-information-in-line-info: " <hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %name%'>&f%name%</click></hover>&7"
+command-home-information-in-line-info: " <hover:show_text:'&7Klicke, um zum Zuhause &f&n%name%&r zu teleportieren'><click:run_command:'/home %name%'>&f%name%</click></hover>&7"
 
-command-home-icon-error: "<error>You must have an item in your hand to change the icon of your home."
-command-home-icon-success: "#00ff00You just changed the home icon &f%name%#00ff00."
-command-home-icon-reset: "#00ff00You just reset the home icon &f%name%#00ff00."
-command-home-delete: "#99E0FFYou just deleted the home &f%name%#99E0FF."
-command-home-admin-delete: "#00ff00You just deleted home &f%name%#00ff00 of &b%player%#00ff00."
-command-home-admin-set: "#00ff00You just created home &f%name%#00ff00 of &b%player%#00ff00."
-command-home-admin-list: "#8cc0cc%player% ʜᴏᴍᴇs&8:&f%homes%"
-command-home-admin-list-info: " <hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %player%:%name%'>&f%name%</click></hover>&7"
+command-home-icon-error: "<error>Du musst ein Element in der Hand haben, um das Icon deines Zuhause zu ändern."
+command-home-icon-success: "#00ff00Du hast das Icon des Zuhause &f%name%#00ff00 geändert."
+command-home-icon-reset: "#00ff00Du hast das Icon des Zuhause &f%name%#00ff00 zurückgesetzt."
+command-home-delete: "#99E0FFDu hast das Zuhause &f%name%#99E0FF gelöscht."
+command-home-admin-delete: "#00ff00Du hast das Zuhause &f%name%#00ff00 von &b%player%#00ff00 gelöscht."
+command-home-admin-set: "#00ff00Du hast das Zuhause &f%name%#00ff00 von &b%player%#00ff00 erstellt."
+command-home-admin-list-info: " <hover:show_text:'&7Klicke, um zum Zuhause &f&n%name%&r zu teleportieren'><click:run_command:'/home %player%:%name%'>&f%name%</click></hover>&7"
 
 
 # Sanction
@@ -494,67 +496,68 @@ message-ban-join:
   - "&fMinecraft-Inventory-Builder.com"
   - ""
 
+
 # Chat
-chat-error: "<error>Impossible to let you speak, your data is not loaded."
-chat-alphanumeric-regex: "<error>You use a forbidden character."
-chat-cooldown: "<error>Please wait before sending your next message. &8(&7%cooldown%&8)"
-chat-same: "<error>You can’t put the same sentence."
-chat-link: "<error>You cannot send a link in the chat."
-chat-disable: "<error>The chat is currently unavailable."
+chat-error: "<error>Es ist unmöglich, dich sprechen zu lassen, deine Daten sind nicht geladen."
+chat-alphanumeric-regex: "<error>Du verwendest ein verbotenes Zeichen."
+chat-cooldown: "<error>Bitte warte, bevor du deine nächste Nachricht sendest. &8(&7%cooldown%&8)"
+chat-same: "<error>Du kannst nicht denselben Satz schreiben."
+chat-link: "<error>Du kannst keinen Link im Chat senden."
+chat-disable: "<error>Der Chat ist derzeit nicht verfügbar."
 
 chat-default-format: "<white>%displayName% <#656665>• <gray>%message%"
-chat-messages-empty: "&f%player% <error>did not write a message."
+chat-messages-empty: "&f%player% <error>hat keine Nachricht geschrieben."
 chat-messages-line:
   type: WITHOUT_PREFIX
   message: "&f%date% &7%message%"
 chat-messages-footer:
   type: WITHOUT_PREFIX
-  message: "<click:run_command:'/chathistory %player% %previousPage%'><hover:show_text:'Previous Page'><white>⬅</hover></click> <gray>%page%/%maxPage% <click:run_command:'/chathistory %player% %nextPage%'><hover:show_text:'Next Page'><white>➡</hover></click>"
-command-chat-clear: "<success>The chat just got clear."
-command-chat-disable-error: "<error>Chat is already disable."
-command-chat-disable-success: "<success>You just deactivated the chat."
-command-chat-enable-error: "<error>Chat is already enable."
-command-chat-enable-success: "<success>You just activated the chat."
+  message: "<click:run_command:'/chathistory %player% %previousPage%'><hover:show_text:'Vorherige Seite'><white>⬅</hover></click> <gray>%page%/%maxPage% <click:run_command:'/chathistory %player% %nextPage%'><hover:show_text:'Nächste Seite'><white>➡</hover></click>"
+command-chat-clear: "<success>Der Chat wurde soeben gelöscht."
+command-chat-disable-error: "<error>Der Chat ist bereits deaktiviert."
+command-chat-disable-success: "<success>Du hast den Chat gerade deaktiviert."
+command-chat-enable-error: "<error>Der Chat ist bereits aktiviert."
+command-chat-enable-success: "<success>Du hast den Chat gerade aktiviert."
 command-chat-broadcast:
   type: WITHOUT_PREFIX
   message: "<primary>ʙʀᴏᴀᴅᴄᴀsᴛ <secondary>• <white>%message%"
 
 
 # Messages
-command-message-self: "<error>You can’t talk to yourself."
-command-message-disable: "&f%%player% <error>has disabled private messages."
-command-message-mute: "<error>You’re not allowed to speak."
-command-message-me: "<hover:show_text:'&fClick to reply'><click:suggest_command:'/r '>&8(#f533f5me &7-> #34cfe0%target%&8) #e6e1e6<message></click></hover>"
-command-message-other: "<hover:show_text:'&fClick to reply'><click:suggest_command:'/r '>&8(#34cfe0%target% &7-> #f533f5me&8) #e6e1e6<message></click></hover>"
+command-message-self: "<error>Du kannst nicht mit dir selbst sprechen."
+command-message-disable: "&f%%player% <error>hat private Nachrichten deaktiviert."
+command-message-mute: "<error>Du darfst nicht sprechen."
+command-message-me: "<hover:show_text:'&fKlicke, um zu antworten'><click:suggest_command:'/r '>&8(#f533f5Ich &7-> #34cfe0%target%&8) #e6e1e6<message></click></hover>"
+command-message-other: "<hover:show_text:'&fKlicke, um zu antworten'><click:suggest_command:'/r '>&8(#34cfe0%target% &7-> #f533f5Ich&8) #e6e1e6<message></click></hover>"
 command-message-social-spy:
   type: WITHOUT_PREFIX
-  message: "&8(&7SocialSpy&8) &8(<hover:show_text:'&fOpen sanction for %sender%'><click:run_command:'/sc %sender%'>#34cfe0%sender%</click></hover> &7-> <hover:show_text:'&fOpen sanction for %receiver%'><click:run_command:'/sc %receiver%'>#f533f5%receiver%</click></hover>&8) #e6e1e6%message%"
-command-message-error: "<error>You have no one to answer."
-command-message-toggle-enable: "&7Private message <success>enable &7for &f%player%<success>."
-command-message-toggle-disable: "&7Private message <error>disable &7for &f%player%<success>."
-command-social-spy-enable: "&7Social spy <success>enable &7for &f%player%<success>."
-command-social-spy-disable: "&7Social spy <error>disable &7for &f%player%<success>."
+  message: "&8(&7SocialSpy&8) &8(<hover:show_text:'&fSanktion für %sender% öffnen'><click:run_command:'/sc %sender%'>#34cfe0%sender%</click></hover> &7-> <hover:show_text:'&fSanktion für %receiver% öffnen'><click:run_command:'/sc %receiver%'>#f533f5%receiver%</click></hover>&8) #e6e1e6%message%"
+command-message-error: "<error>Du hast niemanden, dem du antworten kannst."
+command-message-toggle-enable: "&7Private Nachrichten <success>aktiviert &7für &f%player%<success>."
+command-message-toggle-disable: "&7Private Nachrichten <error>deaktiviert &7für &f%player%<success>."
+command-social-spy-enable: "&7Social Spy <success>aktiviert &7für &f%player%<success>."
+command-social-spy-disable: "&7Social Spy <error>deaktiviert &7für &f%player%<success>."
 
 
 # Kit
-command-kit-not-found: "<error>Unable to find the kit &f%kit%<error>."
-command-kit-already-exists: "<error>The &f%kit% <error>kit already exists."
-command-kit-information-in-line-empty: "#8cc0ccʏᴏᴜʀ ᴋɪᴛs <success>♦ &7(%count%/%max%)&8: <error>ɴᴏ ᴋɪᴛ ᴀᴠᴀɪʟᴀʙʟᴇ"
-command-kit-information-in-line: "#8cc0ccʏᴏᴜʀ ᴋɪᴛs&8:&f%kits%"
-command-kit-information-in-line-info-available: " <hover:show_text:'&7Click to get the kit &f&n%name%'><click:run_command:'/kit %name%'><#1fde65>%name%</click></hover>&7"
-command-kit-information-in-line-info-unavailable: " <hover:show_text:'&7You must wait <u>%time%</u> before getting the kit &f&n%name%'><st><#de1f1f>%name%</st></hover>&7"
+command-kit-not-found: "<error>Das Kit &f%kit% <error>kann nicht gefunden werden."
+command-kit-already-exists: "<error>Das Kit &f%kit% <error>existiert bereits."
+command-kit-information-in-line-empty: "#8cc0ccDᴇɪɴᴇ Kɪᴛs <success>♦ &7(%count%/%max%)&8: <error>Kᴇɪɴ Kɪᴛ ᴠᴏʀʜᴀɴᴅᴇɴ"
+command-kit-information-in-line: "#8cc0ccDᴇɪɴᴇ Kɪᴛs&8:&f%kits%"
+command-kit-information-in-line-info-available: " <hover:show_text:'&7Klicke, um das Kit &f&n%name%&r zu erhalten'><click:run_command:'/kit %name%'><#1fde65>%name%</click></hover>&7"
+command-kit-information-in-line-info-unavailable: " <hover:show_text:'&7Du musst <u>%time%</u> warten, bevor du das Kit &f&n%name%&r erhältst'><st><#de1f1f>%name%</st></hover>&7"
 command-kit-information-multi-line-header: ""
-command-kit-information-multi-line-content-available: "<#8cc0cc>♢ <hover:show_text:'&7Click to get the kit &f&n%name%'><click:run_command:'/kit %name%'><#1fde65>%name% </click></hover>"
-command-kit-information-multi-line-content-unavailable: "<#8cc0cc>♢ <hover:show_text:'&7You must wait <u>%time%</u> before getting the kit &f&n%name%'><st><#de1f1f>%name%</st></hover> &8(&7%time%&8)"
+command-kit-information-multi-line-content-available: "<#8cc0cc>♢ <hover:show_text:'&7Klicke, um das Kit &f&n%name%&r zu erhalten'><click:run_command:'/kit %name%'><#1fde65>%name% </click></hover>"
+command-kit-information-multi-line-content-unavailable: "<#8cc0cc>♢ <hover:show_text:'&7Du musst <u>%time%</u> warten, bevor du das Kit &f&n%name%&r erhältst'><st><#de1f1f>%name%</st></hover> &8(&7%time%&8)"
 command-kit-information-multi-line-footer: ""
-command-kit-editor-save: "<success>You have just modified the kit &f%kit%<success>."
-command-kit-create: "<success>You just created the kit &f%kit%<success>."
-command-kit-delete: "<success>You just deleted the kit &f%kit%<success>."
+command-kit-editor-save: "<success>Du hast das Kit &f%kit% <success>erfolgreich bearbeitet."
+command-kit-create: "<success>Du hast das Kit &f%kit% <success>erstellt."
+command-kit-delete: "<success>Du hast das Kit &f%kit% <success>gelöscht."
 
 
 # Cooldown
-command-cooldown-header: "&fPlayer cooldown %player% &8(&7%amount%&8)"
-command-cooldown-empty: "&f%player% <error>has no cooldown."
+command-cooldown-header: "&fSpielerabkühlung %player% &8(&7%amount%&8)"
+command-cooldown-empty: "&f%player% <error>hat keine Abkühlung."
 # Available placeholders:
 # %key% - The key to the cooldown
 # %value% - The cooldown expiration timestamp
@@ -563,11 +566,11 @@ command-cooldown-empty: "&f%player% <error>has no cooldown."
 # %player% - the Player's nickname
 command-cooldown-line:
   type: WITHOUT_PREFIX
-  message: "&f%key% <secondary>- &7%createdAt% <secondary>- <success>%timeLeft% <secondary>- <hover:show_text:'&fClick to remove the cooldown'><click:run_command:'/cooldown delete %player% %key%'>&8[<error>ᴅᴇʟᴇᴛᴇ&8]</click></hover>"
-command-cooldown-not-found: "&f%cooldown% <error>was not found."
-command-cooldown-delete: "<success>You just removed the cooldown &f%cooldown% <success>from &n%player%&r<success>."
+  message: "&f%key% <secondary>- &7%createdAt% <secondary>- <success>%timeLeft% <secondary>- <hover:show_text:'&fKlicke, um die Abkühlung zu entfernen'><click:run_command:'/cooldown delete %player% %key%'>&8[<error>LÖSCHEN&8]</click></hover>"
+command-cooldown-not-found: "&f%cooldown% <error>wurde nicht gefunden."
+command-cooldown-delete: "<success>Du hast gerade die Abkühlung &f%cooldown% <success>für &n%player%&r<success> entfernt."
 # Available placeholders:
 # %key% - The key to the cooldown
 # %player% - the Player's nickname
 # %duration% - the duration of the cooldown
-command-cooldown-create: "<success>You just created the cooldown &f%key% <success>for &n%player%&r<success>."
+command-cooldown-create: "<success>Du hast gerade die Abkühlung &f%key% <success>für &n%player%&r<success> erstellt."
