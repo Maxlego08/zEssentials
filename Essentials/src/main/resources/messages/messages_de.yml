@@ -1,4 +1,3 @@
-
 ########################################################################################################################
 #
 #  ███████╗███████╗░██████╗░██████╗███████╗███╗░░██╗████████╗██╗░█████╗░██╗░░░░░░██████╗
@@ -9,12 +8,12 @@
 #  ╚══════╝╚══════╝╚═════╝░╚═════╝░╚══════╝╚═╝░░╚══╝░░░╚═╝░░░╚═╝╚═╝░░╚═╝╚══════╝╚═════╝░
 #
 # Messages type:
-# NONE - Does not display the message
-# TCHAT - Default type, sends one or more messages in chat
-# ACTION - Sends the message in the action bar
-# TCHAT_AND_ACTION - Sends message in action bar and chat
-# CENTER - Send one or more messages in the chat, but they will be centered
-# TITLE - Sends a title
+# NONE - Zeigt die Nachricht nicht an
+# TCHAT - Standardtyp, sendet eine oder mehrere Nachrichten im Chat
+# ACTION - Sendet die Nachricht in der Aktionsleiste
+# TCHAT_AND_ACTION - Sendet die Nachricht in der Aktionsleiste und im Chat
+# CENTER - Sendet eine oder mehrere Nachrichten im Chat, aber zentriert
+# TITLE - Sendet einen Titel
 #
 ########################################################################################################################
 
@@ -116,82 +115,83 @@ command-seen-ip-line: "#99E0FFPlayers with the ip &f%ip%&8:%players%"
 command-seen-ip-info: " <white><click:run_command:'/seen %name%'><hover:show_text:'&fShow player's information'>%name%</hover></click><dark_gray>"
 
 
-# Economy
-command-economy-not-found: "<error> Can’t find a economy with the name &f%name%<error>."
-command-economy-give-all-sender: "#99E0FFYou just gave &f%economyFormat% #99E0FFto the online players."
-command-economy-give-sender: "#99E0FFYou just gave &f%economyFormat% #99E0FFto the player &7%player%#99E0FF."
-command-economy-give-receiver: "#99E0FFYou have just received &f%economyFormat%."
-command-economy-set-sender: "#99E0FFYou just set &f%economyFormat% #99E0FFto the player &7%player%#99E0FF."
-command-economy-set-receiver: "#99E0FFYou have just been modified &f%economyFormat%."
-command-economy-take-sender: "#99E0FFYou just take &f%economyFormat% #99E0FFto the player &7%player%#99E0FF."
-command-economy-take-receiver: "#99E0FFYou have just lost &f%economyFormat%."
-command-economy-show-empty: "&f%player% <error>has no money."
+# Wirtschaft
+command-economy-not-found: "<error> Kann keine Wirtschaft mit dem Namen &f%name%<error> finden."
+command-economy-give-all-sender: "#99E0FFDu hast gerade &f%economyFormat% #99E0FFan die Online-Spieler gegeben."
+command-economy-give-sender: "#99E0FFDu hast gerade &f%economyFormat% #99E0FFan den Spieler &7%player%#99E0FF gegeben."
+command-economy-give-receiver: "#99E0FFDu hast gerade &f%economyFormat% erhalten."
+command-economy-set-sender: "#99E0FFDu hast gerade &f%economyFormat% #99E0FFfür den Spieler &7%player%#99E0FF festgelegt."
+command-economy-set-receiver: "#99E0FFDein &f%economyFormat% wurde gerade geändert."
+command-economy-take-sender: "#99E0FFDu hast gerade &f%economyFormat% #99E0FFvom Spieler &7%player%#99E0FF genommen."
+command-economy-take-receiver: "#99E0FFDu hast gerade &f%economyFormat% verloren."
+command-economy-show-empty: "&f%player% <error>hat kein Geld."
 command-economy-show-info: "&7- #99E0FF%economy% &f%amount%."
 command-money:
-  - "#99E0FFYou have&8:"
+  - "#99E0FFDu hast&8:"
   - " &7- #99E0FF%economy-name-money% &f%economy-money%."
   - " &7- #99E0FF%economy-name-coins% &f%economy-coins%."
-command-pay-negative: "<error>Amount to pay must be positive."
-command-pay-min: "<error>The minimum amount you can pay is &f%amount%<error>."
-command-pay-max: "<error>The maximum amount you can pay is &f%amount%<error>."
-command-pay-sender: "#99E0FFYou just sent #F8F327%amount%#99E0FF to the player &f%player%#99E0FF."
-command-pay-receiver: "&f%player% #99E0FFjust sent you #F8F327%amount%#99E0FF."
-command-pay-disable: "<error>You can’t send %name%."
-command-pay-self: "<error>You cannot send money to yourself."
-command-pay-not-enough: "<error>You don't have enough money."
+command-pay-negative: "<error>Der zu zahlende Betrag muss positiv sein."
+command-pay-min: "<error>Der Mindestbetrag, den du zahlen kannst, beträgt &f%amount%<error>."
+command-pay-max: "<error>Der Höchstbetrag, den du zahlen kannst, beträgt &f%amount%<error>."
+command-pay-sender: "#99E0FFDu hast gerade #F8F327%amount%#99E0FF an den Spieler &f%player%#99E0FF gesendet."
+command-pay-receiver: "&f%player% #99E0FFhat dir gerade #F8F327%amount%#99E0FF gesendet."
+command-pay-disable: "<error>Du kannst %name% nicht senden."
+command-pay-self: "<error>Du kannst dir selbst kein Geld senden."
+command-pay-not-enough: "<error>Du hast nicht genug Geld."
 
 
-# Teleport commands
-command-tpa-error: "<error>You have already sent a request to #99E0FF%player%<error>."
-command-tpa-error-same: "<error>You cannot teleport to yourself."
-command-tpa-error-offline: "<error>Unable to find player, must be offline."
-command-tpa-error-to-late-empty: "<error>You do not have a teleport request."
-command-tpa-error-to-late-expire: "<error>The teleport request has expired."
+# Teleportbefehle
+command-tpa-error: "<error>Du hast bereits eine Anfrage an #99E0FF%player%<error> gesendet."
+command-tpa-error-same: "<error>Du kannst dich nicht zu dir selbst teleportieren."
+command-tpa-error-offline: "<error>Spieler nicht gefunden, muss offline sein."
+command-tpa-error-to-late-empty: "<error>Du hast keine Teleportanfrage."
+command-tpa-error-to-late-expire: "<error>Die Teleportanfrage ist abgelaufen."
 command-tpa-sender:
-  - "#00FF00✔ #99E0FFSent &f%displayName% #99E0FFa teleport request."
-  - "  <hover:show_text:'<error>✘ Cancel teleportation'><click:run_command:/tpacancel %player%>#99E0FFType #00FF00/tpacencel %player%#99E0FF to cancel your request.</click></hover>"
+  - "#00FF00✔ #99E0FFEine Teleportanfrage an &f%displayName% #99E0FFgesendet."
+  - "  <hover:show_text:'<error>✘ Teleportation abbrechen'><click:run_command:/tpacancel %player%>#99E0FFGib #00FF00/tpacancel %player%#99E0FF ein, um deine Anfrage abzubrechen.</click></hover>"
 command-tpa-receiver:
   - ""
-  - "#F8F327⚠ &f%displayName% #99E0FFhas requested to teleport to you!"
-  - "  <hover:show_text:'#00FF00✔ Accept teleportation'><click:run_command:/tpaccept>#99E0FFType #00FF00/tpaccept #99E0FFto #00FF00<u>accept</u>#99E0FF.</click></hover>"
-  - "  <hover:show_text:'<error>✘ Deny teleportation'><click:run_command:/tpdeny>#99E0FFType <error>/tpdeny #99E0FFto <error><u>deny</u>#99E0FF.</click></hover>"
+  - "#F8F327⚠ &f%displayName% #99E0FFhat angefragt, sich zu dir zu teleportieren!"
+  - "  <hover:show_text:'#00FF00✔ Teleportation annehmen'><click:run_command:/tpaccept>#99E0FFGib #00FF00/tpaccept #99E0FFein, um #00FF00<u>anzunehmen</u>#99E0FF.</click></hover>"
+  - "  <hover:show_text:'<error>✘ Teleportation ablehnen'><click:run_command:/tpdeny>#99E0FFGib <error>/tpdeny #99E0FFein, um <error><u>abzulehnen</u>#99E0FF.</click></hover>"
   - ""
-  - "&7&oYou have 60 seconds to accept the teleport request."
-command-tpa-accept-receiver: "#99E0FFYou have just #00FF00accepted #99E0FFthe teleport request from #99E0FF%player%<success>."
-command-tpa-accept-sender: "#99E0FF%player%<success> has just accepted your teleport request."
-command-teleport-ignore-player: "<error>You cannot send a teleport request to #99E0FF%player%<error> they are ignoring you."
-command-teleport-world: "<error>You need to be in the same world to teleport."
-command-tpa-error-to-late: "<error>You do not have a teleport request."
-command-tpa-error-to-late-2: "<error>The request has expired."
-command-tp-deny-sender: "#00FF00✔ Denied &f%player% #00FF00teleport request."
-command-tp-deny-receiver: "<error>✘ &f%player% <error>has denied your teleport request."
-command-tp-cancel-error: "<error>You did not send a teleport request at &f%player%<error>."
-command-tp-cancel-sender: "<error>Cancelled #99E0FFyour teleport request to %player%."
-command-tp-cancel-receiver: "&f%player% <error>cancelled their teleport request to you."
-command-world-teleport-self: "<success>You have just been teleported in der Welt &f%world%<success>."
-command-world-teleport-other: "<success>You just teleported the player &f%player% <success>in the world &f%world%<success>."
-command-tp: "&7You just teleport to the player #34cfe0%player%&f."
-command-tp-self: "&7You just teleported #34cfe0%player%&7 to your position."
-command-back: "&7Returning to previous location."
-command-back-error: "<error>You have no last location. Impossible to go back."
-command-random-tp-error: "<error>No safe location found after multiple attempts, please try again."
+  - "&7&oDu hast 60 Sekunden Zeit, die Teleportanfrage anzunehmen."
+command-tpa-accept-receiver: "#99E0FFDu hast gerade die Teleportanfrage von #00FF00%player% #99E0FFangenommen<success>."
+command-tpa-accept-sender: "#99E0FF%player%<success> hat gerade deine Teleportanfrage angenommen."
+command-teleport-ignore-player: "<error>Du kannst keine Teleportanfrage an #99E0FF%player%<error> senden, da sie dich ignorieren."
+command-teleport-world: "<error>Du musst dich in derselben Welt befinden, um dich zu teleportieren."
+command-tpa-error-to-late: "<error>Du hast keine Teleportanfrage."
+command-tpa-error-to-late-2: "<error>Die Anfrage ist abgelaufen."
+command-tp-deny-sender: "#00FF00✔ Teleportanfrage von &f%player% #00FF00abgelehnt."
+command-tp-deny-receiver: "<error>✘ &f%player% <error>hat deine Teleportanfrage abgelehnt."
+command-tp-cancel-error: "<error>Du hast keine Teleportanfrage an &f%player%<error> gesendet."
+command-tp-cancel-sender: "<error>Teleportanfrage an #99E0FF%player% abgebrochen."
+command-tp-cancel-receiver: "&f%player% <error>hat die Teleportanfrage an dich abgebrochen."
+command-world-teleport-self: "<success>Du wurdest gerade in die Welt &f%world%<success> teleportiert."
+command-world-teleport-other: "<success>Du hast den Spieler &f%player% <success>in die Welt &f%world%<success> teleportiert."
+command-tp: "&7Du hast dich gerade zu dem Spieler #34cfe0%player%&f teleportiert."
+command-tp-self: "&7Du hast gerade #34cfe0%player%&7 zu deiner Position teleportiert."
+command-back: "&7Zurück zum vorherigen Standort."
+command-back-error: "<error>Du hast keinen letzten Standort. Rückkehr unmöglich."
+command-random-tp-error: "<error>Nach mehreren Versuchen wurde kein sicherer Ort gefunden, bitte versuche es erneut."
 
 
-# First join
-join-message: "#99E0FF%player% &7joined the game"
-quit-message: "#99E0FF%player% &7left the game"
-first-join-message: "&7Welcome #99E0FF%player% &7on <your server name>! &8(&f%totalUserFormat% &7registered players&8)"
+# Erstes Betreten
+join-message: "#99E0FF%player% &7hat das Spiel betreten"
+quit-message: "#99E0FF%player% &7hat das Spiel verlassen"
+first-join-message: "&7Willkommen #99E0FF%player% &7auf <dein Servername>! &8(&f%totalUserFormat% &7registrierte Spieler&8)"
 first-join-motd:
   - ""
-  - "#00FF00✔ #99E0FFWelcome %player%#99E0FF !"
+  - "#00FF00✔ #99E0FFWillkommen %player%#99E0FF !"
   - ""
-  - "#858ef8Discord&8: #99E0FF<hover:show_text:'&fJoin the server #858ef8Discord &f!'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>"
-  - "&7Website&8: #99E0FF<hover:show_text:'&fOpen the Website &f!'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>"
+  - "#858ef8Discord&8: #99E0FF<hover:show_text:'&fTritt dem Discord-Server #858ef8 bei &f!'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>"
+  - "&7Website&8: #99E0FF<hover:show_text:'&fÖffne die Website &f!'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>"
   - ""
 
 # Spawn
-command-set-spawn: "&fYou just set the spawn location."
-command-spawn-not-define: "<error>The spawn does not exist. Please contact an administrator."
+command-set-spawn: "&fDu hast gerade den Spawnpunkt gesetzt."
+command-spawn-not-define: "<error>Der Spawnpunkt existiert nicht. Bitte kontaktiere einen Administrator."
+
 
 
 # Command description
@@ -293,21 +293,22 @@ description-cooldown-delete: "Delete a cooldown"
 description-cooldown-create: "Create a cooldown"
 
 
-# Time format
-time-day: "%02d day %02d hour %02d minute %02d second"
-time-hour: "%02d hour %02d minute(s) %02d second"
-time-minute: "%02d minute %02d second"
-time-second: "%02d second"
-format-second: "second"
-format-seconds: "seconds"
-format-minute: "minute"
-format-minutes: "minutes"
-format-hour: "hour"
-format-hours: "hours"
-format-day: "d"
-format-days: "days"
-cooldown: "<error>✘ You must wait for &f%cooldown% <error>before performing this action."
-cooldown-commands: "<error>✘ You must wait for &f%cooldown% <error>before performing this commands."
+# Zeitformat
+time-day: "%02d Tag %02d Stunde %02d Minute %02d Sekunde"
+time-hour: "%02d Stunde %02d Minute(n) %02d Sekunde"
+time-minute: "%02d Minute %02d Sekunde"
+time-second: "%02d Sekunde"
+format-second: "Sekunde"
+format-seconds: "Sekunden"
+format-minute: "Minute"
+format-minutes: "Minuten"
+format-hour: "Stunde"
+format-hours: "Stunden"
+format-day: "Tag"
+format-days: "Tage"
+cooldown: "<error>✘ Du musst &f%cooldown% <error>warten, bevor du diese Aktion ausführst."
+cooldown-commands: "<error>✘ Du musst &f%cooldown% <error>warten, bevor du diesen Befehl ausführst."
+
 
 
 # Teleportation
