@@ -17,6 +17,7 @@ public class CommandBalanceTop extends VCommand {
         this.setDescription(Message.DESCRIPTION_BALANCE_TOP);
         this.addOptionalArg("page");
         this.onlyPlayers();
+        this.addSubCommand(new CommandBalanceTopRefresh(plugin));
     }
 
     @Override

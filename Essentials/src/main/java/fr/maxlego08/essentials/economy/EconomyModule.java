@@ -94,6 +94,7 @@ public class EconomyModule extends ZModule implements EconomyManager {
         this.baltopTask = this.plugin.getScheduler().runTimer(() -> this.economies.forEach(this::refreshBaltop), 2, this.baltopRefreshSeconds, TimeUnit.SECONDS);
     }
 
+    @Override
     public void refreshBaltop(Economy economy) {
         ServerImplementation serverImplementation = this.plugin.getScheduler();
         serverImplementation.runAsync(wrappedTask -> {

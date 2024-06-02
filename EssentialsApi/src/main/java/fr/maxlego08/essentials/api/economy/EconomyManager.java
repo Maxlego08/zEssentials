@@ -175,4 +175,6 @@ public interface EconomyManager extends Module {
     long getUserPosition(String economyName, UUID uuid);
 
     void sendBaltop(Player player, int page);
+
+    void refreshBaltop(Economy economy);
 }

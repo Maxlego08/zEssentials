@@ -36,15 +36,15 @@ import java.util.stream.LongStream;
 
 public class ChatModule extends ZModule {
 
-    private final ExpiringCache<UUID, List<ChatMessageDTO>> chatMessagesCache = new ExpiringCache<>(1000 * 60);
-    private final Pattern urlPattern = Pattern.compile("(https?://[\\w-\\.]+(\\:[0-9]+)?(/[\\w- ./?%&=]*)?)", Pattern.CASE_INSENSITIVE);
-    private final DynamicCooldown dynamicCooldown = new DynamicCooldown();
-    private final List<ChatCooldown> chatCooldowns = new ArrayList<>();
-    private final List<ChatFormat> chatFormats = new ArrayList<>();
+    private ExpiringCache<UUID, List<ChatMessageDTO>> chatMessagesCache = new ExpiringCache<>(1000 * 60);
+    private Pattern urlPattern = Pattern.compile("(https?://[\\w-\\.]+(\\:[0-9]+)?(/[\\w- ./?%&=]*)?)", Pattern.CASE_INSENSITIVE);
+    private DynamicCooldown dynamicCooldown = new DynamicCooldown();
+    private List<ChatCooldown> chatCooldowns = new ArrayList<>();
+    private List<ChatFormat> chatFormats = new ArrayList<>();
+    private String alphanumericRegex = "^[a-zA-Z0-9_.?!^¨%ù*&é\"#'{(\\[-|èêë`\\\\çà)\\]=}ûî+<>:²€$/\\-,-â@;ô ]+$";
+    private String linkRegex = "[-a-zA-Z0-9@:%._+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)";
+    private String itemaddersFontRegex = "(?<=:)(.*?)(?=\\s*\\:)";
     private SimpleDateFormat simpleDateFormat;
-    private final String alphanumericRegex = "^[a-zA-Z0-9_.?!^¨%ù*&é\"#'{(\\[-|èêë`\\\\çà)\\]=}ûî+<>:²€$/\\-,-â@;ô ]+$";
-    private final String linkRegex = "[-a-zA-Z0-9@:%._+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)";
-    private final String itemaddersFontRegex = "(?<=:)(.*?)(?=\\s*\\:)";
     private Pattern alphanumericPattern;
     private Pattern linkPattern;
     private Pattern fontPattern;
@@ -57,10 +57,10 @@ public class ChatModule extends ZModule {
     private boolean enableLinkTransform;
     private boolean enableChatMessages;
     private int chatCooldownMax;
-    private final String defaultChatFormat = "<hover:show_text:'&cReport this message'><click:run_command:'/report %player% chat'><<error>>⚠</click></hover> %moderator_action%<#ffffff><hover:show_text:'#ffd353ℹ Informations#3f3f3f:<newline>#3f3f3f• &7Money#3f3f3f: #4cd5ff%zessentials_user_formatted_balance_money%<newline>#3f3f3f• &7Coins#3f3f3f: #4cd5ff%zessentials_user_formatted_balance_coins%<newline><newline>&f➥ &7Click for more information'>%player%</hover> <#333333>» <gray><click:suggest_command:'/msg %player% '><hover:show_text:'&fSend a private message'><message></hover></click>";
-    private final String moderatorAction = "<hover:show_text:'<#ff8888>Punish the player'><click:run_command:'/sc %player%'><#ff8888>✗</click></hover> ";
-    private final String linkTransform = "<hover:show_text:'&fOpen the link'><click:open_url:'%url%'>%url%</click></hover>";
-    private final String dateFormat = "yyyy-MM-dd HH:mm:ss";
+    private String defaultChatFormat = "<hover:show_text:'&cReport this message'><click:run_command:'/report %player% chat'>⚠</click></hover> %moderator_action%<#ffffff><hover:show_text:'#ffd353ℹ Informations#3f3f3f:<newline>#3f3f3f• &7Money#3f3f3f: #4cd5ff%zessentials_user_formatted_balance_money%<newline>#3f3f3f• &7Coins#3f3f3f: #4cd5ff%zessentials_user_formatted_balance_coins%<newline><newline>&f➥ &7Click for more information'>%player%</hover> <#333333>» <gray><click:suggest_command:'/msg %player% '><hover:show_text:'&fSend a private message'><message></hover></click>";
+    private String moderatorAction = "<hover:show_text:'<#ff8888>Punish the player'><click:run_command:'/sc %player%'><#ff8888>✗</click></hover> ";
+    private String linkTransform = "<hover:show_text:'&fOpen the link'><click:open_url:'%url%'>%url%</click></hover>";
+    private String dateFormat = "yyyy-MM-dd HH:mm:ss";
     private long[] chatCooldownArray;
 
 
@@ -91,7 +91,7 @@ public class ChatModule extends ZModule {
             return;
         }
 
-        if (ConfigStorage.chatEnable && !hasPermission(player, Permission.ESSENTIALS_CHAT_BYPASS_DISABLE)) {
+        if (!ConfigStorage.chatEnable && !hasPermission(player, Permission.ESSENTIALS_CHAT_BYPASS_DISABLE)) {
             cancelEvent(event, Message.CHAT_DISABLE);
             return;
         }

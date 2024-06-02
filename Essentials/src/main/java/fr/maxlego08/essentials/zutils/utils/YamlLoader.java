@@ -7,6 +7,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
@@ -21,9 +22,14 @@ public abstract class YamlLoader extends ZUtils {
         for (Field field : this.getClass().getDeclaredFields()) {
             field.setAccessible(true);
 
-            String configKey = field.getName().replaceAll("([A-Z])", "-$1").toLowerCase();
-
             try {
+
+                Field modifiersField = Field.class.getDeclaredField("modifiers");
+                modifiersField.setAccessible(true);
+                modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+
+                String configKey = field.getName().replaceAll("([A-Z])", "-$1").toLowerCase();
+
                 if (field.getType().equals(boolean.class) || field.getType().equals(Boolean.class)) {
                     field.setBoolean(this, configuration.getBoolean(configKey));
                 } else if (field.getType().equals(int.class) || field.getType().equals(Integer.class)) {
