@@ -7,10 +7,13 @@ import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.OptionDTO;
 import fr.maxlego08.essentials.api.database.dto.PlayTimeDTO;
+import fr.maxlego08.essentials.api.database.dto.PowerToolsDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.database.dto.UserDTO;
+import fr.maxlego08.essentials.api.database.dto.UserEconomyRankingDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
+import fr.maxlego08.essentials.api.mailbox.MailBoxItem;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.sanction.SanctionType;
 import fr.maxlego08.essentials.api.storage.IStorage;
@@ -24,8 +27,10 @@ import fr.maxlego08.essentials.storage.database.repositeries.EconomyTransactions
 import fr.maxlego08.essentials.storage.database.repositeries.UserCooldownsRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserEconomyRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserHomeRepository;
+import fr.maxlego08.essentials.storage.database.repositeries.UserMailBoxRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserOptionRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserPlayTimeRepository;
+import fr.maxlego08.essentials.storage.database.repositeries.UserPowerToolsRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserSanctionRepository;
 import fr.maxlego08.essentials.user.ZUser;
@@ -34,6 +39,7 @@ import fr.maxlego08.sarah.DatabaseConnection;
 import fr.maxlego08.sarah.MigrationManager;
 import fr.maxlego08.sarah.MySqlConnection;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 
 import java.math.BigDecimal;
@@ -74,12 +80,15 @@ public class SqlStorage extends StorageHelper implements IStorage {
         this.repositories.register(ChatMessagesRepository.class);
         this.repositories.register(CommandsRepository.class);
         this.repositories.register(UserPlayTimeRepository.class);
+        this.repositories.register(UserPowerToolsRepository.class);
+        this.repositories.register(UserMailBoxRepository.class);
         // this.repositories.register(ServerStorageRepository.class);
 
         MigrationManager.execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), this.plugin.getLogger());
 
         this.repositories.getTable(UserCooldownsRepository.class).deleteExpiredCooldowns();
         this.repositories.getTable(UserRepository.class).clearExpiredSanctions();
+        this.repositories.getTable(UserMailBoxRepository.class).deleteExpiredItems();
         this.setActiveSanctions(this.repositories.getTable(UserSanctionRepository.class).getActiveBan());
 
         /*List<ServerStorageDTO> serverStorageDTOS = this.repositories.getTable(ServerStorageRepository.class).select();
@@ -133,6 +142,8 @@ public class SqlStorage extends StorageHelper implements IStorage {
                 user.setCooldowns(this.repositories.getTable(UserCooldownsRepository.class).selectCooldowns(uniqueId));
                 user.setEconomies(this.repositories.getTable(UserEconomyRepository.class).selectEconomies(uniqueId));
                 user.setHomes(this.repositories.getTable(UserHomeRepository.class).selectHomes(uniqueId));
+                user.setPowerTools(this.repositories.getTable(UserPowerToolsRepository.class).getPowerTools(uniqueId).stream().collect(Collectors.toMap(PowerToolsDTO::material, PowerToolsDTO::command)));
+                user.setMailBoxItems(this.repositories.getTable(UserMailBoxRepository.class).select(uniqueId));
             }
         });
 
@@ -208,20 +219,20 @@ public class SqlStorage extends StorageHelper implements IStorage {
             return;
         }
 
+        // User server cache
+        OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayerIfCached(userName);
+        if (offlinePlayer != null) {
+            this.localUUIDS.put(userName, offlinePlayer.getUniqueId());
+            consumer.accept(offlinePlayer.getUniqueId());
+            return;
+        }
+
         async(() -> {
             // User plugin cache first
             getLocalUniqueId(userName).ifPresentOrElse(uuid -> {
                 this.localUUIDS.put(userName, uuid);
                 consumer.accept(uuid);
             }, () -> {
-
-                // User server cache
-                OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayerIfCached(userName);
-                if (offlinePlayer != null) {
-                    this.localUUIDS.put(userName, offlinePlayer.getUniqueId());
-                    consumer.accept(offlinePlayer.getUniqueId());
-                    return;
-                }
 
                 // Get uuid from database
                 List<UserDTO> userDTOS = this.repositories.getTable(UserRepository.class).selectUsers(userName);
@@ -368,5 +379,30 @@ public class SqlStorage extends StorageHelper implements IStorage {
     @Override
     public List<CooldownDTO> getCooldowns(UUID uniqueId) {
         return this.repositories.getTable(UserCooldownsRepository.class).selectCooldowns(uniqueId);
+    }
+
+    @Override
+    public void setPowerTools(UUID uniqueId, Material material, String command) {
+        async(() -> this.repositories.getTable(UserPowerToolsRepository.class).upsert(uniqueId, material, command));
+    }
+
+    @Override
+    public void deletePowerTools(UUID uniqueId, Material material) {
+        async(() -> this.repositories.getTable(UserPowerToolsRepository.class).delete(uniqueId, material));
+    }
+
+    @Override
+    public void addMailBoxItem(MailBoxItem mailBoxItem) {
+        async(() -> this.repositories.getTable(UserMailBoxRepository.class).insert(mailBoxItem));
+    }
+
+    @Override
+    public void removeMailBoxItem(int id) {
+        async(() -> this.repositories.getTable(UserMailBoxRepository.class).delete(id));
+    }
+
+    @Override
+    public List<UserEconomyRankingDTO> getEconomyRanking(Economy economy) {
+        return this.repositories.getTable(UserRepository.class).getBalanceRanking(economy.getName());
     }
 }

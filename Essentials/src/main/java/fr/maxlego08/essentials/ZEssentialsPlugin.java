@@ -9,11 +9,13 @@ import fr.maxlego08.essentials.api.Configuration;
 import fr.maxlego08.essentials.api.ConfigurationFile;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandManager;
-import fr.maxlego08.essentials.api.economy.EconomyProvider;
+import fr.maxlego08.essentials.api.economy.EconomyManager;
+import fr.maxlego08.essentials.api.hologram.HologramManager;
 import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.placeholders.PlaceholderRegister;
+import fr.maxlego08.essentials.api.scoreboard.ScoreboardManager;
 import fr.maxlego08.essentials.api.server.EssentialsServer;
 import fr.maxlego08.essentials.api.server.ServerType;
 import fr.maxlego08.essentials.api.storage.Persist;
@@ -23,7 +25,9 @@ import fr.maxlego08.essentials.api.storage.adapter.LocationAdapter;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.EssentialsUtils;
 import fr.maxlego08.essentials.api.utils.Warp;
+import fr.maxlego08.essentials.api.utils.component.ComponentMessage;
 import fr.maxlego08.essentials.buttons.ButtonHomes;
+import fr.maxlego08.essentials.buttons.ButtonMailBox;
 import fr.maxlego08.essentials.buttons.ButtonPayConfirm;
 import fr.maxlego08.essentials.buttons.ButtonTeleportationConfirm;
 import fr.maxlego08.essentials.buttons.kit.ButtonKitPreview;
@@ -39,11 +43,14 @@ import fr.maxlego08.essentials.database.migrations.CreateSanctionsTableMigration
 import fr.maxlego08.essentials.database.migrations.CreateUserCooldownTableMigration;
 import fr.maxlego08.essentials.database.migrations.CreateUserEconomyMigration;
 import fr.maxlego08.essentials.database.migrations.CreateUserHomeTableMigration;
+import fr.maxlego08.essentials.database.migrations.CreateUserMailBoxMigration;
 import fr.maxlego08.essentials.database.migrations.CreateUserOptionTableMigration;
 import fr.maxlego08.essentials.database.migrations.CreateUserPlayTimeTableMigration;
+import fr.maxlego08.essentials.database.migrations.CreateUserPowerToolsMigration;
 import fr.maxlego08.essentials.database.migrations.CreateUserTableMigration;
 import fr.maxlego08.essentials.database.migrations.UpdateUserTableAddSanctionColumns;
-import fr.maxlego08.essentials.economy.EconomyManager;
+import fr.maxlego08.essentials.economy.EconomyModule;
+import fr.maxlego08.essentials.hologram.HologramModule;
 import fr.maxlego08.essentials.hooks.VaultEconomy;
 import fr.maxlego08.essentials.kit.KitModule;
 import fr.maxlego08.essentials.listener.PlayerListener;
@@ -54,8 +61,10 @@ import fr.maxlego08.essentials.loader.ButtonWarpLoader;
 import fr.maxlego08.essentials.messages.MessageLoader;
 import fr.maxlego08.essentials.module.ZModuleManager;
 import fr.maxlego08.essentials.module.modules.HomeModule;
+import fr.maxlego08.essentials.module.modules.MailBoxModule;
 import fr.maxlego08.essentials.placeholders.DistantPlaceholder;
 import fr.maxlego08.essentials.placeholders.LocalPlaceholder;
+import fr.maxlego08.essentials.scoreboard.ScoreboardModule;
 import fr.maxlego08.essentials.server.PaperServer;
 import fr.maxlego08.essentials.server.SpigotServer;
 import fr.maxlego08.essentials.server.redis.RedisServer;
@@ -63,6 +72,8 @@ import fr.maxlego08.essentials.storage.ConfigStorage;
 import fr.maxlego08.essentials.storage.ZStorageManager;
 import fr.maxlego08.essentials.storage.adapter.UserTypeAdapter;
 import fr.maxlego08.essentials.user.ZUser;
+import fr.maxlego08.essentials.user.placeholders.EconomyBaltopPlaceholders;
+import fr.maxlego08.essentials.user.placeholders.ReplacePlaceholders;
 import fr.maxlego08.essentials.user.placeholders.UserHomePlaceholders;
 import fr.maxlego08.essentials.user.placeholders.UserKitPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.UserPlaceholders;
@@ -70,7 +81,9 @@ import fr.maxlego08.essentials.user.placeholders.UserPlayTimePlaceholders;
 import fr.maxlego08.essentials.zutils.Metrics;
 import fr.maxlego08.essentials.zutils.ZPlugin;
 import fr.maxlego08.essentials.zutils.utils.CommandMarkdownGenerator;
+import fr.maxlego08.essentials.zutils.utils.ComponentMessageHelper;
 import fr.maxlego08.essentials.zutils.utils.PlaceholderMarkdownGenerator;
+import fr.maxlego08.essentials.zutils.utils.PlaceholderUtils;
 import fr.maxlego08.essentials.zutils.utils.ZServerStorage;
 import fr.maxlego08.essentials.zutils.utils.paper.PaperUtils;
 import fr.maxlego08.essentials.zutils.utils.spigot.SpigotUtils;
@@ -80,9 +93,12 @@ import fr.maxlego08.menu.api.pattern.PatternManager;
 import fr.maxlego08.menu.button.loader.NoneLoader;
 import fr.maxlego08.sarah.MigrationManager;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.permissions.Permissible;
 
 import java.io.File;
@@ -92,7 +108,9 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.lang.reflect.Modifier;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -100,12 +118,15 @@ import java.util.UUID;
 public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin {
 
     private final UUID consoleUniqueId = UUID.fromString("00000000-0000-0000-0000-000000000000");
+    private final List<Material> materials = Arrays.stream(Material.values()).filter(e -> !e.name().startsWith("LEGACY_")).toList();
     private EssentialsUtils essentialsUtils;
     private ServerStorage serverStorage = new ZServerStorage();
     private InventoryManager inventoryManager;
     private ButtonManager buttonManager;
     private PatternManager patternManager;
     private EssentialsServer essentialsServer;
+    private ScoreboardManager scoreboardManager;
+    private HologramManager hologramManager;
 
     @Override
     public void onEnable() {
@@ -124,7 +145,9 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         DistantPlaceholder distantPlaceholder = new DistantPlaceholder(this, this.placeholder);
         distantPlaceholder.register();
 
-        this.economyProvider = new EconomyManager(this);
+        this.economyManager = new EconomyModule(this);
+        this.scoreboardManager = new ScoreboardModule(this);
+        this.hologramManager = new HologramModule(this);
 
         this.inventoryManager = this.getProvider(InventoryManager.class);
         this.buttonManager = this.getProvider(ButtonManager.class);
@@ -173,6 +196,8 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.registerPlaceholder(UserHomePlaceholders.class);
         this.registerPlaceholder(UserPlayTimePlaceholders.class);
         this.registerPlaceholder(UserKitPlaceholders.class);
+        this.registerPlaceholder(ReplacePlaceholders.class);
+        this.registerPlaceholder(EconomyBaltopPlaceholders.class);
 
         new Metrics(this, 21703);
 
@@ -211,6 +236,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.buttonManager.register(new NoneLoader(this, ButtonSanctionInformation.class, "zessentials_sanction_information"));
         this.buttonManager.register(new NoneLoader(this, ButtonSanctions.class, "zessentials_sanctions"));
         this.buttonManager.register(new NoneLoader(this, ButtonKitPreview.class, "zessentials_kit_preview"));
+        this.buttonManager.register(new NoneLoader(this, ButtonMailBox.class, "zessentials_mailbox"));
         this.buttonManager.register(new ButtonWarpLoader(this));
         this.buttonManager.register(new ButtonSanctionLoader(this));
         this.buttonManager.register(new ButtonKitCooldownLoader(this));
@@ -234,6 +260,8 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         MigrationManager.registerMigration(new CreateChatMessageMigration());
         MigrationManager.registerMigration(new CreateCommandsMigration());
         MigrationManager.registerMigration(new CreateUserPlayTimeTableMigration());
+        MigrationManager.registerMigration(new CreateUserPowerToolsMigration());
+        MigrationManager.registerMigration(new CreateUserMailBoxMigration());
     }
 
     @Override
@@ -311,12 +339,12 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
     @Override
     public boolean isEconomyEnable() {
-        return this.economyProvider.isEnable();
+        return this.economyManager.isEnable();
     }
 
     @Override
-    public EconomyProvider getEconomyProvider() {
-        return this.economyProvider;
+    public EconomyManager getEconomyManager() {
+        return this.economyManager;
     }
 
     @Override
@@ -470,5 +498,57 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     @Override
     public void giveKit(User user, Kit kit, boolean bypassCooldown) {
         this.moduleManager.getModule(KitModule.class).giveKit(user, kit, bypassCooldown);
+    }
+
+    @Override
+    public List<Material> getMaterials() {
+        return this.materials;
+    }
+
+    @Override
+    public ScoreboardManager getScoreboardManager() {
+        return this.scoreboardManager;
+    }
+
+    @Override
+    public void give(Player player, ItemStack itemStack) {
+
+        PlayerInventory inventory = player.getInventory();
+
+        Map<Integer, ItemStack> result = inventory.addItem(itemStack);
+        if (result.isEmpty()) return;
+
+        MailBoxModule mailBoxModule = this.moduleManager.getModule(MailBoxModule.class);
+        result.values().forEach(item -> {
+            int amount = itemStack.getAmount();
+            if (amount > itemStack.getMaxStackSize()) {
+                while (amount > 0) {
+                    int currentAmount = Math.min(itemStack.getMaxStackSize(), amount);
+                    amount -= currentAmount;
+
+                    ItemStack clonedItemStacks = item.clone();
+                    clonedItemStacks.setAmount(currentAmount);
+
+                    mailBoxModule.addItem(player.getUniqueId(), clonedItemStacks);
+                }
+            } else {
+                mailBoxModule.addItem(player.getUniqueId(), item);
+            }
+        });
+    }
+
+    @Override
+    public HologramManager getHologramManager() {
+        return this.hologramManager;
+    }
+
+    @Override
+    public ComponentMessage getComponentMessage() {
+        return ComponentMessageHelper.componentMessage;
+    }
+
+    @Override
+    public String papi(Player player, String string) {
+        return PlaceholderUtils.PapiHelper.papi(string, player);
     }
 }

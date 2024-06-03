@@ -14,7 +14,7 @@ import java.util.Optional;
 public class CommandKitDelete extends VCommand {
     public CommandKitDelete(EssentialsPlugin plugin) {
         super(plugin);
-        this.setModule(SanctionModule.class);
+        this.setModule(KitModule.class);
         this.setPermission(Permission.ESSENTIALS_KIT_DELETE);
         this.setDescription(Message.DESCRIPTION_KIT_DELETE);
         this.addOptionalArg("kit", (sender, b) -> plugin.getModuleManager().getModule(KitModule.class).getKits(sender).stream().map(Kit::getName).toList());

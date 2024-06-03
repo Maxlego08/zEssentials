@@ -24,6 +24,15 @@ console: "Console"
 expired: "Expired"
 player-not-found: "&f%player% <error>was not found."
 module-disable: "<error>The &f%name% <error>module is disabled. You cannot use this command."
+rules:
+  - "#ffd353ℹ sᴇʀᴠᴇʀ ʀᴜʟᴇs#3f3f3f:"
+  - "#3f3f3f• &7Respect all players and staff."
+  - "#3f3f3f• &7No grieging or stealing."
+  - "#3f3f3f• &7No cheating or hacking."
+  - "#3f3f3f• &7Keep chat clean and respectful."
+  - "#3f3f3f• &7No spamming or advertising."
+
+
 
 # Commands
 command-syntax-error: "<error>You must execute the command like this#656665: &f%syntax%"
@@ -33,6 +42,8 @@ command-no-arg: "<error>Impossible to find the command with its arguments."
 command-syntaxe-help: "&f%syntax% #656665» &7%description%"
 
 command-reload: "#00ff40You have just reloaded the configuration files."
+command-reload-module: "<success>You have just reloaded the configuration files of the module &f%module%<success>."
+command-reload-error: "&f%module% <error>was not found !"
 command-essentials: "&ezEssentials&8, &eVersion &f%version%"
 
 
@@ -170,6 +181,7 @@ command-tp-cancel-receiver: "&f%player% <error>cancelled their teleport request 
 command-world-teleport-self: "<success>You have just been teleported into the world &f%world%<success>."
 command-world-teleport-other: "<success>You just teleported the player &f%player% <success>in the world &f%world%<success>."
 command-tp: "&7You just teleport to the player #34cfe0%player%&f."
+command-tp-all: "&7You just teleported all the players onto you."
 command-tp-self: "&7You just teleported #34cfe0%player%&7 to your position."
 command-back: "&7Returning to previous location."
 command-back-error: "<error>You have no last location. Impossible to go back."
@@ -211,6 +223,7 @@ description-tpa: "Teleport to a player"
 description-tpa-accept: "Accept a teleportation request"
 description-tpa-deny: "Denied a teleportation request"
 description-tpa-cancel: "Cancel a teleportation request"
+description-tp-all: "Teleport all players to your position"
 description-god: "Toggle god mode"
 description-heal: "Heal a player"
 description-more: "Get more items"
@@ -277,7 +290,7 @@ description-repair-all: "Repair all items in your inventory"
 description-ext: "Stop burning"
 description-near: "Show players close to you"
 description-play-time: "Show player's playtime"
-description-bottom: "Teleporting to top"
+description-bottom: "Teleporting to bottom"
 description-compact-all: "Compact items in your inventories"
 description-version: "Show plugin version"
 description-kill-all: "Kill entities"
@@ -290,6 +303,46 @@ description-kit-delete: "Delete a kit"
 description-cooldown: "Display a player’s cooldowns"
 description-cooldown-delete: "Delete a cooldown"
 description-cooldown-create: "Create a cooldown"
+description-item-name: "Change the item name"
+description-item-lore: "Show commands for the lore"
+description-item-lore-set: "Define a line of a lore"
+description-item-lore-add: "Add a line to lore"
+description-item-lore-clear: "Clear item lore"
+description-give: "Give items"
+description-give-all: "Give items to online players"
+description-power-tools: "Add command to your items"
+description-pay-toggle: "Activate or not the receipt of money"
+description-power-tools-toggle: "Toggle power tools"
+description-kit-show: "Show a kit"
+description-mail: "Open mailbox"
+description-rules: "Read server rules"
+description-hologram: "Show hologram commands"
+description-hologram-create: "Create a hologram"
+description-hologram-delete: "Delete a hologram"
+description-hologram-edit: "Edit a hologram"
+description-hologram-list: "Display hologram list"
+description-hologram-remove-line: "Remove a line from a hologram"
+description-hologram-add-line: "Add a line to a hologram"
+description-hologram-set-line: "Define a line of a hologram"
+description-hologram-insert-before-line: "Insert a line before another"
+description-hologram-insert-after-line: "Define a line after another"
+description-hologram-move-here: "Move a hologram to your position"
+description-hologram-move-to: "Move a hologram to a location"
+description-hologram-scale: "Change hologram scale"
+description-hologram-translation: "Change hologram translation"
+description-hologram-billboard: "Change hologram billboard"
+description-hologram-text-alignment: "Change hologram text alignment"
+description-hologram-text-shadow: "Change hologram text shadow"
+description-hologram-shadow-strength: "Change hologram shadow strength"
+description-hologram-shadow-radius: "Change hologram shadow radius"
+description-hologram-text-background: "Change hologram text background"
+description-hologram-see-through: "Change hologram see through"
+description-hologram-yaw: "Change hologram yaw"
+description-hologram-pitch: "Change hologram pitch"
+description-hologram-teleport: "Teleport to a hologram"
+description-scoreboard: "Enable/Disable scoreboard"
+description-balance-top: "Show baltop"
+description-balance-top-refresh: "Refresh baltop"
 
 
 # Time format
@@ -520,7 +573,7 @@ command-chat-broadcast:
 
 # Messages
 command-message-self: "<error>You can’t talk to yourself."
-command-message-disable: "&f%%player% <error>has disabled private messages."
+command-message-disable: "&f%player% <error>has disabled private messages."
 command-message-mute: "<error>You’re not allowed to speak."
 command-message-me: "<hover:show_text:'&fClick to reply'><click:suggest_command:'/r '>&8(#f533f5me &7-> #34cfe0%target%&8) #e6e1e6<message></click></hover>"
 command-message-other: "<hover:show_text:'&fClick to reply'><click:suggest_command:'/r '>&8(#34cfe0%target% &7-> #f533f5me&8) #e6e1e6<message></click></hover>"
@@ -532,9 +585,15 @@ command-message-toggle-enable: "&7Private message <success>enable &7for &f%playe
 command-message-toggle-disable: "&7Private message <error>disable &7for &f%player%<success>."
 command-social-spy-enable: "&7Social spy <success>enable &7for &f%player%<success>."
 command-social-spy-disable: "&7Social spy <error>disable &7for &f%player%<success>."
+command-warp-empty: "<error>No warp defined, use command &f/setwarp <name>"
+command-pay-toggle-enable: "&7Pay <success>enable &7for &f%player%<success>."
+command-pay-toggle-disable: "&7Pay <error>disable &7for &f%player%<error>."
+command-power-tools-toggle-enable: "<success>All of your power tools have been enabled &7for &f%player%<success>."
+command-power-tools-toggle-disable: "<error>All of your power tools have been disabled &7for &f%player%<error>."
 
 
 # Kit
+command-kit-no-permission: "<error>You do not have permission to use the kit &f%kit%<error>."
 command-kit-not-found: "<error>Unable to find the kit &f%kit%<error>."
 command-kit-already-exists: "<error>The &f%kit% <error>kit already exists."
 command-kit-information-in-line-empty: "#8cc0ccʏᴏᴜʀ ᴋɪᴛs <success>♦ &7(%count%/%max%)&8: <error>ɴᴏ ᴋɪᴛ ᴀᴠᴀɪʟᴀʙʟᴇ"
@@ -569,3 +628,77 @@ command-cooldown-delete: "<success>You just removed the cooldown &f%cooldown% <s
 # %player% - the Player's nickname
 # %duration% - the duration of the cooldown
 command-cooldown-create: "<success>You just created the cooldown &f%key% <success>for &n%player%&r<success>."
+
+
+command-item-empty: "<error>You have no item in your hand."
+command-item-clear: "<success>You have cleared this item's name"
+command-item-set: "<success>You have renamed your held item to &f%name%<success>."
+command-item-lore-add: "<success>You just added the line &f%text%<success>."
+command-item-lore-set: "<success>You just set line %line% to &f%text%<success>."
+command-item-lore-clear: "<success>You just clear the item lore."
+command-item-lore-set-error: "<error>Can’t find the line &f%line%<error>."
+command-give-error: "<error>Can’t find the item &f%item%<error>."
+command-give: "<success>You just gave &n&fx1 %item%&r <success>to player &f%player%<success>."
+command-give-all: "<success>You just gave &n&fx1 %item%&r <success>to online player."
+
+command-power-tool-error-item: "<error>You have no item in your hand."
+command-power-tool-error-reset: "<error>This item has no recorded command."
+command-power-tool-info: "<success>You just put the command &f/%command%<success> on the item &f%item<success>."
+command-power-tool-reset: "<success>You have just deleted the command on the item &f%item<success>."
+
+mailbox-remove-full: "<error>You must have space in your inventory to retrieve an item."
+mailbox-remove-expire: "<error>You can no longer retrieve this item, it has expired."
+mailbox-add:
+  type: ACTION
+  message: "<success>An item has just been added to your mailbox &8(&f/mail&8)"
+
+hologram-create-error: "<error>Hologram &f%name% <error>already exists."
+hologram-create:
+  type: WITHOUT_PREFIX
+  messages:
+    - "<success>You just created the hologram &f%name%<success>."
+    - "&7Use &n<click:run_command:'/hologram edit %name%'>/hologram edit %name%</click>&r&7 command to edit the hologram"
+hologram-delete: "<success>Hologram &f%name% <success>has been deleted."
+hologram-doesnt-exist: "<error>Hologram &f%name% <error>doesn't exist."
+hologram-is-not-a-text: "<error>Hologram &f%name% <error>is not a text hologram."
+hologram-is-not-a-block: "<error>Hologram &f%name% <error>is not a block hologram."
+hologram-is-not-a-item: "<error>Hologram &f%name% <error>is not an item hologram."
+hologram-add-line: "<success>You just added a line to the hologram &f%name%<success>."
+hologram-set-line: "<success>You just set the line &f%line%<success> to the hologram &f%name%<success>."
+hologram-insert-before-line: "<success>You just set a new line before the line &f%line%<success> to the hologram &f%name%<success>."
+hologram-insert-after-line: "<success>You just set a new line after the line &f%line%<success> to the hologram &f%name%<success>."
+hologram-line-doesnt-exist: "<error>The line &f%line% <error>does not exist for the hologram &f%name%<error>."
+hologram-remove-line: "<success>You just removed the line &f%line%<success> from the hologram &f%name%<success>."
+hologram-scale: "<success>You just changed the scale of the hologram &f%name% <success>to &7%x%&8, &7%y%&8, &7%z%<success>."
+hologram-translation: "<success>You just changed the translation of the hologram &f%name% <success>to &7%x%&8, &7%y%&8, &7%z%<success>."
+hologram-move-here: "<success>You just teleported the hologram &f%name%<success> to your position."
+hologram-move-to: "<success>You just teleported the hologram &f%name% <success>to &7%x%&8, &7%y%&8, &7%z%<success>."
+hologram-billboard: "<success>You just changed the billboard of the hologram &f%name%<success> to &f%billboard%<success>."
+hologram-text-alignment: "<success>You just changed the text alignment of the hologram &f%name%<success> to &f%textAlignment%<success>."
+hologram-yaw: "<success>You just changed the yaw of the hologram &f%name%<success> to &f%yaw%<success>."
+hologram-pitch: "<success>You just changed the pitch of the hologram &f%name%<success> to &f%pitch%<success>."
+hologram-text-background: "<success>You just changed the background color of the hologram &f%name%<success> to &f%color%<success>."
+hologram-text-background-error: "<error>Could not parse background color."
+hologram-text-shadow: "<success>You set the text shadow to &f%textshadow% <success>for the hologram &f%name%<success>."
+hologram-see-through: "<success>You set the see-through to &f%seethrough% <success>for the hologram &f%name%<success>."
+hologram-shadow-strength: "<success>You set the shadow strength to &f%shadow% <success>for the hologram &f%name%<success>."
+hologram-shadow-radius: "<success>You set the shadow radius to &f%shadow% <success>for the hologram &f%name%<success>."
+hologram-view-distance: "<success>You set the view distance to &f%distance% <success>for the hologram &f%name%<success>."
+hologram-list-empty: "<error>There is no hologram, to create one please use the command &f/holo create <name>"
+hologram-list:
+  type: WITHOUT_PREFIX
+  message: "&f%name% &8- &7%world%: %x%, %y%, %z% &8- <hover:show_text:'&7Click to be teleported to this hologram'><click:run_command:'/holo tp %name%'><green>ᴛᴇʟᴇᴘᴏʀᴛ</click> </hover><hover:show_text:'<red>Click to delete this hologram'><click:suggest_command:'/holo delete %name%'><red>ᴅᴇʟᴇᴛᴇ</click></hover>"
+hologram-item-error: "<error>You can't use air for this hologram."
+hologram-item: "<success>You just modified the item of the hologram &f%name%<success>."
+hologram-block: "<success>You just modified the block of the hologram &f%name%<success> to &f%material%<success>."
+
+scoreboard-disable: "<error>You just disabled the scoreboard."
+scoreboard-enable: "<success>You just enabled the scoreboard."
+
+command-baltop-error: "<error>Can’t find the economy &f%name%<error>."
+command-baltop-header:
+  type: WITHOUT_PREFIX
+  message: "#00f986ᴍᴏsᴛ ᴍᴏɴᴇʏ &8(&f%page%&8/&7%maxPage%&8) <click:run_command:'/baltop %previousPage%'>&f◀</click> &8- <click:run_command:'/baltop %nextPage%'>&f▶</click>"
+command-baltop:
+  type: WITHOUT_PREFIX
+  message: "#00f986#%position% &f%name%&8: %amount%"

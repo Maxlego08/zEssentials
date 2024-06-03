@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.api.modules;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * Represents a manager for handling modules in the plugin system.
@@ -33,5 +34,6 @@ public interface ModuleManager {
      */
     File getFolder();
 
+    List<Module> getModules();
 }
 

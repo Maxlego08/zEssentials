@@ -15,6 +15,7 @@ import fr.maxlego08.menu.exceptions.InventoryException;
 import fr.maxlego08.menu.loader.MenuItemStackLoader;
 import fr.maxlego08.menu.zcore.utils.loader.Loader;
 import org.apache.logging.log4j.util.Strings;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -98,7 +99,7 @@ public class KitModule extends ZModule {
 
             List<Action> actions = this.plugin.getButtonManager().loadActions((List<Map<String, Object>>) configuration.getList(path + "actions", new ArrayList<>()), path, file);
 
-            Kit kit = new ZKit(name, key, cooldown, menuItemStacks, actions);
+            Kit kit = new ZKit(plugin, name, key, cooldown, menuItemStacks, actions);
             this.kits.add(kit);
             this.plugin.getLogger().info("Register kit: " + name);
         }
@@ -168,6 +169,11 @@ public class KitModule extends ZModule {
         return true;
     }
 
+    public void sendInLine(CommandSender sender){
+        List<String> homesAsString = kits.stream().map(kit -> getMessage(Message.COMMAND_KIT_INFORMATION_IN_LINE_INFO_AVAILABLE, "%name%", kit.getName())).toList();
+        message(sender, Message.COMMAND_KIT_INFORMATION_IN_LINE, "%kits%", Strings.join(homesAsString, ','));
+    }
+
     public void showKits(User user) {
 
         if (display != KitDisplay.INVENTORY) {
@@ -230,7 +236,7 @@ public class KitModule extends ZModule {
 
     public void createKit(Player player, String kitName, int cooldown) {
 
-        Kit kit = new ZKit(kitName, kitName, cooldown, new ArrayList<>(), new ArrayList<>());
+        Kit kit = new ZKit(plugin, kitName, kitName, cooldown, new ArrayList<>(), new ArrayList<>());
         kits.add(kit);
         this.saveKits();
 

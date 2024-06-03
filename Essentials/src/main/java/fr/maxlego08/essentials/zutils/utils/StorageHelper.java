@@ -4,7 +4,7 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.event.UserEvent;
-import fr.maxlego08.essentials.api.event.events.UserFirstJoinEvent;
+import fr.maxlego08.essentials.api.event.events.user.UserFirstJoinEvent;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.user.User;
 

@@ -2,6 +2,7 @@ package fr.maxlego08.essentials.api.kit;
 
 import fr.maxlego08.menu.MenuItemStack;
 import fr.maxlego08.menu.api.requirement.Action;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -21,4 +22,6 @@ public interface Kit {
     void setItems(List<MenuItemStack> menuItemStacks);
 
     List<Action> getActions();
+
+    boolean hasPermission(CommandSender sender);
 }

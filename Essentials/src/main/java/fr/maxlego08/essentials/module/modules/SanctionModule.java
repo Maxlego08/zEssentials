@@ -290,7 +290,7 @@ public class SanctionModule extends ZModule {
         server.sendMessage(uuid, Message.MESSAGE_UNMUTE, "%reason%", reason);
 
         // Broadcast a notification message to players with the mute notify permission
-        server.broadcastMessage(Permission.ESSENTIALS_UNMUTE_NOTIFY, Message.COMMAND_UNMUTE_NOTIFY, "%player%", sender.getName(), "%target%", playerName, "%reason%", reason, "%sender%", getSanctionBy(sender), "%created_at%", this.simpleDateFormat.format(new Date()));
+        server.broadcastMessage(Permission.ESSENTIALS_UNMUTE_NOTIFY, Message.COMMAND_UNMUTE_NOTIFY, "%player%", sender.getName(), "%target%", playerName, "%reason%", reason, "%sender%", getSanctionBy(sender), "%created_at%", this.simpleDateFormat.format(new Date()), "%duration%", "0");
     }
 
     /**
@@ -324,7 +324,7 @@ public class SanctionModule extends ZModule {
         this.expiringCache.clear(uuid);
 
         // Broadcast a notification message to players with the mute notify permission
-        server.broadcastMessage(Permission.ESSENTIALS_UNBAN_NOTIFY, Message.COMMAND_UNBAN_NOTIFY, "%player%", sender.getName(), "%target%", playerName, "%reason%", reason, "%sender%", getSanctionBy(sender), "%created_at%", this.simpleDateFormat.format(new Date()));
+        server.broadcastMessage(Permission.ESSENTIALS_UNBAN_NOTIFY, Message.COMMAND_UNBAN_NOTIFY, "%player%", sender.getName(), "%target%", playerName, "%reason%", reason, "%sender%", getSanctionBy(sender), "%created_at%", this.simpleDateFormat.format(new Date()), "%duration%", "0");
     }
 
     public void openSanction(User user, UUID uuid, String userName) {

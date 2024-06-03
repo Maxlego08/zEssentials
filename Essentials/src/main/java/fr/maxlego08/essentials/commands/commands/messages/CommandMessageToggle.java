@@ -7,13 +7,9 @@ import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.modules.MessageModule;
-import fr.maxlego08.essentials.module.modules.SanctionModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import java.util.ArrayList;
 
 public class CommandMessageToggle extends VCommand {
     public CommandMessageToggle(EssentialsPlugin plugin) {
@@ -33,7 +29,7 @@ public class CommandMessageToggle extends VCommand {
             return CommandResultType.SYNTAX_ERROR;
         }
 
-        if (player == this.player) {
+        if (player == this.player || !hasPermission(sender, Permission.DESCRIPTION_MESSAGE_TOGGLE_OTHER)) {
             togglePrivateMessage(player, this.user, sender);
         } else {
             User otherUser = getUser(player);

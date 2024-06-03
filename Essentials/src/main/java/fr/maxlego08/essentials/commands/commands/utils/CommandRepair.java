@@ -23,8 +23,6 @@ public class CommandRepair extends VCommand {
         ItemStack itemStack = this.player.getInventory().getItemInMainHand();
         ItemMeta itemMeta = itemStack.getItemMeta();
 
-        System.out.println(itemMeta instanceof Damageable);
-        System.out.println(itemStack);
         if (itemMeta instanceof Damageable damageable) {
 
             if (damageable.getDamage() == 0) {

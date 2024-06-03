@@ -1,7 +1,7 @@
 package fr.maxlego08.essentials.hooks;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
-import fr.maxlego08.essentials.api.economy.EconomyProvider;
+import fr.maxlego08.essentials.api.economy.EconomyManager;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
@@ -23,7 +23,7 @@ public class VaultEconomy implements Economy {
     }
 
     private fr.maxlego08.essentials.api.economy.Economy getEconomy() {
-        return this.essentialsPlugin.getEconomyProvider().getVaultEconomy();
+        return this.essentialsPlugin.getEconomyManager().getVaultEconomy();
     }
 
     @Override
@@ -48,7 +48,7 @@ public class VaultEconomy implements Economy {
 
     @Override
     public String format(double amount) {
-        return this.essentialsPlugin.getEconomyProvider().format(getEconomy(), amount);
+        return this.essentialsPlugin.getEconomyManager().format(getEconomy(), amount);
     }
 
     @Override
@@ -126,10 +126,10 @@ public class VaultEconomy implements Economy {
     public EconomyResponse withdrawPlayer(String playerName, double amount) {
 
         IStorage iStorage = this.essentialsPlugin.getStorageManager().getStorage();
-        EconomyProvider economyProvider = this.essentialsPlugin.getEconomyProvider();
+        EconomyManager economyManager = this.essentialsPlugin.getEconomyManager();
         iStorage.fetchUniqueId(playerName, uuid -> {
             if (uuid == null) return;
-            economyProvider.withdraw(uuid, getEconomy(), new BigDecimal(amount));
+            economyManager.withdraw(uuid, getEconomy(), new BigDecimal(amount));
         });
 
         return new EconomyResponse(amount, 0, EconomyResponse.ResponseType.SUCCESS, "Yeah its work (i guess its async withdraw so idk maybe) !");
@@ -138,8 +138,8 @@ public class VaultEconomy implements Economy {
     @Override
     public EconomyResponse withdrawPlayer(OfflinePlayer player, double amount) {
 
-        EconomyProvider economyProvider = this.essentialsPlugin.getEconomyProvider();
-        economyProvider.withdraw(player.getUniqueId(), getEconomy(), new BigDecimal(amount));
+        EconomyManager economyManager = this.essentialsPlugin.getEconomyManager();
+        economyManager.withdraw(player.getUniqueId(), getEconomy(), new BigDecimal(amount));
         return new EconomyResponse(amount, 0, EconomyResponse.ResponseType.SUCCESS, "Yeah its work (i guess its async withdraw so idk maybe) !");
     }
 
@@ -157,10 +157,10 @@ public class VaultEconomy implements Economy {
     public EconomyResponse depositPlayer(String playerName, double amount) {
 
         IStorage iStorage = this.essentialsPlugin.getStorageManager().getStorage();
-        EconomyProvider economyProvider = this.essentialsPlugin.getEconomyProvider();
+        EconomyManager economyManager = this.essentialsPlugin.getEconomyManager();
         iStorage.fetchUniqueId(playerName, uuid -> {
             if (uuid == null) return;
-            economyProvider.deposit(uuid, getEconomy(), new BigDecimal(amount));
+            economyManager.deposit(uuid, getEconomy(), new BigDecimal(amount));
         });
 
         return new EconomyResponse(amount, 0, EconomyResponse.ResponseType.SUCCESS, "Yeah its work (i guess its async deposit so idk maybe) !");
@@ -169,8 +169,8 @@ public class VaultEconomy implements Economy {
     @Override
     public EconomyResponse depositPlayer(OfflinePlayer player, double amount) {
 
-        EconomyProvider economyProvider = this.essentialsPlugin.getEconomyProvider();
-        economyProvider.deposit(player.getUniqueId(), getEconomy(), new BigDecimal(amount));
+        EconomyManager economyManager = this.essentialsPlugin.getEconomyManager();
+        economyManager.deposit(player.getUniqueId(), getEconomy(), new BigDecimal(amount));
         return new EconomyResponse(amount, 0, EconomyResponse.ResponseType.SUCCESS, "Yeah its work (i guess its async deposit so idk maybe) !");
     }
 

@@ -2,9 +2,11 @@ package fr.maxlego08.essentials.storage.database.repositeries;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.database.dto.UserDTO;
+import fr.maxlego08.essentials.api.database.dto.UserEconomyRankingDTO;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.storage.database.Repository;
 import fr.maxlego08.sarah.DatabaseConnection;
+import fr.maxlego08.sarah.conditions.JoinCondition;
 
 import java.util.Date;
 import java.util.List;
@@ -131,4 +133,18 @@ public class UserRepository extends Repository {
             table.where("pt.address", ip);
         });
     }
+
+    public List<UserEconomyRankingDTO> getBalanceRanking(String economyName) {
+        return select(UserEconomyRankingDTO.class, table -> {
+
+            table.addSelect("%prefix%users", "unique_id");
+            table.addSelect("name");
+            table.addSelect("ze", "amount", "amount", 0);
+            JoinCondition joinCondition = JoinCondition.and("ze", "economy_name", economyName);
+            table.leftJoin("%prefix%economies", "ze", "unique_id", "%prefix%users", "unique_id", joinCondition);
+            table.orderByDesc("amount");
+
+        });
+    }
+
 }

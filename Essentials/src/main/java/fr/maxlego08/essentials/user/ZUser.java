@@ -6,11 +6,15 @@ import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.HomeDTO;
+import fr.maxlego08.essentials.api.database.dto.MailBoxDTO;
 import fr.maxlego08.essentials.api.database.dto.OptionDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
+import fr.maxlego08.essentials.api.event.events.user.UserEconomyPostUpdateEvent;
+import fr.maxlego08.essentials.api.event.events.user.UserEconomyUpdateEvent;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.kit.Kit;
+import fr.maxlego08.essentials.api.mailbox.MailBoxItem;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.storage.IStorage;
@@ -46,6 +50,7 @@ public class ZUser extends ZUtils implements User {
     private final Map<Option, Boolean> options = new HashMap<>();
     private final Map<String, BigDecimal> balances = new HashMap<>();
     private final List<Home> homes = new ArrayList<>();
+    private final List<MailBoxItem> mailBoxItems = new ArrayList<>();
     private String name;
     private TeleportRequest teleportRequest;
     private User targetUser;
@@ -64,6 +69,7 @@ public class ZUser extends ZUtils implements User {
     private long currentSessionPlayTime;
     private String address;
     private Kit previewKit;
+    private Map<Material, String> powerTools = new HashMap<>();
 
     public ZUser(EssentialsPlugin plugin, UUID uniqueId) {
         this.plugin = plugin;
@@ -356,13 +362,34 @@ public class ZUser extends ZUtils implements User {
 
     @Override
     public void set(UUID fromUuid, Economy economy, BigDecimal bigDecimal) {
+        Economy finalEconomy;
+        BigDecimal finalBigDecimal;
 
-        BigDecimal fromAmount = this.balances.getOrDefault(economy.getName(), BigDecimal.ZERO);
-        BigDecimal toAmount = (bigDecimal.compareTo(economy.getMinValue()) < 0) ? economy.getMinValue() : (bigDecimal.compareTo(economy.getMaxValue()) > 0) ? economy.getMaxValue() : bigDecimal;
-        this.balances.put(economy.getName(), toAmount);
+        if (isOnline()) {
+            UserEconomyUpdateEvent event = new UserEconomyUpdateEvent(this, economy, bigDecimal);
+            event.callEvent();
 
-        getStorage().updateEconomy(this.uniqueId, economy, bigDecimal);
-        getStorage().storeTransactions(fromUuid, this.uniqueId, economy, fromAmount, toAmount);
+            if (event.isCancelled()) return;
+
+            finalEconomy = event.getEconomy();
+            finalBigDecimal = event.getAmount();
+        } else {
+
+            finalBigDecimal = bigDecimal;
+            finalEconomy = economy;
+        }
+
+        BigDecimal fromAmount = this.balances.getOrDefault(finalEconomy.getName(), BigDecimal.ZERO);
+        BigDecimal toAmount = (finalBigDecimal.compareTo(finalEconomy.getMinValue()) < 0) ? finalEconomy.getMinValue() : (finalBigDecimal.compareTo(finalEconomy.getMaxValue()) > 0) ? finalEconomy.getMaxValue() : finalBigDecimal;
+        this.balances.put(finalEconomy.getName(), toAmount);
+
+        getStorage().updateEconomy(this.uniqueId, finalEconomy, finalBigDecimal);
+        getStorage().storeTransactions(fromUuid, this.uniqueId, finalEconomy, fromAmount, toAmount);
+
+        if (isOnline()) {
+            UserEconomyPostUpdateEvent postUpdateEvent = new UserEconomyPostUpdateEvent(this, finalEconomy, finalBigDecimal);
+            postUpdateEvent.callEvent();
+        }
     }
 
     @Override
@@ -377,7 +404,7 @@ public class ZUser extends ZUtils implements User {
 
     @Override
     public void set(Economy economy, BigDecimal bigDecimal) {
-        this.set(this.plugin.getConsoleUniqueId(), economy, bigDecimal);
+        set(this.plugin.getConsoleUniqueId(), economy, bigDecimal);
     }
 
     @Override
@@ -626,7 +653,51 @@ public class ZUser extends ZUtils implements User {
     }
 
     @Override
+    public void setPowerTools(Material type, String command) {
+        this.powerTools.put(type, command);
+        this.getStorage().setPowerTools(this.uniqueId, type, command);
+    }
+
+    @Override
+    public Map<Material, String> getPowerTools() {
+        return this.powerTools;
+    }
+
+    @Override
+    public void setPowerTools(Map<Material, String> powerTools) {
+        this.powerTools = powerTools;
+    }
+
+    @Override
+    public Optional<String> getPowerTool(Material material) {
+        return Optional.ofNullable(this.powerTools.get(material));
+    }
+
+    @Override
     public Kit getKitPreview() {
         return this.previewKit;
+    }
+
+    @Override
+    public void deletePowerTools(Material material) {
+        this.powerTools.remove(material);
+        this.getStorage().deletePowerTools(this.uniqueId, material);
+    }
+
+    @Override
+    public List<MailBoxItem> getMailBoxItems() {
+        return this.mailBoxItems;
+    }
+
+    @Override
+    public void setMailBoxItems(List<MailBoxDTO> mailBoxItems) {
+        this.mailBoxItems.clear();
+        this.mailBoxItems.addAll(mailBoxItems.stream().map(MailBoxItem::new).toList());
+    }
+
+    @Override
+    public void addMailBoxItem(MailBoxItem mailBoxItem) {
+        this.mailBoxItems.add(mailBoxItem);
+        this.getStorage().addMailBoxItem(mailBoxItem);
     }
 }

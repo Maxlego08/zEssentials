@@ -14,7 +14,7 @@ import java.util.Optional;
 public class CommandKitCreate extends VCommand {
     public CommandKitCreate(EssentialsPlugin plugin) {
         super(plugin);
-        this.setModule(SanctionModule.class);
+        this.setModule(KitModule.class);
         this.setPermission(Permission.ESSENTIALS_KIT_CREATE);
         this.setDescription(Message.DESCRIPTION_KIT_CREATE);
         this.addRequireArg("name");

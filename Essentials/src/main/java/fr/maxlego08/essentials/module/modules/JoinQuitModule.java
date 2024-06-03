@@ -2,8 +2,8 @@ package fr.maxlego08.essentials.module.modules;
 
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.Permission;
-import fr.maxlego08.essentials.api.economy.EconomyProvider;
-import fr.maxlego08.essentials.api.event.events.UserFirstJoinEvent;
+import fr.maxlego08.essentials.api.economy.EconomyManager;
+import fr.maxlego08.essentials.api.event.events.user.UserFirstJoinEvent;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.modules.joinquit.JoinQuitMessageType;
 import fr.maxlego08.essentials.api.user.User;
@@ -40,12 +40,12 @@ public class JoinQuitModule extends ZModule {
         if (!this.allowFirstJoinBroadcast) return;
 
         long totalUsers = this.plugin.getStorageManager().getStorage().totalUsers();
-        EconomyProvider economyProvider = this.plugin.getEconomyProvider();
+        EconomyManager economyManager = this.plugin.getEconomyManager();
 
         Bukkit.getOnlinePlayers().forEach(player -> {
-            message(player, Message.FIRST_JOIN_MESSAGE, "%player%", user.getName(), "%totalUser%", totalUsers, "%totalUserFormat%", economyProvider.format(totalUsers));
+            message(player, Message.FIRST_JOIN_MESSAGE, "%player%", user.getName(), "%totalUser%", totalUsers, "%totalUserFormat%", economyManager.format(totalUsers));
         });
-        message(Bukkit.getConsoleSender(), Message.FIRST_JOIN_MESSAGE, "%player%", user.getName(), "%totalUser%", totalUsers, "%totalUserFormat%", economyProvider.format(totalUsers));
+        message(Bukkit.getConsoleSender(), Message.FIRST_JOIN_MESSAGE, "%player%", user.getName(), "%totalUser%", totalUsers, "%totalUserFormat%", economyManager.format(totalUsers));
     }
 
     @EventHandler(priority = EventPriority.LOWEST)

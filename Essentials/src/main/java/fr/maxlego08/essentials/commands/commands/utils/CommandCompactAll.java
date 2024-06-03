@@ -36,7 +36,7 @@ public class CommandCompactAll extends VCommand {
 
             int realAmount = amountOf / 9;
             removeItems(inventory, new ItemStack(material), realAmount * 9);
-            give(this.player, new ItemStack(newMaterial, realAmount));
+            this.plugin.give(this.player, new ItemStack(newMaterial, realAmount));
 
         });
 

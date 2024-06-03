@@ -3,10 +3,12 @@ package fr.maxlego08.essentials.api;
 import com.google.gson.Gson;
 import com.tcoded.folialib.impl.ServerImplementation;
 import fr.maxlego08.essentials.api.commands.CommandManager;
-import fr.maxlego08.essentials.api.economy.EconomyProvider;
+import fr.maxlego08.essentials.api.economy.EconomyManager;
+import fr.maxlego08.essentials.api.hologram.HologramManager;
 import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
+import fr.maxlego08.essentials.api.scoreboard.ScoreboardManager;
 import fr.maxlego08.essentials.api.server.EssentialsServer;
 import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.essentials.api.storage.ServerStorage;
@@ -14,10 +16,13 @@ import fr.maxlego08.essentials.api.storage.StorageManager;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.EssentialsUtils;
 import fr.maxlego08.essentials.api.utils.Warp;
+import fr.maxlego08.essentials.api.utils.component.ComponentMessage;
 import fr.maxlego08.menu.api.ButtonManager;
 import fr.maxlego08.menu.api.InventoryManager;
 import fr.maxlego08.menu.api.pattern.PatternManager;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.Permissible;
 import org.bukkit.plugin.Plugin;
 
@@ -122,11 +127,11 @@ public interface EssentialsPlugin extends Plugin {
     boolean isEconomyEnable();
 
     /**
-     * Gets the economy provider for handling economy-related operations.
+     * Gets the economy manager for handling economy-related operations.
      *
      * @return The economy provider.
      */
-    EconomyProvider getEconomyProvider();
+    EconomyManager getEconomyManager();
 
     /**
      * Gets the unique ID of the console.
@@ -217,4 +222,16 @@ public interface EssentialsPlugin extends Plugin {
     Optional<Kit> getKit(String kitName);
 
     void giveKit(User user, Kit kit, boolean bypassCooldown);
+
+    List<Material> getMaterials();
+
+    ScoreboardManager getScoreboardManager();
+
+    void give(Player player, ItemStack itemStack);
+
+    HologramManager getHologramManager();
+
+    ComponentMessage getComponentMessage();
+
+    String papi(Player player, String string);
 }

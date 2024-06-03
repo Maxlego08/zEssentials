@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id("com.dorongold.task-tree") version "2.1.1"
+    id("io.papermc.paperweight.userdev") version "1.7.1"
 }
 
 group = 'fr.maxlego08.essentials'
@@ -37,8 +38,14 @@ processResources {
     }
 }
 
+// needed by paperweight plugin
+dependencies {
+    paperweight.paperDevBundle("1.20.4-R0.1-SNAPSHOT")
+}
+
 subprojects {
     apply plugin: 'java'
+    apply plugin: 'io.papermc.paperweight.userdev'
 
     group = 'fr.maxlego08.essentials'
     version = property('version')
@@ -51,19 +58,20 @@ subprojects {
             url = "https://nexuslite.gcnt.net/repos/other/"
         }
         maven { url 'https://jitpack.io' }
-        maven {url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/'}
+        maven { url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/' }
     }
 
     dependencies {
+        paperweight.paperDevBundle("1.20.4-R0.1-SNAPSHOT")
         implementation "com.tcoded:FoliaLib:0.3.1"
-        implementation 'com.github.Maxlego08:Sarah:1.1'
+        implementation 'com.github.Maxlego08:Sarah:0df8b75dc3'
         implementation('redis.clients:jedis:5.1.2') {
             exclude group: 'com.google.code.gson', module: 'gson'
             exclude group: 'org.slf4j', module: 'slf4j-api'
         }
 
         compileOnly 'io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT'
-        compileOnly 'com.github.Maxlego08:zMenu-API:2fe96ac6ab'
+        compileOnly 'com.github.Maxlego08:zMenu-API:1.0.3.1'
         compileOnly 'me.clip:placeholderapi:2.11.5'
 
         testImplementation 'junit:junit:4.12'
@@ -77,6 +85,7 @@ tasks.register("buildAll") {
             ":EssentialsApi:build",
             ":Hooks:Vault:build",
             ":Hooks:Redis:build",
+            ":NMS:R3_1_20:build",
             ":Essentials:build"
     )
 }

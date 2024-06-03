@@ -4,11 +4,13 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 
 # ToDo
 
+- [ ] Add bossbar to message configuration
+
 - [x] Command `/sethome <name>` (limit by grade/permission)
 - [x] Command `/delhome <name>`
 - [x] Command /home (as gui or not)
 
-- [ ] Command /tpall
+- [x] Command /tpall
 - [ ] Command /tpaall
 - [x] Command /tpa
 - [x] Command /tp
@@ -42,7 +44,7 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 - [x] Command /invsee
 - [ ] Command /kill
 - [ ] Command /enchant
-- [ ] Command /give
+- [x] Command /give
 - [x] Command /fly
 - [x] Command /god
 - [x] Command /skull
@@ -52,7 +54,7 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 - [x] Command /playtime
 - [ ] Command /spawner
 - [x] Command /weather
-- [ ] Command /seen, whois
+- [x] Command /seen, whois
 - [ ] Command /vanish
 - [x] Command /time
 - [x] Command /pweather
@@ -63,16 +65,18 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 - [x] Command /kickall
 - [x] Command /mute
 - [x] Command /ban
+- [x] Command /itemlore
+- [x] Command /itemname
 
-- [ ] Command /setwarp
-- [ ] Command /delwarp
-- [ ] Command /warp
+- [x] Command /setwarp
+- [x] Command /delwarp
+- [x] Command /warp
 
-- [ ] Command /msg
-- [ ] Command /msgtoggle
-- [ ] Command /socialspy
+- [x] Command /msg
+- [x] Command /msgtoggle
+- [x] Command /socialspy
 
-- [ ] Command /paytoggle
+- [x] Command /paytoggle
 - [ ] Command /balancetop (alias: baltop)
 - [x] Command /balance (alias: money)
 - [x] Command /eco give, take, set,reset
@@ -82,11 +86,11 @@ zEssentials takes the concept of the Essentials plugin but thought to be used wi
 - [x] Command /kiteditor
 - [x] Command /deletekit
 - [x] Command /kit (as gui or not)
-- [ ] Command `/showkit <kit>` (Preview kit as gui)
+- [x] Command `/showkit <kit>` (Preview kit as gui)
 
 - [x] Command /setspawn
 - [x] Command /spawn
 
 - [x] Command /cooldown (display a player’s cooldowns and add button for delete a cooldown)
-- [ ] Command `/cooldown delete <player> <name>`
-- [ ] Command `/cooldown create <player> <name> <cooldown>`
+- [x] Command `/cooldown delete <player> <name>`
+- [x] Command `/cooldown create <player> <name> <cooldown>`

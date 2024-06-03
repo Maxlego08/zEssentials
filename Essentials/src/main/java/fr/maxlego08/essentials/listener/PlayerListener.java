@@ -21,9 +21,13 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.Optional;
 
 public class PlayerListener extends ZUtils implements Listener {
 
@@ -140,6 +144,21 @@ public class PlayerListener extends ZUtils implements Listener {
         long sessionPlayTime = (System.currentTimeMillis() - user.getCurrentSessionPlayTime()) / 1000;
         long playtime = user.getPlayTime();
         this.plugin.getStorageManager().getStorage().insertPlayTime(user.getUniqueId(), sessionPlayTime, playtime, user.getAddress());
+    }
+
+    @EventHandler()
+    public void onInteract(PlayerInteractEvent event) {
+
+        ItemStack itemStack = event.getPlayer().getInventory().getItemInMainHand();
+
+        User user = this.plugin.getUser(event.getPlayer().getUniqueId());
+        if (user == null || user.getOption(Option.POWER_TOOLS_DISABLE)) return;
+
+        Optional<String> optional = user.getPowerTool(itemStack.getType());
+        if (optional.isEmpty()) return;
+
+        String command = optional.get();
+        event.setCancelled(event.getPlayer().performCommand(command));
     }
 
 }

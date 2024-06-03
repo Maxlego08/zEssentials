@@ -105,16 +105,16 @@ number-format-sell-multiplication:
     multiplication: 1000000000000000000000000000000000000000000
 
 # Price format available
-# - PRICE_RAW
-# - PRICE_WITH_DECIMAL_FORMAT
-# - PRICE_WITH_REDUCTION
+# - PRICE_RAW - Display the number without any changes
+# - PRICE_WITH_DECIMAL_FORMAT - Display the number with the price-decimal-format configuration
+# - PRICE_WITH_REDUCTION - Display the number with the price-reduction configuration
 price-format: PRICE_WITH_REDUCTION
 
-price-decimal-format: '#,###.##'
+price-decimal-format: '#,###.#'
 
 # Documentation for String format: https://www.geeksforgeeks.org/java-string-format-method-with-examples/
 price-reductions:
-  - format: "" # Blank format to display text directly
+  - format: "#.#" # Blank format to display text directly
     maxAmount: 1000
     # Add colors to text display, works with MiniMessage
     display: "#2bd66f%amount%"
@@ -131,3 +131,25 @@ price-reductions:
     maxAmount: 1000000000000000
   - format: "%.2fQ"
     maxAmount: 100000000000000000
+
+# Baltop
+
+# Enable or disable baltop
+enable-baltop: true
+
+# Time in seconds for baltop to update
+baltop-refresh-seconds: 900
+
+# Default value if a player does not exist for a position
+baltop-placeholder-user-empty: "?"
+
+# How to display baltop with/baltop command
+# MESSAGE - Send a message
+# INVENTORY - Open an inventory
+baltop-display: MESSAGE
+
+# Economy used to be displayed in baltop
+baltop-message-economy: money
+
+# Number of players to display in the message
+baltop-message-amount: 10

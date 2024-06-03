@@ -1,7 +1,6 @@
 package fr.maxlego08.essentials.buttons.kit;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
-import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
@@ -39,6 +38,7 @@ public class ButtonKitGet extends ZButton {
             this.plugin.giveKit(user, kit, false);
         } else if (event.getClick().isRightClick()) {
             user.openKitPreview(kit);
+            return;
         }
 
         super.onClick(player, event, inventory, slot, placeholders);
@@ -66,9 +66,6 @@ public class ButtonKitGet extends ZButton {
         User user = this.plugin.getUser(player.getUniqueId());
         if (user == null) return false;
         Optional<Kit> optional = this.plugin.getKit(this.kitName);
-        return optional.filter(kit -> {
-            System.out.println(super.checkPermission(player, inventory, placeholders) + " - " + player.hasPermission(Permission.ESSENTIALS_KIT_.asPermission(kit.getName())) + " - " + Permission.ESSENTIALS_KIT_.asPermission(kit.getName()));
-            return super.checkPermission(player, inventory, placeholders) && player.hasPermission(Permission.ESSENTIALS_KIT_.asPermission(kit.getName()));
-        }).isPresent();
+        return optional.filter(kit -> super.checkPermission(player, inventory, placeholders) && kit.hasPermission(player)).isPresent();
     }
 }

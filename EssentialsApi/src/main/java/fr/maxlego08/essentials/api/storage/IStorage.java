@@ -5,12 +5,15 @@ import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.database.dto.UserDTO;
+import fr.maxlego08.essentials.api.database.dto.UserEconomyRankingDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
+import fr.maxlego08.essentials.api.mailbox.MailBoxItem;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.user.UserRecord;
+import org.bukkit.Material;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -93,4 +96,14 @@ public interface IStorage {
     List<UserDTO> getUsers(String ip);
 
     List<CooldownDTO> getCooldowns(UUID uniqueId);
+
+    void setPowerTools(UUID uniqueId, Material material, String command);
+
+    void deletePowerTools(UUID uniqueId, Material material);
+
+    void addMailBoxItem(MailBoxItem mailBoxItem);
+
+    void removeMailBoxItem(int id);
+
+    List<UserEconomyRankingDTO> getEconomyRanking(Economy economy);
 }

@@ -4,14 +4,17 @@ import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.HomeDTO;
+import fr.maxlego08.essentials.api.database.dto.MailBoxDTO;
 import fr.maxlego08.essentials.api.database.dto.OptionDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.kit.Kit;
+import fr.maxlego08.essentials.api.mailbox.MailBoxItem;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
@@ -133,10 +136,10 @@ public interface User {
     /**
      * Teleports the user to the specified location with messages.
      *
-     * @param location      The location to teleport the user to.
-     * @param message       The message to send before teleporting.
+     * @param location       The location to teleport the user to.
+     * @param message        The message to send before teleporting.
      * @param successMessage The message to send after successful teleportation.
-     * @param args          Arguments to format into the messages.
+     * @param args           Arguments to format into the messages.
      */
     void teleport(Location location, Message message, Message successMessage, Object... args);
 
@@ -265,7 +268,7 @@ public interface User {
     /**
      * Checks if the user has the specified amount of currency in the specified economy.
      *
-     * @param economy   The economy to check.
+     * @param economy    The economy to check.
      * @param bigDecimal The amount of currency to check.
      * @return true if the user has at least the specified amount of currency, false otherwise.
      */
@@ -347,8 +350,8 @@ public interface User {
     /**
      * Sets a target pay for the user, specifying the target user, economy, and amount.
      *
-     * @param user      The user to pay.
-     * @param economy   The economy to use for the payment.
+     * @param user       The user to pay.
+     * @param economy    The economy to use for the payment.
      * @param bigDecimal The amount to pay.
      */
     void setTargetPay(User user, Economy economy, BigDecimal bigDecimal);
@@ -369,13 +372,6 @@ public interface User {
     @Nullable BigDecimal getTargetDecimal();
 
     /**
-     * Sets the last location of the user.
-     *
-     * @param location The last location of the user.
-     */
-    void setLastLocation(Location location);
-
-    /**
      * Sets the last location of the user to their current location.
      * This method should be called to update the user's last location when needed.
      */
@@ -387,6 +383,13 @@ public interface User {
      * @return The last known location of the user.
      */
     Location getLastLocation();
+
+    /**
+     * Sets the last location of the user.
+     *
+     * @param location The last location of the user.
+     */
+    void setLastLocation(Location location);
 
     /**
      * Checks if the user is joining the server for the first time.
@@ -425,6 +428,13 @@ public interface User {
     List<Home> getHomes();
 
     /**
+     * Sets the home locations for the user based on the provided home data transfer objects.
+     *
+     * @param homeDTOS The home data transfer objects to set for the user.
+     */
+    void setHomes(List<HomeDTO> homeDTOS);
+
+    /**
      * Gets the total number of home locations set by the user.
      *
      * @return The total number of home locations set by the user.
@@ -437,13 +447,6 @@ public interface User {
      * @param name The name of the home location to remove.
      */
     void removeHome(String name);
-
-    /**
-     * Sets the home locations for the user based on the provided home data transfer objects.
-     *
-     * @param homeDTOS The home data transfer objects to set for the user.
-     */
-    void setHomes(List<HomeDTO> homeDTOS);
 
     /**
      * Checks if the user has a home location with the specified name.
@@ -475,21 +478,21 @@ public interface User {
      */
     void setSanction(Integer banId, Integer muteId);
 
-    void setMuteSanction(Sanction sanction);
-
     Sanction getMuteSanction();
+
+    void setMuteSanction(Sanction sanction);
 
     boolean isMute();
 
     void setFakeOption(Option option, boolean value);
 
-    void setFakeSanctions(List<SanctionDTO> sanctions);
-
     List<Sanction> getFakeSanctions();
 
-    void setBanSanction(Sanction ban);
+    void setFakeSanctions(List<SanctionDTO> sanctions);
 
     Sanction getBanSanction();
+
+    void setBanSanction(Sanction ban);
 
     String getLastMessage();
 
@@ -509,9 +512,9 @@ public interface User {
 
     void startCurrentSessionPlayTime();
 
-    void setAddress(String address);
-
     String getAddress();
+
+    void setAddress(String address);
 
     long getKitCooldown(Kit kit);
 
@@ -524,4 +527,20 @@ public interface User {
     void openKitPreview(Kit kit);
 
     void removeCooldown(String cooldownName);
+
+    void setPowerTools(Material type, String command);
+
+    Map<Material, String> getPowerTools();
+
+    void setPowerTools(Map<Material, String> powerTools);
+
+    Optional<String> getPowerTool(Material material);
+
+    void deletePowerTools(Material material);
+
+    List<MailBoxItem> getMailBoxItems();
+
+    void setMailBoxItems(List<MailBoxDTO> mailBoxItems);
+
+    void addMailBoxItem(MailBoxItem mailBoxItem);
 }

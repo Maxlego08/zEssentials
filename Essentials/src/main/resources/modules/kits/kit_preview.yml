@@ -6,9 +6,10 @@ items:
     slots:
       - 0-44
   back:
+    slot: 49
     type: INVENTORY
     plugin: zEssentials
-    inventory: "kit_preview"
+    inventory: "kits"
     item:
       material: BARRIER
       name: '&f➥ &nClick&r&7 to go back'

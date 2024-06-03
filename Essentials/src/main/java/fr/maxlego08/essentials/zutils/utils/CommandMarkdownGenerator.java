@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,7 +18,14 @@ public class CommandMarkdownGenerator {
         sb.append("| Command | Aliases | Permission | Description |\n");
         sb.append("|---------|---------|------------|-------------|\n");
 
-        for (EssentialsCommand command : commands) {
+        List<EssentialsCommand> essentialsCommands = new ArrayList<>();
+
+        commands.stream().filter(e -> e.getParent() == null).sorted(Comparator.comparing(EssentialsCommand::getMainCommand)).forEach(command -> {
+            essentialsCommands.add(command);
+            essentialsCommands.addAll(commands.stream().filter(e -> e.getMainParent() == command).sorted(Comparator.comparing(EssentialsCommand::getMainCommand)).toList());
+        });
+
+        for (EssentialsCommand command : essentialsCommands) {
             // Gather command data
             String cmd = command.getSyntax(); // Assuming getSyntax() gives the command
             List<String> aliasesList = new ArrayList<>(command.getSubCommands());

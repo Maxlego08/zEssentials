@@ -7,8 +7,10 @@ import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.HomeDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.database.dto.UserDTO;
+import fr.maxlego08.essentials.api.database.dto.UserEconomyRankingDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
+import fr.maxlego08.essentials.api.mailbox.MailBoxItem;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.storage.Persist;
@@ -19,6 +21,7 @@ import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.utils.StorageHelper;
 import org.apache.commons.lang3.NotImplementedException;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 
 import java.io.File;
@@ -171,24 +174,24 @@ public class JsonStorage extends StorageHelper implements IStorage {
             return;
         }
 
-        async(() -> {
-            // User plugin cache first
-            getLocalUniqueId(userName).ifPresentOrElse(uuid -> {
-                this.localUUIDS.put(userName, uuid);
-                consumer.accept(uuid);
-            }, () -> {
-                // User server cache
-                OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayerIfCached(userName);
-                if (offlinePlayer != null) {
-                    this.localUUIDS.put(userName, offlinePlayer.getUniqueId());
-                    consumer.accept(offlinePlayer.getUniqueId());
-                    return;
-                }
-                // Try load offline player
-                offlinePlayer = Bukkit.getOfflinePlayer(userName);
+        // User plugin cache first
+        getLocalUniqueId(userName).ifPresentOrElse(uuid -> {
+            this.localUUIDS.put(userName, uuid);
+            consumer.accept(uuid);
+        }, () -> {
+
+            // User server cache
+            OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayerIfCached(userName);
+            if (offlinePlayer != null) {
                 this.localUUIDS.put(userName, offlinePlayer.getUniqueId());
                 consumer.accept(offlinePlayer.getUniqueId());
-            });
+                return;
+            }
+
+            // Try load offline player
+            offlinePlayer = Bukkit.getOfflinePlayer(userName);
+            this.localUUIDS.put(userName, offlinePlayer.getUniqueId());
+            consumer.accept(offlinePlayer.getUniqueId());
         });
     }
 
@@ -318,6 +321,31 @@ public class JsonStorage extends StorageHelper implements IStorage {
 
     @Override
     public List<CooldownDTO> getCooldowns(UUID uniqueId) {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public void setPowerTools(UUID uniqueId, Material type, String command) {
+        this.saveFileAsync(uniqueId);
+    }
+
+    @Override
+    public void deletePowerTools(UUID uniqueId, Material material) {
+        this.saveFileAsync(uniqueId);
+    }
+
+    @Override
+    public void addMailBoxItem(MailBoxItem mailBoxItem) {
+        throw new NotImplementedException("addMailBoxItem is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public void removeMailBoxItem(int id) {
+        throw new NotImplementedException("removeMailBoxItem is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public List<UserEconomyRankingDTO> getEconomyRanking(Economy economy) {
         return new ArrayList<>();
     }
 }

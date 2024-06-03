@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.api;
 
 import fr.maxlego08.essentials.api.commands.CommandCooldown;
+import fr.maxlego08.essentials.api.configuration.ReplacePlaceholder;
 import fr.maxlego08.essentials.api.server.RedisConfiguration;
 import fr.maxlego08.essentials.api.server.ServerType;
 import fr.maxlego08.essentials.api.storage.StorageType;
@@ -114,4 +115,8 @@ public interface Configuration extends ConfigurationFile {
     boolean isEnableCommandLog();
 
     SimpleDateFormat getGlobalDateFormat();
+
+    List<ReplacePlaceholder> getReplacePlaceholders();
+
+    Optional<ReplacePlaceholder> getReplacePlaceholder(String placeholder);
 }

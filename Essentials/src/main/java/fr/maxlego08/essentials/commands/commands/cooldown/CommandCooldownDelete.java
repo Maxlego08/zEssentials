@@ -6,9 +6,15 @@ import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.storage.IStorage;
+import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.eclipse.aether.transfer.RepositoryOfflineException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommandCooldownDelete extends VCommand {
@@ -18,7 +24,22 @@ public class CommandCooldownDelete extends VCommand {
         this.setDescription(Message.DESCRIPTION_COOLDOWN_DELETE);
         this.addSubCommand("delete");
         this.addRequireArg("player");
-        this.addRequireArg("cooldown");
+        this.addRequireArg("cooldown", (sender, args) -> {
+
+            try {
+
+                String playerName = args[1];
+                OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayerIfCached(playerName);
+                if (offlinePlayer == null) return new ArrayList<>();
+
+                User user = plugin.getUser(offlinePlayer.getUniqueId());
+                return new ArrayList<>(user.getCooldowns().keySet());
+
+            } catch (Exception ignored) {
+            }
+
+            return new ArrayList<>();
+        });
     }
 
     @Override

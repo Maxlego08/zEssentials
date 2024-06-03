@@ -120,7 +120,7 @@ public class ZCommandManager extends ZUtils implements CommandManager {
 
         for (EssentialsCommand command : commands) {
 
-            if (command.getSubCommands().contains(cmd.getName().toLowerCase())) {
+            if (command.getSubCommands().contains(cmd.getName().toLowerCase()) && command.getParent() == null) {
                 return processTab(sender, command, args);
             } else {
                 String[] newArgs = Arrays.copyOf(args, args.length - 1);

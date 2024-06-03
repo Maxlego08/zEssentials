@@ -27,7 +27,7 @@ items:
         lore:
           - ''
           - '#ffd353ℹ Informations#3f3f3f:'
-          - '#3f3f3f• &7Cooldown#3f3f3f: #4cd5ff%cooldown%'
+          - '#3f3f3f• &7Cooldown#3f3f3f: #43ff15Available !'
           - ''
           - '&f➥ &nLeft Click&r&7 to get the kit'
           - '&f➦ &nRight Click&r&7 to view the contents'
@@ -45,21 +45,55 @@ items:
 
   food:
     slot: 13
+    type: ZESSENTIALS_KIT_COOLDOWN
+    kit: "food"
+    update: true
+    refreshOnClick: true
     item:
       material: COOKED_BEEF
-      name: '&fᴋɪᴛ&8: #884f42ғᴏᴏᴅs'
+      name: '&fᴋɪᴛ&8: #c1c1c3ғᴏᴏᴅ'
       lore:
         - ''
         - '#ffd353ℹ Informations#3f3f3f:'
         - '#3f3f3f• &7Cooldown#3f3f3f: #4cd5ff%cooldown%'
         - ''
-        - '&f➥ &nLeft Click&r&7 to get the kit'
+        - '&f➥ <st>&nLeft Click&r&7 to get the kit'
         - '&f➦ &nRight Click&r&7 to view the contents'
+    else:
+      type: ZESSENTIALS_KIT_GET
+      kit: "food"
+      closeInventory: true
+      item:
+        material: COOKED_BEEF
+        name: '&fᴋɪᴛ&8: #c1c1c3ғᴏᴏᴅ'
+        lore:
+          - ''
+          - '#ffd353ℹ Informations#3f3f3f:'
+          - '#3f3f3f• &7Cooldown#3f3f3f: #43ff15Available !'
+          - ''
+          - '&f➥ &nLeft Click&r&7 to get the kit'
+          - '&f➦ &nRight Click&r&7 to view the contents'
+      else:
+        item:
+          material: COOKED_BEEF
+          name: '&fᴋɪᴛ&8: #c1c1c3ғᴏᴏᴅ'
+          lore:
+            - ''
+            - '#ffd353ℹ Informations#3f3f3f:'
+            - "#3f3f3f• #ff0000You don't have permission"
+            - ''
+            - '&f➥ <st>&nLeft Click&r&7 to get the kit'
+            - '&f➦ &nRight Click&r&7 to view the contents'
+
   fight:
     slot: 15
+    type: ZESSENTIALS_KIT_COOLDOWN
+    kit: "fight"
+    update: true
+    refreshOnClick: true
     item:
       material: DIAMOND_SWORD
-      name: '&fᴋɪᴛ&8: #91ffe1ғɪɢʜᴛ'
+      name: '&fᴋɪᴛ&8: #c1c1c3ғɪɢʜᴛ'
       lore:
         - ''
         - '#ffd353ℹ Informations#3f3f3f:'
@@ -67,3 +101,28 @@ items:
         - ''
         - '&f➥ &nLeft Click&r&7 to get the kit'
         - '&f➦ &nRight Click&r&7 to view the contents'
+    else:
+      type: ZESSENTIALS_KIT_GET
+      kit: "fight"
+      closeInventory: true
+      item:
+        material: DIAMOND_SWORD
+        name: '&fᴋɪᴛ&8: #c1c1c3ғɪɢʜᴛ'
+        lore:
+          - ''
+          - '#ffd353ℹ Informations#3f3f3f:'
+          - '#3f3f3f• &7Cooldown#3f3f3f: #43ff15Available !'
+          - ''
+          - '&f➥ &nLeft Click&r&7 to get the kit'
+          - '&f➦ &nRight Click&r&7 to view the contents'
+      else:
+        item:
+          material: DIAMOND_SWORD
+          name: '&fᴋɪᴛ&8: #c1c1c3ғɪɢʜᴛ'
+          lore:
+            - ''
+            - '#ffd353ℹ Informations#3f3f3f:'
+            - "#3f3f3f• #ff0000You don't have permission"
+            - ''
+            - '&f➥ <st>&nLeft Click&r&7 to get the kit'
+            - '&f➦ &nRight Click&r&7 to view the contents'

@@ -3,9 +3,10 @@ package fr.maxlego08.essentials.zutils.utils.paper;
 import fr.maxlego08.essentials.api.cache.SimpleCache;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
-import fr.maxlego08.essentials.api.utils.ComponentMessage;
 import fr.maxlego08.essentials.api.utils.TagPermission;
+import fr.maxlego08.essentials.api.utils.component.AdventureComponent;
 import fr.maxlego08.essentials.zutils.utils.PlaceholderUtils;
+import fr.maxlego08.menu.api.utils.Placeholders;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -17,8 +18,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +29,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class PaperComponent extends PlaceholderUtils implements ComponentMessage {
+public class PaperComponent extends PlaceholderUtils implements AdventureComponent {
 
     private final List<TagPermission> tagPermissions = List.of(new TagPermission(Permission.ESSENTIALS_CHAT_COLOR, StandardTags.color()), new TagPermission(Permission.ESSENTIALS_CHAT_CLICK, StandardTags.clickEvent()), new TagPermission(Permission.ESSENTIALS_CHAT_HOVER, StandardTags.hoverEvent()), new TagPermission(Permission.ESSENTIALS_CHAT_GRADIENT, StandardTags.gradient()), new TagPermission(Permission.ESSENTIALS_CHAT_RAINBOW, StandardTags.rainbow()), new TagPermission(Permission.ESSENTIALS_CHAT_NEWLINE, StandardTags.newline()), new TagPermission(Permission.ESSENTIALS_CHAT_RESET, StandardTags.reset()), new TagPermission(Permission.ESSENTIALS_CHAT_FONT, StandardTags.font()), new TagPermission(Permission.ESSENTIALS_CHAT_KEYBIND, StandardTags.keybind()), new TagPermission(Permission.ESSENTIALS_CHAT_DECORATION, StandardTags.decorations()));
 
@@ -119,6 +122,7 @@ public class PaperComponent extends PlaceholderUtils implements ComponentMessage
         return newMessage;
     }
 
+    @Override
     public Component getComponent(String message) {
         return this.cache.get(message, () -> this.MINI_MESSAGE.deserialize(colorMiniMessage(message)));
     }
@@ -172,5 +176,14 @@ public class PaperComponent extends PlaceholderUtils implements ComponentMessage
             message = message.replace(args[i].toString(), args[i + 1].toString());
         }
         return message;
+    }
+
+    @Override
+    public void addToLore(ItemStack itemStack, List<String> lore, Placeholders placeholders) {
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        List<Component> currentLore = itemMeta.hasLore() ? itemMeta.lore() : new ArrayList<>();
+        currentLore.addAll(lore.stream().map(placeholders::parse).map(this::getComponent).toList());
+        itemMeta.lore(currentLore);
+        itemStack.setItemMeta(itemMeta);
     }
 }

@@ -1,0 +1,15 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    maven { url 'https://jitpack.io' }
+    maven {
+        name = 'papermc'
+        url = 'https://repo.papermc.io/repository/maven-public/'
+    }
+}
+
+dependencies {
+    compileOnly project(':EssentialsApi')
+}
