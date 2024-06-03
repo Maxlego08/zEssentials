@@ -48,7 +48,7 @@ description-hologram-delete: Lösche ein Hologramm
 description-hologram-edit: Bearbeite ein Hologramm
 description-hologram-list: Zeige Hologrammliste
 description-hologram-remove-line: Entferne eine Zeile aus einem Hologramm
-description-hologram-add-line: Füge eine Zeile zu einem Hologramm hinzu
+description-hologram-add-line: Füge eine Zeile zu einem Hologramm hinzup
 description-hologram-set-line: Definiere eine Zeile eines Hologramms
 description-hologram-insert-before-line: Füge eine Zeile vor einer anderen ein
 description-hologram-insert-after-line: Definiere eine Zeile nach einer anderen
@@ -171,7 +171,7 @@ command-baltop:
   type: WITHOUT_PREFIX
   message: '#00f986#%position% &f%name%&8: %amount%'
 prefix: '<primary>zEssentials <secondary>• '
-you: Du
+you: Dich
 trash: '&8Müll'
 console: Konsole
 expired: Abgelaufen
@@ -191,13 +191,13 @@ command-reload: '#00ff40Du hast gerade die Konfiguration neu geladen!'
 command-essentials: '&ezEssentials&8, &eVersion &f%version%'
 
 
-# GameMode commands
+# Spielmodus Befehle
 command-gamemode: '&fDu hast den Spielmodus&e %gamemode%&f für den Spieler &b%player%&f
   gesetzt.'
 command-gamemode-invalid: <error>Du musst den Spieler bestimmen!
 
 
-# Weather commands
+# Wetter Befehle
 command-day: '&fDu hast gerade &eTag&f in der Welt <success>%world%&f gesetzt.'
 command-night: '&fDu hast gerade &eNacht&f in der Welt <success>%world%&f gesetzt.'
 command-sun: '&fDu hast gerade &eSonne&f in der Welt <success>%world%&f gesetzt.'
@@ -569,7 +569,7 @@ command-warp-delete: '#00ff00Du hast den Warp &f%name%#00ff00 entfernt.'
 
 
 
-# Homes
+# Zuhause
 command-set-home-invalide-name: '&f%name% <error>ist kein gültiger Name, bitte wähle
   einen anderen.'
 command-set-home-too-long: '&f%name% <error>ist zu lang, bitte wähle einen anderen.'
@@ -643,67 +643,67 @@ command-home-admin-list-info: ' <hover:show_text:''&7Klicke, um zum Zuhause &f&n
 # Bestrafungen
 command-kick-notify:
   type: WITHOUT_PREFIX
-  message: '<hover:show_text:''<gray>By: <white>%sender%<newline><gray>Duration: <white>%duration%<newline><gray>Reason:
-    <white>%reason%<newline><gray>Date: <white>%created_at%''><click:run_command:''/sc
-    %target%''>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just kicked the player
-    #e0d12d%target%#e33414.</click></hover>'
+  message: '<hover:show_text:''<gray>By: <white>%sender%<newline><gray>Anhaltend für: <white>%duration%<newline><gray>Grund:
+    <white>%reason%<newline><gray>Datum: <white>%created_at%''><click:run_command:''/sc
+    %target%''>&8(#f59e07Sanktion&8) #8aebeb%player% #e33414hat gerade den Spieler
+    #e0d12d%target%#e33414 gekickt.</click></hover>'
 command-ban-notify:
   type: WITHOUT_PREFIX
-  message: '<hover:show_text:''<gray>By: <white>%sender%<newline><gray>Duration: <white>%duration%<newline><gray>Reason:
-    <white>%reason%<newline><gray>Date: <white>%created_at%<newline><gray>Expires:
-    <white>%expired_at%''><click:run_command:''/sc %target%''>&8(#f59e07Sanction&8)
-    #8aebeb%player% #e33414just banned the player #e0d12d%target%#e33414.</click></hover>'
+  message: '<hover:show_text:''<gray>By: <white>%sender%<newline><gray>Anhaltend für: <white>%duration%<newline><gray>Grund:
+    <white>%reason%<newline><gray>Datum: <white>%created_at%<newline><gray>Expires:
+    <white>%expired_at%''><click:run_command:''/sc %target%''>&8(#f59e07Sanktion&8)
+    #8aebeb%player% #e33414hat gerade den Spieler #e0d12d%target%#e33414 gebannt.</click></hover>'
 command-mute-notify:
   type: WITHOUT_PREFIX
-  message: '<hover:show_text:''<gray>By: <white>%sender%<newline><gray>Duration: <white>%duration%<newline><gray>Reason:
-    <white>%reason%<newline><gray>Date: <white>%created_at%<newline><gray>Expires:
-    <white>%expired_at%''><click:run_command:''/sc %target%''>&8(#f59e07Sanction&8)
-    #8aebeb%player% #e33414just muted the player #e0d12d%target%#e33414.</click></hover>'
+  message: '<hover:show_text:''<gray>By: <white>%sender%<newline><gray>Anhaltend für: <white>%duration%<newline><gray>Grund:
+    <white>%reason%<newline><gray>Datum: <white>%created_at%<newline><gray>Expires:
+    <white>%expired_at%''><click:run_command:''/sc %target%''>&8(#f59e07Sanktion&8)
+    #8aebeb%player% #e33414hat gerade den Spieler #e0d12d%target%#e33414 stummgeschaltet.</click></hover>'
 command-unmute-notify:
   type: WITHOUT_PREFIX
-  message: '<hover:show_text:''<gray>By: <white>%sender%<newline><gray>Duration: <white>%duration%<newline><gray>Reason:
-    <white>%reason%<newline><gray>Date: <white>%created_at%''><click:run_command:''/sc
-    %target%''>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just unmuted the player
-    #e0d12d%target%#e33414.</click></hover>'
+  message: '<hover:show_text:''<gray>By: <white>%sender%<newline><gray>Anhaltend für: <white>%duration%<newline><gray>Grund:
+    <white>%reason%<newline><gray>Datum: <white>%created_at%''><click:run_command:''/sc
+    %target%''>&8(#f59e07Sanktion&8) #8aebeb%player% #e33414hat gerade den Spieler
+    #e0d12d%target%#e33414 entstummt.</click></hover>'
 command-unban-notify:
   type: WITHOUT_PREFIX
-  message: '<hover:show_text:''<gray>By: <white>%sender%<newline><gray>Duration: <white>%duration%<newline><gray>Reason:
-    <white>%reason%<newline><gray>Date: <white>%created_at%''><click:run_command:''/sc
-    %target%''>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just unbanned the player
-    #e0d12d%target%#e33414.</click></hover>'
-command-ban-error-duration: <error>Der Ban muss ein minimum von 1 Sekunde haben!
-command-mute-error-duration: <error>Die Stummschaltung muss ein minimum von 1 Sekunde haben!
-command-un-mute-error: '&f%player% <error>ist nicht stummgeschalten!'
-command-un-ban-error: '&f%player% <error>ist nicht verbannt!'
-command-sanction-error: <error>Dieser Spieler ist vor dieser Aktion beschützt!
+  message: '<hover:show_text:''<gray>By: <white>%sender%<newline><gray>Anhaltend für: <white>%duration%<newline><gray>Grund:
+    <white>%reason%<newline><gray>Datum: <white>%created_at%''><click:run_command:''/sc
+    %target%''>&8(#f59e07Sanktion&8) #8aebeb%player% #e33414hat gerade den Spieler
+    #e0d12d%target%#e33414 entbannt.</click></hover>'
+command-ban-error-duration: <error>Der Ban muss ein Minimum von 1 Sekunde haben!
+command-mute-error-duration: <error>Die Stummschaltung muss ein Minimum von 1 Sekunde haben!
+command-un-mute-error: '&f%player% <error>ist nicht stummgeschaltet!'
+command-un-ban-error: '&f%player% <error>ist nicht gebannt!'
+command-sanction-error: <error>Dieser Spieler ist vor dieser Aktion geschützt!
 message-kick:
 - ''
-- '<error>Du wurdest gerade von dem Server entfernt, mit der Begründung:'
+- '<error>Du wurdest gerade vom Server entfernt, mit der Begründung:'
 - '%reason%'
 - ''
 - '&fMinecraft-Inventory-Builder.com'
 - ''
 message-mute:
 - ''
-- '&fDu hast gerade deine <u>Stimme</u> &fVerloren.'
+- '&fDu hast gerade deine <u>Stimme</u> &fverloren.'
 - '&fAnhaltend für&8: <gradient:#7ae856:#a1d909>%duration%</gradient>'
 - '&fGrund&8: #82d1ff%reason%'
 - ''
 message-unmute:
 - ''
-- '&fYDu hast deine <u>Stimme</u>, zurück erobert, Glückwunsch !'
+- '&fDu hast deine <u>Stimme</u> zurückerobert, Glückwunsch!'
 - '&fGrund&8: #82d1ff%reason%'
 - ''
 message-mute-talk:
 - ''
-- '&fDu hast keine Berechtigung, zu sprechen.'
+- '&fDu hast keine Berechtigung zu sprechen.'
 - ''
 - '&fAnhaltend für&8: <gradient:#7ae856:#a1d909>%duration%</gradient>'
 - '&fGrund&8: #82d1ff%reason%'
 - ''
 message-ban:
 - ''
-- '<error>Du wurdest gerade vom Server verbannt, mit de Begründung:'
+- '<error>Du wurdest gerade vom Server verbannt, mit der Begründung:'
 - '&f%reason%'
 - '&fAnhaltend für&8: &7%duration%'
 - ''
@@ -717,6 +717,7 @@ message-ban-join:
 - ''
 - '&fMinecraft-Inventory-Builder.com'
 - ''
+
 
 
 # Chat
@@ -748,7 +749,7 @@ command-chat-broadcast:
   message: <primary>ʙʀᴏᴀᴅᴄᴀsᴛ <secondary>• <white>%message%
 
 
-# Messages
+# Nachrichten
 command-message-self: <error>Du kannst nicht mit dir selbst sprechen.
 command-message-disable: '&f%%player% <error>hat private Nachrichten deaktiviert.'
 command-message-mute: <error>Du darfst nicht sprechen.
