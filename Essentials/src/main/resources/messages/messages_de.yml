@@ -18,156 +18,154 @@
 # #######################################################################################################################
 
 rules:
-- '#ffd353ℹ sᴇʀᴠᴇʀ ʀᴜʟᴇs#3f3f3f:'
-- '#3f3f3f• &7Respect all players and staff.'
-- '#3f3f3f• &7No grieging or stealing.'
-- '#3f3f3f• &7No cheating or hacking.'
-- '#3f3f3f• &7Keep chat clean and respectful.'
-- '#3f3f3f• &7No spamming or advertising.'
-command-reload-module: <success>You have just reloaded the configuration files of
-  the module &f%module%<success>.
-command-reload-error: '&f%module% <error>was not found !'
-command-tp-all: '&7You just teleported all the players onto you.'
-description-tp-all: Teleport all players to your position
-description-item-name: Change the item name
-description-item-lore: Show commands for the lore
-description-item-lore-set: Define a line of a lore
-description-item-lore-add: Add a line to lore
-description-item-lore-clear: Clear item lore
-description-give: Give items
-description-give-all: Give items to online players
-description-power-tools: Add command to your items
-description-pay-toggle: Activate or not the receipt of money
-description-power-tools-toggle: Toggle power tools
-description-kit-show: Show a kit
-description-mail: Open mailbox
-description-rules: Read server rules
-description-hologram: Show hologram commands
-description-hologram-create: Create a hologram
-description-hologram-delete: Delete a hologram
-description-hologram-edit: Edit a hologram
-description-hologram-list: Display hologram list
-description-hologram-remove-line: Remove a line from a hologram
-description-hologram-add-line: Add a line to a hologram
-description-hologram-set-line: Define a line of a hologram
-description-hologram-insert-before-line: Insert a line before another
-description-hologram-insert-after-line: Define a line after another
-description-hologram-move-here: Move a hologram to your position
-description-hologram-move-to: Move a hologram to a location
-description-hologram-scale: Change hologram scale
-description-hologram-translation: Change hologram translation
-description-hologram-billboard: Change hologram billboard
-description-hologram-text-alignment: Change hologram text alignment
-description-hologram-text-shadow: Change hologram text shadow
-description-hologram-shadow-strength: Change hologram shadow strength
-description-hologram-shadow-radius: Change hologram shadow radius
-description-hologram-text-background: Change hologram text background
-description-hologram-see-through: Change hologram see through
-description-hologram-yaw: Change hologram yaw
-description-hologram-pitch: Change hologram pitch
-description-hologram-teleport: Teleport to a hologram
-description-scoreboard: Enable/Disable scoreboard
-description-balance-top: Show baltop
-description-balance-top-refresh: Refresh baltop
+- '#ffd353ℹ ᴍɪɴᴇᴄʀᴀғᴛ-sᴇʀᴠᴇʀʀᴇɢᴇʟɴ#3f3f3f:'
+- '#3f3f3f• &7Respektiere alle Spieler und Mitarbeiter.'
+- '#3f3f3f• &7Kein Griefing oder Stehlen.'
+- '#3f3f3f• &7Kein Cheaten oder Hacken.'
+- '#3f3f3f• &7Halte den Chat sauber und respektvoll.'
+- '#3f3f3f• &7Kein Spam oder Werbung.'
+command-reload-module: <success>Du hast gerade die Konfigurationsdateien des Moduls
+  &f%module%<success> neu geladen.
+command-reload-error: '&f%module% <error>wurde nicht gefunden!'
+command-tp-all: '&7Du hast gerade alle Spieler zu dir teleportiert.'
+description-tp-all: Teleportiere alle Spieler zu deiner Position
+description-item-name: Ändere den Gegenstandsnamen
+description-item-lore: Zeige Befehle für die Lore
+description-item-lore-set: Definiere eine Zeile einer Lore
+description-item-lore-add: Füge eine Zeile zur Lore hinzu
+description-item-lore-clear: Leere die Gegenstandslore
+description-give: Gegenstände geben
+description-give-all: Gib Gegenstände an Online-Spieler
+description-power-tools: Füge einen Befehl zu deinen Gegenständen hinzu
+description-pay-toggle: Aktivieren oder deaktivieren des Empfangs von Geld
+description-power-tools-toggle: Power-Tools umschalten
+description-kit-show: Zeige ein Kit
+description-mail: Postfach öffnen
+description-rules: Serverregeln lesen
+description-hologram: Zeige Hologrammbefehle
+description-hologram-create: Erstelle ein Hologramm
+description-hologram-delete: Lösche ein Hologramm
+description-hologram-edit: Bearbeite ein Hologramm
+description-hologram-list: Zeige Hologrammliste
+description-hologram-remove-line: Entferne eine Zeile aus einem Hologramm
+description-hologram-add-line: Füge eine Zeile zu einem Hologramm hinzu
+description-hologram-set-line: Definiere eine Zeile eines Hologramms
+description-hologram-insert-before-line: Füge eine Zeile vor einer anderen ein
+description-hologram-insert-after-line: Definiere eine Zeile nach einer anderen
+description-hologram-move-here: Bewege ein Hologramm zu deiner Position
+description-hologram-move-to: Bewege ein Hologramm zu einem Ort
+description-hologram-scale: Ändere die Größe des Hologramms
+description-hologram-translation: Ändere die Übersetzung des Hologramms
+description-hologram-billboard: Ändere das Billboard des Hologramms
+description-hologram-text-alignment: Ändere die Textausrichtung des Hologramms
+description-hologram-text-shadow: Ändere den Textschatten des Hologramms
+description-hologram-shadow-strength: Ändere die Schattenstärke des Hologramms
+description-hologram-shadow-radius: Ändere den Schattenradius des Hologramms
+description-hologram-text-background: Ändere den Hintergrund des Hologrammtexts
+description-hologram-see-through: Ändere die Durchsichtigkeit des Hologramms
+description-hologram-yaw: Ändere den Gierwinkel des Hologramms
+description-hologram-pitch: Ändere den Nickwinkel des Hologramms
+description-hologram-teleport: Teleportiere zu einem Hologramm
+description-scoreboard: Scoreboard aktivieren/deaktivieren
+description-balance-top: Zeige Baltop
+description-balance-top-refresh: Aktualisiere Baltop
 command-home-admin-list: '#8cc0cc%player% ʜᴏᴍᴇs&8:&f%homes%'
-command-warp-empty: <error>No warp defined, use command &f/setwarp <name>
-command-pay-toggle-enable: '&7Pay <success>enable &7for &f%player%<success>.'
-command-pay-toggle-disable: '&7Pay <error>disable &7for &f%player%<error>.'
-command-power-tools-toggle-enable: <success>All of your power tools have been enabled
-  &7for &f%player%<success>.
-command-power-tools-toggle-disable: <error>All of your power tools have been disabled
-  &7for &f%player%<error>.
-command-kit-no-permission: <error>You do not have permission to use the kit &f%kit%<error>.
-command-item-empty: <error>You have no item in your hand.
-command-item-clear: <success>You have cleared this item's name
-command-item-set: <success>You have renamed your held item to &f%name%<success>.
-command-item-lore-add: <success>You just added the line &f%text%<success>.
-command-item-lore-set: <success>You just set line %line% to &f%text%<success>.
-command-item-lore-clear: <success>You just clear the item lore.
-command-item-lore-set-error: <error>Can’t find the line &f%line%<error>.
-command-give-error: <error>Can’t find the item &f%item%<error>.
-command-give: <success>You just gave &n&fx1 %item%&r <success>to player &f%player%<success>.
-command-give-all: <success>You just gave &n&fx1 %item%&r <success>to online player.
-command-power-tool-error-item: <error>You have no item in your hand.
-command-power-tool-error-reset: <error>This item has no recorded command.
-command-power-tool-info: <success>You just put the command &f/%command%<success> on
-  the item &f%item<success>.
-command-power-tool-reset: <success>You have just deleted the command on the item &f%item<success>.
-mailbox-remove-full: <error>You must have space in your inventory to retrieve an item.
-mailbox-remove-expire: <error>You can no longer retrieve this item, it has expired.
+command-warp-empty: <error>Kein Warp definiert, benutze den Befehl &f/setwarp <name>
+command-pay-toggle-enable: '&7Zahlung <success>aktiviert &7für &f%player%<success>.'
+command-pay-toggle-disable: '&7Zahlung <error>deaktiviert &7für &f%player%<error>.'
+command-power-tools-toggle-enable: <success>Alle deine Power-Tools wurden aktiviert
+  &7für &f%player%<success>.
+command-power-tools-toggle-disable: <error>Alle deine Power-Tools wurden deaktiviert
+  &7für &f%player%<error>.
+command-kit-no-permission: <error>Du hast keine Berechtigung, das Kit &f%kit%<error> zu benutzen.
+command-item-empty: <error>Du hast keinen Gegenstand in der Hand.
+command-item-clear: <success>Du hast den Namen dieses Gegenstands gelöscht
+command-item-set: <success>Du hast deinen gehaltenen Gegenstand in &f%name%<success> umbenannt.
+command-item-lore-add: <success>Du hast gerade die Zeile &f%text%<success> hinzugefügt.
+command-item-lore-set: <success>Du hast gerade die Zeile %line% in &f%text%<success> gesetzt.
+command-item-lore-clear: <success>Du hast die Gegenstandslore gelöscht.
+command-item-lore-set-error: <error>Kann die Zeile &f%line%<error> nicht finden.
+command-give-error: <error>Kann den Gegenstand &f%item%<error> nicht finden.
+command-give: <success>Du hast gerade &n&fx1 %item%&r <success> an Spieler &f%player%<success> gegeben.
+command-give-all: <success>Du hast gerade &n&fx1 %item%&r <success> an Online-Spieler gegeben.
+command-power-tool-error-item: <error>Du hast keinen Gegenstand in der Hand.
+command-power-tool-error-reset: <error>Dieser Gegenstand hat keinen aufgezeichneten Befehl.
+command-power-tool-info: <success>Du hast gerade den Befehl &f/%command%<success> auf
+  den Gegenstand &f%item%<success> gelegt.
+command-power-tool-reset: <success>Du hast gerade den Befehl auf dem Gegenstand &f%item%<success> gelöscht.
+mailbox-remove-full: <error>Du musst Platz in deinem Inventar haben, um einen Gegenstand zu entnehmen.
+mailbox-remove-expire: <error>Du kannst diesen Gegenstand nicht mehr abrufen, er ist abgelaufen.
 mailbox-add:
   type: ACTION
-  message: <success>An item has just been added to your mailbox &8(&f/mail&8)
-hologram-create-error: <error>Hologram &f%name% <error>already exists.
+  message: <success>Ein Gegenstand wurde gerade zu deinem Postfach hinzugefügt &8(&f/mail&8)
+hologram-create-error: <error>Hologramm &f%name% <error> existiert bereits.
 hologram-create:
   type: WITHOUT_PREFIX
   messages:
-  - <success>You just created the hologram &f%name%<success>.
-  - '&7Use &n<click:run_command:''/hologram edit %name%''>/hologram edit %name%</click>&r&7
-    command to edit the hologram'
-hologram-delete: <success>Hologram &f%name% <success>has been deleted.
-hologram-doesnt-exist: <error>Hologram &f%name% <error>doesn't exist.
-hologram-is-not-a-text: <error>Hologram &f%name% <error>is not a text hologram.
-hologram-is-not-a-block: <error>Hologram &f%name% <error>is not a block hologram.
-hologram-is-not-a-item: <error>Hologram &f%name% <error>is not an item hologram.
-hologram-add-line: <success>You just added a line to the hologram &f%name%<success>.
-hologram-set-line: <success>You just set the line &f%line%<success> to the hologram
-  &f%name%<success>.
-hologram-insert-before-line: <success>You just set a new line before the line &f%line%<success>
-  to the hologram &f%name%<success>.
-hologram-insert-after-line: <success>You just set a new line after the line &f%line%<success>
-  to the hologram &f%name%<success>.
-hologram-line-doesnt-exist: <error>The line &f%line% <error>does not exist for the
-  hologram &f%name%<error>.
-hologram-remove-line: <success>You just removed the line &f%line%<success> from the
-  hologram &f%name%<success>.
-hologram-scale: <success>You just changed the scale of the hologram &f%name% <success>to
+  - <success>Du hast gerade das Hologramm &f%name%<success> erstellt.
+  - '&7Benutze &n<click:run_command:''/hologram edit %name%''>/hologram edit %name%</click>&r&7
+    Befehl, um das Hologramm zu bearbeiten'
+hologram-delete: <success>Hologramm &f%name% <success> wurde gelöscht.
+hologram-doesnt-exist: <error>Hologramm &f%name% <error> existiert nicht.
+hologram-is-not-a-text: <error>Hologramm &f%name% <error> ist kein Texthologramm.
+hologram-is-not-a-block: <error>Hologramm &f%name% <error> ist kein Blockhologramm.
+hologram-is-not-a-item: <error>Hologramm &f%name% <error> ist kein Gegenstandshologramm.
+hologram-add-line: <success>Du hast gerade eine Zeile zum Hologramm &f%name%<success> hinzugefügt.
+hologram-set-line: <success>Du hast gerade die Zeile &f%line%<success> zum Hologramm
+  &f%name%<success> gesetzt.
+hologram-insert-before-line: <success>Du hast gerade eine neue Zeile vor der Zeile &f%line%<success>
+  zum Hologramm &f%name%<success> gesetzt.
+hologram-insert-after-line: <success>Du hast gerade eine neue Zeile nach der Zeile &f%line%<success>
+  zum Hologramm &f%name%<success> gesetzt.
+hologram-line-doesnt-exist: <error>Die Zeile &f%line% <error> existiert nicht für das
+  Hologramm &f%name%<error>.
+hologram-remove-line: <success>Du hast gerade die Zeile &f%line%<success> vom Hologramm &f%name%<success> entfernt.
+hologram-scale: <success>Du hast gerade die Größe des Hologramms &f%name%<success> geändert zu
   &7%x%&8, &7%y%&8, &7%z%<success>.
-hologram-translation: <success>You just changed the translation of the hologram &f%name%
-  <success>to &7%x%&8, &7%y%&8, &7%z%<success>.
-hologram-move-here: <success>You just teleported the hologram &f%name%<success> to
-  your position.
-hologram-move-to: <success>You just teleported the hologram &f%name% <success>to &7%x%&8,
-  &7%y%&8, &7%z%<success>.
-hologram-billboard: <success>You just changed the billboard of the hologram &f%name%<success>
-  to &f%billboard%<success>.
-hologram-text-alignment: <success>You just changed the text alignment of the hologram
-  &f%name%<success> to &f%textAlignment%<success>.
-hologram-yaw: <success>You just changed the yaw of the hologram &f%name%<success>
-  to &f%yaw%<success>.
-hologram-pitch: <success>You just changed the pitch of the hologram &f%name%<success>
-  to &f%pitch%<success>.
-hologram-text-background: <success>You just changed the background color of the hologram
-  &f%name%<success> to &f%color%<success>.
-hologram-text-background-error: <error>Could not parse background color.
-hologram-text-shadow: <success>You set the text shadow to &f%textshadow% <success>for
-  the hologram &f%name%<success>.
-hologram-see-through: <success>You set the see-through to &f%seethrough% <success>for
-  the hologram &f%name%<success>.
-hologram-shadow-strength: <success>You set the shadow strength to &f%shadow% <success>for
-  the hologram &f%name%<success>.
-hologram-shadow-radius: <success>You set the shadow radius to &f%shadow% <success>for
-  the hologram &f%name%<success>.
-hologram-view-distance: <success>You set the view distance to &f%distance% <success>for
-  the hologram &f%name%<success>.
-hologram-list-empty: <error>There is no hologram, to create one please use the command
+hologram-translation: <success>Du hast gerade die Übersetzung des Hologramms &f%name%
+  <success> geändert zu &7%x%&8, &7%y%&8, &7%z%<success>.
+hologram-move-here: <success>Du hast gerade das Hologramm &f%name%<success> zu deiner Position teleportiert.
+hologram-move-to: <success>Du hast gerade das Hologramm &f%name% <success> zu &7%x%&8,
+  &7%y%&8, &7%z%<success> teleportiert.
+hologram-billboard: <success>Du hast gerade das Billboard des Hologramms &f%name%<success>
+  zu &f%billboard%<success> geändert.
+hologram-text-alignment: <success>Du hast gerade die Textausrichtung des Hologramms
+  &f%name%<success> zu &f%textAlignment%<success> geändert.
+hologram-yaw: <success>Du hast gerade den Gierwinkel des Hologramms &f%name%<success>
+  zu &f%yaw%<success> geändert.
+hologram-pitch: <success>Du hast gerade den Nickwinkel des Hologramms &f%name%<success>
+  zu &f%pitch%<success> geändert.
+hologram-text-background: <success>Du hast gerade die Hintergrundfarbe des Hologramms
+  &f%name%<success> zu &f%color%<success> geändert.
+hologram-text-background-error: <error>Hintergrundfarbe konnte nicht analysiert werden.
+hologram-text-shadow: <success>Du hast den Textschatten zu &f%textshadow% <success> für
+  das Hologramm &f%name%<success> gesetzt.
+hologram-see-through: <success>Du hast die Durchsichtigkeit zu &f%seethrough% <success> für
+  das Hologramm &f%name%<success> gesetzt.
+hologram-shadow-strength: <success>Du hast die Schattenstärke zu &f%shadow% <success> für
+  das Hologramm &f%name%<success> gesetzt.
+hologram-shadow-radius: <success>Du hast den Schattenradius zu &f%shadow% <success> für
+  das Hologramm &f%name%<success> gesetzt.
+hologram-view-distance: <success>Du hast die Sichtweite zu &f%distance% <success> für
+  das Hologramm &f%name%<success> gesetzt.
+hologram-list-empty: <error>Es gibt kein Hologramm, um eines zu erstellen, benutze bitte den Befehl
   &f/holo create <name>
 hologram-list:
   type: WITHOUT_PREFIX
-  message: '&f%name% &8- &7%world%: %x%, %y%, %z% &8- <hover:show_text:''&7Click to
-    be teleported to this hologram''><click:run_command:''/holo tp %name%''><green>ᴛᴇʟᴇᴘᴏʀᴛ</click>
-    </hover><hover:show_text:''<red>Click to delete this hologram''><click:suggest_command:''/holo
-    delete %name%''><red>ᴅᴇʟᴇᴛᴇ</click></hover>'
-hologram-item-error: <error>You can't use air for this hologram.
-hologram-item: <success>You just modified the item of the hologram &f%name%<success>.
-hologram-block: <success>You just modified the block of the hologram &f%name%<success>
-  to &f%material%<success>.
-scoreboard-disable: <error>You just disabled the scoreboard.
-scoreboard-enable: <success>You just enabled the scoreboard.
-command-baltop-error: <error>Can’t find the economy &f%name%<error>.
+  message: '&f%name% &8- &7%world%: %x%, %y%, %z% &8- <hover:show_text:''&7Klicke, um
+    zu diesem Hologramm teleportiert zu werden''><click:run_command:''/holo tp %name%''><green>ᴛᴇʟᴇᴘᴏʀᴛ</click>
+    </hover><hover:show_text:''<red>Klicke, um dieses Hologramm zu löschen''><click:suggest_command:''/holo
+    delete %name%''><red>ʟöscʜᴇɴ</click></hover>'
+hologram-item-error: <error>Du kannst keine Luft für dieses Hologramm verwenden.
+hologram-item: <success>Du hast gerade den Gegenstand des Hologramms &f%name%<success> geändert.
+hologram-block: <success>Du hast gerade den Block des Hologramms &f%name%<success> zu
+  &f%material%<success> geändert.
+scoreboard-disable: <error>Du hast gerade das Scoreboard deaktiviert.
+scoreboard-enable: <success>Du hast gerade das Scoreboard aktiviert.
+command-baltop-error: <error>Kann die Wirtschaft &f%name%<error> nicht finden.
 command-baltop-header:
   type: WITHOUT_PREFIX
-  message: '#00f986ᴍᴏsᴛ ᴍᴏɴᴇʏ &8(&f%page%&8/&7%maxPage%&8) <click:run_command:''/baltop
+  message: '#00f986ᴍᴇɪsᴛᴇs ɢᴇʟᴅ &8(&f%page%&8/&7%maxPage%&8) <click:run_command:''/baltop
     %previousPage%''>&f◀</click> &8- <click:run_command:''/baltop %nextPage%''>&f▶</click>'
 command-baltop:
   type: WITHOUT_PREFIX
@@ -180,6 +178,7 @@ expired: Abgelaufen
 player-not-found: '&f%player% <error>wurde nicht gefunden.'
 module-disable: <error>Das &f%name% <error>Modul ist deaktiviert. Du kannst diesen
   Befehl nicht verwenden!
+
 
 # Commands
 command-syntax-error: '<error>Du musst den Befehl so ausführen#656665: &f%syntax%'
