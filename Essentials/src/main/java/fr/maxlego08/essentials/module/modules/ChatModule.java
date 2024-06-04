@@ -127,6 +127,7 @@ public class ChatModule extends ZModule {
         event.renderer((source, sourceDisplayName, ignoredMessage, viewer) -> {
 
             String localMessage = finalMessage;
+            TagResolver.Builder builder = TagResolver.builder();
 
             boolean isModerator = viewer instanceof Player playerViewer && hasPermission(playerViewer, Permission.ESSENTIALS_CHAT_MODERATOR);
             if (viewer instanceof Player playerViewer) {
@@ -141,7 +142,12 @@ public class ChatModule extends ZModule {
                     boolean isPlayerViewer = playerName.equals(playerViewer.getName());
                     if (isPlayerViewer) sendSound = true;
 
-                    matcher.appendReplacement(result, (isPlayerViewer ? this.playerPingColor : this.playerPingColorOther).replace("%name%", group));
+                    String tagName = "ping_" + playerName.toLowerCase();
+
+                    Tag tag = Tag.inserting(paperComponent.getComponent((isPlayerViewer ? this.playerPingColor : this.playerPingColorOther).replace("%name%", group)));
+                    builder.resolver(TagResolver.resolver(tagName, tag));
+
+                    matcher.appendReplacement(result, "<" + tagName + ">");
                 }
                 matcher.appendTail(result);
                 localMessage = result.toString();
@@ -151,7 +157,7 @@ public class ChatModule extends ZModule {
                 }
             }
 
-            Tag tag = Tag.inserting(paperComponent.translateText(player, localMessage));
+            Tag tag = Tag.inserting(paperComponent.translateText(player, localMessage, builder.build()));
             return paperComponent.getComponentMessage(chatFormat, TagResolver.resolver("message", tag), "%displayName%", player.getDisplayName(), "%player%", player.getName(), "%moderator_action%", isModerator ? papi(getMessage(this.moderatorAction, "%player%", player.getName()), (Player) viewer) : "");
         });
 
