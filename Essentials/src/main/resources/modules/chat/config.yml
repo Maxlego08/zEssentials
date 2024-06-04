@@ -112,3 +112,25 @@ link-transform: "<hover:show_text:'&fOpen the link'><click:open_url:'%url%'>%url
 
 # Date format for /chathistory
 date-format: "yyyy-MM-dd HH:mm:ss"
+
+# Chat ping
+
+# To ping a player you must use the prefix @<nickname>
+
+# Allows to activate the sound during a player ping, the player can disable the sound with the command /pingsound
+enable-player-ping-sound: true
+
+# Sound played when player is pinged
+player-ping-sound: BLOCK_NOTE_BLOCK_PLING
+
+# Ping sound volume
+player-ping-sound-volume: 0.8
+
+# Ping sound pitch
+player-ping-sound-pitch: 1
+
+# Color of ping displayed to the player
+player-ping-color: "<green>%name%</green>"
+
+# Color of ping displayed for other players
+player-ping-color-other: "<white>%name%</white>"
