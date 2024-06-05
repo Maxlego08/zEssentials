@@ -7,7 +7,7 @@ import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.PrivateMessage;
 import fr.maxlego08.essentials.api.user.User;
-import fr.maxlego08.essentials.api.utils.ChatResult;
+import fr.maxlego08.essentials.api.chat.ChatResult;
 import fr.maxlego08.essentials.module.ZModule;
 
 import java.util.Map;

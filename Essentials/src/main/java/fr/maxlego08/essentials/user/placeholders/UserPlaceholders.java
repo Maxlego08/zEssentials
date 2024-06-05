@@ -133,45 +133,6 @@ public class UserPlaceholders extends ZUtils implements PlaceholderRegister {
             }
         }, "Returns the remaining formatted time for the mute");
 
-        // Playtime
-
-        placeholder.register("user_playtime_seconds", (player, key) -> {
-            User user = iStorage.getUser(player.getUniqueId());
-            try {
-                return String.valueOf(user.getPlayTime() / 1000L);
-            } catch (Exception exception) {
-                return "0";
-            }
-        }, "Returns the playtime in seconds");
-
-        placeholder.register("user_playtime_formatted", (player, key) -> {
-            User user = iStorage.getUser(player.getUniqueId());
-            try {
-                return TimerBuilder.getStringTime(user.getPlayTime());
-            } catch (Exception exception) {
-                return "0s";
-            }
-        }, "Returns the formatted playtime ");
-
-        // Session
-        placeholder.register("user_session_seconds", (player, key) -> {
-            User user = iStorage.getUser(player.getUniqueId());
-            try {
-                return String.valueOf(user.getCurrentSessionPlayTime() / 1000L);
-            } catch (Exception exception) {
-                return "0";
-            }
-        }, "Returns the current session in seconds");
-
-        placeholder.register("user_session_formatted", (player, key) -> {
-            User user = iStorage.getUser(player.getUniqueId());
-            try {
-                return TimerBuilder.getStringTime(user.getCurrentSessionPlayTime());
-            } catch (Exception exception) {
-                return "0s";
-            }
-        }, "Returns the formatted current session");
-
         // Mailbox
 
         placeholder.register("user_mailbox_items", (player, key) -> {

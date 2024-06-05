@@ -2,13 +2,17 @@ package fr.maxlego08.essentials.module.modules;
 
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.cache.ExpiringCache;
+import fr.maxlego08.essentials.api.chat.ChatCooldown;
+import fr.maxlego08.essentials.api.chat.ChatDisplay;
+import fr.maxlego08.essentials.api.chat.ChatFormat;
+import fr.maxlego08.essentials.api.chat.ChatPlaceholder;
+import fr.maxlego08.essentials.api.chat.ChatResult;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.database.dto.ChatMessageDTO;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.user.User;
-import fr.maxlego08.essentials.api.utils.ChatCooldown;
-import fr.maxlego08.essentials.api.utils.ChatFormat;
-import fr.maxlego08.essentials.api.utils.ChatResult;
+import fr.maxlego08.essentials.chat.CustomChatDisplay;
+import fr.maxlego08.essentials.chat.PlayerPingDisplay;
 import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.essentials.storage.ConfigStorage;
 import fr.maxlego08.essentials.zutils.utils.DynamicCooldown;
@@ -36,12 +40,13 @@ import java.util.stream.LongStream;
 
 public class ChatModule extends ZModule {
 
-    private final Pattern pingPattern = Pattern.compile("@[a-zA-Z0-9_]{3,16}");
+    private final List<ChatDisplay> chatDisplays = new ArrayList<>();
     private final ExpiringCache<UUID, List<ChatMessageDTO>> chatMessagesCache = new ExpiringCache<>(1000 * 60);
     private final Pattern urlPattern = Pattern.compile("(https?://[\\w-\\.]+(\\:[0-9]+)?(/[\\w- ./?%&=]*)?)", Pattern.CASE_INSENSITIVE);
     private final DynamicCooldown dynamicCooldown = new DynamicCooldown();
     private final List<ChatCooldown> chatCooldowns = new ArrayList<>();
     private final List<ChatFormat> chatFormats = new ArrayList<>();
+    private final List<ChatPlaceholder> chatPlaceholders = new ArrayList<>();
     private final String alphanumericRegex = "^[a-zA-Z0-9_.?!^¨%ù*&é\"#'{(\\[-|èêë`\\\\çà)\\]=}ûî+<>:²€$/\\-,-â@;ô ]+$";
     private final String linkRegex = "[-a-zA-Z0-9@:%._+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)";
     private final String itemaddersFontRegex = "(?<=:)(.*?)(?=\\s*\\:)";
@@ -59,6 +64,7 @@ public class ChatModule extends ZModule {
     private boolean enableChatDynamicCooldown;
     private boolean enableSameMessageCancel;
     private boolean enableChatFormat;
+    private boolean enablePing;
     private boolean enableLinkTransform;
     private boolean enableChatMessages;
     private int chatCooldownMax;
@@ -85,6 +91,13 @@ public class ChatModule extends ZModule {
         this.fontPattern = Pattern.compile(this.itemaddersFontRegex);
         this.chatCooldownArray = this.chatCooldowns.stream().flatMapToLong(cooldown -> LongStream.of(cooldown.cooldown(), cooldown.messages())).toArray();
         this.simpleDateFormat = new SimpleDateFormat(this.dateFormat);
+
+        this.chatDisplays.clear();
+        if (enablePing) {
+            this.chatDisplays.add(new PlayerPingDisplay(playerPingColor, playerPingColorOther, playerPingSound, playerPingSoundVolume, playerPingSoundPitch));
+        }
+
+        this.chatPlaceholders.forEach(chatPlaceholder -> this.chatDisplays.add(new CustomChatDisplay(chatPlaceholder.name(), chatPlaceholder.regex(), chatPlaceholder.result(), chatPlaceholder.permission())));
     }
 
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
@@ -131,32 +144,12 @@ public class ChatModule extends ZModule {
 
             boolean isModerator = viewer instanceof Player playerViewer && hasPermission(playerViewer, Permission.ESSENTIALS_CHAT_MODERATOR);
             if (viewer instanceof Player playerViewer) {
-
-                Matcher matcher = this.pingPattern.matcher(localMessage);
-                StringBuilder result = new StringBuilder();
-                boolean sendSound = false;
-
-                while (matcher.find()) {
-                    String group = matcher.group();
-                    String playerName = group.substring(1);
-                    boolean isPlayerViewer = playerName.equals(playerViewer.getName());
-                    if (isPlayerViewer) sendSound = true;
-
-                    String tagName = "ping_" + playerName.toLowerCase();
-
-                    Tag tag = Tag.inserting(paperComponent.getComponent((isPlayerViewer ? this.playerPingColor : this.playerPingColorOther).replace("%name%", group)));
-                    builder.resolver(TagResolver.resolver(tagName, tag));
-
-                    matcher.appendReplacement(result, "<" + tagName + ">");
-                }
-                matcher.appendTail(result);
-                localMessage = result.toString();
-
-                if (sendSound) {
-                    playerViewer.playSound(playerViewer.getLocation(), playerPingSound, this.playerPingSoundVolume, this.playerPingSoundPitch);
+                for (ChatDisplay chatDisplay : this.chatDisplays) {
+                    localMessage = chatDisplay.display(paperComponent, builder, player, playerViewer, localMessage);
                 }
             }
 
+            System.out.println(localMessage);
             Tag tag = Tag.inserting(paperComponent.translateText(player, localMessage, builder.build()));
             return paperComponent.getComponentMessage(chatFormat, TagResolver.resolver("message", tag), "%displayName%", player.getDisplayName(), "%player%", player.getName(), "%moderator_action%", isModerator ? papi(getMessage(this.moderatorAction, "%player%", player.getName()), (Player) viewer) : "");
         });

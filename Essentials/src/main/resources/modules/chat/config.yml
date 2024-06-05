@@ -116,6 +116,7 @@ date-format: "yyyy-MM-dd HH:mm:ss"
 # Chat ping
 
 # To ping a player you must use the prefix @<nickname>
+enable-ping: true
 
 # Allows to activate the sound during a player ping, the player can disable the sound with the command /pingsound
 enable-player-ping-sound: true
@@ -130,7 +131,31 @@ player-ping-sound-volume: 0.8
 player-ping-sound-pitch: 1
 
 # Color of ping displayed to the player
-player-ping-color: "<green>%name%</green>"
+player-ping-color: "<red>%name%</red><red>"
 
 # Color of ping displayed for other players
 player-ping-color-other: "<white>%name%</white>"
+
+# Placeholders
+
+chat-placeholders:
+  - name: "ping" # Placeholder name, the name must consist only of lowercase letters, numbers 0 to 9 and characters _ and -
+    regex: "(?i)\\[ping\\]" # [ping] placeholder
+    result: "%player_ping% ms" # PlaceholderAPI extension Player: https://api.extendedclip.com/expansions/player/
+    permission: "zessentials.chat.placeholder.ping" # You must define a permission
+  - name: "block" # Placeholder name, the name must consist only of lowercase letters, numbers 0 to 9 and characters _ and -
+    regex: "(?i)\\[blocks\\]" # [blocks] placeholder
+    result: "&a%statistic_mine_block% &fblocks" # PlaceholderAPI extension Statistic: https://api.extendedclip.com/expansions/statistic/
+    permission: "zessentials.chat.placeholder.block" # You must define a permission
+  - name: "money" # Placeholder name, the name must consist only of lowercase letters, numbers 0 to 9 and characters _ and -
+    regex: "(?i)\\[money\\]" # [money] placeholder
+    result: "%zessentials_user_formatted_balance_money%"
+    permission: "zessentials.chat.placeholder.money" # You must define a permission
+  - name: "coins" # Placeholder name, the name must consist only of lowercase letters, numbers 0 to 9 and characters _ and -
+    regex: "(?i)\\[coins\\]" # [coins] placeholder
+    result: "%zessentials_user_formatted_balance_coins%"
+    permission: "zessentials.chat.placeholder.coins" # You must define a permission
+  - name: "playtime" # Placeholder name, the name must consist only of lowercase letters, numbers 0 to 9 and characters _ and -
+    regex: "(?i)\\[playtime\\]" # [playtime] placeholder
+    result: "&fI've played &7%zessentials_user_playtime_formatted%"
+    permission: "zessentials.chat.placeholder.playtime" # You must define a permission
