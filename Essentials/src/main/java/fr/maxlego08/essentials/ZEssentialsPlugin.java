@@ -8,6 +8,7 @@ import com.tcoded.folialib.impl.ServerImplementation;
 import fr.maxlego08.essentials.api.Configuration;
 import fr.maxlego08.essentials.api.ConfigurationFile;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.NmsUtils;
 import fr.maxlego08.essentials.api.commands.CommandManager;
 import fr.maxlego08.essentials.api.economy.EconomyManager;
 import fr.maxlego08.essentials.api.hologram.HologramManager;
@@ -62,6 +63,7 @@ import fr.maxlego08.essentials.messages.MessageLoader;
 import fr.maxlego08.essentials.module.ZModuleManager;
 import fr.maxlego08.essentials.module.modules.HomeModule;
 import fr.maxlego08.essentials.module.modules.MailBoxModule;
+import fr.maxlego08.essentials.nms.r3_1_20.NmsHelper;
 import fr.maxlego08.essentials.placeholders.DistantPlaceholder;
 import fr.maxlego08.essentials.placeholders.LocalPlaceholder;
 import fr.maxlego08.essentials.scoreboard.ScoreboardModule;
@@ -550,5 +552,10 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     @Override
     public String papi(Player player, String string) {
         return PlaceholderUtils.PapiHelper.papi(string, player);
+    }
+
+    @Override
+    public NmsUtils getNmsUtils() {
+        return new NmsHelper();
     }
 }

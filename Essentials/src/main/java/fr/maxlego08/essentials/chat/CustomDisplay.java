@@ -11,14 +11,14 @@ import org.bukkit.permissions.Permissible;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CustomChatDisplay extends ZUtils implements ChatDisplay {
+public class CustomDisplay extends ZUtils implements ChatDisplay {
 
     private final String name;
     private final Pattern pattern;
     private final String result;
     private final String permission;
 
-    public CustomChatDisplay(String name, String regex, String result, String permission) {
+    public CustomDisplay(String name, String regex, String result, String permission) {
         this.name = name;
         this.pattern = Pattern.compile(regex);
         this.result = result;

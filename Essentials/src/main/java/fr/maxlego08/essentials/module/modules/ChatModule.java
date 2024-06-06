@@ -11,7 +11,8 @@ import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.database.dto.ChatMessageDTO;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.user.User;
-import fr.maxlego08.essentials.chat.CustomChatDisplay;
+import fr.maxlego08.essentials.chat.CustomDisplay;
+import fr.maxlego08.essentials.chat.ItemDisplay;
 import fr.maxlego08.essentials.chat.PlayerPingDisplay;
 import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.essentials.storage.ConfigStorage;
@@ -25,6 +26,7 @@ import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -97,7 +99,12 @@ public class ChatModule extends ZModule {
             this.chatDisplays.add(new PlayerPingDisplay(playerPingColor, playerPingColorOther, playerPingSound, playerPingSoundVolume, playerPingSoundPitch));
         }
 
-        this.chatPlaceholders.forEach(chatPlaceholder -> this.chatDisplays.add(new CustomChatDisplay(chatPlaceholder.name(), chatPlaceholder.regex(), chatPlaceholder.result(), chatPlaceholder.permission())));
+        this.chatPlaceholders.forEach(chatPlaceholder -> this.chatDisplays.add(new CustomDisplay(chatPlaceholder.name(), chatPlaceholder.regex(), chatPlaceholder.result(), chatPlaceholder.permission())));
+
+        YamlConfiguration configuration = getConfiguration();
+        if (configuration.getBoolean("item-placeholder.enable")) {
+            this.chatDisplays.add(new ItemDisplay(plugin, configuration.getString("item-placeholder.regex"), configuration.getString("item-placeholder.result"), configuration.getString("item-placeholder.permission")));
+        }
     }
 
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)

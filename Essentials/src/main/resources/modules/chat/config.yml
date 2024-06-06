@@ -159,3 +159,10 @@ chat-placeholders:
     regex: "(?i)\\[playtime\\]" # [playtime] placeholder
     result: "&fI've played &7%zessentials_user_playtime_formatted%"
     permission: "zessentials.chat.placeholder.playtime" # You must define a permission
+
+# Displays the item in your hand
+item-placeholder:
+  enable: true
+  regex: "(?i)\\[item\\]|\\[i\\]" # [item] or [i] placeholder
+  result: "&bx<amount> &f<item>"
+  permission: "zessentials.chat.placeholder.item" # You must define a permission

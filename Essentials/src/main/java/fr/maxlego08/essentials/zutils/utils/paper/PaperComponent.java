@@ -127,6 +127,7 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
         return this.cache.get(message, () -> this.MINI_MESSAGE.deserialize(colorMiniMessage(message)));
     }
 
+    @Override
     public Component getComponent(String message, TagResolver tagResolver) {
         return this.MINI_MESSAGE.deserialize(colorMiniMessage(message), tagResolver);
     }
@@ -134,8 +135,16 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
     public Component translateText(Player player, String message, TagResolver... tagResolvers) {
 
         TagResolver.Builder builder = TagResolver.builder();
-        List<TagResolver> resolvers = this.tagPermissions.stream().filter(tagPermission -> player.hasPermission(tagPermission.permission().asPermission())).map(TagPermission::tagResolver).toList();
-        builder.resolvers(resolvers);
+
+        if (!player.isOp()) {
+
+            List<TagResolver> resolvers = this.tagPermissions.stream().filter(tagPermission -> player.hasPermission(tagPermission.permission().asPermission())).map(TagPermission::tagResolver).toList();
+            builder.resolvers(resolvers);
+        } else {
+
+            builder.resolver(StandardTags.defaults());
+        }
+
         builder.resolvers(tagResolvers);
 
         return MiniMessage.builder().tags(builder.build()).build().deserialize(colorMiniMessage(message));
