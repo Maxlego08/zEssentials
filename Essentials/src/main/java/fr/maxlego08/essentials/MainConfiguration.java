@@ -10,7 +10,7 @@ import fr.maxlego08.essentials.api.configuration.placeholders.StringPlaceholder;
 import fr.maxlego08.essentials.api.server.RedisConfiguration;
 import fr.maxlego08.essentials.api.server.ServerType;
 import fr.maxlego08.essentials.api.storage.StorageType;
-import fr.maxlego08.essentials.api.utils.ChatCooldown;
+import fr.maxlego08.essentials.api.chat.ChatCooldown;
 import fr.maxlego08.essentials.api.utils.MessageColor;
 import fr.maxlego08.essentials.api.utils.NearDistance;
 import fr.maxlego08.essentials.api.utils.TransformMaterial;

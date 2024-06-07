@@ -2,13 +2,19 @@ package fr.maxlego08.essentials.module.modules;
 
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.cache.ExpiringCache;
+import fr.maxlego08.essentials.api.chat.ChatCooldown;
+import fr.maxlego08.essentials.api.chat.ChatDisplay;
+import fr.maxlego08.essentials.api.chat.ChatFormat;
+import fr.maxlego08.essentials.api.chat.ChatPlaceholder;
+import fr.maxlego08.essentials.api.chat.ChatResult;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.database.dto.ChatMessageDTO;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.user.User;
-import fr.maxlego08.essentials.api.utils.ChatCooldown;
-import fr.maxlego08.essentials.api.utils.ChatFormat;
-import fr.maxlego08.essentials.api.utils.ChatResult;
+import fr.maxlego08.essentials.chat.CommandDisplay;
+import fr.maxlego08.essentials.chat.CustomDisplay;
+import fr.maxlego08.essentials.chat.ItemDisplay;
+import fr.maxlego08.essentials.chat.PlayerPingDisplay;
 import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.essentials.storage.ConfigStorage;
 import fr.maxlego08.essentials.zutils.utils.DynamicCooldown;
@@ -21,6 +27,7 @@ import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -36,14 +43,20 @@ import java.util.stream.LongStream;
 
 public class ChatModule extends ZModule {
 
-    private ExpiringCache<UUID, List<ChatMessageDTO>> chatMessagesCache = new ExpiringCache<>(1000 * 60);
-    private Pattern urlPattern = Pattern.compile("(https?://[\\w-\\.]+(\\:[0-9]+)?(/[\\w- ./?%&=]*)?)", Pattern.CASE_INSENSITIVE);
-    private DynamicCooldown dynamicCooldown = new DynamicCooldown();
-    private List<ChatCooldown> chatCooldowns = new ArrayList<>();
-    private List<ChatFormat> chatFormats = new ArrayList<>();
-    private String alphanumericRegex = "^[a-zA-Z0-9_.?!^¨%ù*&é\"#'{(\\[-|èêë`\\\\çà)\\]=}ûî+<>:²€$/\\-,-â@;ô ]+$";
-    private String linkRegex = "[-a-zA-Z0-9@:%._+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)";
-    private String itemaddersFontRegex = "(?<=:)(.*?)(?=\\s*\\:)";
+    private final List<ChatDisplay> chatDisplays = new ArrayList<>();
+    private final ExpiringCache<UUID, List<ChatMessageDTO>> chatMessagesCache = new ExpiringCache<>(1000 * 60);
+    private final Pattern urlPattern = Pattern.compile("(https?://[\\w-\\.]+(\\:[0-9]+)?(/[\\w- ./?%&=]*)?)", Pattern.CASE_INSENSITIVE);
+    private final DynamicCooldown dynamicCooldown = new DynamicCooldown();
+    private final List<ChatCooldown> chatCooldowns = new ArrayList<>();
+    private final List<ChatFormat> chatFormats = new ArrayList<>();
+    private final List<ChatPlaceholder> chatPlaceholders = new ArrayList<>();
+    private final String alphanumericRegex = "^[a-zA-Z0-9_.?!^¨%ù*&é\"#'{(\\[-|èêë`\\\\çà)\\]=}ûî+<>:²€$/\\-,-â@;ô ]+$";
+    private final String linkRegex = "[-a-zA-Z0-9@:%._+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)";
+    private final String itemaddersFontRegex = "(?<=:)(.*?)(?=\\s*\\:)";
+    private final String defaultChatFormat = "<hover:show_text:'&cReport this message'><click:run_command:'/report %player% chat'>⚠</click></hover> %moderator_action%<#ffffff><hover:show_text:'#ffd353ℹ Informations#3f3f3f:<newline>#3f3f3f• &7Money#3f3f3f: #4cd5ff%zessentials_user_formatted_balance_money%<newline>#3f3f3f• &7Coins#3f3f3f: #4cd5ff%zessentials_user_formatted_balance_coins%<newline><newline>&f➥ &7Click for more information'>%player%</hover> <#333333>» <gray><click:suggest_command:'/msg %player% '><hover:show_text:'&fSend a private message'><message></hover></click>";
+    private final String moderatorAction = "<hover:show_text:'<#ff8888>Punish the player'><click:run_command:'/sc %player%'><#ff8888>✗</click></hover> ";
+    private final String linkTransform = "<hover:show_text:'&fOpen the link'><click:open_url:'%url%'>%url%</click></hover>";
+    private final String dateFormat = "yyyy-MM-dd HH:mm:ss";
     private SimpleDateFormat simpleDateFormat;
     private Pattern alphanumericPattern;
     private Pattern linkPattern;
@@ -54,14 +67,17 @@ public class ChatModule extends ZModule {
     private boolean enableChatDynamicCooldown;
     private boolean enableSameMessageCancel;
     private boolean enableChatFormat;
+    private boolean enablePing;
     private boolean enableLinkTransform;
     private boolean enableChatMessages;
     private int chatCooldownMax;
-    private String defaultChatFormat = "<hover:show_text:'&cReport this message'><click:run_command:'/report %player% chat'>⚠</click></hover> %moderator_action%<#ffffff><hover:show_text:'#ffd353ℹ Informations#3f3f3f:<newline>#3f3f3f• &7Money#3f3f3f: #4cd5ff%zessentials_user_formatted_balance_money%<newline>#3f3f3f• &7Coins#3f3f3f: #4cd5ff%zessentials_user_formatted_balance_coins%<newline><newline>&f➥ &7Click for more information'>%player%</hover> <#333333>» <gray><click:suggest_command:'/msg %player% '><hover:show_text:'&fSend a private message'><message></hover></click>";
-    private String moderatorAction = "<hover:show_text:'<#ff8888>Punish the player'><click:run_command:'/sc %player%'><#ff8888>✗</click></hover> ";
-    private String linkTransform = "<hover:show_text:'&fOpen the link'><click:open_url:'%url%'>%url%</click></hover>";
-    private String dateFormat = "yyyy-MM-dd HH:mm:ss";
     private long[] chatCooldownArray;
+    private boolean enablePlayerPingSound;
+    private Sound playerPingSound;
+    private String playerPingColor;
+    private String playerPingColorOther;
+    private float playerPingSoundVolume;
+    private float playerPingSoundPitch;
 
 
     public ChatModule(ZEssentialsPlugin plugin) {
@@ -78,6 +94,22 @@ public class ChatModule extends ZModule {
         this.fontPattern = Pattern.compile(this.itemaddersFontRegex);
         this.chatCooldownArray = this.chatCooldowns.stream().flatMapToLong(cooldown -> LongStream.of(cooldown.cooldown(), cooldown.messages())).toArray();
         this.simpleDateFormat = new SimpleDateFormat(this.dateFormat);
+
+        this.chatDisplays.clear();
+        if (enablePing) {
+            this.chatDisplays.add(new PlayerPingDisplay(playerPingColor, playerPingColorOther, playerPingSound, playerPingSoundVolume, playerPingSoundPitch));
+        }
+
+        this.chatPlaceholders.forEach(chatPlaceholder -> this.chatDisplays.add(new CustomDisplay(chatPlaceholder.name(), chatPlaceholder.regex(), chatPlaceholder.result(), chatPlaceholder.permission())));
+
+        YamlConfiguration configuration = getConfiguration();
+        if (configuration.getBoolean("item-placeholder.enable")) {
+            this.chatDisplays.add(new ItemDisplay(plugin, configuration.getString("item-placeholder.regex"), configuration.getString("item-placeholder.result"), configuration.getString("item-placeholder.permission")));
+        }
+
+        if (configuration.getBoolean("command-placeholder.enable")) {
+            this.chatDisplays.add(new CommandDisplay(configuration.getString("command-placeholder.result"), configuration.getString("command-placeholder.permission")));
+        }
     }
 
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
@@ -115,18 +147,22 @@ public class ChatModule extends ZModule {
 
         PaperComponent paperComponent = (PaperComponent) this.componentMessage;
         String chatFormat = papi(getChatFormat(player), player);
-        Tag tag = Tag.inserting(paperComponent.translateText(player, message));
 
         String finalMessage = message;
         event.renderer((source, sourceDisplayName, ignoredMessage, viewer) -> {
 
+            String localMessage = finalMessage;
+            TagResolver.Builder builder = TagResolver.builder();
+
             boolean isModerator = viewer instanceof Player playerViewer && hasPermission(playerViewer, Permission.ESSENTIALS_CHAT_MODERATOR);
             if (viewer instanceof Player playerViewer) {
-                if (finalMessage.contains("@" + playerViewer.getName())) {
-                    playerViewer.playSound(playerViewer.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1f);
+                for (ChatDisplay chatDisplay : this.chatDisplays) {
+                    localMessage = chatDisplay.display(paperComponent, builder, player, playerViewer, localMessage);
                 }
             }
 
+            System.out.println(localMessage);
+            Tag tag = Tag.inserting(paperComponent.translateText(player, localMessage, builder.build()));
             return paperComponent.getComponentMessage(chatFormat, TagResolver.resolver("message", tag), "%displayName%", player.getDisplayName(), "%player%", player.getName(), "%moderator_action%", isModerator ? papi(getMessage(this.moderatorAction, "%player%", player.getName()), (Player) viewer) : "");
         });
 

@@ -112,3 +112,66 @@ link-transform: "<hover:show_text:'&fOpen the link'><click:open_url:'%url%'>%url
 
 # Date format for /chathistory
 date-format: "yyyy-MM-dd HH:mm:ss"
+
+# Chat ping
+
+# To ping a player you must use the prefix @<nickname>
+enable-ping: true
+
+# Allows to activate the sound during a player ping, the player can disable the sound with the command /pingsound
+enable-player-ping-sound: true
+
+# Sound played when player is pinged
+player-ping-sound: BLOCK_NOTE_BLOCK_PLING
+
+# Ping sound volume
+player-ping-sound-volume: 0.8
+
+# Ping sound pitch
+player-ping-sound-pitch: 1
+
+# Color of ping displayed to the player
+player-ping-color: "<red>%name%</red><red>"
+
+# Color of ping displayed for other players
+player-ping-color-other: "<white>%name%</white>"
+
+# Placeholders
+
+chat-placeholders:
+  - name: "ping" # Placeholder name, the name must consist only of lowercase letters, numbers 0 to 9 and characters _ and -
+    regex: "(?i)\\[ping\\]" # [ping] placeholder
+    result: "%player_ping% ms" # PlaceholderAPI extension Player: https://api.extendedclip.com/expansions/player/
+    permission: "zessentials.chat.placeholder.ping" # You must define a permission
+  - name: "block" # Placeholder name, the name must consist only of lowercase letters, numbers 0 to 9 and characters _ and -
+    regex: "(?i)\\[blocks\\]" # [blocks] placeholder
+    result: "&a%statistic_mine_block% &fblocks" # PlaceholderAPI extension Statistic: https://api.extendedclip.com/expansions/statistic/
+    permission: "zessentials.chat.placeholder.block" # You must define a permission
+  - name: "money" # Placeholder name, the name must consist only of lowercase letters, numbers 0 to 9 and characters _ and -
+    regex: "(?i)\\[money\\]" # [money] placeholder
+    result: "%zessentials_user_formatted_balance_money%"
+    permission: "zessentials.chat.placeholder.money" # You must define a permission
+  - name: "coins" # Placeholder name, the name must consist only of lowercase letters, numbers 0 to 9 and characters _ and -
+    regex: "(?i)\\[coins\\]" # [coins] placeholder
+    result: "%zessentials_user_formatted_balance_coins%"
+    permission: "zessentials.chat.placeholder.coins" # You must define a permission
+  - name: "playtime" # Placeholder name, the name must consist only of lowercase letters, numbers 0 to 9 and characters _ and -
+    regex: "(?i)\\[playtime\\]" # [playtime] placeholder
+    result: "&fI've played &7%zessentials_user_playtime_formatted%"
+    permission: "zessentials.chat.placeholder.playtime" # You must define a permission
+  - name: "pos" # Placeholder name, the name must consist only of lowercase letters, numbers 0 to 9 and characters _ and -
+    regex: "(?i)\\[pos\\]" # [pos] placeholder
+    result: "&bWorld: &f%player_world% &eX: &f%player_x% &eY: &f%player_y% &eZ: &f%player_z%"
+    permission: "zessentials.chat.placeholder.pos" # You must define a permission
+
+# Displays the item in your hand
+item-placeholder:
+  enable: true
+  regex: "(?i)\\[item\\]|\\[i\\]" # [item] or [i] placeholder
+  result: "&bx<amount> &f<item>"
+  permission: "zessentials.chat.placeholder.item" # You must define a permission
+
+command-placeholder: # ./<command> placeholder
+  enable: true
+  result: "<hover:show_text:'<yellow>Try this command'><click:suggest_command:'/%command%'><yellow>/%command%</yellow></click></hover>"
+  permission: "zessentials.chat.placeholder.command" # You must define a permission
