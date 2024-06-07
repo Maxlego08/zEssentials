@@ -6,9 +6,6 @@ project(':EssentialsApi').projectDir = file("EssentialsApi")
 include('Essentials')
 project(':Essentials').projectDir = file("Essentials")
 
-include('EssentialsChat')
-project(':EssentialsChat').projectDir = file("EssentialsChat")
-
 include 'Hooks:Vault'
 project(':Hooks:Vault').projectDir = file("Hooks/Vault")
 
