@@ -11,6 +11,7 @@ import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.database.dto.ChatMessageDTO;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.user.User;
+import fr.maxlego08.essentials.chat.CommandDisplay;
 import fr.maxlego08.essentials.chat.CustomDisplay;
 import fr.maxlego08.essentials.chat.ItemDisplay;
 import fr.maxlego08.essentials.chat.PlayerPingDisplay;
@@ -104,6 +105,10 @@ public class ChatModule extends ZModule {
         YamlConfiguration configuration = getConfiguration();
         if (configuration.getBoolean("item-placeholder.enable")) {
             this.chatDisplays.add(new ItemDisplay(plugin, configuration.getString("item-placeholder.regex"), configuration.getString("item-placeholder.result"), configuration.getString("item-placeholder.permission")));
+        }
+
+        if (configuration.getBoolean("command-placeholder.enable")) {
+            this.chatDisplays.add(new CommandDisplay(configuration.getString("command-placeholder.result"), configuration.getString("command-placeholder.permission")));
         }
     }
 

@@ -234,6 +234,4 @@ public interface EssentialsPlugin extends Plugin {
     ComponentMessage getComponentMessage();
 
     String papi(Player player, String string);
-
-    NmsUtils getNmsUtils();
 }

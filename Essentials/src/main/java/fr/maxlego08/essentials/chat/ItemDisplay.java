@@ -4,9 +4,7 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.chat.ChatDisplay;
 import fr.maxlego08.essentials.api.utils.component.AdventureComponent;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
-import net.kyori.adventure.nbt.api.BinaryTagHolder;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import org.bukkit.entity.Player;
@@ -49,8 +47,7 @@ public class ItemDisplay extends ZUtils implements ChatDisplay {
 
         Component component = adventureComponent.getComponent(this.result, TagResolver.builder().resolver(Placeholder.component("item", itemName)).resolver(Placeholder.component("amount", Component.text(amount))).build());
 
-        String nbt = plugin.getNmsUtils().getItemStackTags(itemStack);
-        component = component.hoverEvent(HoverEvent.showItem(itemStack.getType(), amount, BinaryTagHolder.binaryTagHolder(nbt)));
+        component = component.hoverEvent(itemStack.asHoverEvent());
         builder.resolver(Placeholder.component(name, component));
 
         matcher.appendTail(formattedMessage);
