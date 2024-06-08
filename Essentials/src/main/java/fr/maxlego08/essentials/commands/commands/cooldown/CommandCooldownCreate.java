@@ -20,7 +20,7 @@ public class CommandCooldownCreate extends VCommand {
         this.addSubCommand("create");
         this.addRequireArg("player");
         this.addRequireArg("key");
-        this.addRequireArg("duration", (a, b) -> Arrays.asList("1s", "1h", "1d", "1w", "1m"));
+        this.addRequireArg("duration", (a, b) -> this.cooldowns);
     }
 
     @Override

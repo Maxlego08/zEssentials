@@ -17,6 +17,7 @@ import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -371,6 +372,9 @@ public class SanctionModule extends ZModule {
 
         message(sender, Message.COMMAND_SEEN_UUID, "%uuid%", uuid.toString());
         message(sender, Message.COMMAND_SEEN_IP, "%ips%", record.playTimeDTOS().stream().map(timeDTO -> getMessage(Message.COMMAND_SEEN_ADDRESS, "%ip%", timeDTO.address())).distinct().collect(Collectors.joining(",")));
+        Location location = stringAsLocation(user.last_location());
+        message(sender, Message.COMMAND_SEEN_LAST_LOCATION, "%x%", location.getBlockX(), "%z%", location.getBlockZ(), "%y%", location.getBlockY(), "%world%", location.getWorld().getName());
+        message(sender, Message.COMMAND_SEEN_FIRST_JOIN, "%created_at%", this.simpleDateFormat.format(user.created_at()));
     }
 
     private void sendOnline(CommandSender sender, UserRecord record) {

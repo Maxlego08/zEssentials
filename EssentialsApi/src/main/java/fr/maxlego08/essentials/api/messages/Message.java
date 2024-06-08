@@ -228,6 +228,7 @@ public enum Message {
     DESCRIPTION_GIVE_ALL("Give items to online players"),
     DESCRIPTION_POWER_TOOLS("Add command to your items"),
     DESCRIPTION_MAIL("Open mailbox"),
+    DESCRIPTION_MAIL_OPEN("Open player's mailbox"),
     DESCRIPTION_RULES("Read server rules"),
     DESCRIPTION_HOLOGRAM("Show hologram commands"),
     DESCRIPTION_HOLOGRAM_CREATE("Create a hologram"),
@@ -497,6 +498,8 @@ public enum Message {
     COMMAND_SEEN_PLAYTIME(MessageType.WITHOUT_PREFIX, "#99E0FFPlayTime&8: &f%playtime%"),
     COMMAND_SEEN_UUID(MessageType.WITHOUT_PREFIX, "#99E0FFUUID&8: &f%uuid%"),
     COMMAND_SEEN_IP(MessageType.WITHOUT_PREFIX, "#99E0FFIP Address&8:&f%ips%"),
+    COMMAND_SEEN_LAST_LOCATION(MessageType.WITHOUT_PREFIX, "#99E0FFLast Location&8: &f%world%, %x%, %y%, %z%"),
+    COMMAND_SEEN_FIRST_JOIN(MessageType.WITHOUT_PREFIX, "#99E0FFFirst Join&8:&f%created_at%"),
 
     COMMAND_SEEN_ADDRESS(MessageType.WITHOUT_PREFIX, " <click:run_command:'/seenip %ip%'><hover:show_text:'&fShow players who have the same address'>%ip%</hover></click>"),
 

@@ -27,6 +27,38 @@ import java.util.function.Consumer;
 public abstract class VCommand extends Arguments implements EssentialsCommand {
 
     protected final EssentialsPlugin plugin;
+    protected final List<String> cooldowns = Arrays.asList(
+            "1m",    // 60 seconds
+            "5m",    // 300 seconds
+            "10m",   // 600 seconds
+            "30m",   // 1800 seconds
+            "1h",    // 3600 seconds
+            "2h",    // 7200 seconds
+            "3h",    // 10800 seconds
+            "4h",    // 14400 seconds
+            "5h",    // 18000 seconds
+            "6h",    // 21600 seconds
+            "7h",    // 25200 seconds
+            "8h",    // 28800 seconds
+            "9h",    // 32400 seconds
+            "10h",   // 36000 seconds
+            "11h",   // 39600 seconds
+            "12h",   // 43200 seconds
+            "13h",   // 46800 seconds
+            "14h",   // 50400 seconds
+            "15h",   // 54000 seconds
+            "1d",    // 86400 seconds
+            "2d",    // 172800 seconds
+            "3d",    // 259200 seconds
+            "4d",    // 345600 seconds
+            "5d",    // 432000 seconds
+            "6d",    // 518400 seconds
+            "7d",    // 604800 seconds
+            "14d",   // 1209600 seconds
+            "21d",   // 1814400 seconds
+            "28d",   // 2419200 seconds
+            "30d"    // 2592000 seconds
+    );
     protected final List<VCommand> subVCommands = new ArrayList<>();
     private final List<String> subCommands = new ArrayList<>();
     private final List<String> requireArgs = new ArrayList<>();
@@ -100,15 +132,15 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
         return parent;
     }
 
+    public void setParent(VCommand parent) {
+        this.parent = parent;
+    }
+
     @Override
     public EssentialsCommand getMainParent() {
         if (parent == null) return null;
         if (parent.getParent() == null) return parent;
         else return parent.getMainParent();
-    }
-
-    public void setParent(VCommand parent) {
-        this.parent = parent;
     }
 
     protected User getUser(Player player) {

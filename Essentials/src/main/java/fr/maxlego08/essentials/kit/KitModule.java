@@ -28,6 +28,7 @@ import org.bukkit.permissions.Permissible;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -37,6 +38,7 @@ public class KitModule extends ZModule {
 
     private final List<Kit> kits = new ArrayList<>();
     private final KitDisplay display = KitDisplay.IN_LINE;
+    private final List<String> kitNames = Arrays.asList("warrior", "archer", "mage", "healer", "miner", "builder", "scout", "assassin", "knight", "ranger", "alchemist", "blacksmith", "explorer", "thief", "fisherman", "farmer", "necromancer", "paladin", "berserker", "enchanter");
 
     public KitModule(ZEssentialsPlugin plugin) {
         super(plugin, "kits");
@@ -169,7 +171,7 @@ public class KitModule extends ZModule {
         return true;
     }
 
-    public void sendInLine(CommandSender sender){
+    public void sendInLine(CommandSender sender) {
         List<String> homesAsString = kits.stream().map(kit -> getMessage(Message.COMMAND_KIT_INFORMATION_IN_LINE_INFO_AVAILABLE, "%name%", kit.getName())).toList();
         message(sender, Message.COMMAND_KIT_INFORMATION_IN_LINE, "%kits%", Strings.join(homesAsString, ','));
     }
@@ -234,7 +236,7 @@ public class KitModule extends ZModule {
         }
     }
 
-    public void createKit(Player player, String kitName, int cooldown) {
+    public void createKit(Player player, String kitName, long cooldown) {
 
         Kit kit = new ZKit(plugin, kitName, kitName, cooldown, new ArrayList<>(), new ArrayList<>());
         kits.add(kit);
@@ -248,5 +250,9 @@ public class KitModule extends ZModule {
         this.saveKits();
 
         message(player, Message.COMMAND_KIT_DELETE, "%kit%", kit.getName());
+    }
+
+    public List<String> getKitNames() {
+        return this.kitNames.stream().filter(name -> this.kits.stream().noneMatch(kit -> kit.getName().equalsIgnoreCase(name))).toList();
     }
 }

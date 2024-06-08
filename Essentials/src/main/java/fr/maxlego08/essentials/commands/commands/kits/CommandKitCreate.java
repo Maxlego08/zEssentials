@@ -6,19 +6,23 @@ import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.kit.KitModule;
-import fr.maxlego08.essentials.module.modules.SanctionModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 
+import java.time.Duration;
 import java.util.Optional;
 
 public class CommandKitCreate extends VCommand {
+
     public CommandKitCreate(EssentialsPlugin plugin) {
         super(plugin);
         this.setModule(KitModule.class);
         this.setPermission(Permission.ESSENTIALS_KIT_CREATE);
         this.setDescription(Message.DESCRIPTION_KIT_CREATE);
-        this.addRequireArg("name");
-        this.addRequireArg("cooldown");
+        this.addRequireArg("name", (a, b) -> {
+            System.out.println(plugin.getModuleManager().getModule(KitModule.class).getKitNames());
+            return plugin.getModuleManager().getModule(KitModule.class).getKitNames();
+        });
+        this.addRequireArg("cooldown", (a, b) -> this.cooldowns);
     }
 
     @Override
@@ -26,7 +30,7 @@ public class CommandKitCreate extends VCommand {
 
         KitModule kitModule = plugin.getModuleManager().getModule(KitModule.class);
         String kitName = this.argAsString(0);
-        int cooldown = this.argAsInteger(1);
+        Duration duration = this.argAsDuration(1);
 
         Optional<Kit> optional = kitModule.getKit(kitName);
         if (optional.isPresent()) {
@@ -34,7 +38,7 @@ public class CommandKitCreate extends VCommand {
             return CommandResultType.DEFAULT;
         }
 
-        kitModule.createKit(this.player, kitName, Math.max(1, cooldown));
+        kitModule.createKit(this.player, kitName, Math.max(0L, duration.toSeconds()));
         return CommandResultType.SUCCESS;
     }
 }

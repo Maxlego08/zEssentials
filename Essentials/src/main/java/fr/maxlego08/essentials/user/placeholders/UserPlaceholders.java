@@ -139,5 +139,11 @@ public class UserPlaceholders extends ZUtils implements PlaceholderRegister {
             User user = iStorage.getUser(player.getUniqueId());
             return String.valueOf(user.getMailBoxItems().size());
         }, "Returns the number of items in the mailbox");
+
+        // Good
+        placeholder.register("user_is_god", (player, key) -> {
+            User user = iStorage.getUser(player.getUniqueId());
+            return String.valueOf(user.getOption(Option.GOD));
+        }, "Returns the true if user is in god mode");
     }
 }

@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.database.dto.ChatMessageDTO;
 import fr.maxlego08.essentials.api.database.dto.CommandDTO;
 import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
+import fr.maxlego08.essentials.api.database.dto.MailBoxDTO;
 import fr.maxlego08.essentials.api.database.dto.OptionDTO;
 import fr.maxlego08.essentials.api.database.dto.PlayTimeDTO;
 import fr.maxlego08.essentials.api.database.dto.PowerToolsDTO;
@@ -21,6 +22,7 @@ import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.user.UserRecord;
 import fr.maxlego08.essentials.storage.database.Repositories;
+import fr.maxlego08.essentials.storage.database.Repository;
 import fr.maxlego08.essentials.storage.database.repositeries.ChatMessagesRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.CommandsRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.EconomyTransactionsRepository;
@@ -86,12 +88,12 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
         MigrationManager.execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), this.plugin.getLogger());
 
-        this.repositories.getTable(UserCooldownsRepository.class).deleteExpiredCooldowns();
-        this.repositories.getTable(UserRepository.class).clearExpiredSanctions();
-        this.repositories.getTable(UserMailBoxRepository.class).deleteExpiredItems();
-        this.setActiveSanctions(this.repositories.getTable(UserSanctionRepository.class).getActiveBan());
+        with(UserCooldownsRepository.class).deleteExpiredCooldowns();
+        with(UserRepository.class).clearExpiredSanctions();
+        with(UserMailBoxRepository.class).deleteExpiredItems();
+        this.setActiveSanctions(with(UserSanctionRepository.class).getActiveBan());
 
-        /*List<ServerStorageDTO> serverStorageDTOS = this.repositories.getTable(ServerStorageRepository.class).select();
+        /*List<ServerStorageDTO> serverStorageDTOS = repo(ServerStorageRepository.class).select();
         plugin.getServerStorage().setContents(serverStorageDTOS);*/
     }
 
@@ -99,7 +101,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
     public void onEnable() {
 
         this.connection.connect();
-        this.totalUser = this.repositories.getTable(UserRepository.class).totalUsers();
+        this.totalUser = with(UserRepository.class).totalUsers();
     }
 
     @Override
@@ -117,19 +119,19 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
         this.plugin.getScheduler().runAsync(wrappedTask -> {
 
-            List<UserDTO> userDTOS = this.repositories.getTable(UserRepository.class).selectUser(uniqueId);
+            List<UserDTO> userDTOS = with(UserRepository.class).selectUser(uniqueId);
             // First join !
             if (userDTOS.isEmpty()) {
                 this.firstJoin(user);
             }
 
-            this.repositories.getTable(UserRepository.class).upsert(uniqueId, playerName); // Create the player or update his name
+            with(UserRepository.class).upsert(uniqueId, playerName); // Create the player or update his name
             if (!userDTOS.isEmpty()) {
 
                 UserDTO userDTO = userDTOS.get(0);
 
                 if (userDTO.mute_sanction_id() != null) { // Check if player is mute
-                    SanctionDTO sanction = this.repositories.getTable(UserSanctionRepository.class).getSanction(userDTO.mute_sanction_id());
+                    SanctionDTO sanction = with(UserSanctionRepository.class).getSanction(userDTO.mute_sanction_id());
                     if (sanction.isActive()) {
                         user.setMuteSanction(Sanction.fromDTO(sanction));
                     }
@@ -138,16 +140,20 @@ public class SqlStorage extends StorageHelper implements IStorage {
                 user.setSanction(userDTO.ban_sanction_id(), userDTO.mute_sanction_id());
                 user.setLastLocation(stringAsLocation(userDTO.last_location()));
                 user.setPlayTime(userDTO.play_time());
-                user.setOptions(this.repositories.getTable(UserOptionRepository.class).selectOptions(uniqueId));
-                user.setCooldowns(this.repositories.getTable(UserCooldownsRepository.class).selectCooldowns(uniqueId));
-                user.setEconomies(this.repositories.getTable(UserEconomyRepository.class).selectEconomies(uniqueId));
-                user.setHomes(this.repositories.getTable(UserHomeRepository.class).selectHomes(uniqueId));
-                user.setPowerTools(this.repositories.getTable(UserPowerToolsRepository.class).getPowerTools(uniqueId).stream().collect(Collectors.toMap(PowerToolsDTO::material, PowerToolsDTO::command)));
-                user.setMailBoxItems(this.repositories.getTable(UserMailBoxRepository.class).select(uniqueId));
+                user.setOptions(with(UserOptionRepository.class).selectOptions(uniqueId));
+                user.setCooldowns(with(UserCooldownsRepository.class).selectCooldowns(uniqueId));
+                user.setEconomies(with(UserEconomyRepository.class).selectEconomies(uniqueId));
+                user.setHomes(with(UserHomeRepository.class).selectHomes(uniqueId));
+                user.setPowerTools(with(UserPowerToolsRepository.class).getPowerTools(uniqueId).stream().collect(Collectors.toMap(PowerToolsDTO::material, PowerToolsDTO::command)));
+                user.setMailBoxItems(with(UserMailBoxRepository.class).select(uniqueId));
             }
         });
 
         return user;
+    }
+
+    public <T extends Repository> T with(Class<T> module) {
+        return this.repositories.getTable(module);
     }
 
     @Override
@@ -162,27 +168,27 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     @Override
     public void updateOption(UUID uniqueId, Option option, boolean value) {
-        async(() -> this.repositories.getTable(UserOptionRepository.class).upsert(uniqueId, option, value));
+        async(() -> with(UserOptionRepository.class).upsert(uniqueId, option, value));
     }
 
     @Override
     public void updateCooldown(UUID uniqueId, String key, long expiredAt) {
-        async(() -> this.repositories.getTable(UserCooldownsRepository.class).upsert(uniqueId, key, expiredAt));
+        async(() -> with(UserCooldownsRepository.class).upsert(uniqueId, key, expiredAt));
     }
 
     @Override
     public void deleteCooldown(UUID uniqueId, String key) {
-        async(() -> this.repositories.getTable(UserCooldownsRepository.class).delete(uniqueId, key));
+        async(() -> with(UserCooldownsRepository.class).delete(uniqueId, key));
     }
 
     @Override
     public void updateEconomy(UUID uniqueId, Economy economy, BigDecimal bigDecimal) {
-        async(() -> this.repositories.getTable(UserEconomyRepository.class).upsert(uniqueId, economy, bigDecimal));
+        async(() -> with(UserEconomyRepository.class).upsert(uniqueId, economy, bigDecimal));
     }
 
     @Override
     public void upsertUser(User user) {
-        async(() -> this.repositories.getTable(UserRepository.class).upsert(user));
+        async(() -> with(UserRepository.class).upsert(user));
     }
 
     @Override
@@ -206,7 +212,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
                     return;
                 }
 
-                consumer.accept(this.repositories.getTable(UserEconomyRepository.class).selectEconomies(uuid));
+                consumer.accept(with(UserEconomyRepository.class).selectEconomies(uuid));
             });
         });
     }
@@ -235,7 +241,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
             }, () -> {
 
                 // Get uuid from database
-                List<UserDTO> userDTOS = this.repositories.getTable(UserRepository.class).selectUsers(userName);
+                List<UserDTO> userDTOS = with(UserRepository.class).selectUsers(userName);
                 if (userDTOS.isEmpty()) {
                     consumer.accept(null);
                     return;
@@ -250,35 +256,35 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     @Override
     public void storeTransactions(UUID fromUuid, UUID toUuid, Economy economy, BigDecimal fromAmount, BigDecimal toAmount) {
-        async(() -> this.repositories.getTable(EconomyTransactionsRepository.class).upsert(fromUuid, toUuid, economy, fromAmount, toAmount));
+        async(() -> with(EconomyTransactionsRepository.class).upsert(fromUuid, toUuid, economy, fromAmount, toAmount));
     }
 
     @Override
     public void upsertStorage(String key, Object value) {
-        // async(() -> this.repositories.getTable(ServerStorageRepository.class).upsert(key, value));
+        // async(() -> repo(ServerStorageRepository.class).upsert(key, value));
     }
 
     @Override
     public void upsertHome(UUID uniqueId, Home home) {
-        async(() -> this.repositories.getTable(UserHomeRepository.class).upsert(uniqueId, home));
+        async(() -> with(UserHomeRepository.class).upsert(uniqueId, home));
     }
 
     @Override
     public void deleteHome(UUID uniqueId, String name) {
-        async(() -> this.repositories.getTable(UserHomeRepository.class).deleteHomes(uniqueId, name));
+        async(() -> with(UserHomeRepository.class).deleteHomes(uniqueId, name));
     }
 
     @Override
     public CompletableFuture<List<Home>> getHome(UUID uuid, String homeName) {
         CompletableFuture<List<Home>> future = new CompletableFuture<>();
-        future.complete(this.repositories.getTable(UserHomeRepository.class).getHomes(uuid, homeName));
+        future.complete(with(UserHomeRepository.class).getHomes(uuid, homeName));
         return future;
     }
 
     @Override
     public CompletionStage<List<Home>> getHomes(UUID uuid) {
         CompletableFuture<List<Home>> future = new CompletableFuture<>();
-        future.complete(this.repositories.getTable(UserHomeRepository.class).getHomes(uuid));
+        future.complete(with(UserHomeRepository.class).getHomes(uuid));
         return future;
     }
 
@@ -290,18 +296,18 @@ public class SqlStorage extends StorageHelper implements IStorage {
             this.banSanctions.remove(sanction.getPlayerUniqueId());
         }
 
-        async(() -> this.repositories.getTable(UserSanctionRepository.class).insert(sanction, consumer));
+        async(() -> with(UserSanctionRepository.class).insert(sanction, consumer));
     }
 
     @Override
     public void updateUserBan(UUID uuid, Integer index) {
         if (index == null) this.banSanctions.remove(uuid);
-        async(() -> this.repositories.getTable(UserRepository.class).updateBanId(uuid, index));
+        async(() -> with(UserRepository.class).updateBanId(uuid, index));
     }
 
     @Override
     public void updateUserMute(UUID uuid, Integer index) {
-        async(() -> this.repositories.getTable(UserRepository.class).updateMuteId(uuid, index));
+        async(() -> with(UserRepository.class).updateMuteId(uuid, index));
     }
 
     @Override
@@ -312,13 +318,13 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     @Override
     public Sanction getMute(UUID uuid) {
-        List<UserDTO> userDTOS = this.repositories.getTable(UserRepository.class).selectUser(uuid);
+        List<UserDTO> userDTOS = with(UserRepository.class).selectUser(uuid);
         if (userDTOS.isEmpty()) return null;
 
         UserDTO userDTO = userDTOS.get(0);
 
         if (userDTO.mute_sanction_id() != null) {
-            SanctionDTO sanction = this.repositories.getTable(UserSanctionRepository.class).getSanction(userDTO.mute_sanction_id());
+            SanctionDTO sanction = with(UserSanctionRepository.class).getSanction(userDTO.mute_sanction_id());
             return Sanction.fromDTO(sanction);
         }
         return null;
@@ -326,46 +332,46 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     @Override
     public List<SanctionDTO> getSanctions(UUID uuid) {
-        return this.repositories.getTable(UserSanctionRepository.class).getSanctions(uuid);
+        return with(UserSanctionRepository.class).getSanctions(uuid);
     }
 
     @Override
     public void insertChatMessage(UUID uuid, String content) {
-        async(() -> this.repositories.getTable(ChatMessagesRepository.class).insert(new ChatMessageDTO(uuid, content, new Date())));
+        async(() -> with(ChatMessagesRepository.class).insert(new ChatMessageDTO(uuid, content, new Date())));
     }
 
     @Override
     public void insertCommand(UUID uuid, String command) {
-        async(() -> this.repositories.getTable(CommandsRepository.class).insert(new CommandDTO(uuid, command, new Date())));
+        async(() -> with(CommandsRepository.class).insert(new CommandDTO(uuid, command, new Date())));
     }
 
     @Override
     public void insertPlayTime(UUID uniqueId, long sessionPlayTime, long playtime, String address) {
         async(() -> {
             if (sessionPlayTime > 0) {
-                this.repositories.getTable(UserPlayTimeRepository.class).insert(uniqueId, sessionPlayTime, address);
+                with(UserPlayTimeRepository.class).insert(uniqueId, sessionPlayTime, address);
             }
-            this.repositories.getTable(UserRepository.class).updatePlayTime(uniqueId, playtime);
+            with(UserRepository.class).updatePlayTime(uniqueId, playtime);
         });
     }
 
     @Override
     public List<UserDTO> getUsers(String ip) {
-        return this.repositories.getTable(UserRepository.class).getUsers(ip);
+        return with(UserRepository.class).getUsers(ip);
     }
 
     @Override
     public UserRecord fetchUserRecord(UUID uuid) {
 
-        UserDTO userDTO = this.repositories.getTable(UserRepository.class).selectUser(uuid).get(0);
-        List<PlayTimeDTO> playTimeDTOS = this.repositories.getTable(UserPlayTimeRepository.class).select(uuid);
+        UserDTO userDTO = with(UserRepository.class).selectUser(uuid).get(0);
+        List<PlayTimeDTO> playTimeDTOS = with(UserPlayTimeRepository.class).select(uuid);
 
         return new UserRecord(userDTO, playTimeDTOS);
     }
 
     @Override
     public List<ChatMessageDTO> getMessages(UUID targetUuid) {
-        return this.repositories.getTable(ChatMessagesRepository.class).getMessages(targetUuid);
+        return with(ChatMessagesRepository.class).getMessages(targetUuid);
     }
 
     @Override
@@ -373,36 +379,41 @@ public class SqlStorage extends StorageHelper implements IStorage {
         if (this.users.containsKey(uuid)) {
             return this.users.get(uuid).getOptions();
         }
-        return this.repositories.getTable(UserOptionRepository.class).selectOptions(uuid).stream().collect(Collectors.toMap(OptionDTO::option_name, OptionDTO::option_value));
+        return with(UserOptionRepository.class).selectOptions(uuid).stream().collect(Collectors.toMap(OptionDTO::option_name, OptionDTO::option_value));
     }
 
     @Override
     public List<CooldownDTO> getCooldowns(UUID uniqueId) {
-        return this.repositories.getTable(UserCooldownsRepository.class).selectCooldowns(uniqueId);
+        return with(UserCooldownsRepository.class).selectCooldowns(uniqueId);
     }
 
     @Override
     public void setPowerTools(UUID uniqueId, Material material, String command) {
-        async(() -> this.repositories.getTable(UserPowerToolsRepository.class).upsert(uniqueId, material, command));
+        async(() -> with(UserPowerToolsRepository.class).upsert(uniqueId, material, command));
     }
 
     @Override
     public void deletePowerTools(UUID uniqueId, Material material) {
-        async(() -> this.repositories.getTable(UserPowerToolsRepository.class).delete(uniqueId, material));
+        async(() -> with(UserPowerToolsRepository.class).delete(uniqueId, material));
     }
 
     @Override
     public void addMailBoxItem(MailBoxItem mailBoxItem) {
-        async(() -> this.repositories.getTable(UserMailBoxRepository.class).insert(mailBoxItem));
+        async(() -> with(UserMailBoxRepository.class).insert(mailBoxItem));
     }
 
     @Override
     public void removeMailBoxItem(int id) {
-        async(() -> this.repositories.getTable(UserMailBoxRepository.class).delete(id));
+        async(() -> with(UserMailBoxRepository.class).delete(id));
     }
 
     @Override
     public List<UserEconomyRankingDTO> getEconomyRanking(Economy economy) {
-        return this.repositories.getTable(UserRepository.class).getBalanceRanking(economy.getName());
+        return with(UserRepository.class).getBalanceRanking(economy.getName());
+    }
+
+    @Override
+    public List<MailBoxDTO> getMailBox(UUID uuid) {
+        return with(UserMailBoxRepository.class).select(uuid);
     }
 }

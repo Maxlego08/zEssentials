@@ -18,7 +18,7 @@ public class CommandBan extends VCommand {
         this.setPermission(Permission.ESSENTIALS_BAN);
         this.setDescription(Message.DESCRIPTION_BAN);
         this.addRequirePlayerNameArg();
-        this.addRequireArg("duration", (a, b) -> Arrays.asList("1s", "1h", "1d", "1w", "1m"));
+        this.addRequireArg("duration", (a, b) -> this.cooldowns);
         this.addOptionalArg("reason", (a, b) -> new ArrayList<>());
         this.setExtendedArgs(true);
     }

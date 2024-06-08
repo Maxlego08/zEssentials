@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.database.dto.ChatMessageDTO;
 import fr.maxlego08.essentials.api.database.dto.CooldownDTO;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.HomeDTO;
+import fr.maxlego08.essentials.api.database.dto.MailBoxDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.database.dto.UserDTO;
 import fr.maxlego08.essentials.api.database.dto.UserEconomyRankingDTO;
@@ -346,6 +347,11 @@ public class JsonStorage extends StorageHelper implements IStorage {
 
     @Override
     public List<UserEconomyRankingDTO> getEconomyRanking(Economy economy) {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public List<MailBoxDTO> getMailBox(UUID uuid) {
         return new ArrayList<>();
     }
 }

@@ -70,7 +70,7 @@ import fr.maxlego08.essentials.commands.commands.utils.CommandFeed;
 import fr.maxlego08.essentials.commands.commands.utils.CommandFurnace;
 import fr.maxlego08.essentials.commands.commands.utils.CommandHat;
 import fr.maxlego08.essentials.commands.commands.utils.CommandHeal;
-import fr.maxlego08.essentials.commands.commands.utils.CommandMail;
+import fr.maxlego08.essentials.commands.commands.mail.CommandMail;
 import fr.maxlego08.essentials.commands.commands.utils.CommandMore;
 import fr.maxlego08.essentials.commands.commands.utils.CommandNear;
 import fr.maxlego08.essentials.commands.commands.utils.CommandPlayTime;
