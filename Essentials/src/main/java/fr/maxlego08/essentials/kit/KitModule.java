@@ -38,7 +38,6 @@ public class KitModule extends ZModule {
 
     private final List<Kit> kits = new ArrayList<>();
     private final KitDisplay display = KitDisplay.IN_LINE;
-    private final List<String> kitNames = Arrays.asList("warrior", "archer", "mage", "healer", "miner", "builder", "scout", "assassin", "knight", "ranger", "alchemist", "blacksmith", "explorer", "thief", "fisherman", "farmer", "necromancer", "paladin", "berserker", "enchanter");
 
     public KitModule(ZEssentialsPlugin plugin) {
         super(plugin, "kits");
@@ -253,6 +252,7 @@ public class KitModule extends ZModule {
     }
 
     public List<String> getKitNames() {
-        return this.kitNames.stream().filter(name -> this.kits.stream().noneMatch(kit -> kit.getName().equalsIgnoreCase(name))).toList();
+        List<String> kitNames = Arrays.asList("warrior", "archer", "mage", "healer", "miner", "builder", "scout", "assassin", "knight", "ranger", "alchemist", "blacksmith", "explorer", "thief", "fisherman", "farmer", "necromancer", "paladin", "berserker", "enchanter");
+        return kitNames.stream().filter(name -> this.kits.stream().noneMatch(kit -> kit.getName().equalsIgnoreCase(name))).toList();
     }
 }
