@@ -361,7 +361,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         File fileCommand = new File(getDataFolder(), "commands.md");
         File filePlaceholder = new File(getDataFolder(), "placeholders.md");
         try {
-            commandMarkdownGenerator.generateMarkdownFile(this.commandManager.getCommands(), fileCommand.toPath());
+            commandMarkdownGenerator.generateMarkdownFile(this.commandManager.getSortCommands(), fileCommand.toPath());
             getLogger().info("Markdown 'commands.md' file successfully generated!");
         } catch (IOException exception) {
             getLogger().severe("Error while writing the file commands: " + exception.getMessage());

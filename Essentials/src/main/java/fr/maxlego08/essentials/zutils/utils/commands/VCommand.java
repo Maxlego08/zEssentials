@@ -152,6 +152,7 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
         return permission;
     }
 
+    @Override
     public void setPermission(String permission) {
         this.permission = permission;
     }

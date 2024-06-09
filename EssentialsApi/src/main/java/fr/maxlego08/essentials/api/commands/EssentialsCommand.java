@@ -113,5 +113,7 @@ public interface EssentialsCommand {
     String getMainCommand();
 
     List<EssentialsCommand> getSubEssentialsCommands();
+
+    void setPermission(String permission);
 }
 
