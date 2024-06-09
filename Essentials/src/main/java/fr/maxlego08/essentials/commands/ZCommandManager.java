@@ -11,16 +11,22 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ZCommandManager extends ZUtils implements CommandManager {
 
@@ -160,32 +166,132 @@ public class ZCommandManager extends ZUtils implements CommandManager {
         return null;
     }
 
+    private YamlConfiguration getCommandConfiguration() {
+        File file = new File(plugin.getDataFolder(), "commands.yml");
+        if (!file.exists()) {
+            try {
+                if (!file.createNewFile()) {
+                    this.plugin.getLogger().severe("The commands.yml file cannot be created.");
+                    return null;
+                }
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
+        }
+
+        return YamlConfiguration.loadConfiguration(file);
+    }
+
+    public void saveCommandConfiguration(YamlConfiguration configuration) {
+        File file = new File(plugin.getDataFolder(), "commands.yml");
+        try {
+            configuration.save(file);
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    @Override
+    public void saveCommands() {
+
+        YamlConfiguration configuration = getCommandConfiguration();
+        if (configuration == null) return;
+
+        List<EssentialsCommand> essentialsCommands = getSortCommands();
+
+        AtomicBoolean atomicBoolean = new AtomicBoolean(false);
+        essentialsCommands.forEach(essentialsCommand -> {
+
+            String commandName = getCommandName(essentialsCommand);
+            ConfigurationSection configurationSection = configuration.getConfigurationSection(commandName);
+            if (configurationSection != null) return;
+
+            configuration.set(commandName + ".enable", true);
+            configuration.set(commandName + ".commands", essentialsCommand.getSubCommands());
+            configuration.set(commandName + ".permission", essentialsCommand.getPermission());
+
+            atomicBoolean.set(true);
+        });
+
+        if (atomicBoolean.get()) {
+            this.saveCommandConfiguration(configuration);
+        }
+    }
+
+    private String getCommandName(EssentialsCommand command) {
+        String className = command.getClass().getSimpleName();
+
+        StringBuilder transformedName = new StringBuilder();
+
+        for (int i = 0; i < className.length(); i++) {
+            char currentChar = className.charAt(i);
+            if (Character.isUpperCase(currentChar)) {
+
+                if (i != 0) {
+                    transformedName.append('-');
+                }
+
+                transformedName.append(Character.toLowerCase(currentChar));
+            } else {
+
+                transformedName.append(currentChar);
+            }
+        }
+
+        return transformedName.toString();
+    }
+
     /**
      * Register spigot command without plugin.yml This method will allow to
      * register a command in the spigot without using the plugin.yml This saves
      * time and understanding, the plugin.yml file is clearer
      *
-     * @param string   - Main command
-     * @param vCommand - Command object
-     * @param aliases  - Command aliases
+     * @param mainCommand       - Main command
+     * @param essentialsCommand - Command object
+     * @param aliases           - Command aliases
      */
-    public void registerCommand(Plugin plugin, String string, EssentialsCommand vCommand, List<String> aliases) {
+    public void registerCommand(Plugin plugin, String mainCommand, EssentialsCommand essentialsCommand, List<String> aliases) {
+
+        YamlConfiguration configuration = getCommandConfiguration();
+        if (configuration != null) {
+            String commandName = getCommandName(essentialsCommand);
+            ConfigurationSection configurationSection = configuration.getConfigurationSection(commandName);
+            if (configurationSection != null) {
+
+                if (!configurationSection.getBoolean("enable", true)) {
+                    return;
+                }
+
+                List<String> commands = configurationSection.getStringList("commands");
+
+                if (commands.isEmpty()) {
+                    this.plugin.getLogger().severe("Command " + commandName + " doesnt have commands !");
+                } else {
+
+                    mainCommand = commands.remove(0);
+                    aliases = commands;
+                }
+
+                essentialsCommand.setPermission(configurationSection.getString("permission"));
+            }
+        }
+
         try {
-            PluginCommand command = constructor.newInstance(string, plugin);
+            PluginCommand command = constructor.newInstance(mainCommand, plugin);
             command.setExecutor(this);
             command.setTabCompleter(this);
             command.setAliases(aliases);
 
-            vCommand.addSubCommand(string);
-            vCommand.addSubCommand(aliases);
-            commands.add(vCommand);
+            essentialsCommand.addSubCommand(mainCommand);
+            essentialsCommand.addSubCommand(aliases);
+            commands.add(essentialsCommand);
 
             if (!commandMap.register(command.getName(), plugin.getDescription().getName(), command)) {
-                plugin.getLogger().info("Unable to add the command " + vCommand.getSyntax());
+                plugin.getLogger().info("Unable to add the command " + essentialsCommand.getSyntax());
             }
 
-            if (vCommand.getPermission() != null) {
-                Bukkit.getPluginManager().addPermission(new Permission(vCommand.getPermission(), vCommand.getDescription() == null ? "No description" : vCommand.getDescription()));
+            if (essentialsCommand.getPermission() != null) {
+                Bukkit.getPluginManager().addPermission(new Permission(essentialsCommand.getPermission(), essentialsCommand.getDescription() == null ? "No description" : essentialsCommand.getDescription()));
             }
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -200,5 +306,16 @@ public class ZCommandManager extends ZUtils implements CommandManager {
     @Override
     public List<EssentialsCommand> getCommands() {
         return this.commands;
+    }
+
+    @Override
+    public List<EssentialsCommand> getSortCommands() {
+        List<EssentialsCommand> essentialsCommands = new ArrayList<>();
+
+        commands.stream().filter(e -> e.getParent() == null).sorted(Comparator.comparing(EssentialsCommand::getMainCommand)).forEach(command -> {
+            essentialsCommands.add(command);
+            essentialsCommands.addAll(commands.stream().filter(e -> e.getMainParent() == command).sorted(Comparator.comparing(EssentialsCommand::getMainCommand)).toList());
+        });
+        return essentialsCommands;
     }
 }

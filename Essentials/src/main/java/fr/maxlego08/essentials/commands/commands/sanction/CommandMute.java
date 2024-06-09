@@ -9,7 +9,6 @@ import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class CommandMute extends VCommand {
     public CommandMute(EssentialsPlugin plugin) {
@@ -18,7 +17,7 @@ public class CommandMute extends VCommand {
         this.setPermission(Permission.ESSENTIALS_MUTE);
         this.setDescription(Message.DESCRIPTION_MUTE);
         this.addRequirePlayerNameArg();
-        this.addRequireArg("duration", (a, b) -> Arrays.asList("1s", "1h", "1d", "1w", "1m"));
+        this.addRequireArg("duration", (a, b) -> this.cooldowns);
         this.addOptionalArg("reason", (a, b) -> new ArrayList<>());
         this.setExtendedArgs(true);
     }

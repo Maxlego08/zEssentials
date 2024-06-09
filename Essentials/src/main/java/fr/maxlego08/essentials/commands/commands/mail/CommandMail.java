@@ -1,4 +1,4 @@
-package fr.maxlego08.essentials.commands.commands.utils;
+package fr.maxlego08.essentials.commands.commands.mail;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
@@ -13,6 +13,7 @@ public class CommandMail extends VCommand {
         this.setModule(MailBoxModule.class);
         this.setDescription(Message.DESCRIPTION_MAIL);
         this.setPermission(Permission.ESSENTIALS_MAIL);
+        this.addSubCommand(new CommandMailOpen(plugin));
         this.onlyPlayers();
     }
 

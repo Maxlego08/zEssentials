@@ -1,11 +1,13 @@
 package fr.maxlego08.essentials.module.modules;
 
 import fr.maxlego08.essentials.ZEssentialsPlugin;
+import fr.maxlego08.essentials.api.database.dto.MailBoxDTO;
 import fr.maxlego08.essentials.api.mailbox.MailBoxItem;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.ZModule;
+import fr.maxlego08.essentials.user.ZUser;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -27,6 +29,7 @@ public class MailBoxModule extends ZModule {
         super.loadConfiguration();
 
         this.loadInventory("mailbox");
+        this.loadInventory("mailbox_admin");
     }
 
     public void addItem(UUID uuid, ItemStack itemStack) {
@@ -47,6 +50,10 @@ public class MailBoxModule extends ZModule {
 
     public void openMailBox(Player player) {
         this.plugin.getInventoryManager().openInventory(player, this.plugin, "mailbox");
+    }
+
+    public void openMailBoxAdmin(Player player) {
+        this.plugin.getInventoryManager().openInventory(player, this.plugin, "mailbox_admin");
     }
 
     public void removeItem(User user, Player player, MailBoxItem mailBoxItem) {
@@ -79,6 +86,21 @@ public class MailBoxModule extends ZModule {
             iStorage.removeMailBoxItem(mailBoxItem.getId());
         }
 
-        openMailBox(player);
+        if (user.getUniqueId().equals(player.getUniqueId())) {
+            openMailBox(player);
+        } else {
+            openMailBoxAdmin(player);
+        }
+    }
+
+    public void openMailBox(User user, UUID uuid, String username) {
+
+        IStorage iStorage = this.plugin.getStorageManager().getStorage();
+        List<MailBoxDTO> mailBoxDTOS = iStorage.getMailBox(uuid);
+        User fakeUser = ZUser.fakeUser(this.plugin, uuid, username);
+        fakeUser.setMailBoxItems(mailBoxDTOS);
+
+        user.setTargetUser(fakeUser);
+        openMailBoxAdmin(user.getPlayer());
     }
 }

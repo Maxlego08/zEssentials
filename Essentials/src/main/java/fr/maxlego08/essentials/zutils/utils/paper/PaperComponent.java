@@ -196,7 +196,7 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
     public void addToLore(ItemStack itemStack, List<String> lore, Placeholders placeholders) {
         ItemMeta itemMeta = itemStack.getItemMeta();
         List<Component> currentLore = itemMeta.hasLore() ? itemMeta.lore() : new ArrayList<>();
-        currentLore.addAll(lore.stream().map(placeholders::parse).map(this::getComponent).toList());
+        currentLore.addAll(lore.stream().map(placeholders::parse).map(this::getComponent).map(e -> e.decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE)).toList());
         itemMeta.lore(currentLore);
         itemStack.setItemMeta(itemMeta);
     }

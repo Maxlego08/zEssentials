@@ -49,5 +49,9 @@ public interface CommandManager extends CommandExecutor, TabCompleter {
      * @return A list of all registered commands.
      */
     List<EssentialsCommand> getCommands();
+
+    List<EssentialsCommand> getSortCommands();
+
+    void saveCommands();
 }
 

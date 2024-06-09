@@ -34,6 +34,7 @@ import fr.maxlego08.essentials.commands.commands.kits.CommandKitCreate;
 import fr.maxlego08.essentials.commands.commands.kits.CommandKitDelete;
 import fr.maxlego08.essentials.commands.commands.kits.CommandKitEditor;
 import fr.maxlego08.essentials.commands.commands.kits.CommandShowKit;
+import fr.maxlego08.essentials.commands.commands.mail.CommandMail;
 import fr.maxlego08.essentials.commands.commands.messages.CommandMessage;
 import fr.maxlego08.essentials.commands.commands.messages.CommandMessageToggle;
 import fr.maxlego08.essentials.commands.commands.messages.CommandReply;
@@ -70,7 +71,6 @@ import fr.maxlego08.essentials.commands.commands.utils.CommandFeed;
 import fr.maxlego08.essentials.commands.commands.utils.CommandFurnace;
 import fr.maxlego08.essentials.commands.commands.utils.CommandHat;
 import fr.maxlego08.essentials.commands.commands.utils.CommandHeal;
-import fr.maxlego08.essentials.commands.commands.utils.CommandMail;
 import fr.maxlego08.essentials.commands.commands.utils.CommandMore;
 import fr.maxlego08.essentials.commands.commands.utils.CommandNear;
 import fr.maxlego08.essentials.commands.commands.utils.CommandPlayTime;
@@ -105,9 +105,7 @@ import fr.maxlego08.essentials.commands.commands.weather.CommandPlayerTime;
 import fr.maxlego08.essentials.commands.commands.weather.CommandPlayerWeather;
 import fr.maxlego08.essentials.commands.commands.weather.CommandSun;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
-import org.bukkit.configuration.file.YamlConfiguration;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -241,27 +239,19 @@ public class CommandLoader {
         register("hologram", CommandHologram.class, "holo", "ho");
         register("sb", CommandScoreboard.class);
 
-        File file = new File(plugin.getDataFolder(), "commands.yml");
-        if (!file.exists()) this.plugin.saveResource("commands.yml", false);
+        for (RegisterCommand registerCommand : this.commands) {
+            try {
+                commandManager.registerCommand(this.plugin, registerCommand.command, registerCommand.commandClass.getConstructor(EssentialsPlugin.class).newInstance(this.plugin), registerCommand.aliases);
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        }
 
-        this.loadCommands(YamlConfiguration.loadConfiguration(file), commandManager);
+        commandManager.saveCommands();
     }
 
     private void register(String command, Class<? extends VCommand> commandClass, String... aliases) {
-        commands.add(new RegisterCommand(command, commandClass, Arrays.asList(aliases)));
-    }
-
-    private void loadCommands(YamlConfiguration configuration, CommandManager commandManager) {
-
-        for (RegisterCommand command : commands) {
-            if (configuration.getBoolean(command.command, true)) {
-                try {
-                    commandManager.registerCommand(this.plugin, command.command, command.commandClass.getConstructor(EssentialsPlugin.class).newInstance(this.plugin), command.aliases);
-                } catch (Exception exception) {
-                    exception.printStackTrace();
-                }
-            }
-        }
+        this.commands.add(new RegisterCommand(command, commandClass, Arrays.asList(aliases)));
     }
 
     public record RegisterCommand(String command, Class<? extends VCommand> commandClass, List<String> aliases) {

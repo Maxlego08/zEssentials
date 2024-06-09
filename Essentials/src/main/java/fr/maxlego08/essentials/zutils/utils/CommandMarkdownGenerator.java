@@ -12,18 +12,11 @@ import java.util.stream.Collectors;
 
 public class CommandMarkdownGenerator {
 
-    public void generateMarkdownFile(List<EssentialsCommand> commands, Path filePath) throws IOException {
+    public void generateMarkdownFile(List<EssentialsCommand> essentialsCommands, Path filePath) throws IOException {
         StringBuilder sb = new StringBuilder();
         // Markdown table header
         sb.append("| Command | Aliases | Permission | Description |\n");
         sb.append("|---------|---------|------------|-------------|\n");
-
-        List<EssentialsCommand> essentialsCommands = new ArrayList<>();
-
-        commands.stream().filter(e -> e.getParent() == null).sorted(Comparator.comparing(EssentialsCommand::getMainCommand)).forEach(command -> {
-            essentialsCommands.add(command);
-            essentialsCommands.addAll(commands.stream().filter(e -> e.getMainParent() == command).sorted(Comparator.comparing(EssentialsCommand::getMainCommand)).toList());
-        });
 
         for (EssentialsCommand command : essentialsCommands) {
             // Gather command data
