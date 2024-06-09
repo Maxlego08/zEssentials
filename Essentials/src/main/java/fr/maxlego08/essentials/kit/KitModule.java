@@ -118,13 +118,15 @@ public class KitModule extends ZModule {
             }
         }
 
+
+        ConfigurationSection configurationSection = configuration.getConfigurationSection("kits.");
+        if (configurationSection != null) {
+            configurationSection.getKeys(true).forEach(key -> configurationSection.set(key, null));
+        }
+
         this.kits.forEach(kit -> {
 
             String path = "kits." + kit.getName() + ".";
-            ConfigurationSection configurationSection = configuration.getConfigurationSection(path + "items");
-            if (configurationSection != null) {
-                configurationSection.getKeys(true).forEach(key -> configurationSection.set(key, null));
-            }
             configuration.set(path + "name", kit.getDisplayName());
 
             if (kit.getCooldown() > 0) configuration.set(path + "cooldown", kit.getCooldown());
@@ -238,14 +240,15 @@ public class KitModule extends ZModule {
     public void createKit(Player player, String kitName, long cooldown) {
 
         Kit kit = new ZKit(plugin, kitName, kitName, cooldown, new ArrayList<>(), new ArrayList<>());
-        kits.add(kit);
+        this.kits.add(kit);
         this.saveKits();
 
         message(player, Message.COMMAND_KIT_CREATE, "%kit%", kit.getName());
     }
 
     public void deleteKit(Player player, Kit kit) {
-        kits.remove(kit);
+
+        this.kits.remove(kit);
         this.saveKits();
 
         message(player, Message.COMMAND_KIT_DELETE, "%kit%", kit.getName());
