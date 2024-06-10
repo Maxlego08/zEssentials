@@ -1,0 +1,49 @@
+name: "#3f3f3fᴍᴀɪʟʙᴏx"
+size: 54
+items:
+  items:
+    isPermanent: true
+    type: ZESSENTIALS_MAILBOX_ADMIN
+    item:
+      lore:
+        - ''
+        - '#ffd353ℹ Informations#3f3f3f:'
+        - '#3f3f3f• &7Expires in#3f3f3f: #4cd5ff%expiration%'
+        - ''
+        - '&f➥ &nLeft Click&r&7 to get the kit'
+    slots:
+      - 0-44
+    else:
+      slots:
+        - 22
+      item:
+        material: BARRIER
+        name: '&c&nNo Items Found'
+  info:
+    isPermanent: true
+    slot: 49
+    item:
+      material: BELL
+      name: '&fᴍᴀɪʟʙᴏx'
+      lore:
+        - ''
+        - '#ffd353ℹ Informations#3f3f3f:'
+        - '#3f3f3f• &7The mailbox allows you to store items'
+        - '#3f3f3f• &7 so that you can recover them later'
+        - ''
+
+  previous:
+    isPermanent: true
+    type: PREVIOUS
+    slot: 45
+    item:
+      url: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjllYTFkODYyNDdmNGFmMzUxZWQxODY2YmNhNmEzMDQwYTA2YzY4MTc3Yzc4ZTQyMzE2YTEwOThlNjBmYjdkMyJ9fX0="
+      name: "#92bed8ᴘʀᴇᴠɪᴏᴜs ᴘᴀɢᴇ"
+
+  next:
+    isPermanent: true
+    type: NEXT
+    slot: 53
+    item:
+      url: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODI3MWE0NzEwNDQ5NWUzNTdjM2U4ZTgwZjUxMWE5ZjEwMmIwNzAwY2E5Yjg4ZTg4Yjc5NWQzM2ZmMjAxMDVlYiJ9fX0="
+      name: "#92bed8ɴᴇxᴛ ᴘᴀɢᴇ"
