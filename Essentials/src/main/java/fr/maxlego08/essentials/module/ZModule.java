@@ -46,7 +46,7 @@ public abstract class ZModule extends YamlLoader implements Module {
         }
 
         if (this.copyAndUpdate) {
-            this.plugin.saveOrUpdateConfiguration("modules/" + this.name + "/config.yml");
+            this.plugin.saveOrUpdateConfiguration("modules/" + this.name + "/config.yml", true);
         } else {
             File file = new File(getFolder(), "config.yml");
             if (!file.exists()) {

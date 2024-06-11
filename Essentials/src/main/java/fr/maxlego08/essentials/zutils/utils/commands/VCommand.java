@@ -180,7 +180,7 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
     }
 
     public void setDescription(Message description) {
-        this.description = description.getMessage();
+        this.description = description.getMessageAsString();
     }
 
     public int getArgsMinLength() {

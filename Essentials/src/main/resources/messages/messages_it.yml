@@ -11,7 +11,7 @@
 # NONE - Does not display the message
 # TCHAT - Default type, sends one or more messages in chat
 # ACTION - Sends the message in the action bar
-# TCHAT_AND_ACTION - Sends message in action bar and chat
+# ACTION - Sends message in action bar and chat
 # CENTER - Send one or more messages in the chat, but they will be centered
 # TITLE - Sends a title
 #
@@ -316,18 +316,22 @@ teleport-success:
   type: ACTION
   message: "#99E0FFTi sei teletrasportato con successo!"
 teleport-message-spawn:
-  type: TCHAT_AND_ACTION
-  message: "&7Verrai teletrasportato in #0EEA93%seconds% &7secondi, non muoverti."
+  - type: ACTION
+    message: "&7Verrai teletrasportato in #0EEA93%seconds% &7secondi, non muoverti."
+  - message: "&7Verrai teletrasportato in #0EEA93%seconds% &7secondi, non muoverti."
 teleport-success-spawn:
-  type: TCHAT_AND_ACTION
-  message: "&7Ti sei teletrasportato allo #0EEA93spawn &7!"
+  - type: ACTION
+    message: "&7Ti sei teletrasportato allo #0EEA93spawn &7!"
+  - message: "&7Ti sei teletrasportato allo #0EEA93spawn &7!"
 
 teleport-message-warp:
-  type: TCHAT_AND_ACTION
-  message: "&7Verrai teletrasportato in #0EEA93%seconds% &7secondi, non muoverti."
+  - type: ACTION
+    message: "&7Verrai teletrasportato in #0EEA93%seconds% &7secondi, non muoverti."
+  - message: "&7Verrai teletrasportato in #0EEA93%seconds% &7secondi, non muoverti."
 teleport-success-warp:
-  type: TCHAT_AND_ACTION
-  message: "&7Ti sei teletrasportato al warp #0EEA93%name% &7!"
+  - type: ACTION
+    message: "&7Ti sei teletrasportato al warp #0EEA93%name% &7!"
+  - message: "&7Ti sei teletrasportato al warp #0EEA93%name% &7!"
 
 teleport-message-random:
   type: ACTION
@@ -337,11 +341,13 @@ teleport-success-random:
   message: "#99E0FFTeletrasportato con successo!"
 
 teleport-message-home:
-  type: TCHAT_AND_ACTION
-  message: "&7Verrai teletrasportato in #0EEA93%seconds% &7secondi, non muoverti."
+  - type: ACTION
+    message: "&7Verrai teletrasportato in #0EEA93%seconds% &7secondi, non muoverti."
+  - message: "&7Verrai teletrasportato in #0EEA93%seconds% &7secondi, non muoverti."
 teleport-success-home:
-  type: TCHAT_AND_ACTION
-  message: "&7Ti sei teletrasportato alla casa #0EEA93%name% &7!"
+  - type: ACTION
+    message: "&7Ti sei teletrasportato alla casa #0EEA93%name% &7!"
+  - message: "&7Ti sei teletrasportato alla casa #0EEA93%name% &7!"
 
 
 # Warps

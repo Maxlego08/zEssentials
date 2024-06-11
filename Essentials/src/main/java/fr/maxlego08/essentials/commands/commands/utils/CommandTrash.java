@@ -18,7 +18,7 @@ public class CommandTrash extends VCommand {
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
-        Inventory inventory = componentMessage.createInventory(Message.TRASH.getMessage(), configuration.getTrashSize(), null);
+        Inventory inventory = componentMessage.createInventory(Message.TRASH.getMessageAsString(), configuration.getTrashSize(), null);
         this.player.openInventory(inventory);
 
         return CommandResultType.SUCCESS;

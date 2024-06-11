@@ -133,7 +133,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     public void onEnable() {
 
         this.saveDefaultConfig();
-        this.saveOrUpdateConfiguration("config.yml");
+        this.saveOrUpdateConfiguration("config.yml", true);
 
         FoliaLib foliaLib = new FoliaLib(this);
         this.serverImplementation = foliaLib.getImpl();
@@ -442,12 +442,12 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
 
     @Override
-    public void saveOrUpdateConfiguration(String resourcePath) {
-        this.saveOrUpdateConfiguration(resourcePath, resourcePath);
+    public void saveOrUpdateConfiguration(String resourcePath, boolean deep) {
+        this.saveOrUpdateConfiguration(resourcePath, resourcePath, deep);
     }
 
     @Override
-    public void saveOrUpdateConfiguration(String resourcePath, String toPath) {
+    public void saveOrUpdateConfiguration(String resourcePath, String toPath, boolean deep) {
 
         File file = new File(getDataFolder(), toPath);
         if (!file.exists()) {
@@ -470,11 +470,12 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
             YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
 
 
-            Set<String> defaultKeys = defConfig.getKeys(true);
+            Set<String> defaultKeys = defConfig.getKeys(deep);
 
             boolean configUpdated = false;
             for (String key : defaultKeys) {
                 if (!config.contains(key)) {
+                    debug("I can’t find " + key + " in the file " + file.getName());
                     configUpdated = true;
                 }
             }

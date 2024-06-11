@@ -18,7 +18,7 @@ public abstract class GameModeCommand extends VCommand {
         if (player == this.player) {
 
             player.setGameMode(gameMode);
-            message(sender, Message.COMMAND_GAMEMODE, "%gamemode%", name(gameMode.name()), "%player%", Message.YOU.getMessage());
+            message(sender, Message.COMMAND_GAMEMODE, "%gamemode%", name(gameMode.name()), "%player%", Message.YOU.getMessageAsString());
 
         } else {
 

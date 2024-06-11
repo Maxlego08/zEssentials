@@ -45,6 +45,6 @@ public class CommandMessageToggle extends VCommand {
         boolean isPrivateMessageDisable = user.getOption(Option.PRIVATE_MESSAGE_DISABLE);
 
         Message messageKey = isPrivateMessageDisable ? Message.COMMAND_MESSAGE_TOGGLE_DISABLE : Message.COMMAND_MESSAGE_TOGGLE_ENABLE;
-        message(sender, messageKey, "%player%", user == this.user ? Message.YOU.getMessage() : player.getName());
+        message(sender, messageKey, "%player%", user == this.user ? Message.YOU.getMessageAsString() : player.getName());
     }
 }

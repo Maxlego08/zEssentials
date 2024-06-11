@@ -1,18 +1,25 @@
 package fr.maxlego08.essentials.zutils.utils.paper;
 
+import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.cache.SimpleCache;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.messages.messages.BossBarMessage;
+import fr.maxlego08.essentials.api.messages.messages.TitleMessage;
 import fr.maxlego08.essentials.api.utils.TagPermission;
 import fr.maxlego08.essentials.api.utils.component.AdventureComponent;
+import fr.maxlego08.essentials.zutils.utils.BossBarAnimation;
+import fr.maxlego08.essentials.zutils.utils.MessageUtils;
 import fr.maxlego08.essentials.zutils.utils.PlaceholderUtils;
 import fr.maxlego08.menu.api.utils.Placeholders;
+import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.kyori.adventure.text.minimessage.tag.standard.StandardTags;
+import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -21,6 +28,7 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -163,15 +171,16 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
     }
 
     public Component getComponentMessage(Message message, Object... args) {
-        if (message.getMessages().size() > 0) {
+        List<String> strings = message.getMessageAsStringList();
+        if (strings.size() > 0) {
             TextComponent.Builder component = Component.text();
-            message.getMessages().forEach(msg -> {
-                component.append(getComponent(getMessage(msg, args)));
+            strings.forEach(currentMessage -> {
+                component.append(getComponent(getMessage(currentMessage, args)));
                 component.append(Component.text("\n"));
             });
             return component.build();
         }
-        return getComponent(getMessage(message.getMessage(), args));
+        return getComponent(getMessage(message.getMessageAsString(), args));
     }
 
     public Component getComponentMessage(String message, TagResolver tagResolver, Object... args) {
@@ -179,17 +188,7 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
     }
 
     protected String getMessage(String message, Object... args) {
-        if (args.length % 2 != 0) {
-            throw new IllegalArgumentException("Number of invalid arguments. Arguments must be in pairs.");
-        }
-
-        for (int i = 0; i < args.length; i += 2) {
-            if (args[i] == null || args[i + 1] == null) {
-                throw new IllegalArgumentException("Keys and replacement values must not be null.");
-            }
-            message = message.replace(args[i].toString(), args[i + 1].toString());
-        }
-        return message;
+        return MessageUtils.getString(message, args);
     }
 
     @Override
@@ -199,5 +198,22 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
         currentLore.addAll(lore.stream().map(placeholders::parse).map(this::getComponent).map(e -> e.decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE)).toList());
         itemMeta.lore(currentLore);
         itemStack.setItemMeta(itemMeta);
+    }
+
+    @Override
+    public void sendTitle(Player player, TitleMessage titleMessage) {
+
+        Component title = getComponent(papi(titleMessage.title(), player));
+        Component subtitle = getComponent(papi(titleMessage.subtitle(), player));
+
+        player.showTitle(Title.title(title, subtitle, Title.Times.times(Duration.ofMillis(titleMessage.start()), Duration.ofMillis(titleMessage.time()), Duration.ofMillis(titleMessage.end()))));
+    }
+
+    @Override
+    public void sendBossBar(EssentialsPlugin plugin, Player player, BossBarMessage bossBarMessage) {
+        BossBar bossBar = BossBar.bossBar(getComponent(papi(bossBarMessage.text(), player)), 1f, bossBarMessage.getColor(), bossBarMessage.getOverlay(), bossBarMessage.getFlags());
+        player.showBossBar(bossBar);
+
+        new BossBarAnimation(plugin, player, bossBar, bossBarMessage.duration());
     }
 }

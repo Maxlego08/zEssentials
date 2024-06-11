@@ -11,7 +11,7 @@
 # NONE - Zeigt die Nachricht nicht an
 # TCHAT - Standardtyp, sendet eine oder mehrere Nachrichten im Chat
 # ACTION - Sendet die Nachricht in der Aktionsleiste
-# TCHAT_AND_ACTION - Sendet die Nachricht in der Aktionsleiste und im Chat
+# ACTION - Sendet die Nachricht in der Aktionsleiste und im Chat
 # CENTER - Sendet eine oder mehrere Nachrichten im Chat, aber zentriert
 # TITLE - Sendet einen Titel
 #
@@ -517,18 +517,22 @@ teleport-success:
   message: '#99E0FFDu wurdest erfolgreich teleportiert!'
 
 teleport-message-spawn:
-  type: TCHAT_AND_ACTION
-  message: '&7Teleportiere in #0EEA93%seconds% &7Sekunden, du darfst dich nicht bewegen.'
+  - type: ACTION
+    message: '&7Teleportiere in #0EEA93%seconds% &7Sekunden, du darfst dich nicht bewegen.'
+  - message: '&7Teleportiere in #0EEA93%seconds% &7Sekunden, du darfst dich nicht bewegen.'
 teleport-success-spawn:
-  type: TCHAT_AND_ACTION
-  message: '&7Du wurdest zum #0EEA93Spawn &7teleportiert!'
+  - type: ACTION
+    message: '&7Du wurdest zum #0EEA93Spawn &7teleportiert!'
+  - message: '&7Du wurdest zum #0EEA93Spawn &7teleportiert!'
 
 teleport-message-warp:
-  type: TCHAT_AND_ACTION
-  message: '&7Teleportiere in #0EEA93%seconds% &7Sekunden, du darfst dich nicht bewegen.'
+  - type: ACTION
+    message: '&7Teleportiere in #0EEA93%seconds% &7Sekunden, du darfst dich nicht bewegen.'
+  - message: '&7Teleportiere in #0EEA93%seconds% &7Sekunden, du darfst dich nicht bewegen.'
 teleport-success-warp:
-  type: TCHAT_AND_ACTION
-  message: '&7Du wurdest zum Warp #0EEA93%name% &7teleportiert!'
+  - type: ACTION
+    message: '&7Du wurdest zum Warp #0EEA93%name% &7teleportiert!'
+  - message: '&7Du wurdest zum Warp #0EEA93%name% &7teleportiert!'
 
 teleport-message-random:
   type: ACTION
@@ -538,11 +542,13 @@ teleport-success-random:
   message: '#99E0FFDu wurdest erfolgreich teleportiert!'
 
 teleport-message-home:
-  type: TCHAT_AND_ACTION
-  message: '&7Teleportiere in #0EEA93%seconds% &7Sekunden, du darfst dich nicht bewegen.'
+  - type: ACTION
+    message: '&7Teleportiere in #0EEA93%seconds% &7Sekunden, du darfst dich nicht bewegen.'
+  - message: '&7Teleportiere in #0EEA93%seconds% &7Sekunden, du darfst dich nicht bewegen.'
 teleport-success-home:
-  type: TCHAT_AND_ACTION
-  message: '&7Du wurdest zum Zuhause #0EEA93%name% &7teleportiert!'
+  - type: ACTION
+    message: '&7Du wurdest zum Zuhause #0EEA93%name% &7teleportiert!'
+  - message: '&7Du wurdest zum Zuhause #0EEA93%name% &7teleportiert!'
 
 
 

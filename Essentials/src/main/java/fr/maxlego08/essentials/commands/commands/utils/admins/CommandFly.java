@@ -26,7 +26,7 @@ public class CommandFly extends VCommand {
 
         player.setAllowFlight(!player.getAllowFlight());
         player.setFlying(player.getAllowFlight());
-        message(this.sender, player.getAllowFlight() ? Message.COMMAND_FLY_ENABLE : Message.COMMAND_FLY_DISABLE, "%player%", this.sender == player ? Message.YOU.getMessage() : player.getName());
+        message(this.sender, player.getAllowFlight() ? Message.COMMAND_FLY_ENABLE : Message.COMMAND_FLY_DISABLE, "%player%", this.sender == player ? Message.YOU.getMessageAsString() : player.getName());
 
         return CommandResultType.SUCCESS;
     }

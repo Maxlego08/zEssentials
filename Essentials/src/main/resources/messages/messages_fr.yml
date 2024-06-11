@@ -11,7 +11,7 @@
 # NONE - N’affiche pas le message
 # TCHAT - Type par défaut, envoie un ou plusieurs messages dans le chat
 # ACTION - Envoie le message dans la barre d’action
-# TCHAT_AND_ACTION - Envoie un message dans la barre d’action et le chat
+# ACTION - Envoie un message dans la barre d’action et le chat
 # CENTER - Envoyez un ou plusieurs messages dans le chat, mais ils seront centrés
 # TITLE - Envoie un titre
 #
@@ -370,18 +370,22 @@ teleport-success:
   message: "#99E0FFVous avez été téléporté avec succès !"
 
 teleport-message-spawn:
-  type: TCHAT_AND_ACTION
-  message: "&7Téléportation dans #0EEA93%seconds% &7secondes, vous ne devez pas bouger."
+  - type: ACTION
+    message: "&7Téléportation dans #0EEA93%seconds% &7secondes, vous ne devez pas bouger."
+  - message: "&7Téléportation dans #0EEA93%seconds% &7secondes, vous ne devez pas bouger."
 teleport-success-spawn:
-  type: TCHAT_AND_ACTION
-  message: "&7Vous venez de téléporter à #0EEA93l'apparition &7!"
+  - type: ACTION
+    message: "&7Vous venez de téléporter à #0EEA93l'apparition &7!"
+  - message: "&7Vous venez de téléporter à #0EEA93l'apparition &7!"
 
 teleport-message-warp:
-  type: TCHAT_AND_ACTION
-  message: "&7Téléportation dans #0EEA93%seconds% &7secondes, vous ne devez pas bouger."
+  - type: ACTION
+    message: "&7Téléportation dans #0EEA93%seconds% &7secondes, vous ne devez pas bouger."
+  - message: "&7Téléportation dans #0EEA93%seconds% &7secondes, vous ne devez pas bouger."
 teleport-success-warp:
-  type: TCHAT_AND_ACTION
-  message: "&7Vous venez de téléporter à la balise #0EEA93%name% &7!"
+  - type: ACTION
+    message: "&7Vous venez de téléporter à la balise #0EEA93%name% &7!"
+  - message: "&7Vous venez de téléporter à la balise #0EEA93%name% &7!"
 
 teleport-message-random:
   type: ACTION
@@ -391,11 +395,13 @@ teleport-success-random:
   message: "#99E0FFVous avez été téléporté avec succès !"
 
 teleport-message-home:
-  type: TCHAT_AND_ACTION
-  message: "&7Téléportation dans #0EEA93%seconds% &7secondes, vous ne devez pas bouger."
+  - type: ACTION
+    message: "&7Téléportation dans #0EEA93%seconds% &7secondes, vous ne devez pas bouger."
+  - message: "&7Téléportation dans #0EEA93%seconds% &7secondes, vous ne devez pas bouger."
 teleport-success-home:
-  type: TCHAT_AND_ACTION
-  message: "&7Vous venez de téléporter à la maison #0EEA93%name% &7!"
+  - type: ACTION
+    message: "&7Vous venez de téléporter à la maison #0EEA93%name% &7!"
+  - message: "&7Vous venez de téléporter à la maison #0EEA93%name% &7!"
 
 
 

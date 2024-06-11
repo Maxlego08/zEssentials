@@ -45,6 +45,6 @@ public class CommandSocialSpy extends VCommand {
         boolean isPrivateMessageDisable = user.getOption(Option.SOCIAL_SPY);
 
         Message messageKey = isPrivateMessageDisable ? Message.COMMAND_SOCIAL_SPY_ENABLE : Message.COMMAND_SOCIAL_SPY_DISABLE;
-        message(sender, messageKey, "%player%", user == this.user ? Message.YOU.getMessage() : player.getName());
+        message(sender, messageKey, "%player%", user == this.user ? Message.YOU.getMessageAsString() : player.getName());
     }
 }
