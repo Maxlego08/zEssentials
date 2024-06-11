@@ -1,9 +1,13 @@
 package fr.maxlego08.essentials.zutils.utils;
 
+import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.DefaultFontInfo;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.messages.MessageType;
+import fr.maxlego08.essentials.api.messages.messages.BossBarMessage;
+import fr.maxlego08.essentials.api.messages.messages.ClassicMessage;
+import fr.maxlego08.essentials.api.messages.messages.TitleMessage;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.component.ComponentMessage;
 import fr.maxlego08.menu.zcore.utils.nms.NMSUtils;
@@ -22,6 +26,20 @@ public abstract class MessageUtils extends PlaceholderUtils {
 
     protected final ComponentMessage componentMessage = ComponentMessageHelper.componentMessage;
 
+    public static String getString(String message, Object[] newArgs) {
+        if (newArgs.length % 2 != 0) {
+            throw new IllegalArgumentException("Number of invalid arguments. Arguments must be in pairs.");
+        }
+
+        for (int i = 0; i < newArgs.length; i += 2) {
+            if (newArgs[i] == null || newArgs[i + 1] == null) {
+                throw new IllegalArgumentException("Keys and replacement values must not be null.");
+            }
+            message = message.replace(newArgs[i].toString(), newArgs[i + 1].toString());
+        }
+        return message;
+    }
+
     protected void message(CommandSender sender, String message) {
         sender.sendMessage(message);
     }
@@ -35,7 +53,6 @@ public abstract class MessageUtils extends PlaceholderUtils {
         if (player == null) return;
         message(player, message, args);
     }
-
 
     protected void broadcast(Permission permission, Message message, Object... args) {
         Bukkit.getOnlinePlayers().forEach(player -> {
@@ -54,45 +71,47 @@ public abstract class MessageUtils extends PlaceholderUtils {
     protected void message(CommandSender sender, Message message, Object... args) {
 
         if (sender instanceof Player player) {
-            switch (message.getMessageType()) {
+            message.getMessages().forEach(essentialsMessage -> {
 
-                case TCHAT_AND_ACTION -> {
-                    sendTchatMessage(sender, message, args);
-                    this.componentMessage.sendActionBar(player, getMessage(message, args));
-                }
-                case ACTION -> {
-                    this.componentMessage.sendActionBar(player, getMessage(message, args));
-                }
-                case TCHAT, WITHOUT_PREFIX -> {
-                    sendTchatMessage(sender, message, args);
-                }
-                case TITLE -> {
-                    // ToDo
-                }
-                case CENTER -> {
-                    if (message.getMessages().size() > 0) {
-                        message.getMessages().forEach(msg -> this.componentMessage.sendMessage(sender, getCenteredMessage(getMessage(msg, args))));
-                    } else {
-                        this.componentMessage.sendMessage(sender, getCenteredMessage(getMessage(message, args)));
+                if (essentialsMessage instanceof ClassicMessage classicMessage) {
+
+                    switch (essentialsMessage.messageType()) {
+                        case TCHAT, WITHOUT_PREFIX -> sendTchatMessage(sender, classicMessage, args);
+                        case ACTION -> classicMessage.messages().forEach(currentMessage -> {
+                            this.componentMessage.sendActionBar(player, getMessage(currentMessage, args));
+                        });
+                        case CENTER -> classicMessage.messages().forEach(currentMessage -> {
+                            this.componentMessage.sendMessage(sender, getCenteredMessage(getMessage(currentMessage, args)));
+                        });
                     }
-                }
-            }
 
+                } else if (essentialsMessage instanceof BossBarMessage bossBarMessage) {
+
+                    EssentialsPlugin plugin = (EssentialsPlugin) Bukkit.getPluginManager().getPlugin("zEssentials");
+                    this.componentMessage.sendBossBar(plugin, player, bossBarMessage);
+                } else if (essentialsMessage instanceof TitleMessage titleMessage) {
+
+                    this.componentMessage.sendTitle(player, titleMessage);
+                }
+            });
         } else {
-            sendTchatMessage(sender, message, args);
+            message.getMessages().forEach(essentialsMessage -> {
+                if (essentialsMessage instanceof ClassicMessage classicMessage) {
+                    sendTchatMessage(sender, classicMessage, args);
+                }
+            });
         }
     }
 
-    private void sendTchatMessage(CommandSender sender, Message message, Object... args) {
-        if (message.getMessages().size() > 0) {
-            message.getMessages().forEach(msg -> this.componentMessage.sendMessage(sender, getMessage(msg, args)));
-        } else {
-            this.componentMessage.sendMessage(sender, (message.getMessageType() == MessageType.WITHOUT_PREFIX ? "" : Message.PREFIX.getMessage()) + getMessage(message, args));
-        }
+    private void sendTchatMessage(CommandSender sender, ClassicMessage classicMessage, Object... args) {
+        boolean isWithoutPrefix = classicMessage.messageType() == MessageType.WITHOUT_PREFIX;
+        classicMessage.messages().forEach(message -> {
+            this.componentMessage.sendMessage(sender, (isWithoutPrefix ? "" : Message.PREFIX.getMessageAsString()) + getMessage(message, args));
+        });
     }
 
     protected String getMessage(Message message, Object... args) {
-        return getMessage(message.getMessage() == null ? String.join("\n", message.getMessages()) : message.getMessage(), args);
+        return getMessage(String.join("\n", message.getMessageAsStringList()), args);
     }
 
     protected String getMessage(String message, Object... args) {
@@ -101,17 +120,7 @@ public abstract class MessageUtils extends PlaceholderUtils {
         for (Object arg : args) handleArg(arg, modifiedArgs);
         Object[] newArgs = modifiedArgs.toArray();
 
-        if (newArgs.length % 2 != 0) {
-            throw new IllegalArgumentException("Number of invalid arguments. Arguments must be in pairs.");
-        }
-
-        for (int i = 0; i < newArgs.length; i += 2) {
-            if (newArgs[i] == null || newArgs[i + 1] == null) {
-                throw new IllegalArgumentException("Keys and replacement values must not be null.");
-            }
-            message = message.replace(newArgs[i].toString(), newArgs[i + 1].toString());
-        }
-        return message;
+        return getString(message, newArgs);
     }
 
     private void handleArg(Object arg, List<Object> modifiedArgs) {

@@ -46,7 +46,7 @@ public class CommandSpeed extends VCommand {
             player.setWalkSpeed(speedFloat);
         }
 
-        String playerNameOrYou = player == this.player ? Message.YOU.getMessage() : player.getName();
+        String playerNameOrYou = player == this.player ? Message.YOU.getMessageAsString() : player.getName();
         message(this.sender, speedTypeMessage, "%speed%", speed, "%player%", playerNameOrYou);
 
 

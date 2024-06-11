@@ -1,5 +1,7 @@
 package fr.maxlego08.essentials.zutils.utils;
 
+import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.messages.messages.BossBarMessage;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.entity.Player;
 

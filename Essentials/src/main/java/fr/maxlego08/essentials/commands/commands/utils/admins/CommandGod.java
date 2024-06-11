@@ -49,6 +49,6 @@ public class CommandGod extends VCommand {
         }
 
         Message messageKey = isGodEnabled ? Message.COMMAND_GOD_ENABLE : Message.COMMAND_GOD_DISABLE;
-        message(sender, messageKey, "%player%", user == this.user ? Message.YOU.getMessage() : player.getName());
+        message(sender, messageKey, "%player%", user == this.user ? Message.YOU.getMessageAsString() : player.getName());
     }
 }

@@ -45,6 +45,6 @@ public class CommandPayToggle extends VCommand {
         boolean isPayDisable = user.getOption(Option.PAY_DISABLE);
 
         Message messageKey = isPayDisable ? Message.COMMAND_PAY_TOGGLE_DISABLE : Message.COMMAND_PAY_TOGGLE_ENABLE;
-        message(sender, messageKey, "%player%", user == this.user ? Message.YOU.getMessage() : player.getName());
+        message(sender, messageKey, "%player%", user == this.user ? Message.YOU.getMessageAsString() : player.getName());
     }
 }

@@ -349,11 +349,11 @@ public class SanctionModule extends ZModule {
     }
 
     public String getSanctionBy(UUID senderUniqueId) {
-        return senderUniqueId.equals(this.plugin.getConsoleUniqueId()) ? Message.CONSOLE.getMessage() : Bukkit.getOfflinePlayer(senderUniqueId).getName();
+        return senderUniqueId.equals(this.plugin.getConsoleUniqueId()) ? Message.CONSOLE.getMessageAsString() : Bukkit.getOfflinePlayer(senderUniqueId).getName();
     }
 
     private String getSanctionBy(CommandSender sender) {
-        return sender instanceof Player player ? player.getName() : Message.CONSOLE.getMessage();
+        return sender instanceof Player player ? player.getName() : Message.CONSOLE.getMessageAsString();
     }
 
     private boolean isProtected(String username) {

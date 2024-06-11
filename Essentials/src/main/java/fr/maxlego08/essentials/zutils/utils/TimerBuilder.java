@@ -12,18 +12,18 @@ public class TimerBuilder {
 
         StringBuilder message = new StringBuilder();
         if (days > 0) {
-            message.append(days).append(" ").append(days <= 1 ? Message.FORMAT_DAY.getMessage() : Message.FORMAT_DAYS.getMessage()).append(" ");
+            message.append(days).append(" ").append(days <= 1 ? Message.FORMAT_DAY.getMessageAsString() : Message.FORMAT_DAYS.getMessageAsString()).append(" ");
         }
         if (hours > 0) {
-            message.append(hours).append(" ").append(hours <= 1 ? Message.FORMAT_HOUR.getMessage() : Message.FORMAT_HOURS.getMessage()).append(" ");
+            message.append(hours).append(" ").append(hours <= 1 ? Message.FORMAT_HOUR.getMessageAsString() : Message.FORMAT_HOURS.getMessageAsString()).append(" ");
         }
         if (minutes > 0) {
-            message.append(minutes).append(" ").append(minutes <= 1 ? Message.FORMAT_MINUTE.getMessage() : Message.FORMAT_MINUTES.getMessage()).append(" ");
+            message.append(minutes).append(" ").append(minutes <= 1 ? Message.FORMAT_MINUTE.getMessageAsString() : Message.FORMAT_MINUTES.getMessageAsString()).append(" ");
         }
         if (totalSeconds < 10) {
-            message.append(String.format("%.1f", totalSeconds)).append(" ").append(Message.FORMAT_SECONDS.getMessage());
+            message.append(String.format("%.1f", totalSeconds)).append(" ").append(Message.FORMAT_SECONDS.getMessageAsString());
         } else if (seconds > 0 || message.length() == 0) {
-            message.append(seconds).append(" ").append(seconds <= 1 ? Message.FORMAT_SECOND.getMessage() : Message.FORMAT_SECONDS.getMessage());
+            message.append(seconds).append(" ").append(seconds <= 1 ? Message.FORMAT_SECOND.getMessageAsString() : Message.FORMAT_SECONDS.getMessageAsString());
         }
 
         return format(message.toString().trim());

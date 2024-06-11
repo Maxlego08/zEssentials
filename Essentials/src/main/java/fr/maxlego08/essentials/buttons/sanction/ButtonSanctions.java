@@ -64,7 +64,7 @@ public class ButtonSanctions extends ZButton implements PaginateButton {
         placeholders.register("target", targetuser.getName());
         placeholders.register("reason", sanction.getReason());
         placeholders.register("duration", TimerBuilder.getStringTime(sanction.getDuration()));
-        placeholders.register("remaining", sanction.isActive() ? TimerBuilder.getStringTime(sanction.getDurationRemaining().toMillis()) : Message.EXPIRED.getMessage());
+        placeholders.register("remaining", sanction.isActive() ? TimerBuilder.getStringTime(sanction.getDurationRemaining().toMillis()) : Message.EXPIRED.getMessageAsString());
         placeholders.register("created_at", simpleDateFormat.format(sanction.getCreatedAt()));
         placeholders.register("expired_at", simpleDateFormat.format(sanction.getExpiredAt()));
         placeholders.register("sender", sanctionModule.getSanctionBy(sanction.getSenderUniqueId()));

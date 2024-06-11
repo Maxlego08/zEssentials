@@ -215,9 +215,9 @@ public interface EssentialsPlugin extends Plugin {
 
     void openInventory(Player player, String inventoryName);
 
-    void saveOrUpdateConfiguration(String toPath);
+    void saveOrUpdateConfiguration(String toPath, boolean deep);
 
-    void saveOrUpdateConfiguration(String resourcePath, String toPath);
+    void saveOrUpdateConfiguration(String resourcePath, String toPath, boolean deep);
 
     Optional<Kit> getKit(String kitName);
 

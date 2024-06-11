@@ -1,5 +1,8 @@
 package fr.maxlego08.essentials.zutils.utils.spigot;
 
+import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.messages.messages.BossBarMessage;
+import fr.maxlego08.essentials.api.messages.messages.TitleMessage;
 import fr.maxlego08.essentials.api.utils.component.ComponentMessage;
 import fr.maxlego08.menu.api.utils.Placeholders;
 import org.bukkit.Bukkit;
@@ -37,5 +40,15 @@ public class SpigotComponent implements ComponentMessage {
         currentLore.addAll(lore.stream().map(placeholders::parse).toList());
         itemMeta.setLore(currentLore);
         itemStack.setItemMeta(itemMeta);
+    }
+
+    @Override
+    public void sendBossBar(EssentialsPlugin plugin, Player player, BossBarMessage bossBarMessage) {
+
+    }
+
+    @Override
+    public void sendTitle(Player player, TitleMessage titleMessage) {
+        player.sendTitle(titleMessage.title(), titleMessage.subtitle(), (int) titleMessage.start(), (int) titleMessage.time(), (int) titleMessage.end());
     }
 }

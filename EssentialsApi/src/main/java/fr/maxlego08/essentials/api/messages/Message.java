@@ -1,7 +1,11 @@
 package fr.maxlego08.essentials.api.messages;
 
+import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.messages.messages.ClassicMessage;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public enum Message {
@@ -269,12 +273,31 @@ public enum Message {
     TELEPORT_SUCCESS(MessageType.ACTION, "#99E0FFYou have just teleported successfully!"),
     TELEPORT_MESSAGE_RANDOM(MessageType.ACTION, "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."),
     TELEPORT_SUCCESS_RANDOM(MessageType.ACTION, "#99E0FFYou have just teleported successfully!"),
-    TELEPORT_MESSAGE_SPAWN(MessageType.TCHAT_AND_ACTION, "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."),
-    TELEPORT_SUCCESS_SPAWN(MessageType.TCHAT_AND_ACTION, "&7You just teleported to #0EEA93spawn &7!"),
-    TELEPORT_MESSAGE_WARP(MessageType.TCHAT_AND_ACTION, "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."),
-    TELEPORT_SUCCESS_WARP(MessageType.TCHAT_AND_ACTION, "&7You just teleported to warp #0EEA93%name% &7!"),
-    TELEPORT_MESSAGE_HOME(MessageType.TCHAT_AND_ACTION, "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."),
-    TELEPORT_SUCCESS_HOME(MessageType.TCHAT_AND_ACTION, "&7You just teleported to home #0EEA93%name% &7!"),
+    TELEPORT_MESSAGE_SPAWN(
+            ClassicMessage.tchat("&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."),
+            ClassicMessage.action("&7Teleporting in #0EEA93%seconds% &7seconds, you must not move.")
+    ),
+    TELEPORT_SUCCESS_SPAWN(
+            ClassicMessage.tchat("&7You just teleported to #0EEA93spawn &7!"),
+            ClassicMessage.action("&7You just teleported to #0EEA93spawn &7!")
+    ),
+    TELEPORT_MESSAGE_WARP(
+            ClassicMessage.tchat("&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."),
+            ClassicMessage.action("&7Teleporting in #0EEA93%seconds% &7seconds, you must not move.")
+    ),
+    TELEPORT_SUCCESS_WARP(
+            ClassicMessage.tchat("&7You just teleported to warp #0EEA93%name% &7!"),
+            ClassicMessage.action("&7You just teleported to warp #0EEA93%name% &7!")
+    ),
+    TELEPORT_MESSAGE_HOME(
+            ClassicMessage.tchat("&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."),
+            ClassicMessage.action("&7Teleporting in #0EEA93%seconds% &7seconds, you must not move.")
+    ),
+    TELEPORT_SUCCESS_HOME(
+            ClassicMessage.tchat("&7You just teleported to home #0EEA93%name% &7!"),
+            ClassicMessage.action("&7You just teleported to home #0EEA93%name% &7!")
+    ),
+
     TELEPORT_DAMAGE("<error>You must not take damage during teleportation."),
     TELEPORT_ERROR_LOCATION("<error>Unable to teleport you safely."),
 
@@ -601,53 +624,68 @@ public enum Message {
 
     ;
 
-    private String message;
-    private List<String> messages;
-    private MessageType messageType = MessageType.TCHAT;
+    private EssentialsPlugin plugin;
+    private List<EssentialsMessage> messages = new ArrayList<>();
 
     Message(String message) {
-        this.message = message;
-        this.messages = new ArrayList<>();
+        this(MessageType.TCHAT, message);
     }
 
     Message(MessageType messageType, String message) {
-        this.message = message;
-        this.messages = new ArrayList<>();
-        this.messageType = messageType;
+        this.messages.add(new ClassicMessage(messageType, Collections.singletonList(message)));
     }
 
     Message(String... message) {
-        this.message = null;
-        this.messages = Arrays.asList(message);
+        this(MessageType.TCHAT, message);
     }
 
-    Message(MessageType messageType, String... message) {
-        this.messageType = messageType;
-        this.message = null;
-        this.messages = Arrays.asList(message);
+    Message(MessageType messageType, String... messages) {
+        this.messages.add(new ClassicMessage(messageType, Arrays.asList(messages)));
     }
 
-    public String getMessage() {
-        return message;
+    Message(EssentialsMessage... essentialsMessages) {
+        this.messages = Arrays.asList(essentialsMessages);
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public List<String> getMessages() {
+    public List<EssentialsMessage> getMessages() {
         return messages;
     }
 
-    public void setMessages(List<String> messages) {
+    public void setMessages(List<EssentialsMessage> messages) {
         this.messages = messages;
     }
 
-    public MessageType getMessageType() {
-        return messageType;
+
+    public String toConfigurationName() {
+        return name().replace("_", "-").toLowerCase();
     }
 
-    public void setMessageType(MessageType messageType) {
-        this.messageType = messageType;
+    public String getMessageAsString() {
+        String configurationName = this.toConfigurationName();
+        if (this.messages.isEmpty()) {
+            this.plugin.getLogger().severe(configurationName + " is empty ! Check your configuration");
+            return "Error with " + configurationName + ", check your console";
+        }
+        EssentialsMessage essentialsMessage = this.messages.get(0);
+        if (essentialsMessage instanceof ClassicMessage classicMessage) {
+
+            if (classicMessage.messages().isEmpty()) {
+                this.plugin.getLogger().severe(configurationName + " message is empty ! Check your configuration");
+                return "Error with " + configurationName + ", check your console";
+            }
+
+            return classicMessage.messages().get(0);
+        }
+
+        this.plugin.getLogger().severe(configurationName + " is not a tchat message ! Check your configuration");
+        return "Error with " + configurationName + ", check your console";
+    }
+
+    public void setPlugin(EssentialsPlugin plugin) {
+        this.plugin = plugin;
+    }
+
+    public List<String> getMessageAsStringList() {
+        return this.messages.stream().filter(essentialsMessage -> essentialsMessage instanceof ClassicMessage).map(essentialsMessage -> (ClassicMessage) essentialsMessage).map(ClassicMessage::messages).flatMap(List::stream).toList();
     }
 }

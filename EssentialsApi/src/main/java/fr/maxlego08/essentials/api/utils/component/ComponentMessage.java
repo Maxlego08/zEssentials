@@ -1,5 +1,8 @@
 package fr.maxlego08.essentials.api.utils.component;
 
+import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.messages.messages.BossBarMessage;
+import fr.maxlego08.essentials.api.messages.messages.TitleMessage;
 import fr.maxlego08.menu.api.utils.Placeholders;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -24,4 +27,8 @@ public interface ComponentMessage {
     Inventory createInventory(String message, int size, InventoryHolder inventoryHolder);
 
     void addToLore(ItemStack itemStack, List<String> lore, Placeholders placeholders);
+
+    void sendTitle(Player player, TitleMessage titleMessage);
+
+    void sendBossBar(EssentialsPlugin plugin, Player player, BossBarMessage bossBarMessage);
 }

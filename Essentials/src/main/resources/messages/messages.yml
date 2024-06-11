@@ -375,32 +375,35 @@ teleport-success:
   message: "#99E0FFYou have just teleported successfully!"
 
 teleport-message-spawn:
-  type: TCHAT_AND_ACTION
-  message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
+  - message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
+  - type: ACTION
+    message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
 teleport-success-spawn:
-  type: TCHAT_AND_ACTION
-  message: "&7You just teleported to #0EEA93spawn &7!"
-
+  - message: "&7You just teleported to #0EEA93spawn &7!"
+  - type: ACTION
+    message: "&7You just teleported to #0EEA93spawn &7!"
 teleport-message-warp:
-  type: TCHAT_AND_ACTION
-  message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
+  - message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
+  - type: ACTION
+    message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
 teleport-success-warp:
-  type: TCHAT_AND_ACTION
-  message: "&7You just teleported to warp #0EEA93%name% &7!"
-
+  - message: "&7You just teleported to warp #0EEA93%name% &7!"
+  - type: ACTION
+    message: "&7You just teleported to warp #0EEA93%name% &7!"
 teleport-message-random:
   type: ACTION
   message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
 teleport-success-random:
   type: ACTION
   message: "#99E0FFYou have just teleported successfully!"
-
 teleport-message-home:
-  type: TCHAT_AND_ACTION
-  message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
+  - message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
+  - type: ACTION
+    message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
 teleport-success-home:
-  type: TCHAT_AND_ACTION
-  message: "&7You just teleported to home #0EEA93%name% &7!"
+  - message: "&7You just teleported to home #0EEA93%name% &7!"
+  - type: ACTION
+    message: "&7You just teleported to home #0EEA93%name% &7!"
 
 
 # Warps

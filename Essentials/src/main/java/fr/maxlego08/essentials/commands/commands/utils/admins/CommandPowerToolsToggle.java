@@ -45,6 +45,6 @@ public class CommandPowerToolsToggle extends VCommand {
         boolean isPrivateMessageDisable = user.getOption(Option.POWER_TOOLS_DISABLE);
 
         Message messageKey = isPrivateMessageDisable ? Message.COMMAND_POWER_TOOLS_TOGGLE_DISABLE : Message.COMMAND_POWER_TOOLS_TOGGLE_ENABLE;
-        message(sender, messageKey, "%player%", user == this.user ? Message.YOU.getMessage() : player.getName());
+        message(sender, messageKey, "%player%", user == this.user ? Message.YOU.getMessageAsString() : player.getName());
     }
 }
