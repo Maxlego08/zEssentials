@@ -104,10 +104,8 @@ public abstract class MessageUtils extends PlaceholderUtils {
     }
 
     private void sendTchatMessage(CommandSender sender, ClassicMessage classicMessage, Object... args) {
-        boolean isWithoutPrefix = classicMessage.messageType() == MessageType.WITHOUT_PREFIX;
-        classicMessage.messages().forEach(message -> {
-            this.componentMessage.sendMessage(sender, (isWithoutPrefix ? "" : Message.PREFIX.getMessageAsString()) + getMessage(message, args));
-        });
+        boolean isWithoutPrefix = classicMessage.messageType() == MessageType.WITHOUT_PREFIX || classicMessage.messages().size() > 1;
+        classicMessage.messages().forEach(message -> this.componentMessage.sendMessage(sender, (isWithoutPrefix ? "" : Message.PREFIX.getMessageAsString()) + getMessage(message, args)));
     }
 
     protected String getMessage(Message message, Object... args) {

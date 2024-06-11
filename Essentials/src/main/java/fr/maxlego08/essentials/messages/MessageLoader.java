@@ -134,48 +134,50 @@ public class MessageLoader implements ConfigurationFile {
                         plugin.getLogger().severe("Message type was not found for " + key + ", use TCHAT by default.");
                     }
 
-                    List<String> messages = configuration.getStringList(key + ".messages");
-                    if (messages.isEmpty()) {
-                        messages.add(replaceMessagesColors(configuration.getString(key + ".message")));
-                    } else {
-                        messages = messages.stream().map(this::replaceMessagesColors).collect(Collectors.toList());
-                    }
+                    if (messageType == MessageType.TITLE) {
 
-                    messages.removeIf(Objects::isNull);
-                    if (messages.isEmpty()) {
+                        String title = configuration.getString(key + ".title", "Default title");
+                        String subtitle = configuration.getString(key + ".subtitle", "Default subtitle");
+                        long start = configuration.getLong(key + ".start", 100);
+                        long time = configuration.getLong(key + ".time", 2800);
+                        long end = configuration.getLong(key + ".end", 100);
 
-                        plugin.getLogger().severe("Message is empty for " + key + ", use default configuration.");
-                    } else {
-
-                        EssentialsMessage essentialsMessage = new ClassicMessage(messageType, messages);
+                        EssentialsMessage essentialsMessage = new TitleMessage(title, subtitle, start, time, end);
                         essentialsMessages.add(essentialsMessage);
-                    }
 
+                    } else if (messageType == MessageType.BOSSBAR) {
 
-                } else if (configuration.contains(key + ".title") || configuration.contains(key + ".subtitle")) {
+                        String text = configuration.getString(key + ".text", "Default Text");
+                        String color = configuration.getString("color", "WHITE");
+                        String overlay = configuration.getString("overlay", "PROGRESS");
+                        List<String> flags = configuration.getStringList("flags");
+                        long duration = configuration.getLong("duration", 60);
+                        boolean isStatic = configuration.getBoolean("static", false);
 
-                    String title = configuration.getString(key + ".title", "Default title");
-                    String subtitle = configuration.getString(key + ".subtitle", "Default subtitle");
-                    long start = configuration.getLong(key + ".start", 100);
-                    long time = configuration.getLong(key + ".time", 2800);
-                    long end = configuration.getLong(key + ".end", 100);
+                        BossBarMessage bossBarMessage = new BossBarMessage(text, color, overlay, flags, duration, isStatic);
 
-                    EssentialsMessage essentialsMessage = new TitleMessage(title, subtitle, start, time, end);
-                    essentialsMessages.add(essentialsMessage);
+                        if (bossBarMessage.isValid(this.plugin)) {
+                            essentialsMessages.add(bossBarMessage);
+                        }
 
-                } else if (configuration.contains(key + ".text")) {
+                    } else {
 
-                    String text = configuration.getString(key + ".text", "Default Text");
-                    String color = configuration.getString("color", "WHITE");
-                    String overlay = configuration.getString("overlay", "PROGRESS");
-                    List<String> flags = configuration.getStringList("flags");
-                    long duration = configuration.getLong("duration", 60);
-                    boolean isStatic = configuration.getBoolean("static", false);
+                        List<String> messages = configuration.getStringList(key + ".messages");
+                        if (messages.isEmpty()) {
+                            messages.add(replaceMessagesColors(configuration.getString(key + ".message")));
+                        } else {
+                            messages = messages.stream().map(this::replaceMessagesColors).collect(Collectors.toList());
+                        }
 
-                    BossBarMessage bossBarMessage = new BossBarMessage(text, color, overlay, flags, duration, isStatic);
+                        messages.removeIf(Objects::isNull);
+                        if (messages.isEmpty()) {
 
-                    if (bossBarMessage.isValid(this.plugin)) {
-                        essentialsMessages.add(bossBarMessage);
+                            plugin.getLogger().severe("Message is empty for " + key + ", use default configuration.");
+                        } else {
+
+                            EssentialsMessage essentialsMessage = new ClassicMessage(messageType, messages);
+                            essentialsMessages.add(essentialsMessage);
+                        }
                     }
 
                 } else {
@@ -206,6 +208,7 @@ public class MessageLoader implements ConfigurationFile {
                 this.plugin.getLogger().log(Level.SEVERE, messageKey + " key was not found !");
             }
         }
+
     }
 
     private String replaceMessagesColors(String message) {
