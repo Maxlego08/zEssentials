@@ -13,6 +13,7 @@ import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.mailbox.MailBoxItem;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.sanction.Sanction;
+import fr.maxlego08.essentials.api.utils.DynamicCooldown;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -543,4 +544,6 @@ public interface User {
     void setMailBoxItems(List<MailBoxDTO> mailBoxItems);
 
     void addMailBoxItem(MailBoxItem mailBoxItem);
+
+    DynamicCooldown getDynamicCooldown();
 }

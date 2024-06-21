@@ -22,6 +22,7 @@ import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.PrivateMessage;
 import fr.maxlego08.essentials.api.user.TeleportRequest;
 import fr.maxlego08.essentials.api.user.User;
+import fr.maxlego08.essentials.api.utils.DynamicCooldown;
 import fr.maxlego08.essentials.module.modules.TeleportationModule;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import org.bukkit.Bukkit;
@@ -51,6 +52,7 @@ public class ZUser extends ZUtils implements User {
     private final Map<String, BigDecimal> balances = new HashMap<>();
     private final List<Home> homes = new ArrayList<>();
     private final List<MailBoxItem> mailBoxItems = new ArrayList<>();
+    private final DynamicCooldown dynamicCooldown = new DynamicCooldown();
     private String name;
     private TeleportRequest teleportRequest;
     private User targetUser;
@@ -699,5 +701,10 @@ public class ZUser extends ZUtils implements User {
     public void addMailBoxItem(MailBoxItem mailBoxItem) {
         this.mailBoxItems.add(mailBoxItem);
         this.getStorage().addMailBoxItem(mailBoxItem);
+    }
+
+    @Override
+    public DynamicCooldown getDynamicCooldown() {
+        return dynamicCooldown;
     }
 }

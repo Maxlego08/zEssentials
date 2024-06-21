@@ -1,6 +1,8 @@
 package fr.maxlego08.essentials.storage;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.event.UserEvent;
+import fr.maxlego08.essentials.api.event.events.user.UserJoinEvent;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.storage.IStorage;
@@ -15,7 +17,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
-import org.bukkit.event.player.PlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.time.Duration;
@@ -61,8 +62,8 @@ public class ZStorageManager extends ZUtils implements StorageManager {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onLogin(AsyncPlayerPreLoginEvent event) {
 
-        PlayerPreLoginEvent.Result result = event.getResult();
-        if (result != PlayerPreLoginEvent.Result.ALLOWED) return;
+        AsyncPlayerPreLoginEvent.Result result = event.getLoginResult();
+        if (result != AsyncPlayerPreLoginEvent.Result.ALLOWED) return;
 
         UUID playerUuid = event.getUniqueId();
         String playerName = event.getName();
@@ -76,6 +77,9 @@ public class ZStorageManager extends ZUtils implements StorageManager {
 
         User user = this.iStorage.createOrLoad(playerUuid, playerName);
         user.setAddress(event.getAddress().getHostAddress());
+
+        UserEvent userEvent = new UserJoinEvent(user);
+        userEvent.callEvent();
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
