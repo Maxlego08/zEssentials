@@ -341,10 +341,6 @@ description-balance-top-refresh: "Actualiser le classement des soldes"
 
 
 # Format de l'heure
-time-day: "%02d jour %02d heure %02d minute %02d seconde"
-time-hour: "%02d heure %02d minute(s) %02d seconde"
-time-minute: "%02d minute %02d seconde"
-time-second: "%02d seconde"
 format-second: "seconde"
 format-seconds: "secondes"
 format-minute: "minute"

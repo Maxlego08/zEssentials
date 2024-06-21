@@ -346,10 +346,6 @@ description-balance-top-refresh: "Refresh baltop"
 
 
 # Time format
-time-day: "%02d day %02d hour %02d minute %02d second"
-time-hour: "%02d hour %02d minute(s) %02d second"
-time-minute: "%02d minute %02d second"
-time-second: "%02d second"
 format-second: "second"
 format-seconds: "seconds"
 format-minute: "minute"

@@ -288,10 +288,6 @@ description-cooldown-delete: "Elimina un cooldown"
 description-cooldown-create: "Crea un cooldown"
 
 # Time format
-time-day: "%02d giorno %02d ora %02d minuto %02d secondo"
-time-hour: "%02d ora %02d minuto %02d secondo"
-time-minute: "%02d minuto %02d secondo"
-time-second: "%02d secondo"
 format-second: "secondo"
 format-seconds: "secondi"
 format-minute: "minuto"
