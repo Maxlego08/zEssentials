@@ -1,4 +1,4 @@
-package fr.maxlego08.essentials.zutils.utils;
+package fr.maxlego08.essentials.api.utils;
 
 import com.google.common.base.Preconditions;
 import org.jetbrains.annotations.NotNull;

@@ -6,7 +6,7 @@ import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
-import fr.maxlego08.essentials.zutils.utils.DynamicCooldown;
+import fr.maxlego08.essentials.api.utils.DynamicCooldown;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import org.bukkit.entity.Entity;

@@ -9,15 +9,16 @@ import fr.maxlego08.essentials.api.chat.ChatPlaceholder;
 import fr.maxlego08.essentials.api.chat.ChatResult;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.database.dto.ChatMessageDTO;
+import fr.maxlego08.essentials.api.event.events.user.UserJoinEvent;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.user.User;
+import fr.maxlego08.essentials.api.utils.DynamicCooldown;
 import fr.maxlego08.essentials.chat.CommandDisplay;
 import fr.maxlego08.essentials.chat.CustomDisplay;
 import fr.maxlego08.essentials.chat.ItemDisplay;
 import fr.maxlego08.essentials.chat.PlayerPingDisplay;
 import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.essentials.storage.ConfigStorage;
-import fr.maxlego08.essentials.zutils.utils.DynamicCooldown;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.essentials.zutils.utils.paper.PaperComponent;
 import fr.maxlego08.menu.zcore.utils.inventory.Pagination;
@@ -46,7 +47,6 @@ public class ChatModule extends ZModule {
     private final List<ChatDisplay> chatDisplays = new ArrayList<>();
     private final ExpiringCache<UUID, List<ChatMessageDTO>> chatMessagesCache = new ExpiringCache<>(1000 * 60);
     private final Pattern urlPattern = Pattern.compile("(https?://[\\w-\\.]+(\\:[0-9]+)?(/[\\w- ./?%&=]*)?)", Pattern.CASE_INSENSITIVE);
-    private final DynamicCooldown dynamicCooldown = new DynamicCooldown();
     private final List<ChatCooldown> chatCooldowns = new ArrayList<>();
     private final List<ChatFormat> chatFormats = new ArrayList<>();
     private final List<ChatPlaceholder> chatPlaceholders = new ArrayList<>();
@@ -88,7 +88,6 @@ public class ChatModule extends ZModule {
     public void loadConfiguration() {
         super.loadConfiguration();
 
-        this.dynamicCooldown.setSamples(this.chatCooldownMax);
         this.alphanumericPattern = Pattern.compile(this.alphanumericRegex);
         this.linkPattern = Pattern.compile(this.linkRegex);
         this.fontPattern = Pattern.compile(this.itemaddersFontRegex);
@@ -110,6 +109,12 @@ public class ChatModule extends ZModule {
         if (configuration.getBoolean("command-placeholder.enable")) {
             this.chatDisplays.add(new CommandDisplay(configuration.getString("command-placeholder.result"), configuration.getString("command-placeholder.permission")));
         }
+    }
+
+    @EventHandler
+    public void onJoin(UserJoinEvent event) {
+        User user = event.getUser();
+        user.getDynamicCooldown().setSamples(this.chatCooldownMax);
     }
 
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
@@ -161,7 +166,6 @@ public class ChatModule extends ZModule {
                 }
             }
 
-            System.out.println(localMessage);
             Tag tag = Tag.inserting(paperComponent.translateText(player, localMessage, builder.build()));
             return paperComponent.getComponentMessage(chatFormat, TagResolver.resolver("message", tag), "%displayName%", player.getDisplayName(), "%player%", player.getName(), "%moderator_action%", isModerator ? papi(getMessage(this.moderatorAction, "%player%", player.getName()), (Player) viewer) : "");
         });
@@ -183,7 +187,7 @@ public class ChatModule extends ZModule {
             return new ChatResult(false, Message.CHAT_LINK);
         }
 
-        double cooldown = handleCooldown(player);
+        double cooldown = handleCooldown(user);
         if (this.enableChatDynamicCooldown && cooldown > 0 && !hasPermission(player, Permission.ESSENTIALS_CHAT_BYPASS_DYNAMIC_COOLDOWN)) {
             return new ChatResult(false, Message.CHAT_COOLDOWN, "%cooldown%", TimerBuilder.getStringTime(cooldown));
         }
@@ -200,14 +204,14 @@ public class ChatModule extends ZModule {
         return this.chatFormats.stream().filter(chatFormat -> player.hasPermission(chatFormat.permission())).sorted(Comparator.comparingInt(ChatFormat::priority).reversed()).map(ChatFormat::format).findFirst().orElse(this.defaultChatFormat);
     }
 
-    private double handleCooldown(Player player) {
+    private double handleCooldown(User user) {
 
         long wait;
 
-        synchronized (this.dynamicCooldown) {
-            wait = this.dynamicCooldown.limited(player.getUniqueId(), this.chatCooldownArray);
-            if (wait == 0L) this.dynamicCooldown.add(player.getUniqueId());
-        }
+        DynamicCooldown dynamicCooldown = user.getDynamicCooldown();
+
+        wait = dynamicCooldown.limited(user.getUniqueId(), this.chatCooldownArray);
+        if (wait == 0L) dynamicCooldown.add(user.getUniqueId());
 
         return wait != 0L ? wait : 0.0;
     }
