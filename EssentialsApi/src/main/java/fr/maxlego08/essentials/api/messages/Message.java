@@ -26,11 +26,6 @@ public enum Message {
             "#3f3f3f• &7No spamming or advertising."
     ),
 
-    TIME_DAY("%02d %day% %02d %hour% %02d %minute% %02d %second%"),
-    TIME_HOUR("%02d %hour% %02d minute(s) %02d %second%"),
-    TIME_MINUTE("%02d %minute% %02d %second%"),
-    TIME_SECOND("%02d %second%"),
-
     FORMAT_SECOND("second"),
     FORMAT_SECONDS("seconds"),
 
