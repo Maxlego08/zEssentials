@@ -642,6 +642,14 @@ public enum Message {
         this.messages = Arrays.asList(essentialsMessages);
     }
 
+    public static Message fromString(String string) {
+        try {
+            return valueOf(string);
+        } catch (Exception ignored) {
+            return null;
+        }
+    }
+
     public List<EssentialsMessage> getMessages() {
         return messages;
     }
@@ -649,7 +657,6 @@ public enum Message {
     public void setMessages(List<EssentialsMessage> messages) {
         this.messages = messages;
     }
-
 
     public String toConfigurationName() {
         return name().replace("_", "-").toLowerCase();

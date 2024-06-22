@@ -79,7 +79,7 @@ public class ZStorageManager extends ZUtils implements StorageManager {
         user.setAddress(event.getAddress().getHostAddress());
 
         UserEvent userEvent = new UserJoinEvent(user);
-        userEvent.callEvent();
+        plugin.getScheduler().runNextTick(wrappedTask -> userEvent.callEvent());
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)

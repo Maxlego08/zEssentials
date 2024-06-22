@@ -68,7 +68,12 @@ public class MessageLoader implements ConfigurationFile {
             String messageKey = key.replace("-", "_").toUpperCase();
             try {
 
-                Message message = Message.valueOf(messageKey);
+                Message message = Message.fromString(messageKey);
+                if (message == null) {
+                    plugin.getLogger().severe("Impossible to find the message " + key + ", it does not exist, you must delete it.");
+                    continue;
+                }
+
                 message.setPlugin(this.plugin);
 
                 List<EssentialsMessage> essentialsMessages = new ArrayList<>();
