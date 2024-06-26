@@ -460,6 +460,8 @@ public enum Message {
     CHAT_ALPHANUMERIC_REGEX("<error>You use a forbidden character."),
     CHAT_COOLDOWN("<error>Please wait before sending your next message. &8(&7%cooldown%&8)"),
     CHAT_SAME("<error>You can’t put the same sentence."),
+    CHAT_CAPS("<error>You don’t have to scream to talk !"),
+    CHAT_FLOOD("<error>You can’t talk like that."),
     CHAT_LINK("<error>You cannot send a link in the chat."),
     CHAT_DISABLE("<error>The chat is currently unavailable."),
 

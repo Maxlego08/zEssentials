@@ -30,7 +30,13 @@ public class CustomDisplay extends ZUtils implements ChatDisplay {
         Matcher matcher = this.pattern.matcher(message);
         StringBuilder formattedMessage = new StringBuilder();
 
-        while (matcher.find()) matcher.appendReplacement(formattedMessage, "<" + this.name + ">");
+        boolean result = matcher.find();
+        if (!result) return message;
+
+        while (result) {
+            matcher.appendReplacement(formattedMessage, "<" + this.name + ">");
+            result = matcher.find();
+        }
         builder.resolver(Placeholder.component(this.name, adventureComponent.getComponent(papi(this.result.replace("%player%", sender.getName()), sender))));
 
         matcher.appendTail(formattedMessage);
