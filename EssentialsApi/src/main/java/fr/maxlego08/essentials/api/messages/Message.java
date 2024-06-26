@@ -364,6 +364,7 @@ public enum Message {
     COMMAND_SET_HOME_TOO_LONG("&f%name% <error>is too long, please choose another one."),
     COMMAND_SET_HOME_TOO_SHORT("&f%name% <error>is too short name, please choose another one."),
     COMMAND_SET_HOME_MAX("<error>You cannot have more than &f%max%<error> homes."),
+    COMMAND_SET_HOME_WORLD("<error>You cannot create a home here"),
     COMMAND_SET_HOME_CREATE(
             "",
             "#99E0FFYou just created the home &f%name%#99E0FF. &8(&7%current%&8/&7%max%&8)",

@@ -21,8 +21,12 @@ public class CommandSetHome extends VCommand {
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
         String homeName = this.argAsString(0);
-
         HomeModule homeModule = plugin.getModuleManager().getModule(HomeModule.class);
+
+        if (homeModule.getDisableWorlds().contains(player.getWorld().getName())) {
+            message(sender, Message.COMMAND_SET_HOME_WORLD);
+            return CommandResultType.DEFAULT;
+        }
 
         // For /sethome Maxlego08:<home name>
         if (homeName.contains(":") && hasPermission(sender, Permission.ESSENTIALS_SET_HOME_OTHER)) {

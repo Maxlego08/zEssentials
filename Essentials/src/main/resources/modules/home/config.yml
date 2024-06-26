@@ -40,3 +40,7 @@ home-name-max: 16
 
 # Minimum char number for the home name
 home-name-min: 1
+
+# List of worlds where the player cannot create a home
+disable-worlds:
+  - "world_event"
