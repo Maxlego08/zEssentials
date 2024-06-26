@@ -124,7 +124,12 @@ command-seen-address: " <click:run_command:'/seenip %ip%'><hover:show_text:'&fSh
 command-seen-ip-empty: "<error>Unable to find players with ip &f%ip%<error>."
 command-seen-ip-line: "#99E0FFPlayers with the ip &f%ip%&8:%players%"
 command-seen-ip-info: " <white><click:run_command:'/seen %name%'><hover:show_text:'&fShow player's information'>%name%</hover></click><dark_gray>"
-
+command-seen-last-location:
+  type: WITHOUT_PREFIX
+  message: "#99E0FFLast Location&8: &f%world%, %x%, %y%, %z%"
+command-seen-first-join:
+  type: WITHOUT_PREFIX
+  message: "#99E0FFFirst Join&8:&f%created_at%"
 
 # Economy
 command-economy-not-found: "<error> Can’t find a economy with the name &f%name%<error>."
@@ -343,7 +348,7 @@ description-hologram-teleport: "Teleport to a hologram"
 description-scoreboard: "Enable/Disable scoreboard"
 description-balance-top: "Show baltop"
 description-balance-top-refresh: "Refresh baltop"
-
+description-mail-open: "Open player's mailbox"
 
 # Time format
 format-second: "second"
@@ -423,6 +428,7 @@ command-set-home-invalide-name: "&f%name% <error>is not a valid name, please cho
 command-set-home-too-long: "&f%name% <error>is too long, please choose another one."
 command-set-home-too-short: "&f%name% <error>is too short name, please choose another one."
 command-set-home-max: "<error>You cannot have more than &f%max%<error> homes."
+command-set-home-world: "<error>You cannot create a home here"
 command-set-home-create:
   - ""
   - "#99E0FFYou just created the home &f%name%#99E0FF. &8(&7%current%&8/&7%max%&8)"
@@ -551,6 +557,8 @@ chat-cooldown: "<error>Please wait before sending your next message. &8(&7%coold
 chat-same: "<error>You can’t put the same sentence."
 chat-link: "<error>You cannot send a link in the chat."
 chat-disable: "<error>The chat is currently unavailable."
+chat-caps: "<error>You don’t have to scream to talk !"
+chat-flood: "<error>You can’t talk like that."
 
 chat-default-format: "<white>%displayName% <#656665>• <gray>%message%"
 chat-messages-empty: "&f%player% <error>did not write a message."

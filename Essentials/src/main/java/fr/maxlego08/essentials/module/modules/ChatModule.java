@@ -57,6 +57,7 @@ public class ChatModule extends ZModule {
     private final List<ChatFormat> chatFormats = new ArrayList<>();
     private final List<ChatPlaceholder> chatPlaceholders = new ArrayList<>();
     private final List<CustomRules> customRules = new ArrayList<>();
+    private ChatDisplay pingDisplay;
     private String alphanumericRegex;
     private String linkRegex;
     private String itemaddersFontRegex;
@@ -101,23 +102,23 @@ public class ChatModule extends ZModule {
     public void loadConfiguration() {
         super.loadConfiguration();
 
-        this.alphanumericPattern = Pattern.compile(this.alphanumericRegex);
-        this.linkPattern = Pattern.compile(this.linkRegex);
-        this.fontPattern = Pattern.compile(this.itemaddersFontRegex);
-        this.floodRegex = Pattern.compile(this.antiFloodRegex);
+        this.alphanumericPattern = Pattern.compile(or(this.alphanumericRegex, "^[a-zA-Z0-9_.?!^¨%ù*&é\"#'{(\\[-|èêë`\\\\çà)\\]=}ûî+<>:²€$/\\-,-â@;ô ]+$"));
+        this.linkPattern = Pattern.compile(or(this.linkRegex, "[-a-zA-Z0-9@:%._+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)"));
+        this.fontPattern = Pattern.compile(or(this.itemaddersFontRegex, "(?<=:)(.*?)(?=\\s*\\:)"));
+        this.floodRegex = Pattern.compile(or(this.antiFloodRegex, "(.)\\1{3,}"));
         this.chatCooldownArray = this.chatCooldowns.stream().flatMapToLong(cooldown -> LongStream.of(cooldown.cooldown(), cooldown.messages())).toArray();
-        this.simpleDateFormat = new SimpleDateFormat(this.dateFormat);
+        this.simpleDateFormat = new SimpleDateFormat(or(this.dateFormat, "yyyy-MM-dd HH:mm:ss"));
 
         this.chatDisplays.clear();
-        if (enablePing) {
-            this.chatDisplays.add(new PlayerPingDisplay(playerPingColor, playerPingColorOther, playerPingSound, playerPingSoundVolume, playerPingSoundPitch));
+        if (this.enablePing) {
+            this.pingDisplay = new PlayerPingDisplay(this.playerPingColor, this.playerPingColorOther, this.playerPingSound, this.playerPingSoundVolume, this.playerPingSoundPitch);
         }
 
         this.chatPlaceholders.forEach(chatPlaceholder -> this.chatDisplays.add(new CustomDisplay(chatPlaceholder.name(), chatPlaceholder.regex(), chatPlaceholder.result(), chatPlaceholder.permission())));
 
         YamlConfiguration configuration = getConfiguration();
         if (configuration.getBoolean("item-placeholder.enable")) {
-            this.chatDisplays.add(new ItemDisplay(plugin, configuration.getString("item-placeholder.regex"), configuration.getString("item-placeholder.result"), configuration.getString("item-placeholder.permission")));
+            this.chatDisplays.add(new ItemDisplay(this.plugin, configuration.getString("item-placeholder.regex"), configuration.getString("item-placeholder.result"), configuration.getString("item-placeholder.permission")));
         }
 
         if (configuration.getBoolean("command-placeholder.enable")) {
@@ -174,17 +175,20 @@ public class ChatModule extends ZModule {
         PaperComponent paperComponent = (PaperComponent) this.componentMessage;
         String chatFormat = papi(getChatFormat(player), player);
 
+        TagResolver.Builder builder = TagResolver.builder();
+        for (ChatDisplay chatDisplay : this.chatDisplays) {
+            message = chatDisplay.display(paperComponent, builder, player, null, message);
+        }
+
         String finalMessage = message;
         event.renderer((source, sourceDisplayName, ignoredMessage, viewer) -> {
 
             String localMessage = finalMessage;
-            TagResolver.Builder builder = TagResolver.builder();
 
-            // ToDo, dont use the for here, because its a for in a for, useless repetition. Create a ping chat display var for that
             boolean isModerator = viewer instanceof Player playerViewer && hasPermission(playerViewer, Permission.ESSENTIALS_CHAT_MODERATOR);
             if (viewer instanceof Player playerViewer) {
-                for (ChatDisplay chatDisplay : this.chatDisplays) {
-                    localMessage = chatDisplay.display(paperComponent, builder, player, playerViewer, localMessage);
+                if (this.pingDisplay != null) {
+                    localMessage = this.pingDisplay.display(paperComponent, builder, player, playerViewer, localMessage);
                 }
             }
 
