@@ -620,6 +620,8 @@ public enum Message {
     COMMAND_BALTOP_HEADER(MessageType.WITHOUT_PREFIX, "#00f986ᴍᴏsᴛ ᴍᴏɴᴇʏ &8(&f%page%&8/&7%maxPage%&8) <click:run_command:'/baltop %previousPage%'>&f◀</click> &8- <click:run_command:'/baltop %nextPage%'>&f▶</click>"),
     COMMAND_BALTOP(MessageType.WITHOUT_PREFIX, "#00f986#%position% &f%name%&8: %amount%"),
 
+    CODE_NOT_FOUND("<red>Cannot find the code."),
+
     ;
 
     private EssentialsPlugin plugin;

@@ -5,7 +5,6 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventPriority;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -20,6 +19,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Random;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -91,14 +91,11 @@ public abstract class ZUtils extends MessageUtils {
             return location2;
         }
 
-        return findMeSafeLocation(location2, blockFace.equals(BlockFace.UP) ? BlockFace.DOWN : BlockFace.UP,
-                distance + 1);
+        return findMeSafeLocation(location2, blockFace.equals(BlockFace.UP) ? BlockFace.DOWN : BlockFace.UP, distance + 1);
     }
 
     protected boolean isValid(Location location) {
-        return !location.getBlock().getType().isSolid()
-                && !relative(location, BlockFace.UP).getBlock().getType().isSolid()
-                && relative(location, BlockFace.DOWN).getBlock().getType().isSolid();
+        return !location.getBlock().getType().isSolid() && !relative(location, BlockFace.UP).getBlock().getType().isSolid() && relative(location, BlockFace.DOWN).getBlock().getType().isSolid();
     }
 
     protected Location relative(Location location, BlockFace face) {
@@ -223,6 +220,19 @@ public abstract class ZUtils extends MessageUtils {
 
     protected int getMaxPage(Collection<?> items, int pageSize) {
         return (items.size() / pageSize) + 1;
+    }
+
+    public String generateRandomString(int length) {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder(length);
+
+        for (int i = 0; i < length; i++) {
+            int index = random.nextInt(characters.length());
+            sb.append(characters.charAt(index));
+        }
+
+        return sb.toString();
     }
 
 }

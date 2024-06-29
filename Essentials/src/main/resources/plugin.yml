@@ -9,4 +9,5 @@ depend:
   - PlaceholderAPI
 softdepend:
   - Vault
+  - ProtocolLib
 api-version: '1.20'

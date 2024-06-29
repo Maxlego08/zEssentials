@@ -8,6 +8,7 @@ import fr.maxlego08.essentials.api.chat.ChatFormat;
 import fr.maxlego08.essentials.api.chat.ChatPlaceholder;
 import fr.maxlego08.essentials.api.chat.ChatResult;
 import fr.maxlego08.essentials.api.chat.CustomRules;
+import fr.maxlego08.essentials.api.chat.ShowItem;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.database.dto.ChatMessageDTO;
 import fr.maxlego08.essentials.api.event.events.user.UserJoinEvent;
@@ -18,6 +19,7 @@ import fr.maxlego08.essentials.chat.CommandDisplay;
 import fr.maxlego08.essentials.chat.CustomDisplay;
 import fr.maxlego08.essentials.chat.ItemDisplay;
 import fr.maxlego08.essentials.chat.PlayerPingDisplay;
+import fr.maxlego08.essentials.chat.ShowItemInventory;
 import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.essentials.storage.ConfigStorage;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
@@ -34,8 +36,11 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -50,6 +55,7 @@ import java.util.stream.LongStream;
 
 public class ChatModule extends ZModule {
 
+    private final List<ShowItem> showItems = new ArrayList<>();
     private final List<ChatDisplay> chatDisplays = new ArrayList<>();
     private final ExpiringCache<UUID, List<ChatMessageDTO>> chatMessagesCache = new ExpiringCache<>(1000 * 60);
     private final Pattern urlPattern = Pattern.compile("(https?://[\\w-\\.]+(\\:[0-9]+)?(/[\\w- ./?%&=]*)?)", Pattern.CASE_INSENSITIVE);
@@ -338,5 +344,42 @@ public class ChatModule extends ZModule {
         return this.floodRegex.matcher(message).find();
     }
 
+    public String createHoverItemStack(Player player, ItemStack itemStack) {
+
+        this.showItems.removeIf(ShowItem::isExpired);
+
+        String code = generateRandomString(16);
+
+        ShowItem showItem = new ShowItem(player, itemStack, System.currentTimeMillis() + (1000 * 300), code);
+        this.showItems.add(showItem);
+
+        return code;
+    }
+
+    public void openShowItem(Player player, String code) {
+
+        this.showItems.removeIf(ShowItem::isExpired);
+        Optional<ShowItem> optional = this.showItems.stream().filter(showItem -> showItem.code().equals(code)).findFirst();
+        if (optional.isEmpty()) {
+            message(player, Message.CODE_NOT_FOUND);
+            return;
+        }
+
+        new ShowItemInventory(optional.get(), player);
+    }
+
+    @EventHandler
+    public void onClick(InventoryClickEvent event) {
+        if (event.getInventory().getHolder() instanceof ShowItemInventory) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onClick(InventoryDragEvent event) {
+        if (event.getInventory().getHolder() instanceof ShowItemInventory) {
+            event.setCancelled(true);
+        }
+    }
 
 }

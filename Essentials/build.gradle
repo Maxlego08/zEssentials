@@ -7,6 +7,7 @@ dependencies {
     compileOnly project(':EssentialsApi')
     compileOnly project(':Hooks:Vault')
     compileOnly project(':Hooks:Redis')
+    compileOnly project(':Hooks:ProtocolLib')
     compileOnly project(":NMS:R3_1_20")
 
     implementation 'fr.mrmicky:fastboard:2.1.2'
@@ -36,6 +37,7 @@ shadowJar {
     from(project(':EssentialsApi').sourceSets.main.output)
     from(project(':Hooks:Vault').sourceSets.main.output)
     from(project(':Hooks:Redis').sourceSets.main.output)
+    from(project(':Hooks:ProtocolLib').sourceSets.main.output)
     from(project(':NMS:R3_1_20').sourceSets.main.output)
 
     relocate 'com.tcoded.folialib', 'fr.maxlego08.essentials.folialib'
