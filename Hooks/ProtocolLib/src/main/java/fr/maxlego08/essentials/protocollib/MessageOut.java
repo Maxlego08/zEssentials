@@ -50,7 +50,7 @@ public class MessageOut {
                 String json = message.getJson();
 
                 Component component = JSONComponentSerializer.json().deserialize(json);
-                String serializedMessage = LegacyComponentSerializer.legacyAmpersand().serialize(component);
+                String serializedMessage = LegacyComponentSerializer.legacyAmpersand().serialize(component).toLowerCase();
 
                 Matcher matcher = MessageOut.this.pattern.matcher(serializedMessage);
                 if (matcher.find()) {

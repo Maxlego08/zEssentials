@@ -13,6 +13,7 @@ import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.database.dto.ChatMessageDTO;
 import fr.maxlego08.essentials.api.event.events.user.UserJoinEvent;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.messages.MessageUtils;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.DynamicCooldown;
 import fr.maxlego08.essentials.chat.CommandDisplay;
@@ -120,7 +121,15 @@ public class ChatModule extends ZModule {
             this.pingDisplay = new PlayerPingDisplay(this.playerPingColor, this.playerPingColorOther, this.playerPingSound, this.playerPingSoundVolume, this.playerPingSoundPitch);
         }
 
-        this.chatPlaceholders.forEach(chatPlaceholder -> this.chatDisplays.add(new CustomDisplay(chatPlaceholder.name(), chatPlaceholder.regex(), chatPlaceholder.result(), chatPlaceholder.permission())));
+        Pattern pattern = Pattern.compile("[!?#]?[a-z0-9_-]*");
+        this.chatPlaceholders.forEach(chatPlaceholder -> {
+            Matcher matcher = pattern.matcher(chatPlaceholder.name());
+            if (matcher.find()) {
+                this.chatDisplays.add(new CustomDisplay(chatPlaceholder.name(), chatPlaceholder.regex(), chatPlaceholder.result(), chatPlaceholder.permission()));
+            } else {
+                plugin.getLogger().severe("Custom Placeholders name must match pattern [!?#]?[a-z0-9_-]*, was " + chatPlaceholder.name() + ", Possible correction: " + MessageUtils.removeNonAlphanumeric(chatPlaceholder.name()));
+            }
+        });
 
         YamlConfiguration configuration = getConfiguration();
         if (configuration.getBoolean("item-placeholder.enable")) {

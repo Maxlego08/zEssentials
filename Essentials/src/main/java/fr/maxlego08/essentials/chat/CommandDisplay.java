@@ -32,7 +32,7 @@ public class CommandDisplay extends ZUtils implements ChatDisplay {
         while (matcher.find()) {
             String command = matcher.group(1); // Get the content between ./ and . or end of string
 
-            String placeholderTag = MessageUtils.removeNonAlphanumeric("cmd_" + command.replace(" ", "_"));
+            String placeholderTag = MessageUtils.removeNonAlphanumeric("cmd_" + command.replace(" ", "_")).toLowerCase();
             builder.resolver(Placeholder.component(placeholderTag, adventureComponent.getComponent(result.replace("%command%", command))));
             matcher.appendReplacement(formattedMessage, "<" + placeholderTag + ">");
         }
