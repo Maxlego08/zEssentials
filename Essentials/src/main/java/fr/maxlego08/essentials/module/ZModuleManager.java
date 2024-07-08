@@ -19,6 +19,7 @@ import fr.maxlego08.essentials.module.modules.TeleportationModule;
 import fr.maxlego08.essentials.module.modules.WarpModule;
 import fr.maxlego08.essentials.scoreboard.ScoreboardModule;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -77,6 +78,12 @@ public class ZModuleManager implements ModuleManager {
     @Override
     public <T extends Module> T getModule(Class<T> module) {
         return (T) this.modules.get(module);
+    }
+
+    @Override
+    public YamlConfiguration getModuleConfiguration(String module) {
+        File file = new File(plugin.getDataFolder(), "modules/" + module + "/config.yml");
+        return YamlConfiguration.loadConfiguration(file);
     }
 
     @Override

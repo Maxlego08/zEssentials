@@ -61,12 +61,11 @@ import fr.maxlego08.essentials.loader.ButtonSanctionLoader;
 import fr.maxlego08.essentials.loader.ButtonWarpLoader;
 import fr.maxlego08.essentials.messages.MessageLoader;
 import fr.maxlego08.essentials.module.ZModuleManager;
-import fr.maxlego08.essentials.module.modules.ChatModule;
 import fr.maxlego08.essentials.module.modules.HomeModule;
 import fr.maxlego08.essentials.module.modules.MailBoxModule;
 import fr.maxlego08.essentials.placeholders.DistantPlaceholder;
 import fr.maxlego08.essentials.placeholders.LocalPlaceholder;
-import fr.maxlego08.essentials.protocollib.MessageOut;
+import fr.maxlego08.essentials.protocollib.PacketListener;
 import fr.maxlego08.essentials.scoreboard.ScoreboardModule;
 import fr.maxlego08.essentials.server.PaperServer;
 import fr.maxlego08.essentials.server.SpigotServer;
@@ -205,9 +204,9 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         new Metrics(this, 21703);
 
         // Load ProtocolLib
-        if (this.moduleManager.getModule(ChatModule.class).getConfiguration().getBoolean("command-placeholder.enable-replace-all-message") && getServer().getPluginManager().isPluginEnabled("ProtocolLib") && this.isPaperVersion()) {
-            MessageOut messageOut = new MessageOut(this, this.moduleManager.getModule(ChatModule.class).getConfiguration().getString("command-placeholder.result"));
-            messageOut.addPacketListener();
+        if (this.moduleManager.getModuleConfiguration("chat").getBoolean("command-placeholder.enable-replace-all-message") && getServer().getPluginManager().isPluginEnabled("ProtocolLib") && this.isPaperVersion()) {
+            PacketListener packetListener = new PacketListener();
+            packetListener.registerPackets(this);
         }
 
         this.generateDocs();
@@ -215,15 +214,13 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
     @Override
     public void onLoad() {
-
         try {
             Class.forName("net.milkbowl.vault.economy.Economy");
             new VaultEconomy(this);
             getLogger().info("Register Vault Economy.");
-        } catch (final ClassNotFoundException ignored) {
-            ignored.printStackTrace();
+        } catch (final ClassNotFoundException exception) {
+            exception.printStackTrace();
         }
-
     }
 
     @Override

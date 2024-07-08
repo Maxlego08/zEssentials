@@ -1,5 +1,7 @@
 package fr.maxlego08.essentials.api.modules;
 
+import org.bukkit.configuration.file.YamlConfiguration;
+
 import java.io.File;
 import java.util.List;
 
@@ -26,6 +28,8 @@ public interface ModuleManager {
      * @return The module of the specified type, or null if not found.
      */
     <T extends Module> T getModule(Class<T> module);
+
+    YamlConfiguration getModuleConfiguration(String module);
 
     /**
      * Gets the folder associated with the module manager.
