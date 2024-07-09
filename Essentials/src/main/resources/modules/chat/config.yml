@@ -195,7 +195,7 @@ command-placeholder: # ./<command>. placeholder
   # Replace check all messages sent to players and replace the command if it exists
   # You must use the ProtocolLib plugin
   # You must be on a paper basis, using spigot will not work
-  enable-replace-all-message: true
+  enable-replace-all-message: false
 
 # Allows to define custom rules with regex
 custom-rules:
