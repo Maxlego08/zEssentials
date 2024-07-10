@@ -238,7 +238,7 @@ public class ChatModule extends ZModule {
             return new ChatResult(false, Message.CHAT_SAME);
         }
 
-        if (this.enableCaps && containsTooManyCaps(message) && !hasPermission(player, Permission.ESSENTIALS_CHAT_BYPASS_CAPS)) {
+        if (message.length() > 3 && this.enableCaps && containsTooManyCaps(message) && !hasPermission(player, Permission.ESSENTIALS_CHAT_BYPASS_CAPS)) {
             return new ChatResult(false, Message.CHAT_CAPS);
         }
 
