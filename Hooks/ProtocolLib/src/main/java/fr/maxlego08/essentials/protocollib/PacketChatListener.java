@@ -80,7 +80,9 @@ public class PacketChatListener extends PacketAdapter implements PacketRegister 
             String command = matcher.group(1); // Get the content between ./ and . or end of string
 
             String placeholderTag = MessageUtils.removeNonAlphanumeric("cmd_" + command.replace(" ", "_"));
-            builder.resolver(Placeholder.component(placeholderTag, adventureComponent.getComponent(result.replace("%command%", command))));
+            builder.resolver(Placeholder.component(placeholderTag, adventureComponent.getComponent(
+                    result.replace("%command%", command).replace("%fixed_command%", command.replace("'", "\\'"))
+            )));
             matcher.appendReplacement(formattedMessage, "<" + placeholderTag + ">");
         }
 

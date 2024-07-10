@@ -189,7 +189,7 @@ item-placeholder:
 # Example: "Please use ./zah. to open the auction house"
 command-placeholder: # ./<command>. placeholder
   enable: true
-  result: "<hover:show_text:'<yellow>Try this command'><click:suggest_command:'/%command%'><yellow>/%command%</yellow></click></hover>"
+  result: "<hover:show_text:'<yellow>Try this command'><click:suggest_command:'/%fixed_command%'><yellow>/%command%</yellow></click></hover>"
   permission: "zessentials.chat.placeholder.command" # You must define a permission
 
   # Replace check all messages sent to players and replace the command if it exists
