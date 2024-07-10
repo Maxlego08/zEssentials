@@ -1,7 +1,9 @@
 package fr.maxlego08.essentials.chat;
 
 import fr.maxlego08.essentials.api.chat.ChatDisplay;
+import fr.maxlego08.essentials.api.messages.MessageUtils;
 import fr.maxlego08.essentials.api.utils.component.AdventureComponent;
+import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import org.bukkit.entity.Player;
@@ -10,9 +12,9 @@ import org.bukkit.permissions.Permissible;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CommandDisplay implements ChatDisplay {
+public class CommandDisplay extends ZUtils implements ChatDisplay {
 
-    private final Pattern pattern = Pattern.compile("\\./\\S*");
+    private final Pattern pattern = Pattern.compile("\\./(.*?)(\\.|$)");
     private final String result;
     private final String permission;
 
@@ -28,17 +30,17 @@ public class CommandDisplay implements ChatDisplay {
         StringBuilder formattedMessage = new StringBuilder();
 
         while (matcher.find()) {
+            String command = matcher.group(1); // Get the content between ./ and . or end of string
 
-            String match = matcher.group();
-            String command = match.substring(2);
-
-            String placeholderTag = "cmd_" + command;
-
-            builder.resolver(Placeholder.component(placeholderTag, adventureComponent.getComponent(result.replace("%command%", command))));
+            String placeholderTag = MessageUtils.removeNonAlphanumeric("cmd_" + command.replace(" ", "_")).toLowerCase();
+            builder.resolver(Placeholder.component(placeholderTag, adventureComponent.getComponent(
+                    result.replace("%command%", command).replace("%fixed_command%", command.replace("'", "\\'"))
+            )));
             matcher.appendReplacement(formattedMessage, "<" + placeholderTag + ">");
         }
 
         matcher.appendTail(formattedMessage);
+
         return formattedMessage.toString();
     }
 

@@ -1,8 +1,8 @@
 package fr.maxlego08.essentials.storage;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
-import fr.maxlego08.essentials.api.event.UserEvent;
 import fr.maxlego08.essentials.api.event.events.user.UserJoinEvent;
+import fr.maxlego08.essentials.api.event.events.user.UserQuitEvent;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.storage.IStorage;
@@ -30,8 +30,8 @@ public class ZStorageManager extends ZUtils implements StorageManager {
     public ZStorageManager(EssentialsPlugin plugin) {
         this.plugin = plugin;
         StorageType storageType = plugin.getConfiguration().getStorageType();
-        if (storageType == StorageType.MYSQL) {
-            this.iStorage = new SqlStorage(plugin);
+        if (storageType == StorageType.MYSQL || storageType == StorageType.SQLITE) {
+            this.iStorage = new SqlStorage(plugin, storageType);
         } else {
             this.iStorage = new JsonStorage(plugin);
         }
@@ -75,15 +75,24 @@ public class ZStorageManager extends ZUtils implements StorageManager {
             return;
         }
 
-        User user = this.iStorage.createOrLoad(playerUuid, playerName);
+        var user = this.iStorage.createOrLoad(playerUuid, playerName);
         user.setAddress(event.getAddress().getHostAddress());
 
-        UserEvent userEvent = new UserJoinEvent(user);
-        userEvent.callEvent();
+        var userEvent = new UserJoinEvent(user);
+        plugin.getScheduler().runNextTick(wrappedTask -> userEvent.callEvent());
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onDisconnect(PlayerQuitEvent event) {
-        this.iStorage.onPlayerQuit(event.getPlayer().getUniqueId());
+
+        var uuid = event.getPlayer().getUniqueId();
+
+        var user = this.iStorage.getUser(uuid);
+        if (user != null) {
+            var userQuitEvent = new UserQuitEvent(user);
+            userQuitEvent.callEvent();
+        }
+
+        this.iStorage.onPlayerQuit(uuid);
     }
 }

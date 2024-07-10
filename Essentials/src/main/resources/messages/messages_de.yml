@@ -486,10 +486,6 @@ description-cooldown-create: Einen Cooldown erstellen
 
 
 # Zeitformat
-time-day: '%02d Tag %02d Stunde %02d Minute %02d Sekunde'
-time-hour: '%02d Stunde %02d Minute(n) %02d Sekunde'
-time-minute: '%02d Minute %02d Sekunde'
-time-second: '%02d Sekunde'
 format-second: Sekunde
 format-seconds: Sekunden
 format-minute: Minute

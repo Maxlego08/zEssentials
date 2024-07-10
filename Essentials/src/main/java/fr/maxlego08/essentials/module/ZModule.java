@@ -210,4 +210,8 @@ public abstract class ZModule extends YamlLoader implements Module {
     protected void updateEvent(String eventName) {
         Bukkit.getOnlinePlayers().forEach(player -> updateEventPlayer(player, eventName));
     }
+
+    protected <T> T or(T value, T defaultValue) {
+        return value == null ? defaultValue : value;
+    }
 }

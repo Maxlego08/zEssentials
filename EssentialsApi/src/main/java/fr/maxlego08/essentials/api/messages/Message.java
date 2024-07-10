@@ -364,6 +364,7 @@ public enum Message {
     COMMAND_SET_HOME_TOO_LONG("&f%name% <error>is too long, please choose another one."),
     COMMAND_SET_HOME_TOO_SHORT("&f%name% <error>is too short name, please choose another one."),
     COMMAND_SET_HOME_MAX("<error>You cannot have more than &f%max%<error> homes."),
+    COMMAND_SET_HOME_WORLD("<error>You cannot create a home here"),
     COMMAND_SET_HOME_CREATE(
             "",
             "#99E0FFYou just created the home &f%name%#99E0FF. &8(&7%current%&8/&7%max%&8)",
@@ -460,6 +461,8 @@ public enum Message {
     CHAT_ALPHANUMERIC_REGEX("<error>You use a forbidden character."),
     CHAT_COOLDOWN("<error>Please wait before sending your next message. &8(&7%cooldown%&8)"),
     CHAT_SAME("<error>You can’t put the same sentence."),
+    CHAT_CAPS("<error>You don’t have to scream to talk !"),
+    CHAT_FLOOD("<error>You can’t talk like that."),
     CHAT_LINK("<error>You cannot send a link in the chat."),
     CHAT_DISABLE("<error>The chat is currently unavailable."),
 
@@ -617,6 +620,8 @@ public enum Message {
     COMMAND_BALTOP_HEADER(MessageType.WITHOUT_PREFIX, "#00f986ᴍᴏsᴛ ᴍᴏɴᴇʏ &8(&f%page%&8/&7%maxPage%&8) <click:run_command:'/baltop %previousPage%'>&f◀</click> &8- <click:run_command:'/baltop %nextPage%'>&f▶</click>"),
     COMMAND_BALTOP(MessageType.WITHOUT_PREFIX, "#00f986#%position% &f%name%&8: %amount%"),
 
+    CODE_NOT_FOUND("<red>Cannot find the code."),
+
     ;
 
     private EssentialsPlugin plugin;
@@ -642,6 +647,14 @@ public enum Message {
         this.messages = Arrays.asList(essentialsMessages);
     }
 
+    public static Message fromString(String string) {
+        try {
+            return valueOf(string);
+        } catch (Exception ignored) {
+            return null;
+        }
+    }
+
     public List<EssentialsMessage> getMessages() {
         return messages;
     }
@@ -649,7 +662,6 @@ public enum Message {
     public void setMessages(List<EssentialsMessage> messages) {
         this.messages = messages;
     }
-
 
     public String toConfigurationName() {
         return name().replace("_", "-").toLowerCase();

@@ -10,9 +10,11 @@ import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.economy.EconomyManager;
 import fr.maxlego08.essentials.api.economy.NumberFormatReduction;
 import fr.maxlego08.essentials.api.economy.NumberMultiplicationFormat;
+import fr.maxlego08.essentials.api.economy.OfflineEconomy;
 import fr.maxlego08.essentials.api.economy.PriceFormat;
 import fr.maxlego08.essentials.api.economy.UserBaltop;
 import fr.maxlego08.essentials.api.event.events.economy.EconomyBaltopUpdateEvent;
+import fr.maxlego08.essentials.api.event.events.user.UserQuitEvent;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.User;
@@ -22,6 +24,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -42,6 +45,7 @@ public class EconomyModule extends ZModule implements EconomyManager {
     private final List<Economy> economies = new ArrayList<>();
     private final List<NumberMultiplicationFormat> numberFormatSellMultiplication = new ArrayList<>();
     private final Map<Economy, Baltop> baltops = new HashMap<>();
+    private final Map<UUID, OfflineEconomy> offlinePlayers = new HashMap<>();
     private String defaultEconomy;
     private BigDecimal minimumPayAmount;
     private PriceFormat priceFormat;
@@ -49,6 +53,7 @@ public class EconomyModule extends ZModule implements EconomyManager {
     private String priceDecimalFormat;
     private DecimalFormat decimalFormat;
     private boolean enableBaltop;
+    private boolean storeOfflinePlayerMoney;
     private long baltopRefreshSeconds;
     private String baltopPlaceholderUserEmpty;
     private String baltopMessageEconomy;
@@ -85,6 +90,15 @@ public class EconomyModule extends ZModule implements EconomyManager {
         this.decimalFormat = new DecimalFormat(this.priceDecimalFormat);
 
         if (this.enableBaltop) startBaltopTask();
+
+        if (this.storeOfflinePlayerMoney) {
+            var iStorage = this.plugin.getStorageManager().getStorage();
+            iStorage.fetchOfflinePlayerEconomies(economies -> {
+                Map<UUID, Map<String, BigDecimal>> values = new HashMap<>();
+                economies.forEach(economy -> values.computeIfAbsent(economy.unique_id(), k -> new HashMap<>()).merge(economy.economy_name(), economy.amount(), BigDecimal::add));
+                values.forEach((uuid, map) -> this.offlinePlayers.put(uuid, new ZOfflineEconomy(map)));
+            });
+        }
     }
 
     private void startBaltopTask() {
@@ -204,17 +218,20 @@ public class EconomyModule extends ZModule implements EconomyManager {
 
         for (NumberFormatReduction config : this.priceReductions) {
             if (numValue.compareTo(config.maxAmount()) < 0) {
-                
+
                 String displayText = config.display();
                 String format = config.format();
+                if (displayText != null) {
+                    if (format.isEmpty() || format.contains("#")) {
+                        return displayText.replace("%amount%", config.format().contains("#") ? new DecimalFormat(config.format()).format(numValue) : numValue.toString());
+                    }
 
-                if (format.isEmpty() || format.contains("#")) {
-                    return displayText.replace("%amount%", config.format().contains("#") ? new DecimalFormat(config.format()).format(numValue) : numValue.toString());
+                    BigDecimal divisor = config.maxAmount().equals(BigDecimal.valueOf(1000)) ? BigDecimal.valueOf(1000.0) : config.maxAmount().divide(BigDecimal.valueOf(1000.0), 2, RoundingMode.HALF_UP);
+                    String formattedAmount = String.format(config.format(), numValue.divide(divisor, 2, RoundingMode.HALF_UP));
+                    return displayText.replace("%amount%", formattedAmount);
+                } else {
+                    plugin.getLogger().severe("Display text is null for " + format + " format ! config.yml of economy module");
                 }
-
-                BigDecimal divisor = config.maxAmount().equals(BigDecimal.valueOf(1000)) ? BigDecimal.valueOf(1000.0) : config.maxAmount().divide(BigDecimal.valueOf(1000.0), 2, RoundingMode.HALF_UP);
-                String formattedAmount = String.format(config.format(), numValue.divide(divisor, 2, RoundingMode.HALF_UP));
-                return displayText.replace("%amount%", formattedAmount);
             }
         }
         return numValue.toString();
@@ -323,5 +340,25 @@ public class EconomyModule extends ZModule implements EconomyManager {
         for (UserBaltop userBaltop : pagination.paginate(userBaltops, baltopMessageAmount, page)) {
             message(player, Message.COMMAND_BALTOP, "%name%", userBaltop.getName(), "%uuid%", userBaltop.getUniqueId(), "%position%", userBaltop.getPosition(), "%amount%", format(economy, userBaltop.getAmount()));
         }
+    }
+
+    public Map<UUID, OfflineEconomy> getOfflinePlayers() {
+        return offlinePlayers;
+    }
+
+    private OfflineEconomy getOfflineEconomy(UUID uniqueId) {
+        return this.offlinePlayers.getOrDefault(uniqueId, new ZOfflineEconomy(new HashMap<>()));
+    }
+
+    @Override
+    public BigDecimal getBalanceOffline(UUID uniqueId) {
+        return getOfflineEconomy(uniqueId).getEconomy(this.defaultEconomy);
+    }
+
+    @EventHandler
+    public void onQuit(UserQuitEvent event) {
+        User user = event.getUser();
+        OfflineEconomy offlineEconomy = new ZOfflineEconomy(user.getBalances());
+        this.offlinePlayers.put(user.getUniqueId(), offlineEconomy);
     }
 }

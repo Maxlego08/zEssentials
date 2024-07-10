@@ -8,10 +8,9 @@ import fr.maxlego08.essentials.api.database.dto.HomeDTO;
 import fr.maxlego08.essentials.api.database.dto.MailBoxDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.database.dto.UserDTO;
+import fr.maxlego08.essentials.api.database.dto.UserEconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.UserEconomyRankingDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
-import fr.maxlego08.essentials.api.event.UserEvent;
-import fr.maxlego08.essentials.api.event.events.user.UserJoinEvent;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.mailbox.MailBoxItem;
 import fr.maxlego08.essentials.api.sanction.Sanction;
@@ -62,6 +61,7 @@ public class JsonStorage extends StorageHelper implements IStorage {
 
         File folder = getFolder();
         this.totalUser = folder == null ? 0 : Optional.ofNullable(folder.listFiles()).map(e -> e.length).orElse(0);
+        this.plugin.getLogger().severe("Please use MYSQL storage, the JSON is only to enable the for the first installation of the plugin.");
     }
 
     @Override
@@ -355,5 +355,10 @@ public class JsonStorage extends StorageHelper implements IStorage {
     @Override
     public List<MailBoxDTO> getMailBox(UUID uuid) {
         return new ArrayList<>();
+    }
+
+    @Override
+    public void fetchOfflinePlayerEconomies(Consumer<List<UserEconomyDTO>> consumer) {
+        consumer.accept(new ArrayList<>());
     }
 }

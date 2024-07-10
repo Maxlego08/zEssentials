@@ -121,7 +121,12 @@ command-seen-address: " <click:run_command:'/seenip %ip%'><hover:show_text:'&fAf
 command-seen-ip-empty: "<error>Impossible de trouver des joueurs avec l'adresse IP &f%ip%<error>."
 command-seen-ip-line: "#99E0FFJoueurs avec l'adresse IP &f%ip%&8:%players%"
 command-seen-ip-info: " <white><click:run_command:'/seen %name%'><hover:show_text:'&fAfficher les informations du joueur'>%name%</hover></click><dark_gray>"
-
+command-seen-last-location:
+  type: WITHOUT_PREFIX
+  message: "#99E0FFDernière position&8: &f%world%, %x%, %y%, %z%"
+command-seen-first-join:
+  type: WITHOUT_PREFIX
+  message: "#99E0FFPremière connexion&8:&f%created_at%"
 
 
 # Économie
@@ -337,14 +342,10 @@ description-hologram-teleport: "Se téléporter à un hologramme"
 description-scoreboard: "Activer/Désactiver le tableau de score"
 description-balance-top: "Afficher le classement des soldes"
 description-balance-top-refresh: "Actualiser le classement des soldes"
-
+description-mail-open: "Ouvrir la boite mail d'un joueur"
 
 
 # Format de l'heure
-time-day: "%02d jour %02d heure %02d minute %02d seconde"
-time-hour: "%02d heure %02d minute(s) %02d seconde"
-time-minute: "%02d minute %02d seconde"
-time-second: "%02d seconde"
 format-second: "seconde"
 format-seconds: "secondes"
 format-minute: "minute"
@@ -427,6 +428,7 @@ command-set-home-invalide-name: "&f%name% <error>n'est pas un nom valide, veuill
 command-set-home-too-long: "&f%name% <error>est trop long, veuillez en choisir un autre."
 command-set-home-too-short: "&f%name% <error>est trop court, veuillez en choisir un autre."
 command-set-home-max: "<error>Vous ne pouvez pas avoir plus de &f%max%<error> maisons."
+command-set-home-world: "<error>Vous ne pouvez pas créer une maison ici."
 command-set-home-create:
   - ""
   - "#99E0FFVous venez de créer la maison &f%name%#99E0FF. &8(&7%current%&8/&7%max%&8)"
@@ -537,6 +539,8 @@ chat-cooldown: "<error>Veuillez attendre avant d'envoyer votre prochain message.
 chat-same: "<error>Vous ne pouvez pas envoyer la même phrase."
 chat-link: "<error>Vous ne pouvez pas envoyer de lien dans le chat."
 chat-disable: "<error>Le chat est actuellement indisponible."
+chat-caps: "<error>Pas besoin de crier pour parler !"
+chat-flood: "<error>Tu ne peux pas dire ça."
 
 chat-default-format: "<white>%displayName% <#656665>• <gray>%message%"
 chat-messages-empty: "&f%player% <error>n'a pas écrit de message."

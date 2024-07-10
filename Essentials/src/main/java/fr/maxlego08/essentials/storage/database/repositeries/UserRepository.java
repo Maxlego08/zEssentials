@@ -146,5 +146,4 @@ public class UserRepository extends Repository {
 
         });
     }
-
 }

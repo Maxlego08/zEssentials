@@ -11,16 +11,15 @@ import fr.maxlego08.essentials.api.database.dto.PlayTimeDTO;
 import fr.maxlego08.essentials.api.database.dto.PowerToolsDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.database.dto.UserDTO;
+import fr.maxlego08.essentials.api.database.dto.UserEconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.UserEconomyRankingDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
-import fr.maxlego08.essentials.api.event.UserEvent;
-import fr.maxlego08.essentials.api.event.events.user.UserFirstJoinEvent;
-import fr.maxlego08.essentials.api.event.events.user.UserJoinEvent;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.mailbox.MailBoxItem;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.sanction.SanctionType;
 import fr.maxlego08.essentials.api.storage.IStorage;
+import fr.maxlego08.essentials.api.storage.StorageType;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.user.UserRecord;
@@ -40,9 +39,11 @@ import fr.maxlego08.essentials.storage.database.repositeries.UserRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserSanctionRepository;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.utils.StorageHelper;
+import fr.maxlego08.sarah.DatabaseConfiguration;
 import fr.maxlego08.sarah.DatabaseConnection;
 import fr.maxlego08.sarah.MigrationManager;
 import fr.maxlego08.sarah.MySqlConnection;
+import fr.maxlego08.sarah.SqliteConnection;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -63,15 +64,16 @@ public class SqlStorage extends StorageHelper implements IStorage {
     private final DatabaseConnection connection;
     private final Repositories repositories;
 
-    public SqlStorage(EssentialsPlugin plugin) {
+    public SqlStorage(EssentialsPlugin plugin, StorageType storageType) {
         super(plugin);
-        this.connection = new MySqlConnection(plugin.getConfiguration().getDatabaseConfiguration());
+        DatabaseConfiguration databaseConfiguration = plugin.getConfiguration().getDatabaseConfiguration();
+        this.connection = storageType == StorageType.SQLITE ? new SqliteConnection(databaseConfiguration, plugin.getDataFolder()) : new MySqlConnection(databaseConfiguration);
 
         if (!this.connection.isValid()) {
             plugin.getLogger().severe("Unable to connect to database !");
             Bukkit.getPluginManager().disablePlugin(plugin);
         } else {
-            plugin.getLogger().info("The database connection is valid ! (" + connection.getDatabaseConfiguration().host() + ")");
+            plugin.getLogger().info("The database connection is valid ! (" + connection.getDatabaseConfiguration().getHost() + ")");
         }
 
         this.repositories = new Repositories(plugin, this.connection);
@@ -418,5 +420,10 @@ public class SqlStorage extends StorageHelper implements IStorage {
     @Override
     public List<MailBoxDTO> getMailBox(UUID uuid) {
         return with(UserMailBoxRepository.class).select(uuid);
+    }
+
+    @Override
+    public void fetchOfflinePlayerEconomies(Consumer<List<UserEconomyDTO>> consumer) {
+        async(() -> consumer.accept(with(UserEconomyRepository.class).getAll()));
     }
 }

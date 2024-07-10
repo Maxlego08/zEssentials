@@ -7,16 +7,20 @@ import fr.maxlego08.essentials.api.chat.ChatDisplay;
 import fr.maxlego08.essentials.api.chat.ChatFormat;
 import fr.maxlego08.essentials.api.chat.ChatPlaceholder;
 import fr.maxlego08.essentials.api.chat.ChatResult;
+import fr.maxlego08.essentials.api.chat.CustomRules;
+import fr.maxlego08.essentials.api.chat.ShowItem;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.database.dto.ChatMessageDTO;
 import fr.maxlego08.essentials.api.event.events.user.UserJoinEvent;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.messages.MessageUtils;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.DynamicCooldown;
 import fr.maxlego08.essentials.chat.CommandDisplay;
 import fr.maxlego08.essentials.chat.CustomDisplay;
 import fr.maxlego08.essentials.chat.ItemDisplay;
 import fr.maxlego08.essentials.chat.PlayerPingDisplay;
+import fr.maxlego08.essentials.chat.ShowItemInventory;
 import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.essentials.storage.ConfigStorage;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
@@ -26,41 +30,55 @@ import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.minimessage.tag.Tag;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
+import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 
 public class ChatModule extends ZModule {
 
+    private final List<ShowItem> showItems = new ArrayList<>();
     private final List<ChatDisplay> chatDisplays = new ArrayList<>();
     private final ExpiringCache<UUID, List<ChatMessageDTO>> chatMessagesCache = new ExpiringCache<>(1000 * 60);
     private final Pattern urlPattern = Pattern.compile("(https?://[\\w-\\.]+(\\:[0-9]+)?(/[\\w- ./?%&=]*)?)", Pattern.CASE_INSENSITIVE);
     private final List<ChatCooldown> chatCooldowns = new ArrayList<>();
     private final List<ChatFormat> chatFormats = new ArrayList<>();
     private final List<ChatPlaceholder> chatPlaceholders = new ArrayList<>();
-    private final String alphanumericRegex = "^[a-zA-Z0-9_.?!^¨%ù*&é\"#'{(\\[-|èêë`\\\\çà)\\]=}ûî+<>:²€$/\\-,-â@;ô ]+$";
-    private final String linkRegex = "[-a-zA-Z0-9@:%._+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)";
-    private final String itemaddersFontRegex = "(?<=:)(.*?)(?=\\s*\\:)";
-    private final String defaultChatFormat = "<hover:show_text:'&cReport this message'><click:run_command:'/report %player% chat'>⚠</click></hover> %moderator_action%<#ffffff><hover:show_text:'#ffd353ℹ Informations#3f3f3f:<newline>#3f3f3f• &7Money#3f3f3f: #4cd5ff%zessentials_user_formatted_balance_money%<newline>#3f3f3f• &7Coins#3f3f3f: #4cd5ff%zessentials_user_formatted_balance_coins%<newline><newline>&f➥ &7Click for more information'>%player%</hover> <#333333>» <gray><click:suggest_command:'/msg %player% '><hover:show_text:'&fSend a private message'><message></hover></click>";
-    private final String moderatorAction = "<hover:show_text:'<#ff8888>Punish the player'><click:run_command:'/sc %player%'><#ff8888>✗</click></hover> ";
-    private final String linkTransform = "<hover:show_text:'&fOpen the link'><click:open_url:'%url%'>%url%</click></hover>";
-    private final String dateFormat = "yyyy-MM-dd HH:mm:ss";
+    private final List<CustomRules> customRules = new ArrayList<>();
+    private ChatDisplay pingDisplay;
+    private String alphanumericRegex;
+    private String linkRegex;
+    private String itemaddersFontRegex;
+    private String defaultChatFormat;
+    private String moderatorAction;
+    private String linkTransform;
+    private String dateFormat;
+    private String antiFloodRegex;
     private SimpleDateFormat simpleDateFormat;
+    private Pattern playerNamePattern;
     private Pattern alphanumericPattern;
     private Pattern linkPattern;
     private Pattern fontPattern;
+    private Pattern floodRegex;
     private boolean enableAlphanumericRegex;
     private boolean enableLinkRegex;
     private boolean enableItemaddersFontRegex;
@@ -68,9 +86,12 @@ public class ChatModule extends ZModule {
     private boolean enableSameMessageCancel;
     private boolean enableChatFormat;
     private boolean enablePing;
+    private boolean enableAntiFlood;
     private boolean enableLinkTransform;
     private boolean enableChatMessages;
     private int chatCooldownMax;
+    private boolean enableCaps;
+    private double capsThreshold;
     private long[] chatCooldownArray;
     private boolean enablePlayerPingSound;
     private Sound playerPingSound;
@@ -88,27 +109,38 @@ public class ChatModule extends ZModule {
     public void loadConfiguration() {
         super.loadConfiguration();
 
-        this.alphanumericPattern = Pattern.compile(this.alphanumericRegex);
-        this.linkPattern = Pattern.compile(this.linkRegex);
-        this.fontPattern = Pattern.compile(this.itemaddersFontRegex);
+        this.alphanumericPattern = Pattern.compile(or(this.alphanumericRegex, "^[a-zA-Z0-9_.?!^¨%ù*&é\"#'{(\\[-|èêë`\\\\çà)\\]=}ûî+<>:²€$/\\-,-â@;ô ]+$"));
+        this.linkPattern = Pattern.compile(or(this.linkRegex, "[-a-zA-Z0-9@:%._+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)"));
+        this.fontPattern = Pattern.compile(or(this.itemaddersFontRegex, "(?<=:)(.*?)(?=\\s*\\:)"));
+        this.floodRegex = Pattern.compile(or(this.antiFloodRegex, "(.)\\1{3,}"));
         this.chatCooldownArray = this.chatCooldowns.stream().flatMapToLong(cooldown -> LongStream.of(cooldown.cooldown(), cooldown.messages())).toArray();
-        this.simpleDateFormat = new SimpleDateFormat(this.dateFormat);
+        this.simpleDateFormat = new SimpleDateFormat(or(this.dateFormat, "yyyy-MM-dd HH:mm:ss"));
 
         this.chatDisplays.clear();
-        if (enablePing) {
-            this.chatDisplays.add(new PlayerPingDisplay(playerPingColor, playerPingColorOther, playerPingSound, playerPingSoundVolume, playerPingSoundPitch));
+        if (this.enablePing) {
+            this.pingDisplay = new PlayerPingDisplay(this.playerPingColor, this.playerPingColorOther, this.playerPingSound, this.playerPingSoundVolume, this.playerPingSoundPitch);
         }
 
-        this.chatPlaceholders.forEach(chatPlaceholder -> this.chatDisplays.add(new CustomDisplay(chatPlaceholder.name(), chatPlaceholder.regex(), chatPlaceholder.result(), chatPlaceholder.permission())));
+        Pattern pattern = Pattern.compile("[!?#]?[a-z0-9_-]*");
+        this.chatPlaceholders.forEach(chatPlaceholder -> {
+            Matcher matcher = pattern.matcher(chatPlaceholder.name());
+            if (matcher.find()) {
+                this.chatDisplays.add(new CustomDisplay(chatPlaceholder.name(), chatPlaceholder.regex(), chatPlaceholder.result(), chatPlaceholder.permission()));
+            } else {
+                plugin.getLogger().severe("Custom Placeholders name must match pattern [!?#]?[a-z0-9_-]*, was " + chatPlaceholder.name() + ", Possible correction: " + MessageUtils.removeNonAlphanumeric(chatPlaceholder.name()));
+            }
+        });
 
         YamlConfiguration configuration = getConfiguration();
         if (configuration.getBoolean("item-placeholder.enable")) {
-            this.chatDisplays.add(new ItemDisplay(plugin, configuration.getString("item-placeholder.regex"), configuration.getString("item-placeholder.result"), configuration.getString("item-placeholder.permission")));
+            this.chatDisplays.add(new ItemDisplay(this.plugin, configuration.getString("item-placeholder.regex"), configuration.getString("item-placeholder.result"), configuration.getString("item-placeholder.permission")));
         }
 
         if (configuration.getBoolean("command-placeholder.enable")) {
             this.chatDisplays.add(new CommandDisplay(configuration.getString("command-placeholder.result"), configuration.getString("command-placeholder.permission")));
         }
+
+        this.customRules.removeIf(rule -> rule.pattern() == null);
     }
 
     @EventHandler
@@ -136,6 +168,13 @@ public class ChatModule extends ZModule {
         String message = PlainTextComponentSerializer.plainText().serialize(event.originalMessage());
         final String minecraftMessage = message;
 
+        Optional<CustomRules> optional = this.customRules.stream().filter(rule -> !player.hasPermission(rule.permission()) && rule.pattern().matcher(minecraftMessage).find()).findFirst();
+        if (optional.isPresent()) {
+            message(player, optional.get().message());
+            event.setCancelled(true);
+            return;
+        }
+
         ChatResult chatResult = analyzeMessage(user, message);
         if (!chatResult.isValid()) {
             cancelEvent(event, chatResult.message(), chatResult.arguments());
@@ -153,16 +192,20 @@ public class ChatModule extends ZModule {
         PaperComponent paperComponent = (PaperComponent) this.componentMessage;
         String chatFormat = papi(getChatFormat(player), player);
 
+        TagResolver.Builder builder = TagResolver.builder();
+        for (ChatDisplay chatDisplay : this.chatDisplays) {
+            message = chatDisplay.display(paperComponent, builder, player, null, message);
+        }
+
         String finalMessage = message;
         event.renderer((source, sourceDisplayName, ignoredMessage, viewer) -> {
 
             String localMessage = finalMessage;
-            TagResolver.Builder builder = TagResolver.builder();
 
             boolean isModerator = viewer instanceof Player playerViewer && hasPermission(playerViewer, Permission.ESSENTIALS_CHAT_MODERATOR);
             if (viewer instanceof Player playerViewer) {
-                for (ChatDisplay chatDisplay : this.chatDisplays) {
-                    localMessage = chatDisplay.display(paperComponent, builder, player, playerViewer, localMessage);
+                if (this.pingDisplay != null) {
+                    localMessage = this.pingDisplay.display(paperComponent, builder, player, playerViewer, localMessage);
                 }
             }
 
@@ -195,6 +238,14 @@ public class ChatModule extends ZModule {
         String lastMessage = user.getLastMessage();
         if (this.enableSameMessageCancel && message.equalsIgnoreCase(lastMessage) && !hasPermission(player, Permission.ESSENTIALS_CHAT_BYPASS_SAME_MESSAGE)) {
             return new ChatResult(false, Message.CHAT_SAME);
+        }
+
+        if (message.length() > 3 && this.enableCaps && containsTooManyCaps(message) && !hasPermission(player, Permission.ESSENTIALS_CHAT_BYPASS_CAPS)) {
+            return new ChatResult(false, Message.CHAT_CAPS);
+        }
+
+        if (this.enableAntiFlood && containsFlood(message) && !hasPermission(player, Permission.ESSENTIALS_CHAT_BYPASS_FLOOD)) {
+            return new ChatResult(false, Message.CHAT_FLOOD);
         }
 
         return new ChatResult(true, null);
@@ -252,4 +303,94 @@ public class ChatModule extends ZModule {
             message(sender, Message.CHAT_MESSAGES_FOOTER, "%page%", page, "%nextPage%", page + 1, "%previousPage%", page - 1, "%maxPage%", maxPage, "%player%", targetName);
         });
     }
+
+    private void updatePlayerNamePattern() {
+        String patternString = Bukkit.getOnlinePlayers().stream().map(Player::getName).map(Pattern::quote).collect(Collectors.joining("|", "\\b(", ")\\b"));
+        this.playerNamePattern = Pattern.compile(patternString);
+    }
+
+    @EventHandler
+    public void onQuit(PlayerQuitEvent event) {
+        updatePlayerNamePattern();
+    }
+
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        updatePlayerNamePattern();
+    }
+
+    private boolean containsTooManyCaps(String message) {
+        if (this.playerNamePattern != null) {
+            Matcher matcher = this.playerNamePattern.matcher(message);
+            message = matcher.replaceAll("");  // Remove nicknames from players
+        }
+
+        int upperCaseCount = 0;
+        int totalLetterCount = 0;
+
+        // Count the number of capital letters and total letters
+        for (char c : message.toCharArray()) {
+            if (Character.isLetter(c)) {
+                totalLetterCount++;
+                if (Character.isUpperCase(c)) {
+                    upperCaseCount++;
+                }
+            }
+        }
+
+        // If the message does not contain letters, it cannot be considered capitalized spam
+        if (totalLetterCount == 0) {
+            return false;
+        }
+
+        // Calculate percentage of caps
+        double upperCasePercentage = (double) upperCaseCount / totalLetterCount;
+
+        // Check if the percentage of caps exceeds the threshold
+        return upperCasePercentage > capsThreshold;
+    }
+
+
+    public boolean containsFlood(String message) {
+        return this.floodRegex.matcher(message).find();
+    }
+
+    public String createHoverItemStack(Player player, ItemStack itemStack) {
+
+        this.showItems.removeIf(ShowItem::isExpired);
+
+        String code = generateRandomString(16);
+
+        ShowItem showItem = new ShowItem(player, itemStack, System.currentTimeMillis() + (1000 * 300), code);
+        this.showItems.add(showItem);
+
+        return code;
+    }
+
+    public void openShowItem(Player player, String code) {
+
+        this.showItems.removeIf(ShowItem::isExpired);
+        Optional<ShowItem> optional = this.showItems.stream().filter(showItem -> showItem.code().equals(code)).findFirst();
+        if (optional.isEmpty()) {
+            message(player, Message.CODE_NOT_FOUND);
+            return;
+        }
+
+        new ShowItemInventory(optional.get(), player);
+    }
+
+    @EventHandler
+    public void onClick(InventoryClickEvent event) {
+        if (event.getInventory().getHolder() instanceof ShowItemInventory) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onClick(InventoryDragEvent event) {
+        if (event.getInventory().getHolder() instanceof ShowItemInventory) {
+            event.setCancelled(true);
+        }
+    }
+
 }

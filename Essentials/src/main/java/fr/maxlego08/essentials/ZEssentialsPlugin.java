@@ -65,6 +65,7 @@ import fr.maxlego08.essentials.module.modules.HomeModule;
 import fr.maxlego08.essentials.module.modules.MailBoxModule;
 import fr.maxlego08.essentials.placeholders.DistantPlaceholder;
 import fr.maxlego08.essentials.placeholders.LocalPlaceholder;
+import fr.maxlego08.essentials.protocollib.PacketListener;
 import fr.maxlego08.essentials.scoreboard.ScoreboardModule;
 import fr.maxlego08.essentials.server.PaperServer;
 import fr.maxlego08.essentials.server.SpigotServer;
@@ -108,6 +109,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.lang.reflect.Modifier;
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
@@ -202,20 +204,24 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
         new Metrics(this, 21703);
 
+        // Load ProtocolLib
+        if (this.moduleManager.getModuleConfiguration("chat").getBoolean("command-placeholder.enable-replace-all-message") && getServer().getPluginManager().isPluginEnabled("ProtocolLib") && this.isPaperVersion()) {
+            PacketListener packetListener = new PacketListener();
+            packetListener.registerPackets(this);
+        }
+
         this.generateDocs();
     }
 
     @Override
     public void onLoad() {
-
         try {
             Class.forName("net.milkbowl.vault.economy.Economy");
             new VaultEconomy(this);
             getLogger().info("Register Vault Economy.");
-        } catch (final ClassNotFoundException ignored) {
-            ignored.printStackTrace();
+        } catch (final ClassNotFoundException exception) {
+            exception.printStackTrace();
         }
-
     }
 
     @Override

@@ -12,6 +12,9 @@ project(':Hooks:Vault').projectDir = file("Hooks/Vault")
 include 'Hooks:Redis'
 project(':Hooks:Redis').projectDir = file("Hooks/Redis")
 
+include 'Hooks:ProtocolLib'
+project(':Hooks:ProtocolLib').projectDir = file("Hooks/ProtocolLib")
+
 include 'NMS:R3_1_20'
 project(':NMS:R3_1_20').projectDir = file("NMS/R3_1_20")
 

@@ -64,7 +64,7 @@ subprojects {
     dependencies {
         paperweight.paperDevBundle("1.20.4-R0.1-SNAPSHOT")
         implementation "com.tcoded:FoliaLib:0.3.1"
-        implementation 'com.github.Maxlego08:Sarah:0df8b75dc3'
+        implementation 'com.github.Maxlego08:Sarah:1.6'
         implementation('redis.clients:jedis:5.1.2') {
             exclude group: 'com.google.code.gson', module: 'gson'
             exclude group: 'org.slf4j', module: 'slf4j-api'
@@ -85,6 +85,7 @@ tasks.register("buildAll") {
             ":EssentialsApi:build",
             ":Hooks:Vault:build",
             ":Hooks:Redis:build",
+            ":Hooks:ProtocolLib:build",
             ":NMS:R3_1_20:build",
             ":Essentials:build"
     )

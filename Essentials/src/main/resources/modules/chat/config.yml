@@ -67,6 +67,18 @@ link-regex: '[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%
 # Regex to check itemAdders font
 itemadders-font-regex: '(?<=:)(.*?)(?=\s*\:)'
 
+# Allows to activate the flood check in the message, if the player will write messages with too many characters in capital letter, the message will be blocked
+enable-caps: true
+
+# Maximum character percentage per sentence, between 0 and 1
+caps-threshold: 0.5
+
+# Enable anti-flood regex
+enable-anti-flood: true
+
+# Allows players to avoid writing the same characters several times in a row, here 4 times. Thus avoid messages like "AHHHHHHHHHHHH"
+anti-flood-regex: "(.)\\1{3,}"
+
 # Set the number of messages and cooldown between each message in milliseconds
 # The faster the player will send message the faster the cooldown between each message will be
 chat-cooldowns:
@@ -171,7 +183,31 @@ item-placeholder:
   result: "&bx<amount> &f<item>"
   permission: "zessentials.chat.placeholder.item" # You must define a permission
 
-command-placeholder: # ./<command> placeholder
+# Allows to replace a text to transform it into clickable text to suggest a command
+# Message: "Please open the auction house with the ./zah" will be transformed into "Please open the auction house with the /zah" with /zah that will be clickable
+# If you want to use a command in a sentence, you must do this: ./<your command> [<aliases>].
+# Example: "Please use ./zah. to open the auction house"
+command-placeholder: # ./<command>. placeholder
   enable: true
-  result: "<hover:show_text:'<yellow>Try this command'><click:suggest_command:'/%command%'><yellow>/%command%</yellow></click></hover>"
+  result: "<hover:show_text:'<yellow>Try this command'><click:suggest_command:'/%fixed_command%'><yellow>/%command%</yellow></click></hover>"
   permission: "zessentials.chat.placeholder.command" # You must define a permission
+
+  # Replace check all messages sent to players and replace the command if it exists
+  # You must use the ProtocolLib plugin
+  # You must be on a paper basis, using spigot will not work
+  enable-replace-all-message: false
+
+# Allows to define custom rules with regex
+custom-rules:
+  - regex: "(can|may|would you like if) i (have|be|become|get|has) (op|admin|mod|builder)"
+    permission: "essentials.chat.bypass.custom.rules"
+    message: "&cCurrently, we are not looking for new staff."
+  - regex: "(do|are) you (need|wish|looking for) (any|some|one|good) (op|ops|operators|admins|mods|builders|new people|ateam)"
+    permission: "essentials.chat.bypass.custom.rules"
+    message: "&cCurrently, we are not looking for new staff."
+  - regex: "((admin|op|team|server|owner) (is|are)) + *(dick|cock|duck|noob)"
+    permission: "essentials.chat.bypass.custom.rules"
+    message: "&cYet so much hate, we are only love"
+  - regex: "this server (is (bad|crappy|shitty)|suck)"
+    permission: "essentials.chat.bypass.custom.rules"
+    message: "&cNo, the server is great, you’re the bad one!"

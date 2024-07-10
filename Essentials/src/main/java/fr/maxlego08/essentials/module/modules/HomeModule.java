@@ -24,9 +24,9 @@ import java.util.List;
 public class HomeModule extends ZModule {
 
     private final List<HomePermission> permissions = new ArrayList<>();
-
-    private HomeDisplay homeDisplay = HomeDisplay.MULTI_LINE;
-    private String homeRegex = "[a-zA-Z0-9]+";
+    private final List<String> disableWorlds = new ArrayList<>();
+    private final HomeDisplay homeDisplay = HomeDisplay.MULTI_LINE;
+    private final String homeRegex = "[a-zA-Z0-9]+";
     private int homeNameMax;
     private int homeNameMin;
 
@@ -96,16 +96,7 @@ public class HomeModule extends ZModule {
     private Object[] formatHomeInformation(Home home, int homeAmount, int maxHome) {
         Location location = home.getLocation();
         World world = location.getWorld();
-        return new Object[]{
-                "%count%", homeAmount,
-                "%max%", maxHome,
-                "%name%", home.getName(),
-                "%world%", name(world.getName()),
-                "%environment%", name(world.getEnvironment().name()),
-                "%x%", location.getBlockX(),
-                "%y%", location.getBlockY(),
-                "%z%", location.getBlockZ()
-        };
+        return new Object[]{"%count%", homeAmount, "%max%", maxHome, "%name%", home.getName(), "%world%", name(world.getName()), "%environment%", name(world.getEnvironment().name()), "%x%", location.getBlockX(), "%y%", location.getBlockY(), "%z%", location.getBlockZ()};
     }
 
     public Placeholders getHomePlaceholders(Home home, int homeAmount, int maxHome) {
@@ -208,5 +199,9 @@ public class HomeModule extends ZModule {
             iStorage.upsertHome(uuid, home);
             message(player, Message.COMMAND_HOME_ADMIN_SET, "%name%", homeName, "%player%", username);
         });
+    }
+
+    public List<String> getDisableWorlds() {
+        return disableWorlds;
     }
 }
