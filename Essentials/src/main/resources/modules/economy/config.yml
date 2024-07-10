@@ -153,3 +153,7 @@ baltop-message-economy: money
 
 # Number of players to display in the message
 baltop-message-amount: 10
+
+# Allows players to cache their money offline.
+# If you want to have a baltop system with all your players you must activate this option
+store-offline-player-money: false

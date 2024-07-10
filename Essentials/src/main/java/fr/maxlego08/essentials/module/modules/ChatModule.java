@@ -139,6 +139,8 @@ public class ChatModule extends ZModule {
         if (configuration.getBoolean("command-placeholder.enable")) {
             this.chatDisplays.add(new CommandDisplay(configuration.getString("command-placeholder.result"), configuration.getString("command-placeholder.permission")));
         }
+
+        this.customRules.removeIf(rule -> rule.pattern() == null);
     }
 
     @EventHandler

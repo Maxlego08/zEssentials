@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.hooks;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.economy.EconomyManager;
 import fr.maxlego08.essentials.api.storage.IStorage;
+import fr.maxlego08.essentials.api.user.User;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
@@ -89,7 +90,17 @@ public class VaultEconomy implements Economy {
 
     @Override
     public double getBalance(OfflinePlayer player) {
-        return this.essentialsPlugin.getStorageManager().getStorage().getUser(player.getUniqueId()).getBalance(getEconomy()).doubleValue();
+        if (player.isOnline()) {
+            User user = this.essentialsPlugin.getStorageManager().getStorage().getUser(player.getUniqueId());
+            if (user != null) {
+                return user.getBalance(getEconomy()).doubleValue();
+            }
+        }
+        return getBalanceOfflinePlayer(player);
+    }
+
+    private double getBalanceOfflinePlayer(OfflinePlayer offlinePlayer) {
+        return this.essentialsPlugin.getEconomyManager().getBalanceOffline(offlinePlayer.getUniqueId()).doubleValue();
     }
 
     @Override

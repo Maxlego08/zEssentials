@@ -29,7 +29,7 @@ public abstract class Repository extends ZUtils {
     }
 
     public String getTableName() {
-        return this.connection.getDatabaseConfiguration().tablePrefix() + tableName;
+        return this.connection.getDatabaseConfiguration().getTablePrefix() + tableName;
     }
 
     protected void upsert(Consumer<Schema> consumer) {

@@ -177,4 +177,6 @@ public interface EconomyManager extends Module {
     void sendBaltop(Player player, int page);
 
     void refreshBaltop(Economy economy);
+
+    BigDecimal getBalanceOffline(UUID uniqueId);
 }

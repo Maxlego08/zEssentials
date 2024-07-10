@@ -2,6 +2,7 @@ package fr.maxlego08.essentials.storage.database.repositeries;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
+import fr.maxlego08.essentials.api.database.dto.UserEconomyDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.storage.database.Repository;
 import fr.maxlego08.sarah.DatabaseConnection;
@@ -28,4 +29,8 @@ public class UserEconomyRepository extends Repository {
         return select(EconomyDTO.class, table -> table.where("unique_id", uuid));
     }
 
+    public List<UserEconomyDTO> getAll() {
+        return select(UserEconomyDTO.class, table -> {
+        });
+    }
 }

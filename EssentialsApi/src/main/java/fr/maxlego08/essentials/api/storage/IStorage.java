@@ -6,6 +6,7 @@ import fr.maxlego08.essentials.api.database.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.MailBoxDTO;
 import fr.maxlego08.essentials.api.database.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.database.dto.UserDTO;
+import fr.maxlego08.essentials.api.database.dto.UserEconomyDTO;
 import fr.maxlego08.essentials.api.database.dto.UserEconomyRankingDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
@@ -109,4 +110,6 @@ public interface IStorage {
     List<UserEconomyRankingDTO> getEconomyRanking(Economy economy);
 
     List<MailBoxDTO> getMailBox(UUID uuid);
+
+    void fetchOfflinePlayerEconomies(Consumer<List<UserEconomyDTO>> consumer);
 }
