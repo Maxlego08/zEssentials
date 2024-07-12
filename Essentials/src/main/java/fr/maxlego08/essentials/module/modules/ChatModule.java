@@ -140,7 +140,7 @@ public class ChatModule extends ZModule {
             this.chatDisplays.add(new CommandDisplay(configuration.getString("command-placeholder.result"), configuration.getString("command-placeholder.permission")));
         }
 
-        this.customRules.removeIf(rule -> rule.pattern() == null);
+        this.customRules.removeIf(CustomRules::isNotValid);
     }
 
     @EventHandler
@@ -168,7 +168,7 @@ public class ChatModule extends ZModule {
         String message = PlainTextComponentSerializer.plainText().serialize(event.originalMessage());
         final String minecraftMessage = message;
 
-        Optional<CustomRules> optional = this.customRules.stream().filter(rule -> !player.hasPermission(rule.permission()) && rule.pattern().matcher(minecraftMessage).find()).findFirst();
+        Optional<CustomRules> optional = this.customRules.stream().filter(rule -> rule.match(player, minecraftMessage)).findFirst();
         if (optional.isPresent()) {
             message(player, optional.get().message());
             event.setCancelled(true);

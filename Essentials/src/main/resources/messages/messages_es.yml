@@ -13,7 +13,7 @@
 # ACTION - Sends the message in the action bar
 # TCHAT_AND_ACTION - Sends message in action bar and chat
 # CENTER - Send one or more messages in the chat, but they will be centered
-# TITLE - Sends a title
+# TITLE - Sends a username
 #
 ########################################################################################################################
 

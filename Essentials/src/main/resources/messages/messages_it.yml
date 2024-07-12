@@ -13,14 +13,14 @@
 # ACTION - Sends the message in the action bar
 # ACTION - Sends message in action bar and chat
 # CENTER - Send one or more messages in the chat, but they will be centered
-# TITLE - Sends a title
+# TITLE - Sends a username
 #
 ########################################################################################################################
 # Plugin's prefix
 # Translation made by Melon-Oof
 prefix: "#03fcb6zEssentials #656665• "
 you: "Tu"
-#Trash can GUI title
+#Trash can GUI username
 trash: "&8Cestino della Spazzatura"
 player-not-found: "&f%player% <error>non è stato trovato."
 module-disable: "<error>Il modulo &f%name% <error> è disabilitato, non puoi usare questo comando."

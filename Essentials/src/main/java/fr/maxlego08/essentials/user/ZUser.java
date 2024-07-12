@@ -367,7 +367,7 @@ public class ZUser extends ZUtils implements User {
         Economy finalEconomy;
         BigDecimal finalBigDecimal;
 
-        if (isOnline()) {
+        if (isOnline() && this.plugin.getServer().isPrimaryThread()) {
             UserEconomyUpdateEvent event = new UserEconomyUpdateEvent(this, economy, bigDecimal);
             event.callEvent();
 
@@ -390,7 +390,7 @@ public class ZUser extends ZUtils implements User {
 
         if (isOnline()) {
             UserEconomyPostUpdateEvent postUpdateEvent = new UserEconomyPostUpdateEvent(this, finalEconomy, finalBigDecimal);
-            postUpdateEvent.callEvent();
+            postUpdateEvent.callEvent(this.plugin);
         }
     }
 

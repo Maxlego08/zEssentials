@@ -25,7 +25,7 @@ public class PacketChatListener extends PacketAdapter implements PacketRegister 
 
     private final EssentialsPlugin plugin;
     private final String result;
-    private final Pattern pattern = Pattern.compile("\\./(.*?)(\\.|$)");
+    private final Pattern pattern = Pattern.compile("\\./(.*?)(?=\\.|</|$)");
 
     public PacketChatListener(EssentialsPlugin plugin, String result) {
         super(PacketAdapter.params().plugin(plugin).listenerPriority(ListenerPriority.HIGHEST).types(PacketType.Play.Server.SYSTEM_CHAT));
@@ -80,9 +80,7 @@ public class PacketChatListener extends PacketAdapter implements PacketRegister 
             String command = matcher.group(1); // Get the content between ./ and . or end of string
 
             String placeholderTag = MessageUtils.removeNonAlphanumeric("cmd_" + command.replace(" ", "_"));
-            builder.resolver(Placeholder.component(placeholderTag, adventureComponent.getComponent(
-                    result.replace("%command%", command).replace("%fixed_command%", command.replace("'", "\\'"))
-            )));
+            builder.resolver(Placeholder.component(placeholderTag, adventureComponent.getComponent(result.replace("%command%", command).replace("%fixed_command%", command.replace("'", "\\'")))));
             matcher.appendReplacement(formattedMessage, "<" + placeholderTag + ">");
         }
 

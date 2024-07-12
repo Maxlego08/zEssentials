@@ -7,10 +7,10 @@ import java.util.List;
 public interface PlayerBoard {
 
     /**
-     * Update the scoreboard title.
+     * Update the scoreboard username.
      *
-     * @param title the new scoreboard title
-     * @throws IllegalArgumentException if the title is longer than 32 chars on 1.12 or lower
+     * @param title the new scoreboard username
+     * @throws IllegalArgumentException if the username is longer than 32 chars on 1.12 or lower
      * @throws IllegalStateException    if {@link #delete()} was call before
      */
     void updateTitle(String title);
