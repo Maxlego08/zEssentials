@@ -1,73 +1,37 @@
 package fr.maxlego08.essentials.api.discord;
 
-import org.bukkit.entity.Player;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
-import java.awt.*;
-
-public record DiscordConfiguration(boolean isEnable, String webhookUrl, AvatarType avatarType,
-                                   DiscordMessageType discordMessageType, String message, String webhookColor,
-                                   String username) {
+public record DiscordConfiguration(boolean isEnable, String webhookUrl, String avatarUrl, String content,
+                                   String username, List<DiscordEmbedConfiguration> embeds) {
 
     private static final String URL_ISOMETRIC = "https://mc-heads.net/head/%s";
     private static final String URL_AVATAR = "https://mc-heads.net/avatar/%s";
 
     public static DiscordConfiguration disabled() {
-        return new DiscordConfiguration(false, null, AvatarType.NONE, DiscordMessageType.NORMAL, null, null, null);
+        return new DiscordConfiguration(false, null, null, null, null, new ArrayList<>());
     }
 
-    public void apply(DiscordWebhook discordWebhook, Player player, String message) {
+    public void apply(DiscordWebhook discordWebhook, String playerName, UUID playerUuid, String message) {
 
         if (this.username != null) {
-            discordWebhook.setUsername(this.replace(this.username, player, message));
+            discordWebhook.setUsername(this.replace(this.username, playerName, message, playerUuid));
         }
 
-        switch (this.avatarType) {
-            case NONE -> {
-            }
-            case AVATAR -> discordWebhook.setAvatarUrl(String.format(URL_AVATAR, player.getUniqueId()));
-            case ISOMETRIC -> discordWebhook.setAvatarUrl(String.format(URL_ISOMETRIC, player.getUniqueId()));
+        if (this.avatarUrl != null) {
+            discordWebhook.setAvatarUrl(this.replace(this.avatarUrl, playerName, message, playerUuid));
         }
 
-        if (this.discordMessageType == DiscordMessageType.WEBHOOK) {
-
-            DiscordWebhook.EmbedObject embedObject = new DiscordWebhook.EmbedObject();
-            embedObject.setDescription(this.replace(this.message, player, message));
-            embedObject.setColor(hexToColor(this.webhookColor));
-
-            discordWebhook.addEmbed(embedObject);
-
-        } else {
-
-            discordWebhook.setContent(this.replace(this.message, player, message));
+        if (this.content != null) {
+            discordWebhook.setContent(this.replace(this.content, playerName, message, playerUuid));
         }
 
+        this.embeds.forEach(embed -> embed.apply(discordWebhook, playerName, playerUuid, message));
     }
 
-    private String replace(String value, Player player, String message) {
-        return value == null ? "" : value.replace("%player%", player.getName()).replace("%message%", message == null ? "" : message);
-    }
-
-    private Color hexToColor(String hex) {
-        // Retire le caractère '#' s'il est présent
-        if (hex.startsWith("#")) {
-            hex = hex.substring(1);
-        }
-
-        // Vérifie que la chaîne de caractères contient bien 6 ou 8 caractères hexadécimaux
-        if (hex.length() != 6 && hex.length() != 8) {
-            throw new IllegalArgumentException("Invalid hex color string");
-        }
-
-        // Parse les composants RGB ou RGBA
-        int r = Integer.parseInt(hex.substring(0, 2), 16);
-        int g = Integer.parseInt(hex.substring(2, 4), 16);
-        int b = Integer.parseInt(hex.substring(4, 6), 16);
-        int a = 255; // Opacité par défaut
-
-        if (hex.length() == 8) {
-            a = Integer.parseInt(hex.substring(6, 8), 16);
-        }
-
-        return new Color(r, g, b, a);
+    private String replace(String value, String playerName, String message, UUID uuid) {
+        return value == null ? "" : value.replace("%player%", playerName).replace("%message%", message == null ? "" : message).replace("%uuid%", uuid.toString());
     }
 }

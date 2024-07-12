@@ -12,45 +12,44 @@
 #
 # You must define the URL of the webhook and the type of logo display
 #
-# AVATAR: https://mc-heads.net/#basic
-# ISOMETRIC: https://mc-heads.net/#isometric
-# NONE: Will display the webhook discord logo by default
-#
 ########################################################################################################################
 
 enable: true
 
 # Send the player’s message on your discord
 chat-message:
-  enable: false
+  enable: false # Enable or not the webhook
   webhook: "https://discord.com/api/webhooks/"
-  avatar-type: AVATAR
+  avatar: "https://mc-heads.net/avatar/%uuid%"
   message: "%message%"
   username: "%player%"
 
 # Send a message when a player logs in
 join-message:
-  enable: false
+  enable: false # Enable or not the webhook
   webhook: "https://discord.com/api/webhooks/"
-  avatar-type: ISOMETRIC
-  message: "%player% just logged in"
-  type: WEBHOOK
-  webhook-color: "#00ff00"
+  embeds:
+    - author:
+        name: "%player% just logged in"
+        icon-url: "https://mc-heads.net/head/%uuid%"
+      color: "#00ff00" # Sets the color of the embed
 
 # Send a message when a player logs out
 left-message:
-  enable: false
+  enable: false # Enable or not the webhook
   webhook: "https://discord.com/api/webhooks/"
-  avatar-type: NONE
-  message: "%player% just logged out"
-  type: WEBHOOK
-  webhook-color: "#ff0000"
+  embeds:
+    - author:
+        name: "%player% just logged out"
+        icon-url: "https://mc-heads.net/head/%uuid%"
+      color: "#ff0000" # Sets the color of the embed
 
 # Sends a message when the player first logs in
 first-join-message:
-  enable: false
+  enable: false # Enable or not the webhook
   webhook: "https://discord.com/api/webhooks/"
-  avatar-type: NONE
-  message: "%player% just logged out"
-  type: WEBHOOK
-  webhook-color: "#ff0000"
+  embeds:
+    - author:
+        name: "%player% just logged in for the first time"
+        icon-url: "https://mc-heads.net/head/%uuid%"
+      color: "#44ff44" # Sets the color of the embed

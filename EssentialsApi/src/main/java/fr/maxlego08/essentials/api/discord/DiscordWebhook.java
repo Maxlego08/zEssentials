@@ -2,10 +2,8 @@ package fr.maxlego08.essentials.api.discord;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.awt.*;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.lang.reflect.Array;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -96,19 +94,19 @@ public class DiscordWebhook {
                 if (footer != null) {
                     JSONObject jsonFooter = new JSONObject();
 
-                    jsonFooter.put("text", footer.getText());
-                    jsonFooter.put("icon_url", footer.getIconUrl());
-                    jsonEmbed.put("footer", jsonFooter);
+                    if (footer.getText() != null) jsonFooter.put("text", footer.getText());
+                    if (footer.getIconUrl() != null) jsonFooter.put("icon_url", footer.getIconUrl());
+                    if (footer.getText() != null || footer.getIconUrl() != null) jsonEmbed.put("footer", jsonFooter);
                 }
 
-                if (image != null) {
+                if (image != null && image.getUrl() != null) {
                     JSONObject jsonImage = new JSONObject();
 
                     jsonImage.put("url", image.getUrl());
                     jsonEmbed.put("image", jsonImage);
                 }
 
-                if (thumbnail != null) {
+                if (thumbnail != null && thumbnail.getUrl() != null) {
                     JSONObject jsonThumbnail = new JSONObject();
 
                     jsonThumbnail.put("url", thumbnail.getUrl());
@@ -118,21 +116,26 @@ public class DiscordWebhook {
                 if (author != null) {
                     JSONObject jsonAuthor = new JSONObject();
 
-                    jsonAuthor.put("name", author.getName());
-                    jsonAuthor.put("url", author.getUrl());
-                    jsonAuthor.put("icon_url", author.getIconUrl());
-                    jsonEmbed.put("author", jsonAuthor);
+                    if (author.getName() != null) jsonAuthor.put("name", author.getName());
+                    if (author.getUrl() != null) jsonAuthor.put("url", author.getUrl());
+                    if (author.getIconUrl() != null) jsonAuthor.put("icon_url", author.getIconUrl());
+
+                    if (author.getName() != null || author.getUrl() != null || author.getIconUrl() != null) {
+                        jsonEmbed.put("author", jsonAuthor);
+                    }
                 }
 
                 List<JSONObject> jsonFields = new ArrayList<>();
                 for (EmbedObject.Field field : fields) {
                     JSONObject jsonField = new JSONObject();
 
-                    jsonField.put("name", field.getName());
-                    jsonField.put("value", field.getValue());
-                    jsonField.put("inline", field.isInline());
+                    if (field.getName() != null && field.getValue() != null) {
+                        jsonField.put("name", field.getName());
+                        jsonField.put("value", field.getValue());
+                        jsonField.put("inline", field.isInline());
 
-                    jsonFields.add(jsonField);
+                        jsonFields.add(jsonField);
+                    }
                 }
 
                 jsonEmbed.put("fields", jsonFields.toArray());

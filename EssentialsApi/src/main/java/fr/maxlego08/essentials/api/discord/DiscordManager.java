@@ -4,4 +4,10 @@ public interface DiscordManager {
 
     DiscordConfiguration getChatConfiguration();
 
+    DiscordConfiguration getFirstJoinConfiguration();
+
+    DiscordConfiguration getJoinConfiguration();
+
+    DiscordConfiguration getLeftConfiguration();
+
 }
