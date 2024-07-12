@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.module;
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.modules.Module;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
+import fr.maxlego08.essentials.discord.DiscordModule;
 import fr.maxlego08.essentials.economy.EconomyModule;
 import fr.maxlego08.essentials.hologram.HologramModule;
 import fr.maxlego08.essentials.kit.KitModule;
@@ -56,6 +57,7 @@ public class ZModuleManager implements ModuleManager {
         if (plugin.isPaperVersion()) {
             this.modules.put(JoinQuitModule.class, new JoinQuitModule(this.plugin));
             this.modules.put(ChatModule.class, new ChatModule(this.plugin));
+            this.modules.put(DiscordModule.class, new DiscordModule(this.plugin));
         }
         this.modules.put(MessageModule.class, new MessageModule(this.plugin));
         this.modules.put(KitModule.class, new KitModule(this.plugin));

@@ -25,6 +25,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Abstract base class representing a component that can be serialized to and deserialized from JSON.
+ * Based on <a href="https://github.com/itsme-to/ItsMyConfig/tree/main/src/main/java/to/itsme/itsmyconfig/component">ItsMyConfig</a>
+ */
 public abstract class AbstractComponent {
 
     public static final Gson GSON = new GsonBuilder()
