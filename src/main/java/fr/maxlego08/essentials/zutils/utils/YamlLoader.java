@@ -1,5 +1,6 @@
 package fr.maxlego08.essentials.zutils.utils;
 
+import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.configuration.NonLoadable;
 import fr.maxlego08.essentials.api.modules.Loadable;
 import org.bukkit.configuration.ConfigurationSection;
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
 
 public abstract class YamlLoader extends ZUtils {
 
-    protected void loadYamlConfirmation(YamlConfiguration configuration) {
+    protected void loadYamlConfirmation(EssentialsPlugin plugin, YamlConfiguration configuration) {
         for (Field field : this.getClass().getDeclaredFields()) {
 
             if (field.isAnnotationPresent(NonLoadable.class)) continue;
@@ -44,7 +45,7 @@ public abstract class YamlLoader extends ZUtils {
                     field.set(this, new BigDecimal(configuration.getString(configKey, "0")));
                 } else if (field.getType().isEnum()) {
                     Class<? extends Enum> enumType = (Class<? extends Enum>) field.getType();
-                    field.set(this, Enum.valueOf(enumType, configuration.getString(configKey).toUpperCase()));
+                    field.set(this, Enum.valueOf(enumType, configuration.getString(configKey, "").toUpperCase()));
                 } else if (field.getType().equals(List.class)) {
 
                     Type genericFieldType = field.getGenericType();
@@ -68,7 +69,7 @@ public abstract class YamlLoader extends ZUtils {
                     field.set(this, createInstanceFromMap(((Class<?>) field.getGenericType()).getConstructors()[0], map));
                 }
             } catch (Exception exception) {
-                exception.printStackTrace();
+                plugin.getLogger().severe("An error with loading field " + field.getName() + ": " + exception.getMessage());
             }
         }
     }

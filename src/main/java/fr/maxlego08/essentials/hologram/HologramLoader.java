@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.hologram;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.hologram.Hologram;
 import fr.maxlego08.essentials.api.hologram.HologramLine;
+import fr.maxlego08.essentials.api.hologram.HologramManager;
 import fr.maxlego08.essentials.api.hologram.HologramType;
 import fr.maxlego08.essentials.api.hologram.configuration.BlockHologramConfiguration;
 import fr.maxlego08.essentials.api.hologram.configuration.HologramConfiguration;
@@ -49,8 +50,8 @@ public class HologramLoader extends ZUtils implements Loader<Hologram> {
         HologramConfiguration hologramConfiguration;
         hologramConfiguration = hologramType == HologramType.BLOCK ? new BlockHologramConfiguration() : hologramType == HologramType.ITEM ? new ItemHologramConfiguration() : new TextHologramConfiguration();
 
-        // Hologram hologram = new CraftHologram(this.plugin, hologramType, hologramConfiguration, (String) objects[0], name, location);
-        Hologram hologram = null;
+        HologramManager hologramManager = this.plugin.getHologramManager();
+        Hologram hologram = hologramManager.createHologram(hologramType, hologramConfiguration, (String) objects[0], name, location);
 
         loadConfiguration(configuration, hologramConfiguration);
 

@@ -66,8 +66,6 @@ public record DiscordEmbedConfiguration(String title, String description, String
             embedObjects.add(embedObject);
         }
 
-        System.out.println("Résult: " + embedObjects);
-
         return embedObjects;
     }
 

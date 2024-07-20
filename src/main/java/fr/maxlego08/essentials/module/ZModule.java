@@ -55,7 +55,7 @@ public abstract class ZModule extends YamlLoader implements Module {
         }
 
         YamlConfiguration configuration = getConfiguration();
-        this.loadYamlConfirmation(configuration);
+        this.loadYamlConfirmation(this.plugin, configuration);
 
         this.isEnable = configuration.getBoolean("enable", true);
     }

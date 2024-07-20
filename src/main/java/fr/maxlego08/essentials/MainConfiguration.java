@@ -82,7 +82,7 @@ public class MainConfiguration extends YamlLoader implements Configuration {
         this.plugin.reloadConfig();
 
         YamlConfiguration configuration = (YamlConfiguration) this.plugin.getConfig();
-        this.loadYamlConfirmation(configuration);
+        this.loadYamlConfirmation(this.plugin, configuration);
 
         this.databaseConfiguration = new DatabaseConfiguration(
                 configuration.getString("database-configuration.tablePrefix"),
@@ -95,8 +95,8 @@ public class MainConfiguration extends YamlLoader implements Configuration {
                 DatabaseType.MYSQL
         );
         this.cooldownCommands = this.cooldowns.stream().flatMapToLong(cooldown -> LongStream.of(cooldown.cooldown(), cooldown.messages())).toArray();
-        this.simpleDateFormat = new SimpleDateFormat(this.globalDateFormat);
-        loadReplacePlaceholders();
+        this.simpleDateFormat = this.globalDateFormat == null ? new SimpleDateFormat("yyyy-MM-dd HH:mm:ss") : new SimpleDateFormat(this.globalDateFormat);
+        this.loadReplacePlaceholders();
     }
 
     private void loadReplacePlaceholders() {

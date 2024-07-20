@@ -17,6 +17,12 @@ public abstract class LocationUtils {
         );
     }
 
+    protected String getWorldName(String string) {
+        if (string == null) return null;
+        String[] parts = string.split(",");
+        return parts.length == 0 ? null : parts[0];
+    }
+
     public Location stringAsLocation(String string) {
         if (string == null) return null;
         String[] parts = string.split(",");
@@ -35,6 +41,4 @@ public abstract class LocationUtils {
 
         return new Location(world, x, y, z, yaw, pitch);
     }
-
-
 }

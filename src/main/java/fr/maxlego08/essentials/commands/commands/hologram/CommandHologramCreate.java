@@ -19,7 +19,7 @@ public class CommandHologramCreate extends VCommand {
         this.setDescription(Message.DESCRIPTION_HOLOGRAM_CREATE);
         this.addSubCommand("create");
         this.addRequireArg("type", (a, b) -> Arrays.stream(HologramType.values()).map(HologramType::name).toList());
-        this.addRequireArg("name");
+        this.addRequireArg("name", (a, b) -> Arrays.asList("spawn", "village", "castle", "forest", "mountain", "mine", "desert", "ocean", "cave", "nether", "end", "crates", "shop", "auction", "duels", "worlds", "afk", "enchants", "anvils"));
         this.onlyPlayers();
     }
 
