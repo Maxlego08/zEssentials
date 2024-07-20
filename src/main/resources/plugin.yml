@@ -10,4 +10,5 @@ depend:
 softdepend:
   - Vault
   - ProtocolLib
+  - SuperiorSkyblock2
 api-version: '1.20'

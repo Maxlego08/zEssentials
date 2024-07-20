@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.hologram;
 
 import fr.maxlego08.essentials.ZEssentialsPlugin;
+import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.TabCompletion;
 import fr.maxlego08.essentials.api.hologram.Hologram;
 import fr.maxlego08.essentials.api.hologram.HologramLine;
@@ -14,24 +15,30 @@ import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.menu.exceptions.InventoryException;
 import fr.maxlego08.menu.zcore.utils.loader.Loader;
+import fr.maxlego08.menu.zcore.utils.nms.NmsVersion;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.world.WorldLoadEvent;
 import org.bukkit.plugin.PluginManager;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
@@ -42,6 +49,7 @@ public class HologramModule extends ZModule implements HologramManager {
     // Ajouter une commande pour activer/désactiver un hologram sans avoir besoin de le supprimer
 
     private final List<Hologram> holograms = new ArrayList<>();
+    private final Map<String, List<File>> pendingHolograms = new HashMap<>();
 
     public HologramModule(ZEssentialsPlugin plugin) {
         super(plugin, "hologram");
@@ -125,8 +133,7 @@ public class HologramModule extends ZModule implements HologramManager {
             case ITEM -> hologramConfiguration = new ItemHologramConfiguration();
         }
 
-        // Hologram hologram = new CraftHologram(this.plugin, hologramType, hologramConfiguration, name, name, player.getLocation());
-        Hologram hologram = null;
+        Hologram hologram = this.createHologram(hologramType, hologramConfiguration, name, name, player.getLocation());
 
         if (hologramType == HologramType.TEXT) {
             hologram.addLine(new ZHologramLine(1, "&fUse #ff9966/holo edit " + name + " &f!"));
@@ -215,6 +222,12 @@ public class HologramModule extends ZModule implements HologramManager {
         Loader<Hologram> loader = new HologramLoader(this.plugin);
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
 
+        String worldName = getWorldName(configuration.getString("location"));
+        if (worldName != null && Bukkit.getWorld(worldName) == null) {
+            var files = pendingHolograms.computeIfAbsent(worldName, w -> new ArrayList<>());
+            files.add(file);
+        }
+
         try {
             Hologram hologram = loader.load(configuration, "", file.getName().replace(".yml", ""));
             hologram.create();
@@ -248,5 +261,31 @@ public class HologramModule extends ZModule implements HologramManager {
     @Override
     public TabCompletion getHologramCompletion(HologramType hologramType) {
         return hologramType == null ? getHologramCompletion() : (sender, args) -> this.holograms.stream().filter(hologram -> hologram.getHologramType() == hologramType).map(Hologram::getName).toList();
+    }
+
+    @Override
+    public Hologram createHologram(HologramType hologramType, HologramConfiguration configuration, String fileName, String name, Location location) {
+
+        String version = NmsVersion.getCurrentVersion().name().replace("V_", "v");
+        String className = String.format("fr.maxlego08.essentials.nms.%s.CraftHologram", version);
+
+        try {
+            Class<?> clazz = Class.forName(className);
+            Constructor<?> constructor = clazz.getConstructor(EssentialsPlugin.class, HologramType.class, HologramConfiguration.class, String.class, String.class, Location.class);
+            return (Hologram) constructor.newInstance(this.plugin, hologramType, configuration, fileName, name, location);
+        } catch (Exception exception) {
+            this.plugin.getLogger().severe("Cannot create a new instance for the class " + className);
+            this.plugin.getLogger().severe(exception.getMessage());
+        }
+
+        return null;
+    }
+
+    @EventHandler
+    public void onLoad(WorldLoadEvent event) {
+        var key = event.getWorld().getName();
+        if (this.pendingHolograms.containsKey(key)) {
+            this.pendingHolograms.remove(key).forEach(this::loadHologram);
+        }
     }
 }

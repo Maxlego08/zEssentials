@@ -1,7 +1,10 @@
 package fr.maxlego08.essentials.api.hologram;
 
+import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.TabCompletion;
+import fr.maxlego08.essentials.api.hologram.configuration.HologramConfiguration;
 import fr.maxlego08.essentials.api.modules.Module;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import java.io.File;
@@ -33,4 +36,6 @@ public interface HologramManager extends Module {
     TabCompletion getHologramCompletion();
 
     TabCompletion getHologramCompletion(HologramType hologramType);
+
+    Hologram createHologram(HologramType hologramType, HologramConfiguration configuration, String fileName, String name, Location location);
 }
