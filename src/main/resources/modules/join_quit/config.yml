@@ -1,0 +1,48 @@
+########################################################################################################################
+#
+# ░░░░░██╗░█████╗░██╗███╗░░██╗░░░░██████╗░██╗░░░██╗██╗████████╗
+# ░░░░░██║██╔══██╗██║████╗░██║░░░██╔═══██╗██║░░░██║██║╚══██╔══╝
+# ░░░░░██║██║░░██║██║██╔██╗██║░░░██║██╗██║██║░░░██║██║░░░██║░░░
+# ██╗░░██║██║░░██║██║██║╚████║░░░╚██████╔╝██║░░░██║██║░░░██║░░░
+# ╚█████╔╝╚█████╔╝██║██║░╚███║░░░░╚═██╔═╝░╚██████╔╝██║░░░██║░░░
+# ░╚════╝░░╚════╝░╚═╝╚═╝░░╚══╝░░░░░░╚═╝░░░░╚═════╝░╚═╝░░░╚═╝░░░
+#
+# Documentation: https://zessentials.groupez.dev/modules/home
+#
+########################################################################################################################
+
+enable: true
+
+# Should players with permissions be able to join and part silently?
+# You can control this with essentials.silentjoin and essentials.silentquit permissions if it is enabled.
+allow-silent-join-quit: false
+
+
+# Available placeholders:
+# %player% - The player's name.
+# %displayName% - The player's display name.
+#
+# Available type:
+# DISABLE
+# DEFAULT
+# CUSTOM
+custom-join-message: CUSTOM
+custom-quit-message: CUSTOM
+
+# Should a message be sent when the player first logs in
+#
+# Available placeholders:
+# %player% - The player's name
+# %totalUser% - The total number of unique players
+# %totalUserFormat% - The total formatted number of unique players
+allow-first-join-broadcast: true
+
+# Send a welcome message to the player on first login
+#
+# Available placeholders:
+# %player% - The player's name.
+# %displayName% - The player's display name.
+allow-first-join-motd: true
+
+# The number of ticks before sending the message
+first-join-motd-ticks: 20 # 1 second = 20 ticks

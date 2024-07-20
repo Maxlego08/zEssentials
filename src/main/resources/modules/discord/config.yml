@@ -1,0 +1,55 @@
+########################################################################################################################
+#
+# ██████╗░██╗░██████╗░█████╗░░█████╗░██████╗░██████╗░
+# ██╔══██╗██║██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔══██╗
+# ██║░░██║██║╚█████╗░██║░░╚═╝██║░░██║██████╔╝██║░░██║
+# ██║░░██║██║░╚═══██╗██║░░██╗██║░░██║██╔══██╗██║░░██║
+# ██████╔╝██║██████╔╝╚█████╔╝╚█████╔╝██║░░██║██████╔╝
+# ╚═════╝░╚═╝╚═════╝░░╚════╝░░╚════╝░╚═╝░░╚═╝╚═════╝░
+#
+# This module allows you to display information about your discord through a webhook, more information here:
+# https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks
+#
+# You must define the URL of the webhook and the type of logo display
+#
+########################################################################################################################
+
+enable: true
+
+# Send the player’s message on your discord
+chat-message:
+  enable: false # Enable or not the webhook
+  webhook: "https://discord.com/api/webhooks/"
+  avatar: "https://mc-heads.net/avatar/%uuid%"
+  message: "%message%"
+  username: "%player%"
+
+# Send a message when a player logs in
+join-message:
+  enable: false # Enable or not the webhook
+  webhook: "https://discord.com/api/webhooks/"
+  embeds:
+    - author:
+        name: "%player% just logged in"
+        icon-url: "https://mc-heads.net/head/%uuid%"
+      color: "#00ff00" # Sets the color of the embed
+
+# Send a message when a player logs out
+left-message:
+  enable: false # Enable or not the webhook
+  webhook: "https://discord.com/api/webhooks/"
+  embeds:
+    - author:
+        name: "%player% just logged out"
+        icon-url: "https://mc-heads.net/head/%uuid%"
+      color: "#ff0000" # Sets the color of the embed
+
+# Sends a message when the player first logs in
+first-join-message:
+  enable: false # Enable or not the webhook
+  webhook: "https://discord.com/api/webhooks/"
+  embeds:
+    - author:
+        name: "%player% just logged in for the first time"
+        icon-url: "https://mc-heads.net/head/%uuid%"
+      color: "#44ff44" # Sets the color of the embed

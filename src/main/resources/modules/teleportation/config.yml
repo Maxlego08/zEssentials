@@ -1,0 +1,65 @@
+########################################################################################################################
+#
+# ████████╗███████╗██╗░░░░░███████╗██████╗░░█████╗░██████╗░████████╗░█████╗░████████╗██╗░█████╗░███╗░░██╗
+# ╚══██╔══╝██╔════╝██║░░░░░██╔════╝██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗╚══██╔══╝██║██╔══██╗████╗░██║
+# ░░░██║░░░█████╗░░██║░░░░░█████╗░░██████╔╝██║░░██║██████╔╝░░░██║░░░███████║░░░██║░░░██║██║░░██║██╔██╗██║
+# ░░░██║░░░██╔══╝░░██║░░░░░██╔══╝░░██╔═══╝░██║░░██║██╔══██╗░░░██║░░░██╔══██║░░░██║░░░██║██║░░██║██║╚████║
+# ░░░██║░░░███████╗███████╗███████╗██║░░░░░╚█████╔╝██║░░██║░░░██║░░░██║░░██║░░░██║░░░██║╚█████╔╝██║░╚███║
+# ░░░╚═╝░░░╚══════╝╚══════╝╚══════╝╚═╝░░░░░░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░╚════╝░╚═╝░░╚══╝
+#
+# Documentation: https://zessentials.groupez.dev/modules/teleportation
+#
+########################################################################################################################
+
+enable: true
+
+# If the teleport destination is unsafe, should players be teleported to the nearest safe location?
+# If this is set to true, zEssentials will attempt to teleport players close to the intended destination. The destination will be on the same x and z, only the y will change.
+# If this is set to false, attempted teleports to unsafe locations will be cancelled with a warning.
+teleport-safety: true
+
+# Whether to make all teleportations go to the center of the block; where the x and z coordinates decimal become .5
+teleport-to-center: true
+
+# The delay, in seconds, before a user actually teleports. If the user moves or gets attacked in this timeframe, the teleport is cancelled.
+teleport-delay: 5
+
+# The delay, in seconds, before a user actually teleports. If the user has one or more permissions, the minimum delay will be taken.
+teleport-delay-permissions:
+  - permission: "essentials.teleport.delay.vip"
+    delay: 4
+  - permission: "essentials.teleport.delay.staff"
+    delay: 2
+
+# Enable bypass of teleport delay on player to essentials.teleport.bypass permission
+teleport-delay-bypass: false
+
+# The delay, in seconds, for the teleport request to expire.
+teleport-tpa-expire: 60
+
+# Opens a confirmation inventory for the /tpa command.
+open-confirm-inventory-for-tpa: false
+
+rtp-center-x: 0
+rtp-center-z: 0
+
+rtp-radius-x: 5000
+rtp-radius-z: 5000
+
+rtp-world: "world"
+
+max-rtp-attempts: 10
+
+blacklist-biomes:
+  - cold_ocean
+  - deep_cold_ocean
+  - deep_frozen_ocean
+  - deep_lukewarm_ocean
+  - deep_ocean
+  - deep_warm_ocean
+  - frozen_ocean
+  - frozen_river
+  - lukewarm_ocean
+  - ocean
+  - river
+  - warm_ocean

@@ -1,0 +1,9 @@
+java {
+    withSourcesJar()
+}
+
+group 'API'
+
+task generateAPIDocs(type: Javadoc) {
+    source = sourceSets.main.allJava
+}

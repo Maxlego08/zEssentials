@@ -1,0 +1,16 @@
+name: '#3f3f3fᴡᴀʀᴘѕ'
+size: 27
+items:
+  example:
+    type: ZESSENTIALS_WARP
+    warp: example
+    slot: 13
+    item:
+      material: GRASS_BLOCK
+      name: "&fᴡᴀʀᴘ ᴇxᴀᴍᴘʟᴇ"
+      lore:
+        - "&8Click to teleport to the warp"
+    else:
+      item:
+        material: BARRIER
+        name: "#ff0000ʏᴏᴜ ᴅᴏ ɴᴏᴛ ʜᴀᴠᴇ ᴘᴇʀᴍɪssɪᴏɴ ᴛᴏ ᴜsᴇ sᴇ ᴡᴀʀᴘ"

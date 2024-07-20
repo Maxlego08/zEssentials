@@ -1,0 +1,284 @@
+name: '#3f3f3fSanctions of %zessentials_user_target_player_name%'
+size: 54
+items:
+  back:
+    type: BACK
+    slot: 49
+    item:
+      material: BARRIER
+      name: "&cGo Back"
+
+  btn-0:
+    slot: 0
+    item:
+      material: FISHING_ROD
+      name: '&fProvocations'
+
+  btn-1:
+    slot: 1
+    item:
+      material: WOODEN_SWORD
+      name: '&fSpam/Flood'
+
+  btn-2:
+    slot: 2
+    item:
+      material: STONE_SWORD
+      name: '&fHarassment'
+
+  btn-3:
+    slot: 3
+    item:
+      material: GOLDEN_SWORD
+      name: '&f'
+
+  btn-4:
+    slot: 4
+    item:
+      material: IRON_SWORD
+      name: '&f'
+
+  btn-5:
+    slot: 5
+    item:
+      material: DIAMOND_SWORD
+      name: '&f'
+
+  btn-6:
+    slot: 6
+    item:
+      material: NETHERITE_SWORD
+      name: '&f'
+
+  btn-7:
+    slot: 7
+    item:
+      material: TRIDENT
+      name: '&f'
+
+  btn-8:
+    slot: 8
+    item:
+      material: SHIELD
+      name: '&f'
+
+  btn-9:
+    slot: 9
+    type: ZESSENTIALS_SANCTION
+    sanction: MUTE
+    duration: 1h
+    reason: "Provocation"
+    item:
+      material: GREEN_STAINED_GLASS_PANE
+      name: '&fProvocations'
+      lore:
+        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff1 hour'
+        - ''
+        - '&f➥ &nClick&r&7 to mute the player'
+  btn-18:
+    slot: 18
+    type: ZESSENTIALS_SANCTION
+    sanction: MUTE
+    duration: 2h
+    reason: "Provocation"
+    item:
+      material: YELLOW_STAINED_GLASS_PANE
+      name: '&fProvocations'
+      lore:
+        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff2 hours'
+        - ''
+        - '&f➥ &nClick&r&7 to mute the player'
+  btn-27:
+    slot: 27
+    type: ZESSENTIALS_SANCTION
+    sanction: MUTE
+    duration: 4h
+    reason: "Provocation"
+    item:
+      material: ORANGE_STAINED_GLASS_PANE
+      name: '&fProvocations'
+      lore:
+        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff4 hours'
+        - ''
+        - '&f➥ &nClick&r&7 to mute the player'
+  btn-36:
+    slot: 36
+    type: ZESSENTIALS_SANCTION
+    sanction: MUTE
+    duration: 24h
+    reason: "Provocation"
+    item:
+      material: RED_STAINED_GLASS_PANE
+      name: '&fProvocations'
+      lore:
+        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff24 hours'
+        - ''
+        - '&f➥ &nClick&r&7 to mute the player'
+
+  btn-10:
+    slot: 10
+    type: ZESSENTIALS_SANCTION
+    sanction: MUTE
+    duration: 1h
+    reason: "Spam/Flood"
+    item:
+      material: GREEN_STAINED_GLASS_PANE
+      name: '&fMute 1h'
+      lore:
+        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff1 hour'
+        - ''
+        - '&f➥ &nClick&r&7 to mute the player'
+
+  btn-19:
+    slot: 19
+    type: ZESSENTIALS_SANCTION
+    sanction: MUTE
+    duration: 2h
+    reason: "Spam/Flood"
+    item:
+      material: YELLOW_STAINED_GLASS_PANE
+      name: '&fMute 2h'
+      lore:
+        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff2 hours'
+        - ''
+        - '&f➥ &nClick&r&7 to mute the player'
+
+  btn-28:
+    slot: 28
+    type: ZESSENTIALS_SANCTION
+    sanction: MUTE
+    duration: 4h
+    reason: "Spam/Flood"
+    item:
+      material: ORANGE_STAINED_GLASS_PANE
+      name: '&fMute 4h'
+      lore:
+        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff4 hours'
+        - ''
+        - '&f➥ &nClick&r&7 to mute the player'
+
+  btn-37:
+    slot: 37
+    type: ZESSENTIALS_SANCTION
+    sanction: MUTE
+    duration: 24h
+    reason: "Spam/Flood"
+    item:
+      material: RED_STAINED_GLASS_PANE
+      name: '&fMute 24h'
+      lore:
+        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff24 hours'
+        - ''
+        - '&f➥ &nClick&r&7 to mute the player'
+
+  btn-11:
+    slot: 11
+    type: ZESSENTIALS_SANCTION
+    sanction: MUTE
+    duration: 24h
+    reason: "Harassment"
+    item:
+      material: GREEN_STAINED_GLASS_PANE
+      name: '&fMute 24h'
+      lore:
+        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff24 hours'
+        - ''
+        - '&f➥ &nClick&r&7 to mute the player'
+
+  btn-20:
+    slot: 20
+    type: ZESSENTIALS_SANCTION
+    sanction: BAN
+    duration: 7d
+    reason: "Harassment"
+    item:
+      material: YELLOW_STAINED_GLASS_PANE
+      name: '&fBan 7d'
+      lore:
+        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff7 days'
+        - ''
+        - '&f➥ &nClick&r&7 to ban the player'
+
+  btn-29:
+    slot: 29
+    type: ZESSENTIALS_SANCTION
+    sanction: BAN
+    duration: 15d
+    reason: "Harassment"
+    item:
+      material: ORANGE_STAINED_GLASS_PANE
+      name: '&fBan 15d'
+      lore:
+        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff15 days'
+        - ''
+        - '&f➥ &nClick&r&7 to ban the player'
+
+  btn-38:
+    slot: 38
+    type: ZESSENTIALS_SANCTION
+    sanction: BAN
+    duration: 30d
+    reason: "Harassment"
+    item:
+      material: RED_STAINED_GLASS_PANE
+      name: '&fBan 30d'
+      lore:
+        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff30 days'
+        - ''
+        - '&f➥ &nClick&r&7 to ban the player'
+
+  btn-12:
+    slot: 12
+    type: ZESSENTIALS_SANCTION
+    sanction: MUTE
+    duration: 1h
+    reason: "Advertising"
+    item:
+      material: GREEN_STAINED_GLASS_PANE
+      name: '&fMute 1h'
+      lore:
+        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff1 hour'
+        - ''
+        - '&f➥ &nClick&r&7 to mute the player'
+
+  btn-21:
+    slot: 21
+    type: ZESSENTIALS_SANCTION
+    sanction: MUTE
+    duration: 2h
+    reason: "Advertising"
+    item:
+      material: YELLOW_STAINED_GLASS_PANE
+      name: '&fMute 2h'
+      lore:
+        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff2 hour'
+        - ''
+        - '&f➥ &nClick&r&7 to mute the player'
+
+  btn-30:
+    slot: 30
+    type: ZESSENTIALS_SANCTION
+    sanction: MUTE
+    duration: 4h
+    reason: "Advertising"
+    item:
+      material: ORANGE_STAINED_GLASS_PANE
+      name: '&fMute 4h'
+      lore:
+        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff4 hour'
+        - ''
+        - '&f➥ &nClick&r&7 to mute the player'
+
+  btn-39:
+    slot: 39
+    type: ZESSENTIALS_SANCTION
+    sanction: MUTE
+    duration: 24h
+    reason: "Advertising"
+    item:
+      material: RED_STAINED_GLASS_PANE
+      name: '&fMute 24h'
+      lore:
+        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff24 hour'
+        - ''
+        - '&f➥ &nClick&r&7 to mute the player'

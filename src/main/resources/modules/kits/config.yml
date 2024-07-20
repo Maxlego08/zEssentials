@@ -1,0 +1,75 @@
+########################################################################################################################
+#
+# ██╗░░██╗██╗████████╗░██████╗
+# ██║░██╔╝██║╚══██╔══╝██╔════╝
+# █████═╝░██║░░░██║░░░╚█████╗░
+# ██╔═██╗░██║░░░██║░░░░╚═══██╗
+# ██║░╚██╗██║░░░██║░░░██████╔╝
+# ╚═╝░░╚═╝╚═╝░░░╚═╝░░░╚═════╝░
+#
+# Documentation: https://zessentials.groupez.dev/modules/kits
+#
+########################################################################################################################
+
+enable: true
+
+# Change the display of the kits
+#
+# IN_LINE: Displays a message with the list of kits on the same line
+# INVENTORY: Displays the kits in an inventory
+# MULTI_LINE: Displays a message with a header and footer (optional) and a message per kits
+display: IN_LINE
+
+# https://docs.zmenu.dev/configurations/items
+kits:
+  tools:
+    name: tools
+    cooldown: 7200
+    items:
+      iron_sword:
+        material: IRON_SWORD
+      iron_pickaxe:
+        material: IRON_PICKAXE
+      iron_axe:
+        material: IRON_AXE
+      iron_shovel:
+        material: IRON_SHOVEL
+      iron_hoe:
+        material: IRON_HOE
+  food:
+    name: food
+    cooldown: 3600
+    items:
+      beef:
+        material: COOKED_BEEF
+        amount: 16
+  fight:
+    name: fight
+    cooldown: 86400
+    items:
+      sword:
+        material: DIAMOND_SWORD
+        enchants:
+          - sharpness,2
+      helmet:
+        material: DIAMOND_HELMET
+        enchants:
+          - protection,1
+      chestplate:
+        material: IRON_CHESTPLATE
+        enchants:
+          - protection,3
+      leggings:
+        material: IRON_LEGGINGS
+        enchants:
+          - protection,3
+      boots:
+        material: DIAMOND_BOOTS
+        enchants:
+          - protection,1
+      apple:
+        material: GOLDEN_APPLE
+        amount: 4
+      carrot:
+        material: GOLDEN_CARROT
+        amount: 16

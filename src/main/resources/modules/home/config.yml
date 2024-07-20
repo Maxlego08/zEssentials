@@ -1,0 +1,46 @@
+########################################################################################################################
+#
+# ██╗░░██╗░█████╗░███╗░░░███╗███████╗
+# ██║░░██║██╔══██╗████╗░████║██╔════╝
+# ███████║██║░░██║██╔████╔██║█████╗░░
+# ██╔══██║██║░░██║██║╚██╔╝██║██╔══╝░░
+# ██║░░██║╚█████╔╝██║░╚═╝░██║███████╗
+# ╚═╝░░╚═╝░╚════╝░╚═╝░░░░░╚═╝╚══════╝
+#
+# Documentation: https://zessentials.groupez.dev/modules/home
+#
+########################################################################################################################
+
+enable: true
+
+# Allow players to have multiple homes.
+# You must set the permission the player must have and the home number for that permission.
+# If the player has multiple permissions then the maximum number of home will be used.
+permissions:
+  - permission: "essentials.home.default"
+    amount: 3
+  - permission: "essentials.home.vip"
+    amount: 5
+  - permission: "essentials.home.staff"
+    amount: 10
+
+# Change the display for/home
+#
+# IN_LINE: Displays a message with the list of homes on the same line
+# INVENTORY: Displays the player’s homes in an inventory
+# INVENTORY_DONUT: Displays the player’s homes in an inventory that works exactly the same as donutsmpt
+# MULTI_LINE: Displays a message with a header and footer (optional) and a message per home (You can display buttons to teleport or delete the home quickly)
+home-display: MULTI_LINE
+
+# Sets a rule for the names of homes
+home-regex: "[a-zA-Z0-9]+"
+
+# Maximum char number for the home name
+home-name-max: 16
+
+# Minimum char number for the home name
+home-name-min: 1
+
+# List of worlds where the player cannot create a home
+disable-worlds:
+  - "world_event"

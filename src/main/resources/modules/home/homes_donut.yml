@@ -1,0 +1,116 @@
+
+name: '#3f3f3fʜᴏᴍᴇs'
+size: 36
+items:
+
+  # Slot 1 bed
+  home1-up:
+    pattern:
+      fileName: 'home_up' # Pattern file name
+      pluginName: 'zEssentials'
+      slot: 10
+      home: 1
+
+  # Slot 1 dye
+  home1-down:
+    pattern:
+      fileName: 'home_down' # Pattern file name
+      pluginName: 'zEssentials'
+      slot: 19
+      home: 1
+
+  # Slot 2 bed
+  home2-up:
+    pattern:
+      fileName: 'home_up' # Pattern file name
+      pluginName: 'zEssentials'
+      slot: 11
+      home: 2
+
+  # Slot 2 dye
+  home2-down:
+    pattern:
+      fileName: 'home_down' # Pattern file name
+      pluginName: 'zEssentials'
+      slot: 20
+      home: 2
+
+  # Slot 3 bed
+  home3-up:
+    pattern:
+      fileName: 'home_up' # Pattern file name
+      pluginName: 'zEssentials'
+      slot: 12
+      home: 3
+
+  # Slot 3 dye
+  home3-down:
+    pattern:
+      fileName: 'home_down' # Pattern file name
+      pluginName: 'zEssentials'
+      slot: 21
+      home: 3
+
+  # Slot 4 bed
+  home4-up:
+    pattern:
+      fileName: 'home_up' # Pattern file name
+      pluginName: 'zEssentials'
+      slot: 13
+      home: 4
+
+  # Slot 4 dye
+  home4-down:
+    pattern:
+      fileName: 'home_down' # Pattern file name
+      pluginName: 'zEssentials'
+      slot: 22
+      home: 4
+
+  # Slot 5 bed
+  home5-up:
+    pattern:
+      fileName: 'home_up' # Pattern file name
+      pluginName: 'zEssentials'
+      slot: 14
+      home: 5
+
+  # Slot 5 dye
+  home5-down:
+    pattern:
+      fileName: 'home_down' # Pattern file name
+      pluginName: 'zEssentials'
+      slot: 23
+      home: 5
+
+  # Slot 6 bed
+  home6-up:
+    pattern:
+      fileName: 'home_up' # Pattern file name
+      pluginName: 'zEssentials'
+      slot: 15
+      home: 6
+
+  # Slot 6 dye
+  home6-down:
+    pattern:
+      fileName: 'home_down' # Pattern file name
+      pluginName: 'zEssentials'
+      slot: 24
+      home: 6
+
+  # Slot 7 bed
+  home7-up:
+    pattern:
+      fileName: 'home_up' # Pattern file name
+      pluginName: 'zEssentials'
+      slot: 16
+      home: 7
+
+  # Slot 7 dye
+  home7-down:
+    pattern:
+      fileName: 'home_down' # Pattern file name
+      pluginName: 'zEssentials'
+      slot: 25
+      home: 7

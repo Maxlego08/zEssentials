@@ -1,0 +1,162 @@
+plugins {
+    id 'java'
+    id 'io.github.goooler.shadow' version '8.1.8'
+    id 'maven-publish'
+}
+
+group 'zEssentials'
+version = property("version")
+
+project.ext {
+    archiveFolder = file("archive/")
+    targetFolder = file("target/")
+    buildVersion = System.getenv("BUILD_NUMBER") == null || Boolean.parseBoolean(System.getenv("STABLE_BUILD")) ? version : version + "-b" + System.getenv("BUILD_NUMBER")
+}
+
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'io.github.goooler.shadow'
+
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(17))
+        }
+    }
+
+    repositories {
+        maven {url "https://repo.papermc.io/repository/maven-public/"}
+        maven { url 'https://jitpack.io' }
+        maven {
+            name = "devmart-other"
+            url = "https://nexuslite.gcnt.net/repos/other/"
+        }
+        maven { url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/' }
+    }
+
+    dependencies {
+        compileOnly("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT")
+        compileOnly("com.github.maxlego08:zMenu-API:1.0.3.1")
+
+        implementation "com.tcoded:FoliaLib:0.3.1"
+        implementation 'com.github.Maxlego08:Sarah:1.7'
+        implementation 'fr.mrmicky:fastboard:2.1.2'
+    }
+
+    tasks.register('checkDebug') {
+        doLast {
+            Set<File> filesWithDebug = fileTree('src/main/java').filter { file ->
+                file.text.contains('System.out.println')
+            }.getFiles()
+
+            if (!filesWithDebug.isEmpty()) {
+                println "Found debug messages in the following files:"
+                filesWithDebug.each { file ->
+                    println file.path
+                }
+            } else {
+                println "No debug messages found."
+            }
+        }
+    }
+
+    build {
+        dependsOn checkDebug
+        dependsOn shadowJar
+    }
+
+    compileJava.options.encoding = 'UTF-8'
+
+    tasks.withType(JavaCompile).tap {
+        configureEach {
+            options.encoding = 'UTF-8'
+        }
+    }
+}
+
+subprojects {
+    shadowJar {
+        archiveFileName = "${project.name}.jar"
+        destinationDirectory = rootProject.archiveFolder
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation fileTree(rootProject.archiveFolder.getAbsolutePath())
+    implementation 'org.bstats:bstats-bukkit:3.0.0'
+    implementation project(":API")
+
+    compileOnly 'me.clip:placeholderapi:2.11.5'
+}
+
+jar {
+    from {
+        for (File file : rootProject.archiveFolder.listFiles()) {
+            zipTree(file)
+        }
+    }
+}
+
+processResources {
+    outputs.upToDateWhen { false }
+    eachFile { details ->
+        if (details.name.contentEquals('plugin.yml')) {
+            filter { String line ->
+                line.replace('${project.version}', rootProject.buildVersion)
+            }
+        }
+    }
+}
+
+shadowJar {
+    dependsOn(jar)
+
+    relocate 'org.bstats', 'fr.maxlego08.essentials.libs.bstats'
+    relocate 'com.tcoded.folialib', 'fr.maxlego08.essentials.libs.folialib'
+    relocate 'fr.maxlego08.sarah', 'fr.maxlego08.essentials.libs.sarah'
+    relocate 'fr.mrmicky.fastboard', 'fr.maxlego08.essentials.libs.fastboard'
+
+    archiveFileName = rootProject.name + "-" + rootProject.buildVersion + ".jar"
+
+    delete fileTree(rootProject.targetFolder.getAbsolutePath())
+
+    exclude '*exclude.jar'
+
+    destinationDirectory = rootProject.targetFolder
+    from sourceSets.getByName("main").output
+    configurations = [project.configurations.getByName("runtimeClasspath")]
+}
+
+tasks.register('copyAPI', Copy) {
+    dependsOn ':API:build'
+    from rootProject.archiveFolder.getAbsolutePath() + '/API.jar'
+    into rootProject.targetFolder.getAbsolutePath()
+    rename('API.jar', rootProject.name + 'API.jar')
+}
+
+clean {
+    delete rootProject.archiveFolder
+}
+
+build {
+    dependsOn shadowJar
+    dependsOn copyAPI
+    dependsOn clean
+}
+
+publish.shouldRunAfter shadowJar
+shadowJar.shouldRunAfter build
+build.shouldRunAfter subprojects.build
+clean.shouldRunAfter copyAPI
+
+shadowJar.dependsOn subprojects.build
+compileJava.dependsOn childProjects.values().shadowJar
+
+compileJava.options.encoding = 'UTF-8'
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}

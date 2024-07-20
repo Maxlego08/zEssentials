@@ -1,0 +1,567 @@
+########################################################################################################################
+#
+#  ███████╗███████╗░██████╗░██████╗███████╗███╗░░██╗████████╗██╗░█████╗░██╗░░░░░░██████╗
+#  ╚════██║██╔════╝██╔════╝██╔════╝██╔════╝████╗░██║╚══██╔══╝██║██╔══██╗██║░░░░░██╔════╝
+#  ░░███╔═╝█████╗░░╚█████╗░╚█████╗░█████╗░░██╔██╗██║░░░██║░░░██║███████║██║░░░░░╚█████╗░
+#  ██╔══╝░░██╔══╝░░░╚═══██╗░╚═══██╗██╔══╝░░██║╚████║░░░██║░░░██║██╔══██║██║░░░░░░╚═══██╗
+#  ███████╗███████╗██████╔╝██████╔╝███████╗██║░╚███║░░░██║░░░██║██║░░██║███████╗██████╔╝
+#  ╚══════╝╚══════╝╚═════╝░╚═════╝░╚══════╝╚═╝░░╚══╝░░░╚═╝░░░╚═╝╚═╝░░╚═╝╚══════╝╚═════╝░
+#
+# Messages type:
+# NONE - Does not display the message
+# TCHAT - Default type, sends one or more messages in chat
+# ACTION - Sends the message in the action bar
+# ACTION - Sends message in action bar and chat
+# CENTER - Send one or more messages in the chat, but they will be centered
+# TITLE - Sends a username
+#
+########################################################################################################################
+# Plugin's prefix
+# Translation made by Melon-Oof
+prefix: "#03fcb6zEssentials #656665• "
+you: "Tu"
+#Trash can GUI username
+trash: "&8Cestino della Spazzatura"
+player-not-found: "&f%player% <error>non è stato trovato."
+module-disable: "<error>Il modulo &f%name% <error> è disabilitato, non puoi usare questo comando."
+
+# Commands
+command-syntax-error: "<error>Devi eseguire il comando segunedo questo formato#656665: &f%syntax%"
+command-no-permission: "<error>Non puoi eseguire questo comando."
+command-no-console: "<error>Solo i giocatori possono eseguire questo comando."
+command-no-arg: "<error>Non è stato possible trovare il comando con questi argomenti."
+command-syntaxe-help: "&f%syntax% #656665» &7%description%"
+
+command-reload: "#00ff40Hai appena aggiornato la ocnfigurazione."
+command-essentials: "&ezEssentials&8, &eVersione &f%version%"
+
+
+# GameMode commands
+command-gamemode: "&fLa modalità&e %gamemode%&f è stata data a &b%player%&f."
+command-gamemode-invalid: "<error>Giocatore non valido."
+
+
+# Weather commands
+command-day: "&fHai fatto diventare &egiorno&f nel mondo <success>%world%&f."
+command-night: "&ffHai fatto diventare &enightfall&f nel mondo <success>%world%&f."
+command-sun: "&ffHai fatto diventare &esun&f nel mondo <success>%world%&f."
+
+
+# Admins commands
+command-top: "&7Sei stato teletrasportato in &ecima&7."
+command-top-error: "<error>Non è stato possibile trovare un posizione sicura."
+command-speed-invalid: "<error>Giocatore non valido."
+command-speed-fly: "&7Hai impostato la velocità di &nvolo&r&7 a &f%speed%&7 per il giocatore &f%player%&7. &8(&f2 &7di default8)"
+command-speed-walk: "&Hai impostato la velocità di &ncammino&r&7 a &f%speed%&7 per il giocatore &f%player%&7. &8(&f2 &7di default&8)"
+command-speed-error: "<error>Devi immettere un numero tra &60<error> e &610<error>. &8(&f2 &7by default&8)"
+command-god-enable: "&7Modalità God <success>abilitata &7per &f%player%<success>."
+command-god-disable: "&7Modalità God <error>disabilitata &7per &f%player%<success>."
+command-heal-sender: "&7Hai appena curato &f%player%&7."
+command-heal-receiver: "<success>Sei appena stato curato."
+command-heal-error: "<error>Non puoi curare qualcuno che è morto!"
+command-more-error: "<error>You cannot make this order in item in hand."
+command-more-success: "&7You just put your item to &f64&7."
+command-feed-sender: "&7Hai appena sfamato &f%player%&7."
+command-feed-receiver: "<success>Sei stato sfamato."
+command-feed-error: "<error>Non puoi dar da mangiare a giocatori morti!"
+command-compact-type: "<error>Impossibile comprimere &f%material%<error>."
+command-compact-error: "<error>Non hai &f%item%<error> nel tuo inventario."
+command-compact-success: "&7Hai appena compresso #0EEA93x%amount% #99E0FF%item% &7in #0EEA93x%toAmount% #99E0FF%toItem%&7."
+command-hat-success: "&7Hai appena messo #0ef0ce%item% &7sulla tua testa."
+command-hat-error: "<error>Non puoi mettere aria sulla tua testa."
+command-player-weather-reset: "&7Hai appena cambiato il tempo atmosferico a quello del server."
+command-player-weather-downfall: "&7Hai appena messo pioggia su di te."
+command-player-time-reset: "&7Hai appena cambiato il tempo aa quello del server."
+command-player-time-change: "&7Sei qui per cambiare il tuo tempo."
+command-fly-enable: "&7Modalità volo <success>abilitata &7per &f%player%<success>."
+command-fly-disable: "&7Modalità volo <error>disabilitata &7per &f%player%<success>."
+command-furnace-type: "<error>Impossibile fondere &f%material%<error>."
+command-furnace-error: "<error>Non hai &f%item%<error> nel tuo inventario."
+command-furnace-success: "&7Hai appena trasformato #0EEA93x%amount% #34cfe0%item% &7in #0EEA93x%toAmount% #34cfe0%toItem%&7."
+command-skull: "<success>Hai appena ottenuto la testa di &f%name%<success>."
+command-repair-error: "<error>L'oggetto che stai tenendo non può essere riparato."
+command-repair-success: "<success>Hai riparato l'oggetto che stai tenendo in mano."
+command-repair-all-error: "<error>Non hai nessun oggetto da riparare."
+command-repair-all-success: "<success>Hai appena riparato tutti gli oggetti nel tuo inventario."
+command-ext: "&fPer il volere di Maxlego08, non bruci più."
+command-near-empty: "<error>Nessun giocatore in vicinanza."
+command-near-player: "&fGiocaatori vicini a te&7:%players%"
+command-near-info: " &7%player% &8(&e%distance%m&8)"
+command-play-time:
+  - "&7You played&8: <primary>%playtime%"
+  - "&7Current session&8: <primary>%playtime_session%"
+command-bottom: "&7Sei stato teletrasportato sul &efondo&7."
+command-bottom-error: "<error>Non è stato possibile trovare un punto sicuro in cui teletrasportarti."
+command-remove: "&7Tolte <success>%amount% &7entità."
+command-seen-offline:
+  type: WITHOUT_PREFIX
+  message: "#99E0FF&f%player% #99E0FFè stato <error>offline #99E0FFdal &7%date%#99E0FF."
+command-seen-online:
+  type: WITHOUT_PREFIX
+  message: "#99E0FF&f%player% #99E0FFè stato <success> online #99E0FFdal %date%#99E0FF."
+command-seen-playtime:
+  type: WITHOUT_PREFIX
+  message: "#99E0FFPlayTime&8: &f%playtime%"
+command-seen-uuid:
+  type: WITHOUT_PREFIX
+  message: "#99E0FFUUID&8: &f%uuid%"
+command-seen-ip:
+  type: WITHOUT_PREFIX
+  message: "#99E0FFIndirizzo IP&8:&f%ips%"
+command-seen-address: " <click:run_command:'/seenip %ip%'><hover:show_text:'&fShow players who have the same address'>%ip%</hover></click>"
+command-seen-ip-empty: "<error>Non è stato possibile trovare giocatori con l'indirizzo IP &f%ip%<error>."
+command-seen-ip-line: "#99E0FFGiocatori con l'indirizzo IP &f%ip%&8:%players%"
+command-seen-ip-info: " <white><click:run_command:'/seen %name%'><hover:show_text:'&fMostra le informazioni del giocatore'>%name%</hover></click><dark_gray>"
+
+# Economy
+command-economy-not-found: "<error> Non riesco a trovare una valuta di nome &f%name%<error>."
+command-economy-give-all-sender: "#99E0FFHai appena dato &f%economyFormat% #99E0FFai giocatori online."
+command-economy-give-sender: "#99E0FFHai appena dato &f%economyFormat% #99E0FFa &7%player%#99E0FF."
+command-economy-give-receiver: "#99E0FFHai appena ricevuto &f%economyFormat%."
+command-economy-set-sender: "#99E0FFHai impostato il saldo a &f%economyFormat% #99E0FFdel giocatore &7%player%#99E0FF."
+command-economy-set-receiver: "#99E0FFHai appena modificato &f%economyFormat%."
+command-economy-take-sender: "#99E0FFHai appena preso &f%economyFormat% #99E0FFa &7%player%#99E0FF."
+command-economy-take-receiver: "#99E0FFHai perso &f%economyFormat%."
+command-economy-show-empty: "&f%player% <error>has no money."
+command-economy-show-info: "&7- #99E0FF%economy% &f%amount%."
+command-money:
+  - "#99E0FFHai&8:"
+  - " &7- #99E0FF%economy-name-money% &f%economy-money%."
+  - " &7- #99E0FF%economy-name-coins% &f%economy-coins%."
+command-pay-negative: "<error>Quantità da pagare deve essere positiva."
+command-pay-min: "<error>La quantità minima che puoi pagare è &f%amount%<error>."
+command-pay-max: "<error>La quantità massima che puoi pagare è &f%amount%<error>."
+command-pay-sender: "#99E0FFHai dato #F8F327%amount%#99E0FF a &f%player%#99E0FF."
+command-pay-receiver: "&f%player% #99E0FFti ha dato #F8F327%amount%#99E0FF."
+command-pay-disable: "<error>Non puoi dare %name%."
+command-pay-self: "<error>Non puoi dare soldi a te stesso."
+command-pay-not-enough: "<error>Non hai abbastanza soldi."
+
+
+# Teleport commands
+command-tpa-error: "<error>Hai gia mandato la richiesta a #99E0FF%player%<error>."
+command-tpa-error-same: "<error>Non puoi teletrasportarti a te stesso."
+command-tpa-error-offline: "<error>Non è stato possibile trovare il giocatore."
+command-tpa-error-to-late-empty: "<error>Non hai nessuna richiesta di teletrasporto."
+command-tpa-error-to-late-expire: "<error>La richiesta di teletrasporto è scaduta."
+command-tpa-sender:
+  - "<success>✔ #99E0FFMandata la richiesta a &f%displayName% #99E0FF."
+  - "  <hover:show_text:'<error>✘ Cancella richiesta'><click:run_command:/tpacancel %player%>#99E0FFType <success>/tpacancel %player%#99E0FF per cancellare la tua richiesta.</click></hover>"
+command-tpa-receiver:
+  - ""
+  - "#F8F327⚠ &f%displayName% #99E0FFha richiesto di teletrasportarsi da te!"
+  - "  <hover:show_text:'<success>✔ Accetta richiesta'><click:run_command:/tpaccept>#99E0FFScrivi <success>/tpaccept #99E0FFper <success><u>accettare</u>#99E0FF.</click></hover>"
+  - "  <hover:show_text:'<error>✘ Rifiuta richiesta'><click:run_command:/tpdeny>#99E0FFScrivi <error>/tpdeny #99E0FFper <error><u>rifiutare</u>#99E0FF.</click></hover>"
+  - ""
+  - "&7&oHai 60 secondi per accettare la richiesta di teletrasporto"
+command-tpa-accept-receiver: "#99E0FFHai appena <success>accettato #99E0FFla richiesta di teletrasporto da parte di #99E0FF%player%<success>."
+command-tpa-accept-sender: "#99E0FF%player%<success> ha appena accettato la tua richiesta di teletrasporto."
+command-teleport-ignore-player: "<error>Non puoi mandare la richiesta di teletrasporto a #99E0FF%player%<error> ti ignorano."
+command-teleport-world: "<error>Devi stare nello stesso mondo per teletrasportarti."
+command-tpa-error-to-late: "<error>Non hai nessuna richiesta di teletrasporto al momento."
+command-tpa-error-to-late-2: "<error>La richiesta è scaduta."
+command-tp-deny-sender: "<success>✔ Rifiutata la richiesta di teletrasporto di &f%player% <success>."
+command-tp-deny-receiver: "<error>✘ &f%player% <error>ha rifiutato la tua richiesta di teletrasporto."
+command-tp-cancel-error: "<error>Non hai mandato nessuna richiesta di teletrasporto a &f%player%<error>."
+command-tp-cancel-sender: "<error>Cancellata #99E0FFla tua richiesta di teletrasporto a %player%."
+command-tp-cancel-receiver: "&f%player% <error>ha cancellato la sua richiesta di teletrasporto."
+command-world-teleport-self: "<success>Sei appena stato teletrasportato nel mondo &f%world%<success>."
+command-world-teleport-other: "<success>Hai appena teletrasportato &f%player% <success>nel mondo &f%world%<success>."
+command-tp: "&7Ti sei teletrasportato da #34cfe0%player%&f."
+command-tp-self: "&7Hai teletrasportato #34cfe0%player%&7 da te."
+command-back: "&7Tornando alla posizione precedente."
+command-back-error: "<error>Non hai nessuna posizione precedente in cui tornare."
+command-random-tp-error: "<error>Dopo diversi tentativi, non si è riusciti a trovare una posizione sicura. Riprova."
+
+# First join
+join-message: "<success>+ #99E0FF%player%"
+quit-message: "<error>- #99E0FF%player%"
+first-join-message: ""
+first-join-motd:
+  - ""
+  - "<success>✔ #99E0FFBenvenuto %player%#99E0FF !"
+  - ""
+  - "#858ef8Discord&8: #99E0FF<hover:show_text:'&fEntra nel server #858ef8Discord &f!'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>"
+  - "&7Sito&8: #99E0FF<hover:show_text:'&fApri il sito &f!'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>"
+  - ""
+
+# Spawn
+command-set-spawn: "&fHai appena impostato lo spawn."
+command-spawn-not-define: "<error>Lo spawn non esiste. Contatta gli amministratori."  
+
+# Command description
+description-reload: "Aggiorna i file di configurazione"
+description-gamemode: "Cambia la modalità di gioco"
+description-gamemode-creative: "Cambia la modalità di gioco a creativa"
+description-gamemode-survival: "Cambia la modalità di gioco a spettatore"
+description-gamemode-adventure: "Cambia la modalità di gioco ad avventura"
+description-gamemode-spectator: "Cambia la modalità di gioco spettatore"
+description-day: "Imposta giorno nel tuo mondo"
+description-night: "Imposta notte nel tuo mondo"
+description-sun: "Imposta il sole nel tuo mondo"
+description-top: "Teletrasportati in cima"
+description-speed: "Cambia la velocità di movimento"
+description-enderchest: "Apri il tuo baule di ender"
+description-endersee: "Apri il baule di ender di un altro giocatore"
+description-tpa: "Teletrasportati a un giocatore"
+description-tpa-accept: "Accetta la richiesta di teletrasporto"
+description-tpa-deny: "Rifiuta la richiesta di teletrasporto"
+description-tpa-cancel: "Cancella una richiesta di teletrasporto"
+description-god: "Attiva o disattiva la modalità God"
+description-heal: "Cura un giocatore"
+description-more: "Ottieni più oggetti"
+description-tp-world: "Teletrasportati in un altro mondo"
+description-trash: "Apri il cestino della spazzatura"
+description-feed: "Sfama un giocatore"
+description-craft: "Apri il banco da lavoro"
+description-enchanting: "Apre il tavolo per incantesimi"
+description-invsee: "Apri l'inventario di un giocatore"
+description-compact: "Comprimi un materiale"
+description-hat: "Indossa un cappello"
+description-tp: "Teletrasportati a un giocatore"
+description-tp-self: "Teletrasportati da un giocatore"
+description-player-weather: "Cambia il tempo metereologico"
+description-player-time: "Chambia il tempo"
+description-money: "Mostra il tuo saldo"
+description-eco: "Manages the server economies"
+description-eco-set: "Imposta il saldo di un giocatore alla quantita scelta"
+description-eco-take: "Prendi dei soldi da un giocatore"
+description-eco-give: "Dai a un giocatore dei soldi"
+description-eco-give-all: "Dai a tutti i giocatori dei soldi"
+description-eco-reset: "Azzera il saldo del giocatore al saldo iniziale del server"
+description-eco-show: "Mostra il saldo di un giocatore"
+description-pay: "Paga un altro giocatore attraverso l'utilizzo del tuo saldo"
+description-fly: "Abilita/Disabilita il volo"
+description-anvil: "Apre la GUI dell'anvil"
+description-cartographytable: "Apre una tavola cartografica"
+description-grindstone: "Apre la GUI della mola"
+description-loom: "Apre la GUI del telaio"
+description-stonecutter: "Apre la GUI del tagliapietre"
+description-smithingtable: "Apre la GUI del banco da forgiatura"
+description-back: "Teletrasportati alla tua posizione precedente"
+description-set-spawn: "Imposta lo spawnpoint del server"
+description-spawn: "Teletrasportati allo spawn"
+description-warp-set: "Crea un warp"
+description-warp-use: "Teletrasportati a un warp"
+description-warp-del: "Elimina un warp"
+description-warp-list: "Mostra la lista dei warp"
+description-tp-random: "Teletrasporto casuale nel mondo"
+description-set-home: "Crea una casa"
+description-del-home: "Elimina una casa"
+description-home: "Teletrasportati a una casa"
+description-kick: "Caccia un giocatore"
+description-kick-all: "Caccia tutti i giocatori"
+description-kitty-cannon: "Lancia gattini, perche ca##o lo vorresti fare? Mostro"
+description-ban: "Banna un giocatore per sempre"
+description-mute: "Muta un giocatore"
+description-un-mute: "Smuta un giocatore"
+description-un-ban: "Sbanna un giocatore"
+description-sanction: "Apre un inventario delle sanzioni"
+description-chat-history: "Mostra i messaggi di un giocatore"
+description-chat-clear: "Pulisce la chat"
+description-chat-disable: "Disabilita la chat"
+description-chat-enable: "Abilita la chat"
+description-chat-broadcast: "Trasmetti un messaggio a tutti i giocatori online"
+description-message: "Manda un messaggio privato a un giocatore"
+description-reply: "Rispondi ad un messaggio privato"
+description-message-toggle: "Abilita/disabilita la funzione messaggi privati"
+description-socialspy: "Mostra messaggi privati tra giocatori"
+description-furnace: "Fonde gli oggetti in mano"
+description-skull: "Ottieni la testa di un giocatore"
+description-repair: "Ripara l'oggetto in mano"
+description-repair-all: "Ripara tutti gli oggetti nell'inventario"
+description-ext: "Smetti di bruciare"
+description-near: "Mostra giocatori vicino a te"
+description-play-time: "Mostra il playtime/tempo di gioco, di un giocatore"
+description-bottom: "Teletrasportati sul fondo"
+description-compact-all: "Compatta gli oggetti nel tuo inventario"
+description-version: "Mostra la versione del plugin"
+description-kill-all: "Uccidi le entità"
+description-seen: "Show player informations"
+description-seen-ip: "Show players who have the same IP"
+description-kit: "Ottieni un kit"
+description-kit-editor: "Modifica un kit"
+description-kit-create: "Crea un nuovo kit"
+description-kit-delete: "Elimina un kit"
+description-cooldown: "Mostra i cooldowns di un giocatore"
+description-cooldown-delete: "Elimina un cooldown"
+description-cooldown-create: "Crea un cooldown"
+
+# Time format
+format-second: "secondo"
+format-seconds: "secondi"
+format-minute: "minuto"
+format-minutes: "minuti"
+format-hour: "ora"
+format-hours: "ore"
+format-day: "giorno"
+format-days: "giorni"
+cooldown: "<error>✘ Devi aspettare &f%cooldown% <error>prima di poter ripetere questa azione."
+cooldown-commands: "<error>✘ Devi aaspettare &f%cooldown% <error>per poter eseguire di nuovo questo comando."
+
+# Teleportation
+teleport-move: "<error>Non devi muoverti!"
+teleport-damage: "<error>Teletrasporto annullato. Hai ricevuto danno."
+teleport-error-location: "<error>Non è stato possibile teletrasportarti in modo sicuro."
+
+
+teleport-message:
+  type: ACTION
+  message: "&7Verrai teletrasportato entro #0EEA93%seconds% &7secondi, non muoverti."
+teleport-success:
+  type: ACTION
+  message: "#99E0FFTi sei teletrasportato con successo!"
+teleport-message-spawn:
+  - type: ACTION
+    message: "&7Verrai teletrasportato in #0EEA93%seconds% &7secondi, non muoverti."
+  - message: "&7Verrai teletrasportato in #0EEA93%seconds% &7secondi, non muoverti."
+teleport-success-spawn:
+  - type: ACTION
+    message: "&7Ti sei teletrasportato allo #0EEA93spawn &7!"
+  - message: "&7Ti sei teletrasportato allo #0EEA93spawn &7!"
+
+teleport-message-warp:
+  - type: ACTION
+    message: "&7Verrai teletrasportato in #0EEA93%seconds% &7secondi, non muoverti."
+  - message: "&7Verrai teletrasportato in #0EEA93%seconds% &7secondi, non muoverti."
+teleport-success-warp:
+  - type: ACTION
+    message: "&7Ti sei teletrasportato al warp #0EEA93%name% &7!"
+  - message: "&7Ti sei teletrasportato al warp #0EEA93%name% &7!"
+
+teleport-message-random:
+  type: ACTION
+  message: "&7Verrai teletrasportato in #0EEA93%seconds% &7secondi, non muoverti."
+teleport-success-random:
+  type: ACTION
+  message: "#99E0FFTeletrasportato con successo!"
+
+teleport-message-home:
+  - type: ACTION
+    message: "&7Verrai teletrasportato in #0EEA93%seconds% &7secondi, non muoverti."
+  - message: "&7Verrai teletrasportato in #0EEA93%seconds% &7secondi, non muoverti."
+teleport-success-home:
+  - type: ACTION
+    message: "&7Ti sei teletrasportato alla casa #0EEA93%name% &7!"
+  - message: "&7Ti sei teletrasportato alla casa #0EEA93%name% &7!"
+
+
+# Warps
+command-warp-already-exist: "<error>Warp &f%name% #ff0000esiste già. &7Usa &n<hover:show_text:'&fUsa questo comando'><click:suggest_command:'/setwarp %name% true'>/setwarp %name% true</click></hover>&r per modificare il warp"
+command-warp-doesnt-exist: "#ff0000Warp &f%name% #ff0000 non esiste."
+command-warp-no-permission: "#ff0000Non hai il abbastanza permessi per utilizzare il warp &f%name%#ff0000."
+command-warp-create:
+  - "<success>Hai appena creato il warp &f%name% <success>nella tua posizione."
+  - "&7Permesso del warp: <hover:show_text:'&fCopia il comando per aggiungere il permesso a un giocatore'><click:SUGGEST_COMMAND:'/lp user <username> permission set nessentials.warp.%name%'>&f&nessentials.warp.%name%</click></hover>"
+command-warp-use:
+  - "<error>Utilizzo&8: &f/warp <destination>"
+  - "&7Warps&8:&f%destinations%"
+command-warp-destination: " <hover:show_text:'&fClick to teleport to warp &n%name%'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"
+command-warp-list: "&7Warps&8:&f%destinations%"
+command-warp-list-info: " <hover:show_text:'&fClicca per teletrasportarti al warp &n%name%'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"
+command-warp-delete: "<success>Hai appena rimosso il warp &f%name%<success>."
+
+
+
+# Homes
+command-set-home-invalide-name: "&f%name% #ff0000non è un nome valido, per favore scegline un altro."
+command-set-home-too-long: "&f%name% #ff0000è troppo lungo, per favore scegline un altro."
+command-set-home-too-short: "&f%name% #ff0000è troppo corto, per favore scegline un altro."
+command-set-home-max: "#ff0000Non puoi avere più di &f%max%#ff0000 case."
+command-set-home-create:
+  - ""
+  - "#99E0FFYHai appena creato la casa &f%name%#99E0FF. &8(&7%current%&8/&7%max%&8)"
+  - "&fUsa &n<hover:show_text:'&fClicca per teletrasportarti a casa'><click:suggest_command:'/home %name%'>/home %name%</click></hover>&r per teletrasportarti"
+  - ""
+command-home-doesnt-exist: "#ff0000La casa &f%name%#ff0000 non esiste."
+
+# Available placeholders:
+# %count% - Home count
+# %max% - Max player's home
+command-home-information-multi-line-header:
+  - ""
+  - "#8cc0ccʟᴇ ᴛᴜᴇ ᴄᴀsᴇ <success>♦ &7(%count%) &8- &7(Max: %max%)"
+
+# Available placeholders:
+# %count% - Home count
+# %max% - Max player's home
+# %name% - Home name
+# %world% - Home world
+# %environment% - Home world environment
+# %x% - Home location x
+# %y% - Home location y
+# %z% - Home location z
+command-home-information-multi-line-content:
+  type: WITHOUT_PREFIX
+  message: " #8cc0cc♢ &f%name% &7in %world% (%environment%) <success><hover:show_text:'&7Clicca per teletrasportarti alla casa &f&n%name%'><click:run_command:'/home %name%'>[CLICCARE QUI]</click></hover>"
+
+# Available placeholders:
+# %count% - Home count
+# %max% - Max player's home
+command-home-information-multi-line-footer:
+  type: WITHOUT_PREFIX
+  message: ""
+
+# Available placeholders:
+# %count% - Home count
+# %max% - Max player's home
+# %name% - Home name
+# %world% - Home world
+# %environment% - Home world environment
+# %x% - Home location x
+# %y% - Home location y
+# %z% - Home location z
+command-home-information-in-line:
+  type: WITHOUT_PREFIX
+  message: "#8cc0ccʟᴇ ᴛᴜᴇ ᴄᴀsᴇ <success>♦ &7(%count%/%max%) &8:&f%homes%"
+command-home-information-in-line-info: " <hover:show_text:'&7Clicca per teletrasportarti alla casa &f&n%name%'><click:run_command:'/home %name%'>&f%name%</click></hover>&7"
+
+command-home-icon-error: "#ff0000Devi tenere un oggetto per cambiare l'icona della tua casa."
+command-home-icon-success: "#00ff0Hai cambiato l'icona della casa &f%name%<success>."
+command-home-icon-reset: "<success>Hai resettato l'icona della casa &f%name%<success>."
+command-home-delete: "#99E0FFHai rimosso la casa &f%name%#99E0FF."
+command-home-admin-delete: "<success>Hai rimosso la casa &f%name%<success> di &b%player%<success>."
+command-home-admin-set: "<success>Hai creato la casa &f%name%<success> per &b%player%<success>."
+command-home-admin-list: "#8cc0ccᴄᴀsᴇ ᴅɪ %player%&8:&f%homes%"
+command-home-admin-list-info: " <hover:show_text:'&7Clicca per teletrasportarti alla casa &f&n%name%'><click:run_command:'/home %player%:%name%'>&f%name%</click></hover>&7"
+
+# Sanction
+command-kick-notify:
+  type: WITHOUT_PREFIX
+  message: "<hover:show_text:'<gray>Da parte di: <white>%sender%<newline><gray>Durata: <white>%duration%<newline><gray>Motivo: <white>%reason%<newline><gray>Data: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanzione&8) #8aebeb%player% #e33414ha appena cacciato #e0d12d%target%#e33414.</click></hover>"
+command-ban-notify:
+  type: WITHOUT_PREFIX
+  message: "<hover:show_text:'<gray>Da parte di: <white>%sender%<newline><gray>Durata: <white>%duration%<newline><gray>Motivo: <white>%reason%<newline><gray>Data: <white>%created_at%<newline><gray>Expires: <white>%expired_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanzione&8) #8aebeb%player% #e33414ha appena bannato #e0d12d%target%#e33414.</click></hover>"
+command-mute-notify:
+  type: WITHOUT_PREFIX
+  message: "<hover:show_text:'<gray>Da parte di: <white>%sender%<newline><gray>Durata: <white>%duration%<newline><gray>Motivo: <white>%reason%<newline><gray>Data: <white>%created_at%<newline><gray>Expires: <white>%expired_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanzione&8) #8aebeb%player% #e33414ha appena mutato #e0d12d%target%#e33414.</click></hover>"
+command-unmute-notify:
+  type: WITHOUT_PREFIX
+  message: "<hover:show_text:'<gray>Da parte di: <white>%sender%<newline><gray>Durata: <white>%duration%<newline><gray>Motivo: <white>%reason%<newline><gray>Data: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanzione&8) #8aebeb%player% #e33414ha appena smutato #e0d12d%target%#e33414.</click></hover>"
+command-unban-notify:
+  type: WITHOUT_PREFIX
+  message: "<hover:show_text:'<gray>Da parte di: <white>%sender%<newline><gray>Durata: <white>%duration%<newline><gray>Motivo: <white>%reason%<newline><gray>Data: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanzione&8) #8aebeb%player% #e33414just ha appena unbannato #e0d12d%target%#e33414.</click></hover>"
+command-ban-error-duration: "<error>La durata del ban deve essre almeno di 1 secondo."
+command-mute-error-duration: "<error>La durata del mute deve essre almeno di 1 secondo."
+command-un-mute-error: "&f%player% <error>mom è mutato."
+command-un-ban-error: "&f%player% <error>non è bannato."
+command-sanction-error: "<error>Non puoi sanzionare questo giocatore. È protetto."
+message-kick:
+  - ""
+  - "<error>Sei appena stato cacciato dal server per il seguente motivo:"
+  - "%reason%"
+  - ""
+  - "&fMinecraft-Inventory-Builder.com"
+  - ""
+message-mute:
+  - ""
+  - "&fHai appena perso la tua <u>voce</u>."
+  - "&fDurata&8: <gradient:#7ae856:#a1d909>%duration%</gradient>"
+  - "&fMotivo&8: #82d1ff%reason%"
+  - ""
+message-unmute:
+  - ""
+  - "&fHai appena riottenuto la tua <u>voce</u>, congratulazioni!"
+  - "&fMotivo&8: #82d1ff%reason%"
+  - ""
+message-mute-talk:
+  - ""
+  - "&fNon hai il diritto di parlare adesso!."
+  - ""
+  - "&fDurata&8: <gradient:#7ae856:#a1d909>%duration%</gradient>"
+  - "&fMotivo&8: #82d1ff%reason%"
+  - ""
+message-ban:
+  - ""
+  - "<error>Sei stato bannato per il seguente motivo:"
+  - "&f%reason%"
+  - "&fDurata&8: &7%duration%"
+  - ""
+  - "&fMinecraft-Inventory-Builder.com"
+  - ""
+message-ban-join:
+  - ""
+  - "<error>Sei bannato dal server per il seguene motivo:"
+  - "&f%reason%"
+  - "&fTempo rimanente&8: &7%remaining%"
+  - ""
+  - "&fMinecraft-Inventory-Builder.com"
+  - ""
+
+# Chat
+chat-error: "<error>Impossibile lasciarti scrivere, i tuoi dati non sono caricati."
+chat-alphanumeric-regex: "<error>Hai usato un caratterre proibito."
+chat-cooldown: "<error>Aspetta prima di mandare il prossimo messaggio. &8(&7%cooldown%&8)"
+chat-same: "<error>Non puoi riscrivere la stessa frase."
+chat-link: "<error>Non puoi mandare link nella chat."
+chat-disable: "<error>La chat non è disponibile al momento."
+
+chat-default-format: "<white>%displayName% <#656665>• <gray>%message%"
+chat-messages-empty: "&f%player% <error>non ha scritto un messaggio."
+chat-messages-line:
+  type: WITHOUT_PREFIX
+  message: "&f%date% &7%message%"
+chat-messages-footer:
+  type: WITHOUT_PREFIX
+  message: "<click:run_command:'/chathistory %player% %previousPage%'><hover:show_text:'Pagina Precedente'><white>⬅</hover></click> <gray>%page%/%maxPage% <click:run_command:'/chathistory %player% %nextPage%'><hover:show_text:'Pagina Seguente'><white>➡</hover></click>"
+command-chat-clear: "<success>La chat è stata pulita."
+command-chat-disable-error: "<error>La chat è gia disabilitata."
+command-chat-disable-success: "<success>Hai disabilitato la chat."
+command-chat-enable-error: "<error>La chat è gia abilitata."
+command-chat-enable-success: "<success>Hai appena abilitato la chat."
+command-chat-broadcast:
+  type: WITHOUT_PREFIX
+  message: "<primary>ᴀɴɴᴜɴᴄɪᴏ <secondary>• <white>%message%"
+
+
+# Messages
+command-message-self: "<error>Non puoi scrivere a te stesso."
+command-message-disable: "<error>I messaggi privati per &f%player% <error> sono disabilitati."
+command-message-mute: "<error>Non puoi scrivere."
+command-message-me: "<hover:show_text:'&fClicca per rispondere'><click:suggest_command:'/r '>&8(#f533f5me &7-> #34cfe0%target%&8) #e6e1e6<message></click></hover>"
+command-message-other: "<hover:show_text:'&fClicca per rispondere'><click:suggest_command:'/r '>&8(#34cfe0%target% &7-> #f533f5me&8) #e6e1e6<message></click></hover>"
+command-message-social-spy:
+  type: WITHOUT_PREFIX
+  message: "&8(&7SocialSpy&8) &8(<hover:show_text:'&fMostra le sanzioni per %sender%'><click:run_command:'/sc %sender%'>#34cfe0%sender%</click></hover> &7-> <hover:show_text:'&fMostra le sanzioni per %receiver%'><click:run_command:'/sc %receiver%'>#f533f5%receiver%</click></hover>&8) #e6e1e6%message%"
+command-message-error: "<error>Non hai nessuno a cui rispondere."
+command-message-toggle-enable: "&7Messaggi privati <success>abilitati &7per &f%player%<success>."
+command-message-toggle-disable: "&7Messaggi privati <error>disabilitati &7per &f%player%<success>."
+command-social-spy-enable: "&7Social spy <success>abilitato &7per &f%player%<success>."
+command-social-spy-disable: "&7Social spy <error>disable &7per &f%player%<success>."
+
+
+# Kit
+command-kit-not-found: "<error>Non è stato possibile trovare il kit &f%kit%<error>."
+command-kit-already-exists: "<error>Il kit &f%kit% <error>esiste già."
+command-kit-information-in-line-empty: "#8cc0ccʏᴏᴜʀ ᴋɪᴛs <success>♦ &7(%count%/%max%)&8: <error>ɴᴏ ᴋɪᴛ ᴀᴠᴀɪʟᴀʙʟᴇ"
+command-kit-information-in-line: "#8cc0ccɪ ᴛᴜᴏɪ ᴋɪᴛs&8:&f%kits%"
+command-kit-information-in-line-info-available: " <hover:show_text:'&7Clicca per ottenere il kit &f&n%name%'><click:run_command:'/kit %name%'><#1fde65>%name%</click></hover>&7"
+command-kit-information-in-line-info-unavailable: " <hover:show_text:'&7Devi aspettare<u>%time%</u> prima di ottenere il kit &f&n%name%'><st><#de1f1f>%name%</st></hover>&7"
+command-kit-information-multi-line-header: ""
+command-kit-information-multi-line-content-available: "<#8cc0cc>♢ <hover:show_text:'&7Clicca per ottenere il kit &f&n%name%'><click:run_command:'/kit %name%'><#1fde65>%name% </click></hover>"
+command-kit-information-multi-line-content-unavailable: "<#8cc0cc>♢ <hover:show_text:'&7Devi aspettare<u>%time%</u> prima di ottenere il kit &f&n%name%'><st><#de1f1f>%name%</st></hover> &8(&7%time%&8)"
+command-kit-information-multi-line-footer: ""
+command-kit-editor-save: "<success>Hai appena modificato il kit &f%kit%<success>."
+command-kit-create: "<success>Hai appena creato il kit &f%kit%<success>."
+command-kit-delete: "<success>Hai appena eliminato il kit &f%kit%<success>."
+
+
+# Cooldown
+command-cooldown-header: "&fCooldown di %player% &8(&7%amount%&8)"
+command-cooldown-empty: "&f%player% <error>non ha nessun cooldown."
+# Available placeholders:
+# %key% - The key to the cooldown
+# %value% - The cooldown expiration timestamp
+# %timeLeft% - The time remaining before cooldown expiration
+# %createdAt% - Cooldown creation date
+# %player% - the Player's nickname
+command-cooldown-line:
+  type: WITHOUT_PREFIX
+  message: "&f%key% <secondary>- &7%createdAt% <secondary>- <success>%timeLeft% <secondary>- <hover:show_text:'&fClicca per togliere il cooldown'><click:run_command:'/cooldown delete %player% %key%'>&8[<error>ᴇʟɪᴍɪɴᴀ&8]</click></hover>"
+command-cooldown-not-found: "&f%cooldown% <error>non è stato trovato."
+command-cooldown-delete: "<success>Hai appena rimosso il cooldown &f%cooldown% <success>da &n%player%&r<success>."
+# Available placeholders:
+# %key% - The key to the cooldown
+# %player% - the Player's nickname
+# %duration% - the duration of the cooldown
+command-cooldown-create: "<success>Hai appena creato il cooldown &f%key% <success>per &n%player%&r<success>."

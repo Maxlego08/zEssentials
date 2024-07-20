@@ -1,0 +1,13 @@
+name: zEssentials
+version: '${version}'
+main: fr.maxlego08.essentials.ZEssentialsPlugin
+folia-supported: true
+description: Provides an essential, core set of commands for Bukkit.
+website: https://groupez.dev/
+depend:
+  - zMenu
+  - PlaceholderAPI
+softdepend:
+  - Vault
+  - ProtocolLib
+api-version: '1.20'

@@ -1,0 +1,18 @@
+name: "#00f986ᴍᴏsᴛ ᴍᴏɴᴇʏ"
+size: 36
+items:
+  first:
+    slot: 13
+    item:
+      playerHead: "%zessentials_economy_baltop_name_money_1%"
+      name: "#00f986#1 &f%zessentials_economy_baltop_name_money_1%: %zessentials_economy_baltop_formatted_amount_money_1%"
+  second:
+    slot: 21
+    item:
+      playerHead: "%zessentials_economy_baltop_name_money_2%"
+      name: "#00f986#2 &f%zessentials_economy_baltop_name_money_2%: %zessentials_economy_baltop_formatted_amount_money_2%"
+  third:
+    slot: 23
+    item:
+      playerHead: "%zessentials_economy_baltop_name_money_3%"
+      name: "#00f986#3 &f%zessentials_economy_baltop_name_money_3%: %zessentials_economy_baltop_formatted_amount_money_3%"
