@@ -41,7 +41,7 @@ command-no-console: "<error>Only one player can execute this command."
 command-no-arg: "<error>Impossible to find the command with its arguments."
 command-syntaxe-help: "&f%syntax% #656665» &7%description%"
 
-command-reload: "#00ff40You have just reloaded the configuration files."
+command-reload: "<success>You have just reloaded the configuration files."
 command-reload-module: "<success>You have just reloaded the configuration files of the module &f%module%<success>."
 command-reload-error: "&f%module% <error>was not found !"
 command-essentials: "&ezEssentials&8, &eVersion &f%version%"

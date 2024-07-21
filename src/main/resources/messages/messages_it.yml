@@ -32,7 +32,7 @@ command-no-console: "<error>Solo i giocatori possono eseguire questo comando."
 command-no-arg: "<error>Non è stato possible trovare il comando con questi argomenti."
 command-syntaxe-help: "&f%syntax% #656665» &7%description%"
 
-command-reload: "#00ff40Hai appena aggiornato la ocnfigurazione."
+command-reload: "<success>Hai appena aggiornato la ocnfigurazione."
 command-essentials: "&ezEssentials&8, &eVersione &f%version%"
 
 

@@ -40,9 +40,9 @@ command-no-console: "<error>Seul un joueur peut exécuter cette commande."
 command-no-arg: "<error>Impossible de trouver la commande avec ses arguments."
 command-syntaxe-help: "&f%syntax% #656665» &7%description%"
 
-command-reload: "#00ff40Vous venez de recharger les fichiers de configuration."
+command-reload: "<success>Vous venez de recharger les fichiers de configuration."
 command-reload-module: "<success>Vous venez de recharger les fichiers de configuration du module &f%module%<success>."
-command-reload-error: "&f%module% <erreur>n'a pas été trouvé !"
+command-reload-error: "&f%module% <error>n'a pas été trouvé !"
 command-essentials: "&ezEssentials&8, &eVersion &f%version%"
 
 # Commandes de mode de jeu
@@ -573,14 +573,14 @@ command-message-toggle-enable: "&7Les messages privés sont <success>activés &7
 command-message-toggle-disable: "&7Les messages privés sont <error>désactivés &7pour &f%player%<success>."
 command-social-spy-enable: "&7Le mode SocialSpy est <success>activé &7pour &f%player%<success>."
 command-social-spy-disable: "&7Le mode SocialSpy est <error>désactivé &7pour &f%player%<success>."
-command-warp-empty: "<erreur>Aucun warp défini, utilisez la commande &f/setwarp <nom>"
+command-warp-empty: "<error>Aucun warp défini, utilisez la commande &f/setwarp <nom>"
 command-pay-toggle-enable: "&7Le paiement est <success>activé &7pour &f%player%<success>."
-command-pay-toggle-disable: "&7Le paiement est <erreur>dDésactivé &7pour &f%player%<erreur>."
+command-pay-toggle-disable: "&7Le paiement est <error>dDésactivé &7pour &f%player%<error>."
 command-power-tools-toggle-enable: "<success>Tous vos outils de puissance ont été activés &7pour &f%player%<success>."
-command-power-tools-toggle-disable: "<erreur>Tous vos outils de puissance ont été désactivés &7pour &f%player%<erreur>."
+command-power-tools-toggle-disable: "<error>Tous vos outils de puissance ont été désactivés &7pour &f%player%<error>."
 
 # Kit
-command-kit-no-permission: "<erreur>Vous n'avez pas la permission d'utiliser le kit &f%kit%<erreur>."
+command-kit-no-permission: "<error>Vous n'avez pas la permission d'utiliser le kit &f%kit%<error>."
 command-kit-not-found: "<error>Impossible de trouver le kit &f%kit%<error>."
 command-kit-already-exists: "<error>Le kit &f%kit% <error>existe déjà."
 command-kit-information-in-line-empty: "#8cc0ccVos kits <success>♦ &7(%count%/%max%)&8: <error>Aucun kit disponible"
@@ -615,44 +615,44 @@ command-cooldown-delete: "<success>Vous venez de supprimer le cooldown &f%cooldo
 # %duration% - la durée du temps de recharge
 command-cooldown-create: "<success>Vous venez de créer le cooldown &f%key% <success>pour &n%player%&r<success>."
 
-command-item-empty: "<erreur>Vous n'avez aucun objet dans votre main."
+command-item-empty: "<error>Vous n'avez aucun objet dans votre main."
 command-item-clear: "<success>Vous avez effacé le nom de cet objet."
 command-item-set: "<success>Vous avez renommé votre objet tenu en &f%name%<success>."
 command-item-lore-add: "<success>Vous venez d'ajouter la ligne &f%text%<success>."
 command-item-lore-set: "<success>Vous avez défini la ligne %line% à &f%text%<success>."
 command-item-lore-clear: "<success>Vous avez effacé le lore de l'objet."
-command-item-lore-set-error: "<erreur>Impossible de trouver la ligne &f%line%<erreur>."
-command-give-error: "<erreur>Impossible de trouver l'objet &f%item%<erreur>."
+command-item-lore-set-error: "<error>Impossible de trouver la ligne &f%line%<error>."
+command-give-error: "<error>Impossible de trouver l'objet &f%item%<error>."
 command-give: "<success>Vous venez de donner &n&fx1 %item%&r <success>au joueur &f%player%<success>."
 command-give-all: "<success>Vous venez de donner &n&fx1 %item%&r <success>à tous les joueurs en ligne."
 
-command-power-tool-error-item: "<erreur>Vous n'avez aucun objet dans votre main."
-command-power-tool-error-reset: "<erreur>Cet objet n'a pas de commande enregistrée."
+command-power-tool-error-item: "<error>Vous n'avez aucun objet dans votre main."
+command-power-tool-error-reset: "<error>Cet objet n'a pas de commande enregistrée."
 command-power-tool-info: "<success>Vous venez d'attribuer la commande &f/%command%<success> à l'objet &f%item<success>."
 command-power-tool-reset: "<success>Vous avez supprimé la commande de l'objet &f%item<success>."
 
-mailbox-remove-full: "<erreur>Vous devez avoir de la place dans votre inventaire pour récupérer un objet."
-mailbox-remove-expire: "<erreur>Vous ne pouvez plus récupérer cet objet, il a expiré."
+mailbox-remove-full: "<error>Vous devez avoir de la place dans votre inventaire pour récupérer un objet."
+mailbox-remove-expire: "<error>Vous ne pouvez plus récupérer cet objet, il a expiré."
 mailbox-add:
   type: ACTION
   message: "<success>Un objet vient d'être ajouté à votre boîte aux lettres &8(&f/mail&8)"
 
-hologram-create-error: "<erreur>Le hologramme &f%name% <erreur>existe déjà."
+hologram-create-error: "<error>Le hologramme &f%name% <error>existe déjà."
 hologram-create:
   type: WITHOUT_PREFIX
   messages:
     - "<success>Vous venez de créer le hologramme &f%name%<success>."
     - "&7Utilisez la commande &n<click:run_command:'/hologram edit %name%'>/hologram edit %name%</click>&r&7 pour éditer le hologramme"
 hologram-delete: "<success>Le hologramme &f%name% <success>a été supprimé."
-hologram-doesnt-exist: "<erreur>Le hologramme &f%name% <erreur>n'existe pas."
-hologram-is-not-a-text: "<erreur>Le hologramme &f%name% <erreur>n'est pas un hologramme texte."
-hologram-is-not-a-block: "<erreur>Le hologramme &f%name% <erreur>n'est pas un hologramme bloc."
-hologram-is-not-a-item: "<erreur>Le hologramme &f%name% <erreur>n'est pas un hologramme objet."
+hologram-doesnt-exist: "<error>Le hologramme &f%name% <error>n'existe pas."
+hologram-is-not-a-text: "<error>Le hologramme &f%name% <error>n'est pas un hologramme texte."
+hologram-is-not-a-block: "<error>Le hologramme &f%name% <error>n'est pas un hologramme bloc."
+hologram-is-not-a-item: "<error>Le hologramme &f%name% <error>n'est pas un hologramme objet."
 hologram-add-line: "<success>Vous venez d'ajouter une ligne au hologramme &f%name%<success>."
 hologram-set-line: "<success>Vous avez défini la ligne &f%line%<success> pour le hologramme &f%name%<success>."
 hologram-insert-before-line: "<success>Vous avez ajouté une nouvelle ligne avant la ligne &f%line%<success> pour le hologramme &f%name%<success>."
 hologram-insert-after-line: "<success>Vous avez ajouté une nouvelle ligne après la ligne &f%line%<success> pour le hologramme &f%name%<success>."
-hologram-line-doesnt-exist: "<erreur>La ligne &f%line% <erreur>n'existe pas pour le hologramme &f%name%<erreur>."
+hologram-line-doesnt-exist: "<error>La ligne &f%line% <error>n'existe pas pour le hologramme &f%name%<error>."
 hologram-remove-line: "<success>Vous avez supprimé la ligne &f%line%<success> du hologramme &f%name%<success>."
 hologram-scale: "<success>Vous avez modifié l'échelle du hologramme &f%name% <success>à &7%x%&8, &7%y%&8, &7%z%<success>."
 hologram-translation: "<success>Vous avez modifié la position du hologramme &f%name% <success>à &7%x%&8, &7%y%&8, &7%z%<success>."
@@ -663,24 +663,24 @@ hologram-text-alignment: "<success>Vous avez changé l'alignement du texte du ho
 hologram-yaw: "<success>Vous avez changé l'orientation du hologramme &f%name%<success> à &f%yaw%<success>."
 hologram-pitch: "<success>Vous avez changé l'inclinaison du hologramme &f%name%<success> à &f%pitch%<success>."
 hologram-text-background: "<success>Vous avez changé la couleur de fond du hologramme &f%name%<success> en &f%color%<success>."
-hologram-text-background-error: "<erreur>Impossible de définir la couleur de fond."
+hologram-text-background-error: "<error>Impossible de définir la couleur de fond."
 hologram-text-shadow: "<success>Vous avez défini l'ombre du texte à &f%textshadow% <success>pour le hologramme &f%name%<success>."
 hologram-see-through: "<success>Vous avez défini la transparence à &f%seethrough% <success>pour le hologramme &f%name%<success>."
 hologram-shadow-strength: "<success>Vous avez défini l'intensité de l'ombre à &f%shadow% <success>pour le hologramme &f%name%<success>."
 hologram-shadow-radius: "<success>Vous avez défini le rayon de l'ombre à &f%shadow% <success>pour le hologramme &f%name%<success>."
 hologram-view-distance: "<success>Vous avez défini la distance de vision à &f%distance% <success>pour le hologramme &f%name%<success>."
-hologram-list-empty: "<erreur>Il n'y a pas de hologramme, pour en créer un veuillez utiliser la commande &f/holo create <name>"
+hologram-list-empty: "<error>Il n'y a pas de hologramme, pour en créer un veuillez utiliser la commande &f/holo create <name>"
 hologram-list:
   type: WITHOUT_PREFIX
   message: "&f%name% &8- &7%world%: %x%, %y%, %z% &8- <hover:show_text:'&7Cliquez pour vous téléporter à ce hologramme'><click:run_command:'/holo tp %name%'><green>ᴛᴇʟᴇᴘᴏʀᴛ</click> </hover><hover:show_text:'<red>Cliquez pour supprimer ce hologramme'><click:suggest_command:'/holo delete %name%'><red>ᴅᴇʟᴇᴛᴇ</click></hover>"
-hologram-item-error: "<erreur>Vous ne pouvez pas utiliser de l'air pour ce hologramme."
+hologram-item-error: "<error>Vous ne pouvez pas utiliser de l'air pour ce hologramme."
 hologram-item: "<success>Vous avez modifié l'objet du hologramme &f%name%<success>."
 hologram-block: "<success>Vous avez modifié le bloc du hologramme &f%name%<success> en &f%material%<success>."
 
-scoreboard-disable: "<erreur>Vous avez désactivé le tableau de score."
+scoreboard-disable: "<error>Vous avez désactivé le tableau de score."
 scoreboard-enable: "<success>Vous avez activé le tableau de score."
 
-command-baltop-error: "<erreur>Impossible de trouver l'économie &f%name%<erreur>."
+command-baltop-error: "<error>Impossible de trouver l'économie &f%name%<error>."
 command-baltop-header:
   type: WITHOUT_PREFIX
   message: "#00f986ᴘʟᴜs ᴅ'ᴀʀɢᴇɴᴛ &8(&f%page%&8/&7%maxPage%&8) <click:run_command:'/baltop %previousPage%'>&f◀</click> &8- <click:run_command:'/baltop %nextPage%'>&f▶</click>"
