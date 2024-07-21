@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public abstract class YamlLoader extends ZUtils {
@@ -53,7 +54,7 @@ public abstract class YamlLoader extends ZUtils {
                         Class<?> fieldArgClass = (Class<?>) type.getActualTypeArguments()[0];
 
                         if (Loadable.class.isAssignableFrom(fieldArgClass)) {
-                            field.set(this, loadObjects(fieldArgClass, configuration.getMapList(configKey)));
+                            field.set(this, loadObjects(plugin.getLogger(), fieldArgClass, configuration.getMapList(configKey)));
                             continue;
                         } else if (NonLoadable.class.isAssignableFrom(fieldArgClass)) {
                             continue;
@@ -66,7 +67,7 @@ public abstract class YamlLoader extends ZUtils {
                     if (configurationSection == null) continue;
                     Map<String, Object> map = new HashMap<>();
                     configurationSection.getKeys(false).forEach(key -> map.put(key, configurationSection.get(key)));
-                    field.set(this, createInstanceFromMap(((Class<?>) field.getGenericType()).getConstructors()[0], map));
+                    field.set(this, createInstanceFromMap(plugin.getLogger(), ((Class<?>) field.getGenericType()).getConstructors()[0], map));
                 }
             } catch (Exception exception) {
                 plugin.getLogger().severe("An error with loading field " + field.getName() + ": " + exception.getMessage());
@@ -74,8 +75,8 @@ public abstract class YamlLoader extends ZUtils {
         }
     }
 
-    private List<Object> loadObjects(Class<?> fieldArgClass, List<Map<?, ?>> maps) {
+    private List<Object> loadObjects(Logger logger, Class<?> fieldArgClass, List<Map<?, ?>> maps) {
         Constructor<?> constructor = fieldArgClass.getConstructors()[0];
-        return maps.stream().map(map -> createInstanceFromMap(constructor, map)).collect(Collectors.toList());
+        return maps.stream().map(map -> createInstanceFromMap(logger, constructor, map)).collect(Collectors.toList());
     }
 }

@@ -12,3 +12,35 @@
 ########################################################################################################################
 
 enable: true
+
+# Displays a hologram that indicates the number of credits an entity will receive
+damage-indicator:
+  # Do you want this feature enabled ?
+  enabled: false
+  # Do you want to display damage for players ?
+  players: true
+  # Do you want to display damage for mobs ?
+  mobs: true
+  # Do you want to display damage for animals ?
+  animals: true
+  # Do you want to display damage for water mobs ?
+  waterMobs: true
+  # How long will the hologram stay in ticks
+  duration: 40
+  # Damage placeholder: %damage%
+  appearance: '<#ed2626>%damage%'
+  # Appearance of the damage, if the damage is critical
+  criticalAppearance: '<#ed2626><bold>ᴄʀɪᴛ<#bf0b0b> %damage%'
+  # Height offset
+  height: 1.0
+  # Set an offset to X
+  offsetX: 0.5
+  # Set an offset to Y
+  offsetY: 0.5
+  # Set an offset to Z
+  offsetZ: 0.5
+  # To set the format to display the number of damage inflicted with a number after the comma
+  decimalFormat: "#.#"
+  # Disable damage indicator on certain entities
+  disabledEntities:
+    - WITHER

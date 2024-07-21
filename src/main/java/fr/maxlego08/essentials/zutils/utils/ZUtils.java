@@ -21,6 +21,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -149,7 +151,7 @@ public abstract class ZUtils extends MessageUtils {
         };
     }
 
-    protected Object createInstanceFromMap(Constructor<?> constructor, Map<?, ?> map) {
+    protected Object createInstanceFromMap(Logger logger, Constructor<?> constructor, Map<?, ?> map) {
         try {
             Object[] arguments = new Object[constructor.getParameterCount()];
             java.lang.reflect.Parameter[] parameters = constructor.getParameters();
@@ -157,39 +159,94 @@ public abstract class ZUtils extends MessageUtils {
                 Class<?> paramType = parameters[i].getType();
                 String paramName = parameters[i].getName();
                 Object value = map.get(paramName);
+
                 if (value != null) {
-                    if (paramType.isArray()) {
-                        Class<?> componentType = paramType.getComponentType();
-                        List<?> list = (List<?>) value;
-                        Object array = Array.newInstance(componentType, list.size());
-                        for (int j = 0; j < list.size(); j++) {
-                            Object elem = list.get(j);
-                            elem = convertToRequiredType(elem, componentType);
-                            Array.set(array, j, elem);
+                    try {
+                        if (paramType.isArray()) {
+                            Class<?> componentType = paramType.getComponentType();
+                            List<?> list = (List<?>) value;
+                            Object array = Array.newInstance(componentType, list.size());
+                            for (int j = 0; j < list.size(); j++) {
+                                Object element = list.get(j);
+                                element = convertToRequiredType(logger, element, componentType);
+                                Array.set(array, j, element);
+                            }
+                            value = array;
+                        } else {
+                            value = convertToRequiredType(logger, value, paramType);
                         }
-                        value = array;
-                    } else value = convertToRequiredType(value, paramType);
+                    } catch (Exception exception) {
+                        logger.log(Level.SEVERE, String.format("Error converting value '%s' for parameter '%s' to type '%s'", value, paramName, paramType.getName()), exception);
+                    }
+                } else {
+                    logger.log(Level.WARNING, String.format("No value found for parameter '%s', setting it to null", paramName));
                 }
+
                 arguments[i] = value;
             }
             return constructor.newInstance(arguments);
         } catch (Exception exception) {
+            logger.log(Level.SEVERE, String.format("Failed to create instance from map with constructor %s", constructor), exception);
+            logger.log(Level.SEVERE, String.format("Constructor parameters: %s", (Object) constructor.getParameters()));
+            logger.log(Level.SEVERE, String.format("Map content: %s", map));
             throw new RuntimeException("Failed to create instance from map with constructor " + constructor, exception);
         }
     }
 
-    protected Object convertToRequiredType(Object value, Class<?> type) {
+    protected Object convertToRequiredType(Logger logger, Object value, Class<?> type) {
         if (value == null) {
             return null;
         } else if (type.isEnum()) {
-            return Enum.valueOf((Class<Enum>) type, (String) value);
+            try {
+                return Enum.valueOf((Class<Enum>) type, (String) value);
+            } catch (IllegalArgumentException exception) {
+                logger.log(Level.SEVERE, String.format("Failed to convert '%s' to enum type '%s'", value, type.getName()), exception);
+            }
         } else if (type == BigDecimal.class) {
-            return new BigDecimal(value.toString());
+            try {
+                return new BigDecimal(value.toString());
+            } catch (NumberFormatException exception) {
+                logger.log(Level.SEVERE, String.format("Failed to convert '%s' to BigDecimal", value), exception);
+            }
         } else if (type == UUID.class) {
-            return UUID.fromString((String) value);
-        } else {
-            return value;
+            try {
+                return UUID.fromString((String) value);
+            } catch (IllegalArgumentException exception) {
+                logger.log(Level.SEVERE, String.format("Failed to convert '%s' to UUID", value), exception);
+            }
+        } else if (type == Integer.class || type == int.class) {
+            try {
+                return Integer.parseInt(value.toString());
+            } catch (NumberFormatException e) {
+                logger.log(Level.SEVERE, String.format("Failed to convert '%s' to Integer", value), e);
+                throw e;
+            }
+        } else if (type == Double.class || type == double.class) {
+            try {
+                return Double.parseDouble(value.toString());
+            } catch (NumberFormatException exception) {
+                logger.log(Level.SEVERE, String.format("Failed to convert '%s' to Double", value), exception);
+            }
+        } else if (type == Long.class || type == long.class) {
+            try {
+                return Long.parseLong(value.toString());
+            } catch (NumberFormatException exception) {
+                logger.log(Level.SEVERE, String.format("Failed to convert '%s' to Long", value), exception);
+            }
+        } else if (type == Boolean.class || type == boolean.class) {
+            try {
+                return Boolean.parseBoolean(value.toString());
+            } catch (Exception exception) {
+                logger.log(Level.SEVERE, String.format("Failed to convert '%s' to Boolean", value), exception);
+            }
+        } else if (type == Float.class || type == float.class) {
+            try {
+                return Float.parseFloat(value.toString());
+            } catch (NumberFormatException exception) {
+                logger.log(Level.SEVERE, String.format("Failed to convert '%s' to Float", value), exception);
+            }
         }
+        return value;
     }
 
     public Duration stringToDuration(String duration) {
