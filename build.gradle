@@ -24,7 +24,7 @@ allprojects {
     }
 
     repositories {
-        maven {url "https://repo.papermc.io/repository/maven-public/"}
+        maven { url "https://repo.papermc.io/repository/maven-public/" }
         maven { url 'https://jitpack.io' }
         maven {
             name = "devmart-other"

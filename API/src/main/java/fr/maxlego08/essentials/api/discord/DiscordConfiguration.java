@@ -7,9 +7,6 @@ import java.util.UUID;
 public record DiscordConfiguration(boolean isEnable, String webhookUrl, String avatarUrl, String content,
                                    String username, List<DiscordEmbedConfiguration> embeds) {
 
-    private static final String URL_ISOMETRIC = "https://mc-heads.net/head/%s";
-    private static final String URL_AVATAR = "https://mc-heads.net/avatar/%s";
-
     public static DiscordConfiguration disabled() {
         return new DiscordConfiguration(false, null, null, null, null, new ArrayList<>());
     }
