@@ -1,0 +1,22 @@
+name: "#3f3f3fᴠᴏᴛᴇ"
+size: 54
+items:
+  voteparty:
+    slot: 13
+    item:
+      material: BELL
+      name: "#fc07f3&lᴄᴏᴍᴍᴜɴɪᴛʏ ᴀᴅᴠᴀɴᴄᴇᴍᴇɴᴛ"
+      lore:
+        - "&8VoteParty"
+        - ""
+        - "&7By voting you will make progress"
+        - "&7VoteParty. To unlock a reward"
+        - "&7it is necessary to vote &f%zessentials_voteparty_objective% times"
+        - ""
+        - ""
+        - "&f&lᴘʀᴏɢʀᴇss"
+        - "&8[#fc99f8%zessentials_voteparty_amount% %zessentials_progressbar_{zessentials_voteparty_amount}_{zessentials_voteparty_objective}_20_|_#fc99f8_&7% #fc99f8%zessentials_voteparty_objective%&8]"
+        - ""
+        - "&f&lʀᴇᴡᴀʀᴅs"
+        - " #f8b175• #e5c2625.000$ &8(Double if VIP #fcd955✭&8)"
+        - ""

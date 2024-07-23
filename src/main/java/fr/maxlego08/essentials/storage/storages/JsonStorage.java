@@ -10,6 +10,7 @@ import fr.maxlego08.essentials.api.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.dto.UserDTO;
 import fr.maxlego08.essentials.api.dto.UserEconomyDTO;
 import fr.maxlego08.essentials.api.dto.UserEconomyRankingDTO;
+import fr.maxlego08.essentials.api.dto.UserVoteDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.mailbox.MailBoxItem;
@@ -360,5 +361,25 @@ public class JsonStorage extends StorageHelper implements IStorage {
     @Override
     public void fetchOfflinePlayerEconomies(Consumer<List<UserEconomyDTO>> consumer) {
         consumer.accept(new ArrayList<>());
+    }
+
+    @Override
+    public void setVote(UUID uuid, long vote, long offline) {
+        throw new NotImplementedException("setVote is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public UserVoteDTO getVote(UUID uniqueId) {
+        throw new NotImplementedException("getVote is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public void updateServerStorage(String key, Object object) {
+        throw new NotImplementedException("updateServerStorage is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public void setLastVote(UUID uniqueId, String site) {
+        throw new NotImplementedException("setLastVote is not implemented, use MYSQL storage");
     }
 }

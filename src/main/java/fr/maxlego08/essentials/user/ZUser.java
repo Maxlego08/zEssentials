@@ -9,6 +9,8 @@ import fr.maxlego08.essentials.api.dto.HomeDTO;
 import fr.maxlego08.essentials.api.dto.MailBoxDTO;
 import fr.maxlego08.essentials.api.dto.OptionDTO;
 import fr.maxlego08.essentials.api.dto.SanctionDTO;
+import fr.maxlego08.essentials.api.dto.UserDTO;
+import fr.maxlego08.essentials.api.dto.VoteSiteDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.event.events.user.UserEconomyPostUpdateEvent;
 import fr.maxlego08.essentials.api.event.events.user.UserEconomyUpdateEvent;
@@ -41,6 +43,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 public class ZUser extends ZUtils implements User {
 
@@ -72,6 +75,9 @@ public class ZUser extends ZUtils implements User {
     private String address;
     private Kit previewKit;
     private Map<Material, String> powerTools = new HashMap<>();
+    private long vote;
+    private long offlineVote;
+    private Map<String, Long> lastVotes = new HashMap<>();
 
     public ZUser(EssentialsPlugin plugin, UUID uniqueId) {
         this.plugin = plugin;
@@ -706,5 +712,59 @@ public class ZUser extends ZUtils implements User {
     @Override
     public DynamicCooldown getDynamicCooldown() {
         return dynamicCooldown;
+    }
+
+    @Override
+    public long getVote() {
+        return vote;
+    }
+
+    @Override
+    public void setVote(long amount) {
+        this.vote = amount;
+        this.getStorage().setVote(this.uniqueId, this.vote, -1);
+    }
+
+    @Override
+    public void addVote(long amount) {
+        this.setVote(this.vote + amount);
+    }
+
+    @Override
+    public void removeVote(long amount) {
+        this.setVote(this.vote - amount);
+    }
+
+    @Override
+    public void setWithDTO(UserDTO userDTO) {
+        this.vote = userDTO.vote();
+        this.offlineVote = userDTO.vote_offline();
+        this.playTime = userDTO.play_time();
+        this.lastLocation = stringAsLocation(userDTO.last_location());
+    }
+
+    @Override
+    public void setVoteSite(String site) {
+        this.lastVotes.put(site, System.currentTimeMillis());
+    }
+
+    @Override
+    public long getLastVoteSite(String site) {
+        return this.lastVotes.getOrDefault(site, 0L);
+    }
+
+    @Override
+    public long getOfflineVotes() {
+        return this.offlineVote;
+    }
+
+    @Override
+    public void setVoteSites(List<VoteSiteDTO> select) {
+        this.lastVotes = select.stream().collect(Collectors.toMap(VoteSiteDTO::site, value -> value.last_vote_at().getTime()));
+    }
+
+    @Override
+    public void resetOfflineVote() {
+        this.getStorage().setVote(this.uniqueId, -1, 0);
     }
 }

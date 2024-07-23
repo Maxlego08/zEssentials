@@ -178,7 +178,7 @@ public abstract class ZModule extends YamlLoader implements Module {
         } else if (event instanceof EconomyBaltopUpdateEvent) {
             updateEvent(eventName);
         } else {
-            this.plugin.getLogger().severe("Event : " + eventName + " is not a Player or User event ! You cant use it");
+            this.plugin.getLogger().severe("Event : " + event.getClass().getName() + " is not a Player or User event ! You cant use it");
         }
     }
 

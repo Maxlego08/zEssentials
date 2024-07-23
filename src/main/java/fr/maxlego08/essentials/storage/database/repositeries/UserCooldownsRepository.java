@@ -22,7 +22,7 @@ public class UserCooldownsRepository extends Repository {
         });
     }
 
-    public List<CooldownDTO> selectCooldowns(UUID uuid) {
+    public List<CooldownDTO> select(UUID uuid) {
         return select(CooldownDTO.class, schema -> schema.where("unique_id", uuid));
     }
 

@@ -78,7 +78,9 @@ public class DiscordModule extends ZModule implements DiscordManager {
                 consumer.accept(config);
             } else {
                 var config = DiscordConfiguration.disabled();
-                plugin.getLogger().severe("URL " + webhookUrl + " is invalid ! Disable your discord configuration.");
+                if (isEnable) {
+                    plugin.getLogger().severe("URL " + webhookUrl + " is invalid ! Disable your discord configuration.");
+                }
                 consumer.accept(config);
             }
         });

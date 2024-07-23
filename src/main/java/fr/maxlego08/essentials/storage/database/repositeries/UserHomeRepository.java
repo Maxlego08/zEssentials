@@ -25,7 +25,7 @@ public class UserHomeRepository extends Repository {
         });
     }
 
-    public List<HomeDTO> selectHomes(UUID uuid) {
+    public List<HomeDTO> select(UUID uuid) {
         return select(HomeDTO.class, schema -> schema.where("unique_id", uuid));
     }
 

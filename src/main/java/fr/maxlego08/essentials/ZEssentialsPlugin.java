@@ -25,6 +25,7 @@ import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.EssentialsUtils;
 import fr.maxlego08.essentials.api.utils.Warp;
 import fr.maxlego08.essentials.api.utils.component.ComponentMessage;
+import fr.maxlego08.essentials.api.vote.VoteManager;
 import fr.maxlego08.essentials.buttons.ButtonHomes;
 import fr.maxlego08.essentials.buttons.ButtonPayConfirm;
 import fr.maxlego08.essentials.buttons.ButtonTeleportationConfirm;
@@ -49,6 +50,7 @@ import fr.maxlego08.essentials.migrations.CreateChatMessageMigration;
 import fr.maxlego08.essentials.migrations.CreateCommandsMigration;
 import fr.maxlego08.essentials.migrations.CreateEconomyTransactionMigration;
 import fr.maxlego08.essentials.migrations.CreateSanctionsTableMigration;
+import fr.maxlego08.essentials.migrations.CreateServerStorageTableMigration;
 import fr.maxlego08.essentials.migrations.CreateUserCooldownTableMigration;
 import fr.maxlego08.essentials.migrations.CreateUserEconomyMigration;
 import fr.maxlego08.essentials.migrations.CreateUserHomeTableMigration;
@@ -57,10 +59,13 @@ import fr.maxlego08.essentials.migrations.CreateUserOptionTableMigration;
 import fr.maxlego08.essentials.migrations.CreateUserPlayTimeTableMigration;
 import fr.maxlego08.essentials.migrations.CreateUserPowerToolsMigration;
 import fr.maxlego08.essentials.migrations.CreateUserTableMigration;
+import fr.maxlego08.essentials.migrations.CreateVoteSiteMigration;
 import fr.maxlego08.essentials.migrations.UpdateUserTableAddSanctionColumns;
+import fr.maxlego08.essentials.migrations.UpdateUserTableAddVoteColumn;
 import fr.maxlego08.essentials.module.ZModuleManager;
 import fr.maxlego08.essentials.module.modules.HomeModule;
 import fr.maxlego08.essentials.module.modules.MailBoxModule;
+import fr.maxlego08.essentials.module.modules.VoteModule;
 import fr.maxlego08.essentials.placeholders.DistantPlaceholder;
 import fr.maxlego08.essentials.placeholders.LocalPlaceholder;
 import fr.maxlego08.essentials.scoreboard.ScoreboardModule;
@@ -76,6 +81,7 @@ import fr.maxlego08.essentials.user.placeholders.UserHomePlaceholders;
 import fr.maxlego08.essentials.user.placeholders.UserKitPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.UserPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.UserPlayTimePlaceholders;
+import fr.maxlego08.essentials.user.placeholders.VotePlaceholders;
 import fr.maxlego08.essentials.zutils.Metrics;
 import fr.maxlego08.essentials.zutils.ZPlugin;
 import fr.maxlego08.essentials.zutils.utils.CommandMarkdownGenerator;
@@ -98,6 +104,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.permissions.Permissible;
+import org.bukkit.plugin.ServicePriority;
 
 import java.io.File;
 import java.io.IOException;
@@ -119,7 +126,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     private final UUID consoleUniqueId = UUID.fromString("00000000-0000-0000-0000-000000000000");
     private final List<Material> materials = Arrays.stream(Material.values()).filter(e -> !e.name().startsWith("LEGACY_")).toList();
     private EssentialsUtils essentialsUtils;
-    private ServerStorage serverStorage = new ZServerStorage();
+    private ServerStorage serverStorage = new ZServerStorage(this);
     private InventoryManager inventoryManager;
     private ButtonManager buttonManager;
     private PatternManager patternManager;
@@ -197,6 +204,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.registerPlaceholder(UserKitPlaceholders.class);
         this.registerPlaceholder(ReplacePlaceholders.class);
         this.registerPlaceholder(EconomyBaltopPlaceholders.class);
+        this.registerPlaceholder(VotePlaceholders.class);
 
         new Metrics(this, 21703);
 
@@ -205,6 +213,8 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
             PacketListener packetListener = new PacketListener();
             packetListener.registerPackets(this);
         }*/
+
+        this.getServer().getServicesManager().register(EssentialsPlugin.class, this, this, ServicePriority.Normal);
 
         this.generateDocs();
     }
@@ -251,7 +261,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
         MigrationManager.setMigrationTableName("zessentials_migrations");
 
-        // MigrationManager.registerMigration(new CreateServerStorageTableMigration());
+        MigrationManager.registerMigration(new CreateServerStorageTableMigration());
         MigrationManager.registerMigration(new CreateUserTableMigration());
         MigrationManager.registerMigration(new CreateUserOptionTableMigration());
         MigrationManager.registerMigration(new CreateUserCooldownTableMigration());
@@ -265,6 +275,8 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         MigrationManager.registerMigration(new CreateUserPlayTimeTableMigration());
         MigrationManager.registerMigration(new CreateUserPowerToolsMigration());
         MigrationManager.registerMigration(new CreateUserMailBoxMigration());
+        MigrationManager.registerMigration(new UpdateUserTableAddVoteColumn());
+        MigrationManager.registerMigration(new CreateVoteSiteMigration());
     }
 
     @Override
@@ -579,4 +591,8 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         return Optional.empty();
     }
 
+    @Override
+    public VoteManager getVoteManager() {
+        return this.moduleManager.getModule(VoteModule.class);
+    }
 }

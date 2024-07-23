@@ -1,0 +1,52 @@
+########################################################################################################################
+#
+# ██╗░░░██╗░█████╗░████████╗███████╗
+# ██║░░░██║██╔══██╗╚══██╔══╝██╔════╝
+# ╚██╗░██╔╝██║░░██║░░░██║░░░█████╗░░
+# ░╚████╔╝░██║░░██║░░░██║░░░██╔══╝░░
+# ░░╚██╔╝░░╚█████╔╝░░░██║░░░███████╗
+# ░░░╚═╝░░░░╚════╝░░░░╚═╝░░░╚══════╝
+#
+# Documentation: https://zessentials.groupez.dev/modules/vote
+#
+########################################################################################################################
+
+enable: true
+
+# Allows to activate the party vote
+# The vote party is a system that allows to reward online players by reaching a certain number of votes
+enable-vote-party: true
+
+# Allows to open the votes inventory with the party vote command, if you disable this option a message will be sent to the player
+enable-vote-party-open-vote-inventory: true
+
+# The objective of the party vote
+vote-party-objective: 200
+
+# Rewards for the vote party
+vote-party-rewards:
+
+  # Commands executed for all players
+  commands:
+    - "eco give money %player% 5000"
+
+  # If the player has this permission he will receive more rewards
+  permissions: "zessentials.vote.double"
+  commandsPermission:
+    - "eco give money %player% 5000"
+
+# Rewards on each vote
+reward-on-vote:
+  - "cr give %player% vote"
+
+sites:
+  - name: "Serveur Minecraft Vote"
+    seconds: 5400
+  - name: "Serveur Prive"
+    seconds: 5400
+  - name: "Serveurs Minecraft"
+    seconds: 86400
+  - name: "Top Serveurs"
+    seconds: 7200
+
+enable-offline-vote-message: true

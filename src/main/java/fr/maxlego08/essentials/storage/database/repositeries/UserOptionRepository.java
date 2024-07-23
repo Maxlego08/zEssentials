@@ -23,7 +23,7 @@ public class UserOptionRepository extends Repository {
         });
     }
 
-    public List<OptionDTO> selectOptions(UUID uuid) {
+    public List<OptionDTO> select(UUID uuid) {
         return select(OptionDTO.class, table -> table.where("unique_id", uuid));
     }
 }

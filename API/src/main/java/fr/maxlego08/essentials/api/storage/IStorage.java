@@ -8,6 +8,7 @@ import fr.maxlego08.essentials.api.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.dto.UserDTO;
 import fr.maxlego08.essentials.api.dto.UserEconomyDTO;
 import fr.maxlego08.essentials.api.dto.UserEconomyRankingDTO;
+import fr.maxlego08.essentials.api.dto.UserVoteDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.mailbox.MailBoxItem;
@@ -109,7 +110,15 @@ public interface IStorage {
 
     List<UserEconomyRankingDTO> getEconomyRanking(Economy economy);
 
-    List<MailBoxDTO> getMailBox(UUID uuid);
+    List<MailBoxDTO> getMailBox(UUID uniqueId);
 
     void fetchOfflinePlayerEconomies(Consumer<List<UserEconomyDTO>> consumer);
+
+    void setVote(UUID uniqueId, long vote, long offline_vote);
+
+    UserVoteDTO getVote(UUID uniqueId);
+
+    void updateServerStorage(String key, Object object);
+
+    void setLastVote(UUID uniqueId, String site);
 }

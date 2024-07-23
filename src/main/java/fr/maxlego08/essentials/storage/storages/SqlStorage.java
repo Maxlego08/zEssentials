@@ -10,9 +10,11 @@ import fr.maxlego08.essentials.api.dto.OptionDTO;
 import fr.maxlego08.essentials.api.dto.PlayTimeDTO;
 import fr.maxlego08.essentials.api.dto.PowerToolsDTO;
 import fr.maxlego08.essentials.api.dto.SanctionDTO;
+import fr.maxlego08.essentials.api.dto.ServerStorageDTO;
 import fr.maxlego08.essentials.api.dto.UserDTO;
 import fr.maxlego08.essentials.api.dto.UserEconomyDTO;
 import fr.maxlego08.essentials.api.dto.UserEconomyRankingDTO;
+import fr.maxlego08.essentials.api.dto.UserVoteDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.mailbox.MailBoxItem;
@@ -28,6 +30,7 @@ import fr.maxlego08.essentials.storage.database.Repository;
 import fr.maxlego08.essentials.storage.database.repositeries.ChatMessagesRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.CommandsRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.EconomyTransactionsRepository;
+import fr.maxlego08.essentials.storage.database.repositeries.ServerStorageRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserCooldownsRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserEconomyRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserHomeRepository;
@@ -37,6 +40,7 @@ import fr.maxlego08.essentials.storage.database.repositeries.UserPlayTimeReposit
 import fr.maxlego08.essentials.storage.database.repositeries.UserPowerToolsRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserSanctionRepository;
+import fr.maxlego08.essentials.storage.database.repositeries.VoteSiteRepository;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.utils.StorageHelper;
 import fr.maxlego08.sarah.DatabaseConfiguration;
@@ -90,7 +94,8 @@ public class SqlStorage extends StorageHelper implements IStorage {
         this.repositories.register(UserPlayTimeRepository.class);
         this.repositories.register(UserPowerToolsRepository.class);
         this.repositories.register(UserMailBoxRepository.class);
-        // this.repositories.register(ServerStorageRepository.class);
+        this.repositories.register(ServerStorageRepository.class);
+        this.repositories.register(VoteSiteRepository.class);
 
         MigrationManager.execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), JULogger.from(this.plugin.getLogger()));
 
@@ -99,8 +104,8 @@ public class SqlStorage extends StorageHelper implements IStorage {
         with(UserMailBoxRepository.class).deleteExpiredItems();
         this.setActiveSanctions(with(UserSanctionRepository.class).getActiveBan());
 
-        /*List<ServerStorageDTO> serverStorageDTOS = repo(ServerStorageRepository.class).select();
-        plugin.getServerStorage().setContents(serverStorageDTOS);*/
+        List<ServerStorageDTO> serverStorageDTOS = with(ServerStorageRepository.class).select();
+        plugin.getServerStorage().setContents(serverStorageDTOS);
     }
 
     @Override
@@ -143,15 +148,17 @@ public class SqlStorage extends StorageHelper implements IStorage {
                     }
                 }
 
+                // ToDo, gérer les requêtes des joueurs en fonction de si le module est activé ou non, pour éviter de faire des requêtes dans le vide
+
                 user.setSanction(userDTO.ban_sanction_id(), userDTO.mute_sanction_id());
-                user.setLastLocation(stringAsLocation(userDTO.last_location()));
-                user.setPlayTime(userDTO.play_time());
-                user.setOptions(with(UserOptionRepository.class).selectOptions(uniqueId));
-                user.setCooldowns(with(UserCooldownsRepository.class).selectCooldowns(uniqueId));
-                user.setEconomies(with(UserEconomyRepository.class).selectEconomies(uniqueId));
-                user.setHomes(with(UserHomeRepository.class).selectHomes(uniqueId));
-                user.setPowerTools(with(UserPowerToolsRepository.class).getPowerTools(uniqueId).stream().collect(Collectors.toMap(PowerToolsDTO::material, PowerToolsDTO::command)));
+                user.setWithDTO(userDTO);
+                user.setOptions(with(UserOptionRepository.class).select(uniqueId));
+                user.setCooldowns(with(UserCooldownsRepository.class).select(uniqueId));
+                user.setEconomies(with(UserEconomyRepository.class).select(uniqueId));
+                user.setHomes(with(UserHomeRepository.class).select(uniqueId));
+                user.setPowerTools(with(UserPowerToolsRepository.class).select(uniqueId).stream().collect(Collectors.toMap(PowerToolsDTO::material, PowerToolsDTO::command)));
                 user.setMailBoxItems(with(UserMailBoxRepository.class).select(uniqueId));
+                user.setVoteSites(with(VoteSiteRepository.class).select(uniqueId));
             }
         });
 
@@ -218,7 +225,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
                     return;
                 }
 
-                consumer.accept(with(UserEconomyRepository.class).selectEconomies(uuid));
+                consumer.accept(with(UserEconomyRepository.class).select(uuid));
             });
         });
     }
@@ -385,12 +392,12 @@ public class SqlStorage extends StorageHelper implements IStorage {
         if (this.users.containsKey(uuid)) {
             return this.users.get(uuid).getOptions();
         }
-        return with(UserOptionRepository.class).selectOptions(uuid).stream().collect(Collectors.toMap(OptionDTO::option_name, OptionDTO::option_value));
+        return with(UserOptionRepository.class).select(uuid).stream().collect(Collectors.toMap(OptionDTO::option_name, OptionDTO::option_value));
     }
 
     @Override
     public List<CooldownDTO> getCooldowns(UUID uniqueId) {
-        return with(UserCooldownsRepository.class).selectCooldowns(uniqueId);
+        return with(UserCooldownsRepository.class).select(uniqueId);
     }
 
     @Override
@@ -426,5 +433,29 @@ public class SqlStorage extends StorageHelper implements IStorage {
     @Override
     public void fetchOfflinePlayerEconomies(Consumer<List<UserEconomyDTO>> consumer) {
         async(() -> consumer.accept(with(UserEconomyRepository.class).getAll()));
+    }
+
+    @Override
+    public void setVote(UUID uuid, long vote, long offline) {
+        async(() -> with(UserRepository.class).setVote(uuid, vote, offline));
+    }
+
+    @Override
+    public UserVoteDTO getVote(UUID uniqueId) {
+        var user = getUser(uniqueId);
+        if (user != null) return new UserVoteDTO(uniqueId, user.getVote(), 0);
+
+        var users = with(UserRepository.class).selectVoteUser(uniqueId);
+        return users.isEmpty() ? new UserVoteDTO(uniqueId, 0, 0) : users.get(0);
+    }
+
+    @Override
+    public void updateServerStorage(String key, Object object) {
+        async(() -> with(ServerStorageRepository.class).upsert(key, object));
+    }
+
+    @Override
+    public void setLastVote(UUID uniqueId, String site) {
+        with(VoteSiteRepository.class).setLastVote(uniqueId, site);
     }
 }

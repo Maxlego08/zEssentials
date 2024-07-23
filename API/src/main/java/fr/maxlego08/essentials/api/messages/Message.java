@@ -256,6 +256,14 @@ public enum Message {
     DESCRIPTION_SCOREBOARD("Enable/Disable scoreboard"),
     DESCRIPTION_BALANCE_TOP("Show baltop"),
     DESCRIPTION_BALANCE_TOP_REFRESH("Refresh baltop"),
+    DESCRIPTION_VOTEPARTY_INFORMATION("Show the vote party"),
+    DESCRIPTION_VOTEPARTY_SET("Set the number of votes in the vote party"),
+    DESCRIPTION_VOTEPARTY_ADD("Add in vote party"),
+    DESCRIPTION_VOTEPARTY_REMOVE("Remove in vote party"),
+    DESCRIPTION_VOTE_INFORMATION("Show information on how to vote"),
+    DESCRIPTION_VOTE_SET("Set the number of votes for a player"),
+    DESCRIPTION_VOTE_ADD("Add votes to a player"),
+    DESCRIPTION_VOTE_REMOVE("Remove votes from a player"),
 
 
     YOU("you"),
@@ -621,6 +629,21 @@ public enum Message {
     COMMAND_BALTOP(MessageType.WITHOUT_PREFIX, "#00f986#%position% &f%name%&8: %amount%"),
 
     CODE_NOT_FOUND("<red>Cannot find the code."),
+
+    COMMAND_VOTEPARTY_SET("<success>You just set the voteparty to &f%amount% <success>votes."),
+    COMMAND_VOTEPARTY_ADD("<success>You just added &f%amount% <success>vote in the voteparty."),
+    COMMAND_VOTEPARTY_REMOVE("<success>You have just removed &f%amount% <success>vote in the voteparty."),
+    COMMAND_VOTEPARTY_INFORMATIONS("<green>VoteParty: <white>%amount%<dark_gray>/<yellow>%objective%"),
+
+    COMMAND_VOTE_ADD("<success>You just added a vote to &f%player%<success>."),
+    COMMAND_VOTE_ADD_ERROR("<error>The site &f%site% <error>doesn't exist !"),
+    COMMAND_VOTE(MessageType.ACTION, "<success>You just voted and received a vote key."),
+
+    VOTE_OFFLINE(
+            "",
+            "<success>You have voted <gold>%amount% times <success>while offline, use the command <yellow><click:run_command:'/mailbox'>/mailbox</click> <success>to get your items !",
+            ""
+    ),
 
     ;
 

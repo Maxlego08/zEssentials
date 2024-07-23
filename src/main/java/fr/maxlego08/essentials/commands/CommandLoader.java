@@ -95,6 +95,8 @@ import fr.maxlego08.essentials.commands.commands.utils.blocks.CommandGrindStone;
 import fr.maxlego08.essentials.commands.commands.utils.blocks.CommandLoom;
 import fr.maxlego08.essentials.commands.commands.utils.blocks.CommandSmithingTable;
 import fr.maxlego08.essentials.commands.commands.utils.blocks.CommandStoneCutter;
+import fr.maxlego08.essentials.commands.commands.vote.CommandVote;
+import fr.maxlego08.essentials.commands.commands.vote.CommandVoteParty;
 import fr.maxlego08.essentials.commands.commands.warp.CommandDelWarp;
 import fr.maxlego08.essentials.commands.commands.warp.CommandSetWarp;
 import fr.maxlego08.essentials.commands.commands.warp.CommandWarp;
@@ -238,6 +240,9 @@ public class CommandLoader {
 
         register("hologram", CommandHologram.class, "holo", "ho");
         register("sb", CommandScoreboard.class);
+
+        register("voteparty", CommandVoteParty.class, "vp");
+        register("vote", CommandVote.class);
 
         for (RegisterCommand registerCommand : this.commands) {
             try {

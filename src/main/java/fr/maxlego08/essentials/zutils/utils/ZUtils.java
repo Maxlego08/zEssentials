@@ -1,5 +1,6 @@
 package fr.maxlego08.essentials.zutils.utils;
 
+import com.google.common.base.Strings;
 import fr.maxlego08.essentials.api.commands.Permission;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -290,6 +291,16 @@ public abstract class ZUtils extends MessageUtils {
         }
 
         return sb.toString();
+    }
+
+    protected String getProgressBar(long current, long max, int totalBars, char symbol, String completedColor, String notCompletedColor) {
+
+        if (current > max) current = max;
+
+        float percent = (float) current / max;
+        int progressBars = (int) (totalBars * percent);
+
+        return Strings.repeat(completedColor + symbol, progressBars) + Strings.repeat(notCompletedColor + symbol, totalBars - progressBars);
     }
 
 }

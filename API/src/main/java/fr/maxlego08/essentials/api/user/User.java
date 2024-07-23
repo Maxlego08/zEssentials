@@ -7,6 +7,8 @@ import fr.maxlego08.essentials.api.dto.HomeDTO;
 import fr.maxlego08.essentials.api.dto.MailBoxDTO;
 import fr.maxlego08.essentials.api.dto.OptionDTO;
 import fr.maxlego08.essentials.api.dto.SanctionDTO;
+import fr.maxlego08.essentials.api.dto.UserDTO;
+import fr.maxlego08.essentials.api.dto.VoteSiteDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.kit.Kit;
@@ -546,4 +548,24 @@ public interface User {
     void addMailBoxItem(MailBoxItem mailBoxItem);
 
     DynamicCooldown getDynamicCooldown();
+
+    long getVote();
+
+    void setVote(long amount);
+
+    void addVote(long amount);
+
+    void removeVote(long amount);
+
+    void setWithDTO(UserDTO userDTO);
+
+    void setVoteSite(String site);
+
+    long getLastVoteSite(String site);
+
+    long getOfflineVotes();
+
+    void setVoteSites(List<VoteSiteDTO> select);
+
+    void resetOfflineVote();
 }
