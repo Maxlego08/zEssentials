@@ -166,6 +166,9 @@ public abstract class ZModule extends YamlLoader implements Module {
      * @param event     the event object
      */
     private void updateLineWithEvent(String eventName, Event event) {
+
+        if (!event.getClass().getName().equals(eventName)) return;
+
         if (event instanceof PlayerEvent playerEvent) {
             updateEventPlayer(playerEvent.getPlayer(), eventName);
         } else if (event instanceof BlockBreakEvent playerEvent) {
