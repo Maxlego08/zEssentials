@@ -169,4 +169,8 @@ public class UserRepository extends Repository {
             table.where("unique_id", uniqueId);
         });
     }
+
+    public void resetVotes() {
+        update(table -> table.object("vote", 0));
+    }
 }

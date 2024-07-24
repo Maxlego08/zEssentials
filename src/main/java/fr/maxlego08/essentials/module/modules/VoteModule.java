@@ -14,6 +14,7 @@ import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.vote.VoteCache;
 import fr.maxlego08.essentials.api.vote.VoteManager;
 import fr.maxlego08.essentials.api.vote.VotePartyReward;
+import fr.maxlego08.essentials.api.vote.VoteResetConfiguration;
 import fr.maxlego08.essentials.api.vote.VoteSiteConfiguration;
 import fr.maxlego08.essentials.module.ZModule;
 import org.bukkit.Bukkit;
@@ -22,8 +23,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class VoteModule extends ZModule implements VoteManager {
 
@@ -46,6 +52,9 @@ public class VoteModule extends ZModule implements VoteManager {
     private VotePartyReward votePartyRewards;
     private List<String> rewardOnVote;
     private List<VoteSiteConfiguration> sites;
+    private String placeholderAvailable;
+    private String placeholderCooldown;
+    private VoteResetConfiguration resetConfiguration;
 
     public VoteModule(ZEssentialsPlugin plugin) {
         super(plugin, "vote");
@@ -151,7 +160,7 @@ public class VoteModule extends ZModule implements VoteManager {
         if (voteDTO != null) {
             this.plugin.getScheduler().runAsync(wrappedTask -> {
                 var dto = storage.getVote(uniqueId);
-                storage.setVote(uniqueId, voteDTO.vote() + dto.vote(), voteDTO.vote_offline() + dto.vote_offline());
+                storage.setVote(uniqueId, voteDTO.vote() + dto.vote(), this.enableOfflineVoteMessage ? voteDTO.vote_offline() + dto.vote_offline() : 0);
             });
         }
     }
@@ -232,6 +241,11 @@ public class VoteModule extends ZModule implements VoteManager {
         return this.sites;
     }
 
+    @Override
+    public long getSiteCooldown(String site) {
+        return this.sites.stream().filter(voteSiteConfiguration -> voteSiteConfiguration.name().equalsIgnoreCase(site)).mapToLong(VoteSiteConfiguration::seconds).sum();
+    }
+
     @EventHandler
     public void onConnect(PlayerJoinEvent event) {
 
@@ -242,5 +256,41 @@ public class VoteModule extends ZModule implements VoteManager {
 
         message(event.getPlayer(), Message.VOTE_OFFLINE, "%amount%", user.getOfflineVotes());
         user.resetOfflineVote();
+    }
+
+    @Override
+    public String getPlaceholderCooldown() {
+        return placeholderCooldown;
+    }
+
+    @Override
+    public String getPlaceholderAvailable() {
+        return placeholderAvailable;
+    }
+
+    @Override
+    public void startResetTask() {
+
+        if (!isEnable()) return;
+
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime nextRun = now.withDayOfMonth(range(this.resetConfiguration.day(), 1, 31)).withHour(range(this.resetConfiguration.hour(), 0, 23)).withMinute(range(this.resetConfiguration.minute(), 0, 59)).withSecond(range(this.resetConfiguration.second(), 0, 59));
+
+        if (!now.isBefore(nextRun)) {
+            nextRun = nextRun.plusMonths(1);
+        }
+        long initialDelay = ChronoUnit.MILLIS.between(now, nextRun);
+
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        scheduler.scheduleAtFixedRate(this::resetVotes, initialDelay, TimeUnit.DAYS.toMillis(30), TimeUnit.MILLISECONDS);
+    }
+
+    @Override
+    public void resetVotes() {
+        this.plugin.getStorageManager().getStorage().resetVotes();
+    }
+
+    private int range(int value, int min, int max) {
+        return value < min ? min : Math.min(value, max);
     }
 }

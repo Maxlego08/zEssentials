@@ -463,4 +463,9 @@ public class SqlStorage extends StorageHelper implements IStorage {
     public void setLastVote(UUID uniqueId, String site) {
         async(() -> with(VoteSiteRepository.class).setLastVote(uniqueId, site));
     }
+
+    @Override
+    public void resetVotes() {
+        async(() -> with(UserRepository.class).resetVotes());
+    }
 }

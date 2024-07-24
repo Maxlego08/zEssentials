@@ -382,4 +382,9 @@ public class JsonStorage extends StorageHelper implements IStorage {
     public void setLastVote(UUID uniqueId, String site) {
         throw new NotImplementedException("setLastVote is not implemented, use MYSQL storage");
     }
+
+    @Override
+    public void resetVotes() {
+        throw new NotImplementedException("resetVotes is not implemented, use MYSQL storage");
+    }
 }

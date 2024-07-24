@@ -196,6 +196,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.storageManager.onEnable();
 
         this.moduleManager.loadModules();
+        this.getVoteManager().startResetTask();
 
         this.registerListener(new PlayerListener(this));
         this.registerPlaceholder(UserPlaceholders.class);

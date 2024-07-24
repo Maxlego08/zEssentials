@@ -40,13 +40,25 @@ reward-on-vote:
   - "cr give %player% vote"
 
 sites:
-  - name: "Serveur Minecraft Vote"
+  - name: "ServeurMinecraftVote"
     seconds: 5400
-  - name: "Serveur Prive"
+  - name: "ServeurPrive"
     seconds: 5400
-  - name: "Serveurs Minecraft"
+  - name: "ServeursMinecraft"
     seconds: 86400
-  - name: "Top Serveurs"
+  - name: "TopServeurs"
     seconds: 7200
 
+# Send a message to the player when voting while offline
 enable-offline-vote-message: true
+
+# Value for the placeholder: %zessentials_vote_site_cooldown_<site>%
+placeholder-available: "<green>Available ✔"
+placeholder-cooldown: "<red>%cooldown% ✘"
+
+# Date to reset the votes of the players, the default setting reset the votes on the first day of the month at 0h0
+reset-configuration:
+  day: 1 # between 1 and 31
+  hour: 0 # between 0 and 23
+  minute: 0 # between 0 and 59
+  second: 0 # between 0 and 59

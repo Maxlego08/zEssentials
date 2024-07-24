@@ -19,4 +19,27 @@ items:
         - ""
         - "&f&lʀᴇᴡᴀʀᴅs"
         - " #f8b175• #e5c2625.000$ &8(Double if VIP #fcd955✭&8)"
+  information:
+    update: true
+    slot: 31
+    item:
+      material: BOOK
+      name: "#e4cc00ᴠᴏᴛᴇ ɴᴏᴡ"
+      lore:
         - ""
+        - " #f8b175• &7Site 1 %zessentials_vote_site_cooldown_ServeurMinecraftVote%"
+        - " #f8b175• &7Site 2 %zessentials_vote_site_cooldown_ServeurPrive%"
+        - " #f8b175• &7Site 3 %zessentials_vote_site_cooldown_ServeursMinecraft%"
+        - " #f8b175• &7Site 4 %zessentials_vote_site_cooldown_TopServeurs%"
+        - ""
+        - "&fClick to vote !"
+    actions:
+      - type: book
+        author: "zEssentials"
+        title: "#e4cc00ᴠᴏᴛᴇ ɴᴏᴡ"
+        lines: # Book pages
+          1: # First page
+            - '     #e4cc00ᴠᴏᴛᴇ ɴᴏᴡ'
+            - ''
+            - ''
+            - '<hover:show_text:"#34eba8Open Serveur Minecraft Vote !"><click:open_url:"https://serveur-minecraft-vote.fr/">#f0af24Open URL<reset>'

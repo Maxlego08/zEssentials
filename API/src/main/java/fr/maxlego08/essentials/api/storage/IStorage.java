@@ -121,4 +121,6 @@ public interface IStorage {
     void updateServerStorage(String key, Object object);
 
     void setLastVote(UUID uniqueId, String site);
+
+    void resetVotes();
 }
