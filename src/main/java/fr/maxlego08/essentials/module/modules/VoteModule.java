@@ -1,5 +1,6 @@
 package fr.maxlego08.essentials.module.modules;
 
+import com.tcoded.folialib.wrapper.task.WrappedTask;
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.configuration.NonLoadable;
 import fr.maxlego08.essentials.api.dto.UserVoteDTO;
@@ -10,6 +11,7 @@ import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.storage.Key;
 import fr.maxlego08.essentials.api.storage.StorageKey;
 import fr.maxlego08.essentials.api.user.User;
+import fr.maxlego08.essentials.api.vote.VoteCache;
 import fr.maxlego08.essentials.api.vote.VoteManager;
 import fr.maxlego08.essentials.api.vote.VotePartyReward;
 import fr.maxlego08.essentials.api.vote.VoteSiteConfiguration;
@@ -27,6 +29,14 @@ public class VoteModule extends ZModule implements VoteManager {
 
     @NonLoadable
     private final Key votePartyKey;
+    @NonLoadable
+    private final VoteCache voteCache = new VoteCache();
+    @NonLoadable
+    private long newVotePartyAmount;
+    @NonLoadable
+    private long newVotePartyUpdate;
+    @NonLoadable
+    private WrappedTask newVotePartyTask;
     @NonLoadable
     private long currentVoteAmount;
     private boolean enableVoteParty;
@@ -48,8 +58,6 @@ public class VoteModule extends ZModule implements VoteManager {
 
         this.currentVoteAmount = this.plugin.getServerStorage().getLong(this.votePartyKey);
         this.loadInventory("vote");
-
-        System.out.println(sites);
     }
 
     @Override
@@ -82,19 +90,70 @@ public class VoteModule extends ZModule implements VoteManager {
 
             if (event.isCancelled()) return;
 
-            this.plugin.getScheduler().runAsync(wrappedTaskAsync -> {
+            boolean isOnline = Bukkit.getPlayer(uniqueId) != null;
+            voteCache.addVote(uniqueId, isOnline);
 
-                var storage = this.plugin.getStorageManager().getStorage();
+            if (!this.voteCache.hasTask(uniqueId)) {
+                scheduleDatabaseUpdateForPlayer(uniqueId);
+            }
 
-                UserVoteDTO voteDTO = storage.getVote(uniqueId);
-                boolean isOnline = Bukkit.getPlayer(uniqueId) != null;
+            var storage = this.plugin.getStorageManager().getStorage();
+            User user = this.plugin.getUser(uniqueId);
 
-                storage.setVote(uniqueId, voteDTO.vote() + 1, isOnline ? 0 : voteDTO.vote_offline() + 1);
+            if (user != null) {
+
+                user.setVoteSite(site);
+            } else {
+
                 storage.setLastVote(uniqueId, site);
-            });
+            }
 
-            this.handleVoteParty();
+            this.newVotePartyAmount += 1;
+            if (this.newVotePartyTask == null) {
+                this.scheduleVotePartyTask();
+            }
         });
+    }
+
+    private void scheduleVotePartyTask() {
+        this.newVotePartyTask = this.plugin.getScheduler().runLater(() -> {
+            long currentTime = System.currentTimeMillis();
+            if (currentTime - this.newVotePartyUpdate >= 500) {
+
+                this.handleVoteParty(this.newVotePartyAmount);
+                this.newVotePartyAmount = 0;
+                this.newVotePartyUpdate = 0;
+                this.newVotePartyTask = null;
+
+            } else {
+                scheduleVotePartyTask();
+            }
+        }, 5);
+    }
+
+    private void scheduleDatabaseUpdateForPlayer(UUID uniqueId) {
+        var task = this.plugin.getScheduler().runLaterAsync(() -> {
+            long currentTime = System.currentTimeMillis();
+            if (currentTime - voteCache.getLastUpdateTimestamp(uniqueId) >= 500) {
+                updateDatabaseFromCacheForPlayer(uniqueId);
+            } else {
+                scheduleDatabaseUpdateForPlayer(uniqueId);
+            }
+        }, 5);
+        voteCache.addTask(uniqueId, task);
+    }
+
+    private void updateDatabaseFromCacheForPlayer(UUID uniqueId) {
+        var storage = this.plugin.getStorageManager().getStorage();
+
+        UserVoteDTO voteDTO = voteCache.clearVote(uniqueId);
+
+        if (voteDTO != null) {
+            this.plugin.getScheduler().runAsync(wrappedTask -> {
+                var dto = storage.getVote(uniqueId);
+                storage.setVote(uniqueId, voteDTO.vote() + dto.vote(), voteDTO.vote_offline() + dto.vote_offline());
+            });
+        }
     }
 
     @Override
@@ -111,9 +170,9 @@ public class VoteModule extends ZModule implements VoteManager {
     }
 
     @Override
-    public void handleVoteParty() {
+    public void handleVoteParty(long amount) {
 
-        var newAmount = this.getCurrentVotePartyAmount() + 1;
+        var newAmount = this.getCurrentVotePartyAmount() + amount;
 
         VotePartyEvent event = new VotePartyEvent(newAmount);
         event.callEvent();

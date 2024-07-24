@@ -745,7 +745,12 @@ public class ZUser extends ZUtils implements User {
 
     @Override
     public void setVoteSite(String site) {
-        this.lastVotes.put(site, System.currentTimeMillis());
+        long ms = System.currentTimeMillis();
+
+        if (this.lastVotes.containsKey(site) && ms - this.lastVotes.get(site) < 500) return;
+
+        this.lastVotes.put(site, ms);
+        this.getStorage().setLastVote(this.uniqueId, site);
     }
 
     @Override

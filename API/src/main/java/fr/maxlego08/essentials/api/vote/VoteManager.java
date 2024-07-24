@@ -21,7 +21,7 @@ public interface VoteManager {
 
     void addPlayerVote(OfflinePlayer offlinePlayer, String site);
 
-    void handleVoteParty();
+    void handleVoteParty(long amount);
 
     long getVotePartyObjective();
 

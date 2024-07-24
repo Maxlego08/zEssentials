@@ -29,11 +29,10 @@ public class ZStorageManager extends ZUtils implements StorageManager {
     public ZStorageManager(EssentialsPlugin plugin) {
         this.plugin = plugin;
         StorageType storageType = plugin.getConfiguration().getStorageType();
-        if (storageType == StorageType.MYSQL || storageType == StorageType.SQLITE) {
-            this.iStorage = new SqlStorage(plugin, storageType);
-        } else {
-            this.iStorage = new JsonStorage(plugin);
-        }
+        this.iStorage = switch (storageType) {
+            case HIKARICP, SQLITE, MYSQL -> new SqlStorage(plugin, storageType);
+            default -> new JsonStorage(plugin);
+        };
     }
 
     @Override

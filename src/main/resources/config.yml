@@ -15,14 +15,17 @@
 enable-debug: false
 
 # Storage:
-# JSON
-# MYSQL
+# JSON - For the launch of the plugin only.
+# MYSQL - Allows to create a simple connection to the database, only for small servers.
+# HIKARICP - HikariCP is a fast and lightweight JDBC connection pool. It optimizes database connections, ensuring quick acquisition and low latency. This improves performance and reliability, making it ideal for high-demand applications.
 #
-# We advise you to use MYSQL, the JSON storage is only there to install the plugin and do some testing.
+# We advise you to use MYSQL or HIKARICP, the JSON storage is only there to install the plugin and do some testing.
 storage-type: JSON
 
-# PAPER
-# REDIS
+# Allows you to define the type of server that you want to use.
+#
+# PAPER - Default type, allows to use the features of PAPER, if you are on spigot the plugin adapts automatically
+# REDIS - Allows to connect several servers (currently in development)
 server-type: PAPER
 
 # Configuration of your database, it is recommended to use the database to store your data, JSON does not support everything
@@ -38,10 +41,6 @@ database-configuration:
   # For Pterodactyl panel: when you create a database it creates a <prefix>_<database name you chose>. Set "database"'s value to the name of the database
   database: zessentials
   debug: false
-  # ToDo - Créer un système qui permet de load toutes les données en cache (pour SQL et JSON) et ajouter un moyen de pouvoir filter par rapport à l'activer du joueur
-  # ToDo - Par exemple pouvoir load les joueurs actifs durant les 7 derniers jours, ainsi on évite de load tout les joueurs mais seulement les joueurs actifs
-  # ToDo - Se système va permettre de load les données des joueurs plus rapidement, en cas de crash serveurs si des centaines de joueurs veulent revenir en même temps cela peut être problématique.
-  # ToDo - Cette solution sera très bien pour se genre de cas.
 
 # Configuration for your redis server
 redis-configuration:

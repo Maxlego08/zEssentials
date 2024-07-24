@@ -45,6 +45,7 @@ import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.utils.StorageHelper;
 import fr.maxlego08.sarah.DatabaseConfiguration;
 import fr.maxlego08.sarah.DatabaseConnection;
+import fr.maxlego08.sarah.HikariDatabaseConnection;
 import fr.maxlego08.sarah.MigrationManager;
 import fr.maxlego08.sarah.MySqlConnection;
 import fr.maxlego08.sarah.SqliteConnection;
@@ -72,7 +73,11 @@ public class SqlStorage extends StorageHelper implements IStorage {
     public SqlStorage(EssentialsPlugin plugin, StorageType storageType) {
         super(plugin);
         DatabaseConfiguration databaseConfiguration = plugin.getConfiguration().getDatabaseConfiguration();
-        this.connection = storageType == StorageType.SQLITE ? new SqliteConnection(databaseConfiguration, plugin.getDataFolder()) : new MySqlConnection(databaseConfiguration);
+        this.connection = switch (storageType) {
+            case HIKARICP -> new HikariDatabaseConnection(databaseConfiguration);
+            case SQLITE -> new SqliteConnection(databaseConfiguration, plugin.getDataFolder());
+            default -> new MySqlConnection(databaseConfiguration);
+        };
 
         if (!this.connection.isValid()) {
             plugin.getLogger().severe("Unable to connect to database !");
@@ -97,7 +102,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
         this.repositories.register(ServerStorageRepository.class);
         this.repositories.register(VoteSiteRepository.class);
 
-        MigrationManager.execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), JULogger.from(this.plugin.getLogger()));
+        MigrationManager.execute(this.connection, JULogger.from(this.plugin.getLogger()));
 
         with(UserCooldownsRepository.class).deleteExpiredCooldowns();
         with(UserRepository.class).clearExpiredSanctions();
@@ -456,6 +461,6 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     @Override
     public void setLastVote(UUID uniqueId, String site) {
-        with(VoteSiteRepository.class).setLastVote(uniqueId, site);
+        async(() -> with(VoteSiteRepository.class).setLastVote(uniqueId, site));
     }
 }

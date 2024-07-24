@@ -5,5 +5,6 @@ public enum StorageType {
     JSON,
     MYSQL,
     SQLITE,
+    HIKARICP,
 
 }
