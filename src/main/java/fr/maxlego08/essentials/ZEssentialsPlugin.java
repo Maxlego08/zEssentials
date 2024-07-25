@@ -25,6 +25,7 @@ import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.EssentialsUtils;
 import fr.maxlego08.essentials.api.utils.Warp;
 import fr.maxlego08.essentials.api.utils.component.ComponentMessage;
+import fr.maxlego08.essentials.api.vault.VaultManager;
 import fr.maxlego08.essentials.api.vote.VoteManager;
 import fr.maxlego08.essentials.buttons.ButtonHomes;
 import fr.maxlego08.essentials.buttons.ButtonPayConfirm;
@@ -34,6 +35,8 @@ import fr.maxlego08.essentials.buttons.mail.ButtonMailBox;
 import fr.maxlego08.essentials.buttons.mail.ButtonMailBoxAdmin;
 import fr.maxlego08.essentials.buttons.sanction.ButtonSanctionInformation;
 import fr.maxlego08.essentials.buttons.sanction.ButtonSanctions;
+import fr.maxlego08.essentials.buttons.vault.ButtonVaultSlotDisable;
+import fr.maxlego08.essentials.buttons.vault.ButtonVaultSlotItems;
 import fr.maxlego08.essentials.commands.CommandLoader;
 import fr.maxlego08.essentials.commands.ZCommandManager;
 import fr.maxlego08.essentials.commands.commands.essentials.CommandEssentials;
@@ -45,10 +48,15 @@ import fr.maxlego08.essentials.loader.ButtonKitCooldownLoader;
 import fr.maxlego08.essentials.loader.ButtonKitGetLoader;
 import fr.maxlego08.essentials.loader.ButtonSanctionLoader;
 import fr.maxlego08.essentials.loader.ButtonWarpLoader;
+import fr.maxlego08.essentials.loader.VaultNoPermissionLoader;
+import fr.maxlego08.essentials.loader.VaultOpenLoader;
 import fr.maxlego08.essentials.messages.MessageLoader;
 import fr.maxlego08.essentials.migrations.CreateChatMessageMigration;
 import fr.maxlego08.essentials.migrations.CreateCommandsMigration;
 import fr.maxlego08.essentials.migrations.CreateEconomyTransactionMigration;
+import fr.maxlego08.essentials.migrations.CreatePlayerSlots;
+import fr.maxlego08.essentials.migrations.CreatePlayerVault;
+import fr.maxlego08.essentials.migrations.CreatePlayerVaultItem;
 import fr.maxlego08.essentials.migrations.CreateSanctionsTableMigration;
 import fr.maxlego08.essentials.migrations.CreateServerStorageTableMigration;
 import fr.maxlego08.essentials.migrations.CreateUserCooldownTableMigration;
@@ -82,6 +90,7 @@ import fr.maxlego08.essentials.user.placeholders.UserKitPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.UserPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.UserPlayTimePlaceholders;
 import fr.maxlego08.essentials.user.placeholders.VotePlaceholders;
+import fr.maxlego08.essentials.vault.VaultModule;
 import fr.maxlego08.essentials.zutils.Metrics;
 import fr.maxlego08.essentials.zutils.ZPlugin;
 import fr.maxlego08.essentials.zutils.utils.CommandMarkdownGenerator;
@@ -197,6 +206,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
         this.moduleManager.loadModules();
         this.getVoteManager().startResetTask();
+        getVaultManager().loadVaults();
 
         this.registerListener(new PlayerListener(this));
         this.registerPlaceholder(UserPlaceholders.class);
@@ -251,10 +261,14 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.buttonManager.register(new NoneLoader(this, ButtonKitPreview.class, "zessentials_kit_preview"));
         this.buttonManager.register(new NoneLoader(this, ButtonMailBox.class, "zessentials_mailbox"));
         this.buttonManager.register(new NoneLoader(this, ButtonMailBoxAdmin.class, "zessentials_mailbox_admin"));
+        this.buttonManager.register(new NoneLoader(this, ButtonVaultSlotDisable.class, "ZESSENTIALS_VAULT_SLOTS_DISABLE"));
+        this.buttonManager.register(new NoneLoader(this, ButtonVaultSlotItems.class, "ZESSENTIALS_VAULT_SLOTS_ITEMS"));
         this.buttonManager.register(new ButtonWarpLoader(this));
         this.buttonManager.register(new ButtonSanctionLoader(this));
         this.buttonManager.register(new ButtonKitCooldownLoader(this));
         this.buttonManager.register(new ButtonKitGetLoader(this));
+        this.buttonManager.register(new VaultOpenLoader(this));
+        this.buttonManager.register(new VaultNoPermissionLoader(this));
 
     }
 
@@ -278,6 +292,9 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         MigrationManager.registerMigration(new CreateUserMailBoxMigration());
         MigrationManager.registerMigration(new UpdateUserTableAddVoteColumn());
         MigrationManager.registerMigration(new CreateVoteSiteMigration());
+        MigrationManager.registerMigration(new CreatePlayerVaultItem());
+        MigrationManager.registerMigration(new CreatePlayerVault());
+        MigrationManager.registerMigration(new CreatePlayerSlots());
     }
 
     @Override
@@ -595,5 +612,10 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     @Override
     public VoteManager getVoteManager() {
         return this.moduleManager.getModule(VoteModule.class);
+    }
+
+    @Override
+    public VaultManager getVaultManager() {
+        return this.moduleManager.getModule(VaultModule.class);
     }
 }

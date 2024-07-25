@@ -394,7 +394,7 @@ public class ZUser extends ZUtils implements User {
         getStorage().updateEconomy(this.uniqueId, finalEconomy, finalBigDecimal);
         getStorage().storeTransactions(fromUuid, this.uniqueId, finalEconomy, fromAmount, toAmount);
 
-        if (isOnline()) {
+        if (isOnline() && this.plugin.getServer().isPrimaryThread()) {
             UserEconomyPostUpdateEvent postUpdateEvent = new UserEconomyPostUpdateEvent(this, finalEconomy, finalBigDecimal);
             postUpdateEvent.callEvent(this.plugin);
         }

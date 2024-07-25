@@ -17,6 +17,7 @@ import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.EssentialsUtils;
 import fr.maxlego08.essentials.api.utils.Warp;
 import fr.maxlego08.essentials.api.utils.component.ComponentMessage;
+import fr.maxlego08.essentials.api.vault.VaultManager;
 import fr.maxlego08.essentials.api.vote.VoteManager;
 import fr.maxlego08.menu.api.ButtonManager;
 import fr.maxlego08.menu.api.InventoryManager;
@@ -237,4 +238,6 @@ public interface EssentialsPlugin extends Plugin {
     String papi(Player player, String string);
 
     VoteManager getVoteManager();
+
+    VaultManager getVaultManager();
 }

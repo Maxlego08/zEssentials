@@ -645,6 +645,21 @@ public enum Message {
             ""
     ),
 
+
+    VAULT_LORE(
+            "",
+            "&fɪɴғᴏʀᴍᴀᴛɪᴏɴs",
+            " #f8b175• &7Quantity&8: &e%quantity%",
+            "",
+            "&f<b>➥</b> #fc99f8Left Click &7for take 1",
+            "&f<b>➥</b> #fc99f8Right Click &7for take 64",
+            "&f<b>➥</b> #fc99f8Sneak + Right Click &7for take all"
+    ),
+    COMMAND_VAULT_NOT_FOUND("<error>Cannot find the vault &f%vaultId%<error>."),
+    COMMAND_VAULT_NO_PERMISSION("<error>You do not have permission to view se vault."),
+    COMMAND_VAULT_SET_SLOT("<success>You just defined the slot of &f%player% <success>to &7%slots%<success>."),
+    COMMAND_VAULT_ADD_SLOT("<success>you've just added &7%amount% <success>slot to &f%player%<success>."),
+
     ;
 
     private EssentialsPlugin plugin;

@@ -8,6 +8,7 @@ import fr.maxlego08.essentials.api.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.dto.MailBoxDTO;
 import fr.maxlego08.essentials.api.dto.OptionDTO;
 import fr.maxlego08.essentials.api.dto.PlayTimeDTO;
+import fr.maxlego08.essentials.api.dto.PlayerSlotDTO;
 import fr.maxlego08.essentials.api.dto.PowerToolsDTO;
 import fr.maxlego08.essentials.api.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.dto.ServerStorageDTO;
@@ -15,6 +16,8 @@ import fr.maxlego08.essentials.api.dto.UserDTO;
 import fr.maxlego08.essentials.api.dto.UserEconomyDTO;
 import fr.maxlego08.essentials.api.dto.UserEconomyRankingDTO;
 import fr.maxlego08.essentials.api.dto.UserVoteDTO;
+import fr.maxlego08.essentials.api.dto.VaultDTO;
+import fr.maxlego08.essentials.api.dto.VaultItemDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.mailbox.MailBoxItem;
@@ -30,6 +33,7 @@ import fr.maxlego08.essentials.storage.database.Repository;
 import fr.maxlego08.essentials.storage.database.repositeries.ChatMessagesRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.CommandsRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.EconomyTransactionsRepository;
+import fr.maxlego08.essentials.storage.database.repositeries.PlayerSlotRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.ServerStorageRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserCooldownsRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserEconomyRepository;
@@ -40,6 +44,8 @@ import fr.maxlego08.essentials.storage.database.repositeries.UserPlayTimeReposit
 import fr.maxlego08.essentials.storage.database.repositeries.UserPowerToolsRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserSanctionRepository;
+import fr.maxlego08.essentials.storage.database.repositeries.VaultItemRepository;
+import fr.maxlego08.essentials.storage.database.repositeries.VaultRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.VoteSiteRepository;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.utils.StorageHelper;
@@ -101,6 +107,9 @@ public class SqlStorage extends StorageHelper implements IStorage {
         this.repositories.register(UserMailBoxRepository.class);
         this.repositories.register(ServerStorageRepository.class);
         this.repositories.register(VoteSiteRepository.class);
+        this.repositories.register(PlayerSlotRepository.class);
+        this.repositories.register(VaultItemRepository.class);
+        this.repositories.register(VaultRepository.class);
 
         MigrationManager.execute(this.connection, JULogger.from(this.plugin.getLogger()));
 
@@ -467,5 +476,40 @@ public class SqlStorage extends StorageHelper implements IStorage {
     @Override
     public void resetVotes() {
         async(() -> with(UserRepository.class).resetVotes());
+    }
+
+    @Override
+    public void updateVaultQuantity(UUID uniqueId, int vaultId, int slot, long quantity) {
+        async(() -> with(VaultItemRepository.class).updateQuantity(uniqueId, vaultId, slot, quantity));
+    }
+
+    @Override
+    public void removeVaultItem(UUID uniqueId, int vaultId, int slot) {
+        async(() -> with(VaultItemRepository.class).removeItem(uniqueId, vaultId, slot));
+    }
+
+    @Override
+    public void createVaultItem(UUID uniqueId, int vaultId, int slot, long quantity, String item) {
+        async(() -> with(VaultItemRepository.class).createNewItem(uniqueId, vaultId, slot, quantity, item));
+    }
+
+    @Override
+    public void setVaultSlot(UUID uniqueId, int slots) {
+        async(() -> with(PlayerSlotRepository.class).setSlot(uniqueId, slots));
+    }
+
+    @Override
+    public List<VaultDTO> getVaults() {
+        return with(VaultRepository.class).select();
+    }
+
+    @Override
+    public List<VaultItemDTO> getVaultItems() {
+        return with(VaultItemRepository.class).select();
+    }
+
+    @Override
+    public List<PlayerSlotDTO> getPlayerVaultSlots() {
+        return with(PlayerSlotRepository.class).select();
     }
 }

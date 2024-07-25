@@ -109,8 +109,8 @@ public class ItemModule extends ZModule {
         itemStack.setAmount(itemStack.getMaxStackSize());
         int amount = 0;
         var inventory = player.getInventory();
-        for (int slot = 0; slot != 35; slot++) {
-            if (inventory.getContents()[0] == null || inventory.getContents()[0].getType().isAir()) {
+        for (int slot = 0; slot != 36; slot++) {
+            if (inventory.getContents()[slot] == null || inventory.getContents()[slot].getType().isAir()) {
                 inventory.setItem(slot, itemStack.clone());
                 amount += itemStack.getAmount();
             }

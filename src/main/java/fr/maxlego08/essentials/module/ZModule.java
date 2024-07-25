@@ -4,6 +4,7 @@ import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.event.UserEvent;
 import fr.maxlego08.essentials.api.event.events.economy.EconomyBaltopUpdateEvent;
 import fr.maxlego08.essentials.api.modules.Module;
+import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.zutils.utils.YamlLoader;
 import fr.maxlego08.menu.api.InventoryManager;
@@ -216,5 +217,9 @@ public abstract class ZModule extends YamlLoader implements Module {
 
     protected <T> T or(T value, T defaultValue) {
         return value == null ? defaultValue : value;
+    }
+
+    protected IStorage getStorage() {
+        return this.plugin.getStorageManager().getStorage();
     }
 }
