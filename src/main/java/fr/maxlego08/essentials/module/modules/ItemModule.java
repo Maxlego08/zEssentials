@@ -98,6 +98,27 @@ public class ItemModule extends ZModule {
         message(sender, Message.COMMAND_GIVE, "%item%", itemName, "%player%", player.getName(), "%amount%", amount);
     }
 
+    public void giveFullInventory(CommandSender sender, Player player, String itemName) {
+
+        ItemStack itemStack = this.getItemStack(itemName, player);
+        if (itemStack == null) {
+            message(sender, Message.COMMAND_GIVE_ERROR, "%item%", itemName);
+            return;
+        }
+
+        itemStack.setAmount(itemStack.getMaxStackSize());
+        int amount = 0;
+        var inventory = player.getInventory();
+        for (int slot = 0; slot != 35; slot++) {
+            if (inventory.getContents()[0] == null || inventory.getContents()[0].getType().isAir()) {
+                inventory.setItem(slot, itemStack.clone());
+                amount += itemStack.getAmount();
+            }
+        }
+
+        message(sender, Message.COMMAND_GIVE, "%item%", itemName, "%player%", player.getName(), "%amount%", amount);
+    }
+
     public void giveAll(CommandSender sender, String itemName, int amount) {
 
         if (!this.isItem(itemName)) {
