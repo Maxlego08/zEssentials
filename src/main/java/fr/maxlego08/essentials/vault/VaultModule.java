@@ -307,6 +307,8 @@ public class VaultModule extends ZModule implements VaultManager {
                 message(player, Message.COMMAND_VAULT_RENAME_ERROR);
             }
 
+            openVault(player, vault.getVaultId());
+
         }, System.currentTimeMillis() + (60 * 1000));
 
         player.closeInventory();
@@ -319,6 +321,6 @@ public class VaultModule extends ZModule implements VaultManager {
         vault.setName("Vault-" + vault.getVaultId());
         getStorage().updateVault(player.getUniqueId(), vault);
         message(player, Message.COMMAND_VAULT_RENAME_RESET);
-
+        openVault(player, vault.getVaultId());
     }
 }
