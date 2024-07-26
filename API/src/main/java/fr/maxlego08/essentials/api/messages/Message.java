@@ -659,6 +659,13 @@ public enum Message {
     COMMAND_VAULT_NO_PERMISSION("<error>You do not have permission to view se vault."),
     COMMAND_VAULT_SET_SLOT("<success>You just defined the slot of &f%player% <success>to &7%slots%<success>."),
     COMMAND_VAULT_ADD_SLOT("<success>you've just added &7%amount% <success>slot to &f%player%<success>."),
+    COMMAND_VAULT_CHANGE_ICON_ERROR("<error>You have an item in your hand."),
+    COMMAND_VAULT_CHANGE_ICON_SUCCESS("<success>You just changed the icon of your vault."),
+    COMMAND_VAULT_RESET_ICON("<success>You just reset the icon of your vault."),
+    COMMAND_VAULT_RENAME_START("<success>Please write in the chat the new name of the vault."),
+    COMMAND_VAULT_RENAME_SUCCESS("<success>You just set the vault name to &f%name%<success>."),
+    COMMAND_VAULT_RENAME_ERROR("<error>You cannot use this name for your vault."),
+    COMMAND_VAULT_RENAME_RESET("<success>You just reset the name of your vault."),
 
     ;
 

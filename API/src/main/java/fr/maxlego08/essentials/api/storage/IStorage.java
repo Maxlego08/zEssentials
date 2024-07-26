@@ -19,6 +19,7 @@ import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.user.UserRecord;
+import fr.maxlego08.essentials.api.vault.Vault;
 import org.bukkit.Material;
 
 import java.math.BigDecimal;
@@ -140,4 +141,6 @@ public interface IStorage {
     List<VaultItemDTO> getVaultItems();
 
     List<PlayerSlotDTO> getPlayerVaultSlots();
+
+    void updateVault(UUID uniqueId, Vault vault);
 }

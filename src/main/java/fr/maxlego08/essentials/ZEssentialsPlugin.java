@@ -8,6 +8,7 @@ import com.tcoded.folialib.impl.ServerImplementation;
 import fr.maxlego08.essentials.api.Configuration;
 import fr.maxlego08.essentials.api.ConfigurationFile;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.chat.InteractiveChat;
 import fr.maxlego08.essentials.api.commands.CommandManager;
 import fr.maxlego08.essentials.api.economy.EconomyManager;
 import fr.maxlego08.essentials.api.hologram.HologramManager;
@@ -35,8 +36,13 @@ import fr.maxlego08.essentials.buttons.mail.ButtonMailBox;
 import fr.maxlego08.essentials.buttons.mail.ButtonMailBoxAdmin;
 import fr.maxlego08.essentials.buttons.sanction.ButtonSanctionInformation;
 import fr.maxlego08.essentials.buttons.sanction.ButtonSanctions;
+import fr.maxlego08.essentials.buttons.vault.ButtonVaultIcon;
+import fr.maxlego08.essentials.buttons.vault.ButtonVaultRename;
 import fr.maxlego08.essentials.buttons.vault.ButtonVaultSlotDisable;
 import fr.maxlego08.essentials.buttons.vault.ButtonVaultSlotItems;
+import fr.maxlego08.essentials.chat.interactive.InteractiveChatHelper;
+import fr.maxlego08.essentials.chat.interactive.InteractiveChatPaperListener;
+import fr.maxlego08.essentials.chat.interactive.InteractiveChatSpigotListener;
 import fr.maxlego08.essentials.commands.CommandLoader;
 import fr.maxlego08.essentials.commands.ZCommandManager;
 import fr.maxlego08.essentials.commands.commands.essentials.CommandEssentials;
@@ -129,6 +135,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin {
 
@@ -142,6 +149,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     private EssentialsServer essentialsServer;
     private ScoreboardManager scoreboardManager;
     private HologramManager hologramManager;
+    private InteractiveChatHelper interactiveChatHelper;
 
     @Override
     public void onEnable() {
@@ -153,6 +161,8 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.serverImplementation = foliaLib.getImpl();
         this.essentialsUtils = isPaperVersion() ? new PaperUtils(this) : new SpigotUtils(this);
         this.essentialsServer = isPaperVersion() ? new PaperServer(this) : new SpigotServer(this);
+        this.interactiveChatHelper = isPaperVersion() ? new InteractiveChatPaperListener() : new InteractiveChatSpigotListener();
+        this.registerListener(this.interactiveChatHelper);
 
         this.registerMigrations();
 
@@ -263,6 +273,8 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.buttonManager.register(new NoneLoader(this, ButtonMailBoxAdmin.class, "zessentials_mailbox_admin"));
         this.buttonManager.register(new NoneLoader(this, ButtonVaultSlotDisable.class, "ZESSENTIALS_VAULT_SLOTS_DISABLE"));
         this.buttonManager.register(new NoneLoader(this, ButtonVaultSlotItems.class, "ZESSENTIALS_VAULT_SLOTS_ITEMS"));
+        this.buttonManager.register(new NoneLoader(this, ButtonVaultIcon.class, "ZESSENTIALS_VAULT_CHANGE_ICON"));
+        this.buttonManager.register(new NoneLoader(this, ButtonVaultRename.class, "ZESSENTIALS_VAULT_CHANGE_NAME"));
         this.buttonManager.register(new ButtonWarpLoader(this));
         this.buttonManager.register(new ButtonSanctionLoader(this));
         this.buttonManager.register(new ButtonKitCooldownLoader(this));
@@ -617,5 +629,12 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     @Override
     public VaultManager getVaultManager() {
         return this.moduleManager.getModule(VaultModule.class);
+    }
+
+    @Override
+    public InteractiveChat startInteractiveChat(Player player, Consumer<String> consumer, long expiredAt) {
+        InteractiveChat interactiveChat = new InteractiveChat(consumer, expiredAt);
+        this.interactiveChatHelper.register(player, interactiveChat);
+        return interactiveChat;
     }
 }

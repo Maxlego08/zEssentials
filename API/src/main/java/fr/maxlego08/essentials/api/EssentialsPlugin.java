@@ -2,6 +2,7 @@ package fr.maxlego08.essentials.api;
 
 import com.google.gson.Gson;
 import com.tcoded.folialib.impl.ServerImplementation;
+import fr.maxlego08.essentials.api.chat.InteractiveChat;
 import fr.maxlego08.essentials.api.commands.CommandManager;
 import fr.maxlego08.essentials.api.economy.EconomyManager;
 import fr.maxlego08.essentials.api.hologram.HologramManager;
@@ -31,6 +32,7 @@ import org.bukkit.plugin.Plugin;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 /**
  * Represents the essentials plugin.
@@ -240,4 +242,6 @@ public interface EssentialsPlugin extends Plugin {
     VoteManager getVoteManager();
 
     VaultManager getVaultManager();
+
+    InteractiveChat startInteractiveChat(Player player, Consumer<String> consumer, long expiredAt);
 }

@@ -23,6 +23,7 @@ import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.user.UserRecord;
+import fr.maxlego08.essentials.api.vault.Vault;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.utils.StorageHelper;
 import org.apache.commons.lang3.NotImplementedException;
@@ -425,5 +426,10 @@ public class JsonStorage extends StorageHelper implements IStorage {
     @Override
     public List<PlayerSlotDTO> getPlayerVaultSlots() {
         return new ArrayList<>();
+    }
+
+    @Override
+    public void updateVault(UUID uniqueId, Vault vault) {
+        throw new NotImplementedException("updateVault is not implemented, use MYSQL storage");
     }
 }

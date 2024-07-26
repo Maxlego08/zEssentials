@@ -40,4 +40,13 @@ public interface VaultManager {
 
     List<String> getVaultAsTabCompletion(Player player);
 
+    void openConfiguration(Player player, int vaultId);
+
+    void changeIcon(Player player, Vault vault);
+
+    void resetIcon(Player player, Vault vault);
+
+    void changeName(Player player, Vault vault);
+
+    void resetName(Player player, Vault vault);
 }

@@ -94,12 +94,12 @@ public class ZEconomy implements Economy {
     }
 
     @Override
-    public boolean isEnablePay() {
+    public boolean isPaymentEnabled() {
         return this.isEnablePay;
     }
 
     @Override
-    public boolean isEnableConfirmInventory() {
+    public boolean isConfirmInventoryEnabled() {
         return this.isEnableConfirmInventory;
     }
 

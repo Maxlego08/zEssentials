@@ -60,7 +60,7 @@ public class CommandPay extends VCommand {
         }
 
         Economy economy = optionalEconomy.get();
-        if (!economy.isEnablePay()) {
+        if (!economy.isPaymentEnabled()) {
             message(sender, Message.COMMAND_PAY_DISABLE, "%name%", economy.getDisplayName());
             return CommandResultType.DEFAULT;
         }
@@ -88,7 +88,7 @@ public class CommandPay extends VCommand {
         BigDecimal finalAmount = amount;
         this.fetchUniqueId(userName, uniqueId -> {
 
-            if (economy.isEnableConfirmInventory() && finalAmount.compareTo(economy.getMinConfirmInventory()) > 0) {
+            if (economy.isConfirmInventoryEnabled() && finalAmount.compareTo(economy.getMinConfirmInventory()) > 0) {
                 User fakeUser = new ZUser(plugin, uniqueId);
                 fakeUser.setName(userName);
                 this.user.setTargetPay(fakeUser, economy, finalAmount);

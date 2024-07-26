@@ -28,6 +28,7 @@ import fr.maxlego08.essentials.api.storage.StorageType;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.user.UserRecord;
+import fr.maxlego08.essentials.api.vault.Vault;
 import fr.maxlego08.essentials.storage.database.Repositories;
 import fr.maxlego08.essentials.storage.database.Repository;
 import fr.maxlego08.essentials.storage.database.repositeries.ChatMessagesRepository;
@@ -49,6 +50,7 @@ import fr.maxlego08.essentials.storage.database.repositeries.VaultRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.VoteSiteRepository;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.utils.StorageHelper;
+import fr.maxlego08.menu.zcore.utils.nms.ItemStackUtils;
 import fr.maxlego08.sarah.DatabaseConfiguration;
 import fr.maxlego08.sarah.DatabaseConnection;
 import fr.maxlego08.sarah.HikariDatabaseConnection;
@@ -511,5 +513,10 @@ public class SqlStorage extends StorageHelper implements IStorage {
     @Override
     public List<PlayerSlotDTO> getPlayerVaultSlots() {
         return with(PlayerSlotRepository.class).select();
+    }
+
+    @Override
+    public void updateVault(UUID uniqueId, Vault vault) {
+        async(() -> with(VaultRepository.class).update(uniqueId, vault.getVaultId(), vault.getName(), vault.getIconItemStack() == null ? null : ItemStackUtils.serializeItemStack(vault.getIconItemStack())));
     }
 }

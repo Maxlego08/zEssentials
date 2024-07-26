@@ -18,3 +18,5 @@ max-vaults: 7
 icon-open: "MINECART"
 
 icon-close: "CHEST_MINECART"
+
+vault-name-regex: "^[a-zA-Z0-9_-]{3,16}$"

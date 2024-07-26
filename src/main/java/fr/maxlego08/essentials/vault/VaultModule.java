@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -31,6 +33,7 @@ public class VaultModule extends ZModule implements VaultManager {
     private int maxVaults;
     private String iconOpen;
     private String iconClose;
+    private String vaultNameRegex;
 
     public VaultModule(ZEssentialsPlugin plugin) {
         super(plugin, "vault");
@@ -41,6 +44,7 @@ public class VaultModule extends ZModule implements VaultManager {
         super.loadConfiguration();
 
         this.loadInventory("vault");
+        this.loadInventory("vault-configuration");
     }
 
     @Override
@@ -237,5 +241,84 @@ public class VaultModule extends ZModule implements VaultManager {
     @Override
     public List<String> getVaultAsTabCompletion(Player player) {
         return IntStream.range(1, this.maxVaults).filter(vaultID -> hasPermission(player.getUniqueId(), vaultID)).mapToObj(String::valueOf).collect(Collectors.toList());
+    }
+
+    @Override
+    public void openConfiguration(Player player, int vaultId) {
+
+        if (vaultId < 1 || vaultId > this.maxVaults) {
+            message(player, Message.COMMAND_VAULT_NOT_FOUND, "%vaultId%", vaultId);
+            return;
+        }
+
+        if (!hasPermission(player.getUniqueId(), vaultId)) {
+            message(player, Message.COMMAND_VAULT_NO_PERMISSION);
+            return;
+        }
+
+        PlayerVaults playerVaults = getPlayerVaults(player);
+        Vault vault = playerVaults.getVault(vaultId);
+        playerVaults.setTargetVault(vault);
+
+        this.plugin.openInventory(player, "vault-configuration");
+    }
+
+    @Override
+    public void changeIcon(Player player, Vault vault) {
+
+        var itemStack = player.getInventory().getItemInMainHand();
+        if (itemStack.getType().isAir()) {
+            message(player, Message.COMMAND_VAULT_CHANGE_ICON_ERROR);
+            return;
+        }
+
+        vault.setIconItemStack(itemStack.clone());
+        getStorage().updateVault(player.getUniqueId(), vault);
+        message(player, Message.COMMAND_VAULT_CHANGE_ICON_SUCCESS);
+
+        openVault(player, vault.getVaultId());
+    }
+
+    @Override
+    public void resetIcon(Player player, Vault vault) {
+
+        vault.setIconItemStack(null);
+        getStorage().updateVault(player.getUniqueId(), vault);
+        message(player, Message.COMMAND_VAULT_RESET_ICON);
+
+        openVault(player, vault.getVaultId());
+    }
+
+    @Override
+    public void changeName(Player player, Vault vault) {
+
+        this.plugin.startInteractiveChat(player, message -> {
+
+            Pattern pattern = Pattern.compile(this.vaultNameRegex == null ? "^[a-zA-Z0-9_-]{3,16}$" : this.vaultNameRegex);
+            Matcher matcher = pattern.matcher(message);
+            if (matcher.matches()) {
+
+                vault.setName(message);
+                getStorage().updateVault(player.getUniqueId(), vault);
+                message(player, Message.COMMAND_VAULT_RENAME_SUCCESS, "%name%", message);
+
+            } else {
+
+                message(player, Message.COMMAND_VAULT_RENAME_ERROR);
+            }
+
+        }, System.currentTimeMillis() + (60 * 1000));
+
+        player.closeInventory();
+        message(player, Message.COMMAND_VAULT_RENAME_START);
+    }
+
+    @Override
+    public void resetName(Player player, Vault vault) {
+
+        vault.setName("Vault-" + vault.getVaultId());
+        getStorage().updateVault(player.getUniqueId(), vault);
+        message(player, Message.COMMAND_VAULT_RENAME_RESET);
+
     }
 }
