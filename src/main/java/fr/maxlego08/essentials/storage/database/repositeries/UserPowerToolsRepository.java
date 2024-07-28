@@ -22,7 +22,7 @@ public class UserPowerToolsRepository extends Repository {
         });
     }
 
-    public List<PowerToolsDTO> getPowerTools(UUID uuid) {
+    public List<PowerToolsDTO> select(UUID uuid) {
         return this.select(PowerToolsDTO.class, table -> table.where("unique_id", uuid));
     }
 

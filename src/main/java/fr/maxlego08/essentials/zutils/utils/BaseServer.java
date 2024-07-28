@@ -63,7 +63,7 @@ public abstract class BaseServer extends ZUtils implements EssentialsUtils {
 
     @Override
     public Object createInstanceFromMap(Constructor<?> constructor, Map<?, ?> map) {
-        return super.createInstanceFromMap(constructor, map);
+        return super.createInstanceFromMap(plugin.getLogger(), constructor, map);
     }
 
     @Override

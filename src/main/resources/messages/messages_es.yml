@@ -41,7 +41,7 @@ command-no-console: "<error>Este comando solo lo pueden ejecutar jugadores."
 command-no-arg: "<error>No fue posible encontrar el comando con sus argumentos."
 command-syntaxe-help: "&f%syntax% #656665» &7%description%"
 
-command-reload: "#00ff40Se han recargado los archivos de configuración."
+command-reload: "<success>Se han recargado los archivos de configuración."
 command-reload-module: "<success>Se han recargado los archivos de configuración del módulo &f%module%<success>."
 command-reload-error: "&f%module% <error>no fue encontrado."
 command-essentials: "&ezEssentials&8, &eVersión &f%version%"

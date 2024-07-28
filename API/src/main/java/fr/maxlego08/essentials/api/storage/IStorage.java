@@ -4,10 +4,14 @@ import fr.maxlego08.essentials.api.dto.ChatMessageDTO;
 import fr.maxlego08.essentials.api.dto.CooldownDTO;
 import fr.maxlego08.essentials.api.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.dto.MailBoxDTO;
+import fr.maxlego08.essentials.api.dto.PlayerSlotDTO;
 import fr.maxlego08.essentials.api.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.dto.UserDTO;
 import fr.maxlego08.essentials.api.dto.UserEconomyDTO;
 import fr.maxlego08.essentials.api.dto.UserEconomyRankingDTO;
+import fr.maxlego08.essentials.api.dto.UserVoteDTO;
+import fr.maxlego08.essentials.api.dto.VaultDTO;
+import fr.maxlego08.essentials.api.dto.VaultItemDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.mailbox.MailBoxItem;
@@ -15,6 +19,7 @@ import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.user.UserRecord;
+import fr.maxlego08.essentials.api.vault.Vault;
 import org.bukkit.Material;
 
 import java.math.BigDecimal;
@@ -109,7 +114,33 @@ public interface IStorage {
 
     List<UserEconomyRankingDTO> getEconomyRanking(Economy economy);
 
-    List<MailBoxDTO> getMailBox(UUID uuid);
+    List<MailBoxDTO> getMailBox(UUID uniqueId);
 
     void fetchOfflinePlayerEconomies(Consumer<List<UserEconomyDTO>> consumer);
+
+    void setVote(UUID uniqueId, long vote, long offline_vote);
+
+    UserVoteDTO getVote(UUID uniqueId);
+
+    void updateServerStorage(String key, Object object);
+
+    void setLastVote(UUID uniqueId, String site);
+
+    void resetVotes();
+
+    void updateVaultQuantity(UUID uniqueId, int vaultId, int slot, long quantity);
+
+    void removeVaultItem(UUID uniqueId, int vaultId, int slot);
+
+    void createVaultItem(UUID uniqueId, int vaultId, int slot, long quantity, String item);
+
+    void setVaultSlot(UUID uniqueId, int slots);
+
+    List<VaultDTO> getVaults();
+
+    List<VaultItemDTO> getVaultItems();
+
+    List<PlayerSlotDTO> getPlayerVaultSlots();
+
+    void updateVault(UUID uniqueId, Vault vault);
 }

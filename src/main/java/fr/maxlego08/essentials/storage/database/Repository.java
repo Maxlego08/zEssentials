@@ -15,7 +15,7 @@ import java.util.function.Consumer;
 
 public abstract class Repository extends ZUtils {
 
-    private final EssentialsPlugin plugin;
+    protected final EssentialsPlugin plugin;
     private final DatabaseConnection connection;
     private final String tableName;
 
@@ -35,7 +35,7 @@ public abstract class Repository extends ZUtils {
 
     protected void upsert(Consumer<Schema> consumer) {
         try {
-            SchemaBuilder.upsert(getTableName(), consumer).execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), JULogger.from(this.plugin.getLogger()));
+            SchemaBuilder.upsert(getTableName(), consumer).execute(this.connection, JULogger.from(this.plugin.getLogger()));
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
@@ -43,7 +43,7 @@ public abstract class Repository extends ZUtils {
 
     protected void update(Consumer<Schema> consumer) {
         try {
-            SchemaBuilder.update(getTableName(), consumer).execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), JULogger.from(this.plugin.getLogger()));
+            SchemaBuilder.update(getTableName(), consumer).execute(this.connection, JULogger.from(this.plugin.getLogger()));
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
@@ -56,7 +56,7 @@ public abstract class Repository extends ZUtils {
 
     protected void insert(Consumer<Schema> consumer, Consumer<Integer> consumerResult) {
         try {
-            consumerResult.accept(SchemaBuilder.insert(getTableName(), consumer).execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), JULogger.from(this.plugin.getLogger())));
+            consumerResult.accept(SchemaBuilder.insert(getTableName(), consumer).execute(this.connection, JULogger.from(this.plugin.getLogger())));
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
@@ -66,7 +66,7 @@ public abstract class Repository extends ZUtils {
         Schema schema = SchemaBuilder.selectCount(getTableName());
         consumer.accept(schema);
         try {
-            return schema.executeSelectCount(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), JULogger.from(this.plugin.getLogger()));
+            return schema.executeSelectCount(this.connection, JULogger.from(this.plugin.getLogger()));
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
@@ -77,7 +77,7 @@ public abstract class Repository extends ZUtils {
         Schema schema = SchemaBuilder.select(getTableName());
         consumer.accept(schema);
         try {
-            return schema.executeSelect(clazz, this.connection.getConnection(), this.connection.getDatabaseConfiguration(), JULogger.from(this.plugin.getLogger()));
+            return schema.executeSelect(clazz, this.connection, JULogger.from(this.plugin.getLogger()));
         } catch (Exception exception) {
             exception.printStackTrace();
         }
@@ -88,7 +88,7 @@ public abstract class Repository extends ZUtils {
         Schema schema = SchemaBuilder.delete(getTableName());
         consumer.accept(schema);
         try {
-            schema.execute(this.connection.getConnection(), this.connection.getDatabaseConfiguration(), JULogger.from(this.plugin.getLogger()));
+            schema.execute(this.connection, JULogger.from(this.plugin.getLogger()));
         } catch (SQLException exception) {
             exception.printStackTrace();
         }

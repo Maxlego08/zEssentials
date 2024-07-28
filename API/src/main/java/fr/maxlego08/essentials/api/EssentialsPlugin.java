@@ -2,6 +2,7 @@ package fr.maxlego08.essentials.api;
 
 import com.google.gson.Gson;
 import com.tcoded.folialib.impl.ServerImplementation;
+import fr.maxlego08.essentials.api.chat.InteractiveChat;
 import fr.maxlego08.essentials.api.commands.CommandManager;
 import fr.maxlego08.essentials.api.economy.EconomyManager;
 import fr.maxlego08.essentials.api.hologram.HologramManager;
@@ -17,6 +18,8 @@ import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.EssentialsUtils;
 import fr.maxlego08.essentials.api.utils.Warp;
 import fr.maxlego08.essentials.api.utils.component.ComponentMessage;
+import fr.maxlego08.essentials.api.vault.VaultManager;
+import fr.maxlego08.essentials.api.vote.VoteManager;
 import fr.maxlego08.menu.api.ButtonManager;
 import fr.maxlego08.menu.api.InventoryManager;
 import fr.maxlego08.menu.api.pattern.PatternManager;
@@ -29,6 +32,7 @@ import org.bukkit.plugin.Plugin;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 /**
  * Represents the essentials plugin.
@@ -234,4 +238,10 @@ public interface EssentialsPlugin extends Plugin {
     ComponentMessage getComponentMessage();
 
     String papi(Player player, String string);
+
+    VoteManager getVoteManager();
+
+    VaultManager getVaultManager();
+
+    InteractiveChat startInteractiveChat(Player player, Consumer<String> consumer, long expiredAt);
 }

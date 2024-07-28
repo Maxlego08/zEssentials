@@ -4,6 +4,7 @@ import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.event.UserEvent;
 import fr.maxlego08.essentials.api.event.events.economy.EconomyBaltopUpdateEvent;
 import fr.maxlego08.essentials.api.modules.Module;
+import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.zutils.utils.YamlLoader;
 import fr.maxlego08.menu.api.InventoryManager;
@@ -166,6 +167,9 @@ public abstract class ZModule extends YamlLoader implements Module {
      * @param event     the event object
      */
     private void updateLineWithEvent(String eventName, Event event) {
+
+        if (!event.getClass().getName().equals(eventName)) return;
+
         if (event instanceof PlayerEvent playerEvent) {
             updateEventPlayer(playerEvent.getPlayer(), eventName);
         } else if (event instanceof BlockBreakEvent playerEvent) {
@@ -178,7 +182,7 @@ public abstract class ZModule extends YamlLoader implements Module {
         } else if (event instanceof EconomyBaltopUpdateEvent) {
             updateEvent(eventName);
         } else {
-            this.plugin.getLogger().severe("Event : " + eventName + " is not a Player or User event ! You cant use it");
+            this.plugin.getLogger().severe("Event : " + event.getClass().getName() + " is not a Player or User event ! You cant use it");
         }
     }
 
@@ -213,5 +217,9 @@ public abstract class ZModule extends YamlLoader implements Module {
 
     protected <T> T or(T value, T defaultValue) {
         return value == null ? defaultValue : value;
+    }
+
+    protected IStorage getStorage() {
+        return this.plugin.getStorageManager().getStorage();
     }
 }

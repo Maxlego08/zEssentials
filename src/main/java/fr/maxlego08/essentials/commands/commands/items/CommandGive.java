@@ -25,7 +25,7 @@ public class CommandGive extends VCommand {
             materials.addAll(plugin.getModuleManager().getModule(ItemModule.class).getItemsName());
             return materials;
         });
-        this.addOptionalArg("amount", (sender, args) -> Arrays.asList("1", "64"));
+        this.addOptionalArg("amount", (sender, args) -> Arrays.asList("1", "64", "full"));
     }
 
     @Override
@@ -33,9 +33,16 @@ public class CommandGive extends VCommand {
 
         Player player = this.argAsPlayer(0);
         String itemName = this.argAsString(1);
-        int amount = this.argAsInteger(2, 1);
+        String amount = this.argAsString(2, "1");
 
-        plugin.getModuleManager().getModule(ItemModule.class).give(sender, player, itemName, amount);
+        var module = plugin.getModuleManager().getModule(ItemModule.class);
+        if (amount.equalsIgnoreCase("full")) {
+
+            module.giveFullInventory(sender, player, itemName);
+        } else {
+            int amountInteger = this.argAsInteger(2, 1);
+            module.give(sender, player, itemName, amountInteger);
+        }
 
         return CommandResultType.SUCCESS;
     }

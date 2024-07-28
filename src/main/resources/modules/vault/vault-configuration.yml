@@ -1,0 +1,27 @@
+name: '&8ᴄᴏɴғɪɢᴜʀᴀᴛɪᴏɴ'
+size: 36
+items:
+  rename:
+    type: ZESSENTIALS_VAULT_CHANGE_NAME
+    slot: 11
+    item:
+      material: PAPER
+      name: '&eʀᴇɴᴀᴍᴇ'
+      lore:
+        - '#fc99f8Left Click &7to change the name'
+        - '#fc99f8Right Click &7to remove the name'
+  icon:
+    type: ZESSENTIALS_VAULT_CHANGE_ICON
+    slot: 15
+    item:
+      material: '%vault-icon%'
+      name: '&eᴄʜᴀɴɢᴇ ɪᴄᴏɴ'
+      lore:
+        - '#fc99f8Left Click &7to change the icon'
+        - '#fc99f8Right Click &7to remove the icon'
+  back:
+    type: BACK
+    slot: 31
+    item:
+      material: BARRIER
+      name: '&cʙᴀᴄᴋ'

@@ -16,9 +16,13 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 public class DiscordModule extends ZModule implements DiscordManager {
 
@@ -40,26 +44,26 @@ public class DiscordModule extends ZModule implements DiscordManager {
 
         ConfigurationSection configurationSection = configuration.getConfigurationSection("chat-message");
         if (configurationSection != null) {
-            this.chatConfiguration = loadConfiguration(configurationSection);
+            loadConfiguration(configurationSection, d -> this.chatConfiguration = d);
         }
 
         configurationSection = configuration.getConfigurationSection("join-message");
         if (configurationSection != null) {
-            this.joinConfiguration = loadConfiguration(configurationSection);
+            loadConfiguration(configurationSection, d -> this.joinConfiguration = d);
         }
 
         configurationSection = configuration.getConfigurationSection("first-join-message");
         if (configurationSection != null) {
-            this.firstJoinConfiguration = loadConfiguration(configurationSection);
+            loadConfiguration(configurationSection, d -> this.firstJoinConfiguration = d);
         }
 
         configurationSection = configuration.getConfigurationSection("left-message");
         if (configurationSection != null) {
-            this.leftConfiguration = loadConfiguration(configurationSection);
+            loadConfiguration(configurationSection, d -> this.leftConfiguration = d);
         }
     }
 
-    private DiscordConfiguration loadConfiguration(ConfigurationSection configurationSection) {
+    private void loadConfiguration(ConfigurationSection configurationSection, Consumer<DiscordConfiguration> consumer) {
 
         boolean isEnable = configurationSection.getBoolean("enable");
         String webhookUrl = configurationSection.getString("webhook");
@@ -68,7 +72,35 @@ public class DiscordModule extends ZModule implements DiscordManager {
         String username = configurationSection.getString("username");
         List<Map<?, ?>> values = configurationSection.getMapList("embeds");
 
-        return new DiscordConfiguration(isEnable, webhookUrl, avatarUrl, message, username, DiscordEmbedConfiguration.convertToEmbedObjects(values));
+        this.plugin.getScheduler().runAsync(wrappedTask -> {
+            if (checkWebhookExists(webhookUrl)) {
+                var config = new DiscordConfiguration(isEnable, webhookUrl, avatarUrl, message, username, DiscordEmbedConfiguration.convertToEmbedObjects(values));
+                consumer.accept(config);
+            } else {
+                var config = DiscordConfiguration.disabled();
+                if (isEnable) {
+                    plugin.getLogger().severe("URL " + webhookUrl + " is invalid ! Disable your discord configuration.");
+                }
+                consumer.accept(config);
+            }
+        });
+    }
+
+    private boolean checkWebhookExists(String webhookUrl) {
+        try {
+            URL url = new URL(webhookUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setConnectTimeout(5000);
+            connection.setReadTimeout(5000);
+
+            int responseCode = connection.getResponseCode();
+
+            return responseCode == 200;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override

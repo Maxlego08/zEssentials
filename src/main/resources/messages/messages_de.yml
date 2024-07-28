@@ -187,7 +187,7 @@ command-no-console: <error>Nur Spieler können diesen Befehl verwenden!
 command-no-arg: <error>Es konnte kein Befehl mit diesen Argumenten gefunden werden!
 command-syntaxe-help: '&f%syntax% #656665» &7%description%'
 
-command-reload: '#00ff40Du hast gerade die Konfiguration neu geladen!'
+command-reload: '<success>Du hast gerade die Konfiguration neu geladen!'
 command-essentials: '&ezEssentials&8, &eVersion &f%version%'
 
 

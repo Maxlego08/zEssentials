@@ -4,7 +4,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public abstract class LocationUtils {
+
+    protected Location offsetLocation(Location location, double x, double y, double z) {
+        ThreadLocalRandom random = ThreadLocalRandom.current();
+        return location.clone().add(random.nextDouble(-x, x), random.nextDouble(-y, y), random.nextDouble(-z, z));
+    }
 
     public String locationAsString(Location location) {
         return location == null ? null : String.join(",",

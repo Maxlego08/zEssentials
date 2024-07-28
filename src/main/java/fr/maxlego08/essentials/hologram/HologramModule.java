@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.hologram;
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.TabCompletion;
+import fr.maxlego08.essentials.api.hologram.DamageIndicatorConfiguration;
 import fr.maxlego08.essentials.api.hologram.Hologram;
 import fr.maxlego08.essentials.api.hologram.HologramLine;
 import fr.maxlego08.essentials.api.hologram.HologramManager;
@@ -19,9 +20,17 @@ import fr.maxlego08.menu.zcore.utils.nms.NmsVersion;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Animals;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.WaterMob;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.world.WorldLoadEvent;
@@ -33,6 +42,7 @@ import java.lang.reflect.Constructor;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -50,6 +60,7 @@ public class HologramModule extends ZModule implements HologramManager {
 
     private final List<Hologram> holograms = new ArrayList<>();
     private final Map<String, List<File>> pendingHolograms = new HashMap<>();
+    private DamageIndicatorConfiguration damageIndicator;
 
     public HologramModule(ZEssentialsPlugin plugin) {
         super(plugin, "hologram");
@@ -66,6 +77,8 @@ public class HologramModule extends ZModule implements HologramManager {
 
         HandlerList.unregisterAll(this);
         this.registerEvents();
+
+        System.out.println(damageIndicator);
     }
 
     private void registerEvents() {
@@ -287,5 +300,43 @@ public class HologramModule extends ZModule implements HologramManager {
         if (this.pendingHolograms.containsKey(key)) {
             this.pendingHolograms.remove(key).forEach(this::loadHologram);
         }
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onEntityDamage(EntityDamageEvent event) {
+
+        if (!this.damageIndicator.enabled()) return;
+
+        var damage = event.getFinalDamage();
+        if (damage <= 0) return;
+
+        var entity = event.getEntity();
+        if (!(entity instanceof LivingEntity) || entity instanceof ArmorStand) return;
+
+        if (entity instanceof Player && !this.damageIndicator.players()) return;
+
+        if (entity instanceof Animals && !this.damageIndicator.animals()) return;
+
+        if (entity instanceof WaterMob && !this.damageIndicator.waterMobs()) return;
+
+        if (entity instanceof Monster && !this.damageIndicator.mobs()) return;
+
+        if (this.damageIndicator.disabledEntities().contains(entity.getType())) return;
+
+        var location = entity.getLocation();
+        location.add(0.0, this.damageIndicator.height(), 0.0);
+        location = offsetLocation(location, this.damageIndicator.offsetX(), this.damageIndicator.offsetY(), this.damageIndicator.offsetZ());
+        var critical = event instanceof EntityDamageByEntityEvent entityDamageByEntityEvent && entityDamageByEntityEvent.isCritical();
+        var text = critical ? this.damageIndicator.criticalAppearance() : this.damageIndicator.appearance();
+        text = getMessage(text, "%damage%", new DecimalFormat(this.damageIndicator.decimalFormat()).format(damage));
+
+        HologramConfiguration hologramConfiguration = new TextHologramConfiguration();
+        var hologram = createHologram(HologramType.TEXT, hologramConfiguration, "", "", location);
+
+        hologram.addLine(new ZHologramLine(1, text));
+        hologram.create();
+        hologram.createForAllPlayers();
+
+        this.plugin.getScheduler().runLater(hologram::deleteForAllPlayers, this.damageIndicator.duration());
     }
 }

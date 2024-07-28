@@ -82,14 +82,14 @@ public interface Economy {
      *
      * @return true if payments are enabled, false otherwise.
      */
-    boolean isEnablePay();
+    boolean isPaymentEnabled();
 
     /**
      * Checks if confirming payments in the inventory is enabled for the economy system.
      *
      * @return true if confirming payments in the inventory is enabled, false otherwise.
      */
-    boolean isEnableConfirmInventory();
+    boolean isConfirmInventoryEnabled();
 
     /**
      * Gets the price format used for formatting currency amounts.

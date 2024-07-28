@@ -110,12 +110,12 @@ public class UserPlaceholders extends ZUtils implements PlaceholderRegister {
         }, "Returns the remaining formatted time for the cooldown", "cooldown key");
 
         // Sanction
-        placeholder.register("user_is_mute", (player, key) -> {
+        placeholder.register("user_is_mute", (player) -> {
             User user = iStorage.getUser(player.getUniqueId());
             return String.valueOf(user.isMute());
         }, "Returns true if the player's is mute");
 
-        placeholder.register("user_mute_seconds", (player, key) -> {
+        placeholder.register("user_mute_seconds", (player) -> {
             User user = iStorage.getUser(player.getUniqueId());
             try {
                 return String.valueOf((user.getMuteSanction().getDurationRemaining().toSeconds()));
@@ -124,7 +124,7 @@ public class UserPlaceholders extends ZUtils implements PlaceholderRegister {
             }
         }, "Returns the remaining time in seconds for the mute");
 
-        placeholder.register("user_mute_formatted", (player, key) -> {
+        placeholder.register("user_mute_formatted", (player) -> {
             User user = iStorage.getUser(player.getUniqueId());
             try {
                 return TimerBuilder.getStringTime(user.getMuteSanction().getDurationRemaining().toMillis());
@@ -135,13 +135,13 @@ public class UserPlaceholders extends ZUtils implements PlaceholderRegister {
 
         // Mailbox
 
-        placeholder.register("user_mailbox_items", (player, key) -> {
+        placeholder.register("user_mailbox_items", (player) -> {
             User user = iStorage.getUser(player.getUniqueId());
             return String.valueOf(user.getMailBoxItems().size());
         }, "Returns the number of items in the mailbox");
 
         // Good
-        placeholder.register("user_is_god", (player, key) -> {
+        placeholder.register("user_is_god", (player) -> {
             User user = iStorage.getUser(player.getUniqueId());
             return String.valueOf(user.getOption(Option.GOD));
         }, "Returns the true if user is in god mode");

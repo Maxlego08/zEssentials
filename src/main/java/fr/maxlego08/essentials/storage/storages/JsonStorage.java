@@ -6,10 +6,14 @@ import fr.maxlego08.essentials.api.dto.CooldownDTO;
 import fr.maxlego08.essentials.api.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.dto.HomeDTO;
 import fr.maxlego08.essentials.api.dto.MailBoxDTO;
+import fr.maxlego08.essentials.api.dto.PlayerSlotDTO;
 import fr.maxlego08.essentials.api.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.dto.UserDTO;
 import fr.maxlego08.essentials.api.dto.UserEconomyDTO;
 import fr.maxlego08.essentials.api.dto.UserEconomyRankingDTO;
+import fr.maxlego08.essentials.api.dto.UserVoteDTO;
+import fr.maxlego08.essentials.api.dto.VaultDTO;
+import fr.maxlego08.essentials.api.dto.VaultItemDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.mailbox.MailBoxItem;
@@ -19,6 +23,7 @@ import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.user.UserRecord;
+import fr.maxlego08.essentials.api.vault.Vault;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.utils.StorageHelper;
 import org.apache.commons.lang3.NotImplementedException;
@@ -360,5 +365,71 @@ public class JsonStorage extends StorageHelper implements IStorage {
     @Override
     public void fetchOfflinePlayerEconomies(Consumer<List<UserEconomyDTO>> consumer) {
         consumer.accept(new ArrayList<>());
+    }
+
+    @Override
+    public void setVote(UUID uuid, long vote, long offline) {
+        throw new NotImplementedException("setVote is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public UserVoteDTO getVote(UUID uniqueId) {
+        throw new NotImplementedException("getVote is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public void updateServerStorage(String key, Object object) {
+        throw new NotImplementedException("updateServerStorage is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public void setLastVote(UUID uniqueId, String site) {
+        throw new NotImplementedException("setLastVote is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public void resetVotes() {
+        throw new NotImplementedException("resetVotes is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public void updateVaultQuantity(UUID uniqueId, int vaultId, int slot, long quantity) {
+        throw new NotImplementedException("updateVaultQuantity is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public void removeVaultItem(UUID uniqueId, int vaultId, int slot) {
+        throw new NotImplementedException("removeVaultItem is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public void createVaultItem(UUID uniqueId, int vaultId, int slot, long quantity, String item) {
+        throw new NotImplementedException("createVaultItem is not implemented, use MYSQL storage");
+
+    }
+
+    @Override
+    public void setVaultSlot(UUID uniqueId, int slots) {
+        throw new NotImplementedException("setVaultSlot is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public List<VaultDTO> getVaults() {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public List<VaultItemDTO> getVaultItems() {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public List<PlayerSlotDTO> getPlayerVaultSlots() {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public void updateVault(UUID uniqueId, Vault vault) {
+        throw new NotImplementedException("updateVault is not implemented, use MYSQL storage");
     }
 }

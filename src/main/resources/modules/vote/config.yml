@@ -1,0 +1,64 @@
+########################################################################################################################
+#
+# ██╗░░░██╗░█████╗░████████╗███████╗
+# ██║░░░██║██╔══██╗╚══██╔══╝██╔════╝
+# ╚██╗░██╔╝██║░░██║░░░██║░░░█████╗░░
+# ░╚████╔╝░██║░░██║░░░██║░░░██╔══╝░░
+# ░░╚██╔╝░░╚█████╔╝░░░██║░░░███████╗
+# ░░░╚═╝░░░░╚════╝░░░░╚═╝░░░╚══════╝
+#
+# Documentation: https://zessentials.groupez.dev/modules/vote
+#
+########################################################################################################################
+
+enable: true
+
+# Allows to activate the party vote
+# The vote party is a system that allows to reward online players by reaching a certain number of votes
+enable-vote-party: true
+
+# Allows to open the votes inventory with the party vote command, if you disable this option a message will be sent to the player
+enable-vote-party-open-vote-inventory: true
+
+# The objective of the party vote
+vote-party-objective: 200
+
+# Rewards for the vote party
+vote-party-rewards:
+
+  # Commands executed for all players
+  commands:
+    - "eco give money %player% 5000"
+
+  # If the player has this permission he will receive more rewards
+  permissions: "zessentials.vote.double"
+  commandsPermission:
+    - "eco give money %player% 5000"
+
+# Rewards on each vote
+reward-on-vote:
+  - "cr give %player% vote"
+
+sites:
+  - name: "ServeurMinecraftVote"
+    seconds: 5400
+  - name: "ServeurPrive"
+    seconds: 5400
+  - name: "ServeursMinecraft"
+    seconds: 86400
+  - name: "TopServeurs"
+    seconds: 7200
+
+# Send a message to the player when voting while offline
+enable-offline-vote-message: true
+
+# Value for the placeholder: %zessentials_vote_site_cooldown_<site>%
+placeholder-available: "<green>Available ✔"
+placeholder-cooldown: "<red>%cooldown% ✘"
+
+# Date to reset the votes of the players, the default setting reset the votes on the first day of the month at 0h0
+reset-configuration:
+  day: 1 # between 1 and 31
+  hour: 0 # between 0 and 23
+  minute: 0 # between 0 and 59
+  second: 0 # between 0 and 59

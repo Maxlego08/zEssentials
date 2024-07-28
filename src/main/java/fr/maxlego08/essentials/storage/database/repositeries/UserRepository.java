@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.storage.database.repositeries;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.dto.UserDTO;
 import fr.maxlego08.essentials.api.dto.UserEconomyRankingDTO;
+import fr.maxlego08.essentials.api.dto.UserVoteDTO;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.storage.database.Repository;
 import fr.maxlego08.sarah.DatabaseConnection;
@@ -100,13 +101,23 @@ public class UserRepository extends Repository {
     }
 
     /**
-     * Selects a user based on their unique UUID.
+     * Selects a user based on their unique UUID, for vote data
      *
      * @param uniqueId The unique UUID of the user to search for.
      * @return A list of UserDTO objects corresponding to the found user.
      */
     public List<UserDTO> selectUser(UUID uniqueId) {
         return select(UserDTO.class, table -> table.where("unique_id", uniqueId));
+    }
+
+    /**
+     * Selects a user based on their unique UUID.
+     *
+     * @param uniqueId The unique UUID of the user to search for.
+     * @return A list of UserDTO objects corresponding to the found user.
+     */
+    public List<UserVoteDTO> selectVoteUser(UUID uniqueId) {
+        return select(UserVoteDTO.class, table -> table.where("unique_id", uniqueId));
     }
 
     /**
@@ -145,5 +156,21 @@ public class UserRepository extends Repository {
             table.orderByDesc("amount");
 
         });
+    }
+
+    public void setVote(UUID uniqueId, long vote, long offline) {
+        update(table -> {
+            if (vote >= 0) {
+                table.object("vote", vote);
+            }
+            if (offline >= 0) {
+                table.object("vote_offline", offline);
+            }
+            table.where("unique_id", uniqueId);
+        });
+    }
+
+    public void resetVotes() {
+        update(table -> table.object("vote", 0));
     }
 }

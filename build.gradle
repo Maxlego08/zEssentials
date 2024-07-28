@@ -24,7 +24,7 @@ allprojects {
     }
 
     repositories {
-        maven {url "https://repo.papermc.io/repository/maven-public/"}
+        maven { url "https://repo.papermc.io/repository/maven-public/" }
         maven { url 'https://jitpack.io' }
         maven {
             name = "devmart-other"
@@ -35,11 +35,11 @@ allprojects {
 
     dependencies {
         compileOnly("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT")
-        compileOnly("com.github.maxlego08:zMenu-API:1.0.3.1")
+        compileOnly("com.github.maxlego08:zMenu-API:85e5147698")
 
         implementation "com.tcoded:FoliaLib:0.3.1"
-        implementation 'com.github.Maxlego08:Sarah:1.7'
-        implementation 'fr.mrmicky:fastboard:2.1.2'
+        implementation 'com.github.Maxlego08:Sarah:15a98e1677'
+        implementation 'fr.mrmicky:fastboard:2.1.3'
     }
 
     tasks.register('checkDebug') {
@@ -102,12 +102,11 @@ jar {
 
 processResources {
     outputs.upToDateWhen { false }
-    eachFile { details ->
-        if (details.name.contentEquals('plugin.yml')) {
-            filter { String line ->
-                line.replace('${project.version}', rootProject.buildVersion)
-            }
-        }
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand props
     }
 }
 
