@@ -14,7 +14,7 @@ public class CommandSeen extends VCommand {
         this.setModule(SanctionModule.class);
         this.setPermission(Permission.ESSENTIALS_SEEN);
         this.setDescription(Message.DESCRIPTION_SEEN);
-        this.addRequirePlayerNameArg();
+        this.addRequireOfflinePlayerNameArg();
     }
 
     @Override

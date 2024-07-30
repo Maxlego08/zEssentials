@@ -47,8 +47,10 @@ public class VersionChecker implements Listener {
             if (atomicBoolean.get()) {
                 this.plugin.getLogger().info("No update available.");
             } else {
-                this.plugin.getLogger().warning("New update available. Your version: " + pluginVersion + ", latest version: " + version);
-                this.plugin.getLogger().warning("Download plugin here: " + String.format(URL_RESOURCE, this.pluginID));
+                this.plugin.getLogger().severe("");
+                this.plugin.getLogger().severe("New update available. Your version: " + pluginVersion + ", latest version: " + version);
+                this.plugin.getLogger().severe("Download plugin here: " + String.format(URL_RESOURCE, this.pluginID));
+                this.plugin.getLogger().severe("");
             }
         });
 

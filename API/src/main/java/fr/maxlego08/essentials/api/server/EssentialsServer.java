@@ -39,4 +39,6 @@ public interface EssentialsServer {
     void deleteCooldown(UUID uniqueId, String cooldownName);
 
     void updateCooldown(UUID uniqueId, String cooldownName, long expiredAt);
+
+    List<String> getOfflinePlayersNames();
 }

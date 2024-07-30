@@ -16,7 +16,7 @@ public class CommandBan extends VCommand {
         this.setModule(SanctionModule.class);
         this.setPermission(Permission.ESSENTIALS_BAN);
         this.setDescription(Message.DESCRIPTION_BAN);
-        this.addRequirePlayerNameArg();
+        this.addRequireOfflinePlayerNameArg();
         this.addRequireArg("duration", (a, b) -> this.cooldowns);
         this.addOptionalArg("reason", (a, b) -> new ArrayList<>());
         this.setExtendedArgs(true);

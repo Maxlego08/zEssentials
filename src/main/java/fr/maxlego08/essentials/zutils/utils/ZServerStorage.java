@@ -21,9 +21,7 @@ public class ZServerStorage implements ServerStorage {
 
     @Override
     public void setContents(List<ServerStorageDTO> serverStorageDTOS) {
-        System.out.println(serverStorageDTOS);
         this.contents = serverStorageDTOS.stream().collect(Collectors.toMap(ServerStorageDTO::name, ServerStorageDTO::content));
-        System.out.println(contents);
     }
 
     @Override

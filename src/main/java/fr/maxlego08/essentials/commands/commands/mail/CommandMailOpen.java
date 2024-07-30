@@ -16,7 +16,7 @@ public class CommandMailOpen extends VCommand {
         this.setDescription(Message.DESCRIPTION_MAIL_OPEN);
         this.setPermission(Permission.ESSENTIALS_MAIL_OPEN);
         this.addSubCommand("open");
-        this.addRequirePlayerNameArg();
+        this.addRequireOfflinePlayerNameArg();
         this.onlyPlayers();
     }
 

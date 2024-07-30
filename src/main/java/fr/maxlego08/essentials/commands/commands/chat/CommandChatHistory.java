@@ -14,7 +14,7 @@ public class CommandChatHistory extends VCommand {
         this.setModule(ChatModule.class);
         this.setPermission(Permission.ESSENTIALS_CHAT_HISTORY);
         this.setDescription(Message.DESCRIPTION_CHAT_HISTORY);
-        this.addRequirePlayerNameArg();
+        this.addRequireOfflinePlayerNameArg();
         this.addOptionalArg("page");
     }
 

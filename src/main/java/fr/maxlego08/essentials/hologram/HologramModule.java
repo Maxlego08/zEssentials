@@ -77,8 +77,6 @@ public class HologramModule extends ZModule implements HologramManager {
 
         HandlerList.unregisterAll(this);
         this.registerEvents();
-
-        System.out.println(damageIndicator);
     }
 
     private void registerEvents() {
