@@ -18,7 +18,7 @@ import java.util.function.Consumer;
 /**
  * @author Maxlego08
  */
-public class VersionChecker implements Listener {
+public class VersionChecker extends ZUtils implements Listener {
 
     private final String URL_API = "https://groupez.dev/api/v1/resource/version/%s";
     private final String URL_RESOURCE = "https://groupez.dev/resources/%s";
@@ -62,8 +62,8 @@ public class VersionChecker implements Listener {
         if (!useLastVersion && event.getPlayer().hasPermission("zplugin.notifs")) {
             plugin.getScheduler().runLater(() -> {
                 String prefix = Message.PREFIX.getMessageAsString();
-                player.sendMessage(prefix + "§cYou do not use the latest version of the plugin! Thank you for taking the latest version to avoid any risk of problem!");
-                player.sendMessage(prefix + "§fDownload plugin here: §a" + String.format(URL_RESOURCE, pluginID));
+                message(player, prefix + "§cYou do not use the latest version of the plugin! Thank you for taking the latest version to avoid any risk of problem!");
+                message(player, prefix + "§fDownload plugin here: §a" + String.format(URL_RESOURCE, pluginID));
             }, 20 * 2);
         }
     }

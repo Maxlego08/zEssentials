@@ -41,7 +41,7 @@ public abstract class MessageUtils extends PlaceholderUtils {
     }
 
     protected void message(CommandSender sender, String message) {
-        sender.sendMessage(message);
+        this.componentMessage.sendMessage(sender, message);
     }
 
     protected void message(User sender, Message message, Object... args) {
