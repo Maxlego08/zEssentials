@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.vault;
 
 import fr.maxlego08.essentials.ZEssentialsPlugin;
+import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.dto.PlayerSlotDTO;
 import fr.maxlego08.essentials.api.dto.VaultDTO;
 import fr.maxlego08.essentials.api.dto.VaultItemDTO;
@@ -92,7 +93,7 @@ public class VaultModule extends ZModule implements VaultManager {
         Vault vault = playerVaults.getVault(vaultId);
         playerVaults.setTargetVault(vault);
 
-        this.plugin.getInventoryManager().openInventory(player, this.plugin, "vault");
+        this.plugin.openInventory(player, "vault");
     }
 
     @Override
@@ -240,7 +241,10 @@ public class VaultModule extends ZModule implements VaultManager {
 
     @Override
     public List<String> getVaultAsTabCompletion(Player player) {
-        return IntStream.range(1, this.maxVaults).filter(vaultID -> hasPermission(player.getUniqueId(), vaultID)).mapToObj(String::valueOf).collect(Collectors.toList());
+        List<String> strings = IntStream.range(1, this.maxVaults).filter(vaultID -> hasPermission(player.getUniqueId(), vaultID)).mapToObj(String::valueOf).collect(Collectors.toList());
+        if (hasPermission(player, Permission.VAULT_ADD_SLOT)) strings.add("add");
+        if (hasPermission(player, Permission.VAULT_SET_SLOT)) strings.add("set");
+        return strings;
     }
 
     @Override

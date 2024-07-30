@@ -11,12 +11,12 @@
 #
 ########################################################################################################################
 
-# Displays debug items in the console, if you request support please enable debug and send logs with debugs
+# Displays debug items in the console, if you request support, please enable debug and send logs with debugs
 enable-debug: false
 
 # Storage:
 # JSON - For the launch of the plugin only.
-# MYSQL - Allows to create a simple connection to the database, only for small servers.
+# MYSQL - Allows creating a simple connection to the database, only for small servers.
 # HIKARICP - HikariCP is a fast and lightweight JDBC connection pool. It optimizes database connections, ensuring quick acquisition and low latency. This improves performance and reliability, making it ideal for high-demand applications.
 #
 # We advise you to use MYSQL or HIKARICP, the JSON storage is only there to install the plugin and do some testing.
@@ -24,7 +24,7 @@ storage-type: JSON
 
 # Allows you to define the type of server that you want to use.
 #
-# PAPER - Default type allows using the features of PAPER if you are on a spigot, the plugin adapted automatically
+# PAPER - Default type allows using the features of PAPER if you are on a spigot, the plugin automatically adapted
 # REDIS - Allows connecting several servers (currently in development)
 server-type: PAPER
 

@@ -15,7 +15,6 @@ public class InteractiveChatPaperListener extends InteractiveChatHelper {
         if (this.onTalk(event.getPlayer(), message)) {
             event.setCancelled(true);
         }
-
     }
 
     @EventHandler

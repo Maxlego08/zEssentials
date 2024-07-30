@@ -1,7 +1,6 @@
 package fr.maxlego08.essentials.buttons.vault;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
-import fr.maxlego08.essentials.api.utils.component.AdventureComponent;
 import fr.maxlego08.essentials.api.vault.PlayerVaults;
 import fr.maxlego08.essentials.api.vault.Vault;
 import fr.maxlego08.essentials.api.vault.VaultItem;
@@ -114,12 +113,12 @@ public class ButtonVaultSlotItems extends ZButton {
         Vault vault = playerVaults.getTargetVault();
         if (vault == null) return;
 
-
         if (event.getWhoClicked().getInventory().equals(event.getClickedInventory()) && clickType.isShiftClick() && itemStack != null && itemStack.getType() != Material.AIR) {
 
-            event.setCancelled(true);
-
-            if (slot >= 45) return;
+            if (slot >= 45) {
+                event.setCancelled(true);
+                return;
+            }
 
             VaultResult vaultResult = this.plugin.getVaultManager().addVaultItem(vault, player.getUniqueId(), event.getCurrentItem(), -1, itemStack.getAmount(), this.slots.size());
 
@@ -134,7 +133,7 @@ public class ButtonVaultSlotItems extends ZButton {
                 plugin.getVaultManager().openVault(player, vaultResult.vault().getVaultId());
             }
 
-        } else if (topInventory.equals(event.getClickedInventory()) && cursorItemStack != null && !cursorItemStack.getType().equals(Material.AIR)) {
+        } else if (topInventory.equals(event.getClickedInventory()) && !cursorItemStack.getType().equals(Material.AIR)) {
 
             if (slot >= 45) {
                 event.setCancelled(true);
