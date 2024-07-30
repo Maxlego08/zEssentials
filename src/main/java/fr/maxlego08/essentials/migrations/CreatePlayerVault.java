@@ -9,7 +9,7 @@ public class CreatePlayerVault extends Migration {
             table.uuid("unique_id").primary();
             table.bigInt("vault_id").primary();
             table.string("name", 255);
-            table.longText("icon");
+            table.longText("icon").nullable();
         });
     }
 }

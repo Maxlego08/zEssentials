@@ -13,7 +13,7 @@ public class CommandSanction extends VCommand {
         this.setModule(SanctionModule.class);
         this.setPermission(Permission.ESSENTIALS_SANCTION);
         this.setDescription(Message.DESCRIPTION_SANCTION);
-        this.addRequirePlayerNameArg();
+        this.addRequireOfflinePlayerNameArg();
         this.onlyPlayers();
     }
 

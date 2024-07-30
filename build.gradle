@@ -44,20 +44,27 @@ allprojects {
 
     tasks.register('checkDebug') {
         doLast {
-            Set<File> filesWithDebug = fileTree('src/main/java').filter { file ->
+            def filesWithDebug = fileTree('src/main/java').filter { file ->
                 file.text.contains('System.out.println')
-            }.getFiles()
+            }
 
             if (!filesWithDebug.isEmpty()) {
                 println "Found debug messages in the following files:"
                 filesWithDebug.each { file ->
-                    println file.path
+                    println "File: ${file.path}"
+                    file.eachLine { line, number ->
+                        if (line.contains('System.out.println')) {
+                            println "Line ${number}: ${line.trim()}"
+                        }
+                    }
+                    println "--------------------"
                 }
             } else {
                 println "No debug messages found."
             }
         }
     }
+
 
     build {
         dependsOn checkDebug

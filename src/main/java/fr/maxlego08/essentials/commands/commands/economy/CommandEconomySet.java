@@ -23,7 +23,7 @@ public class CommandEconomySet extends VCommand {
         this.setDescription(Message.DESCRIPTION_ECO_SET);
         this.addSubCommand("set");
         this.addRequireArg("economy", (a, b) -> plugin.getEconomyManager().getEconomies().stream().map(Economy::getName).toList());
-        this.addRequirePlayerNameArg();
+        this.addRequireOfflinePlayerNameArg();
         this.addRequireArg("amount", (a, b) -> Stream.of(10, 20, 30, 40, 50, 60, 70, 80, 90).map(String::valueOf).toList());
         this.addBooleanOptionalArg("silent");
     }

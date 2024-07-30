@@ -19,7 +19,7 @@ public class CommandVoteAdd extends VCommand {
         this.addSubCommand("add");
         this.setPermission(Permission.ESSENTIALS_VOTE_ADD);
         this.setDescription(Message.DESCRIPTION_VOTE_ADD);
-        this.addRequirePlayerNameArg();
+        this.addRequireOfflinePlayerNameArg();
         this.addRequireArg("site", (a, b) -> plugin.getVoteManager().getSites().stream().map(VoteSiteConfiguration::name).map(e -> e.replace(" ", "_")).toList());
         this.addOptionalArg("silent", (a, b) -> Arrays.asList("true", "false"));
     }

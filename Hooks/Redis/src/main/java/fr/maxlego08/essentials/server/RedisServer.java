@@ -29,6 +29,7 @@ import fr.maxlego08.essentials.server.listener.PrivateMessageListener;
 import fr.maxlego08.essentials.server.listener.UpdateCooldownListener;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -41,6 +42,7 @@ import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.Protocol;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -111,6 +113,11 @@ public class RedisServer implements EssentialsServer, Listener {
     @Override
     public List<String> getPlayersNames() {
         return new ArrayList<>(this.playerCache.getPlayers());
+    }
+
+    @Override
+    public List<String> getOfflinePlayersNames() {
+        return Arrays.stream(Bukkit.getOfflinePlayers()).map(OfflinePlayer::getName).toList();
     }
 
     @Override

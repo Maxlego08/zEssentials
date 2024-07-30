@@ -10,9 +10,11 @@ import fr.maxlego08.essentials.api.user.PrivateMessage;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.storage.ConfigStorage;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,6 +40,11 @@ public class SpigotServer implements EssentialsServer {
     @Override
     public List<String> getPlayersNames() {
         return Bukkit.getOnlinePlayers().stream().map(Player::getName).toList();
+    }
+
+    @Override
+    public List<String> getOfflinePlayersNames() {
+        return Arrays.stream(Bukkit.getOfflinePlayers()).map(OfflinePlayer::getName).toList();
     }
 
     @Override
