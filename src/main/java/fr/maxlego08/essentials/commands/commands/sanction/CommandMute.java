@@ -16,7 +16,7 @@ public class CommandMute extends VCommand {
         this.setModule(SanctionModule.class);
         this.setPermission(Permission.ESSENTIALS_MUTE);
         this.setDescription(Message.DESCRIPTION_MUTE);
-        this.addRequirePlayerNameArg();
+        this.addRequireOfflinePlayerNameArg();
         this.addRequireArg("duration", (a, b) -> this.cooldowns);
         this.addOptionalArg("reason", (a, b) -> new ArrayList<>());
         this.setExtendedArgs(true);

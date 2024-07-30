@@ -18,7 +18,6 @@ public class PrivateMessageListener extends RedisListener<ServerPrivateMessage> 
 
     @Override
     protected void onMessage(ServerPrivateMessage message) {
-        System.out.println("Reception du message: " + message);
         IStorage iStorage = this.plugin.getStorageManager().getStorage();
         User targetUser = iStorage.getUser(message.targetUniqueId());
         if (targetUser == null) return;

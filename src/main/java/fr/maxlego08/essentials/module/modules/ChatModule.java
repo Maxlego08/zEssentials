@@ -149,8 +149,10 @@ public class ChatModule extends ZModule {
         user.getDynamicCooldown().setSamples(this.chatCooldownMax);
     }
 
-    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.NORMAL)
     public void onTalk(AsyncChatEvent event) {
+
+        if (event.isCancelled()) return;
 
         Player player = event.getPlayer();
         User user = plugin.getUser(player.getUniqueId());

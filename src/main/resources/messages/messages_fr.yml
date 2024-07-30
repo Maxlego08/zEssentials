@@ -24,6 +24,7 @@ console: "Console"
 expired: "Expiré"
 player-not-found: "&f%player% <error>n'a pas été trouvé."
 module-disable: "<error>Le module &f%name% <error>est désactivé. Vous ne pouvez pas utiliser cette commande."
+code-not-found: "<error>Impossible de trouver le code."
 rules:
   - "#ffd353ℹ ʀèɢʟᴇs ᴅᴜ sᴇʀᴠᴇᴜʀ#3f3f3f:"
   - "#3f3f3f• &7Respectez tous les joueurs et le personnel."
@@ -343,6 +344,14 @@ description-scoreboard: "Activer/Désactiver le tableau de score"
 description-balance-top: "Afficher le classement des soldes"
 description-balance-top-refresh: "Actualiser le classement des soldes"
 description-mail-open: "Ouvrir la boite mail d'un joueur"
+description-voteparty-information: "Afficher le vote party"
+description-voteparty-set: "Définir le nombre de votes dans le vote party"
+description-voteparty-add: "Ajouter dans le vote party"
+description-voteparty-remove: "Retirer dans le vote party"
+description-vote-information: "Afficher les informations sur comment voter"
+description-vote-set: "Définir le nombre de votes pour un joueur"
+description-vote-add: "Ajouter des votes à un joueur"
+description-vote-remove: "Retirer des votes d'un joueur"
 
 
 # Format de l'heure
@@ -687,3 +696,39 @@ command-baltop-header:
 command-baltop:
   type: WITHOUT_PREFIX
   message: "#00f986#%position% &f%name%&8: %amount%"
+
+command-voteparty-set: "<success>Vous venez de définir le voteparty à &f%amount% <success>votes."
+command-voteparty-add: "<success>Vous venez d'ajouter &f%amount% <success>vote dans le voteparty."
+command-voteparty-remove: "<success>Vous venez de retirer &f%amount% <success>vote dans le voteparty."
+command-voteparty-informations: "<green>VoteParty: <white>%amount%<dark_gray>/<yellow>%objective%"
+
+command-vote-add: "<success>Vous venez d'ajouter un vote à &f%player%<success>."
+command-vote-add-error: "<error>Le site &f%site% <error>n'existe pas !"
+command-vote:
+  type: ACTION
+  message: "<success>Vous venez de voter et avez reçu une clé de vote."
+
+vote-offline:
+  - ""
+  - "<success>Vous avez voté <gold>%amount% fois <success>hors ligne, utilisez la commande <yellow><click:run_command:'/mailbox'>/mailbox</click> <success>pour récupérer vos objets !"
+  - ""
+
+vault-lore:
+  - ""
+  - "&fɪɴғᴏʀᴍᴀᴛɪᴏɴs"
+  - " #f8b175• &7Quantité&8: &e%quantity%"
+  - ""
+  - "&f<b>➥</b> #fc99f8Clic gauche &7pour prendre 1"
+  - "&f<b>➥</b> #fc99f8Clic droit &7pour prendre 64"
+  - "&f<b>➥</b> #fc99f8Clic droit + sneaky &7pour tout prendre"
+command-vault-not-found: "<error>Impossible de trouver le coffre &f%vaultId%<error>."
+command-vault-no-permission: "<error>Vous n'avez pas la permission de voir ce coffre."
+command-vault-set-slot: "<success>Vous venez de définir le slot de &f%player% <success>à &7%slots%<success>."
+command-vault-add-slot: "<success>Vous venez d'ajouter &7%amount% <success>slot à &f%player%<success>."
+command-vault-change-icon-error: "<error>Vous avez un objet dans votre main."
+command-vault-change-icon-success: "<success>Vous venez de changer l'icône de votre coffre."
+command-vault-reset-icon: "<success>Vous venez de réinitialiser l'icône de votre coffre."
+command-vault-rename-start: "<success>Veuillez écrire dans le chat le nouveau nom du coffre."
+command-vault-rename-success: "<success>Vous venez de définir le nom du coffre à &f%name%<success>."
+command-vault-rename-error: "<error>Vous ne pouvez pas utiliser ce nom pour votre coffre."
+command-vault-rename-reset: "<success>Vous venez de réinitialiser le nom de votre coffre."

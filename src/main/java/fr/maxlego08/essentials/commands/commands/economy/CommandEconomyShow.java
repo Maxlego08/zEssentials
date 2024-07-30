@@ -17,7 +17,7 @@ public class CommandEconomyShow extends VCommand {
         this.setPermission(Permission.ESSENTIALS_ECO_SHOW);
         this.setDescription(Message.DESCRIPTION_ECO_SHOW);
         this.addSubCommand("show", "s");
-        this.addRequirePlayerNameArg();
+        this.addRequireOfflinePlayerNameArg();
     }
 
     @Override

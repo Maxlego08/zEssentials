@@ -13,7 +13,7 @@ public class CommandKick extends VCommand {
         this.setModule(SanctionModule.class);
         this.setPermission(Permission.ESSENTIALS_KICK);
         this.setDescription(Message.DESCRIPTION_KICK);
-        this.addRequirePlayerNameArg();
+        this.addRequireOfflinePlayerNameArg();
         this.addOptionalArg("reason");
         this.setExtendedArgs(true);
     }

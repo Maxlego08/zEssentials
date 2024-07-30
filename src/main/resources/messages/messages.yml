@@ -24,6 +24,7 @@ console: "Console"
 expired: "Expired"
 player-not-found: "&f%player% <error>was not found."
 module-disable: "<error>The &f%name% <error>module is disabled. You cannot use this command."
+code-not-found: "<red>Cannot find the code."
 rules:
   - "#ffd353ℹ sᴇʀᴠᴇʀ ʀᴜʟᴇs#3f3f3f:"
   - "#3f3f3f• &7Respect all players and staff."
@@ -349,6 +350,15 @@ description-scoreboard: "Enable/Disable scoreboard"
 description-balance-top: "Show baltop"
 description-balance-top-refresh: "Refresh baltop"
 description-mail-open: "Open player's mailbox"
+description-voteparty-information: "Show the vote party"
+description-voteparty-set: "Set the number of votes in the vote party"
+description-voteparty-add: "Add in vote party"
+description-voteparty-remove: "Remove in vote party"
+description-vote-information: "Show information on how to vote"
+description-vote-set: "Set the number of votes for a player"
+description-vote-add: "Add votes to a player"
+description-vote-remove: "Remove votes from a player"
+
 
 # Time format
 format-second: "second"
@@ -709,3 +719,39 @@ command-baltop-header:
 command-baltop:
   type: WITHOUT_PREFIX
   message: "#00f986#%position% &f%name%&8: %amount%"
+
+command-voteparty-set: "<success>You just set the voteparty to &f%amount% <success>votes."
+command-voteparty-add: "<success>You just added &f%amount% <success>vote in the voteparty."
+command-voteparty-remove: "<success>You have just removed &f%amount% <success>vote in the voteparty."
+command-voteparty-informations: "<green>VoteParty: <white>%amount%<dark_gray>/<yellow>%objective%"
+
+command-vote-add: "<success>You just added a vote to &f%player%<success>."
+command-vote-add-error: "<error>The site &f%site% <error>doesn't exist !"
+command-vote:
+  type: ACTION
+  message: "<success>You just voted and received a vote key."
+
+vote-offline:
+  - ""
+  - "<success>You have voted <gold>%amount% times <success>while offline, use the command <yellow><click:run_command:'/mailbox'>/mailbox</click> <success>to get your items !"
+  - ""
+
+vault-lore:
+  - ""
+  - "&fɪɴғᴏʀᴍᴀᴛɪᴏɴs"
+  - " #f8b175• &7Quantity&8: &e%quantity%"
+  - ""
+  - "&f<b>➥</b> #fc99f8Left Click &7for take 1"
+  - "&f<b>➥</b> #fc99f8Right Click &7for take 64"
+  - "&f<b>➥</b> #fc99f8Sneak + Right Click &7for take all"
+command-vault-not-found: "<error>Cannot find the vault &f%vaultId%<error>."
+command-vault-no-permission: "<error>You do not have permission to view the vault."
+command-vault-set-slot: "<success>You just defined the slot of &f%player% <success>to &7%slots%<success>."
+command-vault-add-slot: "<success>You've just added &7%amount% <success>slot to &f%player%<success>."
+command-vault-change-icon-error: "<error>You have an item in your hand."
+command-vault-change-icon-success: "<success>You just changed the icon of your vault."
+command-vault-reset-icon: "<success>You just reset the icon of your vault."
+command-vault-rename-start: "<success>Please write in the chat the new name of the vault."
+command-vault-rename-success: "<success>You just set the vault name to &f%name%<success>."
+command-vault-rename-error: "<error>You cannot use this name for your vault."
+command-vault-rename-reset: "<success>You just reset the name of your vault."

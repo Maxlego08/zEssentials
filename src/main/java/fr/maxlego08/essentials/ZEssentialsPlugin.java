@@ -103,6 +103,7 @@ import fr.maxlego08.essentials.zutils.utils.CommandMarkdownGenerator;
 import fr.maxlego08.essentials.zutils.utils.ComponentMessageHelper;
 import fr.maxlego08.essentials.zutils.utils.PlaceholderMarkdownGenerator;
 import fr.maxlego08.essentials.zutils.utils.PlaceholderUtils;
+import fr.maxlego08.essentials.zutils.utils.VersionChecker;
 import fr.maxlego08.essentials.zutils.utils.ZServerStorage;
 import fr.maxlego08.essentials.zutils.utils.paper.PaperUtils;
 import fr.maxlego08.essentials.zutils.utils.spigot.SpigotUtils;
@@ -228,6 +229,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.registerPlaceholder(VotePlaceholders.class);
 
         new Metrics(this, 21703);
+        new VersionChecker(this, 325);
 
         // Load ProtocolLib
         /*if (this.moduleManager.getModuleConfiguration("chat").getBoolean("command-placeholder.enable-replace-all-message") && getServer().getPluginManager().isPluginEnabled("ProtocolLib") && this.isPaperVersion()) {

@@ -260,6 +260,10 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
         this.addRequireArg("player", getOnlinePlayers());
     }
 
+    protected void addRequireOfflinePlayerNameArg() {
+        this.addRequireArg("player", getOnlinePlayers());
+    }
+
     protected void addRequireArg(String message, TabCompletion runnable) {
         this.addRequireArg(message);
         int index = this.requireArgs.size();
@@ -268,6 +272,10 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
 
     protected TabCompletion getOnlinePlayers() {
         return (a, b) -> this.plugin.getEssentialsServer().getPlayersNames();
+    }
+
+    protected TabCompletion getOfflinePlayers() {
+        return (a, b) -> this.plugin.getEssentialsServer().getOfflinePlayersNames();
     }
 
     protected void addOptionalArg(String message) {

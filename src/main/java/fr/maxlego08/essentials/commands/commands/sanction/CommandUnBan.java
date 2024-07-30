@@ -15,7 +15,7 @@ public class CommandUnBan extends VCommand {
         this.setModule(SanctionModule.class);
         this.setPermission(Permission.ESSENTIALS_UN_BAN);
         this.setDescription(Message.DESCRIPTION_UN_MUTE);
-        this.addRequirePlayerNameArg();
+        this.addRequireOfflinePlayerNameArg();
         this.addOptionalArg("reason", (a, b) -> List.of(""));
         this.setExtendedArgs(true);
     }
