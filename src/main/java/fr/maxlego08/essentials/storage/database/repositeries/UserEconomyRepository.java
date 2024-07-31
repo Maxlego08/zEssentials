@@ -19,8 +19,8 @@ public class UserEconomyRepository extends Repository {
 
     public void upsert(UUID uuid, Economy economy, BigDecimal bigDecimal) {
         upsert(table -> {
-            table.uuid("unique_id", uuid);
-            table.string("economy_name", economy.getName());
+            table.uuid("unique_id", uuid).primary();
+            table.string("economy_name", economy.getName()).primary();
             table.decimal("amount", bigDecimal);
         });
     }

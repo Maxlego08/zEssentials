@@ -47,7 +47,7 @@ public class CMIConvert extends ZUtils {
     }
 
     private void startConvertDatabase(CommandSender sender, SqlStorage sqlStorage) {
-        var databaseConnection = new SqliteConnection(DatabaseConfiguration.sqlite(false), plugin.getDataFolder());
+        var databaseConnection = new SqliteConnection(DatabaseConfiguration.sqlite(sqlStorage.getConnection().getDatabaseConfiguration().isDebug()), plugin.getDataFolder());
         databaseConnection.setFileName("cmi.sqlite.db");
 
         if (!databaseConnection.isValid()) {
@@ -65,6 +65,8 @@ public class CMIConvert extends ZUtils {
         var userHomeRepository = sqlStorage.with(UserHomeRepository.class);
 
         cmiUsers.forEach(cmiUser -> {
+
+            if (cmiUser.username() == null || cmiUser.player_uuid() == null) return;
 
             userRepository.upsert(cmiUser);
 
@@ -101,7 +103,7 @@ public class CMIConvert extends ZUtils {
             try {
                 String[] parts = entry.split("[$]|%%|:");
                 String name = parts[0];
-                int index = parts.length == 9 ? 3 : 2;
+                int index =  parts.length == 10 ? 4 : parts.length == 9 ? 3 : 2;
                 Material material = null;
                 if (parts.length == 9) {
                     try {

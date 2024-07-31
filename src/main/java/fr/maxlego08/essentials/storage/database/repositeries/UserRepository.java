@@ -177,8 +177,6 @@ public class UserRepository extends Repository {
 
     public void upsert(CMIUser cmiUser) {
 
-        if (cmiUser.username() == null || cmiUser.player_uuid() == null) return;
-
         upsert(table -> {
             table.uuid("unique_id", cmiUser.player_uuid()).primary();
             table.string("name", cmiUser.username());

@@ -519,4 +519,8 @@ public class SqlStorage extends StorageHelper implements IStorage {
     public void updateVault(UUID uniqueId, Vault vault) {
         async(() -> with(VaultRepository.class).update(uniqueId, vault.getVaultId(), vault.getName(), vault.getIconItemStack() == null ? null : ItemStackUtils.serializeItemStack(vault.getIconItemStack())));
     }
+
+    public DatabaseConnection getConnection() {
+        return connection;
+    }
 }
