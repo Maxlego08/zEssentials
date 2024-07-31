@@ -147,7 +147,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
         this.plugin.getScheduler().runAsync(wrappedTask -> {
 
             List<UserDTO> userDTOS = with(UserRepository.class).selectUser(uniqueId);
-            // First join !
+            // First join!
             if (userDTOS.isEmpty()) {
                 this.firstJoin(user);
             }
@@ -518,5 +518,9 @@ public class SqlStorage extends StorageHelper implements IStorage {
     @Override
     public void updateVault(UUID uniqueId, Vault vault) {
         async(() -> with(VaultRepository.class).update(uniqueId, vault.getVaultId(), vault.getName(), vault.getIconItemStack() == null ? null : ItemStackUtils.serializeItemStack(vault.getIconItemStack())));
+    }
+
+    public DatabaseConnection getConnection() {
+        return connection;
     }
 }

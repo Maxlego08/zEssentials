@@ -38,7 +38,7 @@ allprojects {
         compileOnly("com.github.maxlego08:zMenu-API:85e5147698")
 
         implementation "com.tcoded:FoliaLib:0.3.1"
-        implementation 'com.github.Maxlego08:Sarah:15a98e1677'
+        implementation 'com.github.Maxlego08:Sarah:5b299da1c6'
         implementation 'fr.mrmicky:fastboard:2.1.3'
     }
 
