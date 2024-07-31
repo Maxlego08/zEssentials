@@ -58,7 +58,7 @@ public class CMIConvert extends ZUtils {
         List<CMIUser> cmiUsers = requestHelper.select("users", CMIUser.class, table -> {
         });
 
-        message(sender, "&aRecovery &f" + cmiUsers.size() + " &ausers.");
+        message(sender, "&aFound &f" + cmiUsers.size() + " &ausers.");
 
         var userRepository = sqlStorage.with(UserRepository.class);
         var userEconomyRepository = sqlStorage.with(UserEconomyRepository.class);
