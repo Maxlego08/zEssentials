@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.dto.UserDTO;
 import fr.maxlego08.essentials.api.dto.UserEconomyRankingDTO;
 import fr.maxlego08.essentials.api.dto.UserVoteDTO;
 import fr.maxlego08.essentials.api.user.User;
+import fr.maxlego08.essentials.convert.cmi.CMIUser;
 import fr.maxlego08.essentials.storage.database.Repository;
 import fr.maxlego08.sarah.DatabaseConnection;
 import fr.maxlego08.sarah.conditions.JoinCondition;
@@ -20,26 +21,26 @@ public class UserRepository extends Repository {
     }
 
     /**
-     * Allows to update the player’s data
+     * Allows updating the player’s data
      *
      * @param uuid The user's uuid
      * @param name The user's name
      */
     public void upsert(UUID uuid, String name) {
         upsert(table -> {
-            table.uuid("unique_id", uuid);
+            table.uuid("unique_id", uuid).primary();
             table.string("name", name);
         });
     }
 
     /**
-     * Allows to update the player’s data with the last location
+     * Allows updating the player’s data with the last location
      *
      * @param user The user to update
      */
     public void upsert(User user) {
         upsert(table -> {
-            table.uuid("unique_id", user.getUniqueId());
+            table.uuid("unique_id", user.getUniqueId()).primary();
             table.string("name", user.getName());
             table.string("last_location", locationAsString(user.getLastLocation()));
         });
@@ -172,5 +173,26 @@ public class UserRepository extends Repository {
 
     public void resetVotes() {
         update(table -> table.object("vote", 0));
+    }
+
+    public void upsert(CMIUser cmiUser) {
+
+        if (cmiUser.username() == null || cmiUser.player_uuid() == null) return;
+
+        upsert(table -> {
+            table.uuid("unique_id", cmiUser.player_uuid()).primary();
+            table.string("name", cmiUser.username());
+            table.bigInt("play_time", cmiUser.TotalPlayTime() / 1000);
+
+            if (cmiUser.LogOutLocation() != null) {
+                table.string("last_location", cmiUser.LogOutLocation().replace(":", ","));
+            }
+
+            if (cmiUser.LastLoginTime() > 0) {
+                var date = new Date(cmiUser.LastLoginTime());
+                table.object("created_at", date);
+                table.object("updated_at", date);
+            }
+        });
     }
 }

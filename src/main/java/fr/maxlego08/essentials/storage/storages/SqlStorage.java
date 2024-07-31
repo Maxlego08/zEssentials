@@ -147,7 +147,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
         this.plugin.getScheduler().runAsync(wrappedTask -> {
 
             List<UserDTO> userDTOS = with(UserRepository.class).selectUser(uniqueId);
-            // First join !
+            // First join!
             if (userDTOS.isEmpty()) {
                 this.firstJoin(user);
             }
