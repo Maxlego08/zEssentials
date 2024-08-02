@@ -6,6 +6,7 @@
 - Added `/homes` alias for `/home` command for default configurations
 - Added `/enchant` command
 - Added enchantments list with aliases
+- Added dutch translation [#19](https://github.com/Maxlego08/zEssentials/pull/19)
 
 # 1.0.0.1
 
