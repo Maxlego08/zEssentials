@@ -352,7 +352,7 @@ description-vote-information: "Afficher les informations sur comment voter"
 description-vote-set: "Définir le nombre de votes pour un joueur"
 description-vote-add: "Ajouter des votes à un joueur"
 description-vote-remove: "Retirer des votes d'un joueur"
-
+description-enchant: "Ajouter un enchantement à un objet"
 
 # Format de l'heure
 format-second: "seconde"
@@ -732,3 +732,13 @@ command-vault-rename-start: "<success>Veuillez écrire dans le chat le nouveau n
 command-vault-rename-success: "<success>Vous venez de définir le nom du coffre à &f%name%<success>."
 command-vault-rename-error: "<error>Vous ne pouvez pas utiliser ce nom pour votre coffre."
 command-vault-rename-reset: "<success>Vous venez de réinitialiser le nom de votre coffre."
+
+
+command-enchant-invalid: "<error>Vous devez spécifier un joueur valide."
+command-enchant-error-enchant: "<error>Impossible de trouver l'enchantement &f%name%<error>."
+command-enchant-error-item-self: "<error>Vous devez avoir un objet dans votre main."
+command-enchant-error-item-player: "<error>%player% n'a pas d'objet dans sa main."
+command-enchant-remove-self: "<success>L'enchantement &f%enchant% <success>a été retiré de votre objet en main."
+command-enchant-remove-player: "<success>L'enchantement &f%enchant% <success>a été retiré de l'objet de la main de &f%player%<success>."
+command-enchant-success-self: "<success>L'enchantement &f%enchant% <success>a été appliqué à votre objet en main."
+command-enchant-success-player: "<success>L'enchantement &f%enchant% <success>a été appliqué à l'objet de la main de &f%player%<success>."

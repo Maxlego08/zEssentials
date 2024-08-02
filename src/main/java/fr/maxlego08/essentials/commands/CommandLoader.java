@@ -79,6 +79,7 @@ import fr.maxlego08.essentials.commands.commands.utils.CommandRepairAll;
 import fr.maxlego08.essentials.commands.commands.utils.CommandRules;
 import fr.maxlego08.essentials.commands.commands.utils.CommandTrash;
 import fr.maxlego08.essentials.commands.commands.utils.CommandVersion;
+import fr.maxlego08.essentials.commands.commands.utils.admins.CommandEnchant;
 import fr.maxlego08.essentials.commands.commands.utils.admins.CommandFly;
 import fr.maxlego08.essentials.commands.commands.utils.admins.CommandGod;
 import fr.maxlego08.essentials.commands.commands.utils.admins.CommandInvsee;
@@ -223,6 +224,7 @@ public class CommandLoader {
         register("killall", CommandKillAll.class);
         register("seen", CommandSeen.class, "whois");
         register("seenip", CommandSeenIp.class, "whoisip");
+        register("enchant", CommandEnchant.class, "enchantment");
 
         register("kit", CommandKit.class, "kits");
         register("showkit", CommandShowKit.class);
