@@ -7,13 +7,13 @@
 #  ███████╗███████╗██████╔╝██████╔╝███████╗██║░╚███║░░░██║░░░██║██║░░██║███████╗██████╔╝
 #  ╚══════╝╚══════╝╚═════╝░╚═════╝░╚══════╝╚═╝░░╚══╝░░░╚═╝░░░╚═╝╚═╝░░╚═╝╚══════╝╚═════╝░
 #
-# Messages type:
-# NONE - Does not display the message
-# TCHAT - Default type, sends one or more messages in chat
-# ACTION - Sends the message in the action bar
-# TCHAT_AND_ACTION - Sends message in action bar and chat
-# CENTER - Send one or more messages in the chat, but they will be centered
-# TITLE - Sends a username
+# Berichttypes:
+# NONE - Toont het bericht niet
+# TCHAT - Standaardtype, verzendt één of meer berichten in de chat
+# ACTION - Verstuurt het bericht in de actiebalk
+# TCHAT_AND_ACTION - Verstuurt het bericht in zowel de actiebalk als de chat
+# CENTER - Stuurt één of meer berichten in de chat, maar deze worden gecentreerd
+# TITLE - Verstuurt een gebruikersnaam
 #
 ########################################################################################################################
 
@@ -24,18 +24,18 @@ console: "Console"
 expired: "Verlopen"
 player-not-found: "&f%player% <error>was niet gevonden."
 module-disable: "<error>The &f%name% <error>module is uitgeschakeld. Je kan dit commando niet gebruiken."
-code-not-found: "<red>Cannot find the code."
+code-not-found: "<red>Kan code niet vinden."
 rules:
   - "#ffd353ℹ sᴇʀᴠᴇʀʀᴇɢᴇʟs#3f3f3f:"
   - "#3f3f3f• &7Respecteer alle spelers en staff."
-  - "#3f3f3f• &7Geen griepen of stelen."
+  - "#3f3f3f• &7Geen griefing of stelen."
   - "#3f3f3f• &7Geen valsspelen of hacken."
-  - "#3f3f3f• &7Houd de chat schoon en respectvol."
+  - "#3f3f3f• &7Houd de chat net en respectvol."
   - "#3f3f3f• &7Geen spam of advertenties."
 
 
 
-# Commands
+# commando's
 command-syntax-error: "<error>Je moet het commando als volgt uitvoeren#656665: &f%syntax%"
 command-no-permission: "<error>Je hebt geen toestemming om dit commando uit te voeren."
 command-no-console: "<error>Alleen een speler kan dit commando uitvoeren."
@@ -48,18 +48,18 @@ command-reload-error: "&f%module% <error>werd niet gevonden!"
 command-essentials: "&ezEssentials&8, &eVersie &f%version%"
 
 
-# GameMode commands
+# Gamemodus commando's
 command-gamemode: "&fSpelmodus ingesteld op&e %gamemode%&f voor &b%player%&f."
 command-gamemode-invalid: "<error>Je moet een geldige speler specificeren."
 
 
-# Weather commands
+# Weer commando's
 command-day: "&fJe hebt zojuist &edaglicht&f gebracht in de wereld <success>%world%&f."
 command-night: "&fJe hebt zojuist &enacht&f gebracht in de wereld <success>%world%&f."
 command-sun: "&fJe hebt zojuist de &ezon&f gebracht in de wereld <success>%world%&f."
 
 
-# Admins commands
+# Beheer commando's
 command-top: "&7Je bent zojuist naar de &etop&7 geteleporteerd."
 command-top-error: "<error>Kan geen veilige positie vinden om je naartoe te transporteren."
 command-speed-invalid: "<error>Je moet een geldige speler specificeren."
@@ -133,7 +133,7 @@ command-seen-first-join:
   message: "#99E0FFEerste join&8:&f%created_at%"
 
 
-# Economy
+# Economie
 command-economy-not-found: "<error>Kan geen economie vinden met de naam &f%name%<error>."
 command-economy-give-all-sender: "#99E0FFJe hebt zojuist &f%economyFormat% #99E0FFgegeven aan de online spelers."
 command-economy-give-sender: "#99E0FFJe hebt zojuist &f%economyFormat% #99E0FFgegeven aan de speler &7%player%#99E0FF."
@@ -158,7 +158,7 @@ command-pay-self: "<error>Je kunt geen geld naar jezelf sturen."
 command-pay-not-enough: "<error>Je hebt niet genoeg geld."
 
 
-# Teleport commands
+# Teleporteer commando's
 command-tpa-error: "<error>Je hebt al een verzoek gestuurd naar #99E0FF%player%<error>."
 command-tpa-error-same: "<error>Je kunt niet naar jezelf teleporteren."
 command-tpa-error-offline: "<error>Kan speler niet vinden, mogelijk offline."
@@ -195,7 +195,7 @@ command-back-error: "<error>Je hebt geen vorige locatie. Kan niet terugkeren."
 command-random-tp-error: "<error>Na meerdere pogingen geen veilige locatie gevonden, probeer het opnieuw."
 
 
-# First join
+# Eerste join
 join-message: "#99E0FF%player% &7heeft het spel betreden"
 quit-message: "#99E0FF%player% &7heeft het spel verlaten"
 first-join-message: "&7Welkom #99E0FF%player% &7op <je servernaam>! &8(&f%totalUserFormat% &7geregistreerde spelers&8)"
@@ -212,7 +212,7 @@ command-set-spawn: "&fJe hebt zojuist de spawnlocatie ingesteld."
 command-spawn-not-define: "<error>De spawn bestaat niet. Neem contact op met een beheerder."
 
 
-# Command description
+# Commando beschrijvingen
 description-reload: "Herlaad configuratiebestanden"
 description-gamemode: "Verander de spelmodus van een speler"
 description-gamemode-creative: "Verander de spelmodus van een speler naar creatief"
@@ -362,7 +362,7 @@ description-vote-remove: "Verwijder stemmen van een speler"
 description-enchant: "Voeg betovering toe aan een item"
 
 
-# Time format
+# Tijdindeling
 format-second: "seconde"
 format-seconds: "seconden"
 format-minute: "minuut"
@@ -375,7 +375,7 @@ cooldown: "<error>✘ Je moet wachten op &f%cooldown% <error>voordat je deze act
 cooldown-commands: "<error>✘ Je moet wachten op &f%cooldown% <error>voordat je deze commando's kunt uitvoeren."
 
 
-# Teleportation
+# Teleportatie
 teleport-move: "<error>Je mag niet bewegen!"
 teleport-damage: "<error>Je mag geen schade oplopen tijdens de teleportatie."
 teleport-error-location: "<error>Niet mogelijk om je veilig te teleporteren."
@@ -449,43 +449,43 @@ command-set-home-create:
   - ""
 command-home-doesnt-exist: "<error>De home &f%name%<error> bestaat niet."
 
-# Available placeholders:
-# %count% - Home count
-# %max% - Max player's home
+# Beschikbare placeholders:
+# %count% - Aantal homes
+# %max% - Maximaal aantal homes van de speler
 command-home-information-multi-line-header:
   - ""
   - "#8cc0ccᴊᴏᴜᴡ ʜᴏᴍᴇꜱ <success>♦ &7(%count%) &8- &7(Max: %max%)"
 
-# Available placeholders:
-# %count% - Home count
-# %max% - Max player's home
-# %name% - Home name
-# %world% - Home world
-# %environment% - Home world environment
-# %x% - Home location x
-# %y% - Home location y
-# %z% - Home location z
+# Beschikbare placeholders:
+# %count% - Aantal homes
+# %max% - Maximaal aantal homes van de speler
+# %name% - Home naam
+# %world% - Home wereld
+# %environment% - Home wereld omgeving
+# %x% - Home locatie x
+# %y% - Home locatie y
+# %z% - Home locatie z
 command-home-information-multi-line-content:
   type: WITHOUT_PREFIX
   message: " #8cc0cc♢ &f%name% &7in %world% (%environment%) <success><hover:show_text:'&7Klik om naar je home &f&n%name% te teleporteren'><click:run_command:'/home %name%'>[ᴋʟɪᴋ]</click></hover>"
 
 
-# Available placeholders:
-# %count% - Home count
-# %max% - Max player's home
+# Beschikbare placeholders:
+# %count% - Aantal homes
+# %max% - Maximaal aantal homes van de speler
 command-home-information-multi-line-footer:
   type: WITHOUT_PREFIX
   message: ""
 
-# Available placeholders:
-# %count% - Home count
-# %max% - Max player's home
-# %name% - Home name
-# %world% - Home world
-# %environment% - Home world environment
-# %x% - Home location x
-# %y% - Home location y
-# %z% - Home location z
+# Beschikbare placeholders:
+# %count% - Aantal homes
+# %max% - Maximaal aantal homes van de speler
+# %name% - Home naam
+# %world% - Home wereld
+# %environment% - Home wereld omgeving
+# %x% - Home locatie x
+# %y% - Home locatie y
+# %z% - Home locatie z
 command-home-information-in-line:
   type: WITHOUT_PREFIX
   message: "#8cc0ccᴊᴏᴜᴡ ʜᴏᴍᴇꜱ <success>♦ &7(%count%/%max%) &8:&f%homes%"
@@ -501,7 +501,7 @@ command-home-admin-list: "#8cc0cc%player%'s ʜᴏᴍᴇs&8:&f%homes%"
 command-home-admin-list-info: " <hover:show_text:'&7Klik om te teleporteren naar home &f&n%name%'><click:run_command:'/home %player%:%name%'>&f%name%</click></hover>&7"
 
 
-# Sanction
+# Sancties
 command-kick-notify:
   type: WITHOUT_PREFIX
   message: "<hover:show_text:'<gray>Door: <white>%sender%<newline><gray>Duur: <white>%duration%<newline><gray>Reden: <white>%reason%<newline><gray>Datum: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanctie&8) #8aebeb%player% #e33414heeft de speler #e0d12d%target%#e33414uit de game gegooid.</click></hover>"
@@ -594,7 +594,7 @@ command-chat-broadcast:
 
 
 
-# Messages
+# Berichten
 command-message-self: "<error>Je kunt niet met jezelf praten."
 command-message-disable: "&f%player% <error>heeft privéberichten uitgeschakeld."
 command-message-mute: "<error>Je mag niet spreken."
@@ -635,21 +635,21 @@ command-kit-delete: "<success>Je hebt zojuist de kit &f%kit%<success> verwijderd
 # Cooldown
 command-cooldown-header: "&fSpeler cooldown %player% &8(&7%amount%&8)"
 command-cooldown-empty: "&f%player% <error>heeft geen cooldown."
-# Available placeholders:
-# %key% - The key to the cooldown
-# %value% - The cooldown expiration timestamp
-# %timeLeft% - The time remaining before cooldown expiration
-# %createdAt% - Cooldown creation date
-# %player% - the Player's nickname
+# Beschikbare placeholders:
+# %key% - De key van de cooldown
+# %value% - De vervaldatum van de cooldown
+# %timeLeft% - De tijd die over is voordat de cooldown verloopt
+# %createdAt% - De aanmaakdatum van de cooldown
+# %player% - De bijnaam van de speler
 command-cooldown-line:
   type: WITHOUT_PREFIX
   message: "&f%key% <secondary>- &7%createdAt% <secondary>- <success>%timeLeft% <secondary>- <hover:show_text:'&fKlik om de cooldown te verwijderen'><click:run_command:'/cooldown delete %player% %key%'>&8[<error>ᴠᴇʀᴡɪᴊᴅᴇʀ&8]</click></hover>"
 command-cooldown-not-found: "&f%cooldown% <error>werd niet gevonden."
 command-cooldown-delete: "<success>Je hebt zojuist de cooldown &f%cooldown% <success>van &n%player%&r<success> verwijderd."
-# Available placeholders:
-# %key% - The key to the cooldown
-# %player% - the Player's nickname
-# %duration% - the duration of the cooldown
+# Beschikbare placeholders:
+# %key% - De key van de cooldown
+# %player% - De bijnaam van de speler
+# %duration% - De duur van de cooldown
 command-cooldown-create: "<success>Je hebt zojuist de cooldown &f%key% <success>gemaakt voor &n%player%&r<success>."
 
 command-item-empty: "<error>Je hebt geen item in je hand."
