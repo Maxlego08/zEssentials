@@ -30,7 +30,7 @@ public class ZEssentialsScoreboard extends ZUtils implements EssentialsScoreboar
     public ZEssentialsScoreboard(String scoreboardName, ConfigurationSection configurationSection) {
         this.name = scoreboardName;
         this.isDefault = configurationSection.getBoolean("default", false);
-        this.title = configurationSection.getString("username", "");
+        this.title = configurationSection.getString("title", "");
         configurationSection.getMapList("lines").forEach(currentLine -> {
 
             TypedMapAccessor accessor = new TypedMapAccessor((Map<String, Object>) currentLine);
