@@ -191,7 +191,7 @@ public class CommandLoader {
 
         register("sethome", CommandSetHome.class, "hcreate", "hc");
         register("delhome", CommandDelHome.class, "hdelete", "hd");
-        register("home", CommandHome.class, "h");
+        register("home", CommandHome.class, "h", "homes");
 
         register("ban", CommandBan.class);
         register("mute", CommandMute.class);
