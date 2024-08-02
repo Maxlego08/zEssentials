@@ -1,5 +1,7 @@
 # Unreleased
 
+# 1.0.0.2
+
 - Added the command `/ess convert EssentialsX`, allows converting the database from EssentialsX to zEssentials.
   Documentation: https://zessentials.groupez.dev/getting-started/convert#essentialsx
 - Fixed the scoreboard title not appearing
