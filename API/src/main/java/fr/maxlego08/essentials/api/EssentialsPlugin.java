@@ -5,6 +5,7 @@ import com.tcoded.folialib.impl.ServerImplementation;
 import fr.maxlego08.essentials.api.chat.InteractiveChat;
 import fr.maxlego08.essentials.api.commands.CommandManager;
 import fr.maxlego08.essentials.api.economy.EconomyManager;
+import fr.maxlego08.essentials.api.enchantment.Enchantments;
 import fr.maxlego08.essentials.api.hologram.HologramManager;
 import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
@@ -244,4 +245,6 @@ public interface EssentialsPlugin extends Plugin {
     VaultManager getVaultManager();
 
     InteractiveChat startInteractiveChat(Player player, Consumer<String> consumer, long expiredAt);
+
+    Enchantments getEnchantments();
 }

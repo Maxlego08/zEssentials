@@ -358,6 +358,7 @@ description-vote-information: "Show information on how to vote"
 description-vote-set: "Set the number of votes for a player"
 description-vote-add: "Add votes to a player"
 description-vote-remove: "Remove votes from a player"
+description-enchant: "Add enchant to an item"
 
 
 # Time format
@@ -755,3 +756,13 @@ command-vault-rename-start: "<success>Please write in the chat the new name of t
 command-vault-rename-success: "<success>You just set the vault name to &f%name%<success>."
 command-vault-rename-error: "<error>You cannot use this name for your vault."
 command-vault-rename-reset: "<success>You just reset the name of your vault."
+
+
+command-enchant-invalid: "<error>You need to specify a valid player."
+command-enchant-error-enchant: "<error>Impossible to find the enchantment &f%name%<error>."
+command-enchant-error-item-self: "<error>You must have an item in your hand."
+command-enchant-error-item-player: "<error>%player% has no item in his hand."
+command-enchant-remove-self: "<success>The enchantment &f%enchant% <success>has been removed from your item in hand."
+command-enchant-remove-player: "<success>The enchantment &f%enchant% <success>has been removed from the item from &f%player%’s<success> hand."
+command-enchant-success-self: "<success>The enchantment &f%enchant% <success>has been applied to your item in hand."
+command-enchant-success-player: "<success>The enchantment &f%enchant% <success>has been applied to the item from &f%player%’s<success> hand."

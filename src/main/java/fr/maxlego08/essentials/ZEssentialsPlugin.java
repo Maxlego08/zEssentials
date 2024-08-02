@@ -11,6 +11,7 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.chat.InteractiveChat;
 import fr.maxlego08.essentials.api.commands.CommandManager;
 import fr.maxlego08.essentials.api.economy.EconomyManager;
+import fr.maxlego08.essentials.api.enchantment.Enchantments;
 import fr.maxlego08.essentials.api.hologram.HologramManager;
 import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
@@ -47,6 +48,7 @@ import fr.maxlego08.essentials.commands.CommandLoader;
 import fr.maxlego08.essentials.commands.ZCommandManager;
 import fr.maxlego08.essentials.commands.commands.essentials.CommandEssentials;
 import fr.maxlego08.essentials.economy.EconomyModule;
+import fr.maxlego08.essentials.enchantments.ZEnchantments;
 import fr.maxlego08.essentials.hologram.HologramModule;
 import fr.maxlego08.essentials.kit.KitModule;
 import fr.maxlego08.essentials.listener.PlayerListener;
@@ -142,6 +144,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
     private final UUID consoleUniqueId = UUID.fromString("00000000-0000-0000-0000-000000000000");
     private final List<Material> materials = Arrays.stream(Material.values()).filter(e -> !e.name().startsWith("LEGACY_")).toList();
+    private final Enchantments enchantments = new ZEnchantments();
     private EssentialsUtils essentialsUtils;
     private ServerStorage serverStorage = new ZServerStorage(this);
     private InventoryManager inventoryManager;
@@ -157,6 +160,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
         this.saveDefaultConfig();
         this.saveOrUpdateConfiguration("config.yml", true);
+        this.enchantments.register();
 
         FoliaLib foliaLib = new FoliaLib(this);
         this.serverImplementation = foliaLib.getImpl();
@@ -638,5 +642,10 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         InteractiveChat interactiveChat = new InteractiveChat(consumer, expiredAt);
         this.interactiveChatHelper.register(player, interactiveChat);
         return interactiveChat;
+    }
+
+    @Override
+    public Enchantments getEnchantments() {
+        return this.enchantments;
     }
 }
