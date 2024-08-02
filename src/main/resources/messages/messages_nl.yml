@@ -132,7 +132,6 @@ command-seen-first-join:
   type: WITHOUT_PREFIX
   message: "#99E0FFEerste join&8:&f%created_at%"
 
-
 # Economie
 command-economy-not-found: "<error>Kan geen economie vinden met de naam &f%name%<error>."
 command-economy-give-all-sender: "#99E0FFJe hebt zojuist &f%economyFormat% #99E0FFgegeven aan de online spelers."
@@ -419,7 +418,6 @@ teleport-success-home:
     message: "&7Je bent net geteleporteerd naar home #0EEA93%name% &7!"
 
 
-
 # Warps
 command-warp-already-exist: "<error>Warp &f%name% <error>bestaat al. &7Gebruik &n<hover:show_text:'&fGebruik dit commando'><click:suggest_command:'/setwarp %name% true'>/setwarp %name% true</click></hover>&r commando om de warp te wijzigen"
 command-warp-doesnt-exist: "<error>Warp &f%name% <error>bestaat niet."
@@ -468,7 +466,6 @@ command-home-information-multi-line-header:
 command-home-information-multi-line-content:
   type: WITHOUT_PREFIX
   message: " #8cc0cc♢ &f%name% &7in %world% (%environment%) <success><hover:show_text:'&7Klik om naar je home &f&n%name% te teleporteren'><click:run_command:'/home %name%'>[ᴋʟɪᴋ]</click></hover>"
-
 
 # Beschikbare placeholders:
 # %count% - Aantal homes
@@ -564,7 +561,6 @@ message-ban-join:
   - "&fMinecraft-Inventory-Builder.com"
   - ""
 
-
 # Chat
 chat-error: "<error>Het is niet mogelijk om je te laten spreken, je gegevens zijn nog niet geladen."
 chat-alphanumeric-regex: "<error>Je gebruikt een verboden teken."
@@ -591,7 +587,6 @@ command-chat-enable-success: "<success>Je hebt de chat net geactiveerd."
 command-chat-broadcast:
   type: WITHOUT_PREFIX
   message: "<primary>ʙʀᴏᴀᴅᴄᴀsᴛ <secondary>• <white>%message%"
-
 
 
 # Berichten
@@ -651,6 +646,7 @@ command-cooldown-delete: "<success>Je hebt zojuist de cooldown &f%cooldown% <suc
 # %player% - De bijnaam van de speler
 # %duration% - De duur van de cooldown
 command-cooldown-create: "<success>Je hebt zojuist de cooldown &f%key% <success>gemaakt voor &n%player%&r<success>."
+
 
 command-item-empty: "<error>Je hebt geen item in je hand."
 command-item-clear: "<success>Je hebt de naam van dit item verwijderd."
@@ -725,12 +721,10 @@ command-baltop:
   type: WITHOUT_PREFIX
   message: "#00f986#%position% &f%name%&8: %amount%"
 
-
 command-voteparty-set: "<success>Je hebt de voteparty ingesteld op &f%amount% <success>stemmen."
 command-voteparty-add: "<success>Je hebt &f%amount% <success>stemmen toegevoegd aan de voteparty."
 command-voteparty-remove: "<success>Je hebt &f%amount% <success>stemmen verwijderd uit de voteparty."
 command-voteparty-informations: "<green>VoteParty: <white>%amount%<dark_gray>/<yellow>%objective%"
-
 
 command-vote-add: "<success>Je hebt een stem toegevoegd aan &f%player%<success>."
 command-vote-add-error: "<error>De site &f%site% <error>bestaat niet!"
@@ -772,4 +766,3 @@ command-enchant-remove-self: "<success>De betovering &f%enchant% <success>is ver
 command-enchant-remove-player: "<success>De betovering &f%enchant% <success>is verwijderd van het item van &f%player%<success>."
 command-enchant-success-self: "<success>De betovering &f%enchant% <success>is toegepast op je item in de hand."
 command-enchant-success-player: "<success>De betovering &f%enchant% <success>is toegepast op het item van &f%player%<success>."
-
