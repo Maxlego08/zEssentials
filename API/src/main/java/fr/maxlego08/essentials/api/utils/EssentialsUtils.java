@@ -9,6 +9,8 @@ import fr.maxlego08.essentials.api.user.User;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerPreLoginEvent;
 
 import java.lang.reflect.Constructor;
 import java.util.Map;
@@ -87,7 +89,7 @@ public interface EssentialsUtils {
 
     void kick(Player player, Message message, Object... objects);
 
-    void disallow(AsyncPlayerPreLoginEvent event, AsyncPlayerPreLoginEvent.Result result, Message message, Object... objects);
+    void disallow(PlayerLoginEvent event, PlayerLoginEvent.Result result, Message message, Object... objects);
 
     void sendPrivateMessage(User user, PrivateMessage privateMessage, Message message, String content);
 

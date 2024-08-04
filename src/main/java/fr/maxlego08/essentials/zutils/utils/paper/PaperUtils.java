@@ -10,6 +10,7 @@ import net.kyori.adventure.text.minimessage.tag.Tag;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
 
 public class PaperUtils extends BaseServer {
 
@@ -24,7 +25,7 @@ public class PaperUtils extends BaseServer {
     }
 
     @Override
-    public void disallow(AsyncPlayerPreLoginEvent event, AsyncPlayerPreLoginEvent.Result result, Message message, Object... objects) {
+    public void disallow(PlayerLoginEvent event, PlayerLoginEvent.Result result, Message message, Object... objects) {
         PaperComponent paperComponent = (PaperComponent) this.componentMessage;
         event.disallow(result, paperComponent.getComponentMessage(message, objects));
     }
