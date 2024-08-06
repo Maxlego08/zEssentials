@@ -7,103 +7,104 @@
 #  ███████╗███████╗██████╔╝██████╔╝███████╗██║░╚███║░░░██║░░░██║██║░░██║███████╗██████╔╝
 #  ╚══════╝╚══════╝╚═════╝░╚═════╝░╚══════╝╚═╝░░╚══╝░░░╚═╝░░░╚═╝╚═╝░░╚═╝╚══════╝╚═════╝░
 #
-# Messages type:
-# NONE - Does not display the message
-# TCHAT - Default type, sends one or more messages in chat
-# ACTION - Sends the message in the action bar
-# TCHAT_AND_ACTION - Sends message in action bar and chat
-# CENTER - Send one or more messages in the chat, but they will be centered
-# TITLE - Sends a username
+# Berichttypes:
+# NONE - Toont het bericht niet
+# TCHAT - Standaardtype, verzendt één of meer berichten in de chat
+# ACTION - Verstuurt het bericht in de actiebalk
+# TCHAT_AND_ACTION - Verstuurt het bericht in zowel de actiebalk als de chat
+# CENTER - Stuurt één of meer berichten in de chat, maar deze worden gecentreerd
+# TITLE - Verstuurt een gebruikersnaam
 #
 ########################################################################################################################
 
 prefix: "<primary>zEssentials <secondary>• "
-you: "jij"
+you: "jezelf"
 trash: "&8Vuilnis"
 console: "Console"
 expired: "Verlopen"
-player-not-found: "&f%player% <error>werd niet gevonden."
-module-disable: "<error>De &f%name% <error>module is uitgeschakeld. Je kunt dit commando niet gebruiken."
+player-not-found: "&f%player% <error>was niet gevonden."
+module-disable: "<error>The &f%name% <error>module is uitgeschakeld. Je kan dit commando niet gebruiken."
+code-not-found: "<red>Kan code niet vinden."
 rules:
   - "#ffd353ℹ sᴇʀᴠᴇʀʀᴇɢᴇʟs#3f3f3f:"
-  - "#3f3f3f• &7Respecteer alle spelers en staf."
+  - "#3f3f3f• &7Respecteer alle spelers en staff."
   - "#3f3f3f• &7Geen griefing of stelen."
   - "#3f3f3f• &7Niet valsspelen of hacken."
-  - "#3f3f3f• &7Houd de chat schoon en respectvol."
-  - "#3f3f3f• &7Geen spam of reclame maken."
+  - "#3f3f3f• &7Houd de chat net en respectvol."
+  - "#3f3f3f• &7Geen spam of advertenties."
 
 
 
-# Commando's
-command-syntax-error: "<error>Je moet het commando zo uitvoeren#656665: &f%syntax%"
+# commando's
+command-syntax-error: "<error>Je moet het commando als volgt uitvoeren#656665: &f%syntax%"
 command-no-permission: "<error>Je hebt geen toestemming om dit commando uit te voeren."
 command-no-console: "<error>Alleen een speler kan dit commando uitvoeren."
-command-no-arg: "<error>Het is onmogelijk om het commando met zijn argumenten te vinden."
+command-no-arg: "<error>Onmogelijk om het commando te vinden met deze argumenten."
 command-syntaxe-help: "&f%syntax% #656665» &7%description%"
 
-command-reload: "#00ff40Je hebt zojuist de configuratiebestanden herladen."
+command-reload: "<success>Je hebt zojuist de configuratiebestanden herladen."
 command-reload-module: "<success>Je hebt zojuist de configuratiebestanden van de module &f%module%<success> herladen."
 command-reload-error: "&f%module% <error>werd niet gevonden!"
 command-essentials: "&ezEssentials&8, &eVersie &f%version%"
 
 
-# GameMode-commando's
-command-gamemode: "&fStel de spelmodus in op&e %gamemode%&f voor &b%player%&f."
-command-gamemode-invalid: "<error>Je moet een geldige speler opgeven."
+# Gamemodus commando's
+command-gamemode: "&fSpelmodus ingesteld op&e %gamemode%&f voor &b%player%&f."
+command-gamemode-invalid: "<error>Je moet een geldige speler specificeren."
 
 
-# Weer-commando's
-command-day: "&fJe hebt zojuist &edaglicht&f naar de wereld <success>%world%&f gebracht."
-command-night: "&fJe hebt zojuist &enacht&f naar de wereld <success>%world%&f gebracht."
-command-sun: "&fJe hebt zojuist de &ezon&f naar de wereld <success>%world%&f gebracht."
+# Weer commando's
+command-day: "&fJe hebt zojuist &edaglicht&f gebracht in de wereld <success>%world%&f."
+command-night: "&fJe hebt zojuist &enacht&f gebracht in de wereld <success>%world%&f."
+command-sun: "&fJe hebt zojuist de &ezon&f gebracht in de wereld <success>%world%&f."
 
 
-# Admin-commando's
-command-top: "&7Je bent zojuist geteleporteerd naar &etop&7."
-command-top-error: "<error>Kan geen positie vinden om je veilig te teleporteren."
-command-speed-invalid: "<error>Je moet een geldige speler opgeven."
-command-speed-fly: "&7Je hebt zojuist je &nvlieg&r&7 snelheid ingesteld op &f%speed%&7 voor &f%player%&7. &8(&f2 &7standaard&8)"
+# Beheer commando's
+command-top: "&7Je bent zojuist naar de &etop&7 geteleporteerd."
+command-top-error: "<error>Kan geen veilige positie vinden om je naartoe te transporteren."
+command-speed-invalid: "<error>Je moet een geldige speler specificeren."
+command-speed-fly: "&7Je hebt zojuist je &nvluchtsnelheid&r&7 ingesteld op &f%speed%&7 voor &f%player%&7. &8(&f2 &7standaard&8)"
 command-speed-walk: "&7Je hebt zojuist je &nloopsnelheid&r&7 ingesteld op &f%speed%&7 voor &f%player%&7. &8(&f2 &7standaard&8)"
-command-speed-error: "<error>Je moet een getal invoeren tussen &60<error> en &610<error>. &8(&f2 &7standaard&8)"
-command-god-enable: "&7God-modus <success>ingeschakeld &7voor &f%player%<success>."
-command-god-disable: "&7God-modus <error>uitgeschakeld &7voor &f%player%<success>."
+command-speed-error: "<error>Je moet een getal tussen &60<error> en &610<error> invoeren. &8(&f2 &7standaard&8)"
+command-god-enable: "&7God modus <success>ingeschakeld &7voor &f%player%<success>."
+command-god-disable: "&7God modus <error>uitgeschakeld &7voor &f%player%<success>."
 command-heal-sender: "&7Je hebt zojuist de speler &f%player%&7 genezen."
 command-heal-receiver: "<success>Je bent genezen."
-command-heal-error: "<error>Je kunt niemand genezen die dood is!"
+command-heal-error: "<error>Je kunt iemand die dood is niet genezen!"
 command-more-error: "<error>Je kunt dit commando niet uitvoeren zonder een item in de hand."
-command-more-success: "&7Je hebt zojuist je item op &f64&7 gezet."
+command-more-success: "&7Je hebt je item zojuist op &f64&7 gezet."
 command-feed-sender: "&7Je hebt zojuist de speler &f%player%&7 gevoed."
 command-feed-receiver: "<success>Je bent gevoed."
-command-feed-error: "<error>Je kunt niemand voeden die dood is!"
-command-compact-type: "<error>Het is onmogelijk om het materiaal &f%material%<error> te comprimeren."
+command-feed-error: "<error>Je kunt iemand die dood is niet voeden!"
+command-compact-type: "<error>Het is onmogelijk om het materiaal &f%material%<error> samen te persen."
 command-compact-error: "<error>Je hebt geen &f%item%<error> in je inventaris."
-command-compact-success: "&7Je hebt zojuist #0EEA93x%amount% #99E0FF%item% &7getransformeerd in #0EEA93x%toAmount% #99E0FF%toItem%&7."
+command-compact-success: "&7Je hebt zojuist #0EEA93x%amount% #99E0FF%item% &7omgezet in #0EEA93x%toAmount% #99E0FF%toItem%&7."
 command-compact-success-all: "&7Je hebt zojuist al je items omgezet."
 command-hat-success: "&7Je hebt zojuist #0ef0ce%item% &7op je hoofd gezet."
 command-hat-error: "<error>Je kunt geen lucht op je hoofd zetten."
 command-player-weather-reset: "&7Je hebt zojuist het weer veranderd naar dat van de server."
-command-player-weather-downfall: "&7Je hebt zojuist regen voor jezelf ingesteld."
+command-player-weather-downfall: "&7Je hebt zojuist regen voor jezelf ingeschakeld."
 command-player-time-reset: "&7Je hebt zojuist de tijd veranderd naar die van de server."
-command-player-time-change: "&7Je hebt je tijd zojuist aangepast."
+command-player-time-change: "&7Je hebt zojuist je tijd aangepast."
 command-fly-enable: "&7Vliegmodus <success>ingeschakeld &7voor &f%player%<success>."
 command-fly-disable: "&7Vliegmodus <error>uitgeschakeld &7voor &f%player%<success>."
 command-furnace-type: "<error>Het is onmogelijk om het materiaal &f%material%<error> te smelten."
 command-furnace-error: "<error>Je hebt geen &f%item%<error> in je inventaris."
 command-furnace-success: "&7Je hebt zojuist #0EEA93x%amount% #34cfe0%item% &7omgezet in #0EEA93x%toAmount% #34cfe0%toItem%&7."
 command-skull: "<success>Je hebt zojuist het hoofd van de speler &f%name%<success> gekregen."
-command-repair-error: "<error>Het item in je hand kan niet worden gerepareerd."
+command-repair-error: "<error>Het item in je hand kan niet gerepareerd worden."
 command-repair-success: "<success>Je hebt zojuist het item in je hand gerepareerd."
 command-repair-all-error: "<error>Je hebt geen items om te repareren."
 command-repair-all-success: "<success>Je hebt zojuist alle items in je inventaris gerepareerd."
-command-ext: "&fDoor de wil van Maxlego08, brand je niet langer."
-command-near-empty: "<error>Geen speler in de buurt."
+command-ext: "&fDoor de wil van Maxlego08 brand je niet langer."
+command-near-empty: "<error>Er is geen speler in de buurt van jou."
 command-near-player: "&fSpelers in de buurt van jou&7:%players%"
 command-near-info: " &7%player% &8(&e%distance%m&8)"
 command-play-time:
-  - "&7Je hebt gespeeld&8: <primary>%playtime%"
+  - "&7Speeltijd&8: <primary>%playtime%"
   - "&7Huidige sessie&8: <primary>%playtime_session%"
-command-bottom: "&7Je bent zojuist geteleporteerd naar &ebottom&7."
-command-bottom-error: "<error>Kan geen positie vinden om je veilig te teleporteren."
+command-bottom: "&7Je bent zojuist naar de &ebodem&7 geteleporteerd."
+command-bottom-error: "<error>Kan geen veilige positie vinden om je naartoe te transporteren."
 command-remove: "&7Verwijderd <success>%amount% &7entiteiten."
 command-seen-offline:
   type: WITHOUT_PREFIX
@@ -129,16 +130,16 @@ command-seen-last-location:
   message: "#99E0FFLaatste locatie&8: &f%world%, %x%, %y%, %z%"
 command-seen-first-join:
   type: WITHOUT_PREFIX
-  message: "#99E0FFEerste keer gejoined&8:&f%created_at%"
+  message: "#99E0FFEerste join&8:&f%created_at%"
 
 # Economie
-command-economy-not-found: "<error> Kan geen economie vinden met de naam &f%name%<error>."
+command-economy-not-found: "<error>Kan geen economie vinden met de naam &f%name%<error>."
 command-economy-give-all-sender: "#99E0FFJe hebt zojuist &f%economyFormat% #99E0FFgegeven aan de online spelers."
 command-economy-give-sender: "#99E0FFJe hebt zojuist &f%economyFormat% #99E0FFgegeven aan de speler &7%player%#99E0FF."
 command-economy-give-receiver: "#99E0FFJe hebt zojuist &f%economyFormat% ontvangen."
-command-economy-set-sender: "#99E0FFJe hebt zojuist &f%economyFormat% #99E0FFingesteld voor de speler &7%player%#99E0FF."
-command-economy-set-receiver: "#99E0FFJe saldo is zojuist aangepast naar &f%economyFormat%."
-command-economy-take-sender: "#99E0FFJe hebt zojuist &f%economyFormat% #99E0FFafgenomen van de speler &7%player%#99E0FF."
+command-economy-set-sender: "#99E0FFJe hebt zojuist &f%economyFormat% #99E0FF ingesteld voor de speler &7%player%#99E0FF."
+command-economy-set-receiver: "#99E0FFJe hebt zojuist &f%economyFormat% gewijzigd."
+command-economy-take-sender: "#99E0FFJe hebt zojuist &f%economyFormat% #99E0FF afgenomen van de speler &7%player%#99E0FF."
 command-economy-take-receiver: "#99E0FFJe hebt zojuist &f%economyFormat% verloren."
 command-economy-show-empty: "&f%player% <error>heeft geen geld."
 command-economy-show-info: "&7- #99E0FF%economy% &f%amount%."
@@ -146,9 +147,9 @@ command-money:
   - "#99E0FFJe hebt&8:"
   - " &7- #99E0FF%economy-name-money% &f%economy-money%."
   - " &7- #99E0FF%economy-name-coins% &f%economy-coins%."
-command-pay-negative: "<error>Het bedrag om te betalen moet positief zijn."
-command-pay-min: "<error>Het minimumbedrag dat je kunt betalen is &f%amount%<error>."
-command-pay-max: "<error>Het maximumbedrag dat je kunt betalen is &f%amount%<error>."
+command-pay-negative: "<error>Het te betalen bedrag moet positief zijn."
+command-pay-min: "<error>Het minimale bedrag dat je kunt betalen is &f%amount%<error>."
+command-pay-max: "<error>Het maximale bedrag dat je kunt betalen is &f%amount%<error>."
 command-pay-sender: "#99E0FFJe hebt zojuist #F8F327%amount%#99E0FF gestuurd naar de speler &f%player%#99E0FF."
 command-pay-receiver: "&f%player% #99E0FFheeft je zojuist #F8F327%amount%#99E0FF gestuurd."
 command-pay-disable: "<error>Je kunt geen geld sturen naar %name%."
@@ -156,53 +157,53 @@ command-pay-self: "<error>Je kunt geen geld naar jezelf sturen."
 command-pay-not-enough: "<error>Je hebt niet genoeg geld."
 
 
-# Teleport-commando's
+# Teleporteer commando's
 command-tpa-error: "<error>Je hebt al een verzoek gestuurd naar #99E0FF%player%<error>."
 command-tpa-error-same: "<error>Je kunt niet naar jezelf teleporteren."
-command-tpa-error-offline: "<error>Kan speler niet vinden, moet offline zijn."
-command-tpa-error-to-late-empty: "<error>Je hebt geen teleportatieverzoek."
-command-tpa-error-to-late-expire: "<error>Het teleportatieverzoek is verlopen."
+command-tpa-error-offline: "<error>Kan speler niet vinden, mogelijk offline."
+command-tpa-error-to-late-empty: "<error>Je hebt geen teleportverzoek."
+command-tpa-error-to-late-expire: "<error>Het teleportverzoek is verlopen."
 command-tpa-sender:
-  - "#00FF00✔ #99E0FFVerzoek tot teleportatie gestuurd naar &f%displayName%#99E0FF."
-  - "  <hover:show_text:'<error>✘ Annuleer teleportatie'><click:run_command:/tpacancel %player%>#99E0FFTyp #00FF00/tpacencel %player%#99E0FF om je verzoek te annuleren.</click></hover>"
+  - "#00FF00✔ #99E0FFVerzoek om teleportatie naar &f%displayName% #99E0FFgestuurd."
+  - "  <hover:show_text:'<error>✘ Annuleer teleportatie'><click:run_command:/tpacancel %player%>#99E0FFType #00FF00/tpacancel %player%#99E0FF om je verzoek te annuleren.</click></hover>"
 command-tpa-receiver:
   - ""
-  - "#F8F327⚠ &f%displayName% #99E0FFheeft verzocht om naar jou te teleporteren!"
-  - "  <hover:show_text:'#00FF00✔ Accepteer teleportatie'><click:run_command:/tpaccept>#99E0FFTyp #00FF00/tpaccept #99E0FFom #00FF00<u>te accepteren</u>#99E0FF.</click></hover>"
-  - "  <hover:show_text:'<error>✘ Weiger teleportatie'><click:run_command:/tpdeny>#99E0FFTyp <error>/tpdeny #99E0FFom <error><u>te weigeren</u>#99E0FF.</click></hover>"
+  - "#F8F327⚠ &f%displayName% #99E0FFheeft een verzoek om naar jou te teleporteren!"
+  - "  <hover:show_text:'#00FF00✔ Accepteer teleportatie'><click:run_command:/tpaccept>#99E0FFType #00FF00/tpaccept #99E0FFom #00FF00<u>te accepteren</u>#99E0FF.</click></hover>"
+  - "  <hover:show_text:'<error>✘ Weiger teleportatie'><click:run_command:/tpdeny>#99E0FFType <error>/tpdeny #99E0FFom <error><u>te weigeren</u>#99E0FF.</click></hover>"
   - ""
-  - "&7&oJe hebt 60 seconden om het teleportatieverzoek te accepteren."
-command-tpa-accept-receiver: "#99E0FFJe hebt zojuist #00FF00het teleportatieverzoek geaccepteerd van #99E0FF%player%<success>."
-command-tpa-accept-sender: "#99E0FF%player%<success> heeft zojuist je teleportatieverzoek geaccepteerd."
-command-teleport-ignore-player: "<error>Je kunt geen teleportatieverzoek sturen naar #99E0FF%player%<error> omdat ze je negeren."
-command-teleport-world: "<error>Je moet in dezelfde wereld zijn om te teleporteren."
-command-tpa-error-to-late: "<error>Je hebt geen teleportatieverzoek."
+  - "&7&oJe hebt 60 seconden om het teleportverzoek te accepteren."
+command-tpa-accept-receiver: "#99E0FFJe hebt zojuist #00FF00het verzoek om teleportatie van #99E0FF%player%<success> geaccepteerd."
+command-tpa-accept-sender: "#99E0FF%player%<success> heeft zojuist je verzoek om teleportatie geaccepteerd."
+command-teleport-ignore-player: "<error>Je kunt geen teleportverzoek sturen naar #99E0FF%player%<error> omdat ze je negeren."
+command-teleport-world: "<error>Je moet je in dezelfde wereld bevinden om te teleporteren."
+command-tpa-error-to-late: "<error>Je hebt geen teleportverzoek."
 command-tpa-error-to-late-2: "<error>Het verzoek is verlopen."
 command-tp-deny-sender: "#00FF00✔ Verzoek tot teleportatie van &f%player% #00FF00geweigerd."
 command-tp-deny-receiver: "<error>✘ &f%player% <error>heeft je teleportatieverzoek geweigerd."
 command-tp-cancel-error: "<error>Je hebt geen teleportatieverzoek gestuurd naar &f%player%<error>."
-command-tp-cancel-sender: "<error>Je hebt #99E0FFje teleportatieverzoek naar %player% geannuleerd."
+command-tp-cancel-sender: "<error>Je teleportverzoek naar %player% is geannuleerd."
 command-tp-cancel-receiver: "&f%player% <error>heeft hun teleportatieverzoek naar jou geannuleerd."
 command-world-teleport-self: "<success>Je bent zojuist geteleporteerd naar de wereld &f%world%<success>."
-command-world-teleport-other: "<success>Je hebt zojuist de speler &f%player% <success>geteleporteerd naar de wereld &f%world%<success>."
+command-world-teleport-other: "<success>Je hebt de speler &f%player% <success>geteleporteerd naar de wereld &f%world%<success>."
 command-tp: "&7Je bent zojuist geteleporteerd naar de speler #34cfe0%player%&f."
 command-tp-all: "&7Je hebt zojuist alle spelers naar jou geteleporteerd."
-command-tp-self: "&7Je hebt zojuist #34cfe0%player%&7 naar je positie geteleporteerd."
-command-back: "&7Terugkeren naar vorige locatie."
-command-back-error: "<error>Je hebt geen laatste locatie. Onmogelijk om terug te gaan."
-command-random-tp-error: "<error>Geen veilige locatie gevonden na meerdere pogingen, probeer het opnieuw."
+command-tp-self: "&7Je hebt zojuist #34cfe0%player%&7 naar jouw positie geteleporteerd."
+command-back: "&7Terugkeren naar de vorige locatie."
+command-back-error: "<error>Je hebt geen vorige locatie. Kan niet terugkeren."
+command-random-tp-error: "<error>Na meerdere pogingen geen veilige locatie gevonden, probeer het opnieuw."
 
 
-# Eerste keer joinen
-join-message: "#99E0FF%player% &7heeft het spel gejoined"
+# Eerste join
+join-message: "#99E0FF%player% &7heeft het spel betreden"
 quit-message: "#99E0FF%player% &7heeft het spel verlaten"
 first-join-message: "&7Welkom #99E0FF%player% &7op <je servernaam>! &8(&f%totalUserFormat% &7geregistreerde spelers&8)"
 first-join-motd:
   - ""
-  - "#00FF00✔ #99E0FFWelkom %player%#99E0FF!"
+  - "#00FF00✔ #99E0FFWelkom %player%#99E0FF !"
   - ""
-  - "#858ef8Discord&8: #99E0FF<hover:show_text:'&fJoin de server #858ef8Discord &f!'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>"
-  - "&7Website&8: #99E0FF<hover:show_text:'&fOpen de Website &f!'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>"
+  - "#858ef8Discord&8: #99E0FF<hover:show_text:'&fWord lid van de Discord #858ef8 &f!'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>"
+  - "&7Website&8: #99E0FF<hover:show_text:'&fBezoek de Website &f!'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>"
   - ""
 
 # Spawn
@@ -210,82 +211,82 @@ command-set-spawn: "&fJe hebt zojuist de spawnlocatie ingesteld."
 command-spawn-not-define: "<error>De spawn bestaat niet. Neem contact op met een beheerder."
 
 
-# Commando Beschrijving
+# Commando beschrijvingen
 description-reload: "Herlaad configuratiebestanden"
-description-gamemode: "Verander de gamemodus van de speler"
-description-gamemode-creative: "Verander de gamemodus van de speler naar creatief"
-description-gamemode-survival: "Verander de gamemodus van de speler naar survival"
-description-gamemode-adventure: "Verander de gamemodus van de speler naar avontuur"
-description-gamemode-spectator: "Verander de gamemodus van de speler naar toeschouwer"
+description-gamemode: "Verander de gamemodus van een speler"
+description-gamemode-creative: "Verander de gamemodus van een speler naar creatief"
+description-gamemode-survival: "Verander de gamemodus van een speler naar survival"
+description-gamemode-adventure: "Verander de gamemodus van een speler naar avontuur"
+description-gamemode-spectator: "Verander de gamemodus van een speler naar spectator"
 description-day: "Stel de dag in je wereld in"
 description-night: "Stel de nacht in je wereld in"
 description-sun: "Stel de zon in je wereld in"
-description-top: "Teleporteren naar de bovenkant"
-description-speed: "Verander de snelheid van de speler"
-description-enderchest: "Open je enderkist"
-description-endersee: "Open de enderkist van een speler"
-description-tpa: "Teleporteer naar een speler"
+description-top: "Teleporteren naar de top"
+description-speed: "Verander de snelheid van een speler"
+description-enderchest: "Open je enderchest"
+description-endersee: "Open de enderchest van een speler"
+description-tpa: "Teleporteren naar een speler"
 description-tpa-accept: "Accepteer een teleportatieverzoek"
 description-tpa-deny: "Weiger een teleportatieverzoek"
 description-tpa-cancel: "Annuleer een teleportatieverzoek"
-description-tp-all: "Teleporteer alle spelers naar je positie"
-description-god: "Zet godmodus aan of uit"
+description-tp-all: "Teleport alle spelers naar je positie"
+description-god: "Schakel godmodus in of uit"
 description-heal: "Genees een speler"
-description-more: "Ontvang meer items"
+description-more: "Krijg meer items"
 description-tp-world: "Teleporteer naar een andere wereld"
-description-trash: "Open een vuilnisbak"
+description-trash: "Open een prullenbak"
 description-feed: "Voer een speler"
 description-craft: "Open werkbank"
 description-enchanting: "Open betoveringstafel"
 description-invsee: "Open de inventaris van een speler"
 description-compact: "Compacteer materiaal"
 description-hat: "Maak een mooie hoed voor jezelf"
-description-tp: "Teleporteer naar een speler"
+description-tp: "Teleporteren naar een speler"
 description-tp-self: "Teleporteer een speler naar jouw locatie"
 description-player-weather: "Verander je weer"
 description-player-time: "Verander je tijd"
 description-money: "Toon je geld"
-description-eco: "Beheer de server economieën"
-description-eco-set: "Stelt het saldo van de opgegeven speler in op het opgegeven bedrag"
-description-eco-take: "Neemt het opgegeven bedrag van de opgegeven speler"
-description-eco-give: "Geeft de opgegeven speler het opgegeven bedrag"
-description-eco-give-all: "Geeft alle spelers het opgegeven bedrag"
-description-eco-reset: "Reset het saldo van de opgegeven speler naar het startbedrag van de server"
+description-eco: "Beheer de server-economieën"
+description-eco-set: "Stel het saldo van een opgegeven speler in op een opgegeven bedrag"
+description-eco-take: "Neem een opgegeven bedrag geld af van een opgegeven speler"
+description-eco-give: "Geef een opgegeven speler een opgegeven bedrag geld"
+description-eco-give-all: "Geef alle spelers een opgegeven bedrag geld"
+description-eco-reset: "Reset het saldo van een opgegeven speler naar het startbedrag van de server"
 description-eco-show: "Toon het geld van een speler"
-description-pay: "Betaal een andere speler van je saldo"
-description-fly: "Zet vliegen aan of uit"
+description-pay: "Betaal een andere speler vanuit je saldo"
+description-fly: "Schakel vliegen in of uit"
 description-anvil: "Open een aambeeld"
-description-cartographytable: "Open een kaartentafel"
+description-cartographytable: "Open een cartografie-tafel"
 description-grindstone: "Open een slijpsteen"
 description-loom: "Open een weefgetouw"
-description-stonecutter: "Open een steensnijder"
+description-stonecutter: "Open een steenknipper"
 description-smithingtable: "Open een smidstafel"
-description-back: "Teleporteer naar je vorige locatie"
-description-set-spawn: "Stel de server spawn in"
-description-spawn: "Teleporteer naar spawn"
-description-warp-set: "Maak een warp"
-description-warp-use: "Teleporteer naar een warp"
+description-back: "Teleporteren naar je vorige locatie"
+description-set-spawn: "Stel de spawn in"
+description-spawn: "Teleporteren naar de spawn"
+description-warp-set: "Maak een warp aan"
+description-warp-use: "Teleporteren naar een warp"
 description-warp-del: "Verwijder een warp"
-description-warp-list: "Toon de warplijst"
-description-tp-random: "Willekeurige Teleportatie in de wereld"
-description-set-home: "Maak een thuislocatie"
+description-warp-list: "Toon de warp-lijst"
+description-tp-random: "Random teleporteren in de wereld"
+description-set-home: "Maak een thuislocatie aan"
 description-del-home: "Verwijder een thuislocatie"
-description-home: "Teleporteer naar een thuislocatie"
+description-home: "Teleporteren naar een thuislocatie"
 description-kick: "Kick een speler"
 description-kick-all: "Kick alle spelers"
-description-kitty-cannon: "Lanceer een kat, waarom zou je dat willen doen? monster"
-description-ban: "Ban een speler"
-description-mute: "Dempen van een speler"
-description-un-mute: "Dempen opheffen van een speler"
-description-un-ban: "Ban opheffen van een speler"
+description-kitty-cannon: "Schiet een kitten af, waarom zou je dat willen? monster"
+description-ban: "Bann een speler"
+description-mute: "Zet een speler op stil"
+description-un-mute: "Verwijder de mute van een speler"
+description-un-ban: "Heft de ban op voor een speler"
 description-sanction: "Open sanctie-inventaris"
-description-chat-history: "Toon de chatgeschiedenis van een speler"
-description-chat-clear: "Wis de chat"
-description-chat-disable: "Deactiveer chat"
-description-chat-enable: "Activeer chat"
-description-chat-broadcast: "Zend een bericht uit"
+description-chat-history: "Toon de chatberichten van een speler"
+description-chat-clear: "Leeg de chat"
+description-chat-disable: "Schakel de chat uit"
+description-chat-enable: "Schakel de chat in"
+description-chat-broadcast: "Stuur een omroepsbericht"
 description-message: "Stuur een privébericht naar een speler"
-description-reply: "Antwoord op een privébericht"
+description-reply: "Beantwoord een privébericht"
 description-message-toggle: "Schakel privéberichten in of uit"
 description-socialspy: "Toon privéberichten van spelers"
 description-furnace: "Smelt alle items in je hand"
@@ -293,134 +294,143 @@ description-skull: "Krijg het hoofd van een speler"
 description-repair: "Repareer het item in je hand"
 description-repair-all: "Repareer alle items in je inventaris"
 description-ext: "Stop met branden"
-description-near: "Toon spelers dicht bij je"
+description-near: "Toon spelers in de buurt"
 description-play-time: "Toon de speeltijd van een speler"
-description-bottom: "Teleporteer naar de onderkant"
-description-compact-all: "Compacteer items in je inventaris"
-description-version: "Toon pluginversie"
-description-kill-all: "Dood entiteiten"
-description-seen: "Toon spelerinformatie"
-description-seen-ip: "Toon spelers met hetzelfde IP-adres"
-description-kit: "Ontvang een kit"
+description-bottom: "Teleporteren naar de bodem"
+description-compact-all: "Compacteer items in je inventarissen"
+description-version: "Toon de versie van de plugin"
+description-kill-all: "Verwijder entiteiten"
+description-seen: "Toon speler-informatie"
+description-seen-ip: "Toon spelers met hetzelfde IP"
+description-kit: "Krijg een kit"
 description-kit-editor: "Bewerk een kit"
-description-kit-create: "Maak een nieuwe kit"
+description-kit-create: "Maak een nieuwe kit aan"
 description-kit-delete: "Verwijder een kit"
 description-cooldown: "Toon de cooldowns van een speler"
 description-cooldown-delete: "Verwijder een cooldown"
-description-cooldown-create: "Maak een cooldown"
-description-item-name: "Verander de naam van een item"
-description-item-lore: "Toon commando's voor de lore"
+description-cooldown-create: "Maak een cooldown aan"
+description-item-name: "Verander de naam van het item"
+description-item-lore: "Toon de commando's voor de lore"
 description-item-lore-set: "Definieer een regel van een lore"
 description-item-lore-add: "Voeg een regel toe aan de lore"
-description-item-lore-clear: "Wis item lore"
+description-item-lore-clear: "Verwijder de lore van het item"
 description-give: "Geef items"
 description-give-all: "Geef items aan online spelers"
-description-power-tools: "Voeg commando toe aan je items"
-description-pay-toggle: "Activeer of deactiveer de ontvangst van geld"
-description-power-tools-toggle: "Schakel powertools in of uit"
+description-power-tools: "Voeg commando's toe aan je items"
+description-pay-toggle: "Activeer of deactiveer het ontvangen van geld"
+description-power-tools-toggle: "Schakel power tools in of uit"
 description-kit-show: "Toon een kit"
-description-mail: "Open postvak"
+description-mail: "Open de mailbox"
 description-rules: "Lees serverregels"
-description-hologram: "Toon hologramcommando's"
-description-hologram-create: "Maak een hologram"
+description-hologram: "Toon hologram-commando's"
+description-hologram-create: "Maak een hologram aan"
 description-hologram-delete: "Verwijder een hologram"
 description-hologram-edit: "Bewerk een hologram"
-description-hologram-list: "Toon hologramlijst"
+description-hologram-list: "Toon de hologram-lijst"
 description-hologram-remove-line: "Verwijder een regel uit een hologram"
 description-hologram-add-line: "Voeg een regel toe aan een hologram"
 description-hologram-set-line: "Definieer een regel van een hologram"
-description-hologram-insert-before-line: "Voeg een regel in voor een andere"
-description-hologram-insert-after-line: "Definieer een regel na een andere"
+description-hologram-insert-before-line: "Voeg een regel in vóór een andere regel"
+description-hologram-insert-after-line: "Definieer een regel na een andere regel"
 description-hologram-move-here: "Verplaats een hologram naar je positie"
 description-hologram-move-to: "Verplaats een hologram naar een locatie"
 description-hologram-scale: "Verander de schaal van een hologram"
 description-hologram-translation: "Verander de vertaling van een hologram"
-description-hologram-billboard: "Verander hologram billboard"
+description-hologram-billboard: "Verander het billboard van een hologram"
 description-hologram-text-alignment: "Verander de tekstuitlijning van een hologram"
-description-hologram-text-shadow: "Verander de schaduw van een hologramtekst"
-description-hologram-shadow-strength: "Verander de schaduwsterkte van een hologram"
-description-hologram-shadow-radius: "Verander de schaduwradius van een hologram"
-description-hologram-text-background: "Verander de achtergrond van een hologramtekst"
-description-hologram-see-through: "Verander hologram doorzichtigheid"
-description-hologram-yaw: "Verander hologram yaw"
-description-hologram-pitch: "Verander hologram pitch"
-description-hologram-teleport: "Teleporteer naar een hologram"
-description-scoreboard: "Schakel het scorebord in of uit"
-description-balance-top: "Toon de balans top"
-description-balance-top-refresh: "Ververs de balans top"
-description-mail-open: "Open de postvak van een speler"
+description-hologram-text-shadow: "Verander de tekstschaduw van een hologram"
+description-hologram-shadow-strength: "Verander de sterkte van de schaduw van een hologram"
+description-hologram-shadow-radius: "Verander de straal van de schaduw van een hologram"
+description-hologram-text-background: "Verander de achtergrond van de tekst van een hologram"
+description-hologram-see-through: "Verander de doorzichtigheid van een hologram"
+description-hologram-yaw: "Verander de yaw van een hologram"
+description-hologram-pitch: "Verander de pitch van een hologram"
+description-hologram-teleport: "Teleporteren naar een hologram"
+description-scoreboard: "Schakel scoreboard in of uit"
+description-balance-top: "Toon de baltop"
+description-balance-top-refresh: "Vernieuw de baltop"
+description-mail-open: "Open de mailbox van een speler"
+description-voteparty-information: "Toon de vote party"
+description-voteparty-set: "Stel het aantal stemmen in de vote party in"
+description-voteparty-add: "Voeg toe aan de vote party"
+description-voteparty-remove: "Verwijder uit de vote party"
+description-vote-information: "Toon informatie over hoe te stemmen"
+description-vote-set: "Stel het aantal stemmen voor een speler in"
+description-vote-add: "Voeg stemmen toe aan een speler"
+description-vote-remove: "Verwijder stemmen van een speler"
+description-enchant: "Voeg betovering toe aan een item"
 
-# Tijdsformaat
+
+# Tijdindeling
 format-second: "seconde"
 format-seconds: "seconden"
 format-minute: "minuut"
 format-minutes: "minuten"
 format-hour: "uur"
 format-hours: "uren"
-format-day: "d"
+format-day: "dag"
 format-days: "dagen"
-cooldown: "<error>✘ Je moet &f%cooldown% <error>wachten voordat je deze actie kunt uitvoeren."
-cooldown-commands: "<error>✘ Je moet &f%cooldown% <error>wachten voordat je deze commando's kunt uitvoeren."
-
+cooldown: "<error>✘ Je moet wachten op &f%cooldown% <error>voordat je deze actie kunt uitvoeren."
+cooldown-commands: "<error>✘ Je moet wachten op &f%cooldown% <error>voordat je deze commando's kunt uitvoeren."
 
 
 # Teleportatie
 teleport-move: "<error>Je mag niet bewegen!"
-teleport-damage: "<error>Je mag geen schade oplopen tijdens het teleporteren."
-teleport-error-location: "<error>Het is niet mogelijk om je veilig te teleporteren."
+teleport-damage: "<error>Je mag geen schade oplopen tijdens de teleportatie."
+teleport-error-location: "<error>Niet mogelijk om je veilig te teleporteren."
 
 teleport-message:
   type: ACTION
   message: "&7Teleporteren in #0EEA93%seconds% &7seconden, je mag niet bewegen."
 teleport-success:
   type: ACTION
-  message: "#99E0FFJe bent succesvol geteleporteerd!"
+  message: "#99E0FFJe hebt succesvol geteleporteerd!"
 
 teleport-message-spawn:
   - message: "&7Teleporteren in #0EEA93%seconds% &7seconden, je mag niet bewegen."
   - type: ACTION
     message: "&7Teleporteren in #0EEA93%seconds% &7seconden, je mag niet bewegen."
 teleport-success-spawn:
-  - message: "&7Je bent zojuist geteleporteerd naar #0EEA93spawn &7!"
+  - message: "&7Je bent net geteleporteerd naar #0EEA93spawn &7!"
   - type: ACTION
-    message: "&7Je bent zojuist geteleporteerd naar #0EEA93spawn &7!"
+    message: "&7Je bent net geteleporteerd naar #0EEA93spawn &7!"
 teleport-message-warp:
   - message: "&7Teleporteren in #0EEA93%seconds% &7seconden, je mag niet bewegen."
   - type: ACTION
     message: "&7Teleporteren in #0EEA93%seconds% &7seconden, je mag niet bewegen."
 teleport-success-warp:
-  - message: "&7Je bent zojuist geteleporteerd naar warp #0EEA93%name% &7!"
+  - message: "&7Je bent net geteleporteerd naar warp #0EEA93%name% &7!"
   - type: ACTION
-    message: "&7Je bent zojuist geteleporteerd naar warp #0EEA93%name% &7!"
+    message: "&7Je bent net geteleporteerd naar warp #0EEA93%name% &7!"
 teleport-message-random:
   type: ACTION
   message: "&7Teleporteren in #0EEA93%seconds% &7seconden, je mag niet bewegen."
 teleport-success-random:
   type: ACTION
-  message: "#99E0FFJe bent succesvol geteleporteerd!"
+  message: "#99E0FFJe hebt succesvol geteleporteerd!"
 teleport-message-home:
   - message: "&7Teleporteren in #0EEA93%seconds% &7seconden, je mag niet bewegen."
   - type: ACTION
     message: "&7Teleporteren in #0EEA93%seconds% &7seconden, je mag niet bewegen."
 teleport-success-home:
-  - message: "&7Je bent zojuist geteleporteerd naar huis #0EEA93%name% &7!"
+  - message: "&7Je bent net geteleporteerd naar home #0EEA93%name% &7!"
   - type: ACTION
-    message: "&7Je bent zojuist geteleporteerd naar huis #0EEA93%name% &7!"
+    message: "&7Je bent net geteleporteerd naar home #0EEA93%name% &7!"
 
 
 # Warps
-command-warp-already-exist: "<error>Warp &f%name% <error>bestaat al. &7Gebruik &n<hover:show_text:'&fGebruik dit commando'><click:suggest_command:'/setwarp %name% true'>/setwarp %name% true</click></hover>&r om de warp te wijzigen"
+command-warp-already-exist: "<error>Warp &f%name% <error>bestaat al. &7Gebruik &n<hover:show_text:'&fGebruik dit commando'><click:suggest_command:'/setwarp %name% true'>/setwarp %name% true</click></hover>&r commando om de warp te wijzigen"
 command-warp-doesnt-exist: "<error>Warp &f%name% <error>bestaat niet."
 command-warp-no-permission: "<error>Je hebt geen toestemming om de warp &f%name%<error> te gebruiken."
 command-warp-create:
-  - "#00ff00Je hebt zojuist de warp &f%name% #00ff00gecreëerd op je positie."
-  - "&7Warp-toestemming is: <hover:show_text:'&fKopieer commando om toestemming aan een speler te geven'><click:SUGGEST_COMMAND:'/lp user <username> permission set nessentials.warp.%name%'>&f&nessentials.warp.%name%</click></hover>"
+  - "#00ff00Je hebt zojuist de warp &f%name% #00ff00naar je positie gemaakt."
+  - "&7Warp toestemming is: <hover:show_text:'&fKopieer commando om toestemming aan een speler toe te voegen'><click:SUGGEST_COMMAND:'/lp user <username> permission set essentials.warp.%name%'>&f&essentials.warp.%name%</click></hover>"
 command-warp-use:
   - "<error>Gebruik&8: &f/warp <bestemming>"
   - "&7Warps&8:&f%destinations%"
-command-warp-destination: " <hover:show_text:'&fKlik om naar warp &n%name% te teleporteren'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"
+command-warp-destination: " <hover:show_text:'&fKlik om te teleporteren naar warp &n%name%'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"
 command-warp-list: "&7Warps&8:&f%destinations%"
-command-warp-list-info: " <hover:show_text:'&fKlik om naar warp &n%name% te teleporteren'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"
+command-warp-list-info: " <hover:show_text:'&fKlik om te teleporteren naar warp &n%name%'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"
 command-warp-delete: "#00ff00Je hebt zojuist de warp &f%name%#00ff00 verwijderd."
 
 
@@ -433,280 +443,280 @@ command-set-home-world: "<error>Je kunt hier geen home aanmaken."
 command-set-home-create:
   - ""
   - "#99E0FFJe hebt zojuist de home &f%name%#99E0FF aangemaakt. &8(&7%current%&8/&7%max%&8)"
-  - "&fGebruik het &n<hover:show_text:'&fKlik om naar je home te teleporteren'><click:suggest_command:'/home %name%'>/home %name%</click></hover>&r commando om er naartoe te teleporteren."
+  - "&fGebruik &n<hover:show_text:'&fKlik om te teleporteren naar home'><click:suggest_command:'/home %name%'>/home %name%</click></hover>&r commando om ernaartoe te teleporteren"
   - ""
 command-home-doesnt-exist: "<error>De home &f%name%<error> bestaat niet."
 
 # Beschikbare placeholders:
 # %count% - Aantal homes
-# %max% - Maximale aantal homes van de speler
+# %max% - Maximaal aantal homes van de speler
 command-home-information-multi-line-header:
   - ""
-  - "#8cc0ccJᴏᴜᴡ ʜᴏᴍᴇs <success>♦ &7(%count%) &8- &7(Max: %max%)"
+  - "#8cc0ccᴊᴏᴜᴡ ʜᴏᴍᴇꜱ <success>♦ &7(%count%) &8- &7(Max: %max%)"
 
 # Beschikbare placeholders:
 # %count% - Aantal homes
-# %max% - Maximale aantal homes van de speler
-# %name% - Naam van de home
-# %world% - Wereld van de home
-# %environment% - Omgeving van de wereld
-# %x% - Locatie X van de home
-# %y% - Locatie Y van de home
-# %z% - Locatie Z van de home
+# %max% - Maximaal aantal homes van de speler
+# %name% - Home naam
+# %world% - Home wereld
+# %environment% - Home wereld omgeving
+# %x% - Home locatie x
+# %y% - Home locatie y
+# %z% - Home locatie z
 command-home-information-multi-line-content:
   type: WITHOUT_PREFIX
-  message: " #8cc0cc♢ &f%name% &7in %world% (%environment%) <success><hover:show_text:'&7Klik om naar home &f&n%name% te teleporteren'><click:run_command:'/home %name%'>[KLIK]</click></hover>"
+  message: " #8cc0cc♢ &f%name% &7in %world% (%environment%) <success><hover:show_text:'&7Klik om naar je home &f&n%name% te teleporteren'><click:run_command:'/home %name%'>[ᴋʟɪᴋ]</click></hover>"
 
 # Beschikbare placeholders:
 # %count% - Aantal homes
-# %max% - Maximale aantal homes van de speler
+# %max% - Maximaal aantal homes van de speler
 command-home-information-multi-line-footer:
   type: WITHOUT_PREFIX
   message: ""
 
 # Beschikbare placeholders:
 # %count% - Aantal homes
-# %max% - Maximale aantal homes van de speler
-# %name% - Naam van de home
-# %world% - Wereld van de home
-# %environment% - Omgeving van de wereld
-# %x% - Locatie X van de home
-# %y% - Locatie Y van de home
-# %z% - Locatie Z van de home
+# %max% - Maximaal aantal homes van de speler
+# %name% - Home naam
+# %world% - Home wereld
+# %environment% - Home wereld omgeving
+# %x% - Home locatie x
+# %y% - Home locatie y
+# %z% - Home locatie z
 command-home-information-in-line:
   type: WITHOUT_PREFIX
-  message: "#8cc0ccJᴏᴜᴡ ʜᴏᴍᴇs <success>♦ &7(%count%/%max%) &8:&f%homes%"
-command-home-information-in-line-info: " <hover:show_text:'&7Klik om naar home &f&n%name% te teleporteren'><click:run_command:'/home %name%'>&f%name%</click></hover>&7"
+  message: "#8cc0ccᴊᴏᴜᴡ ʜᴏᴍᴇꜱ <success>♦ &7(%count%/%max%) &8:&f%homes%"
+command-home-information-in-line-info: " <hover:show_text:'&7Klik om te teleporteren naar home &f&n%name%'><click:run_command:'/home %name%'>&f%name%</click></hover>&7"
 
-command-home-icon-error: "<error>Je moet een item in je hand hebben om het icoon van je home te veranderen."
-command-home-icon-success: "#00ff00Je hebt zojuist het icoon van home &f%name%#00ff00 gewijzigd."
-command-home-icon-reset: "#00ff00Je hebt zojuist het icoon van home &f%name%#00ff00 gereset."
-command-home-delete: "#99E0FFJe hebt zojuist de home &f%name%#99E0FF verwijderd."
-command-home-admin-delete: "#00ff00Je hebt zojuist de home &f%name%#00ff00 van &b%player%#00ff00 verwijderd."
-command-home-admin-set: "#00ff00Je hebt zojuist de home &f%name%#00ff00 van &b%player%#00ff00 aangemaakt."
+command-home-icon-error: "<error>Je moet een item in je hand hebben om het pictogram van je home te veranderen."
+command-home-icon-success: "#00ff00Je hebt het home-pictogram &f%name% #00ff00veranderd."
+command-home-icon-reset: "#00ff00Je hebt het home-pictogram &f%name% #00ff00gereset."
+command-home-delete: "#99E0FFJe hebt de home &f%name% #99E0FFverwijderd."
+command-home-admin-delete: "#00ff00Je hebt de home &f%name% #00ff00van &b%player% #00ff00verwijderd."
+command-home-admin-set: "#00ff00Je hebt de home &f%name% #00ff00van &b%player% #00ff00aangemaakt."
 command-home-admin-list: "#8cc0cc%player%'s ʜᴏᴍᴇs&8:&f%homes%"
-command-home-admin-list-info: " <hover:show_text:'&7Klik om naar home &f&n%name% te teleporteren'><click:run_command:'/home %player%:%name%'>&f%name%</click></hover>&7"
+command-home-admin-list-info: " <hover:show_text:'&7Klik om te teleporteren naar home &f&n%name%'><click:run_command:'/home %player%:%name%'>&f%name%</click></hover>&7"
 
 
-# Sanctie
+# Sancties
 command-kick-notify:
   type: WITHOUT_PREFIX
-  message: "<hover:show_text:'<gray>Door: <white>%sender%<newline><gray>Duur: <white>%duration%<newline><gray>Reden: <white>%reason%<newline><gray>Datum: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanctie&8) #8aebeb%player% #e33414heeft zojuist speler #e0d12d%target%#e33414 gekickt.</click></hover>"
+  message: "<hover:show_text:'<gray>Door: <white>%sender%<newline><gray>Duur: <white>%duration%<newline><gray>Reden: <white>%reason%<newline><gray>Datum: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanctie&8) #8aebeb%player% #e33414heeft de speler #e0d12d%target%#e33414uit de game gegooid.</click></hover>"
 command-ban-notify:
   type: WITHOUT_PREFIX
-  message: "<hover:show_text:'<gray>Door: <white>%sender%<newline><gray>Duur: <white>%duration%<newline><gray>Reden: <white>%reason%<newline><gray>Datum: <white>%created_at%<newline><gray>Verloopt: <white>%expired_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanctie&8) #8aebeb%player% #e33414heeft zojuist speler #e0d12d%target%#e33414 verbannen.</click></hover>"
+  message: "<hover:show_text:'<gray>Door: <white>%sender%<newline><gray>Duur: <white>%duration%<newline><gray>Reden: <white>%reason%<newline><gray>Datum: <white>%created_at%<newline><gray>Verloopt op: <white>%expired_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanctie&8) #8aebeb%player% #e33414heeft de speler #e0d12d%target%#e33414verbannen.</click></hover>"
 command-mute-notify:
   type: WITHOUT_PREFIX
-  message: "<hover:show_text:'<gray>Door: <white>%sender%<newline><gray>Duur: <white>%duration%<newline><gray>Reden: <white>%reason%<newline><gray>Datum: <white>%created_at%<newline><gray>Verloopt: <white>%expired_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanctie&8) #8aebeb%player% #e33414heeft zojuist speler #e0d12d%target%#e33414 gemute.</click></hover>"
+  message: "<hover:show_text:'<gray>Door: <white>%sender%<newline><gray>Duur: <white>%duration%<newline><gray>Reden: <white>%reason%<newline><gray>Datum: <white>%created_at%<newline><gray>Verloopt op: <white>%expired_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanctie&8) #8aebeb%player% #e33414heeft de speler #e0d12d%target%#e33414gemute.</click></hover>"
 command-unmute-notify:
   type: WITHOUT_PREFIX
-  message: "<hover:show_text:'<gray>Door: <white>%sender%<newline><gray>Duur: <white>%duration%<newline><gray>Reden: <white>%reason%<newline><gray>Datum: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanctie&8) #8aebeb%player% #e33414heeft zojuist de mute van speler #e0d12d%target%#e33414 opgeheven.</click></hover>"
+  message: "<hover:show_text:'<gray>Door: <white>%sender%<newline><gray>Duur: <white>%duration%<newline><gray>Reden: <white>%reason%<newline><gray>Datum: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanctie&8) #8aebeb%player% #e33414heeft de speler #e0d12d%target%#e33414ontmute.</click></hover>"
 command-unban-notify:
   type: WITHOUT_PREFIX
-  message: "<hover:show_text:'<gray>Door: <white>%sender%<newline><gray>Duur: <white>%duration%<newline><gray>Reden: <white>%reason%<newline><gray>Datum: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanctie&8) #8aebeb%player% #e33414heeft zojuist de ban van speler #e0d12d%target%#e33414 opgeheven.</click></hover>"
+  message: "<hover:show_text:'<gray>Door: <white>%sender%<newline><gray>Duur: <white>%duration%<newline><gray>Reden: <white>%reason%<newline><gray>Datum: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanctie&8) #8aebeb%player% #e33414heeft de speler #e0d12d%target%#e33414ontbannen.</click></hover>"
 command-ban-error-duration: "<error>De duur van een verbanning moet minstens 1 seconde zijn."
 command-mute-error-duration: "<error>De duur van een mute moet minstens 1 seconde zijn."
 command-un-mute-error: "&f%player% <error>is niet gemute."
 command-un-ban-error: "&f%player% <error>is niet verbannen."
-command-sanction-error: "<error>Je kunt deze speler niet sanctioneren. Hij is beschermd."
+command-sanction-error: "<error>Je kunt die speler niet straffen. Hij is beschermd."
 message-kick:
   - ""
-  - "<error>Je bent zojuist van de server gekickt om de volgende reden:"
+  - "<error>Je bent net van de server gekickt om de reden:"
   - "%reason%"
   - ""
   - "&fMinecraft-Inventory-Builder.com"
   - ""
 message-mute:
   - ""
-  - "&fJe hebt zojuist je <u>stem</u> verloren."
+  - "&fJe hebt net je <u>stem</u> verloren."
   - "&fDuur&8: <gradient:#7ae856:#a1d909>%duration%</gradient>"
   - "&fReden&8: #82d1ff%reason%"
   - ""
 message-unmute:
   - ""
-  - "&fJe hebt zojuist je <u>stem</u> teruggekregen, gefeliciteerd!"
+  - "&fJe hebt net je <u>stem</u> teruggekregen, gefeliciteerd!"
   - "&fReden&8: #82d1ff%reason%"
   - ""
 message-mute-talk:
   - ""
-  - "&fYou do not have the right to speak."
+  - "&fJe hebt niet het recht om te spreken."
   - ""
-  - "&fDuration&8: <gradient:#7ae856:#a1d909>%duration%</gradient>"
-  - "&fReason&8: #82d1ff%reason%"
+  - "&fDuur&8: <gradient:#7ae856:#a1d909>%duration%</gradient>"
+  - "&fReden&8: #82d1ff%reason%"
   - ""
 message-ban:
   - ""
-  - "<error>You have just been ban from the server for the reason:"
+  - "<error>Je bent net verbannen van de server om de reden:"
   - "&f%reason%"
-  - "&fDuration&8: &7%duration%"
+  - "&fDuur&8: &7%duration%"
   - ""
   - "&fMinecraft-Inventory-Builder.com"
   - ""
 message-ban-join:
   - ""
-  - "<error>You are banned on server:"
+  - "<error>Je bent verbannen op de server:"
   - "&f%reason%"
-  - "&fRemaining time&8: &7%remaining%"
+  - "&fOvergebleven tijd&8: &7%remaining%"
   - ""
   - "&fMinecraft-Inventory-Builder.com"
   - ""
 
 # Chat
-chat-error: "<error>Impossible to let you speak, your data is not loaded."
-chat-alphanumeric-regex: "<error>You use a forbidden character."
-chat-cooldown: "<error>Please wait before sending your next message. &8(&7%cooldown%&8)"
-chat-same: "<error>You can’t put the same sentence."
-chat-link: "<error>You cannot send a link in the chat."
-chat-disable: "<error>The chat is currently unavailable."
-chat-caps: "<error>You don’t have to scream to talk !"
-chat-flood: "<error>You can’t talk like that."
+chat-error: "<error>Het is niet mogelijk om je te laten spreken, je gegevens zijn nog niet geladen."
+chat-alphanumeric-regex: "<error>Je gebruikt een verboden teken."
+chat-cooldown: "<error>Wacht alstublieft voordat je je volgende bericht verstuurt. &8(&7%cooldown%&8)"
+chat-same: "<error>Je kunt dezelfde zin niet herhalen."
+chat-link: "<error>Je kunt geen link in de chat sturen."
+chat-disable: "<error>De chat is momenteel niet beschikbaar."
+chat-caps: "<error>Je hoeft niet te schreeuwen om te praten!"
+chat-flood: "<error>Je kunt niet op deze manier praten."
 
 chat-default-format: "<white>%displayName% <#656665>• <gray>%message%"
-chat-messages-empty: "&f%player% <error>did not write a message."
+chat-messages-empty: "&f%player% <error>heeft geen bericht geschreven."
 chat-messages-line:
   type: WITHOUT_PREFIX
   message: "&f%date% &7%message%"
 chat-messages-footer:
   type: WITHOUT_PREFIX
-  message: "<click:run_command:'/chathistory %player% %previousPage%'><hover:show_text:'Previous Page'><white>⬅</hover></click> <gray>%page%/%maxPage% <click:run_command:'/chathistory %player% %nextPage%'><hover:show_text:'Next Page'><white>➡</hover></click>"
-command-chat-clear: "<success>The chat just got clear."
-command-chat-disable-error: "<error>Chat is already disable."
-command-chat-disable-success: "<success>You just deactivated the chat."
-command-chat-enable-error: "<error>Chat is already enable."
-command-chat-enable-success: "<success>You just activated the chat."
+  message: "<click:run_command:'/chathistory %player% %previousPage%'><hover:show_text:'Vorige Pagina'><white>⬅</hover></click> <gray>%page%/%maxPage% <click:run_command:'/chathistory %player% %nextPage%'><hover:show_text:'Volgende Pagina'><white>➡</hover></click>"
+command-chat-clear: "<success>De chat is net leeggemaakt."
+command-chat-disable-error: "<error>De chat is al uitgeschakeld."
+command-chat-disable-success: "<success>Je hebt de chat net gedeactiveerd."
+command-chat-enable-error: "<error>De chat is al ingeschakeld."
+command-chat-enable-success: "<success>Je hebt de chat net geactiveerd."
 command-chat-broadcast:
   type: WITHOUT_PREFIX
   message: "<primary>ʙʀᴏᴀᴅᴄᴀsᴛ <secondary>• <white>%message%"
 
 
-# Messages
-command-message-self: "<error>You can’t talk to yourself."
-command-message-disable: "&f%player% <error>has disabled private messages."
-command-message-mute: "<error>You’re not allowed to speak."
-command-message-me: "<hover:show_text:'&fClick to reply'><click:suggest_command:'/r '>&8(#f533f5me &7-> #34cfe0%target%&8) #e6e1e6<message></click></hover>"
-command-message-other: "<hover:show_text:'&fClick to reply'><click:suggest_command:'/r '>&8(#34cfe0%target% &7-> #f533f5me&8) #e6e1e6<message></click></hover>"
+# Berichten
+command-message-self: "<error>Je kunt niet met jezelf praten."
+command-message-disable: "&f%player% <error>heeft privéberichten uitgeschakeld."
+command-message-mute: "<error>Je mag niet spreken."
+command-message-me: "<hover:show_text:'&fKlik om te antwoorden'><click:suggest_command:'/r '>&8(#f533f5ik &7-> #34cfe0%target%&8) #e6e1e6<message></click></hover>"
+command-message-other: "<hover:show_text:'&fKlik om te antwoorden'><click:suggest_command:'/r '>&8(#34cfe0%target% &7-> #f533f5ik&8) #e6e1e6<message></click></hover>"
 command-message-social-spy:
   type: WITHOUT_PREFIX
-  message: "&8(&7SocialSpy&8) &8(<hover:show_text:'&fOpen sanction for %sender%'><click:run_command:'/sc %sender%'>#34cfe0%sender%</click></hover> &7-> <hover:show_text:'&fOpen sanction for %receiver%'><click:run_command:'/sc %receiver%'>#f533f5%receiver%</click></hover>&8) #e6e1e6%message%"
-command-message-error: "<error>You have no one to answer."
-command-message-toggle-enable: "&7Private message <success>enable &7for &f%player%<success>."
-command-message-toggle-disable: "&7Private message <error>disable &7for &f%player%<success>."
-command-social-spy-enable: "&7Social spy <success>enable &7for &f%player%<success>."
-command-social-spy-disable: "&7Social spy <error>disable &7for &f%player%<success>."
-command-warp-empty: "<error>No warp defined, use command &f/setwarp <name>"
-command-pay-toggle-enable: "&7Pay <success>enable &7for &f%player%<success>."
-command-pay-toggle-disable: "&7Pay <error>disable &7for &f%player%<error>."
-command-power-tools-toggle-enable: "<success>All of your power tools have been enabled &7for &f%player%<success>."
-command-power-tools-toggle-disable: "<error>All of your power tools have been disabled &7for &f%player%<error>."
+  message: "&8(&7SocialSpy&8) &8(<hover:show_text:'&fOpen sancties voor %sender%'><click:run_command:'/sc %sender%'>#34cfe0%sender%</click></hover> &7-> <hover:show_text:'&fOpen sancties voor %receiver%'><click:run_command:'/sc %receiver%'>#f533f5%receiver%</click></hover>&8) #e6e1e6%message%"
+command-message-error: "<error>Je hebt niemand om te antwoorden."
+command-message-toggle-enable: "&7Privéberichten <success>ingeschakeld &7voor &f%player%<success>."
+command-message-toggle-disable: "&7Privéberichten <error>uitgeschakeld &7voor &f%player%<success>."
+command-social-spy-enable: "&7Social spy <success>ingeschakeld &7voor &f%player%<success>."
+command-social-spy-disable: "&7Social spy <error>uitgeschakeld &7voor &f%player%<success>."
+command-warp-empty: "<error>Geen warp gedefinieerd, gebruik het commando &f/setwarp <naam>"
+command-pay-toggle-enable: "&7Betalen <success>ingeschakeld &7voor &f%player%<success>."
+command-pay-toggle-disable: "&7Betalen <error>uitgeschakeld &7voor &f%player%<error>."
+command-power-tools-toggle-enable: "<success>Al je power tools zijn ingeschakeld &7voor &f%player%<success>."
+command-power-tools-toggle-disable: "<error>Al je power tools zijn uitgeschakeld &7voor &f%player%<error>."
 
 
 # Kit
-command-kit-no-permission: "<error>You do not have permission to use the kit &f%kit%<error>."
-command-kit-not-found: "<error>Unable to find the kit &f%kit%<error>."
-command-kit-already-exists: "<error>The &f%kit% <error>kit already exists."
-command-kit-information-in-line-empty: "#8cc0ccʏᴏᴜʀ ᴋɪᴛs <success>♦ &7(%count%/%max%)&8: <error>ɴᴏ ᴋɪᴛ ᴀᴠᴀɪʟᴀʙʟᴇ"
-command-kit-information-in-line: "#8cc0ccʏᴏᴜʀ ᴋɪᴛs&8:&f%kits%"
-command-kit-information-in-line-info-available: " <hover:show_text:'&7Click to get the kit &f&n%name%'><click:run_command:'/kit %name%'><#1fde65>%name%</click></hover>&7"
-command-kit-information-in-line-info-unavailable: " <hover:show_text:'&7You must wait <u>%time%</u> before getting the kit &f&n%name%'><st><#de1f1f>%name%</st></hover>&7"
+command-kit-no-permission: "<error>Je hebt geen toestemming om de kit &f%kit%<error> te gebruiken."
+command-kit-not-found: "<error>Kan de kit &f%kit%<error> niet vinden."
+command-kit-already-exists: "<error>De kit &f%kit% <error>bestaat al."
+command-kit-information-in-line-empty: "#8cc0ccᴊᴏᴜᴡ ᴋɪᴛꜱ <success>♦ &7(%count%/%max%)&8: <error>ɢᴇᴇɴ ᴋɪᴛ ʙᴇꜱᴄʜɪᴋʙᴀᴀʀ"
+command-kit-information-in-line: "#8cc0ccᴊᴏᴜᴡ ᴋɪᴛꜱ&8:&f%kits%"
+command-kit-information-in-line-info-available: " <hover:show_text:'&7Klik om de kit &f&n%name% te krijgen'><click:run_command:'/kit %name%'><#1fde65>%name%</click></hover>&7"
+command-kit-information-in-line-info-unavailable: " <hover:show_text:'&7Je moet wachten <u>%time%</u> voordat je de kit &f&n%name% kunt krijgen'><st><#de1f1f>%name%</st></hover>&7"
 command-kit-information-multi-line-header: ""
-command-kit-information-multi-line-content-available: "<#8cc0cc>♢ <hover:show_text:'&7Click to get the kit &f&n%name%'><click:run_command:'/kit %name%'><#1fde65>%name% </click></hover>"
-command-kit-information-multi-line-content-unavailable: "<#8cc0cc>♢ <hover:show_text:'&7You must wait <u>%time%</u> before getting the kit &f&n%name%'><st><#de1f1f>%name%</st></hover> &8(&7%time%&8)"
+command-kit-information-multi-line-content-available: "<#8cc0cc>♢ <hover:show_text:'&7Klik om de kit &f&n%name% te krijgen'><click:run_command:'/kit %name%'><#1fde65>%name% </click></hover>"
+command-kit-information-multi-line-content-unavailable: "<#8cc0cc>♢ <hover:show_text:'&7Je moet wachten <u>%time%</u> voordat je de kit &f&n%name% kunt krijgen'><st><#de1f1f>%name%</st></hover> &8(&7%time%&8)"
 command-kit-information-multi-line-footer: ""
-command-kit-editor-save: "<success>You have just modified the kit &f%kit%<success>."
-command-kit-create: "<success>You just created the kit &f%kit%<success>."
-command-kit-delete: "<success>You just deleted the kit &f%kit%<success>."
+command-kit-editor-save: "<success>Je hebt zojuist de kit &f%kit%<success> aangepast."
+command-kit-create: "<success>Je hebt zojuist de kit &f%kit%<success> aangemaakt."
+command-kit-delete: "<success>Je hebt zojuist de kit &f%kit%<success> verwijderd."
 
 
 # Cooldown
-command-cooldown-header: "&fPlayer cooldown %player% &8(&7%amount%&8)"
-command-cooldown-empty: "&f%player% <error>has no cooldown."
-# Available placeholders:
-# %key% - The key to the cooldown
-# %value% - The cooldown expiration timestamp
-# %timeLeft% - The time remaining before cooldown expiration
-# %createdAt% - Cooldown creation date
-# %player% - the Player's nickname
+command-cooldown-header: "&fSpeler cooldown %player% &8(&7%amount%&8)"
+command-cooldown-empty: "&f%player% <error>heeft geen cooldown."
+# Beschikbare placeholders:
+# %key% - De key van de cooldown
+# %value% - De vervaldatum van de cooldown
+# %timeLeft% - De tijd die over is voordat de cooldown verloopt
+# %createdAt% - De aanmaakdatum van de cooldown
+# %player% - De bijnaam van de speler
 command-cooldown-line:
   type: WITHOUT_PREFIX
-  message: "&f%key% <secondary>- &7%createdAt% <secondary>- <success>%timeLeft% <secondary>- <hover:show_text:'&fClick to remove the cooldown'><click:run_command:'/cooldown delete %player% %key%'>&8[<error>ᴅᴇʟᴇᴛᴇ&8]</click></hover>"
-command-cooldown-not-found: "&f%cooldown% <error>was not found."
-command-cooldown-delete: "<success>You just removed the cooldown &f%cooldown% <success>from &n%player%&r<success>."
-# Available placeholders:
-# %key% - The key to the cooldown
-# %player% - the Player's nickname
-# %duration% - the duration of the cooldown
-command-cooldown-create: "<success>You just created the cooldown &f%key% <success>for &n%player%&r<success>."
+  message: "&f%key% <secondary>- &7%createdAt% <secondary>- <success>%timeLeft% <secondary>- <hover:show_text:'&fKlik om de cooldown te verwijderen'><click:run_command:'/cooldown delete %player% %key%'>&8[<error>ᴠᴇʀᴡɪᴊᴅᴇʀ&8]</click></hover>"
+command-cooldown-not-found: "&f%cooldown% <error>werd niet gevonden."
+command-cooldown-delete: "<success>Je hebt zojuist de cooldown &f%cooldown% <success>van &n%player%&r<success> verwijderd."
+# Beschikbare placeholders:
+# %key% - De key van de cooldown
+# %player% - De bijnaam van de speler
+# %duration% - De duur van de cooldown
+command-cooldown-create: "<success>Je hebt zojuist de cooldown &f%key% <success>gemaakt voor &n%player%&r<success>."
 
 
-command-item-empty: "<error>You have no item in your hand."
-command-item-clear: "<success>You have cleared this item's name"
-command-item-set: "<success>You have renamed your held item to &f%name%<success>."
-command-item-lore-add: "<success>You just added the line &f%text%<success>."
-command-item-lore-set: "<success>You just set line %line% to &f%text%<success>."
-command-item-lore-clear: "<success>You just clear the item lore."
-command-item-lore-set-error: "<error>Can’t find the line &f%line%<error>."
-command-give-error: "<error>Can’t find the item &f%item%<error>."
-command-give: "<success>You just gave &n&fx1 %item%&r <success>to player &f%player%<success>."
-command-give-all: "<success>You just gave &n&fx1 %item%&r <success>to online player."
+command-item-empty: "<error>Je hebt geen item in je hand."
+command-item-clear: "<success>Je hebt de naam van dit item verwijderd."
+command-item-set: "<success>Je hebt je vastgehouden item hernoemd naar &f%name%<success>."
+command-item-lore-add: "<success>Je hebt de regel &f%text%<success> toegevoegd."
+command-item-lore-set: "<success>Je hebt regel %line% ingesteld op &f%text%<success>."
+command-item-lore-clear: "<success>Je hebt de item lore gewist."
+command-item-lore-set-error: "<error>Kan de regel &f%line%<error> niet vinden."
+command-give-error: "<error>Kan het item &f%item%<error> niet vinden."
+command-give: "<success>Je hebt &n&fx1 %item%&r <success>gegeven aan speler &f%player%<success>."
+command-give-all: "<success>Je hebt &n&fx1 %item%&r <success>gegeven aan alle online spelers."
 
-command-power-tool-error-item: "<error>You have no item in your hand."
-command-power-tool-error-reset: "<error>This item has no recorded command."
-command-power-tool-info: "<success>You just put the command &f/%command%<success> on the item &f%item<success>."
-command-power-tool-reset: "<success>You have just deleted the command on the item &f%item<success>."
+command-power-tool-error-item: "<error>Je hebt geen item in je hand."
+command-power-tool-error-reset: "<error>Dit item heeft geen geregistreerd commando."
+command-power-tool-info: "<success>Je hebt het commando &f/%command%<success> aan het item &f%item%<success> toegevoegd."
+command-power-tool-reset: "<success>Je hebt het commando van het item &f%item%<success> verwijderd."
 
-mailbox-remove-full: "<error>You must have space in your inventory to retrieve an item."
-mailbox-remove-expire: "<error>You can no longer retrieve this item, it has expired."
+mailbox-remove-full: "<error>Je moet ruimte in je inventaris hebben om een item op te halen."
+mailbox-remove-expire: "<error>Je kunt dit item niet meer ophalen, het is verlopen."
 mailbox-add:
   type: ACTION
-  message: "<success>An item has just been added to your mailbox &8(&f/mail&8)"
+  message: "<success>Een item is zojuist aan je mailbox toegevoegd &8(&f/mail&8)"
 
-hologram-create-error: "<error>Hologram &f%name% <error>already exists."
+hologram-create-error: "<error>Hologram &f%name% <error>bestaat al."
 hologram-create:
   type: WITHOUT_PREFIX
   messages:
-    - "<success>You just created the hologram &f%name%<success>."
-    - "&7Use &n<click:run_command:'/hologram edit %name%'>/hologram edit %name%</click>&r&7 command to edit the hologram"
-hologram-delete: "<success>Hologram &f%name% <success>has been deleted."
-hologram-doesnt-exist: "<error>Hologram &f%name% <error>doesn't exist."
-hologram-is-not-a-text: "<error>Hologram &f%name% <error>is not a text hologram."
-hologram-is-not-a-block: "<error>Hologram &f%name% <error>is not a block hologram."
-hologram-is-not-a-item: "<error>Hologram &f%name% <error>is not an item hologram."
-hologram-add-line: "<success>You just added a line to the hologram &f%name%<success>."
-hologram-set-line: "<success>You just set the line &f%line%<success> to the hologram &f%name%<success>."
-hologram-insert-before-line: "<success>You just set a new line before the line &f%line%<success> to the hologram &f%name%<success>."
-hologram-insert-after-line: "<success>You just set a new line after the line &f%line%<success> to the hologram &f%name%<success>."
-hologram-line-doesnt-exist: "<error>The line &f%line% <error>does not exist for the hologram &f%name%<error>."
-hologram-remove-line: "<success>You just removed the line &f%line%<success> from the hologram &f%name%<success>."
-hologram-scale: "<success>You just changed the scale of the hologram &f%name% <success>to &7%x%&8, &7%y%&8, &7%z%<success>."
-hologram-translation: "<success>You just changed the translation of the hologram &f%name% <success>to &7%x%&8, &7%y%&8, &7%z%<success>."
-hologram-move-here: "<success>You just teleported the hologram &f%name%<success> to your position."
-hologram-move-to: "<success>You just teleported the hologram &f%name% <success>to &7%x%&8, &7%y%&8, &7%z%<success>."
-hologram-billboard: "<success>You just changed the billboard of the hologram &f%name%<success> to &f%billboard%<success>."
-hologram-text-alignment: "<success>You just changed the text alignment of the hologram &f%name%<success> to &f%textAlignment%<success>."
-hologram-yaw: "<success>You just changed the yaw of the hologram &f%name%<success> to &f%yaw%<success>."
-hologram-pitch: "<success>You just changed the pitch of the hologram &f%name%<success> to &f%pitch%<success>."
-hologram-text-background: "<success>You just changed the background color of the hologram &f%name%<success> to &f%color%<success>."
-hologram-text-background-error: "<error>Could not parse background color."
-hologram-text-shadow: "<success>You set the text shadow to &f%textshadow% <success>for the hologram &f%name%<success>."
-hologram-see-through: "<success>You set the see-through to &f%seethrough% <success>for the hologram &f%name%<success>."
-hologram-shadow-strength: "<success>You set the shadow strength to &f%shadow% <success>for the hologram &f%name%<success>."
-hologram-shadow-radius: "<success>You set the shadow radius to &f%shadow% <success>for the hologram &f%name%<success>."
-hologram-view-distance: "<success>You set the view distance to &f%distance% <success>for the hologram &f%name%<success>."
-hologram-list-empty: "<error>There is no hologram, to create one please use the command &f/holo create <name>"
+    - "<success>Je hebt zojuist het hologram &f%name%<success> gemaakt."
+    - "&7Gebruik &n<click:run_command:'/hologram edit %name%'>/hologram edit %name%</click>&r&7 commando om het hologram te bewerken."
+hologram-delete: "<success>Hologram &f%name% <success>is verwijderd."
+hologram-doesnt-exist: "<error>Hologram &f%name% <error>bestaat niet."
+hologram-is-not-a-text: "<error>Hologram &f%name% <error>is geen tekst-hologram."
+hologram-is-not-a-block: "<error>Hologram &f%name% <error>is geen blok-hologram."
+hologram-is-not-a-item: "<error>Hologram &f%name% <error>is geen item-hologram."
+hologram-add-line: "<success>Je hebt zojuist een regel toegevoegd aan het hologram &f%name%<success>."
+hologram-set-line: "<success>Je hebt zojuist de regel &f%line%<success> ingesteld voor het hologram &f%name%<success>."
+hologram-insert-before-line: "<success>Je hebt zojuist een nieuwe regel vóór regel &f%line%<success> toegevoegd aan het hologram &f%name%<success>."
+hologram-insert-after-line: "<success>Je hebt zojuist een nieuwe regel na regel &f%line%<success> toegevoegd aan het hologram &f%name%<success>."
+hologram-line-doesnt-exist: "<error>De regel &f%line% <error>bestaat niet voor het hologram &f%name%<error>."
+hologram-remove-line: "<success>Je hebt zojuist de regel &f%line%<success> verwijderd van het hologram &f%name%<success>."
+hologram-scale: "<success>Je hebt zojuist de schaal van het hologram &f%name% <success>veranderd naar &7%x%&8, &7%y%&8, &7%z%<success>."
+hologram-translation: "<success>Je hebt zojuist de vertaling van het hologram &f%name% <success>veranderd naar &7%x%&8, &7%y%&8, &7%z%<success>."
+hologram-move-here: "<success>Je hebt zojuist het hologram &f%name%<success> naar je positie geteleporteerd."
+hologram-move-to: "<success>Je hebt zojuist het hologram &f%name% <success>geteleporteerd naar &7%x%&8, &7%y%&8, &7%z%<success>."
+hologram-billboard: "<success>Je hebt zojuist het billboard van het hologram &f%name%<success> veranderd naar &f%billboard%<success>."
+hologram-text-alignment: "<success>Je hebt zojuist de tekstuitlijning van het hologram &f%name%<success> veranderd naar &f%textAlignment%<success>."
+hologram-yaw: "<success>Je hebt zojuist de yaw van het hologram &f%name%<success> veranderd naar &f%yaw%<success>."
+hologram-pitch: "<success>Je hebt zojuist de pitch van het hologram &f%name%<success> veranderd naar &f%pitch%<success>."
+hologram-text-background: "<success>Je hebt zojuist de achtergrondkleur van het hologram &f%name%<success> veranderd naar &f%color%<success>."
+hologram-text-background-error: "<error>Kon achtergrondkleur niet parseren."
+hologram-text-shadow: "<success>Je hebt de tekstschaduw ingesteld op &f%textshadow% <success>voor het hologram &f%name%<success>."
+hologram-see-through: "<success>Je hebt de doorzichtigheid ingesteld op &f%seethrough% <success>voor het hologram &f%name%<success>."
+hologram-shadow-strength: "<success>Je hebt de schaduwsterkte ingesteld op &f%shadow% <success>voor het hologram &f%name%<success>."
+hologram-shadow-radius: "<success>Je hebt de schaduwradius ingesteld op &f%shadow% <success>voor het hologram &f%name%<success>."
+hologram-view-distance: "<success>Je hebt de kijkafstand ingesteld op &f%distance% <success>voor het hologram &f%name%<success>."
+hologram-list-empty: "<error>Er is geen hologram, gebruik het commando &f/holo create <name> om er een te maken."
 hologram-list:
   type: WITHOUT_PREFIX
-  message: "&f%name% &8- &7%world%: %x%, %y%, %z% &8- <hover:show_text:'&7Click to be teleported to this hologram'><click:run_command:'/holo tp %name%'><green>ᴛᴇʟᴇᴘᴏʀᴛ</click> </hover><hover:show_text:'<red>Click to delete this hologram'><click:suggest_command:'/holo delete %name%'><red>ᴅᴇʟᴇᴛᴇ</click></hover>"
-hologram-item-error: "<error>You can't use air for this hologram."
-hologram-item: "<success>You just modified the item of the hologram &f%name%<success>."
-hologram-block: "<success>You just modified the block of the hologram &f%name%<success> to &f%material%<success>."
+  message: "&f%name% &8- &7%world%: %x%, %y%, %z% &8- <hover:show_text:'&7Klik om naar dit hologram geteleporteerd te worden'><click:run_command:'/holo tp %name%'><green>ᴛᴇʟᴇᴘᴏʀᴛᴇᴇʀ</click></hover><hover:show_text:'<red>Klik om dit hologram te verwijderen'><click:suggest_command:'/holo delete %name%'><red>ᴠᴇʀᴡɪᴊᴅᴇʀ</click></hover>"
+hologram-item-error: "<error>Je kunt lucht niet gebruiken voor dit hologram."
+hologram-item: "<success>Je hebt zojuist het item van het hologram &f%name%<success> gewijzigd."
+hologram-block: "<success>Je hebt zojuist het blok van het hologram &f%name%<success> gewijzigd naar &f%material%<success>."
 
-scoreboard-disable: "<error>You just disabled the scoreboard."
-scoreboard-enable: "<success>You just enabled the scoreboard."
+scoreboard-disable: "<error>Je hebt zojuist het scoreboard uitgeschakeld."
+scoreboard-enable: "<success>Je hebt zojuist het scoreboard ingeschakeld."
 
-command-baltop-error: "<error>Can’t find the economy &f%name%<error>."
+command-baltop-error: "<error>Kan de economie &f%name%<error> niet vinden."
 command-baltop-header:
   type: WITHOUT_PREFIX
-  message: "#00f986ᴍᴏsᴛ ᴍᴏɴᴇʏ &8(&f%page%&8/&7%maxPage%&8) <click:run_command:'/baltop %previousPage%'>&f◀</click> &8- <click:run_command:'/baltop %nextPage%'>&f▶</click>"
+  message: "#00f986ᴍᴇᴇꜱᴛᴇ ɢᴇʟᴅ &8(&f%page%&8/&7%maxPage%&8) <click:run_command:'/baltop %previousPage%'>&f◀</click> &8- <click:run_command:'/baltop %nextPage%'>&f▶</click>"
 command-baltop:
   type: WITHOUT_PREFIX
   message: "#00f986#%position% &f%name%&8: %amount%"
@@ -720,29 +730,39 @@ command-vote-add: "<success>Je hebt een stem toegevoegd aan &f%player%<success>.
 command-vote-add-error: "<error>De site &f%site% <error>bestaat niet!"
 command-vote:
   type: ACTION
-  message: "<success>Je hebt gestemd en een stem sleutel ontvangen."
+  message: "<success>Je hebt gestemd en een sleutel ontvangen."
 
 vote-offline:
   - ""
-  - "<success>Je hebt <gold>%amount% keer <success>gestemd terwijl je offline was, gebruik het commando <yellow><click:run_command:'/mailbox'>/mailbox</click> <success>om je items te ontvangen!"
+  - "<success>Je hebt <gold>%amount% keer gestemd <success>terwijl je offline was. Gebruik het commando <yellow><click:run_command:'/mailbox'>/mailbox</click> <success>om je items te ontvangen!</success>"
   - ""
 
 vault-lore:
   - ""
-  - "&fɪɴғᴏʀᴍᴀᴛɪᴏɴs"
+  - "&fɪɴꜰᴏʀᴍᴀᴛɪᴇ"
   - " #f8b175• &7Hoeveelheid&8: &e%quantity%"
   - ""
-  - "&f<b>➥</b> #fc99f8Linksklik &7om 1 te nemen"
-  - "&f<b>➥</b> #fc99f8Rechtsklik &7om 64 te nemen"
-  - "&f<b>➥</b> #fc99f8Kruip + Rechtsklik &7om alles te nemen"
-command-vault-not-found: "<error>Kan de kluis &f%vaultId%<error>niet vinden."
+  - "&f<b>➥</b> #fc99f8Linker Klik &7om 1 te nemen"
+  - "&f<b>➥</b> #fc99f8Rechter Klik &7om 64 te nemen"
+  - "&f<b>➥</b> #fc99f8Sneak + Rechter Klik &7om alles te nemen"
+command-vault-not-found: "<error>Kan de kluis &f%vaultId% niet vinden.<error>"
 command-vault-no-permission: "<error>Je hebt geen toestemming om de kluis te bekijken."
-command-vault-set-slot: "<success>Je hebt de slot van &f%player% <success>gedefinieerd op &7%slots%<success>."
-command-vault-add-slot: "<success>Je hebt &7%amount% <success>slot toegevoegd aan &f%player%<success>."
+command-vault-set-slot: "<success>Je hebt net de slotten van &f%player% <success> ingesteld op &7%slots%<success>."
+command-vault-add-slot: "<success>Je hebt zojuist &7%amount% <success> sloten toegevoegd aan &f%player%<success>."
 command-vault-change-icon-error: "<error>Je hebt een item in je hand."
-command-vault-change-icon-success: "<success>Je hebt het icoon van je kluis veranderd."
-command-vault-reset-icon: "<success>Je hebt het icoon van je kluis gereset."
-command-vault-rename-start: "<success>Schrijf de nieuwe naam van de kluis in de chat."
+command-vault-change-icon-success: "<success>Je hebt het pictogram van je kluis gewijzigd."
+command-vault-reset-icon: "<success>Je hebt het pictogram van je kluis gereset."
+command-vault-rename-start: "<success>Schrijf in de chat de nieuwe naam van de kluis."
 command-vault-rename-success: "<success>Je hebt de naam van de kluis ingesteld op &f%name%<success>."
-command-vault-rename-error: "<error>Je kunt deze naam niet gebruiken voor je kluis."
+command-vault-rename-error: "<error>Je kunt deze naam niet voor je kluis gebruiken."
 command-vault-rename-reset: "<success>Je hebt de naam van je kluis gereset."
+
+
+command-enchant-invalid: "<error>Je moet een geldige speler opgeven."
+command-enchant-error-enchant: "<error>Kan de betovering &f%name%<error> niet vinden."
+command-enchant-error-item-self: "<error>Je moet een item in je hand hebben."
+command-enchant-error-item-player: "<error>%player% heeft geen item in zijn hand."
+command-enchant-remove-self: "<success>De betovering &f%enchant% <success>is verwijderd van je item in de hand."
+command-enchant-remove-player: "<success>De betovering &f%enchant% <success>is verwijderd van het item van &f%player%<success>."
+command-enchant-success-self: "<success>De betovering &f%enchant% <success>is toegepast op je item in de hand."
+command-enchant-success-player: "<success>De betovering &f%enchant% <success>is toegepast op het item van &f%player%<success>."
