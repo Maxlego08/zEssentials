@@ -6,6 +6,7 @@ import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.module.modules.TeleportationModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 public class CommandTeleport extends VCommand {
@@ -16,15 +17,56 @@ public class CommandTeleport extends VCommand {
         this.setPermission(Permission.ESSENTIALS_TP);
         this.setDescription(Message.DESCRIPTION_TP);
         this.addRequirePlayerNameArg();
+        this.addOptionalArg("x");
+        this.addOptionalArg("y");
+        this.addOptionalArg("z");
         this.onlyPlayers();
     }
 
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
-        Player targetPlayer = this.argAsPlayer(0);
-        this.user.teleportNow(targetPlayer.getLocation());
-        message(this.sender, Message.COMMAND_TP, targetPlayer);
+        if (args.length == 1) {
+
+            Player targetPlayer = this.argAsPlayer(0);
+            this.user.teleportNow(targetPlayer.getLocation());
+            message(this.sender, Message.COMMAND_TP, "%player%", targetPlayer);
+
+        } else if (args.length == 3) {
+
+            int x = this.argAsInteger(0);
+            int y = this.argAsInteger(1);
+            int z = this.argAsInteger(2);
+
+            Location location = player.getLocation();
+            location.set(x, y, z);
+            player.teleport(location);
+            message(this.sender, Message.COMMAND_TP_LOCATION, "%x%", x, "%y%", y, "%z%", z);
+
+        } else if (args.length == 4) {
+
+            String value = this.argAsString(0);
+            int x = this.argAsInteger(1);
+            int y = this.argAsInteger(2);
+            int z = this.argAsInteger(3);
+
+            Location location = player.getLocation();
+            location.set(x, y, z);
+
+            if (value.equalsIgnoreCase("@s")) {
+
+                player.teleport(location);
+                message(this.sender, Message.COMMAND_TP_LOCATION, "%x%", x, "%y%", y, "%z%", z);
+
+            } else {
+
+                Player targetPlayer = this.argAsPlayer(0);
+                targetPlayer.teleport(location);
+                message(this.sender, Message.COMMAND_TP_LOCATION_OTHER, "%x%", x, "%y%", y, "%z%", z, "%player%", targetPlayer.getName());
+
+            }
+        } else return CommandResultType.SYNTAX_ERROR;
+
 
         return CommandResultType.SUCCESS;
     }

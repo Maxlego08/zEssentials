@@ -97,6 +97,8 @@ public enum Message {
     COMMAND_TP_CANCEL_SENDER("<error>Cancelled #99E0FFyour teleport request to %player%."),
     COMMAND_TP_CANCEL_RECEIVER("&f%player% <error>cancelled their teleport request to you."),
     COMMAND_TP("&7You just teleport to the player #34cfe0%player%&f."),
+    COMMAND_TP_LOCATION("&7You just teleport to #34cfe0%x%&f, #34cfe0%y%&f, #34cfe0%z%&f."),
+    COMMAND_TP_LOCATION_OTHER("&7You just teleport #34cfe0%player% &fto #34cfe0%x%&f, #34cfe0%y%&f, #34cfe0%z%&f."),
     COMMAND_TP_ALL("&7You just teleported all the players onto you."),
     COMMAND_TP_SELF("&7You just teleported #34cfe0%player%&7 to your position."),
     COMMAND_BACK("&7Returning to previous location."),

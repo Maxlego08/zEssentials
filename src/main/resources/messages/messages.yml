@@ -187,6 +187,8 @@ command-tp-cancel-receiver: "&f%player% <error>cancelled their teleport request 
 command-world-teleport-self: "<success>You have just been teleported into the world &f%world%<success>."
 command-world-teleport-other: "<success>You just teleported the player &f%player% <success>in the world &f%world%<success>."
 command-tp: "&7You just teleport to the player #34cfe0%player%&f."
+command-tp-location: "&7You just teleport to #34cfe0%x%&f, #34cfe0%y%&f, #34cfe0%z%&f."
+command-tp-location-other: "&7You just teleport #34cfe0%player% &fto #34cfe0%x%&f, #34cfe0%y%&f, #34cfe0%z%&f."
 command-tp-all: "&7You just teleported all the players onto you."
 command-tp-self: "&7You just teleported #34cfe0%player%&7 to your position."
 command-back: "&7Returning to previous location."

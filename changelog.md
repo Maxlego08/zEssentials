@@ -1,6 +1,7 @@
 # Unreleased
 
 - Change ``AsyncPlayerPreLoginEvent`` to ``PlayerLoginEvent``
+- Change /tp command for adding coordinate. You have now ``/tp <x> <y> <z>`` and ``/tp <player> <x> <y> <z>``
 
 # 1.0.0.2
 
