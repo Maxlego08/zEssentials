@@ -34,9 +34,9 @@ public class CommandTeleport extends VCommand {
 
         } else if (args.length == 3) {
 
-            int x = this.argAsInteger(0);
-            int y = this.argAsInteger(1);
-            int z = this.argAsInteger(2);
+            double x = this.argAsDouble(0);
+            double y = this.argAsDouble(1);
+            double z = this.argAsDouble(2);
 
             Location location = player.getLocation();
             location.set(x, y, z);
@@ -46,9 +46,9 @@ public class CommandTeleport extends VCommand {
         } else if (args.length == 4) {
 
             String value = this.argAsString(0);
-            int x = this.argAsInteger(1);
-            int y = this.argAsInteger(2);
-            int z = this.argAsInteger(3);
+            double x = this.argAsDouble(1);
+            double y = this.argAsDouble(2);
+            double z = this.argAsDouble(3);
 
             Location location = player.getLocation();
             location.set(x, y, z);
