@@ -757,7 +757,6 @@ command-vault-rename-success: "<success>Je hebt de naam van de kluis ingesteld o
 command-vault-rename-error: "<error>Je kunt deze naam niet voor je kluis gebruiken."
 command-vault-rename-reset: "<success>Je hebt de naam van je kluis gereset."
 
-
 command-enchant-invalid: "<error>Je moet een geldige speler opgeven."
 command-enchant-error-enchant: "<error>Kan de betovering &f%name%<error> niet vinden."
 command-enchant-error-item-self: "<error>Je moet een item in je hand hebben."
