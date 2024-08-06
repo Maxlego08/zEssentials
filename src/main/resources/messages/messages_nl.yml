@@ -746,3 +746,12 @@ command-vault-rename-start: "<success>Schrijf de nieuwe naam van de kluis in de 
 command-vault-rename-success: "<success>Je hebt de naam van de kluis ingesteld op &f%name%<success>."
 command-vault-rename-error: "<error>Je kunt deze naam niet gebruiken voor je kluis."
 command-vault-rename-reset: "<success>Je hebt de naam van je kluis gereset."
+
+command-enchant-invalid: "<error>Je moet een geldige speler opgeven."
+command-enchant-error-enchant: "<error>Kan de betovering &f%name%<error> niet vinden."
+command-enchant-error-item-self: "<error>Je moet een item in je hand hebben."
+command-enchant-error-item-player: "<error>%player% heeft geen item in zijn hand."
+command-enchant-remove-self: "<success>De betovering &f%enchant% <success>is verwijderd van je item in de hand."
+command-enchant-remove-player: "<success>De betovering &f%enchant% <success>is verwijderd van het item van &f%player%<success>."
+command-enchant-success-self: "<success>De betovering &f%enchant% <success>is toegepast op je item in de hand."
+command-enchant-success-player: "<success>De betovering &f%enchant% <success>is toegepast op het item van &f%player%<success>."
