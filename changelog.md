@@ -1,7 +1,9 @@
 # Unreleased
 
 - Change ``AsyncPlayerPreLoginEvent`` to ``PlayerLoginEvent``
-- Change /tp command for adding coordinate. You have now ``/tp <x> <y> <z>`` and ``/tp <player> <x> <y> <z>``
+- Change /tp command for adding coordinate. You have now ``/tp <x> <y> <z> <yaw> <pitch>`` and ``/tp <player> <x> <y> <z> <yaw> <pitch>``
+- Fixed various messages in multiple languages
+- Fixed text hologram default text [#25](https://github.com/Maxlego08/zEssentials/issues/25)
 
 # 1.0.0.2
 

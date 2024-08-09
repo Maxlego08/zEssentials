@@ -147,7 +147,7 @@ public class HologramModule extends ZModule implements HologramManager {
         Hologram hologram = this.createHologram(hologramType, hologramConfiguration, name, name, player.getLocation());
 
         if (hologramType == HologramType.TEXT) {
-            hologram.addLine(new ZHologramLine(1, "&fUse #ff9966/holo edit " + name + " &f!"));
+            hologram.addLine(new ZHologramLine(1, "&fUse #ff9966/holo editline " + name + " 1 <your text>&f!"));
         }
 
         hologram.create();
