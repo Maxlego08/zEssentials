@@ -16,6 +16,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.time.Duration;
@@ -58,18 +59,18 @@ public class ZStorageManager extends ZUtils implements StorageManager {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void onLogin(AsyncPlayerPreLoginEvent event) {
+    public void onLogin(PlayerLoginEvent event) {
 
-        AsyncPlayerPreLoginEvent.Result result = event.getLoginResult();
-        if (result != AsyncPlayerPreLoginEvent.Result.ALLOWED) return;
+        PlayerLoginEvent.Result result = event.getResult();
+        if (result != PlayerLoginEvent.Result.ALLOWED) return;
 
-        UUID playerUuid = event.getUniqueId();
-        String playerName = event.getName();
+        UUID playerUuid = event.getPlayer().getUniqueId();
+        String playerName = event.getPlayer().getName();
 
         if (this.iStorage.isBan(playerUuid)) {
             Sanction sanction = this.iStorage.getBan(playerUuid);
             Duration duration = sanction.getDurationRemaining();
-            this.plugin.getUtils().disallow(event, AsyncPlayerPreLoginEvent.Result.KICK_BANNED, Message.MESSAGE_BAN_JOIN, "%reason%", sanction.getReason(), "%remaining%", TimerBuilder.getStringTime(duration.toMillis()));
+            this.plugin.getUtils().disallow(event, PlayerLoginEvent.Result.KICK_BANNED, Message.MESSAGE_BAN_JOIN, "%reason%", sanction.getReason(), "%remaining%", TimerBuilder.getStringTime(duration.toMillis()));
             return;
         }
 

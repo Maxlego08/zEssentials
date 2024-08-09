@@ -10,10 +10,12 @@ import fr.maxlego08.essentials.user.ZHome;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -58,13 +60,13 @@ public class EssentialsXConvert extends ZUtils {
         message(sender, "&aFound &f" + files.length + " &ausers.");
 
         for (File file : files) {
-            loadUser(sqlStorage, file);
+            loadUser(sqlStorage, file, sender);
         }
 
         message(sender, "&aYou have just converted your EssentialsX data to zEssentials !");
     }
 
-    private void loadUser(SqlStorage sqlStorage, File file) {
+    private void loadUser(SqlStorage sqlStorage, File file, CommandSender sender) {
 
         String fileName = file.getName();
         if (!fileName.endsWith(".yml")) return;
@@ -81,11 +83,28 @@ public class EssentialsXConvert extends ZUtils {
 
             this.plugin.getScheduler().runAsync(wrappedTask -> {
 
-                userRepository.upsert(uniqueId, configuration.getString("last-account-name"));
+                String lastName = configuration.getString("last-account-name");
+
+                if (lastName == null) {
+                    plugin.getLogger().warning("Impossible to find the name of " + uniqueId + ", try with offline player");
+                    OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(uniqueId);
+                    if (offlinePlayer.getName() == null) {
+                        plugin.getLogger().warning("Impossible to find the name of " + uniqueId + ", even with an offline player, skip.");
+                        return;
+                    } else {
+                        lastName = offlinePlayer.getName();
+                    }
+                }
+
+                userRepository.upsert(uniqueId, lastName);
                 userEconomyRepository.upsert(uniqueId, plugin.getEconomyManager().getDefaultEconomy(), new BigDecimal(money));
 
                 var homes = parseHomes(configuration);
                 homes.forEach(home -> userHomeRepository.upsert(uniqueId, home));
+
+                if (sender instanceof Player player) {
+                    this.plugin.getComponentMessage().sendActionBar(player, "&fConvert user &7" + uniqueId);
+                }
 
             });
 

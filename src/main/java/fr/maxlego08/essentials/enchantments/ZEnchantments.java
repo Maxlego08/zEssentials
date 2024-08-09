@@ -20,32 +20,31 @@ public class ZEnchantments implements Enchantments {
 
     @Override
     public void register() {
-        this.register(Enchantment.DAMAGE_ALL, "alldamage", "alldmg", "sharpness", "sharp", "dal");
-        this.register(Enchantment.DAMAGE_ARTHROPODS, "ardmg", "baneofarthropods", "baneofarthropod", "arthropod", "dar");
-        this.register(Enchantment.DAMAGE_UNDEAD, "undeaddamage", "smite", "du");
-        this.register(Enchantment.DIG_SPEED, "digspeed", "efficiency", "minespeed", "cutspeed", "ds", "eff");
-        this.register(Enchantment.DURABILITY, "durability", "dura", "unbreaking", "d");
+        this.register(valueOf("DAMAGE_ALL", "SHARPNESS"), "alldamage", "alldmg", "sharpness", "sharp", "dal");
+        this.register(valueOf("DAMAGE_ARTHROPODS", "BANE_OF_ARTHROPODS"), "ardmg", "baneofarthropods", "baneofarthropod", "arthropod", "dar");
+        this.register(valueOf("DAMAGE_UNDEAD", "SMITE"), "undeaddamage", "smite", "du");
+        this.register(valueOf("DIG_SPEED", "EFFICIENCY"), "digspeed", "efficiency", "minespeed", "cutspeed", "ds", "eff");
+        this.register(valueOf("DURABILITY", "UNBREAKING"), "durability", "dura", "unbreaking", "d");
         this.register(Enchantment.THORNS, "thorns", "highcrit", "thorn", "highercrit", "t");
         this.register(Enchantment.FIRE_ASPECT, "fireaspect", "fire", "meleefire", "meleeflame", "fa");
         this.register(Enchantment.KNOCKBACK, "knockback", "kback", "kb", "k");
-        this.register(Enchantment.LOOT_BONUS_BLOCKS, "blockslootbonus", "fortune", "fort", "lbb");
-        this.register(Enchantment.LOOT_BONUS_MOBS, "mobslootbonus", "mobloot", "looting", "lbm");
-        this.register(Enchantment.OXYGEN, "oxygen", "respiration", "breathing", "breath", "o");
-        this.register(Enchantment.PROTECTION_ENVIRONMENTAL, "protection", "prot", "protect", "p");
-        this.register(Enchantment.PROTECTION_EXPLOSIONS, "explosionsprotection", "explosionprotection", "expprot", "blastprotection", "bprotection", "bprotect", "blastprotect", "pe");
-        this.register(Enchantment.PROTECTION_FALL, "fallprotection", "fallprot", "featherfall", "featherfalling", "pfa");
-        this.register(Enchantment.PROTECTION_FIRE, "fireprotection", "flameprotection", "fireprotect", "flameprotect", "fireprot", "flameprot", "pf");
-        this.register(Enchantment.PROTECTION_PROJECTILE, "projectileprotection", "projprot", "pp");
+        this.register(valueOf("LOOT_BONUS_BLOCKS", "FORTUNE"), "blockslootbonus", "fortune", "fort", "lbb");
+        this.register(valueOf("LOOT_BONUS_MOBS", "LOOTING"), "mobslootbonus", "mobloot", "looting", "lbm");
+        this.register(valueOf("OXYGEN", "RESPIRATION"), "oxygen", "respiration", "breathing", "breath", "o");
+        this.register(valueOf("PROTECTION_ENVIRONMENTAL", "PROTECTION"), "protection", "prot", "protect", "p");
+        this.register(valueOf("PROTECTION_EXPLOSIONS", "BLAST_PROTECTION"), "explosionsprotection", "explosionprotection", "expprot", "blastprotection", "bprotection", "bprotect", "blastprotect", "pe");
+        this.register(valueOf("PROTECTION_FALL", "FEATHER_FALLING"), "fallprotection", "fallprot", "featherfall", "featherfalling", "pfa");
+        this.register(valueOf("PROTECTION_FIRE", "FIRE_PROTECTION"), "fireprotection", "flameprotection", "fireprotect", "flameprotect", "fireprot", "flameprot", "pf");
+        this.register(valueOf("PROTECTION_PROJECTILE", "PROJECTILE_PROTECTION"), "projectileprotection", "projprot", "pp");
         this.register(Enchantment.SILK_TOUCH, "silktouch", "softtouch", "st");
-        this.register(Enchantment.WATER_WORKER, "waterworker", "aquaaffinity", "watermine", "ww");
-        this.register(Enchantment.ARROW_FIRE, "firearrow", "flame", "flamearrow", "af");
-        this.register(Enchantment.ARROW_DAMAGE, "arrowdamage", "power", "arrowpower", "ad");
-        this.register(Enchantment.ARROW_KNOCKBACK, "arrowknockback", "arrowkb", "punch", "arrowpunch", "ak");
-        this.register(Enchantment.ARROW_INFINITE, "infinitearrows", "infarrows", "infinity", "infinite", "unlimited", "unlimitedarrows", "ai");
-        this.register(Enchantment.LUCK, "luck", "luckofsea", "luckofseas", "rodluck");
+        this.register(valueOf("WATER_WORKER", "AQUA_AFFINITY"), "waterworker", "aquaaffinity", "watermine", "ww");
+        this.register(valueOf("ARROW_FIRE", "FLAME"), "firearrow", "flame", "flamearrow", "af");
+        this.register(valueOf("ARROW_DAMAGE", "POWER"), "arrowdamage", "power", "arrowpower", "ad");
+        this.register(valueOf("ARROW_KNOCKBACK", "PUNCH"), "arrowknockback", "arrowkb", "punch", "arrowpunch", "ak");
+        this.register(valueOf("ARROW_INFINITE", "INFINITY"), "infinitearrows", "infarrows", "infinity", "infinite", "unlimited", "unlimitedarrows", "ai");
+        this.register(valueOf("LUCK", "LUCK_OF_THE_SEA"), "luck", "luckofsea", "luckofseas", "rodluck");
         this.register(Enchantment.LURE, "lure", "rodlure");
         this.register(Enchantment.DEPTH_STRIDER, "depthstrider", "depth", "strider");
-
         this.register(Enchantment.FROST_WALKER, "frostwalker", "frost", "walker");
         this.register(Enchantment.MENDING, "mending");
         this.register(Enchantment.BINDING_CURSE, "bindingcurse", "bindcurse", "binding", "bind");
@@ -77,5 +76,18 @@ public class ZEnchantments implements Enchantments {
     @Override
     public List<String> getEnchantments() {
         return this.essentialsEnchantments.stream().map(EssentialsEnchantment::aliases).flatMap(List::stream).toList();
+    }
+
+    private Enchantment valueOf(String... names) {
+        for (final String name : names) {
+            try {
+                Enchantment value = (Enchantment) Enchantment.class.getDeclaredField(name).get(null);
+                if (value != null) {
+                    return value;
+                }
+            } catch (NoSuchFieldException | IllegalAccessException ignored) {
+            }
+        }
+        return null;
     }
 }

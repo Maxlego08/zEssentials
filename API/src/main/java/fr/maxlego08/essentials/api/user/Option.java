@@ -32,4 +32,5 @@ public enum Option {
     PAY_DISABLE,
     POWER_TOOLS_DISABLE,
     DISABLE_SCOREBOARD,
+    NIGHT_VISION,
 }

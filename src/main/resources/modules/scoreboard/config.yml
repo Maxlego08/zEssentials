@@ -21,7 +21,7 @@ join-conditions:
     scoreboard: default
   - priority: 1
     scoreboard: admin
-    # For requirements please use zMenu: https://docs.zmenu.dev/configurations/buttons/requirements
+    # For requirements, please use zMenu: https://docs.zmenu.dev/configurations/buttons/requirements
     requirements:
       - type: permission
         permission: "zessentials.scoreboard.admin"
@@ -32,10 +32,10 @@ enable-task-conditions: false
 # The second interval for conditions
 task-conditions-interval: 2
 
-# Conditions that will be checked all x seconds to change scoreboard
+# Conditions that will be checked all x seconds to change the scoreboard
 task-conditions:
   - scoreboard: event
-    # For requirements please use zMenu: https://docs.zmenu.dev/configurations/buttons/requirements
+    # For requirements, please use zMenu: https://docs.zmenu.dev/configurations/buttons/requirements
     requirements:
       - type: placeholder
         placeholder: "%player_world%"

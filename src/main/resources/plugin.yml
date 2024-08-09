@@ -11,4 +11,5 @@ softdepend:
   - Vault
   - ProtocolLib
   - SuperiorSkyblock2
+  - BentoBox
 api-version: '1.20'

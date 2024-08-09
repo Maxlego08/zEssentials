@@ -8,6 +8,7 @@ import fr.maxlego08.essentials.zutils.utils.BaseServer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
 
 public class SpigotUtils extends BaseServer {
 
@@ -22,7 +23,7 @@ public class SpigotUtils extends BaseServer {
     }
 
     @Override
-    public void disallow(AsyncPlayerPreLoginEvent event, AsyncPlayerPreLoginEvent.Result result, Message message, Object... objects) {
+    public void disallow(PlayerLoginEvent event, PlayerLoginEvent.Result result, Message message, Object... objects) {
         event.disallow(result, getMessage(message, objects));
     }
 
