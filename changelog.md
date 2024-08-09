@@ -4,6 +4,7 @@
 - Change /tp command for adding coordinate. You have now ``/tp <x> <y> <z> <yaw> <pitch>`` and ``/tp <player> <x> <y> <z> <yaw> <pitch>``
 - Fixed various messages in multiple languages
 - Fixed text hologram default text [#25](https://github.com/Maxlego08/zEssentials/issues/25)
+- Added command ``/nightvision`` (`/nv`), Provides a night vision effect
 
 # 1.0.0.2
 
