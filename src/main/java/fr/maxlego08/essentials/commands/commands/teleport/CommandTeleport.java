@@ -20,6 +20,8 @@ public class CommandTeleport extends VCommand {
         this.addOptionalArg("x");
         this.addOptionalArg("y");
         this.addOptionalArg("z");
+        this.addOptionalArg("yaw");
+        this.addOptionalArg("pitch");
         this.onlyPlayers();
     }
 
@@ -27,47 +29,72 @@ public class CommandTeleport extends VCommand {
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
         if (args.length == 1) {
-
             Player targetPlayer = this.argAsPlayer(0);
             this.user.teleportNow(targetPlayer.getLocation());
             message(this.sender, Message.COMMAND_TP, "%player%", targetPlayer);
-
-        } else if (args.length == 3) {
-
-            double x = this.argAsDouble(0);
-            double y = this.argAsDouble(1);
-            double z = this.argAsDouble(2);
-
-            Location location = player.getLocation();
-            location.set(x, y, z);
-            player.teleport(location);
-            message(this.sender, Message.COMMAND_TP_LOCATION, "%x%", x, "%y%", y, "%z%", z);
-
-        } else if (args.length == 4) {
-
+        } else {
             String value = this.argAsString(0);
-            double x = this.argAsDouble(1);
-            double y = this.argAsDouble(2);
-            double z = this.argAsDouble(3);
-
             Location location = player.getLocation();
-            location.set(x, y, z);
+            float yaw, pitch;
 
-            if (value.equalsIgnoreCase("@s")) {
+            if (isNumeric(value)) {
 
-                player.teleport(location);
+                double x = this.argAsDouble(0);
+                double y = this.argAsDouble(1);
+                double z = this.argAsDouble(2);
+                yaw = (float) this.argAsDouble(3, location.getYaw());
+                pitch = (float) this.argAsDouble(4, location.getPitch());
+
+                location.set(x, y, z);
+                location.setYaw(yaw);
+                location.setPitch(pitch);
+
+                this.plugin.getScheduler().teleportAsync(player, location);
                 message(this.sender, Message.COMMAND_TP_LOCATION, "%x%", x, "%y%", y, "%z%", z);
-
             } else {
 
-                Player targetPlayer = this.argAsPlayer(0);
-                targetPlayer.teleport(location);
-                message(this.sender, Message.COMMAND_TP_LOCATION_OTHER, "%x%", x, "%y%", y, "%z%", z, "%player%", targetPlayer.getName());
+                double x = this.argAsDouble(1);
+                double y = this.argAsDouble(2);
+                double z = this.argAsDouble(3);
 
+                location.set(x, y, z);
+
+                if (value.equalsIgnoreCase("@s")) {
+
+                    yaw = (float) this.argAsDouble(4, player.getLocation().getYaw());
+                    pitch = (float) this.argAsDouble(5, player.getLocation().getPitch());
+
+                    location.setYaw(yaw);
+                    location.setPitch(pitch);
+                    this.plugin.getScheduler().teleportAsync(player, location);
+
+                    message(this.sender, Message.COMMAND_TP_LOCATION, "%x%", x, "%y%", y, "%z%", z);
+                } else {
+
+                    Player targetPlayer = this.argAsPlayer(0);
+
+                    yaw = (float) this.argAsDouble(4, targetPlayer.getLocation().getYaw());
+                    pitch = (float) this.argAsDouble(5, targetPlayer.getLocation().getPitch());
+
+                    location.setYaw(yaw);
+                    location.setPitch(pitch);
+                    this.plugin.getScheduler().teleportAsync(targetPlayer, location);
+
+                    message(this.sender, Message.COMMAND_TP_LOCATION_OTHER, "%x%", x, "%y%", y, "%z%", z, "%player%", targetPlayer.getName());
+                }
             }
-        } else return CommandResultType.SYNTAX_ERROR;
-
+        }
 
         return CommandResultType.SUCCESS;
+    }
+
+    private boolean isNumeric(String strNum) {
+        if (strNum == null) return false;
+        try {
+            double d = Double.parseDouble(strNum);
+        } catch (NumberFormatException ignored) {
+            return false;
+        }
+        return true;
     }
 }
