@@ -9,6 +9,7 @@ import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.DynamicCooldown;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
+import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
@@ -22,10 +23,14 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.Optional;
 
@@ -146,7 +151,7 @@ public class PlayerListener extends ZUtils implements Listener {
         this.plugin.getStorageManager().getStorage().insertPlayTime(user.getUniqueId(), sessionPlayTime, playtime, user.getAddress());
     }
 
-    @EventHandler()
+    @EventHandler
     public void onInteract(PlayerInteractEvent event) {
 
         ItemStack itemStack = event.getPlayer().getInventory().getItemInMainHand();
@@ -161,4 +166,27 @@ public class PlayerListener extends ZUtils implements Listener {
         event.setCancelled(event.getPlayer().performCommand(command));
     }
 
+    @EventHandler
+    public void onInteract(PlayerItemConsumeEvent event) {
+
+        if (event.isCancelled()) return;
+
+        var player = event.getPlayer();
+        User user = this.plugin.getUser(player.getUniqueId());
+
+        if (user != null && user.getOption(Option.NIGHT_VISION) && event.getItem().getType() == Material.MILK_BUCKET) {
+            this.plugin.getScheduler().runAtEntityLater(player, () -> player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1, false, false, false)), 1);
+        }
+    }
+
+    @EventHandler
+    public void onRespawn(PlayerRespawnEvent event) {
+
+        var player = event.getPlayer();
+        User user = this.plugin.getUser(player.getUniqueId());
+
+        if (user != null && user.getOption(Option.NIGHT_VISION)) {
+            this.plugin.getScheduler().runAtEntityLater(player, () -> player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1, false, false, false)), 1);
+        }
+    }
 }

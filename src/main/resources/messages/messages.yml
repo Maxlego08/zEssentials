@@ -68,6 +68,8 @@ command-speed-walk: "&7You have just set your &nwalk&r&7 speed to &f%speed%&7 fo
 command-speed-error: "<error>You must enter a number between &60<error> and &610<error>. &8(&f2 &7by default&8)"
 command-god-enable: "&7God mode <success>enable &7for &f%player%<success>."
 command-god-disable: "&7God mode <error>disable &7for &f%player%<success>."
+command-night-vision-enable: "&7Night vision <success>enable &7for &f%player%<success>."
+command-night-vision-disable: "&7Night vision <error>disable &7for &f%player%<success>."
 command-heal-sender: "&7You just healed the player &f%player%&7."
 command-heal-receiver: "<success>You have been healed."
 command-heal-error: "<error>You cannot heal someone who is dead !"
@@ -361,10 +363,12 @@ description-vote-set: "Set the number of votes for a player"
 description-vote-add: "Add votes to a player"
 description-vote-remove: "Remove votes from a player"
 description-enchant: "Add enchant to an item"
+description-night-vision: "Enable or disable night vision"
 
 
 # Time format
 format-second: "second"
+format-seconds: "seconds"
 format-seconds: "seconds"
 format-minute: "minute"
 format-minutes: "minutes"

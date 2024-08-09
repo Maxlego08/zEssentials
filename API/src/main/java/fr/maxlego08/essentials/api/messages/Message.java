@@ -66,6 +66,8 @@ public enum Message {
     COMMAND_FLY_DISABLE("&7Flight mode <error>disable &7for &f%player%<success>."),
     COMMAND_GOD_ENABLE("&7God mode <success>enable &7for &f%player%<success>."),
     COMMAND_GOD_DISABLE("&7God mode <error>disable &7for &f%player%<success>."),
+    COMMAND_NIGHT_VISON_ENABLE("&7Night vision <success>enable &7for &f%player%<success>."),
+    COMMAND_NIGHT_VISON_DISABLE("&7Night vision <error>disable &7for &f%player%<success>."),
     COMMAND_HEAL_SENDER("&7You just healed the player &f%player%&7."),
     COMMAND_HEAL_RECEIVER("<success>You have been healed."),
     COMMAND_HEAL_ERROR("<error>You cannot heal someone who is dead !"),
@@ -267,6 +269,7 @@ public enum Message {
     DESCRIPTION_VOTE_ADD("Add votes to a player"),
     DESCRIPTION_VOTE_REMOVE("Remove votes from a player"),
     DESCRIPTION_ENCHANT("Add enchant to an item"),
+    DESCRIPTION_NIGHT_VISION("Enable or disable night vision"),
 
 
     YOU("you"),

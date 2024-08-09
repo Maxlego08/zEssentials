@@ -64,6 +64,8 @@ command-speed-walk: "&7Vous venez de définir votre vitesse de &nmarche&r&7 sur 
 command-speed-error: "<error>Vous devez entrer un nombre entre &60<error> et &610<error>. &8(&f2 &7par défaut&8)"
 command-god-enable: "&7Mode divin <success>activé &7pour &f%player%<success>."
 command-god-disable: "&7Mode divin <error>désactivé &7pour &f%player%<success>."
+command-night-vision-enable: "&7Vision nocturne <success>activé &7pour &f%player%<success>."
+command-night-vision-disable: "&7Vision nocturne <error>désactivé &7pour &f%player%<success>."
 command-heal-sender: "&7Vous venez de soigner le joueur &f%player%&7."
 command-heal-receiver: "<success>Vous avez été soigné."
 command-heal-error: "<error>Vous ne pouvez pas soigner quelqu'un qui est mort !"
@@ -355,6 +357,8 @@ description-vote-set: "Définir le nombre de votes pour un joueur"
 description-vote-add: "Ajouter des votes à un joueur"
 description-vote-remove: "Retirer des votes d'un joueur"
 description-enchant: "Ajouter un enchantement à un objet"
+description-night-vision: "Activer ou désactiver la vision nocturne"
+
 
 # Format de l'heure
 format-second: "seconde"
