@@ -1,5 +1,7 @@
 # Unreleased
 
+# 1.0.0.3
+
 - Change ``AsyncPlayerPreLoginEvent`` to ``PlayerLoginEvent``
 - Change /tp command for adding coordinate. You have now ``/tp <x> <y> <z> <yaw> <pitch>`` and ``/tp <player> <x> <y> <z> <yaw> <pitch>``
 - Fixed various messages in multiple languages
