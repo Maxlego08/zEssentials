@@ -101,8 +101,8 @@ command-near-empty: "<error>Er is geen speler in de buurt van jou."
 command-near-player: "&fSpelers in de buurt van jou&7:%players%"
 command-near-info: " &7%player% &8(&e%distance%m&8)"
 command-play-time:
-  - "&7Speeltijd&8: <primary>%playtime%"
-  - "&7Huidige sessie&8: <primary>%playtime_session%"
+  - "&7Totale Speeltijd&8: <primary>%playtime%"
+  - "&7Huidige Sessie&8: <primary>%playtime_session%"
 command-bottom: "&7Je bent zojuist naar de &ebodem&7 geteleporteerd."
 command-bottom-error: "<error>Kan geen veilige positie vinden om je naartoe te transporteren."
 command-remove: "&7Verwijderd <success>%amount% &7entiteiten."
@@ -187,6 +187,8 @@ command-tp-cancel-receiver: "&f%player% <error>heeft hun teleportatieverzoek naa
 command-world-teleport-self: "<success>Je bent zojuist geteleporteerd naar de wereld &f%world%<success>."
 command-world-teleport-other: "<success>Je hebt de speler &f%player% <success>geteleporteerd naar de wereld &f%world%<success>."
 command-tp: "&7Je bent zojuist geteleporteerd naar de speler #34cfe0%player%&f."
+command-tp-location: "&7Je bent zojuist geteleporteerd naar #34cfe0%x%&f, #34cfe0%y%&f, #34cfe0%z%&f."
+command-tp-location-other: "&7Je hebt zojuist #34cfe0%player% &fgeteleporteerd naar #34cfe0%x%&f, #34cfe0%y%&f, #34cfe0%z%&f."
 command-tp-all: "&7Je hebt zojuist alle spelers naar jou geteleporteerd."
 command-tp-self: "&7Je hebt zojuist #34cfe0%player%&7 naar jouw positie geteleporteerd."
 command-back: "&7Terugkeren naar de vorige locatie."
@@ -269,9 +271,9 @@ description-warp-use: "Teleporteren naar een warp"
 description-warp-del: "Verwijder een warp"
 description-warp-list: "Toon de warp-lijst"
 description-tp-random: "Random teleporteren in de wereld"
-description-set-home: "Maak een thuislocatie aan"
-description-del-home: "Verwijder een thuislocatie"
-description-home: "Teleporteren naar een thuislocatie"
+description-set-home: "Maak een home aan"
+description-del-home: "Verwijder een home"
+description-home: "Teleporteer naar een home"
 description-kick: "Kick een speler"
 description-kick-all: "Kick alle spelers"
 description-kitty-cannon: "Schiet een kitten af, waarom zou je dat willen? monster"
@@ -320,7 +322,7 @@ description-power-tools: "Voeg commando's toe aan je items"
 description-pay-toggle: "Activeer of deactiveer het ontvangen van geld"
 description-power-tools-toggle: "Schakel power tools in of uit"
 description-kit-show: "Toon een kit"
-description-mail: "Open de mailbox"
+description-mail: "Open je mailbox"
 description-rules: "Lees serverregels"
 description-hologram: "Toon hologram-commando's"
 description-hologram-create: "Maak een hologram aan"
@@ -381,37 +383,37 @@ teleport-error-location: "<error>Niet mogelijk om je veilig te teleporteren."
 
 teleport-message:
   type: ACTION
-  message: "&7Teleporteren in #0EEA93%seconds% &7seconden, je mag niet bewegen."
+  message: "&7Teleporteren in #0EEA93%seconds% &7seconden. Niet bewegen!"
 teleport-success:
   type: ACTION
   message: "#99E0FFJe hebt succesvol geteleporteerd!"
 
 teleport-message-spawn:
-  - message: "&7Teleporteren in #0EEA93%seconds% &7seconden, je mag niet bewegen."
+  - message: "&7Teleporteren in #0EEA93%seconds% &7seconden. Niet bewegen!"
   - type: ACTION
-    message: "&7Teleporteren in #0EEA93%seconds% &7seconden, je mag niet bewegen."
+    message: "&7Teleporteren in #0EEA93%seconds% &7seconden. Niet bewegen!"
 teleport-success-spawn:
   - message: "&7Je bent net geteleporteerd naar #0EEA93spawn &7!"
   - type: ACTION
     message: "&7Je bent net geteleporteerd naar #0EEA93spawn &7!"
 teleport-message-warp:
-  - message: "&7Teleporteren in #0EEA93%seconds% &7seconden, je mag niet bewegen."
+  - message: "&7Teleporteren in #0EEA93%seconds% &7seconden. Niet bewegen!"
   - type: ACTION
-    message: "&7Teleporteren in #0EEA93%seconds% &7seconden, je mag niet bewegen."
+    message: "&7Teleporteren in #0EEA93%seconds% &7seconden. Niet bewegen!"
 teleport-success-warp:
   - message: "&7Je bent net geteleporteerd naar warp #0EEA93%name% &7!"
   - type: ACTION
     message: "&7Je bent net geteleporteerd naar warp #0EEA93%name% &7!"
 teleport-message-random:
   type: ACTION
-  message: "&7Teleporteren in #0EEA93%seconds% &7seconden, je mag niet bewegen."
+  message: "&7Teleporteren in #0EEA93%seconds% &7seconden. Niet bewegen!"
 teleport-success-random:
   type: ACTION
   message: "#99E0FFJe hebt succesvol geteleporteerd!"
 teleport-message-home:
-  - message: "&7Teleporteren in #0EEA93%seconds% &7seconden, je mag niet bewegen."
+  - message: "&7Teleporteren in #0EEA93%seconds% &7seconden. Niet bewegen!"
   - type: ACTION
-    message: "&7Teleporteren in #0EEA93%seconds% &7seconden, je mag niet bewegen."
+    message: "&7Teleporteren in #0EEA93%seconds% &7seconden. Niet bewegen!"
 teleport-success-home:
   - message: "&7Je bent net geteleporteerd naar home #0EEA93%name% &7!"
   - type: ACTION
@@ -756,6 +758,7 @@ command-vault-rename-start: "<success>Schrijf in de chat de nieuwe naam van de k
 command-vault-rename-success: "<success>Je hebt de naam van de kluis ingesteld op &f%name%<success>."
 command-vault-rename-error: "<error>Je kunt deze naam niet voor je kluis gebruiken."
 command-vault-rename-reset: "<success>Je hebt de naam van je kluis gereset."
+
 
 command-enchant-invalid: "<error>Je moet een geldige speler opgeven."
 command-enchant-error-enchant: "<error>Kan de betovering &f%name%<error> niet vinden."
