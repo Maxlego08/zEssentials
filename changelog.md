@@ -1,5 +1,9 @@
 # Unreleased
 
+- Added the command `/ess convert PlauerVaultX`, allows converting the database from PlayerVaultX to zEssentials.
+- Added the command `/ess convert Sunlight`, allows converting the database from Sunlight to zEssentials.
+- Items in player vault will be displayed as a single item.
+
 # 1.0.0.3
 
 - Change ``AsyncPlayerPreLoginEvent`` to ``PlayerLoginEvent``

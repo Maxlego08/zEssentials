@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.convert.sunlight;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.convert.Convert;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.storage.database.repositeries.UserHomeRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserRepository;
@@ -15,7 +16,7 @@ import org.bukkit.command.CommandSender;
 import java.io.File;
 import java.util.List;
 
-public class SunlightConvert extends ZUtils {
+public class SunlightConvert extends ZUtils implements Convert {
 
     private final EssentialsPlugin plugin;
 
@@ -23,6 +24,7 @@ public class SunlightConvert extends ZUtils {
         this.plugin = plugin;
     }
 
+    @Override
     public void convert(CommandSender sender) {
 
         message(sender, "&fStart convert &7Sunlight");

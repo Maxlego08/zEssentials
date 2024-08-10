@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.convert.essentialsx;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.convert.Convert;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.storage.database.repositeries.UserEconomyRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserHomeRepository;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class EssentialsXConvert extends ZUtils {
+public class EssentialsXConvert extends ZUtils implements Convert {
 
     private final EssentialsPlugin plugin;
 
@@ -31,6 +32,7 @@ public class EssentialsXConvert extends ZUtils {
         this.plugin = plugin;
     }
 
+    @Override
     public void convert(CommandSender sender) {
 
         message(sender, "&fStart convert &7EssentialX");

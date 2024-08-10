@@ -38,6 +38,7 @@ public class ZVaultItem implements VaultItem {
 
     public ItemStack getDisplayItemStack(ComponentMessage componentMessage) {
         ItemStack itemStack = this.itemStack.clone();
+        itemStack.setAmount(1);
 
         if (componentMessage instanceof AdventureComponent adventureComponent) {
 

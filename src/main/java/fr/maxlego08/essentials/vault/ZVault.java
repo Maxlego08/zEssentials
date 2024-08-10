@@ -91,4 +91,9 @@ public class ZVault extends ZUtils implements Vault {
     public int getNextSlot() {
         return IntStream.range(0, 45).filter(i -> !this.vaultItems.containsKey(i)).findFirst().orElse(-1);
     }
+
+    @Override
+    public boolean hasFreeSlot() {
+        return getNextSlot() != -1;
+    }
 }

@@ -26,4 +26,6 @@ public interface PlayerVaults {
     Vault getVault(int vaultId);
 
     Optional<Vault> find(ItemStack currentItem);
+
+    Vault firstAvailableVault();
 }

@@ -65,6 +65,17 @@ public class ZPlayerVaults extends ZUtils implements PlayerVaults {
 
     @Override
     public Optional<Vault> find(ItemStack currentItem) {
-        return this.vaults.values().stream().filter(vault -> vault.contains(currentItem)).map(e -> e).findFirst();
+        return this.vaults.values().stream().filter(vault -> vault.contains(currentItem)).findFirst();
+    }
+
+    @Override
+    public Vault firstAvailableVault() {
+        if (this.vaults.isEmpty()) return getVault(1);
+        var optional = this.vaults.values().stream().filter(Vault::hasFreeSlot).findFirst();
+        if (optional.isEmpty()) {
+            int nextId = this.vaults.values().stream().map(Vault::getVaultId).sorted().findFirst().orElse(0) + 1;
+            return getVault(nextId);
+        }
+        return optional.get();
     }
 }
