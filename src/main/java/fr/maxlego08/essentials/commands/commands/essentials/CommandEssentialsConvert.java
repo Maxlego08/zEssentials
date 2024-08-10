@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.convert.cmi.CMIConvert;
 import fr.maxlego08.essentials.convert.essentialsx.EssentialsXConvert;
+import fr.maxlego08.essentials.convert.sunlight.SunlightConvert;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 
 import java.util.Arrays;
@@ -34,6 +35,14 @@ public class CommandEssentialsConvert extends VCommand {
 
             EssentialsXConvert essentialsXConvert = new EssentialsXConvert(plugin);
             essentialsXConvert.convert(sender);
+
+            return CommandResultType.SUCCESS;
+        }
+
+        if (pluginName.equalsIgnoreCase("SunLight")) {
+
+            SunlightConvert sunlightConvert = new SunlightConvert(plugin);
+            sunlightConvert.convert(sender);
 
             return CommandResultType.SUCCESS;
         }
