@@ -1,13 +1,11 @@
-# zEssentials
+![info.png](https://img.groupez.dev/zessentials/zess-info.png)
 
-zEssentials takes the concept of the Essentials plugin but thought to be used with Folia and Paper.
+# Links
 
-
-# Migrate from EssentialsX
-
-To migrate to EssentialsX you have a Python script: https://gist.github.com/modpotato/00302926c81dfff5e1b4e3b12099d0c5
-This script is not official, but until a formal option it will be enough
-
+* Spigot: https://www.spigotmc.org/resources/118014/
+* GroupeZ: https://groupez.dev/resources/325
+* BuiltByBit: https://builtbybit.com/resources/46047/
+* Documentation: https://zessentials.groupez.dev/
 
 # ToDo
 
@@ -15,7 +13,6 @@ This script is not official, but until a formal option it will be enough
 - [ ] Command /tpaall
 - [ ] Command /tpahere
 - [ ] Command /list
-- [ ] Command /enchant
 - [ ] Command /ci
 - [ ] Command /itemdb
 - [ ] Command /exp give, set, show
