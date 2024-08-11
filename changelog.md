@@ -1,5 +1,7 @@
 # Unreleased
 
+- Added the command `/ess convert HuskHomes`, allows converting the database from HuskHomes to zEssentials.
+- 
 # 1.0.0.4
 
 - Added the command `/ess convert PlauerVaultX`, allows converting the database from PlayerVaultX to zEssentials.
