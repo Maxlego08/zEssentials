@@ -78,6 +78,7 @@ import fr.maxlego08.essentials.commands.commands.utils.CommandPlayTime;
 import fr.maxlego08.essentials.commands.commands.utils.CommandRepair;
 import fr.maxlego08.essentials.commands.commands.utils.CommandRepairAll;
 import fr.maxlego08.essentials.commands.commands.utils.CommandRules;
+import fr.maxlego08.essentials.commands.commands.utils.CommandSudo;
 import fr.maxlego08.essentials.commands.commands.utils.CommandTrash;
 import fr.maxlego08.essentials.commands.commands.utils.CommandVersion;
 import fr.maxlego08.essentials.commands.commands.utils.admins.CommandEnchant;
@@ -227,6 +228,7 @@ public class CommandLoader {
         register("seenip", CommandSeenIp.class, "whoisip");
         register("enchant", CommandEnchant.class, "enchantment");
         register("nightvision", CommandNightVision.class, "nv");
+        register("sudo", CommandSudo.class, "su");
 
         register("kit", CommandKit.class, "kits");
         register("showkit", CommandShowKit.class);

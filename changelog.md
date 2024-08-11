@@ -20,6 +20,8 @@ economies:
   - name: money
     display-name: Money
 ````
+- Fixed permissions for night vision and vault commands
+- Added command ``/sudo`` [#36](https://github.com/Maxlego08/zEssentials/issues/36)
 
 # 1.0.0.3
 

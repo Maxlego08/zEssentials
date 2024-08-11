@@ -270,6 +270,7 @@ public enum Message {
     DESCRIPTION_VOTE_REMOVE("Remove votes from a player"),
     DESCRIPTION_ENCHANT("Add enchant to an item"),
     DESCRIPTION_NIGHT_VISION("Enable or disable night vision"),
+    DESCRIPTION_SUDO("Force a player to execute a command"),
 
 
     YOU("you"),
@@ -681,6 +682,10 @@ public enum Message {
     COMMAND_ENCHANT_REMOVE_PLAYER("<success>The enchantment &f%enchant% <success>has been removed from the item from &f%player%’s<succes> hand."),
     COMMAND_ENCHANT_SUCCESS_SELF("<success>The enchantment &f%enchant% <success>has been applied to your item in hand."),
     COMMAND_ENCHANT_SUCCESS_PLAYER("<success>The enchantment &f%enchant% <success>has been applied to the item from &f%player%’s<succes> hand."),
+
+    COMMAND_SUDO_ERROR("<error>You cannot force the player to execute commands."),
+    COMMAND_SUDO_COMMAND("<success>You just forced the player <white>%player% <success>to execute the command <white>%command%<success>."),
+    COMMAND_SUDO_MESSAGE("<success>You just forced the player <white>%player% <success>to send the message <white>%message%<success>."),
 
     ;
 

@@ -14,7 +14,7 @@ public class CommandVaultAddSlot extends VCommand {
     public CommandVaultAddSlot(EssentialsPlugin plugin) {
         super(plugin);
         this.setModule(VaultModule.class);
-        this.setPermission(Permission.VAULT_ADD_SLOT);
+        this.setPermission(Permission.ESSENTIALS_VAULT_ADD_SLOT);
         this.addSubCommand("add");
         this.addRequireOfflinePlayerNameArg();
         this.addRequireArg("slot", (a, b) -> IntStream.range(1, 100).mapToObj(String::valueOf).toList());

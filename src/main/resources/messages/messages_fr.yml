@@ -358,6 +358,7 @@ description-vote-add: "Ajouter des votes à un joueur"
 description-vote-remove: "Retirer des votes d'un joueur"
 description-enchant: "Ajouter un enchantement à un objet"
 description-night-vision: "Activer ou désactiver la vision nocturne"
+description-sudo: "Forcer un joueur à exécuter une commande"
 
 
 # Format de l'heure
@@ -748,3 +749,7 @@ command-enchant-remove-self: "<success>L'enchantement &f%enchant% <success>a ét
 command-enchant-remove-player: "<success>L'enchantement &f%enchant% <success>a été retiré de l'objet de la main de &f%player%<success>."
 command-enchant-success-self: "<success>L'enchantement &f%enchant% <success>a été appliqué à votre objet en main."
 command-enchant-success-player: "<success>L'enchantement &f%enchant% <success>a été appliqué à l'objet de la main de &f%player%<success>."
+
+command-sudo-error: "<error>Vous ne pouvez pas forcer le joueur à exécuter des commandes."
+command-sudo-command: "<success>Vous venez de forcer le joueur <white>%player% <success>à exécuter la commande <white>/%command%<success>."
+command-sudo-message: "<success>Vous venez de forcer le joueur <white>%player% <success>à envoyer le message <white>%message%<success>."

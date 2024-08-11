@@ -15,7 +15,7 @@ import org.bukkit.potion.PotionEffectType;
 public class CommandNightVision extends VCommand {
     public CommandNightVision(EssentialsPlugin plugin) {
         super(plugin);
-        this.setPermission(Permission.ESSENTIALS_NIGHTVISON);
+        this.setPermission(Permission.ESSENTIALS_NIGHTVISION);
         this.setDescription(Message.DESCRIPTION_NIGHT_VISION);
         this.addOptionalArg("player");
     }
