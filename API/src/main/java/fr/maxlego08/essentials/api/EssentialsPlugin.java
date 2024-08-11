@@ -247,4 +247,8 @@ public interface EssentialsPlugin extends Plugin {
     InteractiveChat startInteractiveChat(Player player, Consumer<String> consumer, long expiredAt);
 
     Enchantments getEnchantments();
+
+    <T> Optional<T> createInstance(String className);
+
+    <T> Optional<T> createInstance(String className, boolean displayLog);
 }

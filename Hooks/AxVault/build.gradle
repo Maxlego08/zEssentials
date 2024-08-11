@@ -1,0 +1,9 @@
+group 'Hooks:AxVault'
+
+dependencies {
+
+    compileOnly project(":API")
+    compileOnly rootProject
+
+    compileOnly files('libs/AxVaults.jar')
+}

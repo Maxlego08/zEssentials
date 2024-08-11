@@ -603,11 +603,13 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     }
 
 
-    private <T> Optional<T> createInstance(String className) {
+    @Override
+    public <T> Optional<T> createInstance(String className) {
         return createInstance(className, true);
     }
 
-    private <T> Optional<T> createInstance(String className, boolean displayLog) {
+    @Override
+    public <T> Optional<T> createInstance(String className, boolean displayLog) {
         try {
             Class<?> clazz = Class.forName("fr.maxlego08.essentials.hooks." + className);
 

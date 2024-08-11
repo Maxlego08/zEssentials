@@ -1,6 +1,7 @@
 # Unreleased
 
 - Added the command `/ess convert HuskHomes`, allows converting the database from HuskHomes to zEssentials.
+- Added the command `/ess convert AxVaults`, allows converting the database from AxVaults to zEssentials.
 - 
 # 1.0.0.4
 
