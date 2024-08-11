@@ -369,7 +369,6 @@ description-night-vision: "Enable or disable night vision"
 # Time format
 format-second: "second"
 format-seconds: "seconds"
-format-seconds: "seconds"
 format-minute: "minute"
 format-minutes: "minutes"
 format-hour: "hour"
