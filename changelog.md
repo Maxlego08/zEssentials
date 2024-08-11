@@ -4,6 +4,22 @@
 - Added the command `/ess convert Sunlight`, allows converting the database from Sunlight to zEssentials.
 - Added the command `/ess convert CoinsEngine`, allows converting the database from CoinsEngine to zEssentials.
 - Items in player vault will be displayed as a single item.
+- Fixed night vision messages
+- Fixed duplicate lines [#33](https://github.com/Maxlego08/zEssentials/issues/33) 
+- Upgrade to [Sarah](https://github.com/Maxlego08/Sarah/) version 1.10
+- Fixed issue where savings by default could not be removed [#34](https://github.com/Maxlego08/zEssentials/issues/34). You must update your configuration like this
+Before
+````yaml
+economies:
+  money:
+    display-name: Money
+````
+After
+````yaml
+economies:
+  - name: money
+    display-name: Money
+````
 
 # 1.0.0.3
 
