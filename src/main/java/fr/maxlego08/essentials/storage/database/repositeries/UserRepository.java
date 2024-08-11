@@ -6,6 +6,7 @@ import fr.maxlego08.essentials.api.dto.UserEconomyRankingDTO;
 import fr.maxlego08.essentials.api.dto.UserVoteDTO;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.convert.cmi.CMIUser;
+import fr.maxlego08.essentials.convert.sunlight.SunlightUser;
 import fr.maxlego08.essentials.storage.database.Repository;
 import fr.maxlego08.sarah.DatabaseConnection;
 import fr.maxlego08.sarah.conditions.JoinCondition;
@@ -188,6 +189,21 @@ public class UserRepository extends Repository {
 
             if (cmiUser.LastLoginTime() > 0) {
                 var date = new Date(cmiUser.LastLoginTime());
+                table.object("created_at", date);
+                table.object("updated_at", date);
+            }
+        });
+    }
+
+    public void upsert(SunlightUser sunlightUser) {
+
+        upsert(table -> {
+            table.uuid("unique_id", sunlightUser.uuid()).primary();
+            table.string("name", sunlightUser.name());
+
+            long createdAt = sunlightUser.dateCreated();
+            if (createdAt > 0) {
+                Date date = new Date(createdAt);
                 table.object("created_at", date);
                 table.object("updated_at", date);
             }

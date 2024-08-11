@@ -13,7 +13,7 @@ public class CommandVault extends VCommand {
 
     public CommandVault(EssentialsPlugin plugin) {
         super(plugin);
-        this.setPermission(Permission.VAULT_USE);
+        this.setPermission(Permission.ESSENTIALS_VAULT_USE);
         this.setModule(VaultModule.class);
         this.onlyPlayers();
         this.addOptionalArg("vault id", (sender, args) -> sender instanceof Player player ? plugin.getVaultManager().getVaultAsTabCompletion(player) : new ArrayList<>());

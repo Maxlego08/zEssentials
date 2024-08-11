@@ -32,4 +32,6 @@ public interface Vault {
     Optional<VaultItem> find(ItemStack itemStack);
 
     int getNextSlot();
+
+    boolean hasFreeSlot();
 }

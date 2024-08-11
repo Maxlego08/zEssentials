@@ -66,8 +66,8 @@ public enum Message {
     COMMAND_FLY_DISABLE("&7Flight mode <error>disable &7for &f%player%<success>."),
     COMMAND_GOD_ENABLE("&7God mode <success>enable &7for &f%player%<success>."),
     COMMAND_GOD_DISABLE("&7God mode <error>disable &7for &f%player%<success>."),
-    COMMAND_NIGHT_VISON_ENABLE("&7Night vision <success>enable &7for &f%player%<success>."),
-    COMMAND_NIGHT_VISON_DISABLE("&7Night vision <error>disable &7for &f%player%<success>."),
+    COMMAND_NIGHT_VISION_ENABLE("&7Night vision <success>enable &7for &f%player%<success>."),
+    COMMAND_NIGHT_VISION_DISABLE("&7Night vision <error>disable &7for &f%player%<success>."),
     COMMAND_HEAL_SENDER("&7You just healed the player &f%player%&7."),
     COMMAND_HEAL_RECEIVER("<success>You have been healed."),
     COMMAND_HEAL_ERROR("<error>You cannot heal someone who is dead !"),
@@ -270,6 +270,7 @@ public enum Message {
     DESCRIPTION_VOTE_REMOVE("Remove votes from a player"),
     DESCRIPTION_ENCHANT("Add enchant to an item"),
     DESCRIPTION_NIGHT_VISION("Enable or disable night vision"),
+    DESCRIPTION_SUDO("Force a player to execute a command"),
 
 
     YOU("you"),
@@ -681,6 +682,10 @@ public enum Message {
     COMMAND_ENCHANT_REMOVE_PLAYER("<success>The enchantment &f%enchant% <success>has been removed from the item from &f%player%’s<succes> hand."),
     COMMAND_ENCHANT_SUCCESS_SELF("<success>The enchantment &f%enchant% <success>has been applied to your item in hand."),
     COMMAND_ENCHANT_SUCCESS_PLAYER("<success>The enchantment &f%enchant% <success>has been applied to the item from &f%player%’s<succes> hand."),
+
+    COMMAND_SUDO_ERROR("<error>You cannot force the player to execute commands."),
+    COMMAND_SUDO_COMMAND("<success>You just forced the player <white>%player% <success>to execute the command <white>%command%<success>."),
+    COMMAND_SUDO_MESSAGE("<success>You just forced the player <white>%player% <success>to send the message <white>%message%<success>."),
 
     ;
 

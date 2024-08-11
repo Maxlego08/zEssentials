@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.economy;
 import com.tcoded.folialib.impl.ServerImplementation;
 import com.tcoded.folialib.wrapper.task.WrappedTask;
 import fr.maxlego08.essentials.ZEssentialsPlugin;
+import fr.maxlego08.essentials.api.configuration.NonLoadable;
 import fr.maxlego08.essentials.api.dto.UserEconomyRankingDTO;
 import fr.maxlego08.essentials.api.economy.Baltop;
 import fr.maxlego08.essentials.api.economy.BaltopDisplay;
@@ -19,6 +20,7 @@ import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.ZModule;
+import fr.maxlego08.menu.api.utils.TypedMapAccessor;
 import fr.maxlego08.menu.zcore.utils.inventory.Pagination;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
@@ -42,6 +44,7 @@ import java.util.function.Consumer;
 
 public class EconomyModule extends ZModule implements EconomyManager {
 
+    @NonLoadable
     private final List<Economy> economies = new ArrayList<>();
     private final List<NumberMultiplicationFormat> numberFormatSellMultiplication = new ArrayList<>();
     private final Map<Economy, Baltop> baltops = new HashMap<>();
@@ -73,16 +76,13 @@ public class EconomyModule extends ZModule implements EconomyManager {
         this.baltops.clear();
 
         YamlConfiguration configuration = getConfiguration();
-        ConfigurationSection configurationSection = configuration.getConfigurationSection("economies");
-        if (configurationSection == null) return;
+        var mapList = configuration.getMapList("economies");
+        mapList.forEach(map -> {
 
-        configurationSection.getKeys(false).forEach(economyName -> {
-
-            ConfigurationSection section = configurationSection.getConfigurationSection(economyName);
-            if (section == null) return;
-
-            this.economies.add(new ZEconomy(section, economyName));
+            String economyName = (String) map.get("name");
+            this.economies.add(new ZEconomy(new TypedMapAccessor((Map<String, Object>) map), economyName));
             this.plugin.getLogger().info("Create economy " + economyName + " !");
+
         });
 
         this.loadInventory("confirm_pay_inventory");

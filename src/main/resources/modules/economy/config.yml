@@ -19,7 +19,7 @@ default-economy: "money"
 # List of available economies
 economies:
   # Economy name
-  money:
+  - name: money
     # Economy display name. This name will be used to be displayed in player messages whenever possible.
     display-name: Money
     # Economy symbol
@@ -46,7 +46,7 @@ economies:
     price-format: PRICE_WITH_REDUCTION
 
     # Economy name
-  coins:
+  - name: coins
     # Economy display name. This name will be used to be displayed in player messages whenever possible.
     display-name: Coins
     # Economy symbol

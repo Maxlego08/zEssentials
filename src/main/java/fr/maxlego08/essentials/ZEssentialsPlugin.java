@@ -517,7 +517,6 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
             Reader defConfigStream = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
             YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
 
-
             Set<String> defaultKeys = defConfig.getKeys(deep);
 
             boolean configUpdated = false;

@@ -2,9 +2,11 @@ package fr.maxlego08.essentials.economy;
 
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.economy.PriceFormat;
+import fr.maxlego08.menu.api.utils.TypedMapAccessor;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.math.BigDecimal;
+import java.util.Map;
 
 public class ZEconomy implements Economy {
 
@@ -22,20 +24,20 @@ public class ZEconomy implements Economy {
     private final BigDecimal minConfirmInventory;
     private final PriceFormat priceFormat;
 
-    public ZEconomy(ConfigurationSection section, String name) {
+    public ZEconomy(TypedMapAccessor typedMapAccessor, String name) {
         this.name = name;
-        this.displayName = section.getString("display-name", "default-money");
-        this.symbol = section.getString("symbol", "$");
-        this.format = section.getString("format", "%price%$");
-        this.isVaultEconomy = section.getBoolean("vault", false);
-        this.minValue = new BigDecimal(section.getString("min", "0"));
-        this.maxValue = new BigDecimal(section.getString("max", "999999999999999"));
-        this.minPayValue = new BigDecimal(section.getString("min-pay", "0.1"));
-        this.maxPayValue = new BigDecimal(section.getString("max-pay", "999999999999999"));
-        this.isEnablePay = section.getBoolean("enable-pay", true);
-        this.isEnableConfirmInventory = section.getBoolean("enable-confirm-inventory", false);
-        this.minConfirmInventory = new BigDecimal(section.getString("min-confirm-inventory", "0"));
-        this.priceFormat = PriceFormat.valueOf(section.getString("price-format", "PRICE_RAW").toUpperCase());
+        this.displayName = typedMapAccessor.getString("display-name", "default-money");
+        this.symbol = typedMapAccessor.getString("symbol", "$");
+        this.format = typedMapAccessor.getString("format", "%price%$");
+        this.isVaultEconomy = typedMapAccessor.getBoolean("vault", false);
+        this.minValue = new BigDecimal(typedMapAccessor.getString("min", "0"));
+        this.maxValue = new BigDecimal(typedMapAccessor.getString("max", "999999999999999"));
+        this.minPayValue = new BigDecimal(typedMapAccessor.getString("min-pay", "0.1"));
+        this.maxPayValue = new BigDecimal(typedMapAccessor.getString("max-pay", "999999999999999"));
+        this.isEnablePay = typedMapAccessor.getBoolean("enable-pay", true);
+        this.isEnableConfirmInventory = typedMapAccessor.getBoolean("enable-confirm-inventory", false);
+        this.minConfirmInventory = new BigDecimal(typedMapAccessor.getString("min-confirm-inventory", "0"));
+        this.priceFormat = PriceFormat.valueOf(typedMapAccessor.getString("price-format", "PRICE_RAW").toUpperCase());
     }
 
     @Override

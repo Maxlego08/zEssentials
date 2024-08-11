@@ -364,11 +364,11 @@ description-vote-add: "Add votes to a player"
 description-vote-remove: "Remove votes from a player"
 description-enchant: "Add enchant to an item"
 description-night-vision: "Enable or disable night vision"
+description-sudo: "Force a player to execute a command"
 
 
 # Time format
 format-second: "second"
-format-seconds: "seconds"
 format-seconds: "seconds"
 format-minute: "minute"
 format-minutes: "minutes"
@@ -772,3 +772,7 @@ command-enchant-remove-self: "<success>The enchantment &f%enchant% <success>has 
 command-enchant-remove-player: "<success>The enchantment &f%enchant% <success>has been removed from the item from &f%player%’s<success> hand."
 command-enchant-success-self: "<success>The enchantment &f%enchant% <success>has been applied to your item in hand."
 command-enchant-success-player: "<success>The enchantment &f%enchant% <success>has been applied to the item from &f%player%’s<success> hand."
+
+command-sudo-error: "<error>You cannot force the player to execute commands."
+command-sudo-command: "<success>You just forced the player <white>%player% <success>to execute the command <white>/%command%<success>."
+command-sudo-message: "<success>You just forced the player <white>%player% <success>to send the message <white>%message%<success>."

@@ -242,8 +242,8 @@ public class VaultModule extends ZModule implements VaultManager {
     @Override
     public List<String> getVaultAsTabCompletion(Player player) {
         List<String> strings = IntStream.range(1, this.maxVaults).filter(vaultID -> hasPermission(player.getUniqueId(), vaultID)).mapToObj(String::valueOf).collect(Collectors.toList());
-        if (hasPermission(player, Permission.VAULT_ADD_SLOT)) strings.add("add");
-        if (hasPermission(player, Permission.VAULT_SET_SLOT)) strings.add("set");
+        if (hasPermission(player, Permission.ESSENTIALS_VAULT_ADD_SLOT)) strings.add("add");
+        if (hasPermission(player, Permission.ESSENTIALS_VAULT_SET_SLOT)) strings.add("set");
         return strings;
     }
 
@@ -327,4 +327,23 @@ public class VaultModule extends ZModule implements VaultManager {
         message(player, Message.COMMAND_VAULT_RENAME_RESET);
         openVault(player, vault.getVaultId());
     }
+
+    @Override
+    public void addItem(UUID uniqueId, ItemStack itemStack) {
+        var storage = getStorage();
+        var playerVaults = getPlayerVaults(uniqueId);
+
+        var vault = playerVaults.find(itemStack).orElseGet(playerVaults::firstAvailableVault);
+
+        vault.find(itemStack).ifPresentOrElse(vaultItem -> {
+            vaultItem.addQuantity(itemStack.getAmount());
+            storage.updateVaultQuantity(uniqueId, vault.getVaultId(), vaultItem.getSlot(), vaultItem.getQuantity());
+        }, () -> {
+            int nextSlot = vault.getNextSlot();
+            VaultItem newVaultItem = new ZVaultItem(nextSlot, itemStack, itemStack.getAmount());
+            vault.getVaultItems().put(nextSlot, newVaultItem);
+            storage.createVaultItem(uniqueId, vault.getVaultId(), nextSlot, newVaultItem.getQuantity(), ItemStackUtils.serializeItemStack(itemStack));
+        });
+    }
+
 }

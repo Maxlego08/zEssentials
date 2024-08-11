@@ -49,4 +49,6 @@ public interface VaultManager {
     void changeName(Player player, Vault vault);
 
     void resetName(Player player, Vault vault);
+
+    void addItem(UUID uuid, ItemStack itemStack);
 }
