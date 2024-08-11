@@ -1,5 +1,7 @@
 # Unreleased
 
+# 1.0.0.4
+
 - Added the command `/ess convert PlauerVaultX`, allows converting the database from PlayerVaultX to zEssentials.
 - Added the command `/ess convert Sunlight`, allows converting the database from Sunlight to zEssentials.
 - Added the command `/ess convert CoinsEngine`, allows converting the database from CoinsEngine to zEssentials.
