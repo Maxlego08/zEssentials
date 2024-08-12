@@ -14,6 +14,8 @@ public class CommandMail extends VCommand {
         this.setDescription(Message.DESCRIPTION_MAIL);
         this.setPermission(Permission.ESSENTIALS_MAIL);
         this.addSubCommand(new CommandMailOpen(plugin));
+        this.addSubCommand(new CommandMailGive(plugin));
+        this.addSubCommand(new CommandMailGiveAll(plugin));
         this.onlyPlayers();
     }
 

@@ -232,6 +232,8 @@ public enum Message {
     DESCRIPTION_POWER_TOOLS("Add command to your items"),
     DESCRIPTION_MAIL("Open mailbox"),
     DESCRIPTION_MAIL_OPEN("Open player's mailbox"),
+    DESCRIPTION_MAIL_GIVE("Give an item to player's mailbox"),
+    DESCRIPTION_MAIL_GIVEALL("Give an items to players mailbox"),
     DESCRIPTION_RULES("Read server rules"),
     DESCRIPTION_HOLOGRAM("Show hologram commands"),
     DESCRIPTION_HOLOGRAM_CREATE("Create a hologram"),
@@ -588,15 +590,17 @@ public enum Message {
     MAILBOX_REMOVE_FULL("<error>You must have space in your inventory to retrieve an item."),
     MAILBOX_REMOVE_EXPIRE("<error>You can no longer retrieve this item, it has expired."),
     MAILBOX_ADD(MessageType.ACTION, "<success>An item has just been added to your mailbox &8(&f/mail&8)"),
+    MAILBOX_GIVE_ERROR("<error>Can’t find the item &f%item%<error>."),
+    MAILBOX_GIVE("<success>You just gave &n&fx1 %item%&r <success>to player &f%player%<success> mailbox."),
+    MAILBOX_GIVE_ALL("<success>You just gave &n&fx1 %item%&r <success>to online player mailbox."),
+
 
     HOLOGRAM_CREATE_ERROR("<error>Hologram &f%name% <error>already exists."),
     HOLOGRAM_CREATE(MessageType.WITHOUT_PREFIX,
             "<success>You just created the hologram &f%name%<success>.",
             "&7Use &n<click:run_command:'/hologram edit %name%'>/hologram edit %name%</click>&r&7 command to edit the hologram"
     ),
-
     HOLOGRAM_DELETE("<success>Hologram &f%name% <success>has been deleted."),
-
     HOLOGRAM_DOESNT_EXIST("<error>Hologram &f%name% <error>doesn't exists."),
     HOLOGRAM_IS_NOT_A_TEXT("<error>Hologram &f%name% <error>is not a text hologram."),
     HOLOGRAM_IS_NOT_A_BLOCK("<error>Hologram &f%name% <error>is not a block hologram."),
