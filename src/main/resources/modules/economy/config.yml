@@ -65,7 +65,7 @@ economies:
     max-pay: 1000
     # Enable the ability to use /pay command with this economy
     enable-pay: true
-    # Activate confirmation menu for /pay command. This menu will confirm that you really want to send money to the player
+    # Activate a confirmation menu for /pay command. This menu will confirm that you really want to send money to the player
     enable-confirm-inventory: true
     # The minimum number to display the confirmation inventory, below the command will run directly
     min-confirm-inventory: 0

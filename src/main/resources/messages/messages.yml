@@ -354,6 +354,8 @@ description-scoreboard: "Enable/Disable scoreboard"
 description-balance-top: "Show baltop"
 description-balance-top-refresh: "Refresh baltop"
 description-mail-open: "Open player's mailbox"
+description-mail-give: "Give an item to player's mailbox"
+description-mail-giveall: "Give items to players' mailboxes"
 description-voteparty-information: "Show the vote party"
 description-voteparty-set: "Set the number of votes in the vote party"
 description-voteparty-add: "Add in vote party"
@@ -675,6 +677,10 @@ mailbox-remove-expire: "<error>You can no longer retrieve this item, it has expi
 mailbox-add:
   type: ACTION
   message: "<success>An item has just been added to your mailbox &8(&f/mail&8)"
+mailbox-give-error: "<error>Can’t find the item &f%item%<error>."
+mailbox-give: "<success>You just gave &n&fx1 %item%&r <success>to player &f%player%<success>'s mailbox."
+mailbox-give-all: "<success>You just gave &n&fx1 %item%&r <success>to online players' mailboxes."
+
 
 hologram-create-error: "<error>Hologram &f%name% <error>already exists."
 hologram-create:

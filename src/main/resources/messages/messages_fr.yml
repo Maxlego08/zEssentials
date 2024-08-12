@@ -348,6 +348,8 @@ description-scoreboard: "Activer/Désactiver le tableau de score"
 description-balance-top: "Afficher le classement des soldes"
 description-balance-top-refresh: "Actualiser le classement des soldes"
 description-mail-open: "Ouvrir la boite mail d'un joueur"
+description-mail-give: "Donner un objet à la boîte aux lettres du joueur"
+description-mail-giveall: "Donner des objets aux boîtes aux lettres des joueurs"
 description-voteparty-information: "Afficher le vote party"
 description-voteparty-set: "Définir le nombre de votes dans le vote party"
 description-voteparty-add: "Ajouter dans le vote party"
@@ -652,6 +654,10 @@ mailbox-remove-expire: "<error>Vous ne pouvez plus récupérer cet objet, il a e
 mailbox-add:
   type: ACTION
   message: "<success>Un objet vient d'être ajouté à votre boîte aux lettres &8(&f/mail&8)"
+mailbox-give-error: "<error>Impossible de trouver l'objet &f%item%<error>."
+mailbox-give: "<success>Vous venez de donner &n&fx1 %item%&r <success> à la boîte aux lettres du joueur &f%player%<success>."
+mailbox-give-all: "<success>Vous venez de donner &n&fx1 %item%&r <success> aux boîtes aux lettres des joueurs en ligne."
+
 
 hologram-create-error: "<error>Le hologramme &f%name% <error>existe déjà."
 hologram-create:
