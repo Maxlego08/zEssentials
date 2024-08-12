@@ -110,6 +110,7 @@ import fr.maxlego08.essentials.commands.commands.weather.CommandNight;
 import fr.maxlego08.essentials.commands.commands.weather.CommandPlayerTime;
 import fr.maxlego08.essentials.commands.commands.weather.CommandPlayerWeather;
 import fr.maxlego08.essentials.commands.commands.weather.CommandSun;
+import fr.maxlego08.essentials.commands.commands.worldedit.CommandWorldEdit;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 
 import java.util.ArrayList;
@@ -251,6 +252,7 @@ public class CommandLoader {
         register("voteparty", CommandVoteParty.class, "vp");
         register("vote", CommandVote.class);
         register("vault", CommandVault.class, "sac", "bag", "b", "coffre", "chest");
+        register("player-worldedit", CommandWorldEdit.class, "pw", "ess-worldedit", "eworldedit", "ew");
 
         for (RegisterCommand registerCommand : this.commands) {
             try {

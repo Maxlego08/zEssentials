@@ -16,6 +16,7 @@ import fr.maxlego08.essentials.api.mailbox.MailBoxItem;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.utils.DynamicCooldown;
+import fr.maxlego08.essentials.api.worldedit.Selection;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -568,4 +569,6 @@ public interface User {
     void setVoteSites(List<VoteSiteDTO> select);
 
     void resetOfflineVote();
+
+    Selection getSelection();
 }

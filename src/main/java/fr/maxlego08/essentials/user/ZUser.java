@@ -25,6 +25,7 @@ import fr.maxlego08.essentials.api.user.PrivateMessage;
 import fr.maxlego08.essentials.api.user.TeleportRequest;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.DynamicCooldown;
+import fr.maxlego08.essentials.api.worldedit.Selection;
 import fr.maxlego08.essentials.module.modules.TeleportationModule;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import org.bukkit.Bukkit;
@@ -56,6 +57,7 @@ public class ZUser extends ZUtils implements User {
     private final List<Home> homes = new ArrayList<>();
     private final List<MailBoxItem> mailBoxItems = new ArrayList<>();
     private final DynamicCooldown dynamicCooldown = new DynamicCooldown();
+    private final Selection selection = new ZSelection();
     private String name;
     private TeleportRequest teleportRequest;
     private User targetUser;
@@ -771,5 +773,10 @@ public class ZUser extends ZUtils implements User {
     @Override
     public void resetOfflineVote() {
         this.getStorage().setVote(this.uniqueId, -1, 0);
+    }
+
+    @Override
+    public Selection getSelection() {
+        return this.selection;
     }
 }

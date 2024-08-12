@@ -273,7 +273,8 @@ public enum Message {
     DESCRIPTION_ENCHANT("Add enchant to an item"),
     DESCRIPTION_NIGHT_VISION("Enable or disable night vision"),
     DESCRIPTION_SUDO("Force a player to execute a command"),
-
+    DESCRIPTION_WORLDEDIT_GIVE("Give a worldedit item to a player"),
+    DESCRIPTION_WORLDEDIT_SET("Set all blocks of your select"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -690,6 +691,14 @@ public enum Message {
     COMMAND_SUDO_ERROR("<error>You cannot force the player to execute commands."),
     COMMAND_SUDO_COMMAND("<success>You just forced the player <white>%player% <success>to execute the command <white>%command%<success>."),
     COMMAND_SUDO_MESSAGE("<success>You just forced the player <white>%player% <success>to send the message <white>%message%<success>."),
+
+    COMMAND_WORLDEDIT_GIVE_ERROR("<error>Unable to find item &f%name%<error>"),
+    COMMAND_WORLDEDIT_GIVE_SENDER("<success>You just gave &f%item% <success>to the player &f%player%<success>."),
+    COMMAND_WORLDEDIT_GIVE_RECEIVER("<success>Vous venez de recevoir &f%item%<success>."),
+
+    WORLDEDIT_SELECTION_ERROR("<error>You must select two positions before you make this command."),
+    WORLDEDIT_SELECTION_POS1("<success>You have just defined the first position."),
+    WORLDEDIT_SELECTION_POS2("<success>You have just defined the second position."),
 
     ;
 
