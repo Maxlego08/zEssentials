@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.convert.huskhomes;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.convert.Convert;
 import fr.maxlego08.essentials.storage.database.repositeries.UserHomeRepository;
+import fr.maxlego08.essentials.storage.database.repositeries.UserRepository;
 import fr.maxlego08.essentials.storage.storages.SqlStorage;
 import fr.maxlego08.essentials.user.ZHome;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
@@ -52,13 +53,17 @@ public class HuskHomesConvert extends ZUtils implements Convert {
         }
 
         RequestHelper requestHelper = new RequestHelper(databaseConnection, message -> plugin.getLogger().info(message));
+        List<HuskUser> users = requestHelper.selectAll("huskhomes_users", HuskUser.class);
         List<HuskHome> homes = requestHelper.selectAll("huskhomes_homes", HuskHome.class);
         List<HuskPosition> positions = requestHelper.selectAll("huskhomes_position_data", HuskPosition.class);
         List<HuskSavedPosition> savedPositions = requestHelper.selectAll("huskhomes_saved_positions", HuskSavedPosition.class);
 
         var userHomeRepository = sqlStorage.with(UserHomeRepository.class);
+        var userRepository = sqlStorage.with(UserRepository.class);
 
-        message(sender, "&aFound &f" + homes.size() + " &ahomes.");
+        message(sender, "&aFound &f" + homes.size() + " &ahomes and §f" + users.size() + " §ausers.");
+
+        users.forEach(user -> userRepository.upsert(user.uuid(), user.username()));
 
         homes.forEach(home -> {
 
