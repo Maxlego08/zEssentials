@@ -191,3 +191,10 @@ blacklist-blocks:
   - COPPER_BLOCK
   - LAPIS_BLOCK
   - AMETHYST_BLOCK
+  - CRAFTER
+
+default-block-price: 5
+
+blocks-price:
+  - material: STONE
+    price: 1

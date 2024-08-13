@@ -5,6 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,5 +21,9 @@ public interface WorldeditManager {
 
     boolean isBlacklist(Material material);
 
-    void setBlocks(User user, Material material);
+    void setBlocks(User user, List<MaterialPercent> materialPercents);
+
+    BigDecimal getMaterialPrice(Material material);
+
+    void confirmAction(User user);
 }

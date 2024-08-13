@@ -83,7 +83,7 @@ import fr.maxlego08.essentials.module.ZModuleManager;
 import fr.maxlego08.essentials.module.modules.HomeModule;
 import fr.maxlego08.essentials.module.modules.MailBoxModule;
 import fr.maxlego08.essentials.module.modules.VoteModule;
-import fr.maxlego08.essentials.module.modules.WorldeditModule;
+import fr.maxlego08.essentials.worldedit.WorldeditModule;
 import fr.maxlego08.essentials.placeholders.DistantPlaceholder;
 import fr.maxlego08.essentials.placeholders.LocalPlaceholder;
 import fr.maxlego08.essentials.scoreboard.ScoreboardModule;

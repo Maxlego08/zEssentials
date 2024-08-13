@@ -275,6 +275,7 @@ public enum Message {
     DESCRIPTION_SUDO("Force a player to execute a command"),
     DESCRIPTION_WORLDEDIT_GIVE("Give a worldedit item to a player"),
     DESCRIPTION_WORLDEDIT_SET("Set all blocks of your select"),
+    DESCRIPTION_WORLDEDIT_CONFIRM("Confirm worldedit action"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -694,11 +695,18 @@ public enum Message {
 
     COMMAND_WORLDEDIT_GIVE_ERROR("<error>Unable to find item &f%name%<error>"),
     COMMAND_WORLDEDIT_GIVE_SENDER("<success>You just gave &f%item% <success>to the player &f%player%<success>."),
-    COMMAND_WORLDEDIT_GIVE_RECEIVER("<success>Vous venez de recevoir &f%item%<success>."),
+    COMMAND_WORLDEDIT_GIVE_RECEIVER("<success>you just received &f%item%<success>."),
+    COMMAND_WORLDEDIT_MATERIAL_NOT_FOUND("<error>Unable to find the material &f%material%<error>."),
+    COMMAND_WORLDEDIT_CONFIRM_PRICE("<success>Edition price<gray>: <white>%price% <gray>[<#45ff55><hover:show_text:'&fClick to confirm action'><click:run_command:'/pw confirm'>CONFIRM</click></hover><gray>]"),
+    COMMAND_WORLDEDIT_CONFIRM_ERROR("<error>You can’t do that now."),
 
     WORLDEDIT_SELECTION_ERROR("<error>You must select two positions before you make this command."),
+    WORLDEDIT_ALREADY_RUNNING("<error>You already have an edit in progress, please wait until it is finished."),
+    WORLDEDIT_NOT_ENOUGH_MONEY("<error>You don’t have enough money to make this edition."),
     WORLDEDIT_SELECTION_POS1("<success>You have just defined the first position."),
     WORLDEDIT_SELECTION_POS2("<success>You have just defined the second position."),
+
+    WORLDEDIT_START_CALCULATE_PRICE("&7Price calculation in progress, please wait..."),
 
     ;
 

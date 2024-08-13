@@ -26,6 +26,7 @@ import fr.maxlego08.essentials.api.user.TeleportRequest;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.DynamicCooldown;
 import fr.maxlego08.essentials.api.worldedit.Selection;
+import fr.maxlego08.essentials.api.worldedit.WorldEditTask;
 import fr.maxlego08.essentials.module.modules.TeleportationModule;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import org.bukkit.Bukkit;
@@ -58,6 +59,7 @@ public class ZUser extends ZUtils implements User {
     private final List<MailBoxItem> mailBoxItems = new ArrayList<>();
     private final DynamicCooldown dynamicCooldown = new DynamicCooldown();
     private final Selection selection = new ZSelection();
+    private WorldEditTask worldEditTask;
     private String name;
     private TeleportRequest teleportRequest;
     private User targetUser;
@@ -778,5 +780,20 @@ public class ZUser extends ZUtils implements User {
     @Override
     public Selection getSelection() {
         return this.selection;
+    }
+
+    @Override
+    public boolean hasWorldeditTask() {
+        return this.worldEditTask != null && this.worldEditTask.getWorldeditStatus().isRunning();
+    }
+
+    @Override
+    public WorldEditTask getWorldeditTask() {
+        return this.worldEditTask;
+    }
+
+    @Override
+    public void setWorldeditTask(WorldEditTask worldEditTask) {
+        this.worldEditTask = worldEditTask;
     }
 }

@@ -1,14 +1,18 @@
-package fr.maxlego08.essentials.module.modules;
+package fr.maxlego08.essentials.worldedit;
 
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.configuration.NonLoadable;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.user.User;
-import fr.maxlego08.essentials.api.worldedit.Cuboid;
+import fr.maxlego08.essentials.api.worldedit.BlockPrice;
+import fr.maxlego08.essentials.api.worldedit.MaterialPercent;
 import fr.maxlego08.essentials.api.worldedit.Selection;
 import fr.maxlego08.essentials.api.worldedit.WorldEditItem;
+import fr.maxlego08.essentials.api.worldedit.WorldEditTask;
 import fr.maxlego08.essentials.api.worldedit.WorldeditManager;
+import fr.maxlego08.essentials.api.worldedit.WorldeditStatus;
 import fr.maxlego08.essentials.module.ZModule;
+import fr.maxlego08.essentials.worldedit.taks.SetTask;
 import fr.maxlego08.menu.MenuItemStack;
 import fr.maxlego08.menu.exceptions.InventoryException;
 import fr.maxlego08.menu.loader.MenuItemStackLoader;
@@ -29,6 +33,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -38,7 +43,9 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
 
     @NonLoadable
     private final List<WorldEditItem> worldEditItems = new ArrayList<>();
-    private List<Material> blacklistBlocks = new ArrayList<>();
+    private final List<Material> blacklistBlocks = new ArrayList<>();
+    private BigDecimal defaultBlockPrice;
+    private List<BlockPrice> blocksPrice;
 
     public WorldeditModule(ZEssentialsPlugin plugin) {
         super(plugin, "worldedit");
@@ -72,6 +79,9 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
                 exception.printStackTrace();
             }
         }
+
+        System.out.println(defaultBlockPrice);
+        System.out.println(blocksPrice);
     }
 
     @Override
@@ -103,7 +113,7 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
 
     @Override
     public List<String> getAllowedMaterials() {
-        return Arrays.stream(Material.values()).filter(material -> !isBlacklist(material)).map(Material::name).toList();
+        return Arrays.stream(Material.values()).filter(material -> material.isBlock() && !isBlacklist(material)).map(material -> material.name().toLowerCase()).toList();
     }
 
     @Override
@@ -112,7 +122,7 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
     }
 
     @Override
-    public void setBlocks(User user, Material material) {
+    public void setBlocks(User user, List<MaterialPercent> materialPercents) {
 
         var selection = user.getSelection();
         if (!selection.isValid()) {
@@ -120,8 +130,45 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
             return;
         }
 
-        Cuboid cuboid = selection.getCuboid();
-        cuboid.forEach(block -> block.setType(material));
+        if (user.hasWorldeditTask()) {
+            message(user, Message.WORLDEDIT_ALREADY_RUNNING);
+            return;
+        }
+
+        WorldEditTask worldEditTask = new SetTask(this.plugin, this, user, selection.getCuboid().getBlocks(), materialPercents);
+        user.setWorldeditTask(worldEditTask);
+
+        worldEditTask.calculatePrice(price -> {
+            System.out.println("Le prix : " + price);
+
+            if (!user.has(plugin.getEconomyManager().getDefaultEconomy(), price)) {
+                message(user, Message.WORLDEDIT_NOT_ENOUGH_MONEY);
+                user.setWorldeditTask(null);
+                return;
+            }
+
+            var economyManager = this.plugin.getEconomyManager();
+            var economy = economyManager.getDefaultEconomy();
+            message(user, Message.COMMAND_WORLDEDIT_CONFIRM_PRICE, "%price%", economyManager.format(economy, price));
+        });
+    }
+
+    @Override
+    public void confirmAction(User user) {
+        if (user.hasWorldeditTask()) {
+            message(user, Message.WORLDEDIT_ALREADY_RUNNING);
+            return;
+        }
+
+        var task = user.getWorldeditTask();
+        if (task.getWorldeditStatus() != WorldeditStatus.WAITING_RESPONSE_PRICE) {
+            message(user, Message.COMMAND_WORLDEDIT_CONFIRM_ERROR);
+            return;
+        }
+
+        task.confirm(result -> {
+            System.out.println("Result: " + result);
+        });
     }
 
     private boolean isWorldeditItem(ItemStack itemStack) {
@@ -137,12 +184,7 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
         var block = event.getClickedBlock();
         var item = event.getItem();
 
-        if (item == null
-                || block == null
-                || event.useInteractedBlock() == Event.Result.DENY
-                || event.getHand() == EquipmentSlot.OFF_HAND
-                || event.getAction().equals(Action.PHYSICAL)
-                || !isWorldeditItem(item)) {
+        if (item == null || block == null || event.useInteractedBlock() == Event.Result.DENY || event.getHand() == EquipmentSlot.OFF_HAND || event.getAction().equals(Action.PHYSICAL) || !isWorldeditItem(item)) {
             return;
         }
 
@@ -152,13 +194,20 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
         Selection selection = user.getSelection();
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
 
+            event.setCancelled(true);
             selection.setFirstLocation(block.getLocation());
             message(event.getPlayer(), Message.WORLDEDIT_SELECTION_POS1);
 
         } else {
 
+            event.setCancelled(true);
             selection.setSecondLocation(block.getLocation());
             message(event.getPlayer(), Message.WORLDEDIT_SELECTION_POS2);
         }
+    }
+
+    @Override
+    public BigDecimal getMaterialPrice(Material material) {
+        return this.blocksPrice.stream().filter(blockPrice -> blockPrice.material() == material).map(BlockPrice::price).findFirst().orElse(this.defaultBlockPrice);
     }
 }

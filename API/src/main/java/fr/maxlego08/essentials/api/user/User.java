@@ -17,6 +17,7 @@ import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.utils.DynamicCooldown;
 import fr.maxlego08.essentials.api.worldedit.Selection;
+import fr.maxlego08.essentials.api.worldedit.WorldEditTask;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -571,4 +572,10 @@ public interface User {
     void resetOfflineVote();
 
     Selection getSelection();
+
+    boolean hasWorldeditTask();
+
+    WorldEditTask getWorldeditTask();
+
+    void setWorldeditTask(WorldEditTask worldEditTask);
 }

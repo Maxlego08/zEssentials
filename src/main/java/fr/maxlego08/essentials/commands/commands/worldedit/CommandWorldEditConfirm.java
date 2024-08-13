@@ -4,29 +4,30 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.worldedit.MaterialPercent;
 import fr.maxlego08.essentials.worldedit.WorldeditModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
-import org.bukkit.entity.Player;
+import org.bukkit.Material;
+import org.bukkit.command.CommandSender;
 
-public class CommandWorldEditGive extends VCommand {
+import java.util.ArrayList;
+import java.util.List;
 
-    public CommandWorldEditGive(EssentialsPlugin plugin) {
+public class CommandWorldEditConfirm extends VCommand {
+
+    public CommandWorldEditConfirm(EssentialsPlugin plugin) {
         super(plugin);
         this.setModule(WorldeditModule.class);
-        this.setPermission(Permission.ESSENTIALS_WORLDEDIT_GIVE);
-        this.setDescription(Message.DESCRIPTION_WORLDEDIT_GIVE);
-        this.addSubCommand("give");
-        this.addRequirePlayerNameArg();
-        this.addRequireArg("item", (a, b) -> plugin.getWorldeditManager().getWorldeditItems());
+        this.setPermission(Permission.ESSENTIALS_WORLDEDIT_CONFIRM);
+        this.setDescription(Message.DESCRIPTION_WORLDEDIT_CONFIRM);
+        this.addSubCommand("confirm");
+        this.onlyPlayers();
     }
 
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
-        Player player = this.argAsPlayer(0);
-        String itemName = this.argAsString(1);
-
-        plugin.getWorldeditManager().give(this.sender, player, itemName);
+        plugin.getWorldeditManager().confirmAction(this.user);
 
         return CommandResultType.SUCCESS;
     }

@@ -139,7 +139,7 @@ public class ZCommandManager extends ZUtils implements CommandManager {
         return null;
     }
 
-    private List<String> processTab(CommandSender sender, EssentialsCommand command, String[] args) {
+    public List<String> processTab(CommandSender sender, EssentialsCommand command, String[] args) {
 
         CommandResultType type = command.getTabCompleter();
         if (type.equals(CommandResultType.DEFAULT)) {
