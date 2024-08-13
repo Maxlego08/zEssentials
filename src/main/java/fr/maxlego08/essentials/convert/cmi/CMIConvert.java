@@ -117,8 +117,8 @@ public class CMIConvert extends ZUtils implements Convert {
                 double x = Double.parseDouble(parts[index + 1]);
                 double y = Double.parseDouble(parts[index + 2]);
                 double z = Double.parseDouble(parts[index + 3]);
-                double pitch = Double.parseDouble(parts[index + 4]);
-                double yaw = Double.parseDouble(parts[index + 5]);
+                double yaw = Double.parseDouble(parts[index + 4]);
+                double pitch = Double.parseDouble(parts[index + 5]);
 
                 var bukkitWorld = Bukkit.getWorld(world);
                 if (bukkitWorld == null) continue;

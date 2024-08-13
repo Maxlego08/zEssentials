@@ -4,7 +4,8 @@
 - Added the command `/ess convert AxVaults`, allows converting the database from AxVaults to zEssentials.
 - Added the command `/mailbox give <player> <item> [<amount>]`, Add an item to a player’s mailbox.
 - Added the command `/mailbox giveall <player> <item> [<amount>]`, Add an item to online player’s mailbox.
-- 
+- Fixed CMI convert with invalid location for homes 
+
 # 1.0.0.4
 
 - Added the command `/ess convert PlauerVaultX`, allows converting the database from PlayerVaultX to zEssentials.
