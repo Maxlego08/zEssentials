@@ -569,6 +569,11 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         if (result.isEmpty()) return;
 
         MailBoxModule mailBoxModule = this.moduleManager.getModule(MailBoxModule.class);
+        if (!mailBoxModule.isEnable()) {
+            result.values().forEach(item -> player.getWorld().dropItemNaturally(player.getLocation(), item));
+            return;
+        }
+
         result.values().forEach(item -> {
             int amount = itemStack.getAmount();
             if (amount > itemStack.getMaxStackSize()) {

@@ -4,7 +4,9 @@
 - Added the command `/ess convert AxVaults`, allows converting the database from AxVaults to zEssentials.
 - Added the command `/mailbox give <player> <item> [<amount>]`, Add an item to a player’s mailbox.
 - Added the command `/mailbox giveall <player> <item> [<amount>]`, Add an item to online player’s mailbox.
-- Fixed CMI convert with invalid location for homes 
+- Fixed CMI convert with invalid location for homes
+- Fixed the bug that allowed adding items in the mailbox even if the module is disabled.
+- Fixed command /rules who are not using the correct module.
 
 # 1.0.0.4
 
