@@ -229,3 +229,30 @@ default-block-price: 5
 blocks-price:
   - material: STONE
     price: 1
+
+# Allows defining the number of blocks per second that will be placed.
+permissions-blocks-per-second:
+  - permission: zessentials.worldedit.speed.player
+    blocks-per-second: 5
+  - permission: zessentials.worldedit.speed.vip
+    blocks-per-second: 10
+  - permission: zessentials.worldedit.speed.admin
+    blocks-per-second: 50
+
+# Set the maximum number of blocks in the selection
+permissions-max-blocks:
+  - permission: zessentials.worldedit.blocks.player
+    blocks: 500
+  - permission: zessentials.worldedit.blocks.vip
+    blocks: 1000
+  - permission: zessentials.worldedit.blocks.admin
+    blocks: 50000
+
+# Set the maximum distance between the 2 locations of the selection
+permissions-max-distances:
+  - permission: zessentials.worldedit.blocks.player
+    distance: 20
+  - permission: zessentials.worldedit.blocks.vip
+    distance: 50
+  - permission: zessentials.worldedit.blocks.admin
+    distance: 100

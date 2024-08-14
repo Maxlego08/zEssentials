@@ -275,6 +275,7 @@ public enum Message {
     DESCRIPTION_SUDO("Force a player to execute a command"),
     DESCRIPTION_WORLDEDIT_GIVE("Give a worldedit item to a player"),
     DESCRIPTION_WORLDEDIT_SET("Set all blocks of your select"),
+    DESCRIPTION_WORLDEDIT_CUT("Cut all blocks of your select"),
     DESCRIPTION_WORLDEDIT_CONFIRM("Confirm worldedit action"),
 
     YOU("you"),
@@ -701,6 +702,14 @@ public enum Message {
             "",
             "<success>Price<dark_gray>: <white>%price%",
             "<success>Blocks<dark_gray>: <white>%materials%",
+            "<success>Duration<dark_gray>: <white>%duration% <dark_gray>(<gray>%blocks% at %speed% block%s%/s)",
+            "",
+            "<#45ff55><hover:show_text:'&fClick to confirm action'><click:run_command:'/pw confirm'>ᴄʟɪᴄᴋ ʜᴇʀᴇ ᴛᴏ ᴄᴏɴғɪʀᴍ</click></hover><gray>"
+    ),
+    COMMAND_WORLDEDIT_CONFIRM_PRICE_CUT(
+            "",
+            "<success>Price<dark_gray>: <white>%price%",
+            "<success>Duration<dark_gray>: <white>%duration% <dark_gray>(<gray>%blocks% at %speed% block%s%/s)",
             "",
             "<#45ff55><hover:show_text:'&fClick to confirm action'><click:run_command:'/pw confirm'>ᴄʟɪᴄᴋ ʜᴇʀᴇ ᴛᴏ ᴄᴏɴғɪʀᴍ</click></hover><gray>"
     ),
@@ -713,6 +722,7 @@ public enum Message {
     WORLDEDIT_NOT_ENOUGH_ITEMS("<error>You don’t have the items in your inventory, you can’t do that."),
     WORLDEDIT_SELECTION_POS1("<success>You have just defined the first position."),
     WORLDEDIT_SELECTION_POS2("<success>You have just defined the second position."),
+    WORLDEDIT_SPEED_ERROR("<error>You have no permission to set speed per second."),
 
     WORLDEDIT_START_CALCULATE_PRICE("&7Price calculation in progress, please wait..."),
     WORLDEDIT_START_CHECK_INVENTORY("&7Checking that you have enough items in your inventory, please wait..."),

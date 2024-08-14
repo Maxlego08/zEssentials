@@ -176,7 +176,7 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
      */
     public List<Block> getBlocks() {
         Iterator<Block> blockI = this.iterator();
-        List<Block> copy = new ArrayList<Block>();
+        List<Block> copy = new ArrayList<>();
         while (blockI.hasNext())
             copy.add(blockI.next());
         return copy;

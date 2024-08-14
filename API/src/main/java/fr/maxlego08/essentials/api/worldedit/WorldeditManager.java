@@ -26,4 +26,12 @@ public interface WorldeditManager {
     BigDecimal getMaterialPrice(Material material);
 
     void confirmAction(User user);
+
+    int getBlocksPerSecond(Player player);
+
+    int getMaxBlocks(Player player);
+
+    int getMaxDistance(Player player);
+
+    void cutBlocks(User user);
 }

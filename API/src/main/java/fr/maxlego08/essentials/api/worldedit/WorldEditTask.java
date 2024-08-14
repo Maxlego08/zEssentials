@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -24,33 +25,45 @@ public abstract class WorldEditTask {
     protected final EssentialsPlugin plugin;
     protected final WorldeditManager worldeditManager;
     protected final User user;
-    protected final List<Block> blocks;
+    protected final Cuboid cuboid;
     protected final List<MaterialPercent> materialPercents;
     protected final Queue<BlockInfo> blockInfos = new LinkedList<>();
     protected final Random random = new Random();
     protected WorldeditStatus worldeditStatus = WorldeditStatus.NOTHING;
     protected Map<Material, Long> materials = new HashMap<>();
     protected Map<Material, Long> needToGiveMaterials = new HashMap<>();
+    protected List<Block> blocks;
     protected BigDecimal totalPrice;
 
-    public WorldEditTask(EssentialsPlugin plugin, WorldeditManager worldeditManager, User user, List<Block> blocks, List<MaterialPercent> materialPercents) {
+    public WorldEditTask(EssentialsPlugin plugin, WorldeditManager worldeditManager, User user, Cuboid cuboid, List<MaterialPercent> materialPercents) {
         this.plugin = plugin;
         this.worldeditManager = worldeditManager;
         this.user = user;
-        this.blocks = blocks;
+        this.cuboid = cuboid;
         this.materialPercents = materialPercents;
     }
 
+    public abstract void loadBlocks();
+
+    public abstract WorldeditAction getAction();
+
     public void calculatePrice(Consumer<BigDecimal> consumer) {
         this.worldeditStatus = WorldeditStatus.CALCULATE_PRICE;
-        processNextBatch(blocks.stream().map(b -> new BlockInfo(b, null, BigDecimal.ZERO)).collect(Collectors.toList()), 0, 100, () -> {
 
-            this.totalPrice = this.blockInfos.stream().map(BlockInfo::price).reduce(BigDecimal.ZERO, BigDecimal::add);
-            this.materials = this.blockInfos.stream().collect(Collectors.groupingBy(BlockInfo::newMaterial, Collectors.counting()));
-            this.worldeditStatus = WorldeditStatus.WAITING_RESPONSE_PRICE;
+        this.plugin.getScheduler().runAsync(wrappedTask -> {
 
-            consumer.accept(totalPrice);
-        }, blocks -> blocks.forEach(block -> this.processBlock(block.block())));
+            // Calculate the list of blocks that need to be modified
+            this.loadBlocks();
+
+            processNextBatch(blocks.stream().map(b -> new BlockInfo(b, null, BigDecimal.ZERO)).collect(Collectors.toList()), 0, 100, () -> {
+
+                this.totalPrice = this.blockInfos.stream().map(BlockInfo::price).reduce(BigDecimal.ZERO, BigDecimal::add);
+                this.materials = this.blockInfos.stream().collect(Collectors.groupingBy(BlockInfo::newMaterial, Collectors.counting()));
+                this.worldeditStatus = WorldeditStatus.WAITING_RESPONSE_PRICE;
+
+                consumer.accept(totalPrice);
+            }, blocks -> blocks.forEach(block -> this.processBlock(block.block())));
+        });
     }
 
     protected void processNextBatch(List<BlockInfo> blocks, int startIndex, int batchSize, Runnable runnable, Consumer<List<BlockInfo>> consumer) {
@@ -90,8 +103,6 @@ public abstract class WorldEditTask {
         this.blockInfos.add(new BlockInfo(block, randomMaterial, blockPrice));
     }
 
-    public abstract void process();
-
     public Material selectRandomMaterial() {
 
         if (this.materialPercents.size() == 1) return this.materialPercents.get(0).material();
@@ -120,9 +131,12 @@ public abstract class WorldEditTask {
         this.plugin.getScheduler().runAsync(wrappedTask -> {
 
             Player player = user.getPlayer();
-            var result = hasRequiredItems(player, materials);
+            var result = true;
 
-            if (!result) this.worldeditStatus = WorldeditStatus.NOT_ENOUGH_ITEMS;
+            if (getAction() == WorldeditAction.PLACE) {
+                result = hasRequiredItems(player, materials);
+                if (!result) this.worldeditStatus = WorldeditStatus.NOT_ENOUGH_ITEMS;
+            }
 
             consumer.accept(result);
         });
@@ -170,13 +184,13 @@ public abstract class WorldEditTask {
         return true;
     }
 
-    public boolean removeRequiredItems(Player player, Map<Material, Long> requiredItems) {
+    public void removeRequiredItems(Player player, Map<Material, Long> requiredItems) {
         Inventory inventory = player.getInventory();
         var vaultManager = plugin.getVaultManager();
 
         // Vérifier d'abord si le joueur a bien tous les items nécessaires
         if (!hasRequiredItems(player, requiredItems)) {
-            return false;
+            return;
         }
 
         // Retirer les items de l'inventaire et du vault si nécessaire
@@ -211,7 +225,6 @@ public abstract class WorldEditTask {
             }
         }
 
-        return true;
     }
 
 
@@ -238,15 +251,12 @@ public abstract class WorldEditTask {
             Material material = entry.getKey();
             long amount = entry.getValue();
 
-            // Créer les ItemStacks et les ajouter à l'inventaire du joueur
             while (amount > 0) {
                 int stackSize = (int) Math.min(amount, material.getMaxStackSize());
                 ItemStack itemStack = new ItemStack(material, stackSize);
 
-                // Essayer d'ajouter l'item à l'inventaire du joueur
                 Map<Integer, ItemStack> remainingItems = inventory.addItem(itemStack);
 
-                // Si l'item n'a pas pu être ajouté entièrement (inventaire plein)
                 if (!remainingItems.isEmpty()) {
                     for (ItemStack remainingItem : remainingItems.values()) {
                         vaultManager.addItem(player.getUniqueId(), remainingItem);
@@ -257,5 +267,75 @@ public abstract class WorldEditTask {
                 amount -= stackSize;
             }
         }
+    }
+
+    public void process() {
+
+        var scheduler = this.plugin.getScheduler();
+
+        int blocksPerSecond = worldeditManager.getBlocksPerSecond(user.getPlayer());
+
+        int intervalTicks;
+        int blocksPerTick;
+
+        if (blocksPerSecond <= 20) {
+
+            intervalTicks = 20 / blocksPerSecond;
+            blocksPerTick = 1;
+        } else {
+
+            intervalTicks = 1;
+            blocksPerTick = blocksPerSecond / 20;
+        }
+
+        AtomicInteger tickCounter = new AtomicInteger();
+        int additionalBlocks = blocksPerSecond % 20;
+
+        scheduler.runTimerAsync(wrappedTask -> {
+
+            if (blockInfos.isEmpty()) {
+                wrappedTask.cancel();
+                finish();
+                return;
+            }
+
+            for (int i = 0; i < blocksPerTick; i++) {
+                if (!blockInfos.isEmpty()) {
+                    placeBlock(blockInfos.poll());
+                }
+            }
+
+            if (blocksPerSecond > 20 && tickCounter.get() < additionalBlocks) {
+                if (!blockInfos.isEmpty()) {
+                    placeBlock(blockInfos.poll());
+                }
+            }
+
+            tickCounter.getAndIncrement();
+
+        }, 0L, intervalTicks);
+    }
+
+    private void placeBlock(BlockInfo blockInfo) {
+        if (blockInfo == null) return;
+
+        var scheduler = this.plugin.getScheduler();
+        var block = blockInfo.block();
+
+        scheduler.runAtLocation(block.getLocation(), wrappedTask -> {
+
+            var currentType = block.getType();
+            if (worldeditManager.isBlacklist(currentType)) return;
+
+            if (!currentType.isAir()) {
+                add(currentType);
+            }
+
+            block.setType(blockInfo.newMaterial());
+        });
+    }
+
+    public int count() {
+        return this.blockInfos.size();
     }
 }

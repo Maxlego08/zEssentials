@@ -6,13 +6,18 @@ import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.worldedit.BlockPrice;
 import fr.maxlego08.essentials.api.worldedit.MaterialPercent;
+import fr.maxlego08.essentials.api.worldedit.PermissionBlockPerSecond;
+import fr.maxlego08.essentials.api.worldedit.PermissionMaxBlocks;
+import fr.maxlego08.essentials.api.worldedit.PermissionMaxDistance;
 import fr.maxlego08.essentials.api.worldedit.Selection;
 import fr.maxlego08.essentials.api.worldedit.WorldEditItem;
 import fr.maxlego08.essentials.api.worldedit.WorldEditTask;
 import fr.maxlego08.essentials.api.worldedit.WorldeditManager;
 import fr.maxlego08.essentials.api.worldedit.WorldeditStatus;
 import fr.maxlego08.essentials.module.ZModule;
+import fr.maxlego08.essentials.worldedit.taks.CutTask;
 import fr.maxlego08.essentials.worldedit.taks.SetTask;
+import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.menu.MenuItemStack;
 import fr.maxlego08.menu.exceptions.InventoryException;
 import fr.maxlego08.menu.loader.MenuItemStackLoader;
@@ -47,6 +52,9 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
     private List<String> blacklistBlocks = new ArrayList<>();
     private BigDecimal defaultBlockPrice;
     private List<BlockPrice> blocksPrice;
+    private List<PermissionBlockPerSecond> permissionsBlocksPerSecond;
+    private List<PermissionMaxBlocks> permissionsMaxBlocks;
+    private List<PermissionMaxDistance> permissionsMaxDistances;
 
     public WorldeditModule(ZEssentialsPlugin plugin) {
         super(plugin, "worldedit");
@@ -81,7 +89,9 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
             }
         }
 
-        System.out.println(blacklistBlocks.size());
+        System.out.println(permissionsBlocksPerSecond);
+        System.out.println(permissionsMaxBlocks);
+        System.out.println(permissionsMaxDistances);
     }
 
     @Override
@@ -121,22 +131,37 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
         return this.blacklistBlocks.contains(material.name());
     }
 
-    @Override
-    public void setBlocks(User user, List<MaterialPercent> materialPercents) {
-
+    private boolean cantUseWorldEdit(User user) {
         var selection = user.getSelection();
         if (!selection.isValid()) {
             message(user, Message.WORLDEDIT_SELECTION_ERROR);
-            return;
+            return true;
         }
 
         if (user.hasWorldeditTask()) {
             message(user, Message.WORLDEDIT_ALREADY_RUNNING);
-            return;
+            return true;
         }
 
-        WorldEditTask worldEditTask = new SetTask(this.plugin, this, user, selection.getCuboid().getBlocks(), materialPercents);
+        int speed = getBlocksPerSecond(user.getPlayer());
+        if (speed <= 0) {
+            message(user, Message.WORLDEDIT_SPEED_ERROR);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void setBlocks(User user, List<MaterialPercent> materialPercents) {
+
+        var selection = user.getSelection();
+        int speed = getBlocksPerSecond(user.getPlayer());
+        if (cantUseWorldEdit(user)) return;
+
+        WorldEditTask worldEditTask = new SetTask(this.plugin, this, user, selection.getCuboid(), materialPercents);
         user.setWorldeditTask(worldEditTask);
+
+        message(user, Message.WORLDEDIT_START_CALCULATE_PRICE);
 
         worldEditTask.calculatePrice(price -> {
 
@@ -149,6 +174,9 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
                 return;
             }
 
+            int blocks = worldEditTask.count();
+            double seconds = (double) blocks / (double) speed;
+
             String materials = worldEditTask.getMaterials().entrySet().stream().map(entry -> {
 
                 var material = entry.getKey();
@@ -158,8 +186,52 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
                 return getMessage(Message.COMMAND_WORLDEDIT_CONFIRM_MATERIAL, "%translation-key%", material.translationKey(), "%amount%", amount, "%price%", economyManager.format(economy, blockPrice.multiply(BigDecimal.valueOf(amount))), "%price-per-block%", economyManager.format(economy, blockPrice));
             }).collect(Collectors.joining(","));
 
-            message(user, Message.COMMAND_WORLDEDIT_CONFIRM_PRICE, "%price%", economyManager.format(economy, price), "%materials%", materials);
+            message(user, Message.COMMAND_WORLDEDIT_CONFIRM_PRICE,
+                    "%price%", economyManager.format(economy, price),
+                    "%materials%", materials,
+                    "%duration%", TimerBuilder.getStringTime(seconds * 1000),
+                    "%blocks%", blocks,
+                    "%speed%", speed,
+                    "%s%", speed > 1 ? "s" : ""
+            );
         });
+    }
+
+    @Override
+    public void cutBlocks(User user) {
+
+        var selection = user.getSelection();
+        int speed = getBlocksPerSecond(user.getPlayer());
+        if (cantUseWorldEdit(user)) return;
+
+        WorldEditTask worldEditTask = new CutTask(this.plugin, this, user, selection.getCuboid());
+        user.setWorldeditTask(worldEditTask);
+
+        message(user, Message.WORLDEDIT_START_CALCULATE_PRICE);
+
+        worldEditTask.calculatePrice(price -> {
+
+            var economyManager = this.plugin.getEconomyManager();
+            var economy = economyManager.getDefaultEconomy();
+
+            if (!user.has(economy, price)) {
+                message(user, Message.WORLDEDIT_NOT_ENOUGH_MONEY);
+                user.setWorldeditTask(null);
+                return;
+            }
+
+            int blocks = worldEditTask.count();
+            double seconds = (double) blocks / (double) speed;
+
+            message(user, Message.COMMAND_WORLDEDIT_CONFIRM_PRICE_CUT,
+                    "%price%", economyManager.format(economy, price),
+                    "%duration%", TimerBuilder.getStringTime(seconds * 1000),
+                    "%blocks%", blocks,
+                    "%speed%", speed,
+                    "%s%", speed > 1 ? "s" : ""
+            );
+        });
+
     }
 
     @Override
@@ -175,12 +247,10 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
             return;
         }
 
-
         message(user, Message.WORLDEDIT_START_CHECK_INVENTORY);
 
         task.confirm(result -> {
 
-            System.out.println("Result: " + result);
             if (result) {
 
                 if (!user.has(plugin.getEconomyManager().getDefaultEconomy(), task.getTotalPrice())) {
@@ -236,5 +306,20 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
     @Override
     public BigDecimal getMaterialPrice(Material material) {
         return this.blocksPrice.stream().filter(blockPrice -> blockPrice.material() == material).map(BlockPrice::price).findFirst().orElse(this.defaultBlockPrice);
+    }
+
+    @Override
+    public int getBlocksPerSecond(Player player) {
+        return this.permissionsBlocksPerSecond.stream().filter(permissionBlockPerSecond -> player.hasPermission(permissionBlockPerSecond.permission())).mapToInt(PermissionBlockPerSecond::blocks).max().orElse(0);
+    }
+
+    @Override
+    public int getMaxBlocks(Player player) {
+        return this.permissionsMaxBlocks.stream().filter(permissionMaxBlocks -> player.hasPermission(permissionMaxBlocks.permission())).mapToInt(PermissionMaxBlocks::blocks).max().orElse(0);
+    }
+
+    @Override
+    public int getMaxDistance(Player player) {
+        return this.permissionsMaxDistances.stream().filter(permissionMaxDistance -> player.hasPermission(permissionMaxDistance.permission())).mapToInt(PermissionMaxDistance::distance).max().orElse(0);
     }
 }

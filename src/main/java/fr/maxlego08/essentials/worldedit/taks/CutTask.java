@@ -7,13 +7,15 @@ import fr.maxlego08.essentials.api.worldedit.MaterialPercent;
 import fr.maxlego08.essentials.api.worldedit.WorldEditTask;
 import fr.maxlego08.essentials.api.worldedit.WorldeditAction;
 import fr.maxlego08.essentials.api.worldedit.WorldeditManager;
+import org.bukkit.Material;
 
+import java.util.Arrays;
 import java.util.List;
 
-public class SetTask extends WorldEditTask {
+public class CutTask extends WorldEditTask {
 
-    public SetTask(EssentialsPlugin plugin, WorldeditManager worldeditManager, User user, Cuboid cuboid, List<MaterialPercent> materialPercents) {
-        super(plugin, worldeditManager, user, cuboid, materialPercents);
+    public CutTask(EssentialsPlugin plugin, WorldeditManager worldeditManager, User user, Cuboid cuboid) {
+        super(plugin, worldeditManager, user, cuboid, List.of(new MaterialPercent(Material.AIR, 100)));
     }
 
     @Override
@@ -23,6 +25,6 @@ public class SetTask extends WorldEditTask {
 
     @Override
     public WorldeditAction getAction() {
-        return WorldeditAction.PLACE;
+        return WorldeditAction.CUT;
     }
 }
