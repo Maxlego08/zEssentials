@@ -276,6 +276,7 @@ public enum Message {
     DESCRIPTION_WORLDEDIT_GIVE("Give a worldedit item to a player"),
     DESCRIPTION_WORLDEDIT_SET("Set all blocks of your selection"),
     DESCRIPTION_WORLDEDIT_WALLS("Set all blocks of your selection with a walls"),
+    DESCRIPTION_WORLDEDIT_SPHERE("Set all blocks of your selection with a sphere"),
     DESCRIPTION_WORLDEDIT_FILL("Fill all blocks of your selection"),
     DESCRIPTION_WORLDEDIT_CUT("Cut all blocks of your selection"),
     DESCRIPTION_WORLDEDIT_STOP("Stop the current edition"),

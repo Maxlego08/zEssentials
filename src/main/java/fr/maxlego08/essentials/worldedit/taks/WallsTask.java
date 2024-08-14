@@ -30,7 +30,6 @@ public class WallsTask extends WorldEditTask {
 
         World w = this.cuboid.getWorld();
 
-        // Ajouter les murs aux extrémités X (minX et maxX)
         for (int x = minX; x <= maxX; x++) {
             for (int y = minY; y <= maxY; y++) {
                 this.blocks.add(new Location(w, x, y, minZ).getBlock());
@@ -38,7 +37,6 @@ public class WallsTask extends WorldEditTask {
             }
         }
 
-        // Ajouter les murs aux extrémités Z (minZ et maxZ) sans les coins déjà ajoutés
         for (int z = minZ + 1; z < maxZ; z++) {
             for (int y = minY; y <= maxY; y++) {
                 this.blocks.add(new Location(w, minX, y, z).getBlock());

@@ -19,6 +19,7 @@ public class CommandWorldEdit extends VCommand {
         this.addSubCommand(new CommandWorldEditSet(plugin));
         this.addSubCommand(new CommandWorldEditStop(plugin));
         this.addSubCommand(new CommandWorldEditWalls(plugin));
+        this.addSubCommand(new CommandWorldEditSphere(plugin));
     }
 
     @Override

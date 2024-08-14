@@ -38,6 +38,7 @@ public interface WorldeditManager {
     int getMaxBlocks(Player player);
 
     int getMaxDistance(Player player);
+    int getSphereRadius(Player player);
 
     void sendFinishMessage(User user);
 
@@ -48,4 +49,6 @@ public interface WorldeditManager {
     void sendRefundMessage(Player player, Map<Material, Long> refundMaterials, BigDecimal refundPrice, Economy economy);
 
     void wallsBlocks(User user, List<MaterialPercent> materialPercents);
+
+    void sphereBlocks(User user, List<MaterialPercent> materialPercents, int radius, boolean filled);
 }

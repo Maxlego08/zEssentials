@@ -11,6 +11,7 @@ import fr.maxlego08.essentials.api.worldedit.MaterialPercent;
 import fr.maxlego08.essentials.api.worldedit.PermissionBlockPerSecond;
 import fr.maxlego08.essentials.api.worldedit.PermissionMaxBlocks;
 import fr.maxlego08.essentials.api.worldedit.PermissionMaxDistance;
+import fr.maxlego08.essentials.api.worldedit.PermissionSphereRadius;
 import fr.maxlego08.essentials.api.worldedit.Selection;
 import fr.maxlego08.essentials.api.worldedit.WorldEditItem;
 import fr.maxlego08.essentials.api.worldedit.WorldEditTask;
@@ -20,6 +21,7 @@ import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.essentials.worldedit.taks.CutTask;
 import fr.maxlego08.essentials.worldedit.taks.FillTask;
 import fr.maxlego08.essentials.worldedit.taks.SetTask;
+import fr.maxlego08.essentials.worldedit.taks.SphereTask;
 import fr.maxlego08.essentials.worldedit.taks.WallsTask;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.menu.MenuItemStack;
@@ -61,6 +63,7 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
     private List<PermissionBlockPerSecond> permissionsBlocksPerSecond;
     private List<PermissionMaxBlocks> permissionsMaxBlocks;
     private List<PermissionMaxDistance> permissionsMaxDistances;
+    private List<PermissionSphereRadius> permissionsSphereRadius;
     private int batchSize;
 
     public WorldeditModule(ZEssentialsPlugin plugin) {
@@ -194,6 +197,18 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
         if (cantUseWorldEdit(user)) return;
 
         WorldEditTask worldEditTask = new WallsTask(this.plugin, this, user, selection.getCuboid(), materialPercents);
+        placeBlock(user, worldEditTask);
+    }
+
+    @Override
+    public void sphereBlocks(User user, List<MaterialPercent> materialPercents, int radius, boolean filled) {
+        var selection = user.getSelection();
+        if (cantUseWorldEdit(user)) return;
+
+        int maxRadius = getSphereRadius(user.getPlayer());
+        if (radius > maxRadius) radius = maxRadius;
+
+        WorldEditTask worldEditTask = new SphereTask(this.plugin, this, user, selection.getCuboid(), materialPercents, radius, filled);
         placeBlock(user, worldEditTask);
     }
 
@@ -343,14 +358,14 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
 
             event.setCancelled(true);
-            selection.setFirstLocation(block.getLocation());
-            message(event.getPlayer(), Message.WORLDEDIT_SELECTION_POS1);
+            selection.setSecondLocation(block.getLocation());
+            message(event.getPlayer(), Message.WORLDEDIT_SELECTION_POS2);
 
         } else {
 
             event.setCancelled(true);
-            selection.setSecondLocation(block.getLocation());
-            message(event.getPlayer(), Message.WORLDEDIT_SELECTION_POS2);
+            selection.setFirstLocation(block.getLocation());
+            message(event.getPlayer(), Message.WORLDEDIT_SELECTION_POS1);
         }
     }
 
@@ -372,6 +387,11 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
     @Override
     public int getMaxDistance(Player player) {
         return this.permissionsMaxDistances.stream().filter(permissionMaxDistance -> player.hasPermission(permissionMaxDistance.permission())).mapToInt(PermissionMaxDistance::distance).max().orElse(0);
+    }
+
+    @Override
+    public int getSphereRadius(Player player) {
+        return this.permissionsSphereRadius.stream().filter(permissionSphereRadius -> player.hasPermission(permissionSphereRadius.permission())).mapToInt(PermissionSphereRadius::radius).max().orElse(0);
     }
 
     @Override

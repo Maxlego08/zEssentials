@@ -247,12 +247,21 @@ permissions-max-blocks:
 
 # Set the maximum distance between the 2 locations of the selection
 permissions-max-distances:
-  - permission: zessentials.worldedit.blocks.player
+  - permission: zessentials.worldedit.distances.player
     distance: 20
-  - permission: zessentials.worldedit.blocks.vip
+  - permission: zessentials.worldedit.distances.vip
     distance: 50
-  - permission: zessentials.worldedit.blocks.admin
+  - permission: zessentials.worldedit.distances.admin
     distance: 100
+
+# Set the maximum distance between the 2 locations of the selection
+permissions-sphere-radius:
+  - permission: zessentials.worldedit.sphere.player
+    radius: 4
+  - permission: zessentials.worldedit.sphere.vip
+    radius: 8
+  - permission: zessentials.worldedit.sphere.admin
+    radius: 100
 
 # Number of blocks that will be checked at the same time when calculating the price
 batch-size: 200
