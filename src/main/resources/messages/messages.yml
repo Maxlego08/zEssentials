@@ -810,6 +810,10 @@ worldedit-not-enough-money: "<error>You don’t have enough money to make this e
 worldedit-not-enough-items: "<error>You don’t have the items in your inventory, you can’t do that."
 worldedit-selection-pos1: "<success>You have just defined the first position."
 worldedit-selection-pos2: "<success>You have just defined the second position."
+worldedit-selection-volume: "<error>You cannot change more than &f%blocks% <error>at the same time."
+worldedit-selection-distance: "<error>The distance between your two points in your selection is too large. <dark_gray>(<gray>Maximum <white>%distance% <gray>blocks<dark_gray>)"
 
 worldedit-start-calculate-price: "&7Price calculation in progress, please wait..."
 worldedit-start-check-inventory: "&7Checking that you have enough items in your inventory, please wait..."
+worldedit-start-running: "&7Launch of current edition, please wait..."
+worldedit-finish: "<success>Edition completed !"

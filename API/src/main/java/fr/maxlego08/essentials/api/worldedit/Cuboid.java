@@ -463,45 +463,45 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
      */
     public Cuboid contract(CuboidDirection dir) {
         Cuboid face = getFace(dir.opposite());
-		switch (dir) {
-			case Down -> {
-				while (face.containsOnlyAir() && face.getLowerY() > this.getLowerY()) {
-					face = face.shift(CuboidDirection.Down, 1);
-				}
-				return new Cuboid(this.worldName, this.x1, this.y1, this.z1, this.x2, face.getUpperY(), this.z2);
-			}
-			case Up -> {
-				while (face.containsOnlyAir() && face.getUpperY() < this.getUpperY()) {
-					face = face.shift(CuboidDirection.Up, 1);
-				}
-				return new Cuboid(this.worldName, this.x1, face.getLowerY(), this.z1, this.x2, this.y2, this.z2);
-			}
-			case North -> {
-				while (face.containsOnlyAir() && face.getLowerX() > this.getLowerX()) {
-					face = face.shift(CuboidDirection.North, 1);
-				}
-				return new Cuboid(this.worldName, this.x1, this.y1, this.z1, face.getUpperX(), this.y2, this.z2);
-			}
-			case South -> {
-				while (face.containsOnlyAir() && face.getUpperX() < this.getUpperX()) {
-					face = face.shift(CuboidDirection.South, 1);
-				}
-				return new Cuboid(this.worldName, face.getLowerX(), this.y1, this.z1, this.x2, this.y2, this.z2);
-			}
-			case East -> {
-				while (face.containsOnlyAir() && face.getLowerZ() > this.getLowerZ()) {
-					face = face.shift(CuboidDirection.East, 1);
-				}
-				return new Cuboid(this.worldName, this.x1, this.y1, this.z1, this.x2, this.y2, face.getUpperZ());
-			}
-			case West -> {
-				while (face.containsOnlyAir() && face.getUpperZ() < this.getUpperZ()) {
-					face = face.shift(CuboidDirection.West, 1);
-				}
-				return new Cuboid(this.worldName, this.x1, this.y1, face.getLowerZ(), this.x2, this.y2, this.z2);
-			}
-			default -> throw new IllegalArgumentException("Invalid direction " + dir);
-		}
+        switch (dir) {
+            case Down -> {
+                while (face.containsOnlyAir() && face.getLowerY() > this.getLowerY()) {
+                    face = face.shift(CuboidDirection.Down, 1);
+                }
+                return new Cuboid(this.worldName, this.x1, this.y1, this.z1, this.x2, face.getUpperY(), this.z2);
+            }
+            case Up -> {
+                while (face.containsOnlyAir() && face.getUpperY() < this.getUpperY()) {
+                    face = face.shift(CuboidDirection.Up, 1);
+                }
+                return new Cuboid(this.worldName, this.x1, face.getLowerY(), this.z1, this.x2, this.y2, this.z2);
+            }
+            case North -> {
+                while (face.containsOnlyAir() && face.getLowerX() > this.getLowerX()) {
+                    face = face.shift(CuboidDirection.North, 1);
+                }
+                return new Cuboid(this.worldName, this.x1, this.y1, this.z1, face.getUpperX(), this.y2, this.z2);
+            }
+            case South -> {
+                while (face.containsOnlyAir() && face.getUpperX() < this.getUpperX()) {
+                    face = face.shift(CuboidDirection.South, 1);
+                }
+                return new Cuboid(this.worldName, face.getLowerX(), this.y1, this.z1, this.x2, this.y2, this.z2);
+            }
+            case East -> {
+                while (face.containsOnlyAir() && face.getLowerZ() > this.getLowerZ()) {
+                    face = face.shift(CuboidDirection.East, 1);
+                }
+                return new Cuboid(this.worldName, this.x1, this.y1, this.z1, this.x2, this.y2, face.getUpperZ());
+            }
+            case West -> {
+                while (face.containsOnlyAir() && face.getUpperZ() < this.getUpperZ()) {
+                    face = face.shift(CuboidDirection.West, 1);
+                }
+                return new Cuboid(this.worldName, this.x1, this.y1, face.getLowerZ(), this.x2, this.y2, this.z2);
+            }
+            default -> throw new IllegalArgumentException("Invalid direction " + dir);
+        }
     }
 
     /**
@@ -637,7 +637,11 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
     @Override
     public String toString() {
         return "Cuboid: " + this.worldName + "," + this.x1 + "," + this.y1 + "," + this.z1 + "=>" + this.x2
-				+ "," + this.y2 + "," + this.z2;
+                + "," + this.y2 + "," + this.z2;
+    }
+
+    public double getDistance() {
+        return new Location(getWorld(), x1, y1, z1).distance(new Location(getWorld(), x2, y2, z2));
     }
 
     public enum CuboidDirection {
@@ -663,12 +667,12 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
     public static class CuboidIterator implements Iterator<Block> {
         private final World w;
         private final int baseX;
-		private final int baseY;
-		private final int baseZ;
-        private int x, y, z;
+        private final int baseY;
+        private final int baseZ;
         private final int sizeX;
-		private final int sizeY;
-		private final int sizeZ;
+        private final int sizeY;
+        private final int sizeZ;
+        private int x, y, z;
 
         public CuboidIterator(World w, int x1, int y1, int z1, int x2, int y2, int z2) {
             this.w = w;
@@ -686,7 +690,7 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
         }
 
         public Block next() {
-            Block b = this.w.getBlockAt(this.baseX + this.x, this.baseY + this.y, this.baseZ + this.z);
+            Block blockAt = this.w.getBlockAt(this.baseX + this.x, this.baseY + this.y, this.baseZ + this.z);
             if (++x >= this.sizeX) {
                 this.x = 0;
                 if (++this.y >= this.sizeY) {
@@ -694,7 +698,7 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
                     ++this.z;
                 }
             }
-            return b;
+            return blockAt;
         }
 
         public void remove() {

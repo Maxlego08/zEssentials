@@ -717,6 +717,8 @@ public enum Message {
     COMMAND_WORLDEDIT_CONFIRM_ERROR("<error>You can’t do that now."),
 
     WORLDEDIT_SELECTION_ERROR("<error>You must select two positions before you make this command."),
+    WORLDEDIT_SELECTION_VOLUME("<error>You cannot change more than &f%blocks% <error>at the same time."),
+    WORLDEDIT_SELECTION_DISTANCE("<error>The distance between your two points in your selection is too large. <dark_gray>(<gray>Maximum <white>%distance% <gray>blocks<dark_gray>)"),
     WORLDEDIT_ALREADY_RUNNING("<error>You already have an edit in progress, please wait until it is finished."),
     WORLDEDIT_NOT_ENOUGH_MONEY("<error>You don’t have enough money to make this edition."),
     WORLDEDIT_NOT_ENOUGH_ITEMS("<error>You don’t have the items in your inventory, you can’t do that."),
@@ -726,6 +728,8 @@ public enum Message {
 
     WORLDEDIT_START_CALCULATE_PRICE("&7Price calculation in progress, please wait..."),
     WORLDEDIT_START_CHECK_INVENTORY("&7Checking that you have enough items in your inventory, please wait..."),
+    WORLDEDIT_START_RUNNING("&7Launch of current edition, please wait..."),
+    WORLDEDIT_FINISH("<success>Edition completed !"),
 
     ;
 

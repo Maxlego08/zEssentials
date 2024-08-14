@@ -55,6 +55,7 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
     private List<PermissionBlockPerSecond> permissionsBlocksPerSecond;
     private List<PermissionMaxBlocks> permissionsMaxBlocks;
     private List<PermissionMaxDistance> permissionsMaxDistances;
+    private int batchSize;
 
     public WorldeditModule(ZEssentialsPlugin plugin) {
         super(plugin, "worldedit");
@@ -135,6 +136,18 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
         var selection = user.getSelection();
         if (!selection.isValid()) {
             message(user, Message.WORLDEDIT_SELECTION_ERROR);
+            return true;
+        }
+
+        int maxBlocks = getMaxBlocks(user.getPlayer());
+        if (selection.getCuboid().getVolume() > maxBlocks) {
+            message(user, Message.WORLDEDIT_SELECTION_VOLUME, "%blocks%", maxBlocks);
+            return true;
+        }
+
+        int maxDistance = getMaxDistance(user.getPlayer());
+        if (selection.getCuboid().getDistance() > maxDistance) {
+            message(user, Message.WORLDEDIT_SELECTION_DISTANCE, "%distance%", maxDistance);
             return true;
         }
 
@@ -249,15 +262,20 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
 
         message(user, Message.WORLDEDIT_START_CHECK_INVENTORY);
 
+        var economy = plugin.getEconomyManager().getDefaultEconomy();
+
         task.confirm(result -> {
 
             if (result) {
 
-                if (!user.has(plugin.getEconomyManager().getDefaultEconomy(), task.getTotalPrice())) {
+                if (!user.has(economy, task.getTotalPrice())) {
                     message(user, Message.WORLDEDIT_NOT_ENOUGH_MONEY);
                     user.setWorldeditTask(null);
                     return;
                 }
+
+                user.withdraw(economy, task.getTotalPrice());
+                message(user, Message.WORLDEDIT_START_RUNNING);
 
                 task.startPlaceBlocks();
 
@@ -321,5 +339,15 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
     @Override
     public int getMaxDistance(Player player) {
         return this.permissionsMaxDistances.stream().filter(permissionMaxDistance -> player.hasPermission(permissionMaxDistance.permission())).mapToInt(PermissionMaxDistance::distance).max().orElse(0);
+    }
+
+    @Override
+    public void sendFinishMessage(User user) {
+        message(user, Message.WORLDEDIT_FINISH);
+    }
+
+    @Override
+    public int getBatchSize() {
+        return this.batchSize;
     }
 }

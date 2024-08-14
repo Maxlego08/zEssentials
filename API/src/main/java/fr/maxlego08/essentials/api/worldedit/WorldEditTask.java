@@ -97,9 +97,6 @@ public abstract class WorldEditTask {
         if (block.getType() == randomMaterial || worldeditManager.isBlacklist(block.getType())) return;
 
         BigDecimal blockPrice = this.worldeditManager.getMaterialPrice(randomMaterial);
-
-        System.out.println(blockPrice + " - " + randomMaterial);
-
         this.blockInfos.add(new BlockInfo(block, randomMaterial, blockPrice));
     }
 
@@ -131,14 +128,16 @@ public abstract class WorldEditTask {
         this.plugin.getScheduler().runAsync(wrappedTask -> {
 
             Player player = user.getPlayer();
-            var result = true;
+            boolean result;
 
             if (getAction() == WorldeditAction.PLACE) {
                 result = hasRequiredItems(player, materials);
                 if (!result) this.worldeditStatus = WorldeditStatus.NOT_ENOUGH_ITEMS;
+            } else {
+                result = true;
             }
 
-            consumer.accept(result);
+            plugin.getScheduler().runNextTick(wrappedTask1 -> consumer.accept(result));
         });
     }
 
@@ -231,6 +230,7 @@ public abstract class WorldEditTask {
     protected void finish() {
         this.worldeditStatus = WorldeditStatus.FINISH;
         this.user.setWorldeditTask(null);
+        this.worldeditManager.sendFinishMessage(user);
 
         this.giveItems(user.getPlayer(), this.needToGiveMaterials);
     }
@@ -255,13 +255,15 @@ public abstract class WorldEditTask {
                 int stackSize = (int) Math.min(amount, material.getMaxStackSize());
                 ItemStack itemStack = new ItemStack(material, stackSize);
 
+                System.out.println("> " + itemStack);
                 Map<Integer, ItemStack> remainingItems = inventory.addItem(itemStack);
+                System.out.println(">< " + remainingItems);
 
                 if (!remainingItems.isEmpty()) {
                     for (ItemStack remainingItem : remainingItems.values()) {
+                        System.out.println("Add: " + remainingItem);
                         vaultManager.addItem(player.getUniqueId(), remainingItem);
                     }
-                    break;
                 }
 
                 amount -= stackSize;

@@ -233,11 +233,11 @@ blocks-price:
 # Allows defining the number of blocks per second that will be placed.
 permissions-blocks-per-second:
   - permission: zessentials.worldedit.speed.player
-    blocks-per-second: 5
+    blocks: 5
   - permission: zessentials.worldedit.speed.vip
-    blocks-per-second: 10
+    blocks: 10
   - permission: zessentials.worldedit.speed.admin
-    blocks-per-second: 50
+    blocks: 50
 
 # Set the maximum number of blocks in the selection
 permissions-max-blocks:
@@ -256,3 +256,6 @@ permissions-max-distances:
     distance: 50
   - permission: zessentials.worldedit.blocks.admin
     distance: 100
+
+# Number of blocks that will be checked at the same time when calculating the price
+batch-size: 200

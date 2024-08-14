@@ -34,4 +34,8 @@ public interface WorldeditManager {
     int getMaxDistance(Player player);
 
     void cutBlocks(User user);
+
+    void sendFinishMessage(User user);
+
+    int getBatchSize();
 }
