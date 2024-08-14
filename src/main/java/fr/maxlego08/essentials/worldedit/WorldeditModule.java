@@ -2,6 +2,8 @@ package fr.maxlego08.essentials.worldedit;
 
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.configuration.NonLoadable;
+import fr.maxlego08.essentials.api.economy.Economy;
+import fr.maxlego08.essentials.api.event.events.user.UserQuitEvent;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.worldedit.BlockPrice;
@@ -42,6 +44,7 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -289,6 +292,23 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
         });
     }
 
+    @Override
+    public void stopEdition(User user) {
+        var task = user.getWorldeditTask();
+
+        if (task == null) {
+            message(user, Message.COMMAND_WORLDEDIT_STOP_EMPTY);
+            return;
+        }
+
+        if (task.getWorldeditStatus() != WorldeditStatus.RUNNING) {
+            message(user, Message.COMMAND_WORLDEDIT_STOP_ERROR);
+            return;
+        }
+
+        task.cancel(user.getPlayer());
+    }
+
     private boolean isWorldeditItem(ItemStack itemStack) {
         if (!itemStack.hasItemMeta()) return false;
         ItemMeta itemMeta = itemStack.getItemMeta();
@@ -350,7 +370,34 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
     }
 
     @Override
+    public void sendRefundMessage(Player player, Map<Material, Long> refundMaterials, BigDecimal refundPrice, Economy economy) {
+
+        var economyManager = plugin.getEconomyManager();
+        String materials = refundMaterials.isEmpty() ? getMessage(Message.WORLDEDIT_REFUND_EMPTY) : refundMaterials.entrySet().stream().map(entry -> {
+
+            var material = entry.getKey();
+            var amount = entry.getValue();
+            var blockPrice = getMaterialPrice(material);
+
+            return getMessage(Message.WORLDEDIT_REFUND_MATERIAL, "%translation-key%", material.translationKey(), "%amount%", amount, "%price%", economyManager.format(economy, blockPrice.multiply(BigDecimal.valueOf(amount))), "%price-per-block%", economyManager.format(economy, blockPrice));
+        }).collect(Collectors.joining(","));
+
+        message(player, Message.WORLDEDIT_REFUND, "%materials%", materials, "%price%", economyManager.format(economy, refundPrice));
+    }
+
+    @Override
     public int getBatchSize() {
         return this.batchSize;
+    }
+
+    @EventHandler
+    public void onQuit(UserQuitEvent event) {
+        var user = event.getUser();
+
+        var task = user.getWorldeditTask();
+        if (task == null || task.getWorldeditStatus() != WorldeditStatus.RUNNING) return;
+
+        task.cancel(user.getPlayer());
+
     }
 }

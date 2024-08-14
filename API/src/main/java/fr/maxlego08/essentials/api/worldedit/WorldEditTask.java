@@ -1,5 +1,6 @@
 package fr.maxlego08.essentials.api.worldedit;
 
+import com.tcoded.folialib.wrapper.task.WrappedTask;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.user.User;
 import org.bukkit.Material;
@@ -37,6 +38,7 @@ public abstract class WorldEditTask {
     protected Map<Material, Long> needToGiveMaterials = new HashMap<>();
     protected List<Block> blocks;
     protected BigDecimal totalPrice;
+    protected WrappedTask wrappedTask;
 
     public WorldEditTask(EssentialsPlugin plugin, WorldeditManager worldeditManager, User user, Cuboid cuboid, List<MaterialPercent> materialPercents) {
         this.plugin = plugin;
@@ -62,7 +64,7 @@ public abstract class WorldEditTask {
             // Calculate the list of blocks that need to be modified
             this.loadBlocks();
 
-            processNextBatch(blocks.stream().map(b -> new BlockInfo(b, null, BigDecimal.ZERO)).collect(Collectors.toList()), 0, 100, () -> {
+            processNextBatch(blocks.stream().map(b -> new BlockInfo(b, null, BigDecimal.ZERO)).collect(Collectors.toList()), 0, this.worldeditManager.getBatchSize(), () -> {
 
                 this.totalPrice = this.blockInfos.stream().map(BlockInfo::price).reduce(BigDecimal.ZERO, BigDecimal::add);
                 this.materials = this.blockInfos.stream().collect(Collectors.groupingBy(BlockInfo::newMaterial, Collectors.counting()));
@@ -302,10 +304,10 @@ public abstract class WorldEditTask {
         AtomicInteger tickCounter = new AtomicInteger();
         int additionalBlocks = blocksPerSecond % 20;
 
-        scheduler.runTimerAsync(wrappedTask -> {
+        this.wrappedTask = scheduler.runTimerAsync(() -> {
 
             if (blockInfos.isEmpty()) {
-                wrappedTask.cancel();
+                this.wrappedTask.cancel();
                 finish();
                 return;
             }
@@ -348,5 +350,27 @@ public abstract class WorldEditTask {
 
     public int count() {
         return this.blockInfos.size();
+    }
+
+    public void cancel(Player player) {
+
+        if (this.worldeditStatus != WorldeditStatus.RUNNING) return;
+
+        this.worldeditStatus = WorldeditStatus.CANCELLED;
+        this.wrappedTask.cancel();
+
+        BigDecimal refundPrice = this.blockInfos.stream().map(BlockInfo::price).reduce(BigDecimal.ZERO, BigDecimal::add);
+        Map<Material, Long> refundMaterials = getAction() == WorldeditAction.PLACE ? this.blockInfos.stream().collect(Collectors.groupingBy(BlockInfo::newMaterial, Collectors.counting())) : new HashMap<>();
+        this.blockInfos.clear();
+
+        var economy = plugin.getEconomyManager().getDefaultEconomy();
+        user.deposit(economy, refundPrice);
+
+        giveItems(player, refundMaterials);
+        this.giveItems(user.getPlayer(), this.needToGiveMaterials);
+
+        worldeditManager.sendRefundMessage(player, refundMaterials, refundPrice, economy);
+
+        user.setWorldeditTask(null);
     }
 }

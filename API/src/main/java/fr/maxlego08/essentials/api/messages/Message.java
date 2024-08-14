@@ -277,6 +277,7 @@ public enum Message {
     DESCRIPTION_WORLDEDIT_SET("Set all blocks of your selection"),
     DESCRIPTION_WORLDEDIT_FILL("Fill all blocks of your selection"),
     DESCRIPTION_WORLDEDIT_CUT("Cut all blocks of your selection"),
+    DESCRIPTION_WORLDEDIT_STOP("Stop the current edition"),
     DESCRIPTION_WORLDEDIT_CONFIRM("Confirm worldedit action"),
 
     YOU("you"),
@@ -714,8 +715,11 @@ public enum Message {
             "",
             "<#45ff55><hover:show_text:'&fClick to confirm action'><click:run_command:'/pw confirm'>ᴄʟɪᴄᴋ ʜᴇʀᴇ ᴛᴏ ᴄᴏɴғɪʀᴍ</click></hover><gray>"
     ),
-    COMMAND_WORLDEDIT_CONFIRM_MATERIAL("<hover:show_text:'<white>Amount<dark_gray>: <aqua>%amount%<newline><white>Total Price<dark_gray>: <aqua>%price%<newline><white>Price per block<dar_gray>: <aqua>%price-per-block%'><lang:%translation-key%></hover>"),
+    COMMAND_WORLDEDIT_CONFIRM_MATERIAL("<hover:show_text:'<white>Amount<dark_gray>: <aqua>%amount%<newline><white>Total Price<dark_gray>: <aqua>%price%<newline><white>Price per block<dark_gray>: <aqua>%price-per-block%'><lang:%translation-key%></hover>"),
     COMMAND_WORLDEDIT_CONFIRM_ERROR("<error>You can’t do that now."),
+
+    COMMAND_WORLDEDIT_STOP_EMPTY("<error>You have no current edition."),
+    COMMAND_WORLDEDIT_STOP_ERROR("<error>You cannot stop editing currently."),
 
     WORLDEDIT_SELECTION_ERROR("<error>You must select two positions before you make this command."),
     WORLDEDIT_SELECTION_VOLUME("<error>You cannot change more than &f%blocks% <error>at the same time."),
@@ -731,6 +735,14 @@ public enum Message {
     WORLDEDIT_START_CHECK_INVENTORY("&7Checking that you have enough items in your inventory, please wait..."),
     WORLDEDIT_START_RUNNING("&7Launch of current edition, please wait..."),
     WORLDEDIT_FINISH("<success>Edition completed !"),
+    WORLDEDIT_REFUND(
+            "<success>ʏᴏᴜ'ᴠᴇ ᴊᴜsᴛ ʙᴇᴇɴ ʀᴇғᴜɴᴅ",
+            "",
+            "<success>Price<dark_gray>: <white>%price%",
+            "<success>Blocks<dark_gray>:%materials%"
+    ),
+    WORLDEDIT_REFUND_MATERIAL(" <white><hover:show_text:'<white>Amount<dark_gray>: <aqua>%amount%<newline><white>Total Price<dark_gray>: <aqua>%price%<newline><white>Price per block<dark_gray>: <aqua>%price-per-block%'><lang:%translation-key%></hover><gray>"),
+    WORLDEDIT_REFUND_EMPTY("<error>No block to refund"),
 
     ;
 

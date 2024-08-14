@@ -9,6 +9,7 @@ public enum WorldeditStatus {
     NOT_ENOUGH_ITEMS,
     RUNNING, // Running
     FINISH,
+    CANCELLED,
     ;
 
     public boolean isRunning() {

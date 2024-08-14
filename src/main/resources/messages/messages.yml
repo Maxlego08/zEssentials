@@ -817,3 +817,10 @@ worldedit-start-calculate-price: "&7Price calculation in progress, please wait..
 worldedit-start-check-inventory: "&7Checking that you have enough items in your inventory, please wait..."
 worldedit-start-running: "&7Launch of current edition, please wait..."
 worldedit-finish: "<success>Edition completed !"
+worldedit-refund:
+  - "<success>ʏᴏᴜ'ᴠᴇ ᴊᴜsᴛ ʙᴇᴇɴ ʀᴇғᴜɴᴅ"
+  - ""
+  - "<success>Price<dark_gray>: <white>%price%"
+  - "<success>Blocks<dark_gray>:%materials%"
+worldedit-refund-material: " <white><hover:show_text:'<white>Amount<dark_gray>: <aqua>%amount%<newline><white>Total Price<dark_gray>: <aqua>%price%<newline><white>Price per block<dark_gray>: <aqua>%price-per-block%'><lang:%translation-key%></hover><gray>"
+worldedit-refund-empty: "<error>No block to refund"

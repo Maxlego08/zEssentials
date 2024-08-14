@@ -1,5 +1,6 @@
 package fr.maxlego08.essentials.api.worldedit;
 
+import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.user.User;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
@@ -7,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface WorldeditManager {
@@ -41,4 +43,7 @@ public interface WorldeditManager {
 
     int getBatchSize();
 
+    void stopEdition(User user);
+
+    void sendRefundMessage(Player player, Map<Material, Long> refundMaterials, BigDecimal refundPrice, Economy economy);
 }
