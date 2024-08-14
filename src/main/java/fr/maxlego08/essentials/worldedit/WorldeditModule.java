@@ -20,6 +20,7 @@ import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.essentials.worldedit.taks.CutTask;
 import fr.maxlego08.essentials.worldedit.taks.FillTask;
 import fr.maxlego08.essentials.worldedit.taks.SetTask;
+import fr.maxlego08.essentials.worldedit.taks.WallsTask;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.menu.MenuItemStack;
 import fr.maxlego08.menu.exceptions.InventoryException;
@@ -184,6 +185,15 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
         if (cantUseWorldEdit(user)) return;
 
         WorldEditTask worldEditTask = new FillTask(this.plugin, this, user, selection.getCuboid(), materialPercents);
+        placeBlock(user, worldEditTask);
+    }
+
+    @Override
+    public void wallsBlocks(User user, List<MaterialPercent> materialPercents) {
+        var selection = user.getSelection();
+        if (cantUseWorldEdit(user)) return;
+
+        WorldEditTask worldEditTask = new WallsTask(this.plugin, this, user, selection.getCuboid(), materialPercents);
         placeBlock(user, worldEditTask);
     }
 

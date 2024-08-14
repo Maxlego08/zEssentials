@@ -36,7 +36,7 @@ public abstract class WorldEditTask {
     protected WorldeditStatus worldeditStatus = WorldeditStatus.NOTHING;
     protected Map<Material, Long> materials = new HashMap<>();
     protected Map<Material, Long> needToGiveMaterials = new HashMap<>();
-    protected List<Block> blocks;
+    protected List<Block> blocks = new ArrayList<>();
     protected BigDecimal totalPrice;
     protected WrappedTask wrappedTask;
 

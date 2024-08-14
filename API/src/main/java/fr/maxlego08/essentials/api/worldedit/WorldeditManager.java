@@ -46,4 +46,6 @@ public interface WorldeditManager {
     void stopEdition(User user);
 
     void sendRefundMessage(Player player, Map<Material, Long> refundMaterials, BigDecimal refundPrice, Economy economy);
+
+    void wallsBlocks(User user, List<MaterialPercent> materialPercents);
 }
