@@ -40,16 +40,17 @@ import org.bukkit.persistence.PersistentDataType;
 import java.io.File;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class WorldeditModule extends ZModule implements WorldeditManager {
 
     @NonLoadable
     private final List<WorldEditItem> worldEditItems = new ArrayList<>();
-    private List<String> blacklistBlocks = new ArrayList<>();
+    private final List<String> blacklistBlocks = new ArrayList<>();
     private BigDecimal defaultBlockPrice;
     private List<BlockPrice> blocksPrice;
     private List<PermissionBlockPerSecond> permissionsBlocksPerSecond;
@@ -123,8 +124,12 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
     }
 
     @Override
-    public List<String> getAllowedMaterials() {
-        return Arrays.stream(Material.values()).filter(material -> material.isBlock() && !isBlacklist(material)).map(material -> material.name().toLowerCase()).toList();
+    public List<String> getAllowedMaterials(Player player) {
+
+        Set<Material> blockMaterials = Stream.of(player.getInventory().getContents()).filter(item -> item != null && item.getType().isBlock()).map(ItemStack::getType).collect(Collectors.toSet());
+        blockMaterials.addAll(this.plugin.getVaultManager().getMaterials(player));
+
+        return blockMaterials.stream().filter(material -> material.isBlock() && !isBlacklist(material)).map(material -> material.name().toLowerCase()).toList();
     }
 
     @Override
@@ -166,12 +171,25 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
 
     @Override
     public void setBlocks(User user, List<MaterialPercent> materialPercents) {
-
         var selection = user.getSelection();
-        int speed = getBlocksPerSecond(user.getPlayer());
         if (cantUseWorldEdit(user)) return;
 
         WorldEditTask worldEditTask = new SetTask(this.plugin, this, user, selection.getCuboid(), materialPercents);
+        placeBlock(user, worldEditTask);
+    }
+
+    @Override
+    public void fillBlocks(User user, List<MaterialPercent> materialPercents) {
+        var selection = user.getSelection();
+        if (cantUseWorldEdit(user)) return;
+
+        WorldEditTask worldEditTask = new SetTask(this.plugin, this, user, selection.getCuboid(), materialPercents);
+        placeBlock(user, worldEditTask);
+    }
+
+    private void placeBlock(User user, WorldEditTask worldEditTask) {
+
+        int speed = getBlocksPerSecond(user.getPlayer());
         user.setWorldeditTask(worldEditTask);
 
         message(user, Message.WORLDEDIT_START_CALCULATE_PRICE);
@@ -199,14 +217,7 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
                 return getMessage(Message.COMMAND_WORLDEDIT_CONFIRM_MATERIAL, "%translation-key%", material.translationKey(), "%amount%", amount, "%price%", economyManager.format(economy, blockPrice.multiply(BigDecimal.valueOf(amount))), "%price-per-block%", economyManager.format(economy, blockPrice));
             }).collect(Collectors.joining(","));
 
-            message(user, Message.COMMAND_WORLDEDIT_CONFIRM_PRICE,
-                    "%price%", economyManager.format(economy, price),
-                    "%materials%", materials,
-                    "%duration%", TimerBuilder.getStringTime(seconds * 1000),
-                    "%blocks%", blocks,
-                    "%speed%", speed,
-                    "%s%", speed > 1 ? "s" : ""
-            );
+            message(user, Message.COMMAND_WORLDEDIT_CONFIRM_PRICE, "%price%", economyManager.format(economy, price), "%materials%", materials, "%duration%", TimerBuilder.getStringTime(seconds * 1000), "%blocks%", blocks, "%speed%", speed, "%s%", speed > 1 ? "s" : "");
         });
     }
 
@@ -236,13 +247,7 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
             int blocks = worldEditTask.count();
             double seconds = (double) blocks / (double) speed;
 
-            message(user, Message.COMMAND_WORLDEDIT_CONFIRM_PRICE_CUT,
-                    "%price%", economyManager.format(economy, price),
-                    "%duration%", TimerBuilder.getStringTime(seconds * 1000),
-                    "%blocks%", blocks,
-                    "%speed%", speed,
-                    "%s%", speed > 1 ? "s" : ""
-            );
+            message(user, Message.COMMAND_WORLDEDIT_CONFIRM_PRICE_CUT, "%price%", economyManager.format(economy, price), "%duration%", TimerBuilder.getStringTime(seconds * 1000), "%blocks%", blocks, "%speed%", speed, "%s%", speed > 1 ? "s" : "");
         });
 
     }

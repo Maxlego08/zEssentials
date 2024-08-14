@@ -10,6 +10,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -29,6 +31,7 @@ public abstract class WorldEditTask {
     protected final List<MaterialPercent> materialPercents;
     protected final Queue<BlockInfo> blockInfos = new LinkedList<>();
     protected final Random random = new Random();
+    protected final List<WorldeditRule> worldeditRules = new ArrayList<>();
     protected WorldeditStatus worldeditStatus = WorldeditStatus.NOTHING;
     protected Map<Material, Long> materials = new HashMap<>();
     protected Map<Material, Long> needToGiveMaterials = new HashMap<>();
@@ -46,6 +49,10 @@ public abstract class WorldEditTask {
     public abstract void loadBlocks();
 
     public abstract WorldeditAction getAction();
+
+    protected void addRules(WorldeditRule... worldeditRules) {
+        this.worldeditRules.addAll(Arrays.asList(worldeditRules));
+    }
 
     public void calculatePrice(Consumer<BigDecimal> consumer) {
         this.worldeditStatus = WorldeditStatus.CALCULATE_PRICE;
@@ -95,6 +102,14 @@ public abstract class WorldEditTask {
         var randomMaterial = selectRandomMaterial();
 
         if (block.getType() == randomMaterial || worldeditManager.isBlacklist(block.getType())) return;
+
+        for (WorldeditRule worldeditRule : this.worldeditRules) {
+            if (worldeditRule == WorldeditRule.ONLY_AIR) {
+                if (!block.getType().isAir()) {
+                    return;
+                }
+            }
+        }
 
         BigDecimal blockPrice = this.worldeditManager.getMaterialPrice(randomMaterial);
         this.blockInfos.add(new BlockInfo(block, randomMaterial, blockPrice));

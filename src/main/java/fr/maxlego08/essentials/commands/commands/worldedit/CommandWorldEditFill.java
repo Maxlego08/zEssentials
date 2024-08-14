@@ -8,13 +8,13 @@ import fr.maxlego08.essentials.api.worldedit.MaterialPercent;
 
 import java.util.List;
 
-public class CommandWorldEditSet extends WorldeditCommand {
+public class CommandWorldEditFill extends WorldeditCommand {
 
-    public CommandWorldEditSet(EssentialsPlugin plugin) {
+    public CommandWorldEditFill(EssentialsPlugin plugin) {
         super(plugin);
-        this.setPermission(Permission.ESSENTIALS_WORLDEDIT_SET);
-        this.setDescription(Message.DESCRIPTION_WORLDEDIT_SET);
-        this.addSubCommand("set");
+        this.setPermission(Permission.ESSENTIALS_WORLDEDIT_FILL);
+        this.setDescription(Message.DESCRIPTION_WORLDEDIT_FILL);
+        this.addSubCommand("fill");
     }
 
     @Override
@@ -26,9 +26,10 @@ public class CommandWorldEditSet extends WorldeditCommand {
         List<MaterialPercent> materialPercents = result.materialPercents();
         if (materialPercents.isEmpty()) return CommandResultType.SYNTAX_ERROR;
 
-        plugin.getWorldeditManager().setBlocks(this.user, materialPercents);
+        plugin.getWorldeditManager().fillBlocks(this.user, materialPercents);
 
         return CommandResultType.SUCCESS;
     }
+
 
 }

@@ -274,8 +274,9 @@ public enum Message {
     DESCRIPTION_NIGHT_VISION("Enable or disable night vision"),
     DESCRIPTION_SUDO("Force a player to execute a command"),
     DESCRIPTION_WORLDEDIT_GIVE("Give a worldedit item to a player"),
-    DESCRIPTION_WORLDEDIT_SET("Set all blocks of your select"),
-    DESCRIPTION_WORLDEDIT_CUT("Cut all blocks of your select"),
+    DESCRIPTION_WORLDEDIT_SET("Set all blocks of your selection"),
+    DESCRIPTION_WORLDEDIT_FILL("Fill all blocks of your selection"),
+    DESCRIPTION_WORLDEDIT_CUT("Cut all blocks of your selection"),
     DESCRIPTION_WORLDEDIT_CONFIRM("Confirm worldedit action"),
 
     YOU("you"),

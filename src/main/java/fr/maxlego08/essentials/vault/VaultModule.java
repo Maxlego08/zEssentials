@@ -19,10 +19,13 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -366,5 +369,15 @@ public class VaultModule extends ZModule implements VaultManager {
                 return;
             }
         }
+    }
+
+    @Override
+    public Collection<Material> getMaterials(Player player) {
+        Set<Material> materials = new HashSet<>();
+        PlayerVaults playerVaults = getPlayerVaults(player.getUniqueId());
+        for (Vault vault : playerVaults.getVaults().values()) {
+            materials.addAll(vault.getVaultItems().values().stream().map(vaultItem -> vaultItem.getItemStack().getType()).toList());
+        }
+        return materials;
     }
 }

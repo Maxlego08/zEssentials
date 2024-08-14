@@ -17,11 +17,15 @@ public interface WorldeditManager {
 
     List<String> getWorldeditItems();
 
-    List<String> getAllowedMaterials();
+    List<String> getAllowedMaterials(Player player);
 
     boolean isBlacklist(Material material);
 
     void setBlocks(User user, List<MaterialPercent> materialPercents);
+
+    void fillBlocks(User user, List<MaterialPercent> materialPercents);
+
+    void cutBlocks(User user);
 
     BigDecimal getMaterialPrice(Material material);
 
@@ -33,9 +37,8 @@ public interface WorldeditManager {
 
     int getMaxDistance(Player player);
 
-    void cutBlocks(User user);
-
     void sendFinishMessage(User user);
 
     int getBatchSize();
+
 }

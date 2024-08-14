@@ -12,10 +12,11 @@ public class CommandWorldEdit extends VCommand {
         super(plugin);
         this.setModule(WorldeditModule.class);
         this.setPermission(Permission.ESSENTIALS_WORLDEDIT_USE);
-        this.addSubCommand(new CommandWorldEditGive(plugin));
-        this.addSubCommand(new CommandWorldEditSet(plugin));
         this.addSubCommand(new CommandWorldEditConfirm(plugin));
         this.addSubCommand(new CommandWorldEditCut(plugin));
+        this.addSubCommand(new CommandWorldEditFill(plugin));
+        this.addSubCommand(new CommandWorldEditGive(plugin));
+        this.addSubCommand(new CommandWorldEditSet(plugin));
     }
 
     @Override

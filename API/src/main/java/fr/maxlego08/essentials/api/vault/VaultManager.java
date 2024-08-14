@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -56,4 +57,6 @@ public interface VaultManager {
     long getMaterialAmount(Player player, Material material);
 
     void removeMaterial(Player player, Material material, long amountToRemove);
+
+    Collection<Material> getMaterials(Player player);
 }
