@@ -77,6 +77,8 @@ public class SetTask extends WorldEditTask {
             scheduler.runAtLocation(block.getLocation(), wrappedTask -> {
 
                 var currentType = block.getType();
+                if (worldeditManager.isBlacklist(currentType)) return;
+
                 if (!currentType.isAir()) {
                     add(currentType);
                 }

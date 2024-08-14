@@ -81,7 +81,7 @@ public abstract class WorldEditTask {
 
         var randomMaterial = selectRandomMaterial();
 
-        if (block.getType() == randomMaterial) return;
+        if (block.getType() == randomMaterial || worldeditManager.isBlacklist(block.getType())) return;
 
         BigDecimal blockPrice = this.worldeditManager.getMaterialPrice(randomMaterial);
 

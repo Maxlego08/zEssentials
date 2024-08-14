@@ -44,7 +44,7 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
 
     @NonLoadable
     private final List<WorldEditItem> worldEditItems = new ArrayList<>();
-    private final List<Material> blacklistBlocks = new ArrayList<>();
+    private List<String> blacklistBlocks = new ArrayList<>();
     private BigDecimal defaultBlockPrice;
     private List<BlockPrice> blocksPrice;
 
@@ -81,8 +81,7 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
             }
         }
 
-        System.out.println(defaultBlockPrice);
-        System.out.println(blocksPrice);
+        System.out.println(blacklistBlocks.size());
     }
 
     @Override
@@ -119,7 +118,7 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
 
     @Override
     public boolean isBlacklist(Material material) {
-        return this.blacklistBlocks.contains(material);
+        return this.blacklistBlocks.contains(material.name());
     }
 
     @Override

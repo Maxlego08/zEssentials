@@ -33,7 +33,6 @@ public class CommandWorldEditSet extends VCommand {
 
         List<MaterialPercent> materialPercents = new ArrayList<>();
 
-        System.out.println(materials);
         if (materials.contains(",")) {
 
             String[] values = materials.split(",");
@@ -55,7 +54,7 @@ public class CommandWorldEditSet extends VCommand {
             }
         }
 
-        System.out.println("Result: " + materialPercents);
+        materialPercents.removeIf(materialPercent -> plugin.getWorldeditManager().isBlacklist(materialPercent.material()));
         if (materialPercents.isEmpty()) return CommandResultType.SYNTAX_ERROR;
 
         plugin.getWorldeditManager().setBlocks(this.user, materialPercents);
