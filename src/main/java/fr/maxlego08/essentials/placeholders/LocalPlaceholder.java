@@ -53,6 +53,8 @@ public class LocalPlaceholder implements Placeholder {
     @Override
     public String onRequest(Player player, String string) {
 
+        if (string == null || player == null) return null;
+
         Optional<AutoPlaceholder> optional = this.autoPlaceholders.stream().filter(autoPlaceholder -> autoPlaceholder.startsWith(string)).findFirst();
         if (optional.isPresent()) {
 

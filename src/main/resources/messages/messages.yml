@@ -821,6 +821,6 @@ worldedit-refund:
   - "<success>ʏᴏᴜ'ᴠᴇ ᴊᴜsᴛ ʙᴇᴇɴ ʀᴇғᴜɴᴅ"
   - ""
   - "<success>Price<dark_gray>: <white>%price%"
-  - "<success>Blocks<dark_gray>:%materials%"
+  - "<success>Blocks<dark_gray>:<red>%materials%"
 worldedit-refund-material: " <white><hover:show_text:'<white>Amount<dark_gray>: <aqua>%amount%<newline><white>Total Price<dark_gray>: <aqua>%price%<newline><white>Price per block<dark_gray>: <aqua>%price-per-block%'><lang:%translation-key%></hover><gray>"
-worldedit-refund-empty: "<error>No block to refund"
+worldedit-refund-empty: " No block to refund"
