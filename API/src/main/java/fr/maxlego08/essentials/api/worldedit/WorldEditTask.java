@@ -44,7 +44,9 @@ public abstract class WorldEditTask {
     public void calculatePrice(Consumer<BigDecimal> consumer) {
         this.worldeditStatus = WorldeditStatus.CALCULATE_PRICE;
         processNextBatch(blocks.stream().map(b -> new BlockInfo(b, null, BigDecimal.ZERO)).collect(Collectors.toList()), 0, 100, () -> {
+
             this.totalPrice = this.blockInfos.stream().map(BlockInfo::price).reduce(BigDecimal.ZERO, BigDecimal::add);
+            this.materials = this.blockInfos.stream().collect(Collectors.groupingBy(BlockInfo::newMaterial, Collectors.counting()));
             this.worldeditStatus = WorldeditStatus.WAITING_RESPONSE_PRICE;
 
             consumer.accept(totalPrice);
@@ -78,6 +80,9 @@ public abstract class WorldEditTask {
     private void processBlock(Block block) {
 
         var randomMaterial = selectRandomMaterial();
+
+        if (block.getType() == randomMaterial) return;
+
         BigDecimal blockPrice = this.worldeditManager.getMaterialPrice(randomMaterial);
 
         System.out.println(blockPrice + " - " + randomMaterial);
@@ -91,17 +96,17 @@ public abstract class WorldEditTask {
 
         if (this.materialPercents.size() == 1) return this.materialPercents.get(0).material();
 
-        double randomValue = random.nextDouble();
+        double randomValue = random.nextDouble() * 100.0;
         double cumulativePercent = 0.0;
 
-        for (MaterialPercent mp : this.materialPercents) {
-            cumulativePercent += mp.percent();
+        for (MaterialPercent materialPercent : this.materialPercents) {
+            cumulativePercent += materialPercent.percent();
             if (randomValue <= cumulativePercent) {
-                return mp.material();
+                return materialPercent.material();
             }
         }
 
-        return selectRandomMaterial();
+        return this.materialPercents.get(this.materialPercents.size() - 1).material();
     }
 
     public WorldeditStatus getWorldeditStatus() {
@@ -115,7 +120,6 @@ public abstract class WorldEditTask {
         this.plugin.getScheduler().runAsync(wrappedTask -> {
 
             Player player = user.getPlayer();
-            this.materials = this.blockInfos.stream().collect(Collectors.groupingBy(BlockInfo::newMaterial, Collectors.counting()));
             var result = hasRequiredItems(player, materials);
 
             if (!result) this.worldeditStatus = WorldeditStatus.NOT_ENOUGH_ITEMS;
@@ -166,38 +170,50 @@ public abstract class WorldEditTask {
         return true;
     }
 
-    public void removeRequiredItems(Player player, Map<Material, Long> requiredItems) {
+    public boolean removeRequiredItems(Player player, Map<Material, Long> requiredItems) {
         Inventory inventory = player.getInventory();
         var vaultManager = plugin.getVaultManager();
 
+        // Vérifier d'abord si le joueur a bien tous les items nécessaires
         if (!hasRequiredItems(player, requiredItems)) {
-            return;
+            return false;
         }
 
+        // Retirer les items de l'inventaire et du vault si nécessaire
         for (Map.Entry<Material, Long> entry : requiredItems.entrySet()) {
             Material material = entry.getKey();
             long amountToRemove = entry.getValue();
 
-            for (ItemStack item : inventory.getContents()) {
+            // Retirer de l'inventaire d'abord
+            for (int i = 0; i < inventory.getSize(); i++) {
+                ItemStack item = inventory.getItem(i);
                 if (item != null && item.getType() == material) {
                     long itemAmount = item.getAmount();
-                    if (itemAmount <= amountToRemove) {
-                        amountToRemove -= itemAmount;
-                        inventory.remove(item);
-                    } else {
+
+                    if (itemAmount > amountToRemove) {
                         item.setAmount((int) (itemAmount - amountToRemove));
                         amountToRemove = 0;
+                        break;
+                    } else {
+                        amountToRemove -= itemAmount;
+                        inventory.clear(i);
+                    }
+
+                    if (amountToRemove == 0) {
                         break;
                     }
                 }
             }
 
+            // Si on doit encore retirer des items, retirer du vault
             if (amountToRemove > 0) {
                 vaultManager.removeMaterial(player, material, amountToRemove);
             }
         }
 
+        return true;
     }
+
 
     protected void finish() {
         this.worldeditStatus = WorldeditStatus.FINISH;

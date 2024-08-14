@@ -39,7 +39,7 @@ public class CommandWorldEditSet extends VCommand {
             String[] values = materials.split(",");
             for (String value : values) {
                 try {
-                    materialPercents.add(getMaterialPercent(value));
+                    materialPercents.add(getMaterialPercent(value, 100 / values.length));
                 } catch (Exception exception) {
                     message(sender, Message.COMMAND_WORLDEDIT_MATERIAL_NOT_FOUND, "%material%", value);
                     return CommandResultType.DEFAULT;
@@ -48,7 +48,7 @@ public class CommandWorldEditSet extends VCommand {
 
         } else {
             try {
-                materialPercents.add(getMaterialPercent(materials));
+                materialPercents.add(getMaterialPercent(materials, 100));
             } catch (Exception exception) {
                 message(sender, Message.COMMAND_WORLDEDIT_MATERIAL_NOT_FOUND, "%material%", materials);
                 return CommandResultType.DEFAULT;
@@ -63,12 +63,12 @@ public class CommandWorldEditSet extends VCommand {
         return CommandResultType.SUCCESS;
     }
 
-    private MaterialPercent getMaterialPercent(String value) {
+    private MaterialPercent getMaterialPercent(String value, int percent) {
         if (value.contains(":")) {
             String[] split = value.split(":");
             return new MaterialPercent(Material.valueOf(split[0]), Integer.parseInt(split[1]));
         }
-        return new MaterialPercent(Material.valueOf(value), 100);
+        return new MaterialPercent(Material.valueOf(value), percent);
     }
 
 
