@@ -697,16 +697,25 @@ public enum Message {
     COMMAND_WORLDEDIT_GIVE_SENDER("<success>You just gave &f%item% <success>to the player &f%player%<success>."),
     COMMAND_WORLDEDIT_GIVE_RECEIVER("<success>you just received &f%item%<success>."),
     COMMAND_WORLDEDIT_MATERIAL_NOT_FOUND("<error>Unable to find the material &f%material%<error>."),
-    COMMAND_WORLDEDIT_CONFIRM_PRICE("<success>Edition price<gray>: <white>%price% <gray>[<#45ff55><hover:show_text:'&fClick to confirm action'><click:run_command:'/pw confirm'>CONFIRM</click></hover><gray>]"),
+    COMMAND_WORLDEDIT_CONFIRM_PRICE(
+            "",
+            "<success>Price<dark_gray>: <white>%price%",
+            "<success>Blocks<dark_gray>: <white>%materials%",
+            "",
+            "<#45ff55><hover:show_text:'&fClick to confirm action'><click:run_command:'/pw confirm'>ᴄʟɪᴄᴋ ʜᴇʀᴇ ᴛᴏ ᴄᴏɴғɪʀᴍ</click></hover><gray>"
+    ),
+    COMMAND_WORLDEDIT_CONFIRM_MATERIAL("<hover:show_text:'<white>Amount<dark_gray>: <aqua>%amount%<newline><white>Total Price<dark_gray>: <aqua>%price%<newline><white>Price per block<dar_gray>: <aqua>%price-per-block%'><lang:%translation-key%></hover>"),
     COMMAND_WORLDEDIT_CONFIRM_ERROR("<error>You can’t do that now."),
 
     WORLDEDIT_SELECTION_ERROR("<error>You must select two positions before you make this command."),
     WORLDEDIT_ALREADY_RUNNING("<error>You already have an edit in progress, please wait until it is finished."),
     WORLDEDIT_NOT_ENOUGH_MONEY("<error>You don’t have enough money to make this edition."),
+    WORLDEDIT_NOT_ENOUGH_ITEMS("<error>You don’t have the items in your inventory, you can’t do that."),
     WORLDEDIT_SELECTION_POS1("<success>You have just defined the first position."),
     WORLDEDIT_SELECTION_POS2("<success>You have just defined the second position."),
 
     WORLDEDIT_START_CALCULATE_PRICE("&7Price calculation in progress, please wait..."),
+    WORLDEDIT_START_CHECK_INVENTORY("&7Checking that you have enough items in your inventory, please wait..."),
 
     ;
 

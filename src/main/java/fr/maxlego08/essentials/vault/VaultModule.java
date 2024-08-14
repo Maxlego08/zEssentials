@@ -13,6 +13,7 @@ import fr.maxlego08.essentials.api.vault.VaultManager;
 import fr.maxlego08.essentials.api.vault.VaultResult;
 import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.menu.zcore.utils.nms.ItemStackUtils;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -346,4 +347,24 @@ public class VaultModule extends ZModule implements VaultManager {
         });
     }
 
+    @Override
+    public long getMaterialAmount(Player player, Material material) {
+        PlayerVaults playerVaults = getPlayerVaults(player.getUniqueId());
+        return playerVaults.getVaults().values().stream().mapToLong(vault -> vault.getMaterialAmount(material)).sum();
+    }
+
+    @Override
+    public void removeMaterial(Player player, Material material, long amountToRemove) {
+        PlayerVaults playerVaults = getPlayerVaults(player.getUniqueId());
+        var itemStack = new ItemStack(material);
+        for (Vault vault : playerVaults.getVaults().values()) {
+            var optional = vault.find(itemStack);
+            if (optional.isPresent()) {
+                var vaultItem = optional.get();
+                vaultItem.removeQuantity(amountToRemove);
+                getStorage().updateVaultQuantity(player.getUniqueId(), vault.getVaultId(), vaultItem.getSlot(), vaultItem.getQuantity());
+                return;
+            }
+        }
+    }
 }

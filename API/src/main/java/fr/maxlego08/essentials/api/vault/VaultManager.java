@@ -1,5 +1,6 @@
 package fr.maxlego08.essentials.api.vault;
 
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -51,4 +52,8 @@ public interface VaultManager {
     void resetName(Player player, Vault vault);
 
     void addItem(UUID uuid, ItemStack itemStack);
+
+    long getMaterialAmount(Player player, Material material);
+
+    void removeMaterial(Player player, Material material, long amountToRemove);
 }

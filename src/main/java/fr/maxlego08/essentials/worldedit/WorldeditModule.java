@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class WorldeditModule extends ZModule implements WorldeditManager {
 
@@ -139,17 +140,26 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
         user.setWorldeditTask(worldEditTask);
 
         worldEditTask.calculatePrice(price -> {
-            System.out.println("Le prix : " + price);
 
-            if (!user.has(plugin.getEconomyManager().getDefaultEconomy(), price)) {
+            var economyManager = this.plugin.getEconomyManager();
+            var economy = economyManager.getDefaultEconomy();
+
+            if (!user.has(economy, price)) {
                 message(user, Message.WORLDEDIT_NOT_ENOUGH_MONEY);
                 user.setWorldeditTask(null);
                 return;
             }
 
-            var economyManager = this.plugin.getEconomyManager();
-            var economy = economyManager.getDefaultEconomy();
-            message(user, Message.COMMAND_WORLDEDIT_CONFIRM_PRICE, "%price%", economyManager.format(economy, price));
+            String materials = worldEditTask.getMaterials().entrySet().stream().map(entry -> {
+
+                var material = entry.getKey();
+                var amount = entry.getValue();
+                var blockPrice = getMaterialPrice(material);
+
+                return getMessage(Message.COMMAND_WORLDEDIT_CONFIRM_MATERIAL, "%translation-key%", material.translationKey(), "%amount%", amount, "%price%", economyManager.format(economy, blockPrice.multiply(BigDecimal.valueOf(amount))), "%price-per-block%", economyManager.format(economy, blockPrice));
+            }).collect(Collectors.joining(","));
+
+            message(user, Message.COMMAND_WORLDEDIT_CONFIRM_PRICE, "%price%", economyManager.format(economy, price), "%materials%", materials);
         });
     }
 
@@ -166,8 +176,26 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
             return;
         }
 
+
+        message(user, Message.WORLDEDIT_START_CHECK_INVENTORY);
+
         task.confirm(result -> {
+
             System.out.println("Result: " + result);
+            if (result) {
+
+                if (!user.has(plugin.getEconomyManager().getDefaultEconomy(), task.getTotalPrice())) {
+                    message(user, Message.WORLDEDIT_NOT_ENOUGH_MONEY);
+                    user.setWorldeditTask(null);
+                    return;
+                }
+
+                task.startPlaceBlocks();
+
+            } else {
+
+                message(user, Message.WORLDEDIT_NOT_ENOUGH_ITEMS);
+            }
         });
     }
 

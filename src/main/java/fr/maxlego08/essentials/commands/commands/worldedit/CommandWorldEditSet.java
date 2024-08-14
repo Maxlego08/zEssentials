@@ -76,7 +76,6 @@ public class CommandWorldEditSet extends VCommand {
     public List<String> toTab(EssentialsPlugin plugin, CommandSender sender, String[] args) {
 
         var materials = plugin.getWorldeditManager().getAllowedMaterials();
-        System.out.println(args.length);
 
         if (args.length == 0) return materials;
 

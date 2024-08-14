@@ -4,23 +4,34 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.user.User;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Queue;
 import java.util.Random;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public abstract class WorldEditTask {
 
-    private final EssentialsPlugin plugin;
-    private final WorldeditManager worldeditManager;
-    private final User user;
-    private final List<Block> blocks;
-    private final List<MaterialPercent> materialPercents;
-    private final List<BlockInfo> blockInfos = new ArrayList<>();
-    private final Random random = new Random();
-    private WorldeditStatus worldeditStatus = WorldeditStatus.NOTHING;
+    protected final EssentialsPlugin plugin;
+    protected final WorldeditManager worldeditManager;
+    protected final User user;
+    protected final List<Block> blocks;
+    protected final List<MaterialPercent> materialPercents;
+    protected final Queue<BlockInfo> blockInfos = new LinkedList<>();
+    protected final Random random = new Random();
+    protected WorldeditStatus worldeditStatus = WorldeditStatus.NOTHING;
+    protected Map<Material, Long> materials = new HashMap<>();
+    protected Map<Material, Long> needToGiveMaterials = new HashMap<>();
+    protected BigDecimal totalPrice;
 
     public WorldEditTask(EssentialsPlugin plugin, WorldeditManager worldeditManager, User user, List<Block> blocks, List<MaterialPercent> materialPercents) {
         this.plugin = plugin;
@@ -32,18 +43,15 @@ public abstract class WorldEditTask {
 
     public void calculatePrice(Consumer<BigDecimal> consumer) {
         this.worldeditStatus = WorldeditStatus.CALCULATE_PRICE;
-        processNextBatch(blocks, 0, 100, () -> {
-
-            System.out.println(this.blockInfos.size());
-
-            BigDecimal bigDecimal = this.blockInfos.stream().map(BlockInfo::price).reduce(BigDecimal.ZERO, BigDecimal::add);
-
+        processNextBatch(blocks.stream().map(b -> new BlockInfo(b, null, BigDecimal.ZERO)).collect(Collectors.toList()), 0, 100, () -> {
+            this.totalPrice = this.blockInfos.stream().map(BlockInfo::price).reduce(BigDecimal.ZERO, BigDecimal::add);
             this.worldeditStatus = WorldeditStatus.WAITING_RESPONSE_PRICE;
-            consumer.accept(bigDecimal);
-        }, blocks -> blocks.forEach(this::processBlock));
+
+            consumer.accept(totalPrice);
+        }, blocks -> blocks.forEach(block -> this.processBlock(block.block())));
     }
 
-    private void processNextBatch(List<Block> blocks, int startIndex, int batchSize, Runnable runnable, Consumer<List<Block>> consumer) {
+    protected void processNextBatch(List<BlockInfo> blocks, int startIndex, int batchSize, Runnable runnable, Consumer<List<BlockInfo>> consumer) {
 
         if (startIndex >= blocks.size()) {
             runnable.run();
@@ -51,7 +59,7 @@ public abstract class WorldEditTask {
         }
 
         int endIndex = Math.min(startIndex + batchSize, blocks.size());
-        List<Block> currentBatch = blocks.subList(startIndex, endIndex);
+        List<BlockInfo> currentBatch = blocks.subList(startIndex, endIndex);
 
         if (currentBatch.isEmpty()) {
             runnable.run();
@@ -61,7 +69,7 @@ public abstract class WorldEditTask {
         var firstBlock = currentBatch.get(0);
 
         var scheduler = this.plugin.getScheduler();
-        scheduler.runAtLocation(firstBlock.getLocation(), wrappedTask -> {
+        scheduler.runAtLocation(firstBlock.block().getLocation(), wrappedTask -> {
             consumer.accept(currentBatch);
             scheduler.runNextTick(wt -> processNextBatch(blocks, endIndex, batchSize, runnable, consumer));
         });
@@ -104,10 +112,134 @@ public abstract class WorldEditTask {
 
         this.worldeditStatus = WorldeditStatus.CHECK_INVENTORY_CONTENT;
 
-        // ToDo
+        this.plugin.getScheduler().runAsync(wrappedTask -> {
 
-        this.blockInfos.forEach(blockInfo -> blockInfo.block().setType(blockInfo.newMaterial()));
+            Player player = user.getPlayer();
+            this.materials = this.blockInfos.stream().collect(Collectors.groupingBy(BlockInfo::newMaterial, Collectors.counting()));
+            var result = hasRequiredItems(player, materials);
 
-        consumer.accept(true);
+            if (!result) this.worldeditStatus = WorldeditStatus.NOT_ENOUGH_ITEMS;
+
+            consumer.accept(result);
+        });
+    }
+
+    public void startPlaceBlocks() {
+
+        this.worldeditStatus = WorldeditStatus.RUNNING;
+        Player player = user.getPlayer();
+
+        this.removeRequiredItems(player, this.materials);
+
+        this.process();
+    }
+
+    public BigDecimal getTotalPrice() {
+        return this.totalPrice;
+    }
+
+    private boolean hasRequiredItems(Player player, Map<Material, Long> requiredItems) {
+        Inventory inventory = player.getInventory();
+        var vaultManager = plugin.getVaultManager();
+
+        for (Map.Entry<Material, Long> entry : requiredItems.entrySet()) {
+            Material material = entry.getKey();
+            long requiredAmount = entry.getValue();
+
+            long totalAmount = 0;
+            for (ItemStack item : inventory.getContents()) {
+                if (item != null && item.getType() == material) {
+                    totalAmount += item.getAmount();
+                }
+            }
+
+            if (totalAmount < requiredAmount) {
+                long amountInVault = vaultManager.getMaterialAmount(player, material);
+                totalAmount += amountInVault;
+
+                if (totalAmount < requiredAmount) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public void removeRequiredItems(Player player, Map<Material, Long> requiredItems) {
+        Inventory inventory = player.getInventory();
+        var vaultManager = plugin.getVaultManager();
+
+        if (!hasRequiredItems(player, requiredItems)) {
+            return;
+        }
+
+        for (Map.Entry<Material, Long> entry : requiredItems.entrySet()) {
+            Material material = entry.getKey();
+            long amountToRemove = entry.getValue();
+
+            for (ItemStack item : inventory.getContents()) {
+                if (item != null && item.getType() == material) {
+                    long itemAmount = item.getAmount();
+                    if (itemAmount <= amountToRemove) {
+                        amountToRemove -= itemAmount;
+                        inventory.remove(item);
+                    } else {
+                        item.setAmount((int) (itemAmount - amountToRemove));
+                        amountToRemove = 0;
+                        break;
+                    }
+                }
+            }
+
+            if (amountToRemove > 0) {
+                vaultManager.removeMaterial(player, material, amountToRemove);
+            }
+        }
+
+    }
+
+    protected void finish() {
+        this.worldeditStatus = WorldeditStatus.FINISH;
+        this.user.setWorldeditTask(null);
+
+        this.giveItems(user.getPlayer(), this.needToGiveMaterials);
+    }
+
+    public Map<Material, Long> getMaterials() {
+        return materials;
+    }
+
+    protected void add(Material material) {
+        this.needToGiveMaterials.put(material, this.needToGiveMaterials.getOrDefault(material, 0L) + 1);
+    }
+
+    public void giveItems(Player player, Map<Material, Long> itemsToGive) {
+        PlayerInventory inventory = player.getInventory();
+        var vaultManager = plugin.getVaultManager();
+
+        for (Map.Entry<Material, Long> entry : itemsToGive.entrySet()) {
+            Material material = entry.getKey();
+            long amount = entry.getValue();
+
+            // Créer les ItemStacks et les ajouter à l'inventaire du joueur
+            while (amount > 0) {
+                int stackSize = (int) Math.min(amount, material.getMaxStackSize());
+                ItemStack itemStack = new ItemStack(material, stackSize);
+
+                // Essayer d'ajouter l'item à l'inventaire du joueur
+                Map<Integer, ItemStack> remainingItems = inventory.addItem(itemStack);
+
+                // Si l'item n'a pas pu être ajouté entièrement (inventaire plein)
+                if (!remainingItems.isEmpty()) {
+                    for (ItemStack remainingItem : remainingItems.values()) {
+                        vaultManager.addItem(player.getUniqueId(), remainingItem);
+                    }
+                    break;
+                }
+
+                amount -= stackSize;
+            }
+        }
     }
 }

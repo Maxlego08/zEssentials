@@ -369,7 +369,7 @@ public class ZUser extends ZUtils implements User {
 
     @Override
     public boolean has(Economy economy, BigDecimal bigDecimal) {
-        return bigDecimal.compareTo(getBalance(economy)) > 0;
+        return getBalance(economy).compareTo(bigDecimal) > 0;
     }
 
     @Override
