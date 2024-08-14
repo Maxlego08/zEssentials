@@ -238,9 +238,7 @@ public abstract class WorldEditTask {
                 vaultManager.removeMaterial(player, material, amountToRemove);
             }
         }
-
     }
-
 
     protected void finish() {
         this.worldeditStatus = WorldeditStatus.FINISH;
@@ -269,14 +267,10 @@ public abstract class WorldEditTask {
             while (amount > 0) {
                 int stackSize = (int) Math.min(amount, material.getMaxStackSize());
                 ItemStack itemStack = new ItemStack(material, stackSize);
-
-                System.out.println("> " + itemStack);
                 Map<Integer, ItemStack> remainingItems = inventory.addItem(itemStack);
-                System.out.println(">< " + remainingItems);
 
                 if (!remainingItems.isEmpty()) {
                     for (ItemStack remainingItem : remainingItems.values()) {
-                        System.out.println("Add: " + remainingItem);
                         vaultManager.addItem(player.getUniqueId(), remainingItem);
                     }
                 }

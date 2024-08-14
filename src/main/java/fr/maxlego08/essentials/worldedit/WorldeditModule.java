@@ -16,6 +16,7 @@ import fr.maxlego08.essentials.api.worldedit.WorldeditManager;
 import fr.maxlego08.essentials.api.worldedit.WorldeditStatus;
 import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.essentials.worldedit.taks.CutTask;
+import fr.maxlego08.essentials.worldedit.taks.FillTask;
 import fr.maxlego08.essentials.worldedit.taks.SetTask;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.menu.MenuItemStack;
@@ -90,10 +91,6 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
                 exception.printStackTrace();
             }
         }
-
-        System.out.println(permissionsBlocksPerSecond);
-        System.out.println(permissionsMaxBlocks);
-        System.out.println(permissionsMaxDistances);
     }
 
     @Override
@@ -183,7 +180,7 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
         var selection = user.getSelection();
         if (cantUseWorldEdit(user)) return;
 
-        WorldEditTask worldEditTask = new SetTask(this.plugin, this, user, selection.getCuboid(), materialPercents);
+        WorldEditTask worldEditTask = new FillTask(this.plugin, this, user, selection.getCuboid(), materialPercents);
         placeBlock(user, worldEditTask);
     }
 
@@ -254,6 +251,7 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
 
     @Override
     public void confirmAction(User user) {
+
         if (user.hasWorldeditTask()) {
             message(user, Message.WORLDEDIT_ALREADY_RUNNING);
             return;
