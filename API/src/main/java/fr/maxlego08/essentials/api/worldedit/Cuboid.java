@@ -682,19 +682,21 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
             this.sizeX = Math.abs(x2 - x1) + 1;
             this.sizeY = Math.abs(y2 - y1) + 1;
             this.sizeZ = Math.abs(z2 - z1) + 1;
-            this.x = this.y = this.z = 0;
+            this.x = 0;
+            this.y = this.sizeY - 1; // Commencer par le haut
+            this.z = 0;
         }
 
         public boolean hasNext() {
-            return this.x < this.sizeX && this.y < this.sizeY && this.z < this.sizeZ;
+            return this.z < this.sizeZ && this.y >= 0 && this.x < this.sizeX;
         }
 
         public Block next() {
             Block blockAt = this.w.getBlockAt(this.baseX + this.x, this.baseY + this.y, this.baseZ + this.z);
-            if (++x >= this.sizeX) {
-                this.x = 0;
-                if (++this.y >= this.sizeY) {
-                    this.y = 0;
+            if (--this.y < 0) { // Décrémenter y au lieu de l'incrémenter
+                this.y = this.sizeY - 1;
+                if (++this.x >= this.sizeX) {
+                    this.x = 0;
                     ++this.z;
                 }
             }
@@ -704,5 +706,6 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
         public void remove() {
         }
     }
+
 
 }

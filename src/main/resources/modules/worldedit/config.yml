@@ -133,9 +133,6 @@ blacklist-blocks:
   - OBSERVER
   - ENCHANTING_TABLE
   - REPEATER
-  - SAND
-  - RED_SAND
-  - GRAVEL
   - DAMAGED_ANVIL
   - CHIPPED_ANVIL
   - ANVIL
