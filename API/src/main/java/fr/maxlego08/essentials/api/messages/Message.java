@@ -278,9 +278,12 @@ public enum Message {
     DESCRIPTION_WORLDEDIT_WALLS("Set all blocks of your selection with a walls"),
     DESCRIPTION_WORLDEDIT_SPHERE("Set all blocks of your selection with a sphere"),
     DESCRIPTION_WORLDEDIT_FILL("Fill all blocks of your selection"),
+    DESCRIPTION_WORLDEDIT_CYL("Fill all blocks of your selection with a cylender"),
     DESCRIPTION_WORLDEDIT_CUT("Cut all blocks of your selection"),
     DESCRIPTION_WORLDEDIT_STOP("Stop the current edition"),
     DESCRIPTION_WORLDEDIT_CONFIRM("Confirm worldedit action"),
+    DESCRIPTION_WORLDEDIT_POS1("Set first position of the selection"),
+    DESCRIPTION_WORLDEDIT_POS2("Set second position of the selection"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -722,6 +725,8 @@ public enum Message {
 
     COMMAND_WORLDEDIT_STOP_EMPTY("<error>You have no current edition."),
     COMMAND_WORLDEDIT_STOP_ERROR("<error>You cannot stop editing currently."),
+    COMMAND_WORLDEDIT_ERROR_ITEM("<error>You must have the worldedit tool in your hand."),
+    COMMAND_WORLDEDIT_ERROR_MAX("<error>You can only use this tool, it has been used to the maximum."),
 
     WORLDEDIT_SELECTION_ERROR("<error>You must select two positions before you make this command."),
     WORLDEDIT_SELECTION_VOLUME("<error>You cannot change more than &f%blocks% <error>at the same time."),

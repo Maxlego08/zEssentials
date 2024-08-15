@@ -2,6 +2,7 @@ package fr.maxlego08.essentials.api.worldedit;
 
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.user.User;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -51,4 +52,11 @@ public interface WorldeditManager {
     void wallsBlocks(User user, List<MaterialPercent> materialPercents);
 
     void sphereBlocks(User user, List<MaterialPercent> materialPercents, int radius, boolean filled);
+
+    void cylBlocks(User user, List<MaterialPercent> materialPercents, int radius, boolean filled, int height);
+
+    void setPos1(Player player, Location location);
+
+    void setPos2(Player player, Location location);
+
 }

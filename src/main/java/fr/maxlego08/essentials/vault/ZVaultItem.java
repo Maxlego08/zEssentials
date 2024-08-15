@@ -6,6 +6,7 @@ import fr.maxlego08.essentials.api.utils.component.ComponentMessage;
 import fr.maxlego08.essentials.api.vault.VaultItem;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
+import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -37,12 +38,12 @@ public class ZVaultItem implements VaultItem {
     }
 
     public ItemStack getDisplayItemStack(ComponentMessage componentMessage) {
+
         ItemStack itemStack = this.itemStack.clone();
         itemStack.setAmount(1);
+        ItemMeta itemMeta = itemStack.getItemMeta();
 
-        if (componentMessage instanceof AdventureComponent adventureComponent) {
-
-            ItemMeta itemMeta = itemStack.getItemMeta();
+        if (componentMessage instanceof AdventureComponent adventureComponent && itemMeta != null) {
 
             List<Component> lore = itemMeta.hasLore() ? itemMeta.lore() : new ArrayList<>();
             if (lore == null) lore = new ArrayList<>();
@@ -54,7 +55,10 @@ public class ZVaultItem implements VaultItem {
             itemMeta.lore(lore);
             itemStack.setItemMeta(itemMeta);
 
+        } else if (itemMeta == null) {
+            Bukkit.getLogger().warning("The itemstack doesnt have ItemMeta ! " + this.itemStack.getType() + " - Slot: " + slot);
         }
+
         return itemStack;
     }
 

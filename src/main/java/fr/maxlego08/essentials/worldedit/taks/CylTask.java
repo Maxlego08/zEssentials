@@ -12,14 +12,16 @@ import org.bukkit.block.Block;
 
 import java.util.List;
 
-public class SphereTask extends WorldEditTask {
+public class CylTask extends WorldEditTask {
 
     private final int radius;
+    private final int height;
     private final boolean filled;
 
-    public SphereTask(EssentialsPlugin plugin, WorldeditManager worldeditManager, User user, Cuboid cuboid, List<MaterialPercent> materialPercents, int radius, boolean filled) {
+    public CylTask(EssentialsPlugin plugin, WorldeditManager worldeditManager, User user, Cuboid cuboid, List<MaterialPercent> materialPercents, int radius, int height, boolean filled) {
         super(plugin, worldeditManager, user, cuboid, materialPercents);
         this.radius = radius;
+        this.height = height;
         this.filled = filled;
     }
 
@@ -30,20 +32,22 @@ public class SphereTask extends WorldEditTask {
         Block centerBlock = centerLocation.getBlock();
 
         int ceilRadius = (int) (double) radius;
-        for (int y = -ceilRadius; y <= ceilRadius; y++) {
+        for (int y = 0; y < height; y++) {
             for (int x = -ceilRadius; x <= ceilRadius; x++) {
                 for (int z = -ceilRadius; z <= ceilRadius; z++) {
-                    if (x * x + z * z + y * y < radius * radius) {
+                    if (x * x + z * z < radius * radius) {
                         if (!filled) {
-                            if (lengthSq(x, y, z) <= (radius * radius) - (radius * 2)) {
+                            if (lengthSq(x, z) <= (radius * radius) - (radius * 2)) {
                                 continue;
                             }
                         }
-                        blocks.add(centerBlock.getRelative(x, y, z));
+                        this.blocks.add(centerBlock.getRelative(x, y, z));
                     }
+
                 }
             }
         }
+
     }
 
     @Override

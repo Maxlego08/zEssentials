@@ -45,7 +45,7 @@ public class ZCommandManager extends ZUtils implements CommandManager {
     }
 
     private final ZEssentialsPlugin plugin;
-    private final List<EssentialsCommand> commands = new ArrayList<>();
+    protected final List<EssentialsCommand> commands = new ArrayList<>();
 
     public ZCommandManager(ZEssentialsPlugin plugin) {
         this.plugin = plugin;

@@ -373,4 +373,12 @@ public abstract class WorldEditTask {
 
         user.setWorldeditTask(null);
     }
+
+    protected double lengthSq(double x, double y, double z) {
+        return (x * x) + (y * y) + (z * z);
+    }
+
+    protected double lengthSq(double x, double z) {
+        return (x * x) + (z * z);
+    }
 }

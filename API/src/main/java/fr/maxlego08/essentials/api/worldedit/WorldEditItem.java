@@ -1,7 +1,6 @@
 package fr.maxlego08.essentials.api.worldedit;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
-import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.menu.MenuItemStack;
 import fr.maxlego08.menu.api.utils.Placeholders;
 import org.bukkit.NamespacedKey;
@@ -16,14 +15,11 @@ public record WorldEditItem(
         String name,
         long maxUse,
         double priceMultiplier,
-        int maxBlocks,
-        int maxDistance,
         MenuItemStack menuItemStack
 ) {
 
     public static final NamespacedKey KEY_WORLDEDIT = new NamespacedKey(JavaPlugin.getProvidingPlugin(EssentialsPlugin.class), "worldedit");
     public static final NamespacedKey KEY_WORLDEDIT_USE = new NamespacedKey(JavaPlugin.getProvidingPlugin(EssentialsPlugin.class), "worldedit-use");
-
 
 
     public ItemStack getItemStack(Player player, long use) {
@@ -34,7 +30,7 @@ public record WorldEditItem(
         ItemMeta itemMeta = itemStack.getItemMeta();
         PersistentDataContainer persistentDataContainer = itemMeta.getPersistentDataContainer();
         persistentDataContainer.set(KEY_WORLDEDIT, PersistentDataType.STRING, this.name);
-        persistentDataContainer.set(KEY_WORLDEDIT_USE, PersistentDataType.LONG, use);
+        persistentDataContainer.set(KEY_WORLDEDIT_USE, PersistentDataType.LONG, this.maxUse - use);
         itemStack.setItemMeta(itemMeta);
         return itemStack;
     }

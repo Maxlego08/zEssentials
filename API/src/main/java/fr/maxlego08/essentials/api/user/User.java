@@ -21,6 +21,7 @@ import fr.maxlego08.essentials.api.worldedit.WorldEditTask;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 import java.math.BigDecimal;
@@ -578,4 +579,8 @@ public interface User {
     WorldEditTask getWorldeditTask();
 
     void setWorldeditTask(WorldEditTask worldEditTask);
+
+    ItemStack getItemInMainHand();
+
+    void setItemInMainHand(ItemStack itemStack);
 }

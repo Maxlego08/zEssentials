@@ -19,6 +19,7 @@ import fr.maxlego08.essentials.api.worldedit.WorldeditManager;
 import fr.maxlego08.essentials.api.worldedit.WorldeditStatus;
 import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.essentials.worldedit.taks.CutTask;
+import fr.maxlego08.essentials.worldedit.taks.CylTask;
 import fr.maxlego08.essentials.worldedit.taks.FillTask;
 import fr.maxlego08.essentials.worldedit.taks.SetTask;
 import fr.maxlego08.essentials.worldedit.taks.SphereTask;
@@ -28,6 +29,7 @@ import fr.maxlego08.menu.MenuItemStack;
 import fr.maxlego08.menu.exceptions.InventoryException;
 import fr.maxlego08.menu.loader.MenuItemStackLoader;
 import fr.maxlego08.menu.zcore.utils.loader.Loader;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -86,12 +88,10 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
             try {
                 String path = "items." + key + ".";
                 int maxUse = configuration.getInt(path + "max-use", -1);
-                int maxBlocks = configuration.getInt(path + "max-blocks", -1);
-                int maxDistance = configuration.getInt(path + "max-distance", -1);
                 double priceMultiplier = configuration.getDouble(path + "price-multiplier", -1);
                 MenuItemStack menuItemStack = loader.load(configuration, path + "item.", new File(getFolder(), "config.yml"));
 
-                WorldEditItem worldEditItem = new WorldEditItem(key, maxUse, priceMultiplier, maxBlocks, maxDistance, menuItemStack);
+                WorldEditItem worldEditItem = new WorldEditItem(key, maxUse, priceMultiplier, menuItemStack);
                 this.worldEditItems.add(worldEditItem);
 
             } catch (InventoryException exception) {
@@ -212,10 +212,36 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
         placeBlock(user, worldEditTask);
     }
 
+    @Override
+    public void cylBlocks(User user, List<MaterialPercent> materialPercents, int radius, boolean filled, int height) {
+        var selection = user.getSelection();
+        if (cantUseWorldEdit(user)) return;
+
+        int maxRadius = getSphereRadius(user.getPlayer());
+        if (radius > maxRadius) radius = maxRadius;
+
+        WorldEditTask worldEditTask = new CylTask(this.plugin, this, user, selection.getCuboid(), materialPercents, radius, height, filled);
+        placeBlock(user, worldEditTask);
+    }
+
     private void placeBlock(User user, WorldEditTask worldEditTask) {
 
         int speed = getBlocksPerSecond(user.getPlayer());
         user.setWorldeditTask(worldEditTask);
+
+        ItemStack itemStack = user.getItemInMainHand();
+        if (isNotWorldeditItem(itemStack)) {
+            message(user, Message.COMMAND_WORLDEDIT_ERROR_ITEM);
+            return;
+        }
+
+        if (!canUseWorldEditItem(itemStack)) {
+            message(user, Message.COMMAND_WORLDEDIT_ERROR_MAX);
+            return;
+        }
+
+        itemStack = useWorldEditItem(user.getPlayer(), itemStack);
+        user.setItemInMainHand(itemStack);
 
         message(user, Message.WORLDEDIT_START_CALCULATE_PRICE);
 
@@ -226,7 +252,6 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
 
             if (!user.has(economy, price)) {
                 message(user, Message.WORLDEDIT_NOT_ENOUGH_MONEY);
-                user.setWorldeditTask(null);
                 return;
             }
 
@@ -265,7 +290,6 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
 
             if (!user.has(economy, price)) {
                 message(user, Message.WORLDEDIT_NOT_ENOUGH_MONEY);
-                user.setWorldeditTask(null);
                 return;
             }
 
@@ -301,7 +325,6 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
 
                 if (!user.has(economy, task.getTotalPrice())) {
                     message(user, Message.WORLDEDIT_NOT_ENOUGH_MONEY);
-                    user.setWorldeditTask(null);
                     return;
                 }
 
@@ -334,11 +357,39 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
         task.cancel(user.getPlayer());
     }
 
-    private boolean isWorldeditItem(ItemStack itemStack) {
-        if (!itemStack.hasItemMeta()) return false;
+    private boolean isNotWorldeditItem(ItemStack itemStack) {
+        if (!itemStack.hasItemMeta()) return true;
         ItemMeta itemMeta = itemStack.getItemMeta();
         PersistentDataContainer persistentDataContainer = itemMeta.getPersistentDataContainer();
-        return persistentDataContainer.has(WorldEditItem.KEY_WORLDEDIT, PersistentDataType.STRING);
+        return !persistentDataContainer.has(WorldEditItem.KEY_WORLDEDIT, PersistentDataType.STRING);
+    }
+
+    private ItemStack useWorldEditItem(Player player, ItemStack itemStack) {
+
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        PersistentDataContainer persistentDataContainer = itemMeta.getPersistentDataContainer();
+        String key = persistentDataContainer.get(WorldEditItem.KEY_WORLDEDIT, PersistentDataType.STRING);
+        long use = persistentDataContainer.getOrDefault(WorldEditItem.KEY_WORLDEDIT_USE, PersistentDataType.LONG, 0L) + 1;
+
+        Optional<WorldEditItem> optional = getWorldeditItem(key);
+        if (optional.isEmpty()) return itemStack;
+
+        var worldEditItem = optional.get();
+        if (worldEditItem.maxUse() <= 0) return itemStack;
+
+        return worldEditItem.getItemStack(player, use);
+    }
+
+    private boolean canUseWorldEditItem(ItemStack itemStack) {
+
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        PersistentDataContainer persistentDataContainer = itemMeta.getPersistentDataContainer();
+        String key = persistentDataContainer.get(WorldEditItem.KEY_WORLDEDIT, PersistentDataType.STRING);
+        long use = persistentDataContainer.getOrDefault(WorldEditItem.KEY_WORLDEDIT_USE, PersistentDataType.LONG, 0L);
+
+        Optional<WorldEditItem> optional = getWorldeditItem(key);
+        return optional.filter(worldEditItem -> use > 0 || worldEditItem.maxUse() <= 0).isPresent();
+
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -347,26 +398,43 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
         var block = event.getClickedBlock();
         var item = event.getItem();
 
-        if (item == null || block == null || event.useInteractedBlock() == Event.Result.DENY || event.getHand() == EquipmentSlot.OFF_HAND || event.getAction().equals(Action.PHYSICAL) || !isWorldeditItem(item)) {
+        if (item == null || block == null || event.useInteractedBlock() == Event.Result.DENY || event.getHand() == EquipmentSlot.OFF_HAND || event.getAction().equals(Action.PHYSICAL) || isNotWorldeditItem(item)) {
             return;
         }
 
         User user = this.getUser(event.getPlayer());
         if (user == null) return;
 
-        Selection selection = user.getSelection();
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
 
             event.setCancelled(true);
-            selection.setSecondLocation(block.getLocation());
-            message(event.getPlayer(), Message.WORLDEDIT_SELECTION_POS2);
+            setPos2(event.getPlayer(), block.getLocation());
 
         } else {
 
             event.setCancelled(true);
-            selection.setFirstLocation(block.getLocation());
-            message(event.getPlayer(), Message.WORLDEDIT_SELECTION_POS1);
+            setPos1(event.getPlayer(), block.getLocation());
         }
+    }
+
+    @Override
+    public void setPos1(Player player, Location location) {
+        User user = this.getUser(player);
+        if (user == null) return;
+
+        Selection selection = user.getSelection();
+        selection.setFirstLocation(location);
+        message(player, Message.WORLDEDIT_SELECTION_POS1);
+    }
+
+    @Override
+    public void setPos2(Player player, Location location) {
+        User user = this.getUser(player);
+        if (user == null) return;
+
+        Selection selection = user.getSelection();
+        selection.setSecondLocation(location);
+        message(player, Message.WORLDEDIT_SELECTION_POS2);
     }
 
     @Override

@@ -17,8 +17,6 @@ items:
   playerWand:
     max-use: 50
     price-multiplier: 1.2
-    max-blocks: 500
-    max-distance: 20
     item:
       material: BLAZE_ROD
       name: "#eb5021ᴡᴏʀʟᴅᴇᴅɪᴛ"
@@ -35,8 +33,6 @@ items:
   adminWand:
     max-use: -1
     price-multiplier: 0
-    max-blocks: -1
-    max-distance: -1
     item:
       material: BLAZE_ROD
       name: "#eb5021ᴡᴏʀʟᴅᴇᴅɪᴛ"

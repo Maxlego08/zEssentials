@@ -33,6 +33,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 import java.math.BigDecimal;
@@ -795,5 +796,15 @@ public class ZUser extends ZUtils implements User {
     @Override
     public void setWorldeditTask(WorldEditTask worldEditTask) {
         this.worldEditTask = worldEditTask;
+    }
+
+    @Override
+    public ItemStack getItemInMainHand() {
+        return getPlayer().getInventory().getItemInMainHand();
+    }
+
+    @Override
+    public void setItemInMainHand(ItemStack itemStack) {
+        getPlayer().getInventory().setItemInMainHand(itemStack);
     }
 }

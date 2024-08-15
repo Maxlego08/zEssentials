@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class WorldeditCommand extends VCommand {
+
+    protected int indexMaterial = 1;
+
     public WorldeditCommand(EssentialsPlugin plugin) {
         super(plugin);
         this.setModule(WorldeditModule.class);
@@ -31,11 +34,12 @@ public abstract class WorldeditCommand extends VCommand {
 
         if (args.length == 0) return materials;
 
-        String currentItem = args[1];
+
+        String currentItem = args[this.indexMaterial];
         String completedString = "";
         if (currentItem.contains(",")) {
-            currentItem = args[1].substring(args[1].lastIndexOf(",") + 1);
-            completedString = args[1].substring(0, args[1].lastIndexOf(",") + 1);
+            currentItem = args[this.indexMaterial].substring(args[this.indexMaterial].lastIndexOf(",") + 1);
+            completedString = args[this.indexMaterial].substring(0, args[this.indexMaterial].lastIndexOf(",") + 1);
         }
 
         String rawMaterial;
@@ -49,6 +53,7 @@ public abstract class WorldeditCommand extends VCommand {
 
         String finalCompletedString = completedString;
         return materials.stream().filter(s -> s.startsWith(rawMaterial.toLowerCase())).map(name -> finalCompletedString + name).toList();
+
     }
 
     protected MaterialPercent getMaterialPercent(String value, int percent) {
