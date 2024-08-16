@@ -2,6 +2,7 @@ package fr.maxlego08.essentials.api.worldedit;
 
 import com.tcoded.folialib.wrapper.task.WrappedTask;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -33,6 +34,7 @@ public abstract class WorldEditTask {
     protected final Queue<BlockInfo> blockInfos = new LinkedList<>();
     protected final Random random = new Random();
     protected final List<WorldeditRule> worldeditRules = new ArrayList<>();
+    protected int blockAmounts = 0;
     protected WorldeditStatus worldeditStatus = WorldeditStatus.NOTHING;
     protected Map<Material, Long> materials = new HashMap<>();
     protected Map<Material, Long> needToGiveMaterials = new HashMap<>();
@@ -40,6 +42,7 @@ public abstract class WorldEditTask {
     protected BigDecimal totalPrice;
     protected WrappedTask wrappedTask;
 
+    // Constructor initializes the WorldEditTask with required parameters.
     public WorldEditTask(EssentialsPlugin plugin, WorldeditManager worldeditManager, User user, Cuboid cuboid, List<MaterialPercent> materialPercents) {
         this.plugin = plugin;
         this.worldeditManager = worldeditManager;
@@ -48,22 +51,27 @@ public abstract class WorldEditTask {
         this.materialPercents = materialPercents;
     }
 
+    // Abstract method to load the blocks for the world edit operation.
     public abstract void loadBlocks();
 
+    // Abstract method to get the action type of the world edit operation (e.g., PLACE or REMOVE).
     public abstract WorldeditAction getAction();
 
+    // Add rules to the list of Worldedit rules that will be applied during the task.
     protected void addRules(WorldeditRule... worldeditRules) {
         this.worldeditRules.addAll(Arrays.asList(worldeditRules));
     }
 
+    // Calculates the total price of the world edit operation asynchronously and passes it to the given consumer.
     public void calculatePrice(Consumer<BigDecimal> consumer) {
         this.worldeditStatus = WorldeditStatus.CALCULATE_PRICE;
 
         this.plugin.getScheduler().runAsync(wrappedTask -> {
 
-            // Calculate the list of blocks that need to be modified
+            // Load blocks to be processed
             this.loadBlocks();
 
+            // Process the blocks in batches and calculate the total price
             processNextBatch(blocks.stream().map(b -> new BlockInfo(b, null, BigDecimal.ZERO)).collect(Collectors.toList()), 0, this.worldeditManager.getBatchSize(), () -> {
 
                 this.totalPrice = this.blockInfos.stream().map(BlockInfo::price).reduce(BigDecimal.ZERO, BigDecimal::add);
@@ -75,6 +83,7 @@ public abstract class WorldEditTask {
         });
     }
 
+    // Processes the blocks in the given list in batches of the specified size.
     protected void processNextBatch(List<BlockInfo> blocks, int startIndex, int batchSize, Runnable runnable, Consumer<List<BlockInfo>> consumer) {
 
         if (startIndex >= blocks.size()) {
@@ -99,6 +108,7 @@ public abstract class WorldEditTask {
         });
     }
 
+    // Processes a single block according to the selected rules and materials.
     private void processBlock(Block block) {
 
         var randomMaterial = selectRandomMaterial();
@@ -117,6 +127,7 @@ public abstract class WorldEditTask {
         this.blockInfos.add(new BlockInfo(block, randomMaterial, blockPrice));
     }
 
+    // Selects a random material based on the defined material percentages.
     public Material selectRandomMaterial() {
 
         if (this.materialPercents.size() == 1) return this.materialPercents.get(0).material();
@@ -134,10 +145,12 @@ public abstract class WorldEditTask {
         return this.materialPercents.get(this.materialPercents.size() - 1).material();
     }
 
+    // Returns the current status of the WorldEdit task.
     public WorldeditStatus getWorldeditStatus() {
         return worldeditStatus;
     }
 
+    // Confirms whether the player has the required items for the operation.
     public void confirm(Consumer<Boolean> consumer) {
 
         this.worldeditStatus = WorldeditStatus.CHECK_INVENTORY_CONTENT;
@@ -158,20 +171,44 @@ public abstract class WorldEditTask {
         });
     }
 
+    // Starts the process of placing blocks as per the WorldEdit operation.
     public void startPlaceBlocks() {
 
         this.worldeditStatus = WorldeditStatus.RUNNING;
         Player player = user.getPlayer();
 
         this.removeRequiredItems(player, this.materials);
+        this.blockAmounts = this.blockInfos.size();
 
         this.process();
+
+        if (!user.getOption(Option.WORLDEDIT_BOSSBAR_DISABLE)) {
+            var bossBar = worldeditManager.getWorldeditBar();
+
+            int speed = this.worldeditManager.getBlocksPerSecond(user.getPlayer());
+            double seconds = (double) this.count() / (double) speed;
+            bossBar.create(player, worldeditManager.getWorldeditConfiguration(), (long) (seconds * 1000.0));
+        }
     }
 
+    private void updateBossBar() {
+        if (!user.getOption(Option.WORLDEDIT_BOSSBAR_DISABLE)) {
+
+            var bossBar = worldeditManager.getWorldeditBar();
+            int currentSize = this.count();
+            int speed = this.worldeditManager.getBlocksPerSecond(user.getPlayer());
+            double seconds = (double) this.count() / (double) speed;
+
+            bossBar.update(user.getPlayer(), (float) currentSize / blockAmounts, (long) (seconds * 1000.0));
+        }
+    }
+
+    // Returns the total price calculated for the WorldEdit operation.
     public BigDecimal getTotalPrice() {
         return this.totalPrice;
     }
 
+    // Checks if the player has the required items in their inventory or vault.
     private boolean hasRequiredItems(Player player, Map<Material, Long> requiredItems) {
         Inventory inventory = player.getInventory();
         var vaultManager = plugin.getVaultManager();
@@ -181,9 +218,11 @@ public abstract class WorldEditTask {
             long requiredAmount = entry.getValue();
 
             long totalAmount = 0;
-            for (ItemStack item : inventory.getContents()) {
-                if (item != null && item.getType() == material) {
-                    totalAmount += item.getAmount();
+            if (useInventory()) {
+                for (ItemStack item : inventory.getContents()) {
+                    if (item != null && item.getType() == material) {
+                        totalAmount += item.getAmount();
+                    }
                 }
             }
 
@@ -200,88 +239,104 @@ public abstract class WorldEditTask {
         return true;
     }
 
+    // Removes the required items from the player's inventory and vault.
     public void removeRequiredItems(Player player, Map<Material, Long> requiredItems) {
         Inventory inventory = player.getInventory();
         var vaultManager = plugin.getVaultManager();
 
-        // Vérifier d'abord si le joueur a bien tous les items nécessaires
-        if (!hasRequiredItems(player, requiredItems)) {
-            return;
-        }
-
-        // Retirer les items de l'inventaire et du vault si nécessaire
+        // Remove the items from the inventory and vault if necessary
         for (Map.Entry<Material, Long> entry : requiredItems.entrySet()) {
             Material material = entry.getKey();
             long amountToRemove = entry.getValue();
 
-            // Retirer de l'inventaire d'abord
-            for (int i = 0; i < inventory.getSize(); i++) {
-                ItemStack item = inventory.getItem(i);
-                if (item != null && item.getType() == material) {
-                    long itemAmount = item.getAmount();
 
-                    if (itemAmount > amountToRemove) {
-                        item.setAmount((int) (itemAmount - amountToRemove));
-                        amountToRemove = 0;
-                        break;
-                    } else {
-                        amountToRemove -= itemAmount;
-                        inventory.clear(i);
-                    }
+            // Remove from inventory first
+            if (useInventory()) {
+                for (int i = 0; i < inventory.getSize(); i++) {
+                    ItemStack item = inventory.getItem(i);
+                    if (item != null && item.getType() == material) {
+                        long itemAmount = item.getAmount();
 
-                    if (amountToRemove == 0) {
-                        break;
+                        if (itemAmount > amountToRemove) {
+                            item.setAmount((int) (itemAmount - amountToRemove));
+                            amountToRemove = 0;
+                            break;
+                        } else {
+                            amountToRemove -= itemAmount;
+                            inventory.clear(i);
+                        }
+
+                        if (amountToRemove == 0) {
+                            break;
+                        }
                     }
                 }
             }
 
-            // Si on doit encore retirer des items, retirer du vault
+            // If items still need to be removed, remove from vault
             if (amountToRemove > 0) {
                 vaultManager.removeMaterial(player, material, amountToRemove);
             }
         }
     }
 
+    // Completes the WorldEdit task and sends a finish message to the user.
     protected void finish() {
         this.worldeditStatus = WorldeditStatus.FINISH;
         this.user.setWorldeditTask(null);
         this.worldeditManager.sendFinishMessage(user);
 
         this.giveItems(user.getPlayer(), this.needToGiveMaterials);
+
+        if (!this.user.getOption(Option.WORLDEDIT_BOSSBAR_DISABLE)) {
+            this.worldeditManager.getWorldeditBar().remove(user.getPlayer());
+        }
     }
 
+    // Returns the materials used in the WorldEdit operation.
     public Map<Material, Long> getMaterials() {
         return materials;
     }
 
+    // Adds the specified material to the list of materials to be given back to the player.
     protected void add(Material material) {
         this.needToGiveMaterials.put(material, this.needToGiveMaterials.getOrDefault(material, 0L) + 1);
     }
 
+    // Gives the specified items to the player, either directly to the inventory or to the vault if needed.
     public void giveItems(Player player, Map<Material, Long> itemsToGive) {
-        PlayerInventory inventory = player.getInventory();
+
         var vaultManager = plugin.getVaultManager();
 
-        for (Map.Entry<Material, Long> entry : itemsToGive.entrySet()) {
-            Material material = entry.getKey();
-            long amount = entry.getValue();
+        if (useInventory()) {
 
-            while (amount > 0) {
-                int stackSize = (int) Math.min(amount, material.getMaxStackSize());
-                ItemStack itemStack = new ItemStack(material, stackSize);
-                Map<Integer, ItemStack> remainingItems = inventory.addItem(itemStack);
+            PlayerInventory inventory = player.getInventory();
 
-                if (!remainingItems.isEmpty()) {
-                    for (ItemStack remainingItem : remainingItems.values()) {
-                        vaultManager.addItem(player.getUniqueId(), remainingItem);
+            for (Map.Entry<Material, Long> entry : itemsToGive.entrySet()) {
+                Material material = entry.getKey();
+                long amount = entry.getValue();
+
+                while (amount > 0) {
+                    int stackSize = (int) Math.min(amount, material.getMaxStackSize());
+                    ItemStack itemStack = new ItemStack(material, stackSize);
+                    Map<Integer, ItemStack> remainingItems = inventory.addItem(itemStack);
+
+                    if (!remainingItems.isEmpty()) {
+                        for (ItemStack remainingItem : remainingItems.values()) {
+                            vaultManager.addItem(player.getUniqueId(), remainingItem);
+                        }
                     }
-                }
 
-                amount -= stackSize;
+                    amount -= stackSize;
+                }
             }
+        } else {
+
+            itemsToGive.forEach((material, amount) -> vaultManager.addItem(player.getUniqueId(), new ItemStack(material), amount));
         }
     }
 
+    // Processes the block placing/removal operation according to the user's settings.
     public void process() {
 
         var scheduler = this.plugin.getScheduler();
@@ -325,10 +380,12 @@ public abstract class WorldEditTask {
             }
 
             tickCounter.getAndIncrement();
+            updateBossBar();
 
         }, 0L, intervalTicks);
     }
 
+    // Places a block based on the BlockInfo data.
     private void placeBlock(BlockInfo blockInfo) {
         if (blockInfo == null) return;
 
@@ -348,10 +405,12 @@ public abstract class WorldEditTask {
         });
     }
 
+    // Returns the count of BlockInfo objects in the queue.
     public int count() {
         return this.blockInfos.size();
     }
 
+    // Cancels the ongoing WorldEdit task and processes the refund for the user.
     public void cancel(Player player) {
 
         if (this.worldeditStatus != WorldeditStatus.RUNNING) return;
@@ -363,22 +422,32 @@ public abstract class WorldEditTask {
         Map<Material, Long> refundMaterials = getAction() == WorldeditAction.PLACE ? this.blockInfos.stream().collect(Collectors.groupingBy(BlockInfo::newMaterial, Collectors.counting())) : new HashMap<>();
         this.blockInfos.clear();
 
-        var economy = plugin.getEconomyManager().getDefaultEconomy();
-        user.deposit(economy, refundPrice);
+        var economy = this.plugin.getEconomyManager().getDefaultEconomy();
+        this.user.deposit(economy, refundPrice);
         refundMaterials.putAll(this.needToGiveMaterials);
 
         giveItems(player, refundMaterials);
 
-        worldeditManager.sendRefundMessage(player, refundMaterials, refundPrice, economy);
+        this.worldeditManager.sendRefundMessage(player, refundMaterials, refundPrice, economy);
 
-        user.setWorldeditTask(null);
+        this.user.setWorldeditTask(null);
+
+        if (!this.user.getOption(Option.WORLDEDIT_BOSSBAR_DISABLE)) {
+            this.worldeditManager.getWorldeditBar().remove(player);
+        }
     }
 
+    // Computes the squared length between three coordinates (x, y, z).
     protected double lengthSq(double x, double y, double z) {
         return (x * x) + (y * y) + (z * z);
     }
 
+    // Computes the squared length between two coordinates (x, z).
     protected double lengthSq(double x, double z) {
         return (x * x) + (z * z);
+    }
+
+    private boolean useInventory() {
+        return this.user.getOption(Option.WORLDEDIT_INVENTORY);
     }
 }

@@ -281,3 +281,9 @@ permissions-cylinder-height:
 
 # Number of blocks that will be checked at the same time when calculating the price
 batch-size: 200
+
+worldedit-boss-bar:
+  # PINK, BLUE, RED, GREEN, YELLOW, PURPLE, WHITE
+  color: RED
+  # PROGRESS, NOTCHED_6, NOTCHED_10, NOTCHED_12, NOTCHED_20
+  style: PROGRESS

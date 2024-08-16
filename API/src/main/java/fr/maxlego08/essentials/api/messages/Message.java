@@ -278,12 +278,15 @@ public enum Message {
     DESCRIPTION_WORLDEDIT_WALLS("Set all blocks of your selection with a walls"),
     DESCRIPTION_WORLDEDIT_SPHERE("Set all blocks of your selection with a sphere"),
     DESCRIPTION_WORLDEDIT_FILL("Fill all blocks of your selection"),
-    DESCRIPTION_WORLDEDIT_CYL("Fill all blocks of your selection with a cylender"),
+    DESCRIPTION_WORLDEDIT_CYL("Fill all blocks of your selection with a cylinder"),
     DESCRIPTION_WORLDEDIT_CUT("Cut all blocks of your selection"),
     DESCRIPTION_WORLDEDIT_STOP("Stop the current edition"),
     DESCRIPTION_WORLDEDIT_CONFIRM("Confirm worldedit action"),
     DESCRIPTION_WORLDEDIT_POS1("Set first position of the selection"),
     DESCRIPTION_WORLDEDIT_POS2("Set second position of the selection"),
+    DESCRIPTION_WORLDEDIT_OPTION("Configure your use of worldedit"),
+    DESCRIPTION_WORLDEDIT_OPTION_INVENTORY("Use your inventory to take or add items"),
+    DESCRIPTION_WORLDEDIT_OPTION_BOSSBAR("Enable or disable the worldedit progress bar"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -727,6 +730,10 @@ public enum Message {
     COMMAND_WORLDEDIT_STOP_ERROR("<error>You cannot stop editing currently."),
     COMMAND_WORLDEDIT_ERROR_ITEM("<error>You must have the worldedit tool in your hand."),
     COMMAND_WORLDEDIT_ERROR_MAX("<error>You can only use this tool, it has been used to the maximum."),
+    COMMAND_WORLDEDIT_OPTION_INVENTORY_ENABLE("<success>You have just activated worldedit to use your inventory."),
+    COMMAND_WORLDEDIT_OPTION_INVENTORY_DISABLE("<error>You just disabled worldedit to use your inventory."),
+    COMMAND_WORLDEDIT_OPTION_BOSSBAR_ENABLE("<success>You have just activated worldedit progress bar."),
+    COMMAND_WORLDEDIT_OPTION_BOSSBAR_DISABLE("<error>You just disabled worldedit worldedit progress bar."),
 
     WORLDEDIT_SELECTION_ERROR("<error>You must select two positions before you make this command."),
     WORLDEDIT_SELECTION_VOLUME("<error>You cannot change more than &f%blocks% <error>at the same time."),
@@ -750,6 +757,7 @@ public enum Message {
     ),
     WORLDEDIT_REFUND_MATERIAL(" <white><hover:show_text:'<white>Amount<dark_gray>: <aqua>%amount%<newline><white>Total Price<dark_gray>: <aqua>%price%<newline><white>Price per block<dark_gray>: <aqua>%price-per-block%'><lang:%translation-key%></hover><gray>"),
     WORLDEDIT_REFUND_EMPTY("<error>No block to refund"),
+    WORLDEDIT_BOSSBAR("#45ff45Time remaining<dark_gray>: <white>%time%"),
 
     ;
 

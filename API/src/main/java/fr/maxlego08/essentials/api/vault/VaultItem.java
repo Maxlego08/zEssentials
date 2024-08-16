@@ -13,7 +13,7 @@ public interface VaultItem {
 
     ItemStack getDisplayItemStack(ComponentMessage adventureComponent);
 
-    void addQuantity(int amount);
+    void addQuantity(long amount);
 
     void removeQuantity(long amount);
 }

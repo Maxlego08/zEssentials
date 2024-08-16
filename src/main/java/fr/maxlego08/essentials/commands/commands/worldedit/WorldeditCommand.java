@@ -2,6 +2,7 @@ package fr.maxlego08.essentials.commands.commands.worldedit;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
+import fr.maxlego08.essentials.api.commands.EssentialsCommand;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.worldedit.MaterialPercent;
 import fr.maxlego08.essentials.worldedit.WorldeditModule;
@@ -25,6 +26,7 @@ public abstract class WorldeditCommand extends VCommand {
         this.onlyPlayers();
     }
 
+
     @Override
     public List<String> toTab(EssentialsPlugin plugin, CommandSender sender, String[] args) {
 
@@ -32,9 +34,29 @@ public abstract class WorldeditCommand extends VCommand {
 
         var materials = plugin.getWorldeditManager().getAllowedMaterials(player);
 
-        if (args.length == 0) return materials;
+        if (args.length == 2) {
+            return worldeditTab(plugin, args, player);
+        }
 
+        String startWith = args[args.length - 1];
 
+        List<String> tabCompleter = new ArrayList<>();
+        for (EssentialsCommand vCommand : plugin.getCommandManager().getCommands()) {
+            if ((vCommand.getParent() != null && vCommand.getParent() == this)) {
+                String cmd = vCommand.getSubCommands().get(0);
+                if (vCommand.getPermission() == null || sender.hasPermission(vCommand.getPermission())) {
+                    if (startWith.length() == 0 || cmd.startsWith(startWith)) {
+                        tabCompleter.add(cmd);
+                    }
+                }
+            }
+        }
+        return tabCompleter.size() == 0 ? null : tabCompleter;
+    }
+
+    public List<String> worldeditTab(EssentialsPlugin plugin, String[] args, Player player) {
+
+        var materials = plugin.getWorldeditManager().getAllowedMaterials(player);
         String currentItem = args[this.indexMaterial];
         String completedString = "";
         if (currentItem.contains(",")) {
@@ -53,7 +75,6 @@ public abstract class WorldeditCommand extends VCommand {
 
         String finalCompletedString = completedString;
         return materials.stream().filter(s -> s.startsWith(rawMaterial.toLowerCase())).map(name -> finalCompletedString + name).toList();
-
     }
 
     protected MaterialPercent getMaterialPercent(String value, int percent) {

@@ -66,4 +66,11 @@ public interface WorldeditManager {
 
     void setPos2(Player player, Location location);
 
+    void toggleOptionInventory(User user);
+
+    void toggleOptionBossBar(User user);
+
+    WorldeditBossBar getWorldeditBar();
+
+    WorldeditBossBarConfiguration getWorldeditConfiguration();
 }

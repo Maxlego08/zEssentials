@@ -334,7 +334,11 @@ public class VaultModule extends ZModule implements VaultManager {
 
     @Override
     public boolean addItem(UUID uniqueId, ItemStack itemStack) {
+        return addItem(uniqueId, itemStack, itemStack.getAmount());
+    }
 
+    @Override
+    public boolean addItem(UUID uniqueId, ItemStack itemStack, long amount) {
         if (itemStack == null || itemStack.getType().isAir()) return false;
 
         var storage = getStorage();
@@ -343,11 +347,11 @@ public class VaultModule extends ZModule implements VaultManager {
         var vault = playerVaults.find(itemStack).orElseGet(playerVaults::firstAvailableVault);
 
         vault.find(itemStack).ifPresentOrElse(vaultItem -> {
-            vaultItem.addQuantity(itemStack.getAmount());
+            vaultItem.addQuantity(amount);
             storage.updateVaultQuantity(uniqueId, vault.getVaultId(), vaultItem.getSlot(), vaultItem.getQuantity());
         }, () -> {
             int nextSlot = vault.getNextSlot();
-            VaultItem newVaultItem = new ZVaultItem(nextSlot, itemStack, itemStack.getAmount());
+            VaultItem newVaultItem = new ZVaultItem(nextSlot, itemStack, amount);
             vault.getVaultItems().put(nextSlot, newVaultItem);
             storage.createVaultItem(uniqueId, vault.getVaultId(), nextSlot, newVaultItem.getQuantity(), ItemStackUtils.serializeItemStack(itemStack));
         });

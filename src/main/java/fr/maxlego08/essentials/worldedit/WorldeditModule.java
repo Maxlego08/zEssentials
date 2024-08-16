@@ -5,7 +5,9 @@ import fr.maxlego08.essentials.api.configuration.NonLoadable;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.event.events.user.UserQuitEvent;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
+import fr.maxlego08.essentials.api.utils.component.AdventureComponent;
 import fr.maxlego08.essentials.api.worldedit.BlockPrice;
 import fr.maxlego08.essentials.api.worldedit.MaterialPercent;
 import fr.maxlego08.essentials.api.worldedit.PermissionBlockPerSecond;
@@ -16,9 +18,12 @@ import fr.maxlego08.essentials.api.worldedit.PermissionRadius;
 import fr.maxlego08.essentials.api.worldedit.Selection;
 import fr.maxlego08.essentials.api.worldedit.WorldEditItem;
 import fr.maxlego08.essentials.api.worldedit.WorldEditTask;
+import fr.maxlego08.essentials.api.worldedit.WorldeditBossBar;
+import fr.maxlego08.essentials.api.worldedit.WorldeditBossBarConfiguration;
 import fr.maxlego08.essentials.api.worldedit.WorldeditManager;
 import fr.maxlego08.essentials.api.worldedit.WorldeditStatus;
 import fr.maxlego08.essentials.module.ZModule;
+import fr.maxlego08.essentials.worldedit.bossbar.PaperBossBar;
 import fr.maxlego08.essentials.worldedit.taks.CutTask;
 import fr.maxlego08.essentials.worldedit.taks.CylTask;
 import fr.maxlego08.essentials.worldedit.taks.FillTask;
@@ -62,6 +67,8 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
     @NonLoadable
     private final List<WorldEditItem> worldEditItems = new ArrayList<>();
     private final List<String> blacklistBlocks = new ArrayList<>();
+    @NonLoadable
+    private final WorldeditBossBar bossBar;
     private BigDecimal defaultBlockPrice;
     private List<BlockPrice> blocksPrice;
     private List<PermissionBlockPerSecond> permissionsBlocksPerSecond;
@@ -72,9 +79,11 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
     private List<PermissionHeight> permissionsSphereHeight;
     private List<PermissionHeight> permissionsCylinderHeight;
     private int batchSize;
+    private WorldeditBossBarConfiguration worldeditBossBar;
 
     public WorldeditModule(ZEssentialsPlugin plugin) {
         super(plugin, "worldedit");
+        bossBar = new PaperBossBar((AdventureComponent) plugin.getComponentMessage());
     }
 
     @Override
@@ -134,6 +143,8 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
 
     @Override
     public List<String> getAllowedMaterials(Player player) {
+
+        if (player == null) return new ArrayList<>();
 
         Set<Material> blockMaterials = Stream.of(player.getInventory().getContents()).filter(item -> item != null && item.getType().isBlock()).map(ItemStack::getType).collect(Collectors.toSet());
         blockMaterials.addAll(this.plugin.getVaultManager().getMaterials(player));
@@ -459,6 +470,30 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
         Selection selection = user.getSelection();
         selection.setSecondLocation(location);
         message(player, Message.WORLDEDIT_SELECTION_POS2);
+    }
+
+    @Override
+    public void toggleOptionInventory(User user) {
+
+        user.setOption(Option.WORLDEDIT_INVENTORY, !user.getOption(Option.WORLDEDIT_INVENTORY));
+        message(user, user.getOption(Option.WORLDEDIT_INVENTORY) ? Message.COMMAND_WORLDEDIT_OPTION_INVENTORY_ENABLE : Message.COMMAND_WORLDEDIT_OPTION_INVENTORY_DISABLE);
+    }
+
+    @Override
+    public void toggleOptionBossBar(User user) {
+
+        user.setOption(Option.WORLDEDIT_BOSSBAR_DISABLE, !user.getOption(Option.WORLDEDIT_BOSSBAR_DISABLE));
+        message(user, user.getOption(Option.WORLDEDIT_BOSSBAR_DISABLE) ? Message.COMMAND_WORLDEDIT_OPTION_BOSSBAR_ENABLE : Message.COMMAND_WORLDEDIT_OPTION_BOSSBAR_DISABLE);
+    }
+
+    @Override
+    public WorldeditBossBar getWorldeditBar() {
+        return this.bossBar;
+    }
+
+    @Override
+    public WorldeditBossBarConfiguration getWorldeditConfiguration() {
+        return this.worldeditBossBar;
     }
 
     @Override

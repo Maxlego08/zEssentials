@@ -62,7 +62,7 @@ public class ZVaultItem implements VaultItem {
         return itemStack;
     }
 
-    public void addQuantity(int amount) {
+    public void addQuantity(long amount) {
         this.quantity += amount;
     }
 

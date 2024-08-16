@@ -54,6 +54,8 @@ public interface VaultManager {
 
     boolean addItem(UUID uuid, ItemStack itemStack);
 
+    boolean addItem(UUID uuid, ItemStack itemStack, long amount);
+
     long getMaterialAmount(Player player, Material material);
 
     void removeMaterial(Player player, Material material, long amountToRemove);
