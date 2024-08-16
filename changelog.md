@@ -4,9 +4,11 @@
 - Added the command `/ess convert AxVaults`, allows converting the database from AxVaults to zEssentials.
 - Added the command `/mailbox give <player> <item> [<amount>]`, Add an item to a player’s mailbox.
 - Added the command `/mailbox giveall <player> <item> [<amount>]`, Add an item to online player’s mailbox.
+- Added the command `/vault give <player> <item> [<amount>]`, Add an item to player’s vault.
 - Fixed CMI convert with invalid location for homes
 - Fixed the bug that allowed adding items in the mailbox even if the module is disabled.
 - Fixed command /rules who are not using the correct module.
+- Added the module `WorldEdit`, module allows players to have access to a **player worldedit**. They will be able to use the commands like `/pw set`, `/pw cut` to place or break blocks. Each block placed must be paid, by default 5$ per blocks. You can configure the item worldedit, the number of blocks that the player can change at the same time and many other things, more information [here](https://zessentials.groupez.dev/modules/worldedit).
 
 # 1.0.0.4
 
