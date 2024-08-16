@@ -333,7 +333,10 @@ public class VaultModule extends ZModule implements VaultManager {
     }
 
     @Override
-    public void addItem(UUID uniqueId, ItemStack itemStack) {
+    public boolean addItem(UUID uniqueId, ItemStack itemStack) {
+
+        if (itemStack == null || itemStack.getType().isAir()) return false;
+
         var storage = getStorage();
         var playerVaults = getPlayerVaults(uniqueId);
 
@@ -348,6 +351,7 @@ public class VaultModule extends ZModule implements VaultManager {
             vault.getVaultItems().put(nextSlot, newVaultItem);
             storage.createVaultItem(uniqueId, vault.getVaultId(), nextSlot, newVaultItem.getQuantity(), ItemStackUtils.serializeItemStack(itemStack));
         });
+        return true;
     }
 
     @Override

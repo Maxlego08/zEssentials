@@ -52,7 +52,7 @@ public interface VaultManager {
 
     void resetName(Player player, Vault vault);
 
-    void addItem(UUID uuid, ItemStack itemStack);
+    boolean addItem(UUID uuid, ItemStack itemStack);
 
     long getMaterialAmount(Player player, Material material);
 
