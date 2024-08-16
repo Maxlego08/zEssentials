@@ -41,7 +41,7 @@ public class CommandVaultGive extends VCommand {
         var module = plugin.getModuleManager().getModule(ItemModule.class);
 
         ItemStack itemStack = module.getItemStack(itemName, offlinePlayer);
-        if (itemStack == null) {
+        if (itemStack == null || itemStack.getType().isAir()) {
             message(sender, Message.COMMAND_GIVE_ERROR, "%item%", itemName);
             return CommandResultType.DEFAULT;
         }

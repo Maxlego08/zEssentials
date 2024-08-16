@@ -248,6 +248,7 @@ public class VaultModule extends ZModule implements VaultManager {
         List<String> strings = IntStream.range(1, this.maxVaults).filter(vaultID -> hasPermission(player.getUniqueId(), vaultID)).mapToObj(String::valueOf).collect(Collectors.toList());
         if (hasPermission(player, Permission.ESSENTIALS_VAULT_ADD_SLOT)) strings.add("add");
         if (hasPermission(player, Permission.ESSENTIALS_VAULT_SET_SLOT)) strings.add("set");
+        if (hasPermission(player, Permission.ESSENTIALS_VAULT_GIVE)) strings.add("give");
         return strings;
     }
 
