@@ -1,0 +1,289 @@
+########################################################################################################################
+#
+# ░██╗░░░░░░░██╗░█████╗░██████╗░██╗░░░░░██████╗░███████╗██████╗░██╗████████╗
+# ░██║░░██╗░░██║██╔══██╗██╔══██╗██║░░░░░██╔══██╗██╔════╝██╔══██╗██║╚══██╔══╝
+# ░╚██╗████╗██╔╝██║░░██║██████╔╝██║░░░░░██║░░██║█████╗░░██║░░██║██║░░░██║░░░
+# ░░████╔═████║░██║░░██║██╔══██╗██║░░░░░██║░░██║██╔══╝░░██║░░██║██║░░░██║░░░
+# ░░╚██╔╝░╚██╔╝░╚█████╔╝██║░░██║███████╗██████╔╝███████╗██████╔╝██║░░░██║░░░
+# ░░░╚═╝░░░╚═╝░░░╚════╝░╚═╝░░╚═╝╚══════╝╚═════╝░╚══════╝╚═════╝░╚═╝░░░╚═╝░░░
+#
+# Documentation: https://zessentials.groupez.dev/modules/worldedit
+#
+########################################################################################################################
+
+enable: true
+
+items:
+  playerWand:
+    max-use: 50
+    price-multiplier: 1.2
+    item:
+      material: BLAZE_ROD
+      name: "#eb5021ᴡᴏʀʟᴅᴇᴅɪᴛ"
+      lore:
+        - ''
+        - '#ffd353ℹ Informations#3f3f3f:'
+        - '#3f3f3f• &7Select two positions for'
+        - '#3f3f3f• &7place or destroy blocks'
+        - ''
+        - '#3f3f3f• &7Max Blocks#3f3f3f: #4cd5ff500'
+        - '#3f3f3f• &7Max Distance#3f3f3f: #4cd5ff20'
+        - '#3f3f3f• &7Use#3f3f3f: #4cd5ff%use%#3f3f3f/#4cf8ff50'
+        - ''
+  adminWand:
+    max-use: -1
+    price-multiplier: 0
+    item:
+      material: BLAZE_ROD
+      name: "#eb5021ᴡᴏʀʟᴅᴇᴅɪᴛ"
+      lore:
+        - ''
+        - '#ffd353ℹ Informations#3f3f3f:'
+        - '#3f3f3f• &7Select two positions for'
+        - '#3f3f3f• &7place or destroy blocks'
+        - ''
+        - '#3f3f3f• &7Max Blocks#3f3f3f: #4cd5ff∞'
+        - '#3f3f3f• &7Max Distance#3f3f3f: #4cd5ff∞'
+        - '#3f3f3f• &7Use#3f3f3f: #4cd5ff%use%#3f3f3f/#4cf8ff∞'
+        - ''
+
+blacklist-blocks:
+  - SLIME_BLOCK
+  - HONEY_BLOCK
+  - STRING
+  - AMETHYST_CLUSTER
+  - MEDIUM_AMETHYST_BUD
+  - LARGE_AMETHYST_BUD
+  - SMALL_AMETHYST_BUD
+  - HOPPER
+  - NOTE_BLOCK
+  - PISTON_HEAD
+  - STICKY_PISTON_HEAD
+  - END_PORTAL
+  - WALL_TORCH
+  - REDSTONE_WIRE
+  - REDSTONE_LAMP
+  - REDSTONE_BLOCK
+  - REDSTONE_TORCH
+  - REDSTONE_WALL_TORCH
+  - CAULDRON
+  - SPAWNER
+  - TNT
+  - BEDROCK
+  - CHEST
+  - TRAPPED_CHEST
+  - ENDER_CHEST
+  - HOPPER
+  - BAMBOO_SAPLING
+  - BLACK_CONCRETE_POWDER
+  - BLUE_CONCRETE_POWDER
+  - YELLOW_CONCRETE_POWDER
+  - GREEN_CONCRETE_POWDER
+  - LIGHT_GRAY_CONCRETE_POWDER
+  - GRAY_CONCRETE_POWDER
+  - CYAN_CONCRETE_POWDER
+  - WHITE_CONCRETE_POWDER
+  - BROWN_CONCRETE_POWDER
+  - PURPLE_CONCRETE_POWDER
+  - RED_CONCRETE_POWDER
+  - MAGENTA_CONCRETE_POWDER
+  - ORANGE_CONCRETE_POWDER
+  - LIME_CONCRETE_POWDER
+  - LIGHT_BLUE_CONCRETE_POWDER
+  - PINK_CONCRETE_POWDER
+  - BARREL
+  - BAMBOO
+  - END_PORTAL
+  - ENDER_PORTAL
+  - ENDER_PORTAL_FRAME
+  - END_PORTAL_FRAME
+  - FURNACE
+  - ITEM_FRAME
+  - TORCH
+  - SOUL_TORCH
+  - SHULKER_BOX
+  - WHITE_SHULKER_BOX
+  - LIME_SHULKER_BOX
+  - YELLOW_SHULKER_BOX
+  - RED_SHULKER_BOX
+  - BROWN_SHULKER_BOX
+  - BLUE_SHULKER_BOX
+  - LIGHT_BLUE_SHULKER_BOX
+  - LIGHT_GREEN_SHULKER_BOX
+  - GREEN_SHULKER_BOX
+  - GRAY_SHULKER_BOX
+  - ORANGE_SHULKER_BOX
+  - MAGENTA_SHULKER_BOX
+  - PINK_SHULKER_BOX
+  - BLACK_SHULKER_BOX
+  - PURPLE_SHULKER_BOX
+  - CYAN_SHULKER_BOX
+  - LIGHT_GRAY_SHULKER_BOX
+  - PISTON
+  - NETHER_PORTAL
+  - END_GATEWAY
+  - STICKY_PISTON
+  - DISPENSER
+  - DROPPER
+  - ARMOR_STAND
+  - OBSERVER
+  - ENCHANTING_TABLE
+  - REPEATER
+  - DAMAGED_ANVIL
+  - CHIPPED_ANVIL
+  - ANVIL
+  - CARROTS
+  - WHEAT
+  - POTATOES
+  - beetroots
+  - CACTUS
+  - SUGAR_CANE
+  - CHORUS_PLANT
+  - COCOA
+  - WITHER_SKELETON_SKULL
+  - WITHER_SKELETON_WALL_SKULL
+  - PLAYER_HEAD
+  - PLAYER_WALL_HEAD
+  - FIRE
+  - PUMPKIN
+  - MELON
+  - CARVED_PUMPKIN
+  - CHORUS_FLOWER
+  - LAVA
+  - SWEET_BERRY_BUSH
+  - BROWN_MUSHROOM
+  - CAVE_AIR
+  - COMPARATOR
+  - COMMAND_BLOCK
+  - CHAIN_COMMAND_BLOCK
+  - REPEATING_COMMAND_BLOCK
+  - CRIMSON_FUNGUS
+  - JIGSAW
+  - KELP
+  - KELP_PLANT
+  - NETHER_WART
+  - RED_MUSHROOM
+  - SCAFFOLDING
+  - SEAGRASS
+  - TALL_SEAGRASS
+  - VOID_AIR
+  - WARPED_FUNGUS
+  - DRAGON_EGG
+  - BEACON
+  - WEEPING_VINES
+  - TWISTING_VINES
+  - DIAMOND_BLOCK
+  - EMERALD_BLOCK
+  - QUARTZ_BLOCK
+  - GOLD_BLOCK
+  - COAL_BLOCK
+  - IRON_BLOCK
+  - COPPER_BLOCK
+  - LAPIS_BLOCK
+  - AMETHYST_BLOCK
+  - CRAFTER
+  - VAULT
+  - TRIAL_SPAWNER
+  - CAMPFIRE
+  - CAKE
+  - OAK_DOOR
+  - SPRUCE_DOOR
+  - BIRCH_DOOR
+  - JUNGLE_DOOR
+  - ACACIA_DOOR
+  - DARK_OAK_DOOR
+  - CRIMSON_DOOR
+  - WARPED_DOOR
+  - MANGROVE_DOOR
+  - BAMBOO_DOOR
+  - OAK_TRAPDOOR
+  - SPRUCE_TRAPDOOR
+  - BIRCH_TRAPDOOR
+  - JUNGLE_TRAPDOOR
+  - ACACIA_TRAPDOOR
+  - DARK_OAK_TRAPDOOR
+  - CRIMSON_TRAPDOOR
+  - WARPED_TRAPDOOR
+  - MANGROVE_TRAPDOOR
+  - BAMBOO_TRAPDOOR
+  - OAK_FENCE_GATE
+  - SPRUCE_FENCE_GATE
+  - BIRCH_FENCE_GATE
+  - JUNGLE_FENCE_GATE
+  - ACACIA_FENCE_GATE
+  - DARK_OAK_FENCE_GATE
+  - CRIMSON_FENCE_GATE
+  - WARPED_FENCE_GATE
+  - MANGROVE_FENCE_GATE
+  - BAMBOO_FENCE_GATE
+
+default-block-price: 5
+
+blocks-price:
+  - material: AIR # Air to set the price for the/pw cut order
+    price: 1
+  - material: STONE
+    price: 1
+
+# Allows defining the number of blocks per second that will be placed.
+permissions-blocks-per-second:
+  - permission: zessentials.worldedit.speed.player
+    blocks: 5
+  - permission: zessentials.worldedit.speed.vip
+    blocks: 10
+  - permission: zessentials.worldedit.speed.admin
+    blocks: 50
+
+# Set the maximum number of blocks in the selection
+permissions-max-blocks:
+  - permission: zessentials.worldedit.blocks.player
+    blocks: 500
+  - permission: zessentials.worldedit.blocks.vip
+    blocks: 1000
+  - permission: zessentials.worldedit.blocks.admin
+    blocks: 50000
+
+# Set the maximum distance between the 2 locations of the selection
+permissions-max-distances:
+  - permission: zessentials.worldedit.distances.player
+    distance: 20
+  - permission: zessentials.worldedit.distances.vip
+    distance: 50
+  - permission: zessentials.worldedit.distances.admin
+    distance: 100
+
+# Set the maximum radius for a sphere
+permissions-sphere-radius:
+  - permission: zessentials.worldedit.sphere.player
+    radius: 4
+  - permission: zessentials.worldedit.sphere.vip
+    radius: 8
+  - permission: zessentials.worldedit.sphere.admin
+    radius: 100
+
+# Set the maximum height for a sphere
+permissions-sphere-height:
+  - permission: zessentials.worldedit.sphere.player
+    height: 1
+  - permission: zessentials.worldedit.sphere.vip
+    height: 2
+  - permission: zessentials.worldedit.sphere.admin
+    height: 5
+
+# Set the maximum height for a cylinder
+permissions-cylinder-height:
+  - permission: zessentials.worldedit.cylinder.player
+    height: 1
+  - permission: zessentials.worldedit.cylinder.vip
+    height: 2
+  - permission: zessentials.worldedit.cylinder.admin
+    height: 5
+
+# Number of blocks that will be checked at the same time when calculating the price
+batch-size: 200
+
+worldedit-boss-bar:
+  # PINK, BLUE, RED, GREEN, YELLOW, PURPLE, WHITE
+  color: RED
+  # PROGRESS, NOTCHED_6, NOTCHED_10, NOTCHED_12, NOTCHED_20
+  style: PROGRESS

@@ -29,6 +29,7 @@ import fr.maxlego08.essentials.api.utils.Warp;
 import fr.maxlego08.essentials.api.utils.component.ComponentMessage;
 import fr.maxlego08.essentials.api.vault.VaultManager;
 import fr.maxlego08.essentials.api.vote.VoteManager;
+import fr.maxlego08.essentials.api.worldedit.WorldeditManager;
 import fr.maxlego08.essentials.buttons.ButtonHomes;
 import fr.maxlego08.essentials.buttons.ButtonPayConfirm;
 import fr.maxlego08.essentials.buttons.ButtonTeleportationConfirm;
@@ -82,6 +83,7 @@ import fr.maxlego08.essentials.module.ZModuleManager;
 import fr.maxlego08.essentials.module.modules.HomeModule;
 import fr.maxlego08.essentials.module.modules.MailBoxModule;
 import fr.maxlego08.essentials.module.modules.VoteModule;
+import fr.maxlego08.essentials.worldedit.WorldeditModule;
 import fr.maxlego08.essentials.placeholders.DistantPlaceholder;
 import fr.maxlego08.essentials.placeholders.LocalPlaceholder;
 import fr.maxlego08.essentials.scoreboard.ScoreboardModule;
@@ -641,6 +643,11 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     @Override
     public VaultManager getVaultManager() {
         return this.moduleManager.getModule(VaultModule.class);
+    }
+
+    @Override
+    public WorldeditManager getWorldeditManager() {
+        return this.moduleManager.getModule(WorldeditModule.class);
     }
 
     @Override

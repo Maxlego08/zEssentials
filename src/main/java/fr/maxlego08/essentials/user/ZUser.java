@@ -25,12 +25,16 @@ import fr.maxlego08.essentials.api.user.PrivateMessage;
 import fr.maxlego08.essentials.api.user.TeleportRequest;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.DynamicCooldown;
+import fr.maxlego08.essentials.api.worldedit.Selection;
+import fr.maxlego08.essentials.api.worldedit.WorldEditTask;
 import fr.maxlego08.essentials.module.modules.TeleportationModule;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 import java.math.BigDecimal;
@@ -56,6 +60,8 @@ public class ZUser extends ZUtils implements User {
     private final List<Home> homes = new ArrayList<>();
     private final List<MailBoxItem> mailBoxItems = new ArrayList<>();
     private final DynamicCooldown dynamicCooldown = new DynamicCooldown();
+    private final Selection selection = new ZSelection();
+    private WorldEditTask worldEditTask;
     private String name;
     private TeleportRequest teleportRequest;
     private User targetUser;
@@ -365,7 +371,7 @@ public class ZUser extends ZUtils implements User {
 
     @Override
     public boolean has(Economy economy, BigDecimal bigDecimal) {
-        return bigDecimal.compareTo(getBalance(economy)) > 0;
+        return getBalance(economy).compareTo(bigDecimal) > 0;
     }
 
     @Override
@@ -771,5 +777,41 @@ public class ZUser extends ZUtils implements User {
     @Override
     public void resetOfflineVote() {
         this.getStorage().setVote(this.uniqueId, -1, 0);
+    }
+
+    @Override
+    public Selection getSelection() {
+        return this.selection;
+    }
+
+    @Override
+    public boolean hasWorldeditTask() {
+        return this.worldEditTask != null && this.worldEditTask.getWorldeditStatus().isRunning();
+    }
+
+    @Override
+    public WorldEditTask getWorldeditTask() {
+        return this.worldEditTask;
+    }
+
+    @Override
+    public void setWorldeditTask(WorldEditTask worldEditTask) {
+        this.worldEditTask = worldEditTask;
+    }
+
+    @Override
+    public ItemStack getItemInMainHand() {
+        return getPlayer().getInventory().getItemInMainHand();
+    }
+
+    @Override
+    public void setItemInMainHand(ItemStack itemStack) {
+        getPlayer().getInventory().setItemInMainHand(itemStack);
+    }
+
+    @Override
+    public void playSound(Sound sound, float volume, float pitch) {
+        var player = getPlayer();
+        player.playSound(player.getLocation(), sound, volume, pitch);
     }
 }

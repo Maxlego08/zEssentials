@@ -45,7 +45,7 @@ public class ZCommandManager extends ZUtils implements CommandManager {
     }
 
     private final ZEssentialsPlugin plugin;
-    private final List<EssentialsCommand> commands = new ArrayList<>();
+    protected final List<EssentialsCommand> commands = new ArrayList<>();
 
     public ZCommandManager(ZEssentialsPlugin plugin) {
         this.plugin = plugin;
@@ -139,7 +139,7 @@ public class ZCommandManager extends ZUtils implements CommandManager {
         return null;
     }
 
-    private List<String> processTab(CommandSender sender, EssentialsCommand command, String[] args) {
+    public List<String> processTab(CommandSender sender, EssentialsCommand command, String[] args) {
 
         CommandResultType type = command.getTabCompleter();
         if (type.equals(CommandResultType.DEFAULT)) {

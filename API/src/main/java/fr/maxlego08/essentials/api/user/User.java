@@ -16,9 +16,13 @@ import fr.maxlego08.essentials.api.mailbox.MailBoxItem;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.utils.DynamicCooldown;
+import fr.maxlego08.essentials.api.worldedit.Selection;
+import fr.maxlego08.essentials.api.worldedit.WorldEditTask;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 import java.math.BigDecimal;
@@ -568,4 +572,18 @@ public interface User {
     void setVoteSites(List<VoteSiteDTO> select);
 
     void resetOfflineVote();
+
+    Selection getSelection();
+
+    boolean hasWorldeditTask();
+
+    WorldEditTask getWorldeditTask();
+
+    void setWorldeditTask(WorldEditTask worldEditTask);
+
+    ItemStack getItemInMainHand();
+
+    void setItemInMainHand(ItemStack itemStack);
+
+    void playSound(Sound sound, float volume, float pitch);
 }

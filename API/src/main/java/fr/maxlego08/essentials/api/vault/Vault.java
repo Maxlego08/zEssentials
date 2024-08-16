@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.api.vault;
 
 import fr.maxlego08.essentials.api.dto.VaultItemDTO;
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Map;
@@ -34,4 +35,6 @@ public interface Vault {
     int getNextSlot();
 
     boolean hasFreeSlot();
+
+    long getMaterialAmount(Material material);
 }

@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.vault.Vault;
 import fr.maxlego08.essentials.api.vault.VaultItem;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import fr.maxlego08.menu.zcore.utils.nms.ItemStackUtils;
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
@@ -95,5 +96,11 @@ public class ZVault extends ZUtils implements Vault {
     @Override
     public boolean hasFreeSlot() {
         return getNextSlot() != -1;
+    }
+
+    @Override
+    public long getMaterialAmount(Material material) {
+        var optional = find(new ItemStack(material));
+        return optional.map(VaultItem::getQuantity).orElse(0L);
     }
 }
