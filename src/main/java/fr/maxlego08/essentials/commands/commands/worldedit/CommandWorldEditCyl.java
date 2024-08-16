@@ -20,13 +20,13 @@ public class CommandWorldEditCyl extends WorldeditCommand {
         this.addSubCommand("cyl");
         this.addRequireArg("radius", (sender, args) -> {
             if (sender instanceof Player player) {
-                return IntStream.range(1, plugin.getWorldeditManager().getSphereRadius(player) + 1).mapToObj(String::valueOf).toList();
+                return IntStream.range(1, plugin.getWorldeditManager().getCylinderHeight(player) + 1).mapToObj(String::valueOf).toList();
             }
             return List.of("1");
         });
         this.addRequireArg("height", (sender, args) -> {
             if (sender instanceof Player player) {
-                return IntStream.range(1, plugin.getWorldeditManager().getSphereRadius(player) + 1).mapToObj(String::valueOf).toList();
+                return IntStream.range(1, plugin.getWorldeditManager().getCylinderHeight(player) + 1).mapToObj(String::valueOf).toList();
             }
             return List.of("1");
         });

@@ -32,6 +32,7 @@ import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
@@ -806,5 +807,11 @@ public class ZUser extends ZUtils implements User {
     @Override
     public void setItemInMainHand(ItemStack itemStack) {
         getPlayer().getInventory().setItemInMainHand(itemStack);
+    }
+
+    @Override
+    public void playSound(Sound sound, float volume, float pitch) {
+        var player = getPlayer();
+        player.playSound(player.getLocation(), sound, volume, pitch);
     }
 }

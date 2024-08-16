@@ -30,7 +30,7 @@ public record WorldEditItem(
         ItemMeta itemMeta = itemStack.getItemMeta();
         PersistentDataContainer persistentDataContainer = itemMeta.getPersistentDataContainer();
         persistentDataContainer.set(KEY_WORLDEDIT, PersistentDataType.STRING, this.name);
-        persistentDataContainer.set(KEY_WORLDEDIT_USE, PersistentDataType.LONG, this.maxUse - use);
+        persistentDataContainer.set(KEY_WORLDEDIT_USE, PersistentDataType.LONG, use);
         itemStack.setItemMeta(itemMeta);
         return itemStack;
     }

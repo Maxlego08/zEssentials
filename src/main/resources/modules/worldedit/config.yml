@@ -220,6 +220,8 @@ blacklist-blocks:
 default-block-price: 5
 
 blocks-price:
+  - material: AIR # Air to set the price for the/pw cut order
+    price: 1
   - material: STONE
     price: 1
 
@@ -250,7 +252,7 @@ permissions-max-distances:
   - permission: zessentials.worldedit.distances.admin
     distance: 100
 
-# Set the maximum distance between the 2 locations of the selection
+# Set the maximum radius for a sphere
 permissions-sphere-radius:
   - permission: zessentials.worldedit.sphere.player
     radius: 4
@@ -258,6 +260,24 @@ permissions-sphere-radius:
     radius: 8
   - permission: zessentials.worldedit.sphere.admin
     radius: 100
+
+# Set the maximum height for a sphere
+permissions-sphere-height:
+  - permission: zessentials.worldedit.sphere.player
+    height: 1
+  - permission: zessentials.worldedit.sphere.vip
+    height: 2
+  - permission: zessentials.worldedit.sphere.admin
+    height: 5
+
+# Set the maximum height for a cylinder
+permissions-cylinder-height:
+  - permission: zessentials.worldedit.cylinder.player
+    height: 1
+  - permission: zessentials.worldedit.cylinder.vip
+    height: 2
+  - permission: zessentials.worldedit.cylinder.admin
+    height: 5
 
 # Number of blocks that will be checked at the same time when calculating the price
 batch-size: 200

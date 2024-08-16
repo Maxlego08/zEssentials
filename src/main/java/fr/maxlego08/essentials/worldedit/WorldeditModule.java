@@ -9,9 +9,10 @@ import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.worldedit.BlockPrice;
 import fr.maxlego08.essentials.api.worldedit.MaterialPercent;
 import fr.maxlego08.essentials.api.worldedit.PermissionBlockPerSecond;
+import fr.maxlego08.essentials.api.worldedit.PermissionHeight;
 import fr.maxlego08.essentials.api.worldedit.PermissionMaxBlocks;
 import fr.maxlego08.essentials.api.worldedit.PermissionMaxDistance;
-import fr.maxlego08.essentials.api.worldedit.PermissionSphereRadius;
+import fr.maxlego08.essentials.api.worldedit.PermissionRadius;
 import fr.maxlego08.essentials.api.worldedit.Selection;
 import fr.maxlego08.essentials.api.worldedit.WorldEditItem;
 import fr.maxlego08.essentials.api.worldedit.WorldEditTask;
@@ -31,6 +32,7 @@ import fr.maxlego08.menu.loader.MenuItemStackLoader;
 import fr.maxlego08.menu.zcore.utils.loader.Loader;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -65,7 +67,10 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
     private List<PermissionBlockPerSecond> permissionsBlocksPerSecond;
     private List<PermissionMaxBlocks> permissionsMaxBlocks;
     private List<PermissionMaxDistance> permissionsMaxDistances;
-    private List<PermissionSphereRadius> permissionsSphereRadius;
+    private List<PermissionRadius> permissionsSphereRadius;
+    private List<PermissionRadius> permissionsCylinderRadius;
+    private List<PermissionHeight> permissionsSphereHeight;
+    private List<PermissionHeight> permissionsCylinderHeight;
     private int batchSize;
 
     public WorldeditModule(ZEssentialsPlugin plugin) {
@@ -115,7 +120,7 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
         }
 
         var worldeditItem = optional.get();
-        ItemStack itemStack = worldeditItem.getItemStack(player, 0);
+        ItemStack itemStack = worldeditItem.getItemStack(player, worldeditItem.maxUse());
         plugin.give(player, itemStack);
 
         message(sender, Message.COMMAND_WORLDEDIT_GIVE_SENDER, "%player%", player.getName(), "%item%", itemName);
@@ -235,14 +240,6 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
             return;
         }
 
-        if (!canUseWorldEditItem(itemStack)) {
-            message(user, Message.COMMAND_WORLDEDIT_ERROR_MAX);
-            return;
-        }
-
-        itemStack = useWorldEditItem(user.getPlayer(), itemStack);
-        user.setItemInMainHand(itemStack);
-
         message(user, Message.WORLDEDIT_START_CALCULATE_PRICE);
 
         worldEditTask.calculatePrice(price -> {
@@ -282,6 +279,12 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
         user.setWorldeditTask(worldEditTask);
 
         message(user, Message.WORLDEDIT_START_CALCULATE_PRICE);
+
+        ItemStack itemStack = user.getItemInMainHand();
+        if (cantUseWorldEditItem(itemStack)) {
+            message(user, Message.COMMAND_WORLDEDIT_ERROR_MAX);
+            return;
+        }
 
         worldEditTask.calculatePrice(price -> {
 
@@ -328,6 +331,26 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
                     return;
                 }
 
+                ItemStack itemStack = user.getItemInMainHand();
+                if (isNotWorldeditItem(itemStack)) {
+                    message(user, Message.COMMAND_WORLDEDIT_ERROR_ITEM);
+                    return;
+                }
+
+                if (cantUseWorldEditItem(itemStack)) {
+                    message(user, Message.COMMAND_WORLDEDIT_ERROR_MAX);
+                    return;
+                }
+
+                itemStack = useWorldEditItem(user.getPlayer(), itemStack);
+                if (itemStack == null) {
+
+                    user.playSound(Sound.ENTITY_ITEM_BREAK, 1f, 1f);
+                    user.setItemInMainHand(new ItemStack(Material.AIR));
+                } else {
+                    user.setItemInMainHand(itemStack);
+                }
+
                 user.withdraw(economy, task.getTotalPrice());
                 message(user, Message.WORLDEDIT_START_RUNNING);
 
@@ -369,7 +392,7 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
         ItemMeta itemMeta = itemStack.getItemMeta();
         PersistentDataContainer persistentDataContainer = itemMeta.getPersistentDataContainer();
         String key = persistentDataContainer.get(WorldEditItem.KEY_WORLDEDIT, PersistentDataType.STRING);
-        long use = persistentDataContainer.getOrDefault(WorldEditItem.KEY_WORLDEDIT_USE, PersistentDataType.LONG, 0L) + 1;
+        long use = persistentDataContainer.getOrDefault(WorldEditItem.KEY_WORLDEDIT_USE, PersistentDataType.LONG, 0L) - 1;
 
         Optional<WorldEditItem> optional = getWorldeditItem(key);
         if (optional.isEmpty()) return itemStack;
@@ -377,10 +400,11 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
         var worldEditItem = optional.get();
         if (worldEditItem.maxUse() <= 0) return itemStack;
 
+        if (use < 0) return null;
         return worldEditItem.getItemStack(player, use);
     }
 
-    private boolean canUseWorldEditItem(ItemStack itemStack) {
+    private boolean cantUseWorldEditItem(ItemStack itemStack) {
 
         ItemMeta itemMeta = itemStack.getItemMeta();
         PersistentDataContainer persistentDataContainer = itemMeta.getPersistentDataContainer();
@@ -388,7 +412,7 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
         long use = persistentDataContainer.getOrDefault(WorldEditItem.KEY_WORLDEDIT_USE, PersistentDataType.LONG, 0L);
 
         Optional<WorldEditItem> optional = getWorldeditItem(key);
-        return optional.filter(worldEditItem -> use > 0 || worldEditItem.maxUse() <= 0).isPresent();
+        return optional.filter(worldEditItem -> use >= 0 || worldEditItem.maxUse() <= 0).isEmpty();
 
     }
 
@@ -459,7 +483,22 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
 
     @Override
     public int getSphereRadius(Player player) {
-        return this.permissionsSphereRadius.stream().filter(permissionSphereRadius -> player.hasPermission(permissionSphereRadius.permission())).mapToInt(PermissionSphereRadius::radius).max().orElse(0);
+        return this.permissionsSphereRadius.stream().filter(permissionRadius -> player.hasPermission(permissionRadius.permission())).mapToInt(PermissionRadius::radius).max().orElse(0);
+    }
+
+    @Override
+    public int getCylinderRadius(Player player) {
+        return this.permissionsCylinderRadius.stream().filter(permissionRadius -> player.hasPermission(permissionRadius.permission())).mapToInt(PermissionRadius::radius).max().orElse(0);
+    }
+
+    @Override
+    public int getCylinderHeight(Player player) {
+        return this.permissionsCylinderHeight.stream().filter(permissionRadius -> player.hasPermission(permissionRadius.permission())).mapToInt(PermissionHeight::height).max().orElse(0);
+    }
+
+    @Override
+    public int getSphereHeight(Player player) {
+        return this.permissionsSphereHeight.stream().filter(permissionRadius -> player.hasPermission(permissionRadius.permission())).mapToInt(PermissionHeight::height).max().orElse(0);
     }
 
     @Override

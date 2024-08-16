@@ -39,7 +39,14 @@ public interface WorldeditManager {
     int getMaxBlocks(Player player);
 
     int getMaxDistance(Player player);
+
     int getSphereRadius(Player player);
+
+    int getCylinderRadius(Player player);
+
+    int getSphereHeight(Player player);
+
+    int getCylinderHeight(Player player);
 
     void sendFinishMessage(User user);
 

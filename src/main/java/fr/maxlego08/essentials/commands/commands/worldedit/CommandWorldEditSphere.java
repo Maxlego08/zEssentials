@@ -20,7 +20,7 @@ public class CommandWorldEditSphere extends WorldeditCommand {
         this.addSubCommand("sphere");
         this.addRequireArg("radius", (sender, args) -> {
             if (sender instanceof Player player) {
-                return IntStream.range(1, plugin.getWorldeditManager().getSphereRadius(player) + 1).mapToObj(String::valueOf).toList();
+                return IntStream.range(1, plugin.getWorldeditManager().getSphereHeight(player) + 1).mapToObj(String::valueOf).toList();
             }
             return List.of("1");
         });
