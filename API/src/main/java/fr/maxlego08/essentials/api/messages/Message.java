@@ -287,6 +287,9 @@ public enum Message {
     DESCRIPTION_WORLDEDIT_OPTION("Configure your use of worldedit"),
     DESCRIPTION_WORLDEDIT_OPTION_INVENTORY("Use your inventory to take or add items"),
     DESCRIPTION_WORLDEDIT_OPTION_BOSSBAR("Enable or disable the worldedit progress bar"),
+    DESCRIPTION_VAULT_GIVE("Give items to player's vault"),
+    DESCRIPTION_VAULT_ADD_SLOT("Add slot to player's vault"),
+    DESCRIPTION_VAULT_SET_SLOT("Set slot to player's vault"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -593,6 +596,7 @@ public enum Message {
     COMMAND_ITEM_LORE_SET_ERROR("<error>Can’t find the line &f%line%<error>."),
     COMMAND_GIVE_ERROR("<error>Can’t find the item &f%item%<error>."),
     COMMAND_GIVE("<success>You just gave &n&fx1 %item%&r <success>to player &f%player%<success>."),
+    COMMAND_GIVE_VAULT("<success>You just gave &n&fx1 %item%&r <success>to &f%player%<success> vault's."),
     COMMAND_GIVE_ALL("<success>You just gave &n&fx1 %item%&r <success>to online player."),
 
     COMMAND_POWER_TOOL_ERROR_ITEM("<error>You have no item in your hand."),

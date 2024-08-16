@@ -19,6 +19,7 @@ public class CommandVault extends VCommand {
         this.addOptionalArg("vault id", (sender, args) -> sender instanceof Player player ? plugin.getVaultManager().getVaultAsTabCompletion(player) : new ArrayList<>());
         this.addSubCommand(new CommandVaultSetSlot(plugin));
         this.addSubCommand(new CommandVaultAddSlot(plugin));
+        this.addSubCommand(new CommandVaultGive(plugin));
     }
 
     @Override
