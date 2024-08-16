@@ -8,6 +8,8 @@ import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.essentials.user.ZUser;
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -102,5 +104,40 @@ public class MailBoxModule extends ZModule {
 
         user.setTargetUser(fakeUser);
         openMailBoxAdmin(user.getPlayer());
+    }
+
+    public void giveItem(CommandSender sender, UUID uuid, String username, String itemName, int amount) {
+
+        var itemModule = plugin.getModuleManager().getModule(ItemModule.class);
+        var itemStack = itemModule.getItemStack(itemName, Bukkit.getPlayer(uuid));
+
+        if (itemStack == null) {
+            message(sender, Message.MAILBOX_GIVE_ERROR, "%item%", itemName);
+            return;
+        }
+
+        itemStack.setAmount(Math.max(1, amount));
+        addItem(uuid, itemStack);
+
+        message(sender, Message.MAILBOX_GIVE, "%item%", itemName, "%player%", username, "%amount%", amount);
+    }
+
+    public void giveAllItem(CommandSender sender, String itemName, int amount) {
+
+        var itemModule = plugin.getModuleManager().getModule(ItemModule.class);
+        if (!itemModule.isItem(itemName)) {
+            message(sender, Message.MAILBOX_GIVE_ERROR, "%item%", itemName);
+            return;
+        }
+
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            var itemStack = itemModule.getItemStack(itemName, player);
+            if (itemStack == null) break;
+
+            itemStack.setAmount(Math.max(1, amount));
+            addItem(player.getUniqueId(), itemStack);
+        }
+
+        message(sender, Message.MAILBOX_GIVE_ALL, "%item%", itemName, "%amount%", amount);
     }
 }

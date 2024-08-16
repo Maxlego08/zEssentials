@@ -19,6 +19,7 @@ import fr.maxlego08.essentials.module.modules.SpawnModule;
 import fr.maxlego08.essentials.module.modules.TeleportationModule;
 import fr.maxlego08.essentials.module.modules.VoteModule;
 import fr.maxlego08.essentials.module.modules.WarpModule;
+import fr.maxlego08.essentials.worldedit.WorldeditModule;
 import fr.maxlego08.essentials.scoreboard.ScoreboardModule;
 import fr.maxlego08.essentials.vault.VaultModule;
 import org.bukkit.Bukkit;
@@ -70,6 +71,7 @@ public class ZModuleManager implements ModuleManager {
         this.modules.put(RuleModule.class, new RuleModule(this.plugin));
         this.modules.put(VoteModule.class, new VoteModule(this.plugin));
         this.modules.put(VaultModule.class, new VaultModule(this.plugin));
+        this.modules.put(WorldeditModule.class, new WorldeditModule(this.plugin));
 
         this.loadConfigurations();
 

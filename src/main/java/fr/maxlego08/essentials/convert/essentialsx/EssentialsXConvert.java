@@ -114,6 +114,8 @@ public class EssentialsXConvert extends ZUtils implements Convert {
             exception.printStackTrace();
             this.plugin.getLogger().severe("Impossible to load the file " + file.getName());
         }
+
+        message(sender, "&aYou have just converted your EssentialsX data to zEssentials !");
     }
 
     private List<Home> parseHomes(YamlConfiguration configuration) {

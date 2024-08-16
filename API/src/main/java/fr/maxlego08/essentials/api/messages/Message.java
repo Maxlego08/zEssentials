@@ -232,6 +232,8 @@ public enum Message {
     DESCRIPTION_POWER_TOOLS("Add command to your items"),
     DESCRIPTION_MAIL("Open mailbox"),
     DESCRIPTION_MAIL_OPEN("Open player's mailbox"),
+    DESCRIPTION_MAIL_GIVE("Give an item to player's mailbox"),
+    DESCRIPTION_MAIL_GIVEALL("Give an items to players mailbox"),
     DESCRIPTION_RULES("Read server rules"),
     DESCRIPTION_HOLOGRAM("Show hologram commands"),
     DESCRIPTION_HOLOGRAM_CREATE("Create a hologram"),
@@ -271,7 +273,23 @@ public enum Message {
     DESCRIPTION_ENCHANT("Add enchant to an item"),
     DESCRIPTION_NIGHT_VISION("Enable or disable night vision"),
     DESCRIPTION_SUDO("Force a player to execute a command"),
-
+    DESCRIPTION_WORLDEDIT_GIVE("Give a worldedit item to a player"),
+    DESCRIPTION_WORLDEDIT_SET("Set all blocks of your selection"),
+    DESCRIPTION_WORLDEDIT_WALLS("Set all blocks of your selection with a walls"),
+    DESCRIPTION_WORLDEDIT_SPHERE("Set all blocks of your selection with a sphere"),
+    DESCRIPTION_WORLDEDIT_FILL("Fill all blocks of your selection"),
+    DESCRIPTION_WORLDEDIT_CYL("Fill all blocks of your selection with a cylinder"),
+    DESCRIPTION_WORLDEDIT_CUT("Cut all blocks of your selection"),
+    DESCRIPTION_WORLDEDIT_STOP("Stop the current edition"),
+    DESCRIPTION_WORLDEDIT_CONFIRM("Confirm worldedit action"),
+    DESCRIPTION_WORLDEDIT_POS1("Set first position of the selection"),
+    DESCRIPTION_WORLDEDIT_POS2("Set second position of the selection"),
+    DESCRIPTION_WORLDEDIT_OPTION("Configure your use of worldedit"),
+    DESCRIPTION_WORLDEDIT_OPTION_INVENTORY("Use your inventory to take or add items"),
+    DESCRIPTION_WORLDEDIT_OPTION_BOSSBAR("Enable or disable the worldedit progress bar"),
+    DESCRIPTION_VAULT_GIVE("Give items to player's vault"),
+    DESCRIPTION_VAULT_ADD_SLOT("Add slot to player's vault"),
+    DESCRIPTION_VAULT_SET_SLOT("Set slot to player's vault"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -578,6 +596,7 @@ public enum Message {
     COMMAND_ITEM_LORE_SET_ERROR("<error>Can’t find the line &f%line%<error>."),
     COMMAND_GIVE_ERROR("<error>Can’t find the item &f%item%<error>."),
     COMMAND_GIVE("<success>You just gave &n&fx1 %item%&r <success>to player &f%player%<success>."),
+    COMMAND_GIVE_VAULT("<success>You just gave &n&fx1 %item%&r <success>to &f%player%<success> vault's."),
     COMMAND_GIVE_ALL("<success>You just gave &n&fx1 %item%&r <success>to online player."),
 
     COMMAND_POWER_TOOL_ERROR_ITEM("<error>You have no item in your hand."),
@@ -588,15 +607,17 @@ public enum Message {
     MAILBOX_REMOVE_FULL("<error>You must have space in your inventory to retrieve an item."),
     MAILBOX_REMOVE_EXPIRE("<error>You can no longer retrieve this item, it has expired."),
     MAILBOX_ADD(MessageType.ACTION, "<success>An item has just been added to your mailbox &8(&f/mail&8)"),
+    MAILBOX_GIVE_ERROR("<error>Can’t find the item &f%item%<error>."),
+    MAILBOX_GIVE("<success>You just gave &n&fx1 %item%&r <success>to player &f%player%<success> mailbox."),
+    MAILBOX_GIVE_ALL("<success>You just gave &n&fx1 %item%&r <success>to online player mailbox."),
+
 
     HOLOGRAM_CREATE_ERROR("<error>Hologram &f%name% <error>already exists."),
     HOLOGRAM_CREATE(MessageType.WITHOUT_PREFIX,
             "<success>You just created the hologram &f%name%<success>.",
             "&7Use &n<click:run_command:'/hologram edit %name%'>/hologram edit %name%</click>&r&7 command to edit the hologram"
     ),
-
     HOLOGRAM_DELETE("<success>Hologram &f%name% <success>has been deleted."),
-
     HOLOGRAM_DOESNT_EXIST("<error>Hologram &f%name% <error>doesn't exists."),
     HOLOGRAM_IS_NOT_A_TEXT("<error>Hologram &f%name% <error>is not a text hologram."),
     HOLOGRAM_IS_NOT_A_BLOCK("<error>Hologram &f%name% <error>is not a block hologram."),
@@ -686,6 +707,61 @@ public enum Message {
     COMMAND_SUDO_ERROR("<error>You cannot force the player to execute commands."),
     COMMAND_SUDO_COMMAND("<success>You just forced the player <white>%player% <success>to execute the command <white>%command%<success>."),
     COMMAND_SUDO_MESSAGE("<success>You just forced the player <white>%player% <success>to send the message <white>%message%<success>."),
+
+    COMMAND_WORLDEDIT_GIVE_ERROR("<error>Unable to find item &f%name%<error>"),
+    COMMAND_WORLDEDIT_GIVE_SENDER("<success>You just gave &f%item% <success>to the player &f%player%<success>."),
+    COMMAND_WORLDEDIT_GIVE_RECEIVER("<success>you just received &f%item%<success>."),
+    COMMAND_WORLDEDIT_MATERIAL_NOT_FOUND("<error>Unable to find the material &f%material%<error>."),
+    COMMAND_WORLDEDIT_CONFIRM_PRICE(
+            "",
+            "<success>Price<dark_gray>: <white>%price%",
+            "<success>Blocks<dark_gray>: <white>%materials%",
+            "<success>Duration<dark_gray>: <white>%duration% <dark_gray>(<gray>%blocks% at %speed% block%s%/s)",
+            "",
+            "<#45ff55><hover:show_text:'&fClick to confirm action'><click:run_command:'/pw confirm'>ᴄʟɪᴄᴋ ʜᴇʀᴇ ᴛᴏ ᴄᴏɴғɪʀᴍ</click></hover><gray>"
+    ),
+    COMMAND_WORLDEDIT_CONFIRM_PRICE_CUT(
+            "",
+            "<success>Price<dark_gray>: <white>%price%",
+            "<success>Duration<dark_gray>: <white>%duration% <dark_gray>(<gray>%blocks% at %speed% block%s%/s)",
+            "",
+            "<#45ff55><hover:show_text:'&fClick to confirm action'><click:run_command:'/pw confirm'>ᴄʟɪᴄᴋ ʜᴇʀᴇ ᴛᴏ ᴄᴏɴғɪʀᴍ</click></hover><gray>"
+    ),
+    COMMAND_WORLDEDIT_CONFIRM_MATERIAL("<hover:show_text:'<white>Amount<dark_gray>: <aqua>%amount%<newline><white>Total Price<dark_gray>: <aqua>%price%<newline><white>Price per block<dark_gray>: <aqua>%price-per-block%'><lang:%translation-key%></hover>"),
+    COMMAND_WORLDEDIT_CONFIRM_ERROR("<error>You can’t do that now."),
+
+    COMMAND_WORLDEDIT_STOP_EMPTY("<error>You have no current edition."),
+    COMMAND_WORLDEDIT_STOP_ERROR("<error>You cannot stop editing currently."),
+    COMMAND_WORLDEDIT_ERROR_ITEM("<error>You must have the worldedit tool in your hand."),
+    COMMAND_WORLDEDIT_ERROR_MAX("<error>You can only use this tool, it has been used to the maximum."),
+    COMMAND_WORLDEDIT_OPTION_INVENTORY_ENABLE("<success>You have just activated worldedit to use your inventory."),
+    COMMAND_WORLDEDIT_OPTION_INVENTORY_DISABLE("<error>You just disabled worldedit to use your inventory."),
+    COMMAND_WORLDEDIT_OPTION_BOSSBAR_ENABLE("<success>You have just activated worldedit progress bar."),
+    COMMAND_WORLDEDIT_OPTION_BOSSBAR_DISABLE("<error>You just disabled worldedit worldedit progress bar."),
+
+    WORLDEDIT_SELECTION_ERROR("<error>You must select two positions before you make this command."),
+    WORLDEDIT_SELECTION_VOLUME("<error>You cannot change more than &f%blocks% <error>at the same time."),
+    WORLDEDIT_SELECTION_DISTANCE("<error>The distance between your two points in your selection is too large. <dark_gray>(<gray>Maximum <white>%distance% <gray>blocks<dark_gray>)"),
+    WORLDEDIT_ALREADY_RUNNING("<error>You already have an edit in progress, please wait until it is finished."),
+    WORLDEDIT_NOT_ENOUGH_MONEY("<error>You don’t have enough money to make this edition."),
+    WORLDEDIT_NOT_ENOUGH_ITEMS("<error>You don’t have the items in your inventory, you can’t do that."),
+    WORLDEDIT_SELECTION_POS1("<success>You have just defined the first position."),
+    WORLDEDIT_SELECTION_POS2("<success>You have just defined the second position."),
+    WORLDEDIT_SPEED_ERROR("<error>You have no permission to set speed per second."),
+
+    WORLDEDIT_START_CALCULATE_PRICE("&7Price calculation in progress, please wait..."),
+    WORLDEDIT_START_CHECK_INVENTORY("&7Checking that you have enough items in your inventory, please wait..."),
+    WORLDEDIT_START_RUNNING("&7Launch of current edition, please wait..."),
+    WORLDEDIT_FINISH("<success>Edition completed !"),
+    WORLDEDIT_REFUND(
+            "<success>ʏᴏᴜ'ᴠᴇ ᴊᴜsᴛ ʙᴇᴇɴ ʀᴇғᴜɴᴅ",
+            "",
+            "<success>Price<dark_gray>: <white>%price%",
+            "<success>Blocks<dark_gray>:%materials%"
+    ),
+    WORLDEDIT_REFUND_MATERIAL(" <white><hover:show_text:'<white>Amount<dark_gray>: <aqua>%amount%<newline><white>Total Price<dark_gray>: <aqua>%price%<newline><white>Price per block<dark_gray>: <aqua>%price-per-block%'><lang:%translation-key%></hover><gray>"),
+    WORLDEDIT_REFUND_EMPTY("<error>No block to refund"),
+    WORLDEDIT_BOSSBAR("#45ff45Time remaining<dark_gray>: <white>%time%"),
 
     ;
 

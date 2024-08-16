@@ -21,6 +21,7 @@ import fr.maxlego08.essentials.api.utils.Warp;
 import fr.maxlego08.essentials.api.utils.component.ComponentMessage;
 import fr.maxlego08.essentials.api.vault.VaultManager;
 import fr.maxlego08.essentials.api.vote.VoteManager;
+import fr.maxlego08.essentials.api.worldedit.WorldeditManager;
 import fr.maxlego08.menu.api.ButtonManager;
 import fr.maxlego08.menu.api.InventoryManager;
 import fr.maxlego08.menu.api.pattern.PatternManager;
@@ -244,7 +245,13 @@ public interface EssentialsPlugin extends Plugin {
 
     VaultManager getVaultManager();
 
+    WorldeditManager getWorldeditManager();
+
     InteractiveChat startInteractiveChat(Player player, Consumer<String> consumer, long expiredAt);
 
     Enchantments getEnchantments();
+
+    <T> Optional<T> createInstance(String className);
+
+    <T> Optional<T> createInstance(String className, boolean displayLog);
 }

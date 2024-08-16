@@ -4,9 +4,11 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.convert.Convert;
+import fr.maxlego08.essentials.convert.axvault.AxVaultsConvert;
 import fr.maxlego08.essentials.convert.cmi.CMIConvert;
 import fr.maxlego08.essentials.convert.coinsengine.CoinsEngineConvert;
 import fr.maxlego08.essentials.convert.essentialsx.EssentialsXConvert;
+import fr.maxlego08.essentials.convert.huskhomes.HuskHomesConvert;
 import fr.maxlego08.essentials.convert.playervaultx.PlayerVaultXConvert;
 import fr.maxlego08.essentials.convert.sunlight.SunlightConvert;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
@@ -47,6 +49,8 @@ public class CommandEssentialsConvert extends VCommand {
         SUNLIGHT(SunlightConvert.class),
         PLAYERVAULTX(PlayerVaultXConvert.class),
         COINSENGINE(CoinsEngineConvert.class),
+        HUSKHOMES(HuskHomesConvert.class),
+        AXVAULTS(AxVaultsConvert.class),
 
         ;
 

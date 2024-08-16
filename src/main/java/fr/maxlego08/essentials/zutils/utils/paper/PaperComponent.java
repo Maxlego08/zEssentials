@@ -21,6 +21,7 @@ import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.kyori.adventure.text.minimessage.tag.standard.StandardTags;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
+import org.bukkit.boss.BarColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -138,6 +139,11 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
     @Override
     public Component getComponent(String message, TagResolver tagResolver) {
         return this.MINI_MESSAGE.deserialize(colorMiniMessage(message), tagResolver);
+    }
+
+    @Override
+    public BossBar createBossBar(String message, BossBar.Color barColor, BossBar.Overlay barStyle) {
+        return BossBar.bossBar(getComponent(message), 0, barColor, barStyle);
     }
 
     public Component translateText(Player player, String message, TagResolver... tagResolvers) {

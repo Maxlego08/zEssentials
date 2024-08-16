@@ -9,6 +9,7 @@ import fr.maxlego08.menu.loader.MenuItemStackLoader;
 import fr.maxlego08.menu.zcore.utils.loader.Loader;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -68,10 +69,10 @@ public class ItemModule extends ZModule {
         }
     }
 
-    public @Nullable ItemStack getItemStack(String itemName, Player player) {
+    public @Nullable ItemStack getItemStack(String itemName, OfflinePlayer playerPlayer) {
 
         if (this.items.containsKey(itemName)) {
-            return this.items.get(itemName).build(player, false);
+            return this.items.get(itemName).build(playerPlayer.isOnline() ? playerPlayer.getPlayer() : null, false);
         }
 
         try {
