@@ -26,10 +26,6 @@ allprojects {
     repositories {
         maven { url "https://repo.papermc.io/repository/maven-public/" }
         maven { url 'https://jitpack.io' }
-        maven {
-            name = "devmart-other"
-            url = "https://nexuslite.gcnt.net/repos/other/"
-        }
         maven { url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/' }
     }
 
@@ -37,7 +33,7 @@ allprojects {
         compileOnly("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT")
         compileOnly("com.github.maxlego08:zMenu-API:85e5147698")
 
-        implementation "com.tcoded:FoliaLib:0.3.1"
+        implementation "com.github.technicallycoded:FoliaLib:0.4.3"
         implementation 'com.github.Maxlego08:Sarah:1.10'
         implementation 'fr.mrmicky:fastboard:2.1.3'
     }
