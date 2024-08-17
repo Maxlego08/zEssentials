@@ -22,6 +22,8 @@ public interface VaultManager {
 
     void setPlayerSlot(CommandSender sender, OfflinePlayer offlinePlayer, int slot);
 
+    int getMaxSlotsPlayer(Player player);
+
     void addPlayerSlot(CommandSender sender, OfflinePlayer offlinePlayer, int slot);
 
     VaultResult addVaultItem(Vault vault, UUID uniqueId, ItemStack currentItem, int slot, int quantity, int size);
