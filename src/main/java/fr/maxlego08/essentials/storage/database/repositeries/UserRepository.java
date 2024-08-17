@@ -232,9 +232,8 @@ public class UserRepository extends Repository {
     }
 
     public void updateFrozen(UUID uuid, boolean frozen) {
-        upsert(table -> {
+        update(table -> {
             table.bool("frozen", frozen);
-            table.uuid("unique_id", uuid).primary();
             table.where("unique_id", uuid);
         });
     }
