@@ -658,8 +658,8 @@ command-item-lore-set: "<success>Je hebt regel %line% ingesteld op &f%text%<succ
 command-item-lore-clear: "<success>Je hebt de item lore gewist."
 command-item-lore-set-error: "<error>Kan de regel &f%line%<error> niet vinden."
 command-give-error: "<error>Kan het item &f%item%<error> niet vinden."
-command-give: "<success>Je hebt &n&fx1 %item%&r <success>gegeven aan speler &f%player%<success>."
-command-give-all: "<success>Je hebt &n&fx1 %item%&r <success>gegeven aan alle online spelers."
+command-give: "<success>Je hebt &n&fx%amount% %item%&r <success>gegeven aan speler &f%player%<success>."
+command-give-all: "<success>Je hebt &n&fx%amount% %item%&r <success>gegeven aan alle online spelers."
 
 command-power-tool-error-item: "<error>Je hebt geen item in je hand."
 command-power-tool-error-reset: "<error>Dit item heeft geen geregistreerd commando."

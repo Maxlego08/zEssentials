@@ -8,6 +8,7 @@ import fr.maxlego08.essentials.commands.commands.chat.CommandChatClear;
 import fr.maxlego08.essentials.commands.commands.chat.CommandChatDisable;
 import fr.maxlego08.essentials.commands.commands.chat.CommandChatEnable;
 import fr.maxlego08.essentials.commands.commands.chat.CommandChatHistory;
+import fr.maxlego08.essentials.commands.commands.chat.CommandShowItem;
 import fr.maxlego08.essentials.commands.commands.cooldown.CommandCooldown;
 import fr.maxlego08.essentials.commands.commands.economy.CommandBalanceTop;
 import fr.maxlego08.essentials.commands.commands.economy.CommandEconomy;
@@ -212,6 +213,7 @@ public class CommandLoader {
         register("chatenable", CommandChatEnable.class, "ce");
         register("chatdisable", CommandChatDisable.class, "cd");
         register("broadcast", CommandChatBroadcast.class, "bc");
+        register("showitem", CommandShowItem.class);
 
         register("message", CommandMessage.class, "msg", "tell", "whisper", "m");
         register("reply", CommandReply.class, "r");
