@@ -641,8 +641,8 @@ command-item-lore-set: "<success>Estableciste la línea %line% a &f%text%<succes
 command-item-lore-clear: "<success>Limpiaste el lore del ítem."
 command-item-lore-set-error: "<error>No se pudo encontrar la línea &f%line%<error>."
 command-give-error: "<error>No se encontró el ítem &f%item%<error>."
-command-give: "<success>Has dado &n&fx1 %item%&r <success>a &f%player%<success>."
-command-give-all: "<success>Has dado &n&fx1 %item%&r <success>a los jugadores en línea."
+command-give: "<success>Has dado &n&fx%amount% %item%&r <success>a &f%player%<success>."
+command-give-all: "<success>Has dado &n&fx%amount% %item%&r <success>a los jugadores en línea."
 
 command-power-tool-error-item: "<error>No tienes ningún ítem en tu mano."
 command-power-tool-error-reset: "<error>Este ítem no tiene comandos."

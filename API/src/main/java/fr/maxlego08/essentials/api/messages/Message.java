@@ -597,9 +597,9 @@ public enum Message {
     COMMAND_ITEM_LORE_CLEAR("<success>You just clear the item lore."),
     COMMAND_ITEM_LORE_SET_ERROR("<error>Can’t find the line &f%line%<error>."),
     COMMAND_GIVE_ERROR("<error>Can’t find the item &f%item%<error>."),
-    COMMAND_GIVE("<success>You just gave &n&fx1 %item%&r <success>to player &f%player%<success>."),
-    COMMAND_GIVE_VAULT("<success>You just gave &n&fx1 %item%&r <success>to &f%player%<success> vault's."),
-    COMMAND_GIVE_ALL("<success>You just gave &n&fx1 %item%&r <success>to online player."),
+    COMMAND_GIVE("<success>You just gave &n&fx%amount% %item%&r <success>to player &f%player%<success>."),
+    COMMAND_GIVE_VAULT("<success>You just gave &n&fx%amount% %item%&r <success>to &f%player%<success> vault's."),
+    COMMAND_GIVE_ALL("<success>You just gave &n&fx%amount% %item%&r <success>to online player."),
 
     COMMAND_POWER_TOOL_ERROR_ITEM("<error>You have no item in your hand."),
     COMMAND_POWER_TOOL_ERROR_RESET("<error>This item has no recorded command."),
@@ -610,8 +610,8 @@ public enum Message {
     MAILBOX_REMOVE_EXPIRE("<error>You can no longer retrieve this item, it has expired."),
     MAILBOX_ADD(MessageType.ACTION, "<success>An item has just been added to your mailbox &8(&f/mail&8)"),
     MAILBOX_GIVE_ERROR("<error>Can’t find the item &f%item%<error>."),
-    MAILBOX_GIVE("<success>You just gave &n&fx1 %item%&r <success>to player &f%player%<success> mailbox."),
-    MAILBOX_GIVE_ALL("<success>You just gave &n&fx1 %item%&r <success>to online player mailbox."),
+    MAILBOX_GIVE("<success>You just gave &n&fx%amount% %item%&r <success>to player &f%player%<success> mailbox."),
+    MAILBOX_GIVE_ALL("<success>You just gave &n&fx%amount% %item%&r <success>to online player mailbox."),
 
 
     HOLOGRAM_CREATE_ERROR("<error>Hologram &f%name% <error>already exists."),

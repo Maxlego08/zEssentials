@@ -1,6 +1,7 @@
 # Unreleased
 
 - Added the command ``/showitem <code>``, Allows you to see the item that the player has in his hand. This command is used with the chat placeholder `[item]` [#43](https://github.com/Maxlego08/zEssentials/issues/43)
+- Fixed messages [#39](https://github.com/Maxlego08/zEssentials/issues/39)
 - Fixed bug with ``/tp`` command [#37](https://github.com/Maxlego08/zEssentials/issues/37)
 
 # 1.0.0.5

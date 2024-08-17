@@ -86,8 +86,8 @@ command-item-lore-set: <success>Du hast gerade die Zeile %line% in &f%text%<succ
 command-item-lore-clear: <success>Du hast die Gegenstandslore gelöscht.
 command-item-lore-set-error: <error>Kann die Zeile &f%line%<error> nicht finden.
 command-give-error: <error>Kann den Gegenstand &f%item%<error> nicht finden.
-command-give: <success>Du hast gerade &n&fx1 %item%&r <success> an Spieler &f%player%<success> gegeben.
-command-give-all: <success>Du hast gerade &n&fx1 %item%&r <success> an Online-Spieler gegeben.
+command-give: <success>Du hast gerade &n&fx%amount% %item%&r <success> an Spieler &f%player%<success> gegeben.
+command-give-all: <success>Du hast gerade &n&fx%amount% %item%&r <success> an Online-Spieler gegeben.
 command-power-tool-error-item: <error>Du hast keinen Gegenstand in der Hand.
 command-power-tool-error-reset: <error>Dieser Gegenstand hat keinen aufgezeichneten Befehl.
 command-power-tool-info: <success>Du hast gerade den Befehl &f/%command%<success> auf
