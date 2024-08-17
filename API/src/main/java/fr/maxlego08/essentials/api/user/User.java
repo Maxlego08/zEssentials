@@ -485,105 +485,367 @@ public interface User {
      */
     void setSanction(Integer banId, Integer muteId);
 
+    /**
+     * Retrieves the current mute sanction.
+     *
+     * @return the current mute sanction
+     */
     Sanction getMuteSanction();
 
+    /**
+     * Sets a mute sanction for the user.
+     *
+     * @param sanction the mute sanction to set
+     */
     void setMuteSanction(Sanction sanction);
 
+    /**
+     * Checks if the user is muted.
+     *
+     * @return true if the user is muted, false otherwise
+     */
     boolean isMute();
 
+    /**
+     * Sets a fake option with a specified value.
+     *
+     * @param option the option to set
+     * @param value  the value to set for the option
+     */
     void setFakeOption(Option option, boolean value);
 
+    /**
+     * Retrieves the list of fake sanctions.
+     *
+     * @return the list of fake sanctions
+     */
     List<Sanction> getFakeSanctions();
 
+    /**
+     * Sets the list of fake sanctions.
+     *
+     * @param sanctions the list of sanctions to set
+     */
     void setFakeSanctions(List<SanctionDTO> sanctions);
 
+    /**
+     * Retrieves the current ban sanction.
+     *
+     * @return the current ban sanction
+     */
     Sanction getBanSanction();
 
+    /**
+     * Sets a ban sanction for the user.
+     *
+     * @param ban the ban sanction to set
+     */
     void setBanSanction(Sanction ban);
 
+    /**
+     * Retrieves the last message sent by the user.
+     *
+     * @return the last message sent by the user
+     */
     String getLastMessage();
 
+    /**
+     * Sets the last message sent by the user.
+     *
+     * @param message the message to set
+     */
     void setLastMessage(String message);
 
+    /**
+     * Sets a private message for the user.
+     *
+     * @param uuid     the UUID of the other user
+     * @param userName the name of the other user
+     * @return the private message instance
+     */
     PrivateMessage setPrivateMessage(UUID uuid, String userName);
 
+    /**
+     * Retrieves the current private message.
+     *
+     * @return the current private message
+     */
     PrivateMessage getPrivateMessage();
 
+    /**
+     * Checks if the user has an ongoing private message conversation.
+     *
+     * @return true if the user has a private message, false otherwise
+     */
     boolean hasPrivateMessage();
 
+    /**
+     * Retrieves the total playtime of the user.
+     *
+     * @return the total playtime in milliseconds
+     */
     long getPlayTime();
 
+    /**
+     * Sets the total playtime of the user.
+     *
+     * @param playtime the playtime to set in milliseconds
+     */
     void setPlayTime(long playtime);
 
+    /**
+     * Retrieves the playtime of the current session.
+     *
+     * @return the playtime of the current session in milliseconds
+     */
     long getCurrentSessionPlayTime();
 
+    /**
+     * Starts tracking the playtime of the current session.
+     */
     void startCurrentSessionPlayTime();
 
+    /**
+     * Retrieves the user's IP address.
+     *
+     * @return the IP address of the user
+     */
     String getAddress();
 
+    /**
+     * Sets the user's IP address.
+     *
+     * @param address the IP address to set
+     */
     void setAddress(String address);
 
+    /**
+     * Retrieves the cooldown time for a specific kit.
+     *
+     * @param kit the kit to check the cooldown for
+     * @return the cooldown time in milliseconds
+     */
     long getKitCooldown(Kit kit);
 
+    /**
+     * Checks if a specific kit is on cooldown for the user.
+     *
+     * @param kit the kit to check
+     * @return true if the kit is on cooldown, false otherwise
+     */
     boolean isKitCooldown(Kit kit);
 
+    /**
+     * Adds a cooldown to a specific kit.
+     *
+     * @param kit      the kit to add the cooldown to
+     * @param cooldown the cooldown time in milliseconds
+     */
     void addKitCooldown(Kit kit, long cooldown);
 
+    /**
+     * Retrieves the current kit preview.
+     *
+     * @return the current kit preview
+     */
     Kit getKitPreview();
 
+    /**
+     * Opens the kit preview for a specific kit.
+     *
+     * @param kit the kit to preview
+     */
     void openKitPreview(Kit kit);
 
+    /**
+     * Removes a specific cooldown by name.
+     *
+     * @param cooldownName the name of the cooldown to remove
+     */
     void removeCooldown(String cooldownName);
 
+    /**
+     * Sets a power tool for a specific material with a command.
+     *
+     * @param type    the material to set the power tool for
+     * @param command the command to assign to the power tool
+     */
     void setPowerTools(Material type, String command);
 
+    /**
+     * Retrieves the map of power tools assigned to materials.
+     *
+     * @return the map of power tools
+     */
     Map<Material, String> getPowerTools();
 
+    /**
+     * Sets the map of power tools assigned to materials.
+     *
+     * @param powerTools the map of power tools to set
+     */
     void setPowerTools(Map<Material, String> powerTools);
 
+    /**
+     * Retrieves the power tool assigned to a specific material.
+     *
+     * @param material the material to get the power tool for
+     * @return an {@link Optional} containing the command if found, or empty if not found
+     */
     Optional<String> getPowerTool(Material material);
 
+    /**
+     * Deletes the power tool assigned to a specific material.
+     *
+     * @param material the material to delete the power tool for
+     */
     void deletePowerTools(Material material);
 
+    /**
+     * Retrieves the list of mailbox items.
+     *
+     * @return the list of mailbox items
+     */
     List<MailBoxItem> getMailBoxItems();
 
+    /**
+     * Sets the list of mailbox items.
+     *
+     * @param mailBoxItems the list of mailbox items to set
+     */
     void setMailBoxItems(List<MailBoxDTO> mailBoxItems);
 
+    /**
+     * Adds an item to the mailbox.
+     *
+     * @param mailBoxItem the mailbox item to add
+     */
     void addMailBoxItem(MailBoxItem mailBoxItem);
 
+    /**
+     * Retrieves the dynamic cooldown associated with the user.
+     *
+     * @return the {@link DynamicCooldown} instance
+     */
     DynamicCooldown getDynamicCooldown();
 
+    /**
+     * Retrieves the current vote count for the user.
+     *
+     * @return the current vote count
+     */
     long getVote();
 
+    /**
+     * Sets the current vote count for the user.
+     *
+     * @param amount the vote count to set
+     */
     void setVote(long amount);
 
+    /**
+     * Adds to the current vote count for the user.
+     *
+     * @param amount the amount to add to the vote count
+     */
     void addVote(long amount);
 
+    /**
+     * Removes from the current vote count for the user.
+     *
+     * @param amount the amount to remove from the vote count
+     */
     void removeVote(long amount);
 
+    /**
+     * Sets the user data using a UserDTO object.
+     *
+     * @param userDTO the UserDTO object to use for setting user data
+     */
     void setWithDTO(UserDTO userDTO);
 
+    /**
+     * Sets the vote site for the user.
+     *
+     * @param site the name of the vote site
+     */
     void setVoteSite(String site);
 
+    /**
+     * Retrieves the last vote time for a specific site.
+     *
+     * @param site the name of the vote site
+     * @return the last vote time in milliseconds
+     */
     long getLastVoteSite(String site);
 
+    /**
+     * Retrieves the number of offline votes for the user.
+     *
+     * @return the number of offline votes
+     */
     long getOfflineVotes();
 
-    void setVoteSites(List<VoteSiteDTO> select);
+    /**
+     * Sets the list of vote sites for the user.
+     *
+     * @param sites the list of vote sites to set
+     */
+    void setVoteSites(List<VoteSiteDTO> sites);
 
+    /**
+     * Resets the offline votes for the user.
+     */
     void resetOfflineVote();
 
+    /**
+     * Retrieves the current WorldEdit selection for the user.
+     *
+     * @return the {@link Selection} instance
+     */
     Selection getSelection();
 
+    /**
+     * Checks if the user has an ongoing WorldEdit task.
+     *
+     * @return true if the user has a WorldEdit task, false otherwise
+     */
     boolean hasWorldeditTask();
 
+    /**
+     * Retrieves the current WorldEdit task for the user.
+     *
+     * @return the {@link WorldEditTask} instance
+     */
     WorldEditTask getWorldeditTask();
 
+    /**
+     * Sets the WorldEdit task for the user.
+     *
+     * @param worldEditTask the WorldEdit task to set
+     */
     void setWorldeditTask(WorldEditTask worldEditTask);
 
+    /**
+     * Retrieves the item currently held in the user's main hand.
+     *
+     * @return the {@link ItemStack} in the user's main hand
+     */
     ItemStack getItemInMainHand();
 
+    /**
+     * Sets the item to be held in the user's main hand.
+     *
+     * @param itemStack the {@link ItemStack} to set
+     */
     void setItemInMainHand(ItemStack itemStack);
 
+    /**
+     * Plays a sound for the user.
+     *
+     * @param sound  the sound to play
+     * @param volume the volume of the sound
+     * @param pitch  the pitch of the sound
+     */
     void playSound(Sound sound, float volume, float pitch);
 }

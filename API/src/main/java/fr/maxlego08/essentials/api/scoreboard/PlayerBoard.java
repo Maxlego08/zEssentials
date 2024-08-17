@@ -84,8 +84,17 @@ public interface PlayerBoard {
      */
     void delete();
 
-
+    /**
+     * Updates the lines of text on the scoreboard.
+     *
+     * @param lines a list of strings representing the new lines to display on the scoreboard
+     */
     void updateLines(List<String> lines);
 
+    /**
+     * Gets the associated EssentialsScoreboard.
+     *
+     * @return the {@link EssentialsScoreboard} instance
+     */
     EssentialsScoreboard getScoreboard();
 }
