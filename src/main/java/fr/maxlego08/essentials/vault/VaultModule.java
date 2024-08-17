@@ -6,11 +6,7 @@ import fr.maxlego08.essentials.api.dto.PlayerSlotDTO;
 import fr.maxlego08.essentials.api.dto.VaultDTO;
 import fr.maxlego08.essentials.api.dto.VaultItemDTO;
 import fr.maxlego08.essentials.api.messages.Message;
-import fr.maxlego08.essentials.api.vault.PlayerVaults;
-import fr.maxlego08.essentials.api.vault.Vault;
-import fr.maxlego08.essentials.api.vault.VaultItem;
-import fr.maxlego08.essentials.api.vault.VaultManager;
-import fr.maxlego08.essentials.api.vault.VaultResult;
+import fr.maxlego08.essentials.api.vault.*;
 import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.menu.zcore.utils.nms.ItemStackUtils;
 import org.bukkit.Material;
@@ -39,6 +35,7 @@ public class VaultModule extends ZModule implements VaultManager {
     private String iconOpen;
     private String iconClose;
     private String vaultNameRegex;
+    private List<PermissionSlotsVault> vaultPermissions;
 
     public VaultModule(ZEssentialsPlugin plugin) {
         super(plugin, "vault");
@@ -119,6 +116,14 @@ public class VaultModule extends ZModule implements VaultManager {
         this.getStorage().setVaultSlot(offlinePlayer.getUniqueId(), slot);
 
         message(sender, Message.COMMAND_VAULT_SET_SLOT, "%player%", offlinePlayer.getName(), "%slots%", slot);
+    }
+
+    @Override
+    public int getMaxSlotsPlayer(Player player) {
+        return Math.max(getPlayerVaults(player.getUniqueId()).getSlots(),
+                this.vaultPermissions.stream()
+                        .filter(permission -> player.hasPermission(permission.permission()))
+                        .mapToInt(PermissionSlotsVault::slots).max().orElse(0));
     }
 
     @Override
