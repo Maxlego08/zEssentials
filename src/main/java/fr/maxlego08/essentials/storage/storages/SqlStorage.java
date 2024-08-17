@@ -29,6 +29,25 @@ import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.user.UserRecord;
 import fr.maxlego08.essentials.api.vault.Vault;
+import fr.maxlego08.essentials.migrations.CreateChatMessageMigration;
+import fr.maxlego08.essentials.migrations.CreateCommandsMigration;
+import fr.maxlego08.essentials.migrations.CreateEconomyTransactionMigration;
+import fr.maxlego08.essentials.migrations.CreatePlayerSlots;
+import fr.maxlego08.essentials.migrations.CreatePlayerVault;
+import fr.maxlego08.essentials.migrations.CreatePlayerVaultItem;
+import fr.maxlego08.essentials.migrations.CreateSanctionsTableMigration;
+import fr.maxlego08.essentials.migrations.CreateServerStorageTableMigration;
+import fr.maxlego08.essentials.migrations.CreateUserCooldownTableMigration;
+import fr.maxlego08.essentials.migrations.CreateUserEconomyMigration;
+import fr.maxlego08.essentials.migrations.CreateUserHomeTableMigration;
+import fr.maxlego08.essentials.migrations.CreateUserMailBoxMigration;
+import fr.maxlego08.essentials.migrations.CreateUserOptionTableMigration;
+import fr.maxlego08.essentials.migrations.CreateUserPlayTimeTableMigration;
+import fr.maxlego08.essentials.migrations.CreateUserPowerToolsMigration;
+import fr.maxlego08.essentials.migrations.CreateUserTableMigration;
+import fr.maxlego08.essentials.migrations.CreateVoteSiteMigration;
+import fr.maxlego08.essentials.migrations.UpdateUserTableAddSanctionColumns;
+import fr.maxlego08.essentials.migrations.UpdateUserTableAddVoteColumn;
 import fr.maxlego08.essentials.storage.database.Repositories;
 import fr.maxlego08.essentials.storage.database.Repository;
 import fr.maxlego08.essentials.storage.database.repositeries.ChatMessagesRepository;
@@ -57,6 +76,7 @@ import fr.maxlego08.sarah.HikariDatabaseConnection;
 import fr.maxlego08.sarah.MigrationManager;
 import fr.maxlego08.sarah.MySqlConnection;
 import fr.maxlego08.sarah.SqliteConnection;
+import fr.maxlego08.sarah.database.DatabaseType;
 import fr.maxlego08.sarah.logger.JULogger;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -80,7 +100,17 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     public SqlStorage(EssentialsPlugin plugin, StorageType storageType) {
         super(plugin);
-        DatabaseConfiguration databaseConfiguration = plugin.getConfiguration().getDatabaseConfiguration();
+        DatabaseConfiguration oldConfiguration = plugin.getConfiguration().getDatabaseConfiguration();
+        DatabaseConfiguration databaseConfiguration = new DatabaseConfiguration(
+                oldConfiguration.getTablePrefix(),
+                oldConfiguration.getUser(),
+                oldConfiguration.getPassword(),
+                oldConfiguration.getPort(),
+                oldConfiguration.getHost(),
+                oldConfiguration.getDatabase(),
+                oldConfiguration.isDebug(),
+                storageType == StorageType.SQLITE ? DatabaseType.SQLITE : DatabaseType.MYSQL
+        );
         this.connection = switch (storageType) {
             case HIKARICP -> new HikariDatabaseConnection(databaseConfiguration);
             case SQLITE -> new SqliteConnection(databaseConfiguration, plugin.getDataFolder());
@@ -91,9 +121,38 @@ public class SqlStorage extends StorageHelper implements IStorage {
             plugin.getLogger().severe("Unable to connect to database !");
             Bukkit.getPluginManager().disablePlugin(plugin);
         } else {
-            plugin.getLogger().info("The database connection is valid ! (" + connection.getDatabaseConfiguration().getHost() + ")");
+            if (storageType == StorageType.SQLITE) {
+                plugin.getLogger().info("The database connection is valid ! (SQLITE)");
+            } else {
+                plugin.getLogger().info("The database connection is valid ! (" + connection.getDatabaseConfiguration().getHost() + ")");
+            }
         }
 
+        // Migrations
+        MigrationManager.setMigrationTableName("zessentials_migrations");
+        MigrationManager.setDatabaseConfiguration(databaseConfiguration);
+
+        MigrationManager.registerMigration(new CreateServerStorageTableMigration());
+        MigrationManager.registerMigration(new CreateUserTableMigration());
+        MigrationManager.registerMigration(new CreateUserOptionTableMigration());
+        MigrationManager.registerMigration(new CreateUserCooldownTableMigration());
+        MigrationManager.registerMigration(new CreateUserEconomyMigration());
+        MigrationManager.registerMigration(new CreateEconomyTransactionMigration());
+        MigrationManager.registerMigration(new CreateUserHomeTableMigration());
+        MigrationManager.registerMigration(new CreateSanctionsTableMigration());
+        MigrationManager.registerMigration(new UpdateUserTableAddSanctionColumns());
+        MigrationManager.registerMigration(new CreateChatMessageMigration());
+        MigrationManager.registerMigration(new CreateCommandsMigration());
+        MigrationManager.registerMigration(new CreateUserPlayTimeTableMigration());
+        MigrationManager.registerMigration(new CreateUserPowerToolsMigration());
+        MigrationManager.registerMigration(new CreateUserMailBoxMigration());
+        MigrationManager.registerMigration(new UpdateUserTableAddVoteColumn());
+        MigrationManager.registerMigration(new CreateVoteSiteMigration());
+        MigrationManager.registerMigration(new CreatePlayerVaultItem());
+        MigrationManager.registerMigration(new CreatePlayerVault());
+        MigrationManager.registerMigration(new CreatePlayerSlots());
+
+        // Reposirtories
         this.repositories = new Repositories(plugin, this.connection);
         this.repositories.register(UserRepository.class);
         this.repositories.register(UserOptionRepository.class);

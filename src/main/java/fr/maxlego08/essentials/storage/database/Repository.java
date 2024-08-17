@@ -16,7 +16,7 @@ import java.util.function.Consumer;
 public abstract class Repository extends ZUtils {
 
     protected final EssentialsPlugin plugin;
-    private final DatabaseConnection connection;
+    protected final DatabaseConnection connection;
     private final String tableName;
 
     public Repository(EssentialsPlugin plugin, DatabaseConnection connection, String tableName) {

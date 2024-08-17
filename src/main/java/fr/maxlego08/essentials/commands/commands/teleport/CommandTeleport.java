@@ -31,7 +31,7 @@ public class CommandTeleport extends VCommand {
         if (args.length == 1) {
             Player targetPlayer = this.argAsPlayer(0);
             this.user.teleportNow(targetPlayer.getLocation());
-            message(this.sender, Message.COMMAND_TP, "%player%", targetPlayer);
+            message(this.sender, Message.COMMAND_TP, targetPlayer);
         } else {
             String value = this.argAsString(0);
             Location location = player.getLocation();
@@ -80,7 +80,7 @@ public class CommandTeleport extends VCommand {
                     location.setPitch(pitch);
                     this.plugin.getScheduler().teleportAsync(targetPlayer, location);
 
-                    message(this.sender, Message.COMMAND_TP_LOCATION_OTHER, "%x%", x, "%y%", y, "%z%", z, "%player%", targetPlayer.getName());
+                    message(this.sender, Message.COMMAND_TP_LOCATION_OTHER, "%x%", x, "%y%", y, "%z%", z, targetPlayer);
                 }
             }
         }

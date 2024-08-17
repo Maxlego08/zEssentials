@@ -1,5 +1,7 @@
 # Unreleased
 
+- Fixed bug with ``/tp`` command [#37](https://github.com/Maxlego08/zEssentials/issues/37)
+
 # 1.0.0.5
 
 - Added the command `/ess convert HuskHomes`, allows converting the database from HuskHomes to zEssentials.
