@@ -290,6 +290,8 @@ public enum Message {
     DESCRIPTION_VAULT_GIVE("Give items to player's vault"),
     DESCRIPTION_VAULT_ADD_SLOT("Add slot to player's vault"),
     DESCRIPTION_VAULT_SET_SLOT("Set slot to player's vault"),
+    DESCRIPTION_SHOW_ITEM("Show player's item"),
+
 
     YOU("you"),
     TRASH("&8Trash"),
