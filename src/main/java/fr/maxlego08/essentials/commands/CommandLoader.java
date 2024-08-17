@@ -40,15 +40,7 @@ import fr.maxlego08.essentials.commands.commands.messages.CommandMessage;
 import fr.maxlego08.essentials.commands.commands.messages.CommandMessageToggle;
 import fr.maxlego08.essentials.commands.commands.messages.CommandReply;
 import fr.maxlego08.essentials.commands.commands.messages.CommandSocialSpy;
-import fr.maxlego08.essentials.commands.commands.sanction.CommandBan;
-import fr.maxlego08.essentials.commands.commands.sanction.CommandKick;
-import fr.maxlego08.essentials.commands.commands.sanction.CommandKickAll;
-import fr.maxlego08.essentials.commands.commands.sanction.CommandMute;
-import fr.maxlego08.essentials.commands.commands.sanction.CommandSanction;
-import fr.maxlego08.essentials.commands.commands.sanction.CommandSeen;
-import fr.maxlego08.essentials.commands.commands.sanction.CommandSeenIp;
-import fr.maxlego08.essentials.commands.commands.sanction.CommandUnBan;
-import fr.maxlego08.essentials.commands.commands.sanction.CommandUnMute;
+import fr.maxlego08.essentials.commands.commands.sanction.*;
 import fr.maxlego08.essentials.commands.commands.scoreboard.CommandScoreboard;
 import fr.maxlego08.essentials.commands.commands.spawn.CommandSetSpawn;
 import fr.maxlego08.essentials.commands.commands.spawn.CommandSpawn;
@@ -198,6 +190,7 @@ public class CommandLoader {
         register("delhome", CommandDelHome.class, "hdelete", "hd");
         register("home", CommandHome.class, "h", "homes");
 
+        register("freeze", CommandFreeze.class);
         register("ban", CommandBan.class);
         register("mute", CommandMute.class);
         register("unmute", CommandUnMute.class);

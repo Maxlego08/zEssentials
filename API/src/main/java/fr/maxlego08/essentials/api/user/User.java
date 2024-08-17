@@ -586,4 +586,8 @@ public interface User {
     void setItemInMainHand(ItemStack itemStack);
 
     void playSound(Sound sound, float volume, float pitch);
+
+    void setFrozen(boolean b);
+
+    boolean isFrozen();
 }

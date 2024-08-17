@@ -432,4 +432,9 @@ public class JsonStorage extends StorageHelper implements IStorage {
     public void updateVault(UUID uniqueId, Vault vault) {
         throw new NotImplementedException("updateVault is not implemented, use MYSQL storage");
     }
+
+    @Override
+    public void updateUserFrozen(UUID uuid, boolean frozen) {
+        this.saveFileAsync(uuid);
+    }
 }

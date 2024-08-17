@@ -85,6 +85,8 @@ public class ZUser extends ZUtils implements User {
     private long offlineVote;
     private Map<String, Long> lastVotes = new HashMap<>();
 
+    private boolean freeze;
+
     public ZUser(EssentialsPlugin plugin, UUID uniqueId) {
         this.plugin = plugin;
         this.uniqueId = uniqueId;
@@ -747,6 +749,7 @@ public class ZUser extends ZUtils implements User {
         this.offlineVote = userDTO.vote_offline();
         this.playTime = userDTO.play_time();
         this.lastLocation = stringAsLocation(userDTO.last_location());
+        this.freeze = userDTO.frozen() != null && userDTO.frozen();
     }
 
     @Override
@@ -813,5 +816,15 @@ public class ZUser extends ZUtils implements User {
     public void playSound(Sound sound, float volume, float pitch) {
         var player = getPlayer();
         player.playSound(player.getLocation(), sound, volume, pitch);
+    }
+
+    @Override
+    public void setFrozen(boolean b) {
+        freeze = b;
+    }
+
+    @Override
+    public boolean isFrozen() {
+        return freeze;
     }
 }

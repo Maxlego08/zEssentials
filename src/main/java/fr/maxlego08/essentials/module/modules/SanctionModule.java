@@ -21,6 +21,8 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerMoveEvent;
 
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -399,5 +401,37 @@ public class SanctionModule extends ZModule {
         }
 
         message(sender, Message.COMMAND_SEEN_IP_LINE, "%ip%", ip, "%players%", userDTOS.stream().map(user -> getMessage(Message.COMMAND_SEEN_IP_INFO, "%name%", user.name())).collect(Collectors.joining(",")));
+    }
+
+    public void freeze(CommandSender sender, UUID uuid, String userName) {
+
+        if (isProtected(userName)) {
+            message(sender, Message.COMMAND_SANCTION_ERROR);
+            return;
+        }
+
+        IStorage iStorage = this.plugin.getStorageManager().getStorage();
+        User user = iStorage.getUser(uuid);
+        if (user == null) {
+            message(sender, Message.PLAYER_NOT_FOUND, "%player%", userName);
+            return;
+        }
+
+        user.setFrozen(!user.isFrozen());
+        iStorage.updateUserFrozen(uuid, user.isFrozen());
+
+        if (user.isFrozen()) {
+            message(sender, Message.COMMAND_FREEZE_SUCCESS, "%player%", userName);
+            this.plugin.getEssentialsServer().sendMessage(uuid, Message.MESSAGE_FREEZE);
+        } else {
+            message(sender, Message.COMMAND_UN_FREEZE_SUCCESS, "%player%", userName);
+            this.plugin.getEssentialsServer().sendMessage(uuid, Message.MESSAGE_UN_FREEZE);
+        }
+    }
+
+    @EventHandler
+    public void onMove(PlayerMoveEvent event) {
+        User user = this.plugin.getUser(event.getPlayer().getUniqueId());
+        if (user.isFrozen()) event.setCancelled(true);
     }
 }
