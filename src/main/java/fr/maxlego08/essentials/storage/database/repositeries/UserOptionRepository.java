@@ -17,7 +17,7 @@ public class UserOptionRepository extends Repository {
 
     public void upsert(UUID uuid, Option option, boolean optionValue) {
         upsert(table -> {
-            table.uuid("unique_id", uuid);
+            table.uuid("unique_id", uuid).primary();
             table.string("option_name", option.name());
             table.bool("option_value", optionValue);
         });

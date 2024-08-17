@@ -16,7 +16,7 @@ public class UserPowerToolsRepository extends Repository {
 
     public void upsert(UUID uuid, Material material, String command) {
         upsert(table -> {
-            table.uuid("unique_id", uuid);
+            table.uuid("unique_id", uuid).primary();
             table.string("material", material.name());
             table.string("command", command);
         });

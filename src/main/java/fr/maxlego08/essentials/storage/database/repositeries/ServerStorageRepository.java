@@ -15,7 +15,7 @@ public class ServerStorageRepository extends Repository {
 
     public void upsert(String key, Object value) {
         upsert(table -> {
-            table.string("name", key);
+            table.string("name", key).primary();
             table.string("content", value.toString());
         });
     }
