@@ -166,17 +166,59 @@ public interface EconomyManager extends Module {
      */
     String getPriceDecimalFormat();
 
+    /**
+     * Retrieves the placeholder text to be displayed when a user is not found in the Baltop list.
+     *
+     * @return a string representing the placeholder for an empty user position in Baltop
+     */
     String getBaltopPlaceholderUserEmpty();
 
+    /**
+     * Retrieves the Baltop instance for a specific economy.
+     *
+     * @param economy the economy for which to retrieve the Baltop
+     * @return the Baltop instance associated with the given economy
+     */
     Baltop getBaltop(Economy economy);
 
+    /**
+     * Retrieves the user at a specific position in the Baltop for the given economy.
+     *
+     * @param economyName the name of the economy
+     * @param position    the position in the Baltop to retrieve
+     * @return an Optional containing the UserBaltop at the given position, or empty if not found
+     */
     Optional<UserBaltop> getPosition(String economyName, int position);
 
+    /**
+     * Retrieves the position of a specific user in the Baltop for the given economy.
+     *
+     * @param economyName the name of the economy
+     * @param uuid        the UUID of the user
+     * @return the position of the user in the Baltop, or -1 if not found
+     */
     long getUserPosition(String economyName, UUID uuid);
 
+    /**
+     * Sends the Baltop list to a player, displaying a specific page.
+     *
+     * @param player the player to send the Baltop list to
+     * @param page   the page number to display
+     */
     void sendBaltop(Player player, int page);
 
+    /**
+     * Refreshes the Baltop for a specific economy, recalculating all positions.
+     *
+     * @param economy the economy for which to refresh the Baltop
+     */
     void refreshBaltop(Economy economy);
 
+    /**
+     * Retrieves the balance of an offline user by their UUID.
+     *
+     * @param uniqueId the UUID of the offline user
+     * @return the balance of the offline user as a BigDecimal
+     */
     BigDecimal getBalanceOffline(UUID uniqueId);
 }

@@ -219,39 +219,147 @@ public interface EssentialsPlugin extends Plugin {
      */
     void debug(String message);
 
+    /**
+     * Opens a specified inventory for a player.
+     *
+     * @param player        the player to open the inventory for
+     * @param inventoryName the name of the inventory to open
+     */
     void openInventory(Player player, String inventoryName);
 
+    /**
+     * Saves or updates the server configuration.
+     *
+     * @param toPath the path where the configuration should be saved
+     * @param deep   whether to perform a deep save
+     */
     void saveOrUpdateConfiguration(String toPath, boolean deep);
 
+    /**
+     * Saves or updates the server configuration from a specified resource path.
+     *
+     * @param resourcePath the resource path to save or update from
+     * @param toPath       the path where the configuration should be saved
+     * @param deep         whether to perform a deep save
+     */
     void saveOrUpdateConfiguration(String resourcePath, String toPath, boolean deep);
 
+    /**
+     * Retrieves a kit by its name.
+     *
+     * @param kitName the name of the kit to retrieve
+     * @return an {@link Optional} containing the kit if found, or empty if not found
+     */
     Optional<Kit> getKit(String kitName);
 
+    /**
+     * Gives a kit to a user, optionally bypassing the cooldown.
+     *
+     * @param user            the user to give the kit to
+     * @param kit             the kit to give
+     * @param bypassCooldown  whether to bypass the kit cooldown
+     */
     void giveKit(User user, Kit kit, boolean bypassCooldown);
 
+    /**
+     * Retrieves a list of materials.
+     *
+     * @return a list of {@link Material} objects
+     */
     List<Material> getMaterials();
 
+    /**
+     * Retrieves the scoreboard manager.
+     *
+     * @return the {@link ScoreboardManager} instance
+     */
     ScoreboardManager getScoreboardManager();
 
+    /**
+     * Gives an item to a player.
+     *
+     * @param player    the player to give the item to
+     * @param itemStack the item to give
+     */
     void give(Player player, ItemStack itemStack);
 
+    /**
+     * Retrieves the hologram manager.
+     *
+     * @return the {@link HologramManager} instance
+     */
     HologramManager getHologramManager();
 
+    /**
+     * Retrieves the component message manager.
+     *
+     * @return the {@link ComponentMessage} instance
+     */
     ComponentMessage getComponentMessage();
 
+    /**
+     * Processes a string using PlaceholderAPI for a specific player.
+     *
+     * @param player the player to process the string for
+     * @param string the string to process
+     * @return the processed string
+     */
     String papi(Player player, String string);
 
+    /**
+     * Retrieves the vote manager.
+     *
+     * @return the {@link VoteManager} instance
+     */
     VoteManager getVoteManager();
 
+    /**
+     * Retrieves the vault manager.
+     *
+     * @return the {@link VaultManager} instance
+     */
     VaultManager getVaultManager();
 
+    /**
+     * Retrieves the world edit manager.
+     *
+     * @return the {@link WorldeditManager} instance
+     */
     WorldeditManager getWorldeditManager();
 
+    /**
+     * Starts an interactive chat session with a player.
+     *
+     * @param player   the player to start the chat session with
+     * @param consumer the consumer to handle the chat input
+     * @param expiredAt the time when the chat session expires
+     * @return the {@link InteractiveChat} instance
+     */
     InteractiveChat startInteractiveChat(Player player, Consumer<String> consumer, long expiredAt);
 
+    /**
+     * Retrieves the enchantments manager.
+     *
+     * @return the {@link Enchantments} instance
+     */
     Enchantments getEnchantments();
 
+    /**
+     * Creates an instance of a specified class.
+     *
+     * @param className the name of the class to create an instance of
+     * @param <T>       the type of the instance
+     * @return an {@link Optional} containing the instance if successful, or empty if not
+     */
     <T> Optional<T> createInstance(String className);
 
+    /**
+     * Creates an instance of a specified class with an option to display a log.
+     *
+     * @param className  the name of the class to create an instance of
+     * @param displayLog whether to display a log message
+     * @param <T>        the type of the instance
+     * @return an {@link Optional} containing the instance if successful, or empty if not
+     */
     <T> Optional<T> createInstance(String className, boolean displayLog);
 }
