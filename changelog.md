@@ -4,6 +4,16 @@
 - Fixed messages [#39](https://github.com/Maxlego08/zEssentials/issues/39)
 - Fixed default configuration for economy [#38](https://github.com/Maxlego08/zEssentials/issues/38)
 - Fixed bug with ``/tp`` command [#37](https://github.com/Maxlego08/zEssentials/issues/37)
+- Add the feature to manage vaults slots with permissions
+```yaml
+vault-permissions:
+  - permission: zessentials.vault.size.player
+    slots: 45
+  - permission: zessentials.vault.size.vip
+    slots: 90
+  - permission: zessentials.vault.size.admin
+    slots: 500
+```
 
 # 1.0.0.5
 

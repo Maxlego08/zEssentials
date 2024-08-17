@@ -128,7 +128,6 @@ public class VaultModule extends ZModule implements VaultManager {
 
     @Override
     public void addPlayerSlot(CommandSender sender, OfflinePlayer offlinePlayer, int slot) {
-
         PlayerVaults playerVaults = getPlayerVaults(offlinePlayer);
         playerVaults.setSlots(playerVaults.getSlots() + slot);
 
