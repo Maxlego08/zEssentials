@@ -121,7 +121,11 @@ public class SqlStorage extends StorageHelper implements IStorage {
             plugin.getLogger().severe("Unable to connect to database !");
             Bukkit.getPluginManager().disablePlugin(plugin);
         } else {
-            plugin.getLogger().info("The database connection is valid ! (" + connection.getDatabaseConfiguration().getHost() + ")");
+            if (storageType == StorageType.SQLITE) {
+                plugin.getLogger().info("The database connection is valid ! (SQLITE)");
+            } else {
+                plugin.getLogger().info("The database connection is valid ! (" + connection.getDatabaseConfiguration().getHost() + ")");
+            }
         }
 
         // Migrations

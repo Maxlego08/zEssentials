@@ -76,13 +76,13 @@ public class UserRepository extends Repository {
             update(table -> {
                 table.leftJoin("%prefix%sanctions", "zs", "id", "%prefix%users", "ban_sanction_id");
                 table.string("ban_sanction_id", null);
-                table.where("zs.expired_at", "<", new Date());
+                table.where("zs", "expired_at", "<", new Date());
             });
             // Removes mute sanctions
             update(table -> {
                 table.leftJoin("%prefix%sanctions", "zs", "id", "%prefix%users", "mute_sanction_id");
                 table.string("mute_sanction_id", null);
-                table.where("zs.expired_at", "<", new Date());
+                table.where("zs", "expired_at", "<", new Date());
             });
         }
     }
