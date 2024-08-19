@@ -682,7 +682,7 @@ command-item-lore-clear: "<success>You just clear the item lore."
 command-item-lore-set-error: "<error>Can’t find the line &f%line%<error>."
 command-give-error: "<error>Can’t find the item &f%item%<error>."
 command-give: "<success>You just gave &n&fx%amount% %item%&r <success>to player &f%player%<success>."
-command-give-all: "<success>You just gave &n&fx%amount% %item%&r <success>to online player."
+command-give-all: "<success>You just gave &n&fx%amount% %item%&r <success>to all online players."
 command-give-vault: "<success>You just gave &n&fx%amount% %item%&r <success>to &f%player%<success>'s vault."
 
 command-power-tool-error-item: "<error>You have no item in your hand."
