@@ -11,7 +11,7 @@
 # NONE - Does not display the message
 # TCHAT - Default type, sends one or more messages in chat
 # ACTION - Sends the message in the action bar
-# ACTION - Sends message in action bar and chat
+# TCHAT_AND_ACTION - Sends message in action bar and chat
 # CENTER - Send one or more messages in the chat, but they will be centered
 # TITLE - Sends a username
 #
