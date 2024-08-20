@@ -10,6 +10,7 @@ import fr.maxlego08.essentials.convert.sunlight.SunlightUser;
 import fr.maxlego08.essentials.storage.database.Repository;
 import fr.maxlego08.sarah.DatabaseConnection;
 import fr.maxlego08.sarah.conditions.JoinCondition;
+import fr.maxlego08.sarah.database.DatabaseType;
 
 import java.util.Date;
 import java.util.List;
@@ -52,18 +53,38 @@ public class UserRepository extends Repository {
      * We will execute an UPDATE query with a LEFT JOIN
      */
     public void clearExpiredSanctions() {
-        // Removes ban sanctions
-        update(table -> {
-            table.leftJoin("%prefix%sanctions", "zs", "id", "%prefix%users", "ban_sanction_id");
-            table.string("ban_sanction_id", null);
-            table.where("zs.expired_at", "<", new Date());
-        });
-        // Removes mute sanctions
-        update(table -> {
-            table.leftJoin("%prefix%sanctions", "zs", "id", "%prefix%users", "mute_sanction_id");
-            table.string("mute_sanction_id", null);
-            table.where("zs.expired_at", "<", new Date());
-        });
+        if (this.connection.getDatabaseConfiguration().getDatabaseType() == DatabaseType.SQLITE) {
+
+            // TODO - Update Sarah SQLITE for left join
+            plugin.getLogger().warning("Attention, SQLITE does not allow to execute all sql queries, the query that allows to delete inactive sanctions is currently not working.");
+            /*update(table -> {
+                table.string("ban_sanction_id", null);
+                table.whereIn("ban_sanction_id", "%prefix%sanctions", "zs", "id", "%prefix%users", "mute_sanction_id", subTable -> {
+                    subTable.where("zs.expired_at", "<", new Date());
+                });
+            });
+
+            update(table -> {
+                table.string("mute_sanction_id", null);
+                table.whereIn("ban_sanction_id", "%prefix%sanctions", "zs", "id", "%prefix%users", "ban_sanction_id", subTable -> {
+                    subTable.where("zs.expired_at", "<", new Date());
+                });
+            });*/
+
+        } else {
+            // Removes ban sanctions
+            update(table -> {
+                table.leftJoin("%prefix%sanctions", "zs", "id", "%prefix%users", "ban_sanction_id");
+                table.string("ban_sanction_id", null);
+                table.where("zs", "expired_at", "<", new Date());
+            });
+            // Removes mute sanctions
+            update(table -> {
+                table.leftJoin("%prefix%sanctions", "zs", "id", "%prefix%users", "mute_sanction_id");
+                table.string("mute_sanction_id", null);
+                table.where("zs", "expired_at", "<", new Date());
+            });
+        }
     }
 
     /**

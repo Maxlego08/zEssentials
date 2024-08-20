@@ -60,30 +60,10 @@ import fr.maxlego08.essentials.loader.ButtonWarpLoader;
 import fr.maxlego08.essentials.loader.VaultNoPermissionLoader;
 import fr.maxlego08.essentials.loader.VaultOpenLoader;
 import fr.maxlego08.essentials.messages.MessageLoader;
-import fr.maxlego08.essentials.migrations.CreateChatMessageMigration;
-import fr.maxlego08.essentials.migrations.CreateCommandsMigration;
-import fr.maxlego08.essentials.migrations.CreateEconomyTransactionMigration;
-import fr.maxlego08.essentials.migrations.CreatePlayerSlots;
-import fr.maxlego08.essentials.migrations.CreatePlayerVault;
-import fr.maxlego08.essentials.migrations.CreatePlayerVaultItem;
-import fr.maxlego08.essentials.migrations.CreateSanctionsTableMigration;
-import fr.maxlego08.essentials.migrations.CreateServerStorageTableMigration;
-import fr.maxlego08.essentials.migrations.CreateUserCooldownTableMigration;
-import fr.maxlego08.essentials.migrations.CreateUserEconomyMigration;
-import fr.maxlego08.essentials.migrations.CreateUserHomeTableMigration;
-import fr.maxlego08.essentials.migrations.CreateUserMailBoxMigration;
-import fr.maxlego08.essentials.migrations.CreateUserOptionTableMigration;
-import fr.maxlego08.essentials.migrations.CreateUserPlayTimeTableMigration;
-import fr.maxlego08.essentials.migrations.CreateUserPowerToolsMigration;
-import fr.maxlego08.essentials.migrations.CreateUserTableMigration;
-import fr.maxlego08.essentials.migrations.CreateVoteSiteMigration;
-import fr.maxlego08.essentials.migrations.UpdateUserTableAddSanctionColumns;
-import fr.maxlego08.essentials.migrations.UpdateUserTableAddVoteColumn;
 import fr.maxlego08.essentials.module.ZModuleManager;
 import fr.maxlego08.essentials.module.modules.HomeModule;
 import fr.maxlego08.essentials.module.modules.MailBoxModule;
 import fr.maxlego08.essentials.module.modules.VoteModule;
-import fr.maxlego08.essentials.worldedit.WorldeditModule;
 import fr.maxlego08.essentials.placeholders.DistantPlaceholder;
 import fr.maxlego08.essentials.placeholders.LocalPlaceholder;
 import fr.maxlego08.essentials.scoreboard.ScoreboardModule;
@@ -101,6 +81,7 @@ import fr.maxlego08.essentials.user.placeholders.UserPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.UserPlayTimePlaceholders;
 import fr.maxlego08.essentials.user.placeholders.VotePlaceholders;
 import fr.maxlego08.essentials.vault.VaultModule;
+import fr.maxlego08.essentials.worldedit.WorldeditModule;
 import fr.maxlego08.essentials.zutils.Metrics;
 import fr.maxlego08.essentials.zutils.ZPlugin;
 import fr.maxlego08.essentials.zutils.utils.CommandMarkdownGenerator;
@@ -115,7 +96,6 @@ import fr.maxlego08.menu.api.ButtonManager;
 import fr.maxlego08.menu.api.InventoryManager;
 import fr.maxlego08.menu.api.pattern.PatternManager;
 import fr.maxlego08.menu.button.loader.NoneLoader;
-import fr.maxlego08.sarah.MigrationManager;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -170,8 +150,6 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.essentialsServer = isPaperVersion() ? new PaperServer(this) : new SpigotServer(this);
         this.interactiveChatHelper = isPaperVersion() ? new InteractiveChatPaperListener() : new InteractiveChatSpigotListener();
         this.registerListener(this.interactiveChatHelper);
-
-        this.registerMigrations();
 
         this.placeholder = new LocalPlaceholder(this);
         DistantPlaceholder distantPlaceholder = new DistantPlaceholder(this, this.placeholder);
@@ -290,31 +268,6 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.buttonManager.register(new VaultOpenLoader(this));
         this.buttonManager.register(new VaultNoPermissionLoader(this));
 
-    }
-
-    private void registerMigrations() {
-
-        MigrationManager.setMigrationTableName("zessentials_migrations");
-
-        MigrationManager.registerMigration(new CreateServerStorageTableMigration());
-        MigrationManager.registerMigration(new CreateUserTableMigration());
-        MigrationManager.registerMigration(new CreateUserOptionTableMigration());
-        MigrationManager.registerMigration(new CreateUserCooldownTableMigration());
-        MigrationManager.registerMigration(new CreateUserEconomyMigration());
-        MigrationManager.registerMigration(new CreateEconomyTransactionMigration());
-        MigrationManager.registerMigration(new CreateUserHomeTableMigration());
-        MigrationManager.registerMigration(new CreateSanctionsTableMigration());
-        MigrationManager.registerMigration(new UpdateUserTableAddSanctionColumns());
-        MigrationManager.registerMigration(new CreateChatMessageMigration());
-        MigrationManager.registerMigration(new CreateCommandsMigration());
-        MigrationManager.registerMigration(new CreateUserPlayTimeTableMigration());
-        MigrationManager.registerMigration(new CreateUserPowerToolsMigration());
-        MigrationManager.registerMigration(new CreateUserMailBoxMigration());
-        MigrationManager.registerMigration(new UpdateUserTableAddVoteColumn());
-        MigrationManager.registerMigration(new CreateVoteSiteMigration());
-        MigrationManager.registerMigration(new CreatePlayerVaultItem());
-        MigrationManager.registerMigration(new CreatePlayerVault());
-        MigrationManager.registerMigration(new CreatePlayerSlots());
     }
 
     @Override

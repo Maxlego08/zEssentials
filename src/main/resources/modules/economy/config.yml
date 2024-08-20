@@ -129,8 +129,10 @@ price-reductions:
     display: "#eb4b23%amount%"
   - format: "%.2fT"
     maxAmount: 1000000000000000
+    display: "#ff9999%amount%"
   - format: "%.2fQ"
     maxAmount: 100000000000000000
+    display: "#ff3535%amount%"
 
 # Baltop
 

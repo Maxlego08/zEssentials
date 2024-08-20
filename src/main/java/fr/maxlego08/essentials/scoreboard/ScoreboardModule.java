@@ -213,7 +213,7 @@ public class ScoreboardModule extends ZModule implements ScoreboardManager {
     }
 
     @Override
-    public List<EssentialsScoreboard> getEssentialsScoreboards() {
+    public List<EssentialsScoreboard> getEssentialsScoreboard() {
         return this.essentialsScoreboards;
     }
 

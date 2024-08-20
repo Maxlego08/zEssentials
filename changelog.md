@@ -1,5 +1,26 @@
 # Unreleased
 
+# 1.0.0.6
+
+- Added the command ``/showitem <code>``, Allows you to see the item that the player has in his hand. This command is used with the chat placeholder `[item]` [#43](https://github.com/Maxlego08/zEssentials/issues/43)
+- Added the command ``/money <player>``, Shows the money of other players.
+- Fixed messages [#39](https://github.com/Maxlego08/zEssentials/issues/39)
+- Fixed default configuration for economy [#38](https://github.com/Maxlego08/zEssentials/issues/38)
+- Fixed bug with ``/tp`` command [#37](https://github.com/Maxlego08/zEssentials/issues/37)
+- Fixed nightvision messages
+- Add the feature to manage vaults slots with permissions
+```yaml
+vault-permissions:
+  - permission: zessentials.vault.size.player
+    slots: 45
+  - permission: zessentials.vault.size.vip
+    slots: 90
+  - permission: zessentials.vault.size.admin
+    slots: 500
+```
+- Fixed title message placeholders
+- Fixed somes messages [#47](https://github.com/Maxlego08/zEssentials/issues/47)
+
 # 1.0.0.5
 
 - Added the command `/ess convert HuskHomes`, allows converting the database from HuskHomes to zEssentials.

@@ -86,8 +86,8 @@ command-item-lore-set: <success>Du hast gerade die Zeile %line% in &f%text%<succ
 command-item-lore-clear: <success>Du hast die Gegenstandslore gelöscht.
 command-item-lore-set-error: <error>Kann die Zeile &f%line%<error> nicht finden.
 command-give-error: <error>Kann den Gegenstand &f%item%<error> nicht finden.
-command-give: <success>Du hast gerade &n&fx1 %item%&r <success> an Spieler &f%player%<success> gegeben.
-command-give-all: <success>Du hast gerade &n&fx1 %item%&r <success> an Online-Spieler gegeben.
+command-give: <success>Du hast gerade &n&fx%amount% %item%&r <success> an Spieler &f%player%<success> gegeben.
+command-give-all: <success>Du hast gerade &n&fx%amount% %item%&r <success> an Online-Spieler gegeben.
 command-power-tool-error-item: <error>Du hast keinen Gegenstand in der Hand.
 command-power-tool-error-reset: <error>Dieser Gegenstand hat keinen aufgezeichneten Befehl.
 command-power-tool-info: <success>Du hast gerade den Befehl &f/%command%<success> auf
@@ -558,7 +558,7 @@ command-warp-create:
 - '#00ff00Du hast den Warp &f%name% #00ff00an deiner Position erstellt.'
 - '&7Warp-Berechtigung ist: <hover:show_text:''&fBefehl zum Hinzufügen der Berechtigung
   für einen Spieler kopieren''><click:SUGGEST_COMMAND:''/lp user <Benutzername> permission
-  set nessentials.warp.%name%''>&f&nessentials.warp.%name%</click></hover>'
+  set essentials.warp.%name%''>&f&nessentials.warp.%name%</click></hover>'
 command-warp-use:
 - '<error>Verwendung&8: &f/warp <Ziel>'
 - '&7Warps&8:&f%destinations%'

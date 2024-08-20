@@ -412,7 +412,7 @@ command-warp-doesnt-exist: "<error>Warp &f%name% <error> no existe."
 command-warp-no-permission: "<error>No tienes permisos para ir al warp &f%name%<error>."
 command-warp-create:
   - "#00ff00Has creado el warp &f%name% #00ff00en tu posición."
-  - "&7Permiso del warp: <hover:show_text:'&fCopia el comando para añadir un jugador'><click:SUGGEST_COMMAND:'/lp user <username> permission set nessentials.warp.%name%'>&f&nessentials.warp.%name%</click></hover>"
+  - "&7Permiso del warp: <hover:show_text:'&fCopia el comando para añadir un jugador'><click:SUGGEST_COMMAND:'/lp user <username> permission set essentials.warp.%name%'>&f&nessentials.warp.%name%</click></hover>"
 command-warp-use:
   - "<error>Uso&8: &f/warp <destino>"
   - "&7Warps&8:&f%destinations%"
@@ -641,8 +641,8 @@ command-item-lore-set: "<success>Estableciste la línea %line% a &f%text%<succes
 command-item-lore-clear: "<success>Limpiaste el lore del ítem."
 command-item-lore-set-error: "<error>No se pudo encontrar la línea &f%line%<error>."
 command-give-error: "<error>No se encontró el ítem &f%item%<error>."
-command-give: "<success>Has dado &n&fx1 %item%&r <success>a &f%player%<success>."
-command-give-all: "<success>Has dado &n&fx1 %item%&r <success>a los jugadores en línea."
+command-give: "<success>Has dado &n&fx%amount% %item%&r <success>a &f%player%<success>."
+command-give-all: "<success>Has dado &n&fx%amount% %item%&r <success>a los jugadores en línea."
 
 command-power-tool-error-item: "<error>No tienes ningún ítem en tu mano."
 command-power-tool-error-reset: "<error>Este ítem no tiene comandos."
