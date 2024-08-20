@@ -149,6 +149,10 @@ command-money:
   - "#99E0FFYou have&8:"
   - " &7- #99E0FF%economy-name-money% &f%economy-money%."
   - " &7- #99E0FF%economy-name-coins% &f%economy-coins%."
+command-money-other:
+  - "#99E0FF%player% have&8:"
+  - " &7- #99E0FF%economy-name-money% &f%economy-money%."
+  - " &7- #99E0FF%economy-name-coins% &f%economy-coins%."
 command-pay-negative: "<error>Amount to pay must be positive."
 command-pay-min: "<error>The minimum amount you can pay is &f%amount%<error>."
 command-pay-max: "<error>The maximum amount you can pay is &f%amount%<error>."

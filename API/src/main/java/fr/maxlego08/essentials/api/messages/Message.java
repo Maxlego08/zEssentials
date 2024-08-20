@@ -352,6 +352,12 @@ public enum Message {
             " &7- #99E0FF%economy-name-coins% &f%economy-coins%."
     ),
 
+    COMMAND_MONEY_OTHER(
+            "#99E0FF%player% have&8:",
+            " &7- #99E0FF%economy-name-money% &f%economy-money%.",
+            " &7- #99E0FF%economy-name-coins% &f%economy-coins%."
+    ),
+
     COMMAND_PAY_NEGATIVE("<error>Amount to pay must be positive."),
     COMMAND_PAY_MIN("<error>The minimum amount you can pay is &f%amount%<error>."),
     COMMAND_PAY_MAX("<error>The maximum amount you can pay is &f%amount%<error>."),

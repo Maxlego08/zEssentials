@@ -264,6 +264,10 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
         this.addRequireArg("player", getOnlinePlayers());
     }
 
+    protected void addOptionalOfflinePlayerNameArg() {
+        this.addOptionalArg("player", getOnlinePlayers());
+    }
+
     protected void addRequireArg(String message, TabCompletion runnable) {
         this.addRequireArg(message);
         int index = this.requireArgs.size();
