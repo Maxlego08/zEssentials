@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.commands.commands.economy;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
+import fr.maxlego08.essentials.api.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.economy.EconomyManager;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.economy.EconomyModule;
@@ -49,26 +50,17 @@ public class CommandMoney extends VCommand {
             arguments.add("%player%");
             arguments.add(userName);
 
-            economies.forEach(economyDTO -> {
+            economyManager.getEconomies().forEach(economy -> {
 
-                BigDecimal amount = economyDTO.amount();
+                BigDecimal amount = economies.stream().filter(dto -> dto.economy_name().equalsIgnoreCase(economy.getName())).findFirst().map(EconomyDTO::amount).orElse(BigDecimal.ZERO);
 
-                economyManager.getEconomy(economyDTO.economy_name()).ifPresentOrElse(economy -> {
-
-                    arguments.add("%economy-name-" + economy.getName() + "%");
-                    arguments.add(economy.getDisplayName());
-                    arguments.add("%economy-" + economy.getName() + "%");
-                    arguments.add(economyManager.format(economy, amount));
-                }, () -> {
-
-                    arguments.add("%economy-name-" + economyDTO.economy_name() + "%");
-                    arguments.add(economyDTO.economy_name());
-                    arguments.add("%economy-" + economyDTO.economy_name() + "%");
-                    arguments.add(economyManager.format(amount));
-                });
+                arguments.add("%economy-name-" + economy.getName() + "%");
+                arguments.add(economy.getDisplayName());
+                arguments.add("%economy-" + economy.getName() + "%");
+                arguments.add(economyManager.format(economy, amount));
             });
-            message(sender, Message.COMMAND_MONEY_OTHER, arguments.toArray());
 
+            message(sender, Message.COMMAND_MONEY_OTHER, arguments.toArray());
         });
 
         return CommandResultType.SUCCESS;
