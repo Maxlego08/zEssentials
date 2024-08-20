@@ -412,7 +412,7 @@ command-warp-doesnt-exist: "<error>Warp &f%name% <error> no existe."
 command-warp-no-permission: "<error>No tienes permisos para ir al warp &f%name%<error>."
 command-warp-create:
   - "#00ff00Has creado el warp &f%name% #00ff00en tu posición."
-  - "&7Permiso del warp: <hover:show_text:'&fCopia el comando para añadir un jugador'><click:SUGGEST_COMMAND:'/lp user <username> permission set nessentials.warp.%name%'>&f&nessentials.warp.%name%</click></hover>"
+  - "&7Permiso del warp: <hover:show_text:'&fCopia el comando para añadir un jugador'><click:SUGGEST_COMMAND:'/lp user <username> permission set essentials.warp.%name%'>&f&nessentials.warp.%name%</click></hover>"
 command-warp-use:
   - "<error>Uso&8: &f/warp <destino>"
   - "&7Warps&8:&f%destinations%"

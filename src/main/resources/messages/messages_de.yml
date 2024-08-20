@@ -558,7 +558,7 @@ command-warp-create:
 - '#00ff00Du hast den Warp &f%name% #00ff00an deiner Position erstellt.'
 - '&7Warp-Berechtigung ist: <hover:show_text:''&fBefehl zum Hinzufügen der Berechtigung
   für einen Spieler kopieren''><click:SUGGEST_COMMAND:''/lp user <Benutzername> permission
-  set nessentials.warp.%name%''>&f&nessentials.warp.%name%</click></hover>'
+  set essentials.warp.%name%''>&f&nessentials.warp.%name%</click></hover>'
 command-warp-use:
 - '<error>Verwendung&8: &f/warp <Ziel>'
 - '&7Warps&8:&f%destinations%'
