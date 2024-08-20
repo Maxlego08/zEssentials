@@ -17,6 +17,7 @@ vault-permissions:
     slots: 500
 ```
 - Fixed title message placeholders
+- Fixed somes messages [#47](https://github.com/Maxlego08/zEssentials/issues/47)
 
 # 1.0.0.5
 
