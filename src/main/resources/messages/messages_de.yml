@@ -7,15 +7,16 @@
 #  ███████╗███████╗██████╔╝██████╔╝███████╗██║░╚███║░░░██║░░░██║██║░░██║███████╗██████╔╝
 #  ╚══════╝╚══════╝╚═════╝░╚═════╝░╚══════╝╚═╝░░╚══╝░░░╚═╝░░░╚═╝╚═╝░░╚═╝╚══════╝╚═════╝░
 #
-# Messages type:
-# NONE - Does not display the message
-# TCHAT - Default type, sends one or more messages in chat
-# ACTION - Sends the message in the action bar
-# TCHAT_AND_ACTION - Sends message in action bar and chat
-# CENTER - Send one or more messages in the chat, but they will be centered
-# TITLE - Sends a username
+# Nachrichtentypen:
+# NONE - Zeigt die Nachricht nicht an
+# TCHAT - Standardtyp, sendet eine oder mehrere Nachrichten im Chat
+# ACTION - Sendet die Nachricht in der Aktionsleiste
+# TCHAT_AND_ACTION - Sendet Nachricht in der Aktionsleiste und im Chat
+# CENTER - Sendet eine oder mehrere Nachrichten im Chat, aber sie werden zentriert
+# TITLE - Sendet einen Benutzernamen
 #
 ########################################################################################################################
+
 
 prefix: "<primary>zEssentials <secondary>• "
 you: "du"
@@ -519,9 +520,9 @@ command-home-information-multi-line-content:
   message: " #8cc0cc♢ &f%name% &7in %world% (%environment%) <success><hover:show_text:'&7Klicke, um zu Home &f&n%name% zu teleportieren'><click:run_command:'/home %name%'>[KLICK]</click></hover>"
 
 
-# Available placeholders:
-# %count% - Home count
-# %max% - Max player's home
+# Verfügbare Platzhalter:
+# %count% - Anzahl der Homes
+# %max% - Maximale Anzahl der Homes eines Spielers
 command-home-information-multi-line-footer:
   type: WITHOUT_PREFIX
   message: ""
@@ -537,240 +538,247 @@ command-home-information-multi-line-footer:
 # %z% - Z-Koordinate des Homes
 command-home-information-in-line:
   type: WITHOUT_PREFIX
-  message: "#8cc0ccʏᴏᴜʀ ʜᴏᴍᴇs <success>♦ &7(%count%/%max%) &8:&f%homes%"
-command-home-information-in-line-info: " <hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %name%'>&f%name%</click></hover>&7"
+  message: "#8cc0ccᴅᴇɪɴᴇ ʜᴏᴍᴇѕ <success>♦ &7(%count%/%max%) &8:&f%homes%"
+command-home-information-in-line-info: " <hover:show_text:'&7Klicke hier, um zum Heim &f&n%name% zu teleportieren'><click:run_command:'/home %name%'>&f%name%</click></hover>&7"
 
-command-home-icon-error: "<error>You must have an item in your hand to change the icon of your home."
-command-home-icon-success: "#00ff00You just changed the home icon &f%name%#00ff00."
-command-home-icon-reset: "#00ff00You just reset the home icon &f%name%#00ff00."
-command-home-delete: "#99E0FFYou just deleted the home &f%name%#99E0FF."
-command-home-admin-delete: "#00ff00You just deleted home &f%name%#00ff00 of &b%player%#00ff00."
-command-home-admin-set: "#00ff00You just created home &f%name%#00ff00 of &b%player%#00ff00."
+command-home-icon-error: "<error>Du musst einen Gegenstand in der Hand halten, um das Symbol deines Heims zu ändern."
+command-home-icon-success: "#00ff00Du hast gerade das Heim-Symbol &f%name%#00ff00 geändert."
+command-home-icon-reset: "#00ff00Du hast gerade das Heim-Symbol &f%name%#00ff00 zurückgesetzt."
+command-home-delete: "#99E0FFDu hast gerade das Heim &f%name%#99E0FF gelöscht."
+command-home-admin-delete: "#00ff00Du hast gerade das Heim &f%name%#00ff00 von &b%player%#00ff00 gelöscht."
+command-home-admin-set: "#00ff00Du hast gerade das Heim &f%name%#00ff00 von &b%player%#00ff00 erstellt."
 command-home-admin-list: "#8cc0cc%player% ʜᴏᴍᴇs&8:&f%homes%"
-command-home-admin-list-info: " <hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %player%:%name%'>&f%name%</click></hover>&7"
+command-home-admin-list-info: " <hover:show_text:'&7Klicke hier, um zum Heim &f&n%name% zu teleportieren'><click:run_command:'/home %player%:%name%'>&f%name%</click></hover>&7"
 
 
-# Sanction
+# Sanktionen
 command-kick-notify:
   type: WITHOUT_PREFIX
-  message: "<hover:show_text:'<gray>By: <white>%sender%<newline><gray>Duration: <white>%duration%<newline><gray>Reason: <white>%reason%<newline><gray>Date: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just kicked the player #e0d12d%target%#e33414.</click></hover>"
+  message: "<hover:show_text:'<gray>Von: <white>%sender%<newline><gray>Dauer: <white>%duration%<newline><gray>Grund: <white>%reason%<newline><gray>Datum: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanktion&8) #8aebeb%player% #e33414hat den Spieler #e0d12d%target%#e33414 gekickt.</click></hover>"
 command-ban-notify:
   type: WITHOUT_PREFIX
-  message: "<hover:show_text:'<gray>By: <white>%sender%<newline><gray>Duration: <white>%duration%<newline><gray>Reason: <white>%reason%<newline><gray>Date: <white>%created_at%<newline><gray>Expires: <white>%expired_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just banned the player #e0d12d%target%#e33414.</click></hover>"
+  message: "<hover:show_text:'<gray>Von: <white>%sender%<newline><gray>Dauer: <white>%duration%<newline><gray>Grund: <white>%reason%<newline><gray>Datum: <white>%created_at%<newline><gray>Ablauf: <white>%expired_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanktion&8) #8aebeb%player% #e33414hat den Spieler #e0d12d%target%#e33414 gebannt.</click></hover>"
 command-mute-notify:
   type: WITHOUT_PREFIX
-  message: "<hover:show_text:'<gray>By: <white>%sender%<newline><gray>Duration: <white>%duration%<newline><gray>Reason: <white>%reason%<newline><gray>Date: <white>%created_at%<newline><gray>Expires: <white>%expired_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just muted the player #e0d12d%target%#e33414.</click></hover>"
+  message: "<hover:show_text:'<gray>Von: <white>%sender%<newline><gray>Dauer: <white>%duration%<newline><gray>Grund: <white>%reason%<newline><gray>Datum: <white>%created_at%<newline><gray>Ablauf: <white>%expired_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanktion&8) #8aebeb%player% #e33414hat den Spieler #e0d12d%target%#e33414 gemutet.</click></hover>"
 command-unmute-notify:
   type: WITHOUT_PREFIX
-  message: "<hover:show_text:'<gray>By: <white>%sender%<newline><gray>Duration: <white>%duration%<newline><gray>Reason: <white>%reason%<newline><gray>Date: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just unmuted the player #e0d12d%target%#e33414.</click></hover>"
+  message: "<hover:show_text:'<gray>Von: <white>%sender%<newline><gray>Dauer: <white>%duration%<newline><gray>Grund: <white>%reason%<newline><gray>Datum: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanktion&8) #8aebeb%player% #e33414hat den Spieler #e0d12d%target%#e33414 entmutet.</click></hover>"
 command-unban-notify:
   type: WITHOUT_PREFIX
-  message: "<hover:show_text:'<gray>By: <white>%sender%<newline><gray>Duration: <white>%duration%<newline><gray>Reason: <white>%reason%<newline><gray>Date: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just unbanned the player #e0d12d%target%#e33414.</click></hover>"
-command-ban-error-duration: "<error>The duration of a banishment must be at least 1 second."
-command-mute-error-duration: "<error>The duration of a mute must be at least 1 second."
-command-un-mute-error: "&f%player% <error>is not mute."
-command-un-ban-error: "&f%player% <error>is not ban."
-command-sanction-error: "<error>You can’t sanction that player. He’s protected."
+  message: "<hover:show_text:'<gray>Von: <white>%sender%<newline><gray>Dauer: <white>%duration%<newline><gray>Grund: <white>%reason%<newline><gray>Datum: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanktion&8) #8aebeb%player% #e33414hat den Spieler #e0d12d%target%#e33414 entbannt.</click></hover>"
+command-ban-error-duration: "<error>Die Dauer einer Bannung muss mindestens 1 Sekunde betragen."
+command-mute-error-duration: "<error>Die Dauer einer Mutung muss mindestens 1 Sekunde betragen."
+command-un-mute-error: "&f%player% <error>ist nicht gemutet."
+command-un-ban-error: "&f%player% <error>ist nicht gebannt."
+command-sanction-error: "<error>Du kannst diesen Spieler nicht sanktionieren. Er ist geschützt."
 message-kick:
   - ""
-  - "<error>You have just been kicked from the server for the reason:"
+  - "<error>Du wurdest gerade vom Server gekickt aus folgendem Grund:"
   - "%reason%"
   - ""
   - "&fMinecraft-Inventory-Builder.com"
   - ""
 message-mute:
   - ""
-  - "&fYou have just lost your <u>voice</u>."
-  - "&fDuration&8: <gradient:#7ae856:#a1d909>%duration%</gradient>"
-  - "&fReason&8: #82d1ff%reason%"
+  - "&fDu hast gerade deine <u>Stimme</u> verloren."
+  - "&fDauer&8: <gradient:#7ae856:#a1d909>%duration%</gradient>"
+  - "&fGrund&8: #82d1ff%reason%"
   - ""
 message-unmute:
   - ""
-  - "&fYou have just regained your <u>voice</u>, congratulations !"
-  - "&fReason&8: #82d1ff%reason%"
+  - "&fDu hast gerade deine <u>Stimme</u> zurückerhalten, Glückwunsch!"
+  - "&fGrund&8: #82d1ff%reason%"
   - ""
 message-mute-talk:
   - ""
-  - "&fYou do not have the right to speak."
+  - "&fDu hast nicht das Recht zu sprechen."
   - ""
-  - "&fDuration&8: <gradient:#7ae856:#a1d909>%duration%</gradient>"
-  - "&fReason&8: #82d1ff%reason%"
+  - "&fDauer&8: <gradient:#7ae856:#a1d909>%duration%</gradient>"
+  - "&fGrund&8: #82d1ff%reason%"
   - ""
 message-ban:
   - ""
-  - "<error>You have just been ban from the server for the reason:"
+  - "<error>Du wurdest gerade vom Server gebannt aus folgendem Grund:"
   - "&f%reason%"
-  - "&fDuration&8: &7%duration%"
+  - "&fDauer&8: &7%duration%"
   - ""
   - "&fMinecraft-Inventory-Builder.com"
   - ""
 message-ban-join:
   - ""
-  - "<error>You are banned on server:"
+  - "<error>Du bist auf dem Server gebannt:"
   - "&f%reason%"
-  - "&fRemaining time&8: &7%remaining%"
+  - "&fVerbleibende Zeit&8: &7%remaining%"
   - ""
   - "&fMinecraft-Inventory-Builder.com"
   - ""
 
+
 # Chat
-chat-error: "<error>Impossible to let you speak, your data is not loaded."
-chat-alphanumeric-regex: "<error>You use a forbidden character."
-chat-cooldown: "<error>Please wait before sending your next message. &8(&7%cooldown%&8)"
-chat-same: "<error>You can’t put the same sentence."
-chat-link: "<error>You cannot send a link in the chat."
-chat-disable: "<error>The chat is currently unavailable."
-chat-caps: "<error>You don’t have to scream to talk !"
-chat-flood: "<error>You can’t talk like that."
+chat-error: "<error>Es ist unmöglich, dich sprechen zu lassen, deine Daten sind nicht geladen."
+chat-alphanumeric-regex: "<error>Du verwendest ein verbotenes Zeichen."
+chat-cooldown: "<error>Bitte warte, bevor du deine nächste Nachricht sendest. &8(&7%cooldown%&8)"
+chat-same: "<error>Du kannst nicht denselben Satz wiederholen."
+chat-link: "<error>Du kannst keinen Link im Chat senden."
+chat-disable: "<error>Der Chat ist momentan nicht verfügbar."
+chat-caps: "<error>Du musst nicht schreien, um zu sprechen!"
+chat-flood: "<error>Du kannst nicht auf diese Weise sprechen."
 
 chat-default-format: "<white>%displayName% <#656665>• <gray>%message%"
-chat-messages-empty: "&f%player% <error>did not write a message."
+chat-messages-empty: "&f%player% <error>hat keine Nachricht geschrieben."
 chat-messages-line:
   type: WITHOUT_PREFIX
   message: "&f%date% &7%message%"
 chat-messages-footer:
   type: WITHOUT_PREFIX
-  message: "<click:run_command:'/chathistory %player% %previousPage%'><hover:show_text:'Previous Page'><white>⬅</hover></click> <gray>%page%/%maxPage% <click:run_command:'/chathistory %player% %nextPage%'><hover:show_text:'Next Page'><white>➡</hover></click>"
-command-chat-clear: "<success>The chat just got clear."
-command-chat-disable-error: "<error>Chat is already disable."
-command-chat-disable-success: "<success>You just deactivated the chat."
-command-chat-enable-error: "<error>Chat is already enable."
-command-chat-enable-success: "<success>You just activated the chat."
+  message: "<click:run_command:'/chathistory %player% %previousPage%'><hover:show_text:'Vorherige Seite'><white>⬅</hover></click> <gray>%page%/%maxPage% <click:run_command:'/chathistory %player% %nextPage%'><hover:show_text:'Nächste Seite'><white>➡</hover></click>"
+command-chat-clear: "<success>Der Chat wurde gerade gelöscht."
+command-chat-disable-error: "<error>Der Chat ist bereits deaktiviert."
+command-chat-disable-success: "<success>Du hast gerade den Chat deaktiviert."
+command-chat-enable-error: "<error>Der Chat ist bereits aktiviert."
+command-chat-enable-success: "<success>Du hast gerade den Chat aktiviert."
 command-chat-broadcast:
   type: WITHOUT_PREFIX
   message: "<primary>ʙʀᴏᴀᴅᴄᴀsᴛ <secondary>• <white>%message%"
 
 
-# Messages
-command-message-self: "<error>You can’t talk to yourself."
-command-message-disable: "&f%player% <error>has disabled private messages."
-command-message-mute: "<error>You’re not allowed to speak."
-command-message-me: "<hover:show_text:'&fClick to reply'><click:suggest_command:'/r '>&8(#f533f5me &7-> #34cfe0%target%&8) #e6e1e6<message></click></hover>"
-command-message-other: "<hover:show_text:'&fClick to reply'><click:suggest_command:'/r '>&8(#34cfe0%target% &7-> #f533f5me&8) #e6e1e6<message></click></hover>"
+
+# Nachrichten
+command-message-self: "<error>Du kannst nicht mit dir selbst sprechen."
+command-message-disable: "&f%player% <error>hat private Nachrichten deaktiviert."
+command-message-mute: "<error>Du darfst nicht sprechen."
+command-message-me: "<hover:show_text:'&fKlicke, um zu antworten'><click:suggest_command:'/r '>&8(#f533f5me &7-> #34cfe0%target%&8) #e6e1e6<message></click></hover>"
+command-message-other: "<hover:show_text:'&fKlicke, um zu antworten'><click:suggest_command:'/r '>&8(#34cfe0%target% &7-> #f533f5me&8) #e6e1e6<message></click></hover>"
 command-message-social-spy:
   type: WITHOUT_PREFIX
-  message: "&8(&7SocialSpy&8) &8(<hover:show_text:'&fOpen sanction for %sender%'><click:run_command:'/sc %sender%'>#34cfe0%sender%</click></hover> &7-> <hover:show_text:'&fOpen sanction for %receiver%'><click:run_command:'/sc %receiver%'>#f533f5%receiver%</click></hover>&8) #e6e1e6%message%"
-command-message-error: "<error>You have no one to answer."
-command-message-toggle-enable: "&7Private message <success>enable &7for &f%player%<success>."
-command-message-toggle-disable: "&7Private message <error>disable &7for &f%player%<success>."
-command-social-spy-enable: "&7Social spy <success>enable &7for &f%player%<success>."
-command-social-spy-disable: "&7Social spy <error>disable &7for &f%player%<success>."
-command-warp-empty: "<error>No warp defined, use command &f/setwarp <name>"
-command-pay-toggle-enable: "&7Pay <success>enable &7for &f%player%<success>."
-command-pay-toggle-disable: "&7Pay <error>disable &7for &f%player%<error>."
-command-power-tools-toggle-enable: "<success>All of your power tools have been enabled &7for &f%player%<success>."
-command-power-tools-toggle-disable: "<error>All of your power tools have been disabled &7for &f%player%<error>."
+  message: "&8(&7SocialSpy&8) &8(<hover:show_text:'&fSanction für %sender% öffnen'><click:run_command:'/sc %sender%'>#34cfe0%sender%</click></hover> &7-> <hover:show_text:'&fSanction für %receiver% öffnen'><click:run_command:'/sc %receiver%'>#f533f5%receiver%</click></hover>&8) #e6e1e6%message%"
+command-message-error: "<error>Du hast niemanden, dem du antworten kannst."
+command-message-toggle-enable: "&7Private Nachrichten <success>aktiviert &7für &f%player%<success>."
+command-message-toggle-disable: "&7Private Nachrichten <error>deaktiviert &7für &f%player%<success>."
+command-social-spy-enable: "&7Social Spy <success>aktiviert &7für &f%player%<success>."
+command-social-spy-disable: "&7Social Spy <error>deaktiviert &7für &f%player%<success>."
+command-warp-empty: "<error>Kein Warp definiert, benutze den Befehl &f/setwarp <name>"
+command-pay-toggle-enable: "&7Zahlungen <success>aktiviert &7für &f%player%<success>."
+command-pay-toggle-disable: "&7Zahlungen <error>deaktiviert &7für &f%player%<error>."
+command-power-tools-toggle-enable: "<success>Alle deine Power-Tools wurden &7für &f%player%<success> aktiviert."
+command-power-tools-toggle-disable: "<error>Alle deine Power-Tools wurden &7für &f%player%<error> deaktiviert."
+
 
 
 # Kit
-command-kit-no-permission: "<error>You do not have permission to use the kit &f%kit%<error>."
-command-kit-not-found: "<error>Unable to find the kit &f%kit%<error>."
-command-kit-already-exists: "<error>The &f%kit% <error>kit already exists."
-command-kit-information-in-line-empty: "#8cc0ccʏᴏᴜʀ ᴋɪᴛs <success>♦ &7(%count%/%max%)&8: <error>ɴᴏ ᴋɪᴛ ᴀᴠᴀɪʟᴀʙʟᴇ"
+command-kit-no-permission: "<error>Du hast keine Berechtigung, das Kit &f%kit%<error> zu verwenden."
+command-kit-not-found: "<error>Das Kit &f%kit%<error> konnte nicht gefunden werden."
+command-kit-already-exists: "<error>Das Kit &f%kit%<error> existiert bereits."
+command-kit-information-in-line-empty: "#8cc0ccʏᴏᴜʀ ᴋɪᴛs <success>♦ &7(%count%/%max%)&8: <error>KEIN KIT VERFÜGBAR"
 command-kit-information-in-line: "#8cc0ccʏᴏᴜʀ ᴋɪᴛs&8:&f%kits%"
-command-kit-information-in-line-info-available: " <hover:show_text:'&7Click to get the kit &f&n%name%'><click:run_command:'/kit %name%'><#1fde65>%name%</click></hover>&7"
-command-kit-information-in-line-info-unavailable: " <hover:show_text:'&7You must wait <u>%time%</u> before getting the kit &f&n%name%'><st><#de1f1f>%name%</st></hover>&7"
+command-kit-information-in-line-info-available: " <hover:show_text:'&7Klicke, um das Kit &f&n%name% zu erhalten'><click:run_command:'/kit %name%'><#1fde65>%name%</click></hover>&7"
+command-kit-information-in-line-info-unavailable: " <hover:show_text:'&7Du musst <u>%time%</u> warten, bevor du das Kit &f&n%name% erhalten kannst'><st><#de1f1f>%name%</st></hover>&7"
 command-kit-information-multi-line-header: ""
-command-kit-information-multi-line-content-available: "<#8cc0cc>♢ <hover:show_text:'&7Click to get the kit &f&n%name%'><click:run_command:'/kit %name%'><#1fde65>%name% </click></hover>"
-command-kit-information-multi-line-content-unavailable: "<#8cc0cc>♢ <hover:show_text:'&7You must wait <u>%time%</u> before getting the kit &f&n%name%'><st><#de1f1f>%name%</st></hover> &8(&7%time%&8)"
+command-kit-information-multi-line-content-available: "<#8cc0cc>♢ <hover:show_text:'&7Klicke, um das Kit &f&n%name% zu erhalten'><click:run_command:'/kit %name%'><#1fde65>%name% </click></hover>"
+command-kit-information-multi-line-content-unavailable: "<#8cc0cc>♢ <hover:show_text:'&7Du musst <u>%time%</u> warten, bevor du das Kit &f&n%name% erhalten kannst'><st><#de1f1f>%name%</st></hover> &8(&7%time%&8)"
 command-kit-information-multi-line-footer: ""
-command-kit-editor-save: "<success>You have just modified the kit &f%kit%<success>."
-command-kit-create: "<success>You just created the kit &f%kit%<success>."
-command-kit-delete: "<success>You just deleted the kit &f%kit%<success>."
+command-kit-editor-save: "<success>Du hast gerade das Kit &f%kit%<success> geändert."
+command-kit-create: "<success>Du hast gerade das Kit &f%kit%<success> erstellt."
+command-kit-delete: "<success>Du hast gerade das Kit &f%kit%<success> gelöscht."
+
 
 
 # Cooldown
-command-cooldown-header: "&fPlayer cooldown %player% &8(&7%amount%&8)"
-command-cooldown-empty: "&f%player% <error>has no cooldown."
-# Available placeholders:
-# %key% - The key to the cooldown
-# %value% - The cooldown expiration timestamp
-# %timeLeft% - The time remaining before cooldown expiration
-# %createdAt% - Cooldown creation date
-# %player% - the Player's nickname
+command-cooldown-header: "&fSpieler Cooldown %player% &8(&7%amount%&8)"
+command-cooldown-empty: "&f%player% <error>hat keinen Cooldown."
+# Verfügbare Platzhalter:
+# %key% - Der Schlüssel zum Cooldown
+# %value% - Der Zeitstempel des Cooldown-Ablaufs
+# %timeLeft% - Die verbleibende Zeit bis zum Ablauf des Cooldowns
+# %createdAt% - Erstellungsdatum des Cooldowns
+# %player% - Der Spitzname des Spielers
 command-cooldown-line:
   type: WITHOUT_PREFIX
-  message: "&f%key% <secondary>- &7%createdAt% <secondary>- <success>%timeLeft% <secondary>- <hover:show_text:'&fClick to remove the cooldown'><click:run_command:'/cooldown delete %player% %key%'>&8[<error>ᴅᴇʟᴇᴛᴇ&8]</click></hover>"
-command-cooldown-not-found: "&f%cooldown% <error>was not found."
-command-cooldown-delete: "<success>You just removed the cooldown &f%cooldown% <success>from &n%player%&r<success>."
-# Available placeholders:
-# %key% - The key to the cooldown
-# %player% - the Player's nickname
-# %duration% - the duration of the cooldown
-command-cooldown-create: "<success>You just created the cooldown &f%key% <success>for &n%player%&r<success>."
+  message: "&f%key% <secondary>- &7%createdAt% <secondary>- <success>%timeLeft% <secondary>- <hover:show_text:'&fKlicke, um den Cooldown zu entfernen'><click:run_command:'/cooldown delete %player% %key%'>&8[<error>ᴅᴇʟᴇᴛᴇ&8]</click></hover>"
+command-cooldown-not-found: "&f%cooldown% <error>wurde nicht gefunden."
+command-cooldown-delete: "<success>Du hast gerade den Cooldown &f%cooldown% <success>von &n%player%&r<success> entfernt."
+# Verfügbare Platzhalter:
+# %key% - Der Schlüssel zum Cooldown
+# %player% - Der Spitzname des Spielers
+# %duration% - Die Dauer des Cooldowns
+command-cooldown-create: "<success>Du hast gerade den Cooldown &f%key% <success>für &n%player%&r<success> erstellt."
 
 
-command-item-empty: "<error>You have no item in your hand."
-command-item-clear: "<success>You have cleared this item's name"
-command-item-set: "<success>You have renamed your held item to &f%name%<success>."
-command-item-lore-add: "<success>You just added the line &f%text%<success>."
-command-item-lore-set: "<success>You just set line %line% to &f%text%<success>."
-command-item-lore-clear: "<success>You just clear the item lore."
-command-item-lore-set-error: "<error>Can’t find the line &f%line%<error>."
-command-give-error: "<error>Can’t find the item &f%item%<error>."
-command-give: "<success>You just gave &n&fx%amount% %item%&r <success>to player &f%player%<success>."
-command-give-all: "<success>You just gave &n&fx%amount% %item%&r <success>to online player."
-command-give-vault: "<success>You just gave &n&fx%amount% %item%&r <success>to &f%player%<success>'s vault."
 
-command-power-tool-error-item: "<error>You have no item in your hand."
-command-power-tool-error-reset: "<error>This item has no recorded command."
-command-power-tool-info: "<success>You just put the command &f/%command%<success> on the item &f%item<success>."
-command-power-tool-reset: "<success>You have just deleted the command on the item &f%item<success>."
+command-item-empty: "<error>Du hast keinen Gegenstand in der Hand."
+command-item-clear: "<success>Du hast den Namen dieses Gegenstands gelöscht."
+command-item-set: "<success>Du hast deinen gehaltenen Gegenstand in &f%name%<success> umbenannt."
+command-item-lore-add: "<success>Du hast gerade die Zeile &f%text%<success> hinzugefügt."
+command-item-lore-set: "<success>Du hast gerade die Zeile %line% auf &f%text%<success> gesetzt."
+command-item-lore-clear: "<success>Du hast die Beschreibung des Gegenstands gelöscht."
+command-item-lore-set-error: "<error>Die Zeile &f%line%<error> konnte nicht gefunden werden."
+command-give-error: "<error>Der Gegenstand &f%item%<error> konnte nicht gefunden werden."
+command-give: "<success>Du hast gerade &n&fx%amount% %item%&r <success>an den Spieler &f%player%<success> gegeben."
+command-give-all: "<success>Du hast gerade &n&fx%amount% %item%&r <success>an alle Online-Spieler gegeben."
+command-give-vault: "<success>Du hast gerade &n&fx%amount% %item%&r <success>an das Lager von &f%player%<success> gegeben."
 
-mailbox-remove-full: "<error>You must have space in your inventory to retrieve an item."
-mailbox-remove-expire: "<error>You can no longer retrieve this item, it has expired."
+command-power-tool-error-item: "<error>Du hast keinen Gegenstand in der Hand."
+command-power-tool-error-reset: "<error>Dieser Gegenstand hat keinen aufgezeichneten Befehl."
+command-power-tool-info: "<success>Du hast gerade den Befehl &f/%command%<success> auf den Gegenstand &f%item<success> gesetzt."
+command-power-tool-reset: "<success>Du hast gerade den Befehl auf dem Gegenstand &f%item<success> gelöscht."
+
+mailbox-remove-full: "<error>Du musst Platz in deinem Inventar haben, um einen Gegenstand abzuholen."
+mailbox-remove-expire: "<error>Du kannst diesen Gegenstand nicht mehr abholen, da er abgelaufen ist."
 mailbox-add:
   type: ACTION
-  message: "<success>An item has just been added to your mailbox &8(&f/mail&8)"
-mailbox-give-error: "<error>Can’t find the item &f%item%<error>."
-mailbox-give: "<success>You just gave &n&fx%amount% %item%&r <success>to player &f%player%<success>'s mailbox."
-mailbox-give-all: "<success>You just gave &n&fx%amount% %item%&r <success>to online players' mailboxes."
+  message: "<success>Ein Gegenstand wurde gerade deinem Postfach hinzugefügt &8(&f/mail&8)"
+mailbox-give-error: "<error>Der Gegenstand &f%item%<error> konnte nicht gefunden werden."
+mailbox-give: "<success>Du hast gerade &n&fx%amount% %item%&r <success>an das Postfach von &f%player%<success> gegeben."
+mailbox-give-all: "<success>Du hast gerade &n&fx%amount% %item%&r <success>an die Postfächer aller Online-Spieler gegeben."
 
 
-hologram-create-error: "<error>Hologram &f%name% <error>already exists."
+
+hologram-create-error: "<error>Hologramm &f%name% <error>existiert bereits."
 hologram-create:
   type: WITHOUT_PREFIX
   messages:
-    - "<success>You just created the hologram &f%name%<success>."
-    - "&7Use &n<click:run_command:'/hologram edit %name%'>/hologram edit %name%</click>&r&7 command to edit the hologram"
-hologram-delete: "<success>Hologram &f%name% <success>has been deleted."
-hologram-doesnt-exist: "<error>Hologram &f%name% <error>doesn't exist."
-hologram-is-not-a-text: "<error>Hologram &f%name% <error>is not a text hologram."
-hologram-is-not-a-block: "<error>Hologram &f%name% <error>is not a block hologram."
-hologram-is-not-a-item: "<error>Hologram &f%name% <error>is not an item hologram."
-hologram-add-line: "<success>You just added a line to the hologram &f%name%<success>."
-hologram-set-line: "<success>You just set the line &f%line%<success> to the hologram &f%name%<success>."
-hologram-insert-before-line: "<success>You just set a new line before the line &f%line%<success> to the hologram &f%name%<success>."
-hologram-insert-after-line: "<success>You just set a new line after the line &f%line%<success> to the hologram &f%name%<success>."
-hologram-line-doesnt-exist: "<error>The line &f%line% <error>does not exist for the hologram &f%name%<error>."
-hologram-remove-line: "<success>You just removed the line &f%line%<success> from the hologram &f%name%<success>."
-hologram-scale: "<success>You just changed the scale of the hologram &f%name% <success>to &7%x%&8, &7%y%&8, &7%z%<success>."
-hologram-translation: "<success>You just changed the translation of the hologram &f%name% <success>to &7%x%&8, &7%y%&8, &7%z%<success>."
-hologram-move-here: "<success>You just teleported the hologram &f%name%<success> to your position."
-hologram-move-to: "<success>You just teleported the hologram &f%name% <success>to &7%x%&8, &7%y%&8, &7%z%<success>."
-hologram-billboard: "<success>You just changed the billboard of the hologram &f%name%<success> to &f%billboard%<success>."
-hologram-text-alignment: "<success>You just changed the text alignment of the hologram &f%name%<success> to &f%textAlignment%<success>."
-hologram-yaw: "<success>You just changed the yaw of the hologram &f%name%<success> to &f%yaw%<success>."
-hologram-pitch: "<success>You just changed the pitch of the hologram &f%name%<success> to &f%pitch%<success>."
-hologram-text-background: "<success>You just changed the background color of the hologram &f%name%<success> to &f%color%<success>."
-hologram-text-background-error: "<error>Could not parse background color."
-hologram-text-shadow: "<success>You set the text shadow to &f%textshadow% <success>for the hologram &f%name%<success>."
-hologram-see-through: "<success>You set the see-through to &f%seethrough% <success>for the hologram &f%name%<success>."
-hologram-shadow-strength: "<success>You set the shadow strength to &f%shadow% <success>for the hologram &f%name%<success>."
-hologram-shadow-radius: "<success>You set the shadow radius to &f%shadow% <success>for the hologram &f%name%<success>."
-hologram-view-distance: "<success>You set the view distance to &f%distance% <success>for the hologram &f%name%<success>."
-hologram-list-empty: "<error>There is no hologram, to create one please use the command &f/holo create <name>"
+    - "<success>Du hast das Hologramm &f%name%<success> erstellt."
+    - "&7Verwende den Befehl &n<click:run_command:'/hologram edit %name%'>/hologram edit %name%</click>&r&7, um das Hologramm zu bearbeiten."
+hologram-delete: "<success>Hologramm &f%name% <success>wurde gelöscht."
+hologram-doesnt-exist: "<error>Hologramm &f%name% <error>existiert nicht."
+hologram-is-not-a-text: "<error>Hologramm &f%name% <error>ist kein Text-Hologramm."
+hologram-is-not-a-block: "<error>Hologramm &f%name% <error>ist kein Block-Hologramm."
+hologram-is-not-a-item: "<error>Hologramm &f%name% <error>ist kein Item-Hologramm."
+hologram-add-line: "<success>Du hast eine Zeile zum Hologramm &f%name%<success> hinzugefügt."
+hologram-set-line: "<success>Du hast die Zeile &f%line%<success> zum Hologramm &f%name%<success> hinzugefügt."
+hologram-insert-before-line: "<success>Du hast eine neue Zeile vor der Zeile &f%line%<success> im Hologramm &f%name%<success> hinzugefügt."
+hologram-insert-after-line: "<success>Du hast eine neue Zeile nach der Zeile &f%line%<success> im Hologramm &f%name%<success> hinzugefügt."
+hologram-line-doesnt-exist: "<error>Die Zeile &f%line% <error>existiert nicht im Hologramm &f%name%<error>."
+hologram-remove-line: "<success>Du hast die Zeile &f%line%<success> aus dem Hologramm &f%name%<success> entfernt."
+hologram-scale: "<success>Du hast die Skalierung des Hologramms &f%name% <success>auf &7%x%&8, &7%y%&8, &7%z%<success> geändert."
+hologram-translation: "<success>Du hast die Übersetzung des Hologramms &f%name% <success>auf &7%x%&8, &7%y%&8, &7%z%<success> geändert."
+hologram-move-here: "<success>Du hast das Hologramm &f%name%<success> an deine Position teleportiert."
+hologram-move-to: "<success>Du hast das Hologramm &f%name% <success>nach &7%x%&8, &7%y%&8, &7%z%<success> teleportiert."
+hologram-billboard: "<success>Du hast das Billboard des Hologramms &f%name%<success> auf &f%billboard%<success> geändert."
+hologram-text-alignment: "<success>Du hast die Textausrichtung des Hologramms &f%name%<success> auf &f%textAlignment%<success> geändert."
+hologram-yaw: "<success>Du hast den Yaw-Winkel des Hologramms &f%name%<success> auf &f%yaw%<success> geändert."
+hologram-pitch: "<success>Du hast den Pitch-Winkel des Hologramms &f%name%<success> auf &f%pitch%<success> geändert."
+hologram-text-background: "<success>Du hast die Hintergrundfarbe des Hologramms &f%name%<success> auf &f%color%<success> geändert."
+hologram-text-background-error: "<error>Hintergrundfarbe konnte nicht verarbeitet werden."
+hologram-text-shadow: "<success>Du hast den Textschatten des Hologramms &f%name%<success> auf &f%textshadow%<success> gesetzt."
+hologram-see-through: "<success>Du hast die Durchsichtigkeit des Hologramms &f%name%<success> auf &f%seethrough%<success> gesetzt."
+hologram-shadow-strength: "<success>Du hast die Schattenstärke des Hologramms &f%name%<success> auf &f%shadow%<success> gesetzt."
+hologram-shadow-radius: "<success>Du hast den Schattenradius des Hologramms &f%name%<success> auf &f%shadow%<success> gesetzt."
+hologram-view-distance: "<success>Du hast die Sichtdistanz des Hologramms &f%name%<success> auf &f%distance%<success> gesetzt."
+hologram-list-empty: "<error>Es gibt kein Hologramm. Um ein Hologramm zu erstellen, benutze den Befehl &f/holo create <name>"
 hologram-list:
   type: WITHOUT_PREFIX
-  message: "&f%name% &8- &7%world%: %x%, %y%, %z% &8- <hover:show_text:'&7Click to be teleported to this hologram'><click:run_command:'/holo tp %name%'><green>ᴛᴇʟᴇᴘᴏʀᴛ</click> </hover><hover:show_text:'<red>Click to delete this hologram'><click:suggest_command:'/holo delete %name%'><red>ᴅᴇʟᴇᴛᴇ</click></hover>"
-hologram-item-error: "<error>You can't use air for this hologram."
-hologram-item: "<success>You just modified the item of the hologram &f%name%<success>."
-hologram-block: "<success>You just modified the block of the hologram &f%name%<success> to &f%material%<success>."
+  message: "&f%name% &8- &7%world%: %x%, %y%, %z% &8- <hover:show_text:'&7Klicke, um zu diesem Hologramm teleportiert zu werden'><click:run_command:'/holo tp %name%'><green>ᴛᴇʟᴇᴘᴏʀᴛ</click> </hover><hover:show_text:'<red>Klicke, um dieses Hologramm zu löschen'><click:suggest_command:'/holo delete %name%'><red>ᴅᴇʟᴇᴛᴇ</click></hover>"
+hologram-item-error: "<error>Du kannst Luft nicht für dieses Hologramm verwenden."
+hologram-item: "<success>Du hast das Item des Hologramms &f%name%<success> geändert."
+hologram-block: "<success>Du hast den Block des Hologramms &f%name%<success> auf &f%material%<success> geändert."
 
-scoreboard-disable: "<error>You just disabled the scoreboard."
-scoreboard-enable: "<success>You just enabled the scoreboard."
 
-command-baltop-error: "<error>Can’t find the economy &f%name%<error>."
+scoreboard-disable: "<error>Du hast das Scoreboard deaktiviert."
+scoreboard-enable: "<success>Du hast das Scoreboard aktiviert."
+
+command-baltop-error: "<error>Die Wirtschaft &f%name%<error> konnte nicht gefunden werden."
 command-baltop-header:
   type: WITHOUT_PREFIX
   message: "#00f986ᴍᴏsᴛ ᴍᴏɴᴇʏ &8(&f%page%&8/&7%maxPage%&8) <click:run_command:'/baltop %previousPage%'>&f◀</click> &8- <click:run_command:'/baltop %nextPage%'>&f▶</click>"
@@ -778,104 +786,106 @@ command-baltop:
   type: WITHOUT_PREFIX
   message: "#00f986#%position% &f%name%&8: %amount%"
 
-command-voteparty-set: "<success>You just set the voteparty to &f%amount% <success>votes."
-command-voteparty-add: "<success>You just added &f%amount% <success>vote in the voteparty."
-command-voteparty-remove: "<success>You have just removed &f%amount% <success>vote in the voteparty."
+command-voteparty-set: "<success>Du hast die Voteparty auf &f%amount% <success>Stimmen gesetzt."
+command-voteparty-add: "<success>Du hast &f%amount% <success>Stimmen zur Voteparty hinzugefügt."
+command-voteparty-remove: "<success>Du hast &f%amount% <success>Stimmen von der Voteparty entfernt."
 command-voteparty-informations: "<green>VoteParty: <white>%amount%<dark_gray>/<yellow>%objective%"
 
-command-vote-add: "<success>You just added a vote to &f%player%<success>."
-command-vote-add-error: "<error>The site &f%site% <error>doesn't exist !"
+command-vote-add: "<success>Du hast eine Stimme für &f%player%<success> hinzugefügt."
+command-vote-add-error: "<error>Die Seite &f%site% <error>existiert nicht!"
 command-vote:
   type: ACTION
-  message: "<success>You just voted and received a vote key."
+  message: "<success>Du hast abgestimmt und einen Abstimmungsschlüssel erhalten."
 
 vote-offline:
   - ""
-  - "<success>You have voted <gold>%amount% times <success>while offline, use the command <yellow><click:run_command:'/mailbox'>/mailbox</click> <success>to get your items !"
+  - "<success>Du hast <gold>%amount% Mal<success> abgestimmt, während du offline warst. Verwende den Befehl <yellow><click:run_command:'/mailbox'>/mailbox</click> <success>, um deine Items zu erhalten!"
   - ""
 
 vault-lore:
   - ""
   - "&fɪɴғᴏʀᴍᴀᴛɪᴏɴs"
-  - " #f8b175• &7Quantity&8: &e%quantity%"
+  - " #f8b175• &7Menge&8: &e%quantity%"
   - ""
-  - "&f<b>➥</b> #fc99f8Left Click &7for take 1"
-  - "&f<b>➥</b> #fc99f8Right Click &7for take 64"
-  - "&f<b>➥</b> #fc99f8Sneak + Right Click &7for take all"
-command-vault-not-found: "<error>Cannot find the vault &f%vaultId%<error>."
-command-vault-no-permission: "<error>You do not have permission to view the vault."
-command-vault-set-slot: "<success>You just defined the slot of &f%player% <success>to &7%slots%<success>."
-command-vault-add-slot: "<success>You've just added &7%amount% <success>slot to &f%player%<success>."
-command-vault-change-icon-error: "<error>You have an item in your hand."
-command-vault-change-icon-success: "<success>You just changed the icon of your vault."
-command-vault-reset-icon: "<success>You just reset the icon of your vault."
-command-vault-rename-start: "<success>Please write in the chat the new name of the vault."
-command-vault-rename-success: "<success>You just set the vault name to &f%name%<success>."
-command-vault-rename-error: "<error>You cannot use this name for your vault."
-command-vault-rename-reset: "<success>You just reset the name of your vault."
+  - "&f<b>➥</b> #fc99f8Linksklick &7für 1 nehmen"
+  - "&f<b>➥</b> #fc99f8Rechtsklick &7für 64 nehmen"
+  - "&f<b>➥</b> #fc99f8Sneak + Rechtsklick &7für alles nehmen"
+command-vault-not-found: "<error>Das Vault &f%vaultId%<error> konnte nicht gefunden werden."
+command-vault-no-permission: "<error>Du hast keine Berechtigung, das Vault anzuzeigen."
+command-vault-set-slot: "<success>Du hast den Slot für &f%player% <success>auf &7%slots%<success> festgelegt."
+command-vault-add-slot: "<success>Du hast &7%amount% <success>Slots zu &f%player%<success> hinzugefügt."
+command-vault-change-icon-error: "<error>Du hast ein Item in der Hand."
+command-vault-change-icon-success: "<success>Du hast das Icon deines Vaults geändert."
+command-vault-reset-icon: "<success>Du hast das Icon deines Vaults zurückgesetzt."
+command-vault-rename-start: "<success>Bitte schreibe den neuen Namen des Vaults in den Chat."
+command-vault-rename-success: "<success>Du hast den Namen des Vaults auf &f%name%<success> festgelegt."
+command-vault-rename-error: "<error>Du kannst diesen Namen nicht für dein Vault verwenden."
+command-vault-rename-reset: "<success>Du hast den Namen deines Vaults zurückgesetzt."
 
 
-command-enchant-invalid: "<error>You need to specify a valid player."
-command-enchant-error-enchant: "<error>Impossible to find the enchantment &f%name%<error>."
-command-enchant-error-item-self: "<error>You must have an item in your hand."
-command-enchant-error-item-player: "<error>%player% has no item in his hand."
-command-enchant-remove-self: "<success>The enchantment &f%enchant% <success>has been removed from your item in hand."
-command-enchant-remove-player: "<success>The enchantment &f%enchant% <success>has been removed from the item from &f%player%’s<success> hand."
-command-enchant-success-self: "<success>The enchantment &f%enchant% <success>has been applied to your item in hand."
-command-enchant-success-player: "<success>The enchantment &f%enchant% <success>has been applied to the item from &f%player%’s<success> hand."
 
-command-sudo-error: "<error>You cannot force the player to execute commands."
-command-sudo-command: "<success>You just forced the player <white>%player% <success>to execute the command <white>/%command%<success>."
-command-sudo-message: "<success>You just forced the player <white>%player% <success>to send the message <white>%message%<success>."
+command-enchant-invalid: "<error>Du musst einen gültigen Spieler angeben."
+command-enchant-error-enchant: "<error>Verzauberung &f%name%<error> konnte nicht gefunden werden."
+command-enchant-error-item-self: "<error>Du musst einen Gegenstand in der Hand haben."
+command-enchant-error-item-player: "<error>%player% hat keinen Gegenstand in der Hand."
+command-enchant-remove-self: "<success>Die Verzauberung &f%enchant% <success>wurde von deinem gehaltenen Gegenstand entfernt."
+command-enchant-remove-player: "<success>Die Verzauberung &f%enchant% <success>wurde vom Gegenstand in der Hand von &f%player%<success> entfernt."
+command-enchant-success-self: "<success>Die Verzauberung &f%enchant% <success>wurde auf deinen gehaltenen Gegenstand angewendet."
+command-enchant-success-player: "<success>Die Verzauberung &f%enchant% <success>wurde auf den Gegenstand in der Hand von &f%player%<success> angewendet."
+
+command-sudo-error: "<error>Du kannst den Spieler nicht zwingen, Befehle auszuführen."
+command-sudo-command: "<success>Du hast den Spieler <white>%player% <success>gezielt, um den Befehl <white>/%command%<success> auszuführen."
+command-sudo-message: "<success>Du hast den Spieler <white>%player% <success>gezielt, um die Nachricht <white>%message%<success> zu senden."
+
 
 # WorldEdit
-command-worldedit-give-error: "<error>Unable to find item &f%name%<error>"
-command-worldedit-give-sender: "<success>You just gave &f%item% <success>to the player &f%player%<success>."
-command-worldedit-give-receiver: "<success>You just received &f%item%<success>."
-command-worldedit-material-not-found: "<error>Unable to find the material &f%material%<error>."
+command-worldedit-give-error: "<error>Artikel &f%name%<error> konnte nicht gefunden werden."
+command-worldedit-give-sender: "<success>Du hast gerade &f%item% <success>dem Spieler &f%player%<success> gegeben."
+command-worldedit-give-receiver: "<success>Du hast gerade &f%item%<success> erhalten."
+command-worldedit-material-not-found: "<error>Material &f%material%<error> konnte nicht gefunden werden."
 command-worldedit-confirm-price:
   - ""
-  - "<success>Price<dark_gray>: <white>%price%"
-  - "<success>Blocks<dark_gray>:<white>%materials%"
-  - "<success>Duration<dark_gray>: <white>%duration% <dark_gray>(<gray>%blocks% blocks at %speed% block%s%/s)"
+  - "<success>Preis<dark_gray>: <white>%price%"
+  - "<success>Blöcke<dark_gray>:<white>%materials%"
+  - "<success>Dauer<dark_gray>: <white>%duration% <dark_gray>(<gray>%blocks% Blöcke bei %speed% Block%s%/s)"
   - ""
-  - "<#45ff55><hover:show_text:'&fClick to confirm action'><click:run_command:'/pw confirm'>ᴄʟɪᴄᴋ ʜᴇʀᴇ ᴛᴏ ᴄᴏɴғɪʀᴍ</click></hover><gray>"
+  - "<#45ff55><hover:show_text:'&fKlicke, um die Aktion zu bestätigen'><click:run_command:'/pw confirm'>ᴄʟɪᴄᴋ ʜᴇʀᴇ ᴛᴏ ᴄᴏɴғɪʀᴍ</click></hover><gray>"
 command-worldedit-confirm-price-cut:
   - ""
-  - "<success>Price<dark_gray>: <white>%price%"
-  - "<success>Duration<dark_gray>: <white>%duration% <dark_gray>(<gray>%blocks% blocks at %speed% block%s%/s)"
+  - "<success>Preis<dark_gray>: <white>%price%"
+  - "<success>Dauer<dark_gray>: <white>%duration% <dark_gray>(<gray>%blocks% Blöcke bei %speed% Block%s%/s)"
   - ""
-  - "<#45ff55><hover:show_text:'&fClick to confirm action'><click:run_command:'/pw confirm'>ᴄʟɪᴄᴋ ʜᴇʀᴇ ᴛᴏ ᴄᴏɴғɪʀᴍ</click></hover><gray>"
-command-worldedit-confirm-material: " <white><hover:show_text:'<white>Amount<dark_gray>: <aqua>%amount%<newline><white>Total Price<dark_gray>: <aqua>%price%<newline><white>Price per block<dark_gray>: <aqua>%price-per-block%'><lang:%translation-key%></hover><gray>"
-command-worldedit-confirm-error: "<error>You can’t do that now."
-command-worldedit-stop-empty: "<error>You have no current edition."
-command-worldedit-stop-error: "<error>You cannot stop editing currently."
-command-worldedit-error-item: "<error>You must have the worldedit tool in your hand."
-command-worldedit-error-max: "<error>You can only use this tool, it has been used to the maximum."
-command-worldedit-option-inventory-enable: "<success>You have just activated worldedit to use your inventory."
-command-worldedit-option-inventory-disable: "<error>You just disabled worldedit to use your inventory."
-command-worldedit-option-bossbar-enable: "<success>You have just activated worldedit progress bar."
-command-worldedit-option-bossbar-disable: "<error>You just disabled worldedit progress bar."
+  - "<#45ff55><hover:show_text:'&fKlicke, um die Aktion zu bestätigen'><click:run_command:'/pw confirm'>ᴄʟɪᴄᴋ ʜᴇʀᴇ ᴛᴏ ᴄᴏɴғɪʀᴍ</click></hover><gray>"
+command-worldedit-confirm-material: " <white><hover:show_text:'<white>Menge<dark_gray>: <aqua>%amount%<newline><white>Gesamtpreis<dark_gray>: <aqua>%price%<newline><white>Preis pro Block<dark_gray>: <aqua>%price-per-block%'><lang:%translation-key%></hover><gray>"
+command-worldedit-confirm-error: "<error>Du kannst das jetzt nicht tun."
+command-worldedit-stop-empty: "<error>Du hast keine laufende Bearbeitung."
+command-worldedit-stop-error: "<error>Du kannst das Bearbeiten momentan nicht stoppen."
+command-worldedit-error-item: "<error>Du musst das WorldEdit-Werkzeug in der Hand halten."
+command-worldedit-error-max: "<error>Du kannst dieses Werkzeug nur benutzen, es wurde auf das Maximum genutzt."
+command-worldedit-option-inventory-enable: "<success>Du hast gerade WorldEdit aktiviert, um dein Inventar zu verwenden."
+command-worldedit-option-inventory-disable: "<error>Du hast gerade WorldEdit deaktiviert, um dein Inventar zu verwenden."
+command-worldedit-option-bossbar-enable: "<success>Du hast gerade die WorldEdit-Fortschrittsanzeige aktiviert."
+command-worldedit-option-bossbar-disable: "<error>Du hast gerade die WorldEdit-Fortschrittsanzeige deaktiviert."
 
-worldedit-selection-error: "<error>You must select two positions before you make this command."
-worldedit-already-running: "<error>You already have an edit in progress, please wait until it is finished."
-worldedit-not-enough-money: "<error>You don’t have enough money to make this edition."
-worldedit-not-enough-items: "<error>You don’t have the items in your inventory, you can’t do that."
-worldedit-selection-pos1: "<success>You have just defined the first position."
-worldedit-selection-pos2: "<success>You have just defined the second position."
-worldedit-selection-volume: "<error>You cannot change more than &f%blocks% <error>at the same time."
-worldedit-selection-distance: "<error>The distance between your two points in your selection is too large. <dark_gray>(<gray>Maximum <white>%distance% <gray>blocks<dark_gray>)"
+worldedit-selection-error: "<error>Du musst zwei Positionen auswählen, bevor du diesen Befehl ausführst."
+worldedit-already-running: "<error>Du hast bereits eine Bearbeitung im Gange, bitte warte, bis sie abgeschlossen ist."
+worldedit-not-enough-money: "<error>Du hast nicht genug Geld, um diese Bearbeitung vorzunehmen."
+worldedit-not-enough-items: "<error>Du hast nicht genügend Items in deinem Inventar, du kannst das nicht tun."
+worldedit-selection-pos1: "<success>Du hast gerade die erste Position definiert."
+worldedit-selection-pos2: "<success>Du hast gerade die zweite Position definiert."
+worldedit-selection-volume: "<error>Du kannst nicht mehr als &f%blocks% <error>gleichzeitig ändern."
+worldedit-selection-distance: "<error>Der Abstand zwischen deinen beiden Punkten in der Auswahl ist zu groß. <dark_gray>(<gray>Maximum <white>%distance% <gray>Blöcke<dark_gray>)"
 
-worldedit-start-calculate-price: "&7Price calculation in progress, please wait..."
-worldedit-start-check-inventory: "&7Checking that you have enough items in your inventory, please wait..."
-worldedit-start-running: "&7Launch of current edition, please wait..."
-worldedit-finish: "<success>Edition completed !"
+worldedit-start-calculate-price: "&7Preisberechnung läuft, bitte warte..."
+worldedit-start-check-inventory: "&7Überprüfe, ob du genügend Items in deinem Inventar hast, bitte warte..."
+worldedit-start-running: "&7Starte die aktuelle Bearbeitung, bitte warte..."
+worldedit-finish: "<success>Bearbeitung abgeschlossen!"
 worldedit-refund:
   - "<success>ʏᴏᴜ'ᴠᴇ ᴊᴜsᴛ ʙᴇᴇɴ ʀᴇғᴜɴᴅ"
   - ""
-  - "<success>Price<dark_gray>: <white>%price%"
-  - "<success>Blocks<dark_gray>:<red>%materials%"
-worldedit-refund-material: " <white><hover:show_text:'<white>Amount<dark_gray>: <aqua>%amount%<newline><white>Total Price<dark_gray>: <aqua>%price%<newline><white>Price per block<dark_gray>: <aqua>%price-per-block%'><lang:%translation-key%></hover><gray>"
-worldedit-refund-empty: " No block to refund"
-worldedit-bossbar: "#45ff45Time remaining<dark_gray>: <white>%time%"
-worldedit-speed-error: "<error>You have no permission to set speed per second."
+  - "<success>Preis<dark_gray>: <white>%price%"
+  - "<success>Blöcke<dark_gray>:<red>%materials%"
+worldedit-refund-material: " <white><hover:show_text:'<white>Menge<dark_gray>: <aqua>%amount%<newline><white>Gesamtpreis<dark_gray>: <aqua>%price%<newline><white>Preis pro Block<dark_gray>: <aqua>%price-per-block%'><lang:%translation-key%></hover><gray>"
+worldedit-refund-empty: " Keine Blöcke zur Erstattung"
+worldedit-bossbar: "#45ff45Verbleibende Zeit<dark_gray>: <white>%time%"
+worldedit-speed-error: "<error>Du hast keine Berechtigung, die Geschwindigkeit pro Sekunde einzustellen."
