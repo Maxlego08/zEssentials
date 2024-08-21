@@ -409,14 +409,14 @@ format-hour: "Stunde"
 format-hours: "Stunden"
 format-day: "Tag"
 format-days: "Tage"
-cooldown: "<error>✘ Du musst &f%cooldown% <error>warten, bevor du diese Aktion durchführen kannst.</error>"
-cooldown-commands: "<error>✘ Du musst &f%cooldown% <error>warten, bevor du diese Befehle ausführen kannst.</error>"
+cooldown: "<error>✘ Du musst &f%cooldown% <error>warten, bevor du diese Aktion durchführen kannst.<error>"
+cooldown-commands: "<error>✘ Du musst &f%cooldown% <error>warten, bevor du diese Befehle ausführen kannst.<error>"
 
 
 # Teleportation
-teleport-move: "<error>Du darfst dich nicht bewegen!</error>"
-teleport-damage: "<error>Du darfst während der Teleportation keinen Schaden nehmen.</error>"
-teleport-error-location: "<error>Du kannst nicht sicher teleportiert werden.</error>"
+teleport-move: "<error>Du darfst dich nicht bewegen!<error>"
+teleport-damage: "<error>Du darfst während der Teleportation keinen Schaden nehmen.<error>"
+teleport-error-location: "<error>Du kannst nicht sicher teleportiert werden.<error>"
 
 teleport-message:
   type: ACTION
@@ -468,14 +468,14 @@ teleport-success-home:
 
 # Warps
 command-warp-already-exist: "<error>Warp &f%name% <error>existiert bereits. &7Verwende den Befehl &n<hover:show_text:'&fVerwende diesen Befehl'><click:suggest_command:'/setwarp %name% true'>/setwarp %name% true</click></hover>&r, um den Warp zu ändern.</n>"
-command-warp-doesnt-exist: "<error>Warp &f%name% <error> existiert nicht.</error>"
-command-warp-no-permission: "<error>Du hast keine Berechtigung, den Warp &f%name% <error>zu nutzen.</error>"
+command-warp-doesnt-exist: "<error>Warp &f%name% <error> existiert nicht.<error>"
+command-warp-no-permission: "<error>Du hast keine Berechtigung, den Warp &f%name% <error>zu nutzen.<error>"
 command-warp-create:
   - "#00ff00Du hast den Warp &f%name% #00ff00an deiner Position erstellt."
   - "&7Warp-Berechtigung ist: <hover:show_text:'&fBefehl kopieren, um Berechtigung für einen Spieler hinzuzufügen'><click:SUGGEST_COMMAND:'/lp user <username> permission set essentials.warp.%name%'>&f&nessentials.warp.%name%</click></hover>"
 
 command-warp-use:
-  - "<error>Verwendung&8: &f/warp <destination></error>"
+  - "<error>Verwendung&8: &f/warp <destination><error>"
   - "&7Warps&8:&f%destinations%"
 
 command-warp-destination: " <hover:show_text:'&fKlicke, um zu Warp &n%name% zu teleportieren'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"
@@ -486,17 +486,17 @@ command-warp-delete: "#00ff00Du hast den Warp &f%name% #00ff00entfernt."
 
 
 # Homes
-command-set-home-invalide-name: "&f%name% <error>ist kein gültiger Name, bitte wähle einen anderen.</error>"
-command-set-home-too-long: "&f%name% <error>ist zu lang, bitte wähle einen kürzeren Namen.</error>"
-command-set-home-too-short: "&f%name% <error>ist zu kurz, bitte wähle einen längeren Namen.</error>"
-command-set-home-max: "<error>Du kannst nicht mehr als &f%max%<error> Homes haben.</error>"
-command-set-home-world: "<error>Du kannst hier kein Home erstellen.</error>"
+command-set-home-invalide-name: "&f%name% <error>ist kein gültiger Name, bitte wähle einen anderen.<error>"
+command-set-home-too-long: "&f%name% <error>ist zu lang, bitte wähle einen kürzeren Namen.<error>"
+command-set-home-too-short: "&f%name% <error>ist zu kurz, bitte wähle einen längeren Namen.<error>"
+command-set-home-max: "<error>Du kannst nicht mehr als &f%max%<error> Homes haben.<error>"
+command-set-home-world: "<error>Du kannst hier kein Home erstellen.<error>"
 command-set-home-create:
   - ""
   - "#99E0FFDu hast das Home &f%name% #99E0FFerstellt. &8(&7%current%&8/&7%max%&8)"
   - "&fVerwende den Befehl &n<hover:show_text:'&fKlicke, um zum Home zu teleportieren'><click:suggest_command:'/home %name%'>/home %name%</click></hover>&r, um dorthin zu teleportieren."
   - ""
-command-home-doesnt-exist: "<error>Das Home &f%name% <error>existiert nicht.</error>"
+command-home-doesnt-exist: "<error>Das Home &f%name% <error>existiert nicht.<error>"
 
 
 # Verfügbare Platzhalter:
