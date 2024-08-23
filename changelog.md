@@ -1,6 +1,7 @@
 # Unreleased
 
-- Updated the command `/endersee` to be compatible with offline players
+- Updated the command `/endersee` to be compatible with offline players, added permission `essentials.endersee.offline`
+- Updated the command `/invsee` to be compatible with offline players, added permission `essentials.invsee.offline`
 
 # 1.0.0.6
 
