@@ -1,4 +1,4 @@
-package fr.maxlego08.essentials.nms.v1_21.enderchest;
+package fr.maxlego08.essentials.nms.v1_20_4.enderchest;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.Util;
@@ -8,8 +8,8 @@ import net.minecraft.nbt.NumericTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.storage.PlayerDataStorage;
-import org.bukkit.craftbukkit.CraftServer;
-import org.bukkit.craftbukkit.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_20_R3.CraftServer;
+import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -20,22 +20,16 @@ import java.util.Set;
 
 public class OpenPlayer extends CraftPlayer {
 
-    /**
-     * List of tags to always reset when saving.
-     *
-     * @see net.minecraft.world.entity.Entity#saveWithoutId(CompoundTag)
-     * @see ServerPlayer#addAdditionalSaveData(CompoundTag)
-     * @see net.minecraft.world.entity.LivingEntity#addAdditionalSaveData(CompoundTag)
-     */
     private static final Set<String> RESET_TAGS = Set.of(
-            // Entity#saveWithoutId(CompoundTag)
+            // net.minecraft.world.Entity#saveWithoutId(CompoundTag)
             "CustomName", "CustomNameVisible", "Silent", "NoGravity", "Glowing", "TicksFrozen", "HasVisualFire", "Tags", "Passengers",
-            // ServerPlayer#addAdditionalSaveData(CompoundTag)
+            // net.minecraft.server.level.ServerPlayer#addAdditionalSaveData(CompoundTag)
             // Intentional omissions to prevent mount loss: Attach, Entity, and RootVehicle
-            "warden_spawn_tracker", "enteredNetherPosition", "SpawnX", "SpawnY", "SpawnZ", "SpawnForced", "SpawnAngle", "SpawnDimension", "raid_omen_position",
-            // Player#addAdditionalSaveData(CompoundTag)
-            "ShoulderEntityLeft", "ShoulderEntityRight", "LastDeathLocation", "current_explosion_impact_pos",
-            // LivingEntity#addAdditionalSaveData(CompoundTag)
+            "warden_spawn_tracker", "enteredNetherPosition", "SpawnX", "SpawnY", "SpawnZ", "SpawnForced", "SpawnAngle", "SpawnDimension",
+            // net.minecraft.world.entity.player.Player#addAdditionalSaveData(CompoundTag)
+            "ShoulderEntityLeft", "ShoulderEntityRight", "LastDeathLocation",
+            // net.minecraft.world.entity.LivingEntity#addAdditionalSaveData(CompoundTag)
+            "ActiveEffects", // Backwards compat: Renamed from 1.19
             "active_effects", "SleepingX", "SleepingY", "SleepingZ", "Brain");
 
     private final CraftPlayerManager manager;
@@ -58,7 +52,7 @@ public class OpenPlayer extends CraftPlayer {
         try {
             PlayerDataStorage worldNBTStorage = player.server.getPlayerList().playerIo;
 
-            CompoundTag oldData = isOnline() ? null : worldNBTStorage.load(player.getName().getString(), player.getStringUUID()).orElse(null);
+            CompoundTag oldData = isOnline() ? null : worldNBTStorage.getPlayerData(player.getStringUUID());
             CompoundTag playerData = getWritableTag(oldData);
             playerData = player.saveWithoutId(playerData);
             setExtraData(playerData);
@@ -69,11 +63,11 @@ public class OpenPlayer extends CraftPlayer {
             }
 
             Path playerDataDir = worldNBTStorage.getPlayerDir().toPath();
-            Path tempFile = Files.createTempFile(playerDataDir, player.getStringUUID() + "-", ".dat");
-            NbtIo.writeCompressed(playerData, tempFile);
+            Path file = Files.createTempFile(playerDataDir, player.getStringUUID() + "-", ".dat");
+            NbtIo.writeCompressed(playerData, file);
             Path dataFile = playerDataDir.resolve(player.getStringUUID() + ".dat");
             Path backupFile = playerDataDir.resolve(player.getStringUUID() + ".dat_old");
-            Util.safeReplaceFile(dataFile, tempFile, backupFile);
+            Util.safeReplaceFile(dataFile, file, backupFile);
         } catch (Exception e) {
             LogUtils.getLogger().warn("Failed to save player data for {}: {}", player.getScoreboardName(), e);
         }
@@ -101,7 +95,7 @@ public class OpenPlayer extends CraftPlayer {
         copyValue(oldData, newData, "Paper", "LastLogin", NumericTag.class);
     }
 
-    private <T extends Tag> void copyValue(@NotNull CompoundTag source, @NotNull CompoundTag target, @NotNull String container, @NotNull String key, @SuppressWarnings("SameParameterValue") @NotNull Class<T> tagType) {
+    private <T extends Tag> void copyValue(@NotNull CompoundTag source, @NotNull CompoundTag target, @NotNull String container, @NotNull String key, @NotNull Class<T> tagType) {
         CompoundTag oldContainer = getTag(source, container, CompoundTag.class);
         CompoundTag newContainer = getTag(target, container, CompoundTag.class);
 

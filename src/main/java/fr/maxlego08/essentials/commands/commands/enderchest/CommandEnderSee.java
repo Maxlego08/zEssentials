@@ -23,11 +23,14 @@ public class CommandEnderSee extends VCommand {
 
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
+
         OfflinePlayer offlinePlayer = this.argAsOfflinePlayer(0);
         if (offlinePlayer.isOnline()) {
+
             var targetPlayer = offlinePlayer.getPlayer();
             if (targetPlayer == null) return CommandResultType.SYNTAX_ERROR;
             this.player.openInventory(targetPlayer.getEnderChest());
+
         } else {
 
             String version = NmsVersion.getCurrentVersion().name().replace("V_", "v");
@@ -38,7 +41,9 @@ public class CommandEnderSee extends VCommand {
                 Class<?> clazz = Class.forName(className);
                 Constructor<?> constructor = clazz.getConstructor(EssentialsPlugin.class);
                 PlayerUtil playerUtil = (PlayerUtil) constructor.newInstance(this.plugin);
-                playerUtil.openEncherChest(player, offlinePlayer);
+                if (!playerUtil.openEnderChest(player, offlinePlayer)) {
+                    return CommandResultType.SYNTAX_ERROR;
+                }
 
             } catch (Exception exception) {
                 this.plugin.getLogger().severe("Cannot create a new instance for the class " + className);

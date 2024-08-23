@@ -1,5 +1,7 @@
 # Unreleased
 
+- Updated the command `/endersee` to be compatible with offline players
+
 # 1.0.0.6
 
 - Added the command ``/showitem <code>``, Allows you to see the item that the player has in his hand. This command is used with the chat placeholder `[item]` [#43](https://github.com/Maxlego08/zEssentials/issues/43)

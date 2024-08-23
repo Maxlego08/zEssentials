@@ -1,8 +1,8 @@
-package fr.maxlego08.essentials.nms.v1_21.enderchest;
+package fr.maxlego08.essentials.nms.v1_20_6.enderchest;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.serialization.Dynamic;
-import fr.maxlego08.essentials.api.nms.IPlayerManager;
+import fr.maxlego08.essentials.api.nms.PlayerManager;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.MinecraftServer;
@@ -28,10 +28,7 @@ import java.lang.reflect.Field;
 import java.util.UUID;
 import java.util.logging.Logger;
 
-/**
- * Based on: https://github.com/Jikoo/OpenInv/tree/master
- */
-public class PlayerManager implements IPlayerManager {
+public class CraftPlayerManager implements PlayerManager {
 
     private static boolean paper;
 
@@ -47,7 +44,7 @@ public class PlayerManager implements IPlayerManager {
     private final @NotNull Logger logger;
     private @Nullable Field bukkitEntity;
 
-    public PlayerManager(@NotNull Logger logger) {
+    public CraftPlayerManager(@NotNull Logger logger) {
         this.logger = logger;
         try {
             bukkitEntity = Entity.class.getDeclaredField("bukkitEntity");

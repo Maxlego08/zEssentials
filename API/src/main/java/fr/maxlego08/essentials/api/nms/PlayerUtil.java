@@ -5,6 +5,6 @@ import org.bukkit.entity.Player;
 
 public interface PlayerUtil {
 
-    void openEncherChest(Player player, OfflinePlayer offlinePlayer);
+    boolean openEnderChest(Player player, OfflinePlayer offlinePlayer);
 
 }

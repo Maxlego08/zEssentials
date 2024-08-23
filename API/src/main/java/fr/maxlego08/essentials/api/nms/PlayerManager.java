@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public interface IPlayerManager {
+public interface PlayerManager {
 
     /**
      * Loads a Player for an OfflinePlayer.

@@ -1,9 +1,9 @@
-package fr.maxlego08.essentials.nms.v1_21;
+package fr.maxlego08.essentials.nms.v1_20_6;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.nms.PlayerUtil;
 import fr.maxlego08.essentials.api.utils.EnderChestHolder;
-import fr.maxlego08.essentials.nms.v1_21.enderchest.CraftPlayerManager;
+import fr.maxlego08.essentials.nms.v1_20_6.enderchest.CraftPlayerManager;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 

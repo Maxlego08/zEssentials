@@ -1,4 +1,4 @@
-package fr.maxlego08.essentials.nms.v1_21.enderchest;
+package fr.maxlego08.essentials.nms.v1_20_6.enderchest;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.Util;
@@ -24,19 +24,45 @@ public class OpenPlayer extends CraftPlayer {
      * List of tags to always reset when saving.
      *
      * @see net.minecraft.world.entity.Entity#saveWithoutId(CompoundTag)
-     * @see ServerPlayer#addAdditionalSaveData(CompoundTag)
+     * @see net.minecraft.server.level.ServerPlayer#addAdditionalSaveData(CompoundTag)
+     * @see net.minecraft.world.entity.player.Player#addAdditionalSaveData(CompoundTag)
      * @see net.minecraft.world.entity.LivingEntity#addAdditionalSaveData(CompoundTag)
      */
     private static final Set<String> RESET_TAGS = Set.of(
-            // Entity#saveWithoutId(CompoundTag)
-            "CustomName", "CustomNameVisible", "Silent", "NoGravity", "Glowing", "TicksFrozen", "HasVisualFire", "Tags", "Passengers",
-            // ServerPlayer#addAdditionalSaveData(CompoundTag)
-            // Intentional omissions to prevent mount loss: Attach, Entity, and RootVehicle
-            "warden_spawn_tracker", "enteredNetherPosition", "SpawnX", "SpawnY", "SpawnZ", "SpawnForced", "SpawnAngle", "SpawnDimension", "raid_omen_position",
-            // Player#addAdditionalSaveData(CompoundTag)
-            "ShoulderEntityLeft", "ShoulderEntityRight", "LastDeathLocation", "current_explosion_impact_pos",
-            // LivingEntity#addAdditionalSaveData(CompoundTag)
-            "active_effects", "SleepingX", "SleepingY", "SleepingZ", "Brain");
+        // Entity#saveWithoutId(CompoundTag)
+        "CustomName",
+        "CustomNameVisible",
+        "Silent",
+        "NoGravity",
+        "Glowing",
+        "TicksFrozen",
+        "HasVisualFire",
+        "Tags",
+        "Passengers",
+        // ServerPlayer#addAdditionalSaveData(CompoundTag)
+        // Intentional omissions to prevent mount loss: Attach, Entity, and RootVehicle
+        "warden_spawn_tracker",
+        "enteredNetherPosition",
+        "SpawnX",
+        "SpawnY",
+        "SpawnZ",
+        "SpawnForced",
+        "SpawnAngle",
+        "SpawnDimension",
+        "raid_omen_position",
+        // Player#addAdditionalSaveData(CompoundTag)
+        "ShoulderEntityLeft",
+        "ShoulderEntityRight",
+        "LastDeathLocation",
+        "current_explosion_impact_pos",
+        // LivingEntity#addAdditionalSaveData(CompoundTag)
+        "ActiveEffects", // Backwards compat: Renamed from 1.19
+        "active_effects",
+        "SleepingX",
+        "SleepingY",
+        "SleepingZ",
+        "Brain"
+    );
 
     private final CraftPlayerManager manager;
 
@@ -89,7 +115,8 @@ public class OpenPlayer extends CraftPlayer {
         oldData = oldData.copy();
 
         // Remove vanilla/server data that is not written every time.
-        oldData.getAllKeys().removeIf(key -> RESET_TAGS.contains(key) || key.startsWith("Bukkit"));
+        oldData.getAllKeys()
+            .removeIf(key -> RESET_TAGS.contains(key) || key.startsWith("Bukkit"));
 
         return oldData;
     }
@@ -101,7 +128,12 @@ public class OpenPlayer extends CraftPlayer {
         copyValue(oldData, newData, "Paper", "LastLogin", NumericTag.class);
     }
 
-    private <T extends Tag> void copyValue(@NotNull CompoundTag source, @NotNull CompoundTag target, @NotNull String container, @NotNull String key, @SuppressWarnings("SameParameterValue") @NotNull Class<T> tagType) {
+    private <T extends Tag> void copyValue(
+        @NotNull CompoundTag source,
+        @NotNull CompoundTag target,
+        @NotNull String container,
+        @NotNull String key,
+        @NotNull Class<T> tagType) {
         CompoundTag oldContainer = getTag(source, container, CompoundTag.class);
         CompoundTag newContainer = getTag(target, container, CompoundTag.class);
 
@@ -114,7 +146,10 @@ public class OpenPlayer extends CraftPlayer {
         setTag(newContainer, key, getTag(oldContainer, key, tagType));
     }
 
-    private <T extends Tag> @Nullable T getTag(@Nullable CompoundTag container, @NotNull String key, @NotNull Class<T> dataType) {
+    private <T extends Tag> @Nullable T getTag(
+        @Nullable CompoundTag container,
+        @NotNull String key,
+        @NotNull Class<T> dataType) {
         if (container == null) {
             return null;
         }
@@ -125,7 +160,10 @@ public class OpenPlayer extends CraftPlayer {
         return dataType.cast(value);
     }
 
-    private <T extends Tag> void setTag(@NotNull CompoundTag container, @NotNull String key, @Nullable T data) {
+    private <T extends Tag> void setTag(
+        @NotNull CompoundTag container,
+        @NotNull String key,
+        @Nullable T data) {
         if (data == null) {
             container.remove(key);
         } else {
