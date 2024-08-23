@@ -33,6 +33,8 @@ public class CommandEnderSee extends VCommand {
 
         } else {
 
+            if (!hasPermission(sender, Permission.ESSENTIALS_ENDERSEE_OFFLINE)) return CommandResultType.SYNTAX_ERROR;
+
             String version = NmsVersion.getCurrentVersion().name().replace("V_", "v");
             String className = String.format("fr.maxlego08.essentials.nms.%s.PlayerUtils", version);
 

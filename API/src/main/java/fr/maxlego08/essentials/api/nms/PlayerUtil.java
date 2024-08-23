@@ -7,4 +7,6 @@ public interface PlayerUtil {
 
     boolean openEnderChest(Player player, OfflinePlayer offlinePlayer);
 
+    boolean openPlayerInventory(Player player, OfflinePlayer offlinePlayer);
+
 }

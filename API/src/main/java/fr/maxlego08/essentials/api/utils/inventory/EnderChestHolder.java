@@ -1,4 +1,4 @@
-package fr.maxlego08.essentials.api.utils;
+package fr.maxlego08.essentials.api.utils.inventory;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -7,7 +7,7 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public record EnderChestHolder(Player player) implements InventoryHolder {
+public record EnderChestHolder(Player player) implements InventoryHolder, PlayerHolder {
 
     @Override
     public @NotNull Inventory getInventory() {
