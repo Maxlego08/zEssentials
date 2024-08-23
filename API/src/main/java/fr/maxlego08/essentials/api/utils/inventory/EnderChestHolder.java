@@ -7,7 +7,7 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public record EnderChestHolder(Player player) implements InventoryHolder, PlayerHolder {
+public record EnderChestHolder(Player player) implements InventoryHolder {
 
     @Override
     public @NotNull Inventory getInventory() {

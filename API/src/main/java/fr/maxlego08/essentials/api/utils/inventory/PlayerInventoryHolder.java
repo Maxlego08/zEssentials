@@ -4,17 +4,15 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public record PlayerInventoryHolder(Player player) implements InventoryHolder, PlayerHolder {
+public record PlayerInventoryHolder(Player player) implements InventoryHolder {
 
     @Override
     public @NotNull Inventory getInventory() {
         Inventory playerInventory = player.getInventory();
         Inventory newInventory = Bukkit.createInventory(this, 36, playerInventory.getType().defaultTitle());
-        int slot = 0;
-        for (ItemStack content : playerInventory.getContents()) newInventory.setItem(slot++, content);
+        for (int slot = 0; slot != 36; slot++) newInventory.setItem(slot++, playerInventory.getItem(slot));
         return newInventory;
     }
 }
