@@ -4,6 +4,8 @@ main: fr.maxlego08.essentials.ZEssentialsPlugin
 folia-supported: true
 description: Provides an essential, core set of commands for Bukkit.
 website: https://groupez.dev/
+author: [ Maxlego08 ]
+contributors: [ Readopted, Traqueur, JavaToastDev, Melon-Oof, alwyn974, Mapacheee ]
 depend:
   - zMenu
   - PlaceholderAPI
