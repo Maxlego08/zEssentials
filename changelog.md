@@ -3,6 +3,7 @@
 - Updated the command `/endersee` to be compatible with offline players, added permission `essentials.endersee.offline`
 - Updated the command `/invsee` to be compatible with offline players, added permission `essentials.invsee.offline`
 - Fixed error with loading data [#59](https://github.com/Maxlego08/zEssentials/issues/59)
+- Fixed night vision [#56](https://github.com/Maxlego08/zEssentials/issues/56)
 - Changed aliases for PlayerWorldEdit from `pw` to `pwe` [#58](https://github.com/Maxlego08/zEssentials/issues/58)
 
 # 1.0.0.6
