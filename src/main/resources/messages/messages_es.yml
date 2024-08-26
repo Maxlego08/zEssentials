@@ -26,7 +26,7 @@ player-not-found: "&f%player% <error>no fue encontrado."
 module-disable: "<error>El módulo &f%name% <error>está deshabilitado. No puedes usar este comando."
 code-not-found: "<red>No se puede encontrar el código."
 rules:
-  - "#ffd353ℹ reglas del servidor#3f3f3f:"
+  - "#ffd353ℹ ʀᴇɢʟᴀs ᴅᴇʟ sᴇʀᴠɪᴅᴏʀ#3f3f3f:"
   - "#3f3f3f• &7Respeta a todos los jugadores y al staff."
   - "#3f3f3f• &7No destruyas ni robes."
   - "#3f3f3f• &7No hagas trampas ni uses hacks."
