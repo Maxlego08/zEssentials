@@ -23,7 +23,6 @@ import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.menu.api.utils.TypedMapAccessor;
 import fr.maxlego08.menu.zcore.utils.inventory.Pagination;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -191,7 +190,11 @@ public class EconomyModule extends ZModule implements EconomyManager {
 
     @Override
     public Economy getVaultEconomy() {
-        return this.economies.stream().filter(Economy::isVaultEconomy).findFirst().orElseGet(this::getDefaultEconomy);
+        var economy = this.economies.stream().filter(Economy::isVaultEconomy).findFirst().orElseGet(this::getDefaultEconomy);
+        if (economy == null) {
+            this.plugin.getLogger().severe("Impossible to find the default or vault economy ! Check your configuration plz !");
+        }
+        return economy;
     }
 
     @Override
