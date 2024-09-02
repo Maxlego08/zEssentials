@@ -1,5 +1,7 @@
 # Unreleased
 
+- Added error exception when you try to load a home if the world doesn't exist [#67](https://github.com/Maxlego08/zEssentials/issues/67)
+
 # 1.0.0.7
 
 - Updated the command `/endersee` to be compatible with offline players, added permission `essentials.endersee.offline`
