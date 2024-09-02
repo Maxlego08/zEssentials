@@ -1,3 +1,5 @@
+# It is forbidden to fork to create an automatic build of the project! Please read the license of the project !
+
 ![info.png](https://img.groupez.dev/zessentials/zess-info.png)
 
 # Links
