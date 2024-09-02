@@ -133,13 +133,21 @@ public class EconomyModule extends ZModule implements EconomyManager {
     }
 
     @Override
-    public boolean hasMoney(OfflinePlayer player, Economy economy) {
-        return false;
+    public boolean hasMoney(OfflinePlayer offlinePlayer, Economy economy, BigDecimal decimal) {
+        BigDecimal bigDecimal = getBalance(offlinePlayer, economy);
+        return bigDecimal.compareTo(decimal) > 0;
     }
 
     @Override
     public BigDecimal getBalance(OfflinePlayer player, Economy economy) {
-        return null;
+        if (player.isOnline()) {
+            User user = this.plugin.getUser(player.getUniqueId());
+            if (user != null) return user.getBalance(economy);
+        } else {
+            OfflineEconomy offlineEconomy = getOfflineEconomy(player.getUniqueId());
+            return offlineEconomy.getEconomy(economy.getName());
+        }
+        return BigDecimal.ZERO;
     }
 
     private void perform(UUID uniqueId, Consumer<User> consumer) {
