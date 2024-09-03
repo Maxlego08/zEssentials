@@ -13,10 +13,24 @@
 
 enable: true
 
+# The maximum number of vaults that a player can have
 max-vaults: 7
 
+# Item that will be displayed when a vault is opened
 icon-open: "MINECART"
 
+# Item that will be displayed when a vault is closed
 icon-close: "CHEST_MINECART"
 
+# Regex for the vault number, to avoid having anything as a vault name
 vault-name-regex: "^[a-zA-Z0-9_-]{3,16}$"
+
+# Allows defining the number of slots with permissions
+# You can also define a player’s slots with the command/vault set <player> <slots>
+vault-permissions:
+  - permission: zessentials.vault.size.player
+    slots: 45
+  - permission: zessentials.vault.size.vip
+    slots: 90
+  - permission: zessentials.vault.size.admin
+    slots: 500

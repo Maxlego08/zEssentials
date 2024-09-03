@@ -6,7 +6,7 @@ import fr.maxlego08.sarah.database.Migration;
 public class CreateUserHomeTableMigration extends Migration {
     @Override
     public void up() {
-        SchemaBuilder.create(this, "%prefix%user_homes", table -> {
+        create("%prefix%user_homes", table -> {
             table.uuid("unique_id").primary().foreignKey("%prefix%users");
             table.string("name", 255).primary();
             table.longText("location");

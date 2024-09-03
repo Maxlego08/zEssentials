@@ -52,7 +52,7 @@ public class CommandNightVision extends VCommand {
             player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1, false, false, false));
         }
 
-        Message messageKey = isNightVision ? Message.COMMAND_GOD_ENABLE : Message.COMMAND_GOD_DISABLE;
+        Message messageKey = isNightVision ? Message.COMMAND_NIGHT_VISION_ENABLE : Message.COMMAND_NIGHT_VISION_DISABLE;
         message(sender, messageKey, "%player%", user == this.user ? Message.YOU.getMessageAsString() : player.getName());
     }
 }

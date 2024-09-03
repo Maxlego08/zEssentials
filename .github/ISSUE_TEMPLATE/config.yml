@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report duplication bugs and exploits
+    url: https://discord.groupez.dev/
+    about: DO NOT REPORT DUPLICATION BUGS ON GITHUB!
+  - name: Discord server
+    url: https://discord.groupez.dev/
+    about: My personal Discord server
+  - name: zEssentials Documentation
+    url: https://zessentials.groupez.dev/
+    about: Official wiki of ItemsAdder
+  - name: zEssentials Spigot page
+    url: https://www.spigotmc.org/resources/118014/
+    about: Official SpigotMC.org page of ItemsAdder
