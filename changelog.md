@@ -3,6 +3,7 @@
 - Added error exception when you try to load a home if the world doesn't exist [#67](https://github.com/Maxlego08/zEssentials/issues/67)
 - Implementation of the method ``boolean hasMoney(OfflinePlayer player, Economy economy, BigDecimal amount)`` and `BigDecimal getBalance(OfflinePlayer player, Economy economy)` in `EconomyModule` [#66](https://github.com/Maxlego08/zEssentials/issues/66)
 - Fix sarah migration
+- Fixed invsee command [#72](https://github.com/Maxlego08/zEssentials/issues/72)
 
 # 1.0.0.7
 
