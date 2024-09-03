@@ -18,7 +18,7 @@ public class CommandGrantExperience extends VCommand {
         this.addSubCommand("grant");
         this.addRequirePlayerNameArg();
         this.addRequireArg("amount", (sender, objects) -> Arrays.asList("1", "10", "30" ,"100", "1000"));
-        this.addRequireArg("type", (sender, objects) -> Arrays.asList("level", "points"));
+        this.addRequireArg("type", (sender, objects) -> Arrays.asList("levels", "points"));
     }
 
     @Override
@@ -27,12 +27,12 @@ public class CommandGrantExperience extends VCommand {
         int amount = this.argAsInteger(1);
         String type = this.argAsString(2);
 
-        if (type.equalsIgnoreCase("level")) {
+        if (type.equalsIgnoreCase("levels")) {
             player.giveExpLevels(amount);
         } else {
             player.giveExp(amount);
         }
-        message(sender, Message.EXPERIENCE_GRANTED, player.getName(), amount, "%amount%", type, "%type%");
+        message(sender, Message.EXPERIENCE_GRANTED, player, "%amount%",amount, "%type%", type);
         return CommandResultType.SUCCESS;
     }
 }

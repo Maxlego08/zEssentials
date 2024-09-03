@@ -772,7 +772,8 @@ public enum Message {
     WORLDEDIT_BOSSBAR("#45ff45Time remaining<dark_gray>: <white>%time%"),
 
     DESCRIPTION_EXPERIENCE("Manage player experience"),
-    EXPERIENCE_GRANTED("<success>You have just given <white>%amount% %type% <success>to &f%player%<success>."),;
+    EXPERIENCE_GRANTED("<success>You have just given <white>%amount% %type% <success>to &f%player%<success>."),
+    EXPERIENCE_SETTED("<success>You have just set <white>%amount% %type% <success>to &f%player%<success>."),;
 
     private EssentialsPlugin plugin;
     private List<EssentialsMessage> messages = new ArrayList<>();
