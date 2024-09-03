@@ -58,6 +58,9 @@ unmute-material: COPPER_INGOT
 # Material used for warn
 warn-material: COAL
 
+# Material used for freeze
+freeze-material: ICE
+
 # Material used for mute if it is active
 current-mute-material: EMERALD_BLOCK
 

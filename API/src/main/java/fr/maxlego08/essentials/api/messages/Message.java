@@ -459,13 +459,13 @@ public enum Message {
 
     MESSAGE_FREEZE(
             "",
-            "&fYou have just been frozen.",
+            "&cYou have just been frozen.",
             ""
     ),
 
     MESSAGE_UN_FREEZE(
             "",
-            "&fYou have just been unfrozen.",
+            "&aYou have just been unfrozen.",
             ""
     ),
 

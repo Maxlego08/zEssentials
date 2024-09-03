@@ -9,8 +9,8 @@ public enum SanctionType {
     BAN( Permission.ESSENTIALS_BAN),
     UNBAN( Permission.ESSENTIALS_UNBAN),
     UNMUTE( Permission.ESSENTIALS_UNMUTE),
-    WARN( Permission.ESSENTIALS_WARN)
-
+    WARN( Permission.ESSENTIALS_WARN),
+    FREEZE(Permission.ESSENTIALS_FREEZE)
     ;
 
     private final Permission permission;

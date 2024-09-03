@@ -4,6 +4,7 @@ import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.cache.ExpiringCache;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.dto.UserDTO;
+import fr.maxlego08.essentials.api.event.events.user.UserJoinEvent;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.sanction.SanctionType;
@@ -22,6 +23,8 @@ import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import java.text.SimpleDateFormat;
@@ -48,6 +51,7 @@ public class SanctionModule extends ZModule {
     private final Material unbanMaterial = Material.BOOK;
     private final Material unmuteMaterial = Material.BOOK;
     private final Material warnMaterial = Material.BOOK;
+    private final Material freezeMaterial = Material.BOOK;
     private final Material currentMuteMaterial = Material.BOOKSHELF;
     private final Material currentBanMaterial = Material.BOOKSHELF;
     private final List<String> protections = new ArrayList<>();
@@ -101,6 +105,7 @@ public class SanctionModule extends ZModule {
             case UNBAN -> unbanMaterial;
             case UNMUTE -> unmuteMaterial;
             case WARN -> warnMaterial;
+            case FREEZE -> freezeMaterial;
         };
     }
 
@@ -418,20 +423,47 @@ public class SanctionModule extends ZModule {
         }
 
         user.setFrozen(!user.isFrozen());
-        iStorage.updateUserFrozen(uuid, user.isFrozen());
 
+        Sanction sanction = Sanction.freeze(uuid, getSenderUniqueId(sender));
+        iStorage.insertSanction(sanction, index -> {
+            sanction.setId(index);
+            iStorage.updateUserFrozen(uuid, user.isFrozen());
+        });
         if (user.isFrozen()) {
             message(sender, Message.COMMAND_FREEZE_SUCCESS, "%player%", userName);
             this.plugin.getEssentialsServer().sendMessage(uuid, Message.MESSAGE_FREEZE);
+
+            user.getPlayer().setAllowFlight(true);
+            user.getPlayer().setFlying(true);
+            user.getPlayer().setFlySpeed(0f);
+            this.plugin.getScheduler().teleportAsync(user.getPlayer(), user.getPlayer().getLocation().add(0, 0.1, 0));
         } else {
+            user.getPlayer().setAllowFlight(false);
+            user.getPlayer().setFlying(false);
             message(sender, Message.COMMAND_UN_FREEZE_SUCCESS, "%player%", userName);
             this.plugin.getEssentialsServer().sendMessage(uuid, Message.MESSAGE_UN_FREEZE);
         }
     }
 
     @EventHandler
-    public void onMove(PlayerMoveEvent event) {
+    public void onJoin(PlayerJoinEvent event) {
+        IStorage iStorage = this.plugin.getStorageManager().getStorage();
+        User user = iStorage.getUser(event.getPlayer().getUniqueId());
+        if (user.isFrozen()) {
+            user.getPlayer().setAllowFlight(true);
+            user.getPlayer().setFlying(true);
+            user.getPlayer().setFlySpeed(0f);
+            this.plugin.getScheduler().teleportAsync(user.getPlayer(), user.getPlayer().getLocation().add(0, 0.1, 0));
+            this.plugin.getEssentialsServer().sendMessage(user.getUniqueId(), Message.MESSAGE_FREEZE);
+        }
+    }
+
+    @EventHandler
+    public void onCommand(PlayerCommandPreprocessEvent event) {
         User user = this.plugin.getUser(event.getPlayer().getUniqueId());
-        if (user.isFrozen()) event.setCancelled(true);
+        if (user.isFrozen()) {
+            event.setCancelled(true);
+            this.plugin.getEssentialsServer().sendMessage(user.getUniqueId(), Message.MESSAGE_FREEZE);
+        }
     }
 }
