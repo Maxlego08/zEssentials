@@ -765,7 +765,7 @@ public enum Message {
     WORLDEDIT_REFUND_EMPTY("<error>No block to refund"),
     WORLDEDIT_BOSSBAR("#45ff45Time remaining<dark_gray>: <white>%time%"),
 
-    ;
+    DESCRIPTION_EXPERIENCE("Manage player experience");
 
     private EssentialsPlugin plugin;
     private List<EssentialsMessage> messages = new ArrayList<>();

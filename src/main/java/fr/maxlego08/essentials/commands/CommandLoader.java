@@ -99,6 +99,7 @@ import fr.maxlego08.essentials.commands.commands.utils.blocks.CommandGrindStone;
 import fr.maxlego08.essentials.commands.commands.utils.blocks.CommandLoom;
 import fr.maxlego08.essentials.commands.commands.utils.blocks.CommandSmithingTable;
 import fr.maxlego08.essentials.commands.commands.utils.blocks.CommandStoneCutter;
+import fr.maxlego08.essentials.commands.commands.utils.experience.CommandExperience;
 import fr.maxlego08.essentials.commands.commands.vault.CommandVault;
 import fr.maxlego08.essentials.commands.commands.vote.CommandVote;
 import fr.maxlego08.essentials.commands.commands.vote.CommandVoteParty;
@@ -247,6 +248,8 @@ public class CommandLoader {
         register("giveall", CommandGiveAll.class);
         register("powertools", CommandPowerTools.class, "pt");
         register("powertools-toggle", CommandPowerToolsToggle.class, "pt-toggle");
+
+        register("experience", CommandExperience.class, "xp");
 
         register("hologram", CommandHologram.class, "holo", "ho");
         register("sb", CommandScoreboard.class);
