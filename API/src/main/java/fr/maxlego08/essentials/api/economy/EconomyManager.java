@@ -20,9 +20,10 @@ public interface EconomyManager extends Module {
      *
      * @param player  The player to check.
      * @param economy The economy to check.
+     * @param amount The amount to check.
      * @return true if the player has enough money, false otherwise.
      */
-    boolean hasMoney(OfflinePlayer player, Economy economy);
+    boolean hasMoney(OfflinePlayer player, Economy economy, BigDecimal amount);
 
     /**
      * Gets the balance of the specified player in the specified economy.

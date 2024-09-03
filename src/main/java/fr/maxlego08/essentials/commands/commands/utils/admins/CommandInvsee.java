@@ -28,7 +28,12 @@ public class CommandInvsee extends VCommand {
 
         if (offlinePlayer.isOnline()) {
 
-            this.player.openInventory(player.getInventory());
+            var onlinePlayer = offlinePlayer.getPlayer();
+            if (onlinePlayer == null) {
+                plugin.getLogger().severe("Impossible to find the player " + this.argAsString(0));
+                return CommandResultType.SYNTAX_ERROR;
+            }
+            this.player.openInventory(onlinePlayer.getInventory());
 
         } else {
 

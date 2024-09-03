@@ -23,7 +23,6 @@ import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.menu.api.utils.TypedMapAccessor;
 import fr.maxlego08.menu.zcore.utils.inventory.Pagination;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -134,13 +133,21 @@ public class EconomyModule extends ZModule implements EconomyManager {
     }
 
     @Override
-    public boolean hasMoney(OfflinePlayer player, Economy economy) {
-        return false;
+    public boolean hasMoney(OfflinePlayer offlinePlayer, Economy economy, BigDecimal decimal) {
+        BigDecimal bigDecimal = getBalance(offlinePlayer, economy);
+        return bigDecimal.compareTo(decimal) > 0;
     }
 
     @Override
     public BigDecimal getBalance(OfflinePlayer player, Economy economy) {
-        return null;
+        if (player.isOnline()) {
+            User user = this.plugin.getUser(player.getUniqueId());
+            if (user != null) return user.getBalance(economy);
+        } else {
+            OfflineEconomy offlineEconomy = getOfflineEconomy(player.getUniqueId());
+            return offlineEconomy.getEconomy(economy.getName());
+        }
+        return BigDecimal.ZERO;
     }
 
     private void perform(UUID uniqueId, Consumer<User> consumer) {
@@ -191,7 +198,11 @@ public class EconomyModule extends ZModule implements EconomyManager {
 
     @Override
     public Economy getVaultEconomy() {
-        return this.economies.stream().filter(Economy::isVaultEconomy).findFirst().orElseGet(this::getDefaultEconomy);
+        var economy = this.economies.stream().filter(Economy::isVaultEconomy).findFirst().orElseGet(this::getDefaultEconomy);
+        if (economy == null) {
+            this.plugin.getLogger().severe("Impossible to find the default or vault economy ! Check your configuration plz !");
+        }
+        return economy;
     }
 
     @Override
