@@ -353,6 +353,12 @@ public enum Message {
             " &7- #99E0FF%economy-name-coins% &f%economy-coins%."
     ),
 
+    COMMAND_MONEY_OTHER(
+            "#99E0FF%player% have&8:",
+            " &7- #99E0FF%economy-name-money% &f%economy-money%.",
+            " &7- #99E0FF%economy-name-coins% &f%economy-coins%."
+    ),
+
     COMMAND_PAY_NEGATIVE("<error>Amount to pay must be positive."),
     COMMAND_PAY_MIN("<error>The minimum amount you can pay is &f%amount%<error>."),
     COMMAND_PAY_MAX("<error>The maximum amount you can pay is &f%amount%<error>."),
@@ -382,7 +388,7 @@ public enum Message {
     COMMAND_WARP_NO_PERMISSION("<error>You do not have permission to use the warp &f%name%<error>."),
     COMMAND_WARP_CREATE(
             "<success>You just created the warp &f%name% <success>to your position.",
-            "&7Warp Permission is: <hover:show_text:'&fCopy command to add permission to a player'><click:SUGGEST_COMMAND:'/lp user <username> permission set nessentials.warp.%name%'>&f&nessentials.warp.%name%</click></hover>"
+            "&7Warp Permission is: <hover:show_text:'&fCopy command to add permission to a player'><click:SUGGEST_COMMAND:'/lp user <username> permission set essentials.warp.%name%'>&f&nessentials.warp.%name%</click></hover>"
     ),
     COMMAND_WARP_USE(
             "<error>Usage&8: &f/warp <destination>",

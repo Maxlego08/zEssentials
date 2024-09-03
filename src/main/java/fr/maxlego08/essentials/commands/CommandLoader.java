@@ -247,7 +247,7 @@ public class CommandLoader {
         register("voteparty", CommandVoteParty.class, "vp");
         register("vote", CommandVote.class);
         register("vault", CommandVault.class, "sac", "bag", "b", "coffre", "chest");
-        register("player-worldedit", CommandWorldEdit.class, "pw", "ess-worldedit", "eworldedit", "ew");
+        register("player-worldedit", CommandWorldEdit.class, "pwe", "ess-worldedit", "eworldedit", "ew");
 
         for (RegisterCommand registerCommand : this.commands) {
             try {

@@ -207,10 +207,10 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
     }
 
     @Override
-    public void sendTitle(Player player, TitleMessage titleMessage) {
+    public void sendTitle(Player player, TitleMessage titleMessage, Object... args) {
 
-        Component title = getComponent(papi(titleMessage.title(), player));
-        Component subtitle = getComponent(papi(titleMessage.subtitle(), player));
+        Component title = getComponent(papi(getMessage(titleMessage.title(), args), player));
+        Component subtitle = getComponent(papi(getMessage(titleMessage.subtitle(), args), player));
 
         player.showTitle(Title.title(title, subtitle, Title.Times.times(Duration.ofMillis(titleMessage.start()), Duration.ofMillis(titleMessage.time()), Duration.ofMillis(titleMessage.end()))));
     }

@@ -11,7 +11,7 @@
 # NONE - Does not display the message
 # TCHAT - Default type, sends one or more messages in chat
 # ACTION - Sends the message in the action bar
-# ACTION - Sends message in action bar and chat
+# TCHAT_AND_ACTION - Sends message in action bar and chat
 # CENTER - Send one or more messages in the chat, but they will be centered
 # TITLE - Sends a username
 #
@@ -24,6 +24,14 @@ you: "Tu"
 trash: "&8Cestino della Spazzatura"
 player-not-found: "&f%player% <error>non è stato trovato."
 module-disable: "<error>Il modulo &f%name% <error> è disabilitato, non puoi usare questo comando."
+code-not-found: "<red>Non si riesce a trovare il codice."
+rules:
+  - "#ffd353ℹ ʀᴇɢᴏʟᴇ ᴅᴇʟ sᴇʀᴠᴇʀ#3f3f3f:"
+  - "#3f3f3f• &7Rispetta tutti i giocatori e i membri dello staff."
+  - "#3f3f3f• &7No griefing o rubare."
+  - "#3f3f3f• &7No cheats/hacks."
+  - "#3f3f3f• &7Tenere la chat pulita e rispettosa."
+  - "#3f3f3f• &7No spam o pubblicità."
 
 # Commands
 command-syntax-error: "<error>Devi eseguire il comando segunedo questo formato#656665: &f%syntax%"
@@ -32,7 +40,9 @@ command-no-console: "<error>Solo i giocatori possono eseguire questo comando."
 command-no-arg: "<error>Non è stato possible trovare il comando con questi argomenti."
 command-syntaxe-help: "&f%syntax% #656665» &7%description%"
 
-command-reload: "<success>Hai appena aggiornato la ocnfigurazione."
+command-reload: "<success>Hai appena aggiornato la configurazione."
+command-reload-module: "<success>Hai appena aggiornato la configurazione del modulo &f%module%<success>."
+command-reload-error: "&f%module% <error>non trovato!"
 command-essentials: "&ezEssentials&8, &eVersione &f%version%"
 
 
@@ -85,7 +95,7 @@ command-repair-all-error: "<error>Non hai nessun oggetto da riparare."
 command-repair-all-success: "<success>Hai appena riparato tutti gli oggetti nel tuo inventario."
 command-ext: "&fPer il volere di Maxlego08, non bruci più."
 command-near-empty: "<error>Nessun giocatore in vicinanza."
-command-near-player: "&fGiocaatori vicini a te&7:%players%"
+command-near-player: "&fGiocatori vicini a te&7:%players%"
 command-near-info: " &7%player% &8(&e%distance%m&8)"
 command-play-time:
   - "&7You played&8: <primary>%playtime%"
@@ -112,6 +122,12 @@ command-seen-address: " <click:run_command:'/seenip %ip%'><hover:show_text:'&fSh
 command-seen-ip-empty: "<error>Non è stato possibile trovare giocatori con l'indirizzo IP &f%ip%<error>."
 command-seen-ip-line: "#99E0FFGiocatori con l'indirizzo IP &f%ip%&8:%players%"
 command-seen-ip-info: " <white><click:run_command:'/seen %name%'><hover:show_text:'&fMostra le informazioni del giocatore'>%name%</hover></click><dark_gray>"
+command-seen-last-location:
+  type: WITHOUT_PREFIX
+  message: "#99E0FFUltimo Luogo&8: &f%world%, %x%, %y%, %z%"
+command-seen-first-join:
+  type: WITHOUT_PREFIX
+  message: "#99E0FFEntrato la prima volta il&8: &f%created_at%"
 
 # Economy
 command-economy-not-found: "<error> Non riesco a trovare una valuta di nome &f%name%<error>."
@@ -223,7 +239,7 @@ description-tp-self: "Teletrasportati da un giocatore"
 description-player-weather: "Cambia il tempo metereologico"
 description-player-time: "Chambia il tempo"
 description-money: "Mostra il tuo saldo"
-description-eco: "Manages the server economies"
+description-eco: "Configura le economie del server"
 description-eco-set: "Imposta il saldo di un giocatore alla quantita scelta"
 description-eco-take: "Prendi dei soldi da un giocatore"
 description-eco-give: "Dai a un giocatore dei soldi"
@@ -286,6 +302,78 @@ description-kit-delete: "Elimina un kit"
 description-cooldown: "Mostra i cooldowns di un giocatore"
 description-cooldown-delete: "Elimina un cooldown"
 description-cooldown-create: "Crea un cooldown"
+description-item-name: "Cambia il nome di un item"
+description-item-lore: "Mostra i subcommand di /itemlore"
+description-item-lore-set: "Definisci una riga esistente della descrizione"
+description-item-lore-add: "Aggiungi una nuova riga alla descrizione"
+description-item-lore-clear: "Elimina la descrizione dell'oggetto"
+description-give: "Dai oggetti"
+description-give-all: "Dai oggetti a tutti i giocatori online"
+description-power-tools: "Aggiungi comandi al tuo oggetto"
+description-pay-toggle: "Abilita/Disabilita i pagamenti verso il giocatore"
+description-power-tools-toggle: "Abilita/Disabilita i power tools"
+description-kit-show: "Mostra un kit"
+description-mail: "Apre la mailbox"
+description-rules: "Leggi le regole del server"
+description-hologram: "Mostra i subcommands di /hologram"
+description-hologram-create: "Crea un ologramma"
+description-hologram-delete: "Elimina un ologramma"
+description-hologram-edit: "Modifica un ologramma"
+description-hologram-list: "Mostra la lista dei ologrammi"
+description-hologram-remove-line: "Rimuove una riga da un ologramma"
+description-hologram-add-line: "Aggiunge una riga a un ologramma"
+description-hologram-set-line: "Definisce una riga di un ologramma"
+description-hologram-insert-before-line: "Inserisce una riga prima di un altra"
+description-hologram-insert-after-line: "Inserisce una riga dopo un altra"
+description-hologram-move-here: "Sposta un ologramma all tua posizione"
+description-hologram-move-to: "Sposta un ologramma a una posizione"
+description-hologram-scale: "Modifica la scala (grandezza) dell'ologramma"
+description-hologram-translation: "Cambia la traduzione di un ologramma"
+description-hologram-billboard: "Modifica la billboard hologram"
+description-hologram-text-alignment: "Cambia l'allineamento del testo dell'ologramma"
+description-hologram-text-shadow: "Cambia l'ombra del testo dell'ologramma"
+description-hologram-shadow-strength: "Cambia l'opacità dell'ombra dell'ologramma"
+description-hologram-shadow-radius: "Cambia il raggio dell'ombra dell'ologramma"
+description-hologram-text-background: "Cambia lo sfondo del testo del'ologramma"
+description-hologram-see-through: "Fa diventare l'ologramma trasparente/che si può vedere attraverso"
+description-hologram-yaw: "Modifica la yaw dell'ologramma"
+description-hologram-pitch: "Modifica il pitch dell'ologramma"
+description-hologram-teleport: "Teleportati a un ologramma"
+description-scoreboard: "Abilita/Disabilita la scoreboard"
+description-balance-top: "Mostra il baltop"
+description-balance-top-refresh: "Aggiorna il baltop"
+description-mail-open: "Apre la mailbox del giocatore"
+description-mail-give: "Da un oggetto nella mailbox del giocatore"
+description-mail-giveall: "Dai un oggetto nella mailbox di tutti i giocatori"
+description-voteparty-information: "Mostra il vote party"
+description-voteparty-set: "Imposta il numero di voti nel vote party"
+description-voteparty-add: "Aggiungi voti al vote party"
+description-voteparty-remove: "Rimuovi voti dal vote party"
+description-vote-information: "Mostra informazioni su come votare"
+description-vote-set: "Imposta il numero di voti di un giocatore"
+description-vote-add: "Aggiungi voti a un giocatore"
+description-vote-remove: "Rimuovi voti a un giocatore"
+description-enchant: "Aggiungi un incantesimo all'oggetto"
+description-night-vision: "Abilita/Disabilita la visione notturna"
+description-sudo: "Obbliga un giocatore ad eseguire un comando"
+description-worldedit-give: "Da un oggetto WorldEdit ad un giocatore"
+description-worldedit-set: "Imposta tutti i blocchi della tua selezione"
+description-worldedit-walls: "Imposta tutti i blocchi della tua selezione con mura"
+description-worldedit-sphere: "Imposta tutti i blocchi della tua selezione sfere"
+description-worldedit-fill: "Riempi l'area selezionata"
+description-worldedit-cyl: "Riempi l'area selezionata con un cilindro"
+description-worldedit-cut: "Taglia i blocchi nell'area selezionata"
+description-worldedit-stop: "Ferma la sessione WorldEdit corrente"
+description-worldedit-confirm: "Conferma azione WorldEdit"
+description-worldedit-pos1: "Imposta la prima posizione della selezione"
+description-worldedit-pos2: "Imposta la seconda posizione della selezione"
+description-worldedit-option: "Configura il tuo worldedit"
+description-worldedit-option-inventory: "Usa il tuo inventario per prendere o aggiungere oggetti"
+description-worldedit-option-bossbar: "Abilita/Disabilita la barra di progresso di WorldEdit"
+description-vault-give: "Aggiungi oggetti nella cassa forte di un giocatore"
+description-vault-add-slot: "Aggiunge slot(s) alla cassaforte di un giocatore giocatore"
+description-vault-set-slot: "Imposta il numero di slot della cassaforte di un giocatore"
+description-show-item: "Mostra l'oggetto che sta tenendo il giocatore"
 
 # Time format
 format-second: "secondo"
@@ -352,7 +440,7 @@ command-warp-doesnt-exist: "#ff0000Warp &f%name% #ff0000 non esiste."
 command-warp-no-permission: "#ff0000Non hai il abbastanza permessi per utilizzare il warp &f%name%#ff0000."
 command-warp-create:
   - "<success>Hai appena creato il warp &f%name% <success>nella tua posizione."
-  - "&7Permesso del warp: <hover:show_text:'&fCopia il comando per aggiungere il permesso a un giocatore'><click:SUGGEST_COMMAND:'/lp user <username> permission set nessentials.warp.%name%'>&f&nessentials.warp.%name%</click></hover>"
+  - "&7Permesso del warp: <hover:show_text:'&fCopia il comando per aggiungere il permesso a un giocatore'><click:SUGGEST_COMMAND:'/lp user <username> permission set essentials.warp.%name%'>&f&nessentials.warp.%name%</click></hover>"
 command-warp-use:
   - "<error>Utilizzo&8: &f/warp <destination>"
   - "&7Warps&8:&f%destinations%"
@@ -441,8 +529,8 @@ command-unmute-notify:
 command-unban-notify:
   type: WITHOUT_PREFIX
   message: "<hover:show_text:'<gray>Da parte di: <white>%sender%<newline><gray>Durata: <white>%duration%<newline><gray>Motivo: <white>%reason%<newline><gray>Data: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanzione&8) #8aebeb%player% #e33414just ha appena unbannato #e0d12d%target%#e33414.</click></hover>"
-command-ban-error-duration: "<error>La durata del ban deve essre almeno di 1 secondo."
-command-mute-error-duration: "<error>La durata del mute deve essre almeno di 1 secondo."
+command-ban-error-duration: "<error>La durata del ban deve essere almeno di 1 secondo."
+command-mute-error-duration: "<error>La durata del mute deve essere almeno di 1 secondo."
 command-un-mute-error: "&f%player% <error>mom è mutato."
 command-un-ban-error: "&f%player% <error>non è bannato."
 command-sanction-error: "<error>Non puoi sanzionare questo giocatore. È protetto."
@@ -527,7 +615,12 @@ command-message-error: "<error>Non hai nessuno a cui rispondere."
 command-message-toggle-enable: "&7Messaggi privati <success>abilitati &7per &f%player%<success>."
 command-message-toggle-disable: "&7Messaggi privati <error>disabilitati &7per &f%player%<success>."
 command-social-spy-enable: "&7Social spy <success>abilitato &7per &f%player%<success>."
-command-social-spy-disable: "&7Social spy <error>disable &7per &f%player%<success>."
+command-social-spy-disable: "&7Social spy <error>disabilitato &7per &f%player%<success>."
+command-warp-empty: "<error>Nessun warp definito, usa il commando &f/setwarp <name>"
+command-pay-toggle-enable: "&7Pay <success>abilitato &7per &f%player%<success>."
+command-pay-toggle-disable: "&7Pay <error>disabilitato &7per &f%player%<error>."
+command-power-tools-toggle-enable: "<success>Tutti i power tools sono stati abilitati &7per &f%player%<success>."
+command-power-tools-toggle-disable: "<error>Tutti i power tools sobo stati disabilitati &7per &f%player%<error>."
 
 
 # Kit
@@ -565,3 +658,185 @@ command-cooldown-delete: "<success>Hai appena rimosso il cooldown &f%cooldown% <
 # %player% - the Player's nickname
 # %duration% - the duration of the cooldown
 command-cooldown-create: "<success>Hai appena creato il cooldown &f%key% <success>per &n%player%&r<success>."
+
+
+
+command-item-empty: "<error>Non stai tenendo nessun oggetto."
+command-item-clear: "<success>Hai formattato il nome di questo oggetto"
+command-item-set: "<success>Hai rinominato l'oggetto a &f%name%<success>."
+command-item-lore-add: "<success>Hai aggiunto la frase &f%text%<success>."
+command-item-lore-set: "<success>Hai fatto diventare la frase %line% a &f%text%<success>."
+command-item-lore-clear: "<success>Hai formattato la descrizione dell'oggetto."
+command-item-lore-set-error: "<error>Non si riesce a trovare la linea &f%line%<error>."
+command-give-error: "<error>Non si riesce a trovare l'oggetto &f%item%<error>."
+command-give: "<success>Hai dato &n&fx%amount% %item%&r <success>al giocatore &f%player%<success>."
+command-give-all: "<success>Hai dato &n&fx%amount% %item%&r <success>a tutti i giocatori online."
+command-give-vault: "<success>Hai dato &n&fx%amount% %item%&r <success>alla cassaforte di &f%player%<success>."
+
+command-power-tool-error-item: "<error>Non stai tenendo nessun oggetto."
+command-power-tool-error-reset: "<error>Questo oggetto non ha nessun comando registrato in sé."
+command-power-tool-info: "<success>Hai appena dato il comando &f/%command%<success> all'oggetto &f%item<success>."
+command-power-tool-reset: "<success>Hai eliminato il comando dell'oggetto &f%item<success>."
+
+mailbox-remove-full: "<error>Devi avere dello spazio vuoto nell'inventario per ottenere l'oggetto."
+mailbox-remove-expire: "<error>Non puoi più ottenere questo oggetto. Tempo scaduto."
+mailbox-add:
+  type: ACTION
+  message: "<success>Un oggetto è stato aggiunto alla tua mailbox &8(&f/mail&8)"
+mailbox-give-error: "<error>Non si riesce a trovare l'oggetto &f%item%<error>."
+mailbox-give: "<success>Hai dato &n&fx%amount% %item%&r <success>alla mailbox di &f%player%<success>."
+mailbox-give-all: "<success>Hai dato &n&fx%amount% %item%&r <success>a tutte le mailbox dei giocatori online."
+
+
+hologram-create-error: "<error>Ologramma di nome &f%name% <error>esiste già."
+hologram-create:
+  type: WITHOUT_PREFIX
+  messages:
+    - "<success>Hai creato l'ologramma &f%name%<success>."
+    - "&7Usa &n<click:run_command:'/hologram edit %name%'>/hologram edit %name%</click>&r&7 per modificare l'ologramma"
+hologram-delete: "<success>Ologramma di nome &f%name% <success>è stato rimosso."
+hologram-doesnt-exist: "<error>Ologramma di nome &f%name% <error>non esiste."
+hologram-is-not-a-text: "<error>Ologramma di nome &f%name% <error>non è un text hologram."
+hologram-is-not-a-block: "<error>Ologramma di nome &f%name% <error>non è un block hologram."
+hologram-is-not-a-item: "<error>Ologramma di nome &f%name% <error>non è un item hologram."
+hologram-add-line: "<success>Hai appena aggiunto una riga all'ologramma &f%name%<success>."
+hologram-set-line: "<success>Hai fatto diventare la riga &f%line%<success> per l'ologramma &f%name%<success>."
+hologram-insert-before-line: "<success>Hai aggiunto una nuova riga prima della riga &f%line%<success> per l'ologramma &f%name%<success>."
+hologram-insert-after-line: "<success>Hai aggiunto una nuova riga dopo la riga &f%line%<success> per l'ologramma &f%name%<success>."
+hologram-line-doesnt-exist: "<error>La riga &f%line% <error>non esiste per l'ologramma &f%name%<error>."
+hologram-remove-line: "<success>Hai rimosso la linea &f%line%<success> dall'ologramma &f%name%<success>."
+hologram-scale: "<success>Hai appena cambiato la scala(grandezza) dell'ologramma &f%name% <success>a &7%x%&8, &7%y%&8, &7%z%<success>."
+hologram-translation: "<success>Hai cambiato la traduzione dell'ologramma &f%name% <success>a &7%x%&8, &7%y%&8, &7%z%<success>."
+hologram-move-here: "<success>Hai spostato l'ologramma &f%name%<success> alla tua posizione."
+hologram-move-to: "<success>Hai spostato l'ologramma &f%name% <success>alle coordinate &7%x%&8, &7%y%&8, &7%z%<success>."
+hologram-billboard: "<success>Hai cambiato la billboard dell'ologramma &f%name%<success> a &f%billboard%<success>."
+hologram-text-alignment: "<success>Hai appena cambiato l'allineamento del testo dell'ologramma &f%name%<success> a &f%textAlignment%<success>."
+hologram-yaw: "<success>Hai camiato la yaw dell'ologramma &f%name%<success> a &f%yaw%<success>."
+hologram-pitch: "<success>Hai cambiato il pitch dell'ologramma &f%name%<success> a &f%pitch%<success>."
+hologram-text-background: "<success>Hai cambiato il colore di sfondo dell'ologramma &f%name%<success> a &f%color%<success>."
+hologram-text-background-error: "<error>Non si è riusciti ad analizzare il colore di sfondo."
+hologram-text-shadow: "<success>Hai impostato l'ombra del testo a &f%textshadow% <success>per l'ologramma &f%name%<success>."
+hologram-see-through: "<success>Hai impostato l'opacità/possibilità di vedere attraverso a &f%seethrough% <success>per l'ologramma &f%name%<success>."
+hologram-shadow-strength: "<success>Hai impostato l'intensità dell'ombraa a &f%shadow% <success>per l'ologramma &f%name%<success>."
+hologram-shadow-radius: "<successHai impostato il raggio dell'ombra a &f%shadow% <success>per l'ologramma &f%name%<success>."
+hologram-view-distance: "<success>Hai impostato la distanza visiva a &f%distance% <success>per l'ologramma &f%name%<success>."
+hologram-list-empty: "<error>Non c'è nessun ologramma, per crearne uno, usa il comando &f/holo create <name>"
+hologram-list:
+  type: WITHOUT_PREFIX
+  message: "&f%name% &8- &7%world%: %x%, %y%, %z% &8- <hover:show_text:'&7Clicca per essere teletrasportato a questo ologramma'><click:run_command:'/holo tp %name%'><green>ᴛᴇʟᴇᴛʀᴀsᴘᴏʀᴛᴀᴛɪ</click> </hover><hover:show_text:'<red>Clicca per eliminare questo ologramma'><click:suggest_command:'/holo delete %name%'><red>ᴇʟɪᴍɪɴᴀ</click></hover>"
+hologram-item-error: "<error>Non puoi usare aria per questo ologramma."
+hologram-item: "<success>Hai modificato l'oggetto dell'ologramma &f%name%<success>."
+hologram-block: "<success>Hai modificato il blocco dell'ologramma &f%name%<success> al materiale &f%material%<success>."
+
+scoreboard-disable: "<error>Hai disabilitato la scoreboard."
+scoreboard-enable: "<success>Hai abilitato la scoreboard."
+
+command-baltop-error: "<error>Economia/Moneta di nome &f%name% <error>inesistente."
+command-baltop-header:
+  type: WITHOUT_PREFIX
+  message: "#00f986ᴛᴏᴘ sᴏʟᴅɪ &8(&f%page%&8/&7%maxPage%&8) <click:run_command:'/baltop %previousPage%'>&f◀</click> &8- <click:run_command:'/baltop %nextPage%'>&f▶</click>"
+command-baltop:
+  type: WITHOUT_PREFIX
+  message: "#00f986#%position% &f%name%&8: %amount%"
+
+command-voteparty-set: "<success>Hai impostato il voteparty a &f%amount% <success>voti."
+command-voteparty-add: "<success>Hai aggiunto &f%amount% <success>voti per il voteparty."
+command-voteparty-remove: "<success>Hai tolto  &f%amount% <success>voti dal voteparty."
+command-voteparty-informations: "<green>VoteParty: <white>%amount%<dark_gray>/<yellow>%objective%"
+
+command-vote-add: "<success>Hai aggiunto un voto al giocatore &f%player%<success>."
+command-vote-add-error: "<error>Il sito &f%site% <error>non esiste !"
+command-vote:
+  type: ACTION
+  message: "<success>Hai appena votato e ricevuto una chiave vote."
+
+vote-offline:
+  - ""
+  - "<success>Hai votato <gold>%amount% volte <success>mentre eri offline, usa il comando <yellow><click:run_command:'/mailbox'>/mailbox</click> <success>per ottenere i tuoi premi!"
+  - ""
+
+vault-lore:
+  - ""
+  - "&fɪɴғᴏ"
+  - " #f8b175• &7Quantità&8: &e%quantity%"
+  - ""
+  - "&f<b>➥</b> #fc99f8Click Sinitro &7per prenderne 1"
+  - "&f<b>➥</b> #fc99f8Click Destro &7per prenderne 64"
+  - "&f<b>➥</b> #fc99f8Shift + Click Destro &7per prendere tutto"
+command-vault-not-found: "<error>Non si riesce a trovare la cassaforte &f%vaultId%<error>."
+command-vault-no-permission: "<error>Non hai il permesso di vedere la cassaforte."
+command-vault-set-slot: "<success>Hai impostato la quantita di slots per il giocatore &f%player% <success>a &7%slots% <success>slots."
+command-vault-add-slot: "<success>Hai aggiunto &7%amount% <success>slots per &f%player%<success>."
+command-vault-change-icon-error: "<error>Stai tenendo un oggetto."
+command-vault-change-icon-success: "<success>Hai camviato l'icona della tua cassaforte."
+command-vault-reset-icon: "<success>Hai resettato l'icona della cassaforte."
+command-vault-rename-start: "<success>Scrivi in chat il nuovo nome della cassaforte."
+command-vault-rename-success: "<success>Hai impostato il nome della cassa forte a &f%name%<success>."
+command-vault-rename-error: "<error>Non puoi usare questo nome per la tua cassaforte."
+command-vault-rename-reset: "<success>Hai resettato il nome della cassaforte."
+
+
+command-enchant-invalid: "<error>Devi specificare un giocatore valido."
+command-enchant-error-enchant: "<error>Impossibile trovare l'incantesimo &f%name%<error>."
+command-enchant-error-item-self: "<error>Devi tenere un oggetto in mano."
+command-enchant-error-item-player: "<error>%player% non sta tenendo nessun oggetto."
+command-enchant-remove-self: "<success>L'incantesimo &f%enchant% <success>è stato rimosso dall'oggetto che stai tenendo."
+command-enchant-remove-player: "<success>L'incantesimo &f%enchant% <success>è stato rimosso dall'oggeto che &f%player%<success> sta tenendo."
+command-enchant-success-self: "<success>L'incantesimo &f%enchant% <success>è stato aggiunto all'oggetto che stai tenendo."
+command-enchant-success-player: "<success>L'incantesimo &f%enchant% <success>è stato aggiunto all'oggetto che &f%player%<success> sta tenendo."
+
+command-sudo-error: "<error>Non puoi obbligato il giocatore ad eseguire il comando."
+command-sudo-command: "<success>Hai obbligato <white>%player% <success>ad eseguire il comando <white>/%command%<success>."
+command-sudo-message: "<success>Hai obbligato <white>%player% <success>a mandare il messaggio <white>%message%<success>."
+
+# WorldEdit
+command-worldedit-give-error: "<error>Non si riesce a trovare l'oggetto &f%name%<error>"
+command-worldedit-give-sender: "<success>Hai dato &f%item% <success>a &f%player%<success>."
+command-worldedit-give-receiver: "<success>Hai ricevuto &f%item%<success>."
+command-worldedit-material-not-found: "<error>Non si riesce a trovare il materiale &f%material%<error>."
+command-worldedit-confirm-price:
+  - ""
+  - "<success>Prezzo<dark_gray>: <white>%price%"
+  - "<success>Blocchi<dark_gray>:<white>%materials%"
+  - "<success>Durata<dark_gray>: <white>%duration% <dark_gray>(<gray>%blocks% blocks at %speed% block%s%/s)"
+  - ""
+  - "<#45ff55><hover:show_text:'&fClicca per confermare'><click:run_command:'/pw confirm'>ᴄʟɪᴄᴄᴀ ᴏ̨ᴜɪ ᴘᴇʀ ᴄᴏɴғᴇʀᴍᴀʀᴇ</click></hover><gray>"
+command-worldedit-confirm-price-cut:
+  - ""
+  - "<success>Prezzo<dark_gray>: <white>%price%"
+  - "<success>Durata<dark_gray>: <white>%duration% <dark_gray>(<gray>%blocks% blocks at %speed% block%s%/s)"
+  - ""
+  - "<#45ff55><hover:show_text:'&fClicca per confermare'><click:run_command:'/pw confirm'>ᴄʟɪᴄᴄᴀ ᴏ̨ᴜɪ ᴘᴇʀ ᴄᴏɴғᴇʀᴍᴀʀᴇ</click></hover><gray>"
+command-worldedit-confirm-material: " <white><hover:show_text:'<white>Quantità<dark_gray>: <aqua>%amount%<newline><white>Prezzo<dark_gray>: <aqua>%price%<newline><white>Prezzo al blocco<dark_gray>: <aqua>%price-per-block%'><lang:%translation-key%></hover><gray>"
+command-worldedit-confirm-error: "<error>Non puoi farlo al momento."
+command-worldedit-stop-empty: "<error>Non hai nessuna sessione attiva."
+command-worldedit-stop-error: "<error>Non puoi smettere di modificare al momento."
+command-worldedit-error-item: "<error>Devi tenere un oggetto WorldEdit in mano."
+command-worldedit-error-max: "<error>Non puoi usare questo oggetto, è arrivato al limite."
+command-worldedit-option-inventory-enable: "<success>Hai appena attivato worldedit per usare il tuo inventario."
+command-worldedit-option-inventory-disable: "<error>Hai appena disattivato worldedit per usare il tuo inventario."
+command-worldedit-option-bossbar-enable: "<success>Hai attivato la barra di progresso di WorldEdit."
+command-worldedit-option-bossbar-disable: "<error>Hi disttivato la barra di progresso di WorldEdit."
+
+worldedit-selection-error: "<error>Devi selezionare 2 angoli prima di usare questo comando."
+worldedit-already-running: "<error>C'è già una modifica in progresso, aspetta fino a quando finisce."
+worldedit-not-enough-money: "<error>Non hai abbastanza soldi per creare questa sessione."
+worldedit-not-enough-items: "<error>Non hai abbastanza oggetti nel tuo inventario, non puoi farlo."
+worldedit-selection-pos1: "<success>Hai impostato la prima posizione."
+worldedit-selection-pos2: "<success>Hai impostato la seconda posizione."
+worldedit-selection-volume: "<error>Non puoi cambiare più di &f%blocks% <error>blocchi contemporaneamente."
+worldedit-selection-distance: "<error>La distanza tra i due angoli è troppo vasta. <dark_gray>(<gray>Massimo <white>%distance% <gray>blocchi<dark_gray>)"
+
+worldedit-start-calculate-price: "&7Calcolando il prezzo..."
+worldedit-start-check-inventory: "&7Controllando se hai abbastanza oggetti..."
+worldedit-start-running: "&7Iniziando una sessione..."
+worldedit-finish: "<success>Sessione completata!"
+worldedit-refund:
+  - "<success>sᴇɪ sᴛᴀᴛᴏ ʀɪᴍʙᴏʀsᴀᴛᴏ"
+  - ""
+  - "<success>Prezzo<dark_gray>: <white>%price%"
+  - "<success>Blocchi<dark_gray>:<red>%materials%"
+worldedit-refund-material: " <white><hover:show_text:'<white>Quantità<dark_gray>: <aqua>%amount%<newline><white>Prezzo totale<dark_gray>: <aqua>%price%<newline><white>Prezzo al blocco<dark_gray>: <aqua>%price-per-block%'><lang:%translation-key%></hover><gray>"
+worldedit-refund-empty: " Nessun rimborso per i blocchi"
+worldedit-bossbar: "#45ff45Tempo rimanente<dark_gray>: <white>%time%"
+worldedit-speed-error: "<error>Non hai abbastanza permessi per impostare i blocchi al secondo."

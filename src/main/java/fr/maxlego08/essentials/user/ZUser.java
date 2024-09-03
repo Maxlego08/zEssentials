@@ -44,6 +44,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -515,7 +516,15 @@ public class ZUser extends ZUtils implements User {
 
     @Override
     public void setHomes(List<HomeDTO> homeDTOS) {
-        this.homes.addAll(homeDTOS.stream().map(homeDTO -> new ZHome(stringAsLocation(homeDTO.location()), homeDTO.name(), homeDTO.material() == null ? null : Material.valueOf(homeDTO.material()))).toList());
+        this.homes.addAll(homeDTOS.stream().map(homeDTO -> {
+            try {
+                return new ZHome(stringAsLocation(homeDTO.location()), homeDTO.name(), homeDTO.material() == null ? null : Material.valueOf(homeDTO.material()));
+            } catch (Exception exception) {
+                plugin.getLogger().severe("Impossible to load the home " + homeDTO.name() + " for " + this.name + " Debug: " + homeDTO);
+                exception.printStackTrace();
+            }
+            return null;
+        }).filter(Objects::nonNull).toList());
     }
 
     @Override

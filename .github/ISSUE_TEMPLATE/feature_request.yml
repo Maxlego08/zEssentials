@@ -1,0 +1,53 @@
+name: Feature request
+description: Suggest an idea for this project
+labels: enhancement
+assignees: Maxlego08
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## READ AND FOLLOW THE DESCRIPTIONS OF THIS ISSUE TEMPLATE!
+        Not doing so may result in your issue being closed without warning. Take your time and properly fill out everything as requested.
+        We advise you to put a maximum of image and video to better understand your problem.
+  - type: checkboxes
+    id: searched
+    attributes:
+      label: Terms
+      options:
+        - label: "I'm using the very latest version of zEssentials and its dependencies (zMenu and PlaceholdersAPI)."
+          required: true
+        - label: "I already searched on this [Github page](https://github.com/Maxlego08/zEssentials/issues) to check if the same suggestion was already reported."
+          required: true
+        - label: "I already searched on the [plugin wiki](https://zessentials.groupez.dev/) to know if a solution is already known."
+          required: true
+        - label: "I already searched on the [discord](https://discord.groupez.dev/) to check if anyone already has a solution for this or if the feature was already suggested."
+          required: true
+  - type: input
+    id: discord_tag
+    attributes:
+      label: Discord Username (optional)
+      description: So I can contact you quickly.
+      placeholder: ex. mydiscord123
+    validations:
+      required: false
+  - type: textarea
+    id: description
+    attributes:
+      label: "Describe your suggestions"
+      placeholder: "A clear and concise description of what you want to happen."
+    validations:
+      required: true      
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: "Describe alternatives you've considered (Optional)"
+      placeholder: "A clear and concise description of any alternative solutions or features you've considered. (others plugins/configurations)"
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: "Additional context (Optional)"
+      placeholder: "Add any other context or screenshots about the feature request here."
+  - type: markdown
+    attributes:
+      value: |
+        ## Thanks for taking the time to fill out this suggestion page!      

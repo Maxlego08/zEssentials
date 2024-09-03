@@ -98,25 +98,82 @@ public interface Configuration extends ConfigurationFile {
      */
     RedisConfiguration getRedisConfiguration();
 
+    /**
+     * Retrieves a list of message colors available.
+     *
+     * @return a list of {@link MessageColor} objects
+     */
     List<MessageColor> getMessageColors();
 
+    /**
+     * Retrieves a list of chat cooldown configurations.
+     *
+     * @return a list of {@link ChatCooldown} objects
+     */
     List<ChatCooldown> getCooldowns();
 
+    /**
+     * Retrieves an array of command cooldown times.
+     *
+     * @return an array of long values representing command cooldown times
+     */
     long[] getCooldownCommands();
 
+    /**
+     * Retrieves a list of smeltable materials.
+     *
+     * @return a list of {@link TransformMaterial} objects representing smeltable materials
+     */
     List<TransformMaterial> getSmeltableMaterials();
 
+    /**
+     * Retrieves the default distance used for the "near" command.
+     *
+     * @return the default near distance as a double
+     */
     double getDefaultNearDistance();
 
+    /**
+     * Retrieves a list of permissions related to near distance.
+     *
+     * @return a list of {@link NearDistance} objects representing near permissions
+     */
     List<NearDistance> getNearPermissions();
 
+    /**
+     * Retrieves the near distance allowed for a specific permissible entity.
+     *
+     * @param permissible the entity to check permissions for
+     * @return the near distance as a double
+     */
     double getNearDistance(Permissible permissible);
 
+    /**
+     * Checks if command logging is enabled.
+     *
+     * @return true if command logging is enabled, false otherwise
+     */
     boolean isEnableCommandLog();
 
+    /**
+     * Retrieves the global date format used across the server.
+     *
+     * @return the {@link SimpleDateFormat} object representing the global date format
+     */
     SimpleDateFormat getGlobalDateFormat();
 
+    /**
+     * Retrieves a list of placeholder replacements.
+     *
+     * @return a list of {@link ReplacePlaceholder} objects
+     */
     List<ReplacePlaceholder> getReplacePlaceholders();
 
+    /**
+     * Retrieves a specific placeholder replacement by its name.
+     *
+     * @param placeholder the name of the placeholder to retrieve
+     * @return an {@link Optional} containing the found {@link ReplacePlaceholder}, or empty if not found
+     */
     Optional<ReplacePlaceholder> getReplacePlaceholder(String placeholder);
 }

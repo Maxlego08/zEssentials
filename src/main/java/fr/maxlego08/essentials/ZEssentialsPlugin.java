@@ -52,6 +52,7 @@ import fr.maxlego08.essentials.economy.EconomyModule;
 import fr.maxlego08.essentials.enchantments.ZEnchantments;
 import fr.maxlego08.essentials.hologram.HologramModule;
 import fr.maxlego08.essentials.kit.KitModule;
+import fr.maxlego08.essentials.listener.InvseeListener;
 import fr.maxlego08.essentials.listener.PlayerListener;
 import fr.maxlego08.essentials.loader.ButtonKitCooldownLoader;
 import fr.maxlego08.essentials.loader.ButtonKitGetLoader;
@@ -222,6 +223,8 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         }*/
 
         this.getServer().getServicesManager().register(EssentialsPlugin.class, this, this, ServicePriority.Normal);
+
+        this.registerListener(new InvseeListener());
 
         this.generateDocs();
     }

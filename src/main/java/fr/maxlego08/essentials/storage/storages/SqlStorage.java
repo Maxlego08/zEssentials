@@ -114,8 +114,8 @@ public class SqlStorage extends StorageHelper implements IStorage {
         MigrationManager.setMigrationTableName("zessentials_migrations");
         MigrationManager.setDatabaseConfiguration(databaseConfiguration);
 
-        MigrationManager.registerMigration(new CreateServerStorageTableMigration());
         MigrationManager.registerMigration(new CreateUserTableMigration());
+        MigrationManager.registerMigration(new CreateServerStorageTableMigration());
         MigrationManager.registerMigration(new CreateUserOptionTableMigration());
         MigrationManager.registerMigration(new CreateUserCooldownTableMigration());
         MigrationManager.registerMigration(new CreateUserEconomyMigration());
@@ -135,7 +135,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
         MigrationManager.registerMigration(new CreatePlayerSlots());
         MigrationManager.registerMigration(new UpdateUserTableAddFreezeColumn());
 
-        // Reposirtories
+        // Repositories
         this.repositories = new Repositories(plugin, this.connection);
         this.repositories.register(UserRepository.class);
         this.repositories.register(UserOptionRepository.class);
