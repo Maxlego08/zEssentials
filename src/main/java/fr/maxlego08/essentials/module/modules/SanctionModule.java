@@ -415,31 +415,35 @@ public class SanctionModule extends ZModule {
             return;
         }
 
-        IStorage iStorage = this.plugin.getStorageManager().getStorage();
-        User user = iStorage.getUser(uuid);
+        User user = this.plugin.getUser(uuid);
         if (user == null) {
             message(sender, Message.PLAYER_NOT_FOUND, "%player%", userName);
             return;
         }
 
         user.setFrozen(!user.isFrozen());
-
+        IStorage iStorage = this.plugin.getStorageManager().getStorage();
         Sanction sanction = Sanction.freeze(uuid, getSenderUniqueId(sender));
         iStorage.insertSanction(sanction, index -> {
             sanction.setId(index);
             iStorage.updateUserFrozen(uuid, user.isFrozen());
         });
+
+        Player player = user.getPlayer();
+
         if (user.isFrozen()) {
             message(sender, Message.COMMAND_FREEZE_SUCCESS, "%player%", userName);
             this.plugin.getEssentialsServer().sendMessage(uuid, Message.MESSAGE_FREEZE);
 
-            user.getPlayer().setAllowFlight(true);
-            user.getPlayer().setFlying(true);
-            user.getPlayer().setFlySpeed(0f);
+            player.setAllowFlight(true);
+            player.setFlying(true);
+            player.setFlySpeed(0f);
             this.plugin.getScheduler().teleportAsync(user.getPlayer(), user.getPlayer().getLocation().add(0, 0.1, 0));
         } else {
-            user.getPlayer().setAllowFlight(false);
-            user.getPlayer().setFlying(false);
+            player.setAllowFlight(false);
+            player.setFlying(false);
+            player.setFlySpeed(0.1f);
+
             message(sender, Message.COMMAND_UN_FREEZE_SUCCESS, "%player%", userName);
             this.plugin.getEssentialsServer().sendMessage(uuid, Message.MESSAGE_UN_FREEZE);
         }
@@ -447,8 +451,7 @@ public class SanctionModule extends ZModule {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        IStorage iStorage = this.plugin.getStorageManager().getStorage();
-        User user = iStorage.getUser(event.getPlayer().getUniqueId());
+        User user = this.getUser(event.getPlayer());
         if (user.isFrozen()) {
             user.getPlayer().setAllowFlight(true);
             user.getPlayer().setFlying(true);
@@ -460,7 +463,7 @@ public class SanctionModule extends ZModule {
 
     @EventHandler
     public void onCommand(PlayerCommandPreprocessEvent event) {
-        User user = this.plugin.getUser(event.getPlayer().getUniqueId());
+        User user = this.getUser(event.getPlayer());
         if (user.isFrozen()) {
             event.setCancelled(true);
             this.plugin.getEssentialsServer().sendMessage(user.getUniqueId(), Message.MESSAGE_FREEZE);
