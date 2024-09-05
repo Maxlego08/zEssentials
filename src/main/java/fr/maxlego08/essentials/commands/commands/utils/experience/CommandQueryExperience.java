@@ -13,9 +13,10 @@ public class CommandQueryExperience extends VCommand {
 
     public CommandQueryExperience(EssentialsPlugin plugin) {
         super(plugin);
-        this.setPermission(Permission.ESSENTIALS_EXPERIENCE);
-        this.setDescription(Message.DESCRIPTION_EXPERIENCE);
+        this.setPermission(Permission.ESSENTIALS_EXPERIENCE_QUERY);
+        this.setDescription(Message.DESCRIPTION_EXPERIENCE_QUERY);
         this.addSubCommand("query");
+        this.setSyntax("/experience query <player> <type>");
         this.addRequirePlayerNameArg();
         this.addRequireArg("type", (sender, objects) -> Arrays.asList("levels", "points"));
     }

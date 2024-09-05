@@ -249,7 +249,7 @@ public class CommandLoader {
         register("powertools", CommandPowerTools.class, "pt");
         register("powertools-toggle", CommandPowerToolsToggle.class, "pt-toggle");
 
-        register("experience", CommandExperience.class, "xp");
+        register("experience", CommandExperience.class, "xp", "exp", "level", "levels");
 
         register("hologram", CommandHologram.class, "holo", "ho");
         register("sb", CommandScoreboard.class);

@@ -13,9 +13,10 @@ public class CommandSetExperience extends VCommand {
 
     public CommandSetExperience(EssentialsPlugin plugin) {
         super(plugin);
-        this.setPermission(Permission.ESSENTIALS_EXPERIENCE);
-        this.setDescription(Message.DESCRIPTION_EXPERIENCE);
+        this.setPermission(Permission.ESSENTIALS_EXPERIENCE_SET);
+        this.setDescription(Message.DESCRIPTION_EXPERIENCE_SET);
         this.addSubCommand("set");
+        this.setSyntax("/experience set <player> <amount> <type>");
         this.addRequirePlayerNameArg();
         this.addRequireArg("amount", (sender, objects) -> Arrays.asList("1", "10", "30" ,"100", "1000"));
         this.addRequireArg("type", (sender, objects) -> Arrays.asList("levels", "points"));

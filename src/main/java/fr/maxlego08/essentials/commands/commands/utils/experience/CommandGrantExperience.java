@@ -13,9 +13,10 @@ public class CommandGrantExperience extends VCommand {
 
     public CommandGrantExperience(EssentialsPlugin plugin) {
         super(plugin);
-        this.setPermission(Permission.ESSENTIALS_EXPERIENCE);
-        this.setDescription(Message.DESCRIPTION_EXPERIENCE);
+        this.setPermission(Permission.ESSENTIALS_EXPERIENCE_GRANT);
+        this.setDescription(Message.DESCRIPTION_EXPERIENCE_GRANT);
         this.addSubCommand("grant");
+        this.setSyntax("/experience grant <player> <amount> <type>");
         this.addRequirePlayerNameArg();
         this.addRequireArg("amount", (sender, objects) -> Arrays.asList("1", "10", "30" ,"100", "1000"));
         this.addRequireArg("type", (sender, objects) -> Arrays.asList("levels", "points"));
