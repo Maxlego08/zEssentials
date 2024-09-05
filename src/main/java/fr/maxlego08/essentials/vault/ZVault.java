@@ -29,8 +29,8 @@ public class ZVault extends ZUtils implements Vault {
         this.iconItemStack = iconItemStack;
     }
 
-    public ZVault(UUID uuid, int vaultId) {
-        this(uuid, vaultId, "Vault-" + vaultId, null);
+    public ZVault(UUID uuid, int vaultId, String name) {
+        this(uuid, vaultId, name.replace("%vault-id%", String.valueOf(vaultId)), null);
     }
 
     @Override

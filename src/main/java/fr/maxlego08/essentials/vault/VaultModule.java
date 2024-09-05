@@ -40,6 +40,7 @@ public class VaultModule extends ZModule implements VaultManager {
     private String iconOpen;
     private String iconClose;
     private String vaultNameRegex;
+    private String defaultVaultName;
     private List<PermissionSlotsVault> vaultPermissions;
 
     public VaultModule(ZEssentialsPlugin plugin) {
@@ -64,20 +65,20 @@ public class VaultModule extends ZModule implements VaultManager {
 
         // Create Vault
         vaultDTOS.forEach(vaultDTO -> {
-            PlayerVaults playerVaults = this.vaults.computeIfAbsent(vaultDTO.unique_id(), ZPlayerVaults::new);
+            PlayerVaults playerVaults = this.vaults.computeIfAbsent(vaultDTO.unique_id(), uniqueId -> new ZPlayerVaults(this, uniqueId));
             playerVaults.createVault(vaultDTO);
         });
 
         // Store Vault Items
         vaultItemDTOS.forEach(vaultItemDTO -> {
-            PlayerVaults playerVaults = this.vaults.computeIfAbsent(vaultItemDTO.unique_id(), ZPlayerVaults::new);
-            Vault vault = playerVaults.getVaults().computeIfAbsent(vaultItemDTO.vault_id(), id -> new ZVault(vaultItemDTO.unique_id(), id));
+            PlayerVaults playerVaults = this.vaults.computeIfAbsent(vaultItemDTO.unique_id(), uniqueId -> new ZPlayerVaults(this, uniqueId));
+            Vault vault = playerVaults.getVaults().computeIfAbsent(vaultItemDTO.vault_id(), id -> new ZVault(vaultItemDTO.unique_id(), id, this.defaultVaultName));
             vault.createItem(vaultItemDTO);
         });
 
         // Store slots
         slotDTOS.forEach(playerSlotDTO -> {
-            PlayerVaults playerVaults = this.vaults.computeIfAbsent(playerSlotDTO.unique_id(), ZPlayerVaults::new);
+            PlayerVaults playerVaults = this.vaults.computeIfAbsent(playerSlotDTO.unique_id(), uniqueId -> new ZPlayerVaults(this, uniqueId));
             playerVaults.setSlots(playerSlotDTO.slots());
         });
     }
@@ -109,7 +110,7 @@ public class VaultModule extends ZModule implements VaultManager {
 
     @Override
     public PlayerVaults getPlayerVaults(UUID uniqueId) {
-        return this.vaults.computeIfAbsent(uniqueId, ZPlayerVaults::new);
+        return this.vaults.computeIfAbsent(uniqueId, uniqueId1 -> new ZPlayerVaults(this, uniqueId1));
     }
 
     @Override
@@ -397,5 +398,10 @@ public class VaultModule extends ZModule implements VaultManager {
             materials.addAll(vault.getVaultItems().values().stream().map(vaultItem -> vaultItem.getItemStack().getType()).toList());
         }
         return materials;
+    }
+
+    @Override
+    public String getDefaultVaultName() {
+        return defaultVaultName;
     }
 }

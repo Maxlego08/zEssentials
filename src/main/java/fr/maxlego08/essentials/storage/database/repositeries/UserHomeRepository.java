@@ -19,7 +19,7 @@ public class UserHomeRepository extends Repository {
     public void upsert(UUID uuid, Home home) {
         upsert(table -> {
             table.uuid("unique_id", uuid).primary();
-            table.string("name", home.getName());
+            table.string("name", home.getName()).primary();
             table.string("location", locationAsString(home.getLocation()));
             table.string("material", home.getMaterial() != null ? home.getMaterial().name() : null);
         });

@@ -1,5 +1,9 @@
 # Unreleased
 
+- Added the ability to change default vault names
+- Added NMS support for 1.21.1
+- Fixed an SQL query for updating homes with SQLITE
+
 # 1.0.0.8
 
 - Added error exception when you try to load a home if the world doesn't exist [#67](https://github.com/Maxlego08/zEssentials/issues/67)
