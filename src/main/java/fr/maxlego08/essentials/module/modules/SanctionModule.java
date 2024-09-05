@@ -4,6 +4,7 @@ import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.cache.ExpiringCache;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.dto.UserDTO;
+import fr.maxlego08.essentials.api.event.events.user.UserJoinEvent;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.sanction.SanctionType;
@@ -21,6 +22,10 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -46,6 +51,7 @@ public class SanctionModule extends ZModule {
     private final Material unbanMaterial = Material.BOOK;
     private final Material unmuteMaterial = Material.BOOK;
     private final Material warnMaterial = Material.BOOK;
+    private final Material freezeMaterial = Material.BOOK;
     private final Material currentMuteMaterial = Material.BOOKSHELF;
     private final Material currentBanMaterial = Material.BOOKSHELF;
     private final List<String> protections = new ArrayList<>();
@@ -99,6 +105,7 @@ public class SanctionModule extends ZModule {
             case UNBAN -> unbanMaterial;
             case UNMUTE -> unmuteMaterial;
             case WARN -> warnMaterial;
+            case FREEZE -> freezeMaterial;
         };
     }
 
@@ -399,5 +406,67 @@ public class SanctionModule extends ZModule {
         }
 
         message(sender, Message.COMMAND_SEEN_IP_LINE, "%ip%", ip, "%players%", userDTOS.stream().map(user -> getMessage(Message.COMMAND_SEEN_IP_INFO, "%name%", user.name())).collect(Collectors.joining(",")));
+    }
+
+    public void freeze(CommandSender sender, UUID uuid, String userName) {
+
+        if (isProtected(userName)) {
+            message(sender, Message.COMMAND_SANCTION_ERROR);
+            return;
+        }
+
+        User user = this.plugin.getUser(uuid);
+        if (user == null) {
+            message(sender, Message.PLAYER_NOT_FOUND, "%player%", userName);
+            return;
+        }
+
+        user.setFrozen(!user.isFrozen());
+        IStorage iStorage = this.plugin.getStorageManager().getStorage();
+        Sanction sanction = Sanction.freeze(uuid, getSenderUniqueId(sender));
+        iStorage.insertSanction(sanction, index -> {
+            sanction.setId(index);
+            iStorage.updateUserFrozen(uuid, user.isFrozen());
+        });
+
+        Player player = user.getPlayer();
+
+        if (user.isFrozen()) {
+            message(sender, Message.COMMAND_FREEZE_SUCCESS, "%player%", userName);
+            this.plugin.getEssentialsServer().sendMessage(uuid, Message.MESSAGE_FREEZE);
+
+            player.setAllowFlight(true);
+            player.setFlying(true);
+            player.setFlySpeed(0f);
+            this.plugin.getScheduler().teleportAsync(user.getPlayer(), user.getPlayer().getLocation().add(0, 0.1, 0));
+        } else {
+            player.setAllowFlight(false);
+            player.setFlying(false);
+            player.setFlySpeed(0.1f);
+
+            message(sender, Message.COMMAND_UN_FREEZE_SUCCESS, "%player%", userName);
+            this.plugin.getEssentialsServer().sendMessage(uuid, Message.MESSAGE_UN_FREEZE);
+        }
+    }
+
+    @EventHandler
+    public void onJoin(PlayerJoinEvent event) {
+        User user = this.getUser(event.getPlayer());
+        if (user.isFrozen()) {
+            user.getPlayer().setAllowFlight(true);
+            user.getPlayer().setFlying(true);
+            user.getPlayer().setFlySpeed(0f);
+            this.plugin.getScheduler().teleportAsync(user.getPlayer(), user.getPlayer().getLocation().add(0, 0.1, 0));
+            this.plugin.getEssentialsServer().sendMessage(user.getUniqueId(), Message.MESSAGE_FREEZE);
+        }
+    }
+
+    @EventHandler
+    public void onCommand(PlayerCommandPreprocessEvent event) {
+        User user = this.getUser(event.getPlayer());
+        if (user.isFrozen()) {
+            event.setCancelled(true);
+            this.plugin.getEssentialsServer().sendMessage(user.getUniqueId(), Message.MESSAGE_FREEZE);
+        }
     }
 }

@@ -590,6 +590,18 @@ message-ban-join:
   - "&fMinecraft-Inventory-Builder.com"
   - ""
 
+description_freeze: "Freeze a player"
+message_freeze:
+    - ""
+    - "&fYou have just been frozen."
+    - ""
+message_un_freeze:
+  - ""
+  - "&fYou have just been unfrozen."
+  - ""
+command_freeze_success: "&7You just freeze the player &f%player%&7."
+command_un_freeze_success: "&7You just unfreeze the player &f%player%&7."
+
 # Chat
 chat-error: "<error>Impossible to let you speak, your data is not loaded."
 chat-alphanumeric-regex: "<error>You use a forbidden character."

@@ -185,6 +185,7 @@ public enum Message {
     DESCRIPTION_DEL_HOME("Delete a home"),
     DESCRIPTION_HOME("Teleport to a home"),
     DESCRIPTION_KICK("Kick a player"),
+    DESCRIPTION_FREEZE("Freeze a player"),
     DESCRIPTION_KICK_ALL("Kick all players"),
     DESCRIPTION_KITTY_CANNON("Launch kitty, wtf you want to do that ? monster"),
     DESCRIPTION_BAN("Ban a player"),
@@ -450,6 +451,21 @@ public enum Message {
             "%reason%",
             "",
             "&fMinecraft-Inventory-Builder.com",
+            ""
+    ),
+
+    COMMAND_FREEZE_SUCCESS("&7You just freeze the player &f%player%&7."),
+    COMMAND_UN_FREEZE_SUCCESS("&7You just unfreeze the player &f%player%&7."),
+
+    MESSAGE_FREEZE(
+            "",
+            "&cYou have just been frozen.",
+            ""
+    ),
+
+    MESSAGE_UN_FREEZE(
+            "",
+            "&aYou have just been unfrozen.",
             ""
     ),
 

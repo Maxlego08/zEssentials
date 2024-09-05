@@ -112,6 +112,17 @@ public class Sanction {
     }
 
     /**
+     * Creates a new freeze sanction.
+     *
+     * @param playerUniqueId the UUID of the player being unbanned
+     * @param senderUniqueId the UUID of the sender issuing the unban
+     * @return a new Sanction instance representing an unban
+     */
+    public static Sanction freeze(UUID playerUniqueId, UUID senderUniqueId) {
+        return new Sanction(-1, playerUniqueId, senderUniqueId, "", -1, new Date(), new Date(), SanctionType.FREEZE);
+    }
+
+    /**
      * Creates a Sanction instance from a SanctionDTO.
      *
      * @param sanctionDTO the DTO containing sanction data

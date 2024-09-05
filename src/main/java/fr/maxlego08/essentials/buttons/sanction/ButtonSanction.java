@@ -48,6 +48,9 @@ public class ButtonSanction extends ZButton {
             case WARN -> {
                 player.sendMessage("§cTODO");
             }
+            case FREEZE -> {
+                sanctionModule.freeze(player, targetuser.getUniqueId(), targetuser.getName());
+            }
         }
     }
 }

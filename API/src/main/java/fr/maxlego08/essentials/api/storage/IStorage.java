@@ -143,4 +143,6 @@ public interface IStorage {
     List<PlayerSlotDTO> getPlayerVaultSlots();
 
     void updateVault(UUID uniqueId, Vault vault);
+
+    void updateUserFrozen(UUID uuid, boolean frozen);
 }

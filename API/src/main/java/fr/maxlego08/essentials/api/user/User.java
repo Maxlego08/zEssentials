@@ -848,4 +848,8 @@ public interface User {
      * @param pitch  the pitch of the sound
      */
     void playSound(Sound sound, float volume, float pitch);
+
+    void setFrozen(boolean b);
+
+    boolean isFrozen();
 }
