@@ -495,7 +495,7 @@ public class ZUser extends ZUtils implements User {
     @Override
     public void setHome(String name, Location location) {
         // Delete home with the same name before
-        removeHome(name);
+        this.homes.removeIf(home -> home.getName().equalsIgnoreCase(name));
 
         Home home = new ZHome(location, name, null);
         this.homes.add(home);
