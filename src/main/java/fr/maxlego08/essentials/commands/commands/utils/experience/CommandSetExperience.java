@@ -30,7 +30,7 @@ public class CommandSetExperience extends VCommand {
         if (type.equalsIgnoreCase("levels")) {
             player.setLevel(amount);
         } else {
-            player.setExp(amount);
+            player.setExperienceLevelAndProgress(amount);
         }
         message(sender, Message.EXPERIENCE_SETTED, player, "%amount%",amount, "%type%", type);
         return CommandResultType.SUCCESS;
