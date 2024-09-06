@@ -7,7 +7,8 @@
 - Added command ``/freeze <player>``
 - Added a command to confirm the overwrite of an already existing home. You can disable this option in `modules/homes/config.yml`
 - Added a command to confirm the deletion of an home. You can disable this option in `modules/homes/config.yml`
-- Fixed commands ``/sethome <player>:<home name>`` and ``/delhome <player>:<home name>`` which did not work if the player was online. 
+- Fixed commands ``/sethome <player>:<home name>`` and ``/delhome <player>:<home name>`` which did not work if the player was online.
+- Fixed command ``/wtp`` with folia
 
 # 1.0.0.8
 
