@@ -1,5 +1,18 @@
 # Unreleased
 
+# 1.0.0.9
+
+- Added the ability to change default vault names
+- Added NMS support for 1.21.1
+- Fixed an SQL query for updating homes with SQLITE
+- Fixed an SQL query for updating cooldown with SQLITE [#74](https://github.com/Maxlego08/zEssentials/issues/74)
+- Fixed creating homes that executed an SQL query for no reason
+- Added command ``/freeze <player>``
+- Added a command to confirm the overwrite of an already existing home. You can disable this option in `modules/homes/config.yml`
+- Added a command to confirm the deletion of an home. You can disable this option in `modules/homes/config.yml`
+- Fixed commands ``/sethome <player>:<home name>`` and ``/delhome <player>:<home name>`` which did not work if the player was online.
+- Fixed command ``/wtp`` with folia 
+
 # 1.0.0.8
 
 - Added error exception when you try to load a home if the world doesn't exist [#67](https://github.com/Maxlego08/zEssentials/issues/67)

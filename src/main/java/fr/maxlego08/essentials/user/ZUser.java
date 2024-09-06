@@ -48,6 +48,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 public class ZUser extends ZUtils implements User {
@@ -85,6 +86,8 @@ public class ZUser extends ZUtils implements User {
     private long vote;
     private long offlineVote;
     private Map<String, Long> lastVotes = new HashMap<>();
+
+    private boolean freeze;
 
     public ZUser(EssentialsPlugin plugin, UUID uniqueId) {
         this.plugin = plugin;
@@ -493,13 +496,24 @@ public class ZUser extends ZUtils implements User {
     }
 
     @Override
-    public void setHome(String name, Location location) {
-        // Delete home with the same name before
-        removeHome(name);
+    public boolean setHome(String name, Location location, boolean force) {
 
-        Home home = new ZHome(location, name, null);
+        if (!force && isHomeName(name)) {
+            message(this, Message.COMMAND_SET_HOME_CREATE_CONFIRM, "%name%", name);
+            return false;
+        }
+
+        AtomicReference<Material> material = new AtomicReference<>(null);
+        getHome(name).ifPresent(home -> material.set(home.getMaterial()));
+
+        // Delete home with the same name before
+        this.homes.removeIf(home -> home.getName().equalsIgnoreCase(name));
+
+        Home home = new ZHome(location, name, material.get());
         this.homes.add(home);
         this.getStorage().upsertHome(this.uniqueId, home);
+
+        return true;
     }
 
     @Override
@@ -756,6 +770,7 @@ public class ZUser extends ZUtils implements User {
         this.offlineVote = userDTO.vote_offline();
         this.playTime = userDTO.play_time();
         this.lastLocation = stringAsLocation(userDTO.last_location());
+        this.freeze = userDTO.frozen() != null && userDTO.frozen();
     }
 
     @Override
@@ -822,5 +837,15 @@ public class ZUser extends ZUtils implements User {
     public void playSound(Sound sound, float volume, float pitch) {
         var player = getPlayer();
         player.playSound(player.getLocation(), sound, volume, pitch);
+    }
+
+    @Override
+    public void setFrozen(boolean b) {
+        freeze = b;
+    }
+
+    @Override
+    public boolean isFrozen() {
+        return freeze;
     }
 }

@@ -279,6 +279,8 @@ description-warp-list: "Show warp list"
 description-tp-random: "Random Teleport in the world"
 description-set-home: "Create a home"
 description-del-home: "Delete a home"
+description-del-home-confirm: "Confirm the deletion of a home"
+description-set-home-confirm: "Confirm the creation of a home"
 description-home: "Teleport to a home"
 description-kick: "Kick a player"
 description-kick-all: "Kick all players"
@@ -389,6 +391,7 @@ description-vault-give: "Give items to player's vault"
 description-vault-add-slot: "Add slot to player's vault"
 description-vault-set-slot: "Set slot to player's vault"
 description-show-item: "Show player's item"
+description-experience: "Manage player experience"
 
 # Time format
 format-second: "second"
@@ -474,6 +477,11 @@ command-set-home-create:
   - "#99E0FFYou just created the home &f%name%#99E0FF. &8(&7%current%&8/&7%max%&8)"
   - "&fUse &n<hover:show_text:'&fClick to teleport to home'><click:suggest_command:'/home %name%'>/home %name%</click></hover>&r command to teleport to it"
   - ""
+command-set-home-create-confirm:
+  - ""
+  - "#99E0FFThe home &f%name%#99E0FF already exists. Do you want to overwrite it?"
+  - "<hover:show_text:'&fClick to overwrite the home %name%'><click:run_command:'/sethomeconfirm %name%'><success>ᴄᴏɴғɪʀᴍ</click></hover>"
+  - ""
 command-home-doesnt-exist: "<error>The home &f%name%<error> does not exist."
 
 # Available placeholders:
@@ -521,6 +529,11 @@ command-home-icon-error: "<error>You must have an item in your hand to change th
 command-home-icon-success: "#00ff00You just changed the home icon &f%name%#00ff00."
 command-home-icon-reset: "#00ff00You just reset the home icon &f%name%#00ff00."
 command-home-delete: "#99E0FFYou just deleted the home &f%name%#99E0FF."
+command-home-delete-confirm:
+  - ""
+  - "#99E0FFYou really want to delete the home &f%name%#99E0FF."
+  - "<success><hover:show_text:'&fClick to overwrite the home %name%'><click:run_command:'/delhomeconfirm %name%'>ᴄᴏɴғɪʀᴍ</click></hover>"
+  - ""
 command-home-admin-delete: "#00ff00You just deleted home &f%name%#00ff00 of &b%player%#00ff00."
 command-home-admin-set: "#00ff00You just created home &f%name%#00ff00 of &b%player%#00ff00."
 command-home-admin-list: "#8cc0cc%player% ʜᴏᴍᴇs&8:&f%homes%"
@@ -589,6 +602,18 @@ message-ban-join:
   - ""
   - "&fMinecraft-Inventory-Builder.com"
   - ""
+
+description_freeze: "Freeze a player"
+message_freeze:
+    - ""
+    - "&fYou have just been frozen."
+    - ""
+message_un_freeze:
+  - ""
+  - "&fYou have just been unfrozen."
+  - ""
+command_freeze_success: "&7You just freeze the player &f%player%&7."
+command_un_freeze_success: "&7You just unfreeze the player &f%player%&7."
 
 # Chat
 chat-error: "<error>Impossible to let you speak, your data is not loaded."
@@ -856,3 +881,9 @@ worldedit-refund-material: " <white><hover:show_text:'<white>Amount<dark_gray>: 
 worldedit-refund-empty: " No block to refund"
 worldedit-bossbar: "#45ff45Time remaining<dark_gray>: <white>%time%"
 worldedit-speed-error: "<error>You have no permission to set blocks per second."
+experience-granted: "<success>You have just given <white>%amount% %type% <success>to <white>%player%<success>."
+experience-setted: "<success>You have just set <white>%amount% %type% <success>to <white>%player%<success>."
+experience-queried: "<success><white>%player% <success>have <white>%amount% <success>%type%."
+description-experience-query: "Query player experience"
+description-experience-set: "Set player experience"
+description-experience-grant: "Grant experience to player"

@@ -230,4 +230,11 @@ public class UserRepository extends Repository {
             }
         });
     }
+
+    public void updateFrozen(UUID uuid, boolean frozen) {
+        update(table -> {
+            table.bool("frozen", frozen);
+            table.where("unique_id", uuid);
+        });
+    }
 }

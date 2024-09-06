@@ -182,9 +182,12 @@ public enum Message {
     DESCRIPTION_WARP_DEL("Delete a warp"),
     DESCRIPTION_WARP_LIST("Show warp list"),
     DESCRIPTION_SET_HOME("Create a home"),
+    DESCRIPTION_SET_HOME_CONFIRM("Confirm the creation of a home"),
     DESCRIPTION_DEL_HOME("Delete a home"),
+    DESCRIPTION_DEL_HOME_CONFIRM("Confirm the deletion of a home"),
     DESCRIPTION_HOME("Teleport to a home"),
     DESCRIPTION_KICK("Kick a player"),
+    DESCRIPTION_FREEZE("Freeze a player"),
     DESCRIPTION_KICK_ALL("Kick all players"),
     DESCRIPTION_KITTY_CANNON("Launch kitty, wtf you want to do that ? monster"),
     DESCRIPTION_BAN("Ban a player"),
@@ -291,7 +294,7 @@ public enum Message {
     DESCRIPTION_VAULT_ADD_SLOT("Add slot to player's vault"),
     DESCRIPTION_VAULT_SET_SLOT("Set slot to player's vault"),
     DESCRIPTION_SHOW_ITEM("Show player's item"),
-
+    DESCRIPTION_EXPERIENCE("Manage player experience"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -412,6 +415,12 @@ public enum Message {
             "&fUse &n<hover:show_text:'&fClick to teleport to home'><click:suggest_command:'/home %name%'>/home %name%</click></hover>&r command to teleport to it",
             ""
     ),
+    COMMAND_SET_HOME_CREATE_CONFIRM(
+            "",
+            "#99E0FFThe home &f%name%#99E0FF. already exists. Do you want to overwrite it?",
+            "<success><hover:show_text:'&fClick to overwrite the home %name%'><click:suggest_command:'/sethomeconfirm %name%'>ᴄᴏɴғɪʀᴍ</click></hover>",
+            ""
+    ),
 
     COMMAND_HOME_DOESNT_EXIST("<error>The home &f%name%<error> does not exist."),
 
@@ -428,6 +437,12 @@ public enum Message {
     COMMAND_HOME_ICON_SUCCESS("<success>You just changed the home icon &f%name%<success>."),
     COMMAND_HOME_ICON_RESET("<success>You just reset the home icon &f%name%<success>."),
     COMMAND_HOME_DELETE("#99E0FFYou just deleted the home &f%name%#99E0FF."),
+    COMMAND_HOME_DELETE_CONFIRM(
+            "",
+            "#99E0FFYou really want to delete the home &f%name%#99E0FF.",
+            "<success><hover:show_text:'&fClick to overwrite the home %name%'><click:run_command:'/delhomeconfirm %name%'>ᴄᴏɴғɪʀᴍ</click></hover>",
+            ""
+    ),
     COMMAND_HOME_ADMIN_DELETE("<success>You just deleted home &f%name%<success> of &b%player%<success>."),
     COMMAND_HOME_ADMIN_SET("<success>You just created home &f%name%<success> of &b%player%<success>."),
     COMMAND_HOME_ADMIN_LIST("#8cc0cc%player% ʜᴏᴍᴇs&8:&f%homes%"),
@@ -450,6 +465,21 @@ public enum Message {
             "%reason%",
             "",
             "&fMinecraft-Inventory-Builder.com",
+            ""
+    ),
+
+    COMMAND_FREEZE_SUCCESS("&7You just freeze the player &f%player%&7."),
+    COMMAND_UN_FREEZE_SUCCESS("&7You just unfreeze the player &f%player%&7."),
+
+    MESSAGE_FREEZE(
+            "",
+            "&cYou have just been frozen.",
+            ""
+    ),
+
+    MESSAGE_UN_FREEZE(
+            "",
+            "&aYou have just been unfrozen.",
             ""
     ),
 
@@ -771,6 +801,12 @@ public enum Message {
     WORLDEDIT_REFUND_EMPTY("<error>No block to refund"),
     WORLDEDIT_BOSSBAR("#45ff45Time remaining<dark_gray>: <white>%time%"),
 
+    EXPERIENCE_GRANTED("<success>You have just given <white>%amount% %type% <success>to <white>%player%<success>."),
+    EXPERIENCE_SETTED("<success>You have just set <white>%amount% %type% <success>to <white>%player%<success>."),
+    EXPERIENCE_QUERIED("<success><white>%player% <success>have <white>%amount% <success>%type%."),
+    DESCRIPTION_EXPERIENCE_QUERY("Query player experience"),
+    DESCRIPTION_EXPERIENCE_SET("Set player experience"),
+    DESCRIPTION_EXPERIENCE_GRANT("Grant experience to player"),
     ;
 
     private EssentialsPlugin plugin;

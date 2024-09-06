@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.vault;
 import fr.maxlego08.essentials.api.dto.VaultDTO;
 import fr.maxlego08.essentials.api.vault.PlayerVaults;
 import fr.maxlego08.essentials.api.vault.Vault;
+import fr.maxlego08.essentials.api.vault.VaultManager;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import fr.maxlego08.menu.zcore.utils.nms.ItemStackUtils;
 import org.bukkit.inventory.ItemStack;
@@ -14,12 +15,14 @@ import java.util.UUID;
 
 public class ZPlayerVaults extends ZUtils implements PlayerVaults {
 
+    private final VaultManager vaultManager;
     private final UUID uniqueId;
     private final Map<Integer, Vault> vaults = new HashMap<>();
     private int slots;
     private Vault targetVault;
 
-    public ZPlayerVaults(UUID uniqueId) {
+    public ZPlayerVaults(VaultManager vaultManager, UUID uniqueId) {
+        this.vaultManager = vaultManager;
         this.uniqueId = uniqueId;
     }
 
@@ -60,7 +63,7 @@ public class ZPlayerVaults extends ZUtils implements PlayerVaults {
 
     @Override
     public Vault getVault(int vaultId) {
-        return this.vaults.computeIfAbsent(vaultId, id -> new ZVault(this.uniqueId, id));
+        return this.vaults.computeIfAbsent(vaultId, id -> new ZVault(this.uniqueId, id, this.vaultManager.getDefaultVaultName()));
     }
 
     @Override

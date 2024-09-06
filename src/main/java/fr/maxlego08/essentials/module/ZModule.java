@@ -122,6 +122,10 @@ public abstract class ZModule extends YamlLoader implements Module {
         return this.plugin.getStorageManager().getStorage().getUser(entity.getUniqueId());
     }
 
+    protected User getUser(UUID uuid) {
+        return this.plugin.getStorageManager().getStorage().getUser(uuid);
+    }
+
     protected boolean isPaperVersion() {
         try {
             Class.forName("net.kyori.adventure.text.Component");

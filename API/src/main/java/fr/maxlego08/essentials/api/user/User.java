@@ -416,8 +416,9 @@ public interface User {
      *
      * @param name     The name of the home location.
      * @param location The location of the home.
+     * @param confirm  Allows forcing the creation of a home even if another exists.
      */
-    void setHome(String name, Location location);
+    boolean setHome(String name, Location location, boolean confirm);
 
     /**
      * Gets the home location with the specified name for the user.
@@ -848,4 +849,8 @@ public interface User {
      * @param pitch  the pitch of the sound
      */
     void playSound(Sound sound, float volume, float pitch);
+
+    void setFrozen(boolean b);
+
+    boolean isFrozen();
 }

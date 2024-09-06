@@ -12,13 +12,13 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 
-public class CommandDelHome extends VCommand {
+public class CommandDelHomeConfirm extends VCommand {
 
-    public CommandDelHome(EssentialsPlugin plugin) {
+    public CommandDelHomeConfirm(EssentialsPlugin plugin) {
         super(plugin);
         this.setModule(HomeModule.class);
-        this.setPermission(Permission.ESSENTIALS_DEL_HOME);
-        this.setDescription(Message.DESCRIPTION_DEL_HOME);
+        this.setPermission(Permission.ESSENTIALS_DEL_HOME_CONFIRM);
+        this.setDescription(Message.DESCRIPTION_DEL_HOME_CONFIRM);
         this.addRequireArg("name", (sender, args) -> {
             if (sender instanceof Player player) {
                 User user = plugin.getUser(player.getUniqueId());
@@ -41,11 +41,6 @@ public class CommandDelHome extends VCommand {
             String home = values[1];
             homeModule.deleteHome(this.sender, username, home);
             return CommandResultType.DEFAULT;
-        }
-
-        if (homeModule.isHomeDeleteConfirm()) {
-            message(user, Message.COMMAND_HOME_DELETE_CONFIRM, "%name%", homeName);
-            return CommandResultType.SUCCESS;
         }
 
         homeModule.deleteHome(this.player, this.user, homeName);

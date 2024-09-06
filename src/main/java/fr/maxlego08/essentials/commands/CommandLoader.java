@@ -24,8 +24,10 @@ import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeSpectat
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeSurvival;
 import fr.maxlego08.essentials.commands.commands.hologram.CommandHologram;
 import fr.maxlego08.essentials.commands.commands.home.CommandDelHome;
+import fr.maxlego08.essentials.commands.commands.home.CommandDelHomeConfirm;
 import fr.maxlego08.essentials.commands.commands.home.CommandHome;
 import fr.maxlego08.essentials.commands.commands.home.CommandSetHome;
+import fr.maxlego08.essentials.commands.commands.home.CommandSetHomeConfirm;
 import fr.maxlego08.essentials.commands.commands.items.CommandGive;
 import fr.maxlego08.essentials.commands.commands.items.CommandGiveAll;
 import fr.maxlego08.essentials.commands.commands.items.CommandItemLore;
@@ -40,15 +42,7 @@ import fr.maxlego08.essentials.commands.commands.messages.CommandMessage;
 import fr.maxlego08.essentials.commands.commands.messages.CommandMessageToggle;
 import fr.maxlego08.essentials.commands.commands.messages.CommandReply;
 import fr.maxlego08.essentials.commands.commands.messages.CommandSocialSpy;
-import fr.maxlego08.essentials.commands.commands.sanction.CommandBan;
-import fr.maxlego08.essentials.commands.commands.sanction.CommandKick;
-import fr.maxlego08.essentials.commands.commands.sanction.CommandKickAll;
-import fr.maxlego08.essentials.commands.commands.sanction.CommandMute;
-import fr.maxlego08.essentials.commands.commands.sanction.CommandSanction;
-import fr.maxlego08.essentials.commands.commands.sanction.CommandSeen;
-import fr.maxlego08.essentials.commands.commands.sanction.CommandSeenIp;
-import fr.maxlego08.essentials.commands.commands.sanction.CommandUnBan;
-import fr.maxlego08.essentials.commands.commands.sanction.CommandUnMute;
+import fr.maxlego08.essentials.commands.commands.sanction.*;
 import fr.maxlego08.essentials.commands.commands.scoreboard.CommandScoreboard;
 import fr.maxlego08.essentials.commands.commands.spawn.CommandSetSpawn;
 import fr.maxlego08.essentials.commands.commands.spawn.CommandSpawn;
@@ -99,6 +93,7 @@ import fr.maxlego08.essentials.commands.commands.utils.blocks.CommandGrindStone;
 import fr.maxlego08.essentials.commands.commands.utils.blocks.CommandLoom;
 import fr.maxlego08.essentials.commands.commands.utils.blocks.CommandSmithingTable;
 import fr.maxlego08.essentials.commands.commands.utils.blocks.CommandStoneCutter;
+import fr.maxlego08.essentials.commands.commands.utils.experience.CommandExperience;
 import fr.maxlego08.essentials.commands.commands.vault.CommandVault;
 import fr.maxlego08.essentials.commands.commands.vote.CommandVote;
 import fr.maxlego08.essentials.commands.commands.vote.CommandVoteParty;
@@ -195,9 +190,12 @@ public class CommandLoader {
         register("delwarp", CommandDelWarp.class, "wdelete");
 
         register("sethome", CommandSetHome.class, "hcreate", "hc");
+        register("sethomeconfirm", CommandSetHomeConfirm.class);
+        register("delhomeconfirm", CommandDelHomeConfirm.class);
         register("delhome", CommandDelHome.class, "hdelete", "hd");
         register("home", CommandHome.class, "h", "homes");
 
+        register("freeze", CommandFreeze.class);
         register("ban", CommandBan.class);
         register("mute", CommandMute.class);
         register("unmute", CommandUnMute.class);
@@ -247,6 +245,8 @@ public class CommandLoader {
         register("giveall", CommandGiveAll.class);
         register("powertools", CommandPowerTools.class, "pt");
         register("powertools-toggle", CommandPowerToolsToggle.class, "pt-toggle");
+
+        register("experience", CommandExperience.class, "xp", "exp", "level", "levels");
 
         register("hologram", CommandHologram.class, "holo", "ho");
         register("sb", CommandScoreboard.class);

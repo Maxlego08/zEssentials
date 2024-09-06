@@ -7,13 +7,13 @@ import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.module.modules.HomeModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 
-public class CommandSetHome extends VCommand {
+public class CommandSetHomeConfirm extends VCommand {
 
-    public CommandSetHome(EssentialsPlugin plugin) {
+    public CommandSetHomeConfirm(EssentialsPlugin plugin) {
         super(plugin);
         this.setModule(HomeModule.class);
-        this.setPermission(Permission.ESSENTIALS_SET_HOME);
-        this.setDescription(Message.DESCRIPTION_SET_HOME);
+        this.setPermission(Permission.ESSENTIALS_SET_HOME_CONFIRM);
+        this.setDescription(Message.DESCRIPTION_SET_HOME_CONFIRM);
         this.addRequireArg("name");
     }
 
@@ -25,15 +25,6 @@ public class CommandSetHome extends VCommand {
 
         if (homeModule.getDisableWorlds().contains(player.getWorld().getName())) {
             message(sender, Message.COMMAND_SET_HOME_WORLD);
-            return CommandResultType.DEFAULT;
-        }
-
-        // For /sethome Maxlego08:<home name>
-        if (homeName.contains(":") && hasPermission(sender, Permission.ESSENTIALS_SET_HOME_OTHER)) {
-            String[] values = homeName.split(":", 2);
-            String username = values[0];
-            String home = values[1];
-            homeModule.setHome(this.player, username, home);
             return CommandResultType.DEFAULT;
         }
 
@@ -51,9 +42,8 @@ public class CommandSetHome extends VCommand {
             return CommandResultType.DEFAULT;
         }
 
-        if (user.setHome(homeName, player.getLocation(), !homeModule.isHomeOverwriteConfirm())) {
-            message(sender, Message.COMMAND_SET_HOME_CREATE, "%name%", homeName, "%max%", maxHome, "%current%", user.countHomes());
-        }
+        user.setHome(homeName, player.getLocation(), true);
+        message(sender, Message.COMMAND_SET_HOME_CREATE, "%name%", homeName, "%max%", maxHome, "%current%", user.countHomes());
         return CommandResultType.SUCCESS;
     }
 }

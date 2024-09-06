@@ -30,7 +30,7 @@ public class CommandTeleportWorld extends VCommand {
 
         if (player == null) return CommandResultType.SYNTAX_ERROR;
 
-        player.teleport(world.getSpawnLocation());
+        player.teleportAsync(world.getSpawnLocation());
 
         if (player == this.player) {
 

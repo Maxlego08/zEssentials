@@ -245,4 +245,6 @@ public interface VaultManager {
      * @return a collection of materials
      */
     Collection<Material> getMaterials(Player player);
+
+    String getDefaultVaultName();
 }

@@ -43,6 +43,18 @@ public class MessageLoader implements ConfigurationFile {
                 if (!this.loadedMessages.contains(value)) {
                     value.setPlugin(plugin);
                     this.plugin.getLogger().log(Level.SEVERE, value + " was not loaded.");
+
+                    List<EssentialsMessage> newMessages = new ArrayList<>();
+                    for (EssentialsMessage message : value.getMessages()) {
+                        if (message instanceof ClassicMessage classicMessage) {
+                            newMessages.add(new ClassicMessage(classicMessage.messageType(), classicMessage.messages().stream().map(this::replaceMessagesColors).toList()));
+                        } else if (message instanceof BossBarMessage bossBarMessage) {
+                            newMessages.add(new BossBarMessage(this.replaceMessagesColors(bossBarMessage.text()), bossBarMessage.color(), bossBarMessage.overlay(), bossBarMessage.flags(), bossBarMessage.duration(), bossBarMessage.isStatic()));
+                        } else if (message instanceof TitleMessage titleMessage) {
+                            newMessages.add(new TitleMessage(this.replaceMessagesColors(titleMessage.title()), this.replaceMessagesColors(titleMessage.subtitle()), titleMessage.start(), titleMessage.time(), titleMessage.end()));
+                        }
+                    }
+                    value.setMessages(newMessages);
                 }
             }
         }

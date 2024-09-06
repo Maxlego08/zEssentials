@@ -91,7 +91,7 @@ public class PlayerListener extends ZUtils implements Listener {
         user.setLastLocation();
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onPlayerTeleport(PlayerTeleportEvent event) {
         User user = getUser(event.getPlayer());
         if (user == null) return;
@@ -99,7 +99,7 @@ public class PlayerListener extends ZUtils implements Listener {
         user.setLastLocation();
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void onCommand(PlayerCommandPreprocessEvent event) {
 
         Configuration configuration = this.plugin.getConfiguration();
