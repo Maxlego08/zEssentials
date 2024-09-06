@@ -4,6 +4,9 @@
 - Added NMS support for 1.21.1
 - Fixed an SQL query for updating homes with SQLITE
 - Fixed creating homes that executed an SQL query for no reason
+- Added command ``/freeze <player>``
+- Added a command to confirm the overwrite of an already existing home. You can disable this option in `modules/homes/config.yml`
+- Fixed commands ``/sethome <player>:<home name>`` and ``/delhome <player>:<home name>`` which did not work if the player was online. 
 
 # 1.0.0.8
 

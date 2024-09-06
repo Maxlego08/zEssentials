@@ -29,6 +29,7 @@ public class HomeModule extends ZModule {
     private final String homeRegex = "[a-zA-Z0-9]+";
     private int homeNameMax;
     private int homeNameMin;
+    private boolean homeOverwriteConfirm;
 
     public HomeModule(ZEssentialsPlugin plugin) {
         super(plugin, "home");
@@ -181,11 +182,17 @@ public class HomeModule extends ZModule {
         });
     }
 
-    public void deleteHome(CommandSender sender, User user, String username, String homeName) {
+    public void deleteHome(CommandSender sender, String username, String homeName) {
         IStorage iStorage = this.plugin.getStorageManager().getStorage();
         iStorage.fetchUniqueId(username, uuid -> {
 
-            iStorage.deleteHome(uuid, homeName);
+            var user = getUser(uuid);
+            if (user != null) {
+                user.removeHome(homeName);
+            } else {
+                iStorage.deleteHome(uuid, homeName);
+            }
+
             message(sender, Message.COMMAND_HOME_ADMIN_DELETE, "%name%", homeName, "%player%", username);
         });
     }
@@ -195,13 +202,23 @@ public class HomeModule extends ZModule {
         IStorage iStorage = this.plugin.getStorageManager().getStorage();
         iStorage.fetchUniqueId(username, uuid -> {
 
-            Home home = new ZHome(player.getLocation(), homeName, null);
-            iStorage.upsertHome(uuid, home);
+            var user = getUser(uuid);
+            if (user != null) {
+                user.setHome(homeName, player.getLocation(), true);
+            } else {
+                Home home = new ZHome(player.getLocation(), homeName, null);
+                iStorage.upsertHome(uuid, home);
+            }
+
             message(player, Message.COMMAND_HOME_ADMIN_SET, "%name%", homeName, "%player%", username);
         });
     }
 
     public List<String> getDisableWorlds() {
         return disableWorlds;
+    }
+
+    public boolean isHomeOverwriteConfirm() {
+        return homeOverwriteConfirm;
     }
 }

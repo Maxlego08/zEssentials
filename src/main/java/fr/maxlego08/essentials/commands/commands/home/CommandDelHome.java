@@ -39,7 +39,7 @@ public class CommandDelHome extends VCommand {
             String[] values = homeName.split(":", 2);
             String username = values[0];
             String home = values[1];
-            homeModule.deleteHome(this.sender, this.user, username, home);
+            homeModule.deleteHome(this.sender, username, home);
             return CommandResultType.DEFAULT;
         }
 

@@ -182,6 +182,7 @@ public enum Message {
     DESCRIPTION_WARP_DEL("Delete a warp"),
     DESCRIPTION_WARP_LIST("Show warp list"),
     DESCRIPTION_SET_HOME("Create a home"),
+    DESCRIPTION_SET_HOME_CONFIRM("Confirm the creation of a home"),
     DESCRIPTION_DEL_HOME("Delete a home"),
     DESCRIPTION_HOME("Teleport to a home"),
     DESCRIPTION_KICK("Kick a player"),
@@ -411,6 +412,12 @@ public enum Message {
             "",
             "#99E0FFYou just created the home &f%name%#99E0FF. &8(&7%current%&8/&7%max%&8)",
             "&fUse &n<hover:show_text:'&fClick to teleport to home'><click:suggest_command:'/home %name%'>/home %name%</click></hover>&r command to teleport to it",
+            ""
+    ),
+    COMMAND_SET_HOME_CREATE_CONFIRM(
+            "",
+            "#99E0FFThe home &f%name%#99E0FF. already exists. Do you want to overwrite it?",
+            "<success><hover:show_text:'&fClick to overwrite the home %name%'><click:suggest_command:'/sethomeconfirm %name%'>ᴄᴏɴғɪʀᴍ</click></hover>",
             ""
     ),
 

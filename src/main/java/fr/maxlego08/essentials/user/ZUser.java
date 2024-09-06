@@ -48,6 +48,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 public class ZUser extends ZUtils implements User {
@@ -495,13 +496,24 @@ public class ZUser extends ZUtils implements User {
     }
 
     @Override
-    public void setHome(String name, Location location) {
+    public boolean setHome(String name, Location location, boolean force) {
+
+        if (!force && isHomeName(name)) {
+            message(this, Message.COMMAND_SET_HOME_CREATE_CONFIRM, "%name%", name);
+            return false;
+        }
+
+        AtomicReference<Material> material = new AtomicReference<>(null);
+        getHome(name).ifPresent(home -> material.set(home.getMaterial()));
+
         // Delete home with the same name before
         this.homes.removeIf(home -> home.getName().equalsIgnoreCase(name));
 
-        Home home = new ZHome(location, name, null);
+        Home home = new ZHome(location, name, material.get());
         this.homes.add(home);
         this.getStorage().upsertHome(this.uniqueId, home);
+
+        return true;
     }
 
     @Override

@@ -474,6 +474,11 @@ command-set-home-create:
   - "#99E0FFYou just created the home &f%name%#99E0FF. &8(&7%current%&8/&7%max%&8)"
   - "&fUse &n<hover:show_text:'&fClick to teleport to home'><click:suggest_command:'/home %name%'>/home %name%</click></hover>&r command to teleport to it"
   - ""
+command-set-home-create-confirm:
+  - ""
+  - "#99E0FFThe home &f%name%#99E0FF already exists. Do you want to overwrite it?"
+  - "<hover:show_text:'&fClick to overwrite the home %name%'><click:run_command:'/sethomeconfirm %name%'><success>ᴄᴏɴғɪʀᴍ</click></hover>"
+  - ""
 command-home-doesnt-exist: "<error>The home &f%name%<error> does not exist."
 
 # Available placeholders:

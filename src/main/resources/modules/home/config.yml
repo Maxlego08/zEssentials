@@ -44,3 +44,6 @@ home-name-min: 1
 # List of worlds where the player cannot create a home
 disable-worlds:
   - "world_event"
+
+# The player must confirm with the command /sethomeconfirm if he wants to modify an existing home
+home-overwrite-confirm: true
