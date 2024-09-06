@@ -19,7 +19,7 @@ public class CommandSetExperience extends VCommand {
         this.setSyntax("/experience set <player> <amount> <type>");
         this.addRequirePlayerNameArg();
         this.addRequireArg("amount", (sender, objects) -> Arrays.asList("1", "10", "30" ,"100", "1000"));
-        this.addRequireArg("type", (sender, objects) -> Arrays.asList("levels", "points"));
+        this.addRequireArg("type", (sender, objects) -> Arrays.asList("levels", "experience"));
     }
 
     @Override
@@ -28,7 +28,7 @@ public class CommandSetExperience extends VCommand {
         int amount = this.argAsInteger(1);
         String type = this.argAsString(2);
 
-        if (type.equalsIgnoreCase("levels")) {
+        if (type.equalsIgnoreCase("levels") || type.equalsIgnoreCase("level") || type.equalsIgnoreCase("l")) {
             player.setLevel(amount);
         } else {
             player.setExperienceLevelAndProgress(amount);

@@ -294,7 +294,7 @@ public enum Message {
     DESCRIPTION_VAULT_ADD_SLOT("Add slot to player's vault"),
     DESCRIPTION_VAULT_SET_SLOT("Set slot to player's vault"),
     DESCRIPTION_SHOW_ITEM("Show player's item"),
-
+    DESCRIPTION_EXPERIENCE("Manage player experience"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -801,7 +801,6 @@ public enum Message {
     WORLDEDIT_REFUND_EMPTY("<error>No block to refund"),
     WORLDEDIT_BOSSBAR("#45ff45Time remaining<dark_gray>: <white>%time%"),
 
-    DESCRIPTION_EXPERIENCE("Manage player experience"),
     EXPERIENCE_GRANTED("<success>You have just given <white>%amount% %type% <success>to <white>%player%<success>."),
     EXPERIENCE_SETTED("<success>You have just set <white>%amount% %type% <success>to <white>%player%<success>."),
     EXPERIENCE_QUERIED("<success><white>%player% <success>have <white>%amount% <success>%type%."),

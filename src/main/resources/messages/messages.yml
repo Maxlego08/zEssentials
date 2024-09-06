@@ -391,6 +391,7 @@ description-vault-give: "Give items to player's vault"
 description-vault-add-slot: "Add slot to player's vault"
 description-vault-set-slot: "Set slot to player's vault"
 description-show-item: "Show player's item"
+description-experience: "Manage player experience"
 
 # Time format
 format-second: "second"
@@ -880,3 +881,9 @@ worldedit-refund-material: " <white><hover:show_text:'<white>Amount<dark_gray>: 
 worldedit-refund-empty: " No block to refund"
 worldedit-bossbar: "#45ff45Time remaining<dark_gray>: <white>%time%"
 worldedit-speed-error: "<error>You have no permission to set blocks per second."
+experience-granted: "<success>You have just given <white>%amount% %type% <success>to <white>%player%<success>."
+experience-setted: "<success>You have just set <white>%amount% %type% <success>to <white>%player%<success>."
+experience-queried: "<success><white>%player% <success>have <white>%amount% <success>%type%."
+description-experience-query: "Query player experience"
+description-experience-set: "Set player experience"
+description-experience-grant: "Grant experience to player"
