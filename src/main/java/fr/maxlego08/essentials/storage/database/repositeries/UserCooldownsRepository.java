@@ -17,7 +17,7 @@ public class UserCooldownsRepository extends Repository {
     public void upsert(UUID uuid, String cooldownName, long cooldownValue) {
         upsert(table -> {
             table.uuid("unique_id", uuid).primary();
-            table.string("cooldown_name", cooldownName);
+            table.string("cooldown_name", cooldownName).primary();
             table.bigInt("cooldown_value", cooldownValue);
         });
     }
