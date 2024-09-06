@@ -47,3 +47,6 @@ disable-worlds:
 
 # The player must confirm with the command /sethomeconfirm if he wants to modify an existing home
 home-overwrite-confirm: true
+
+# The player must confirm with the command /delhomeconfirm if he wants to delete an existing home
+home-delete-confirm: true

@@ -6,6 +6,7 @@
 - Fixed creating homes that executed an SQL query for no reason
 - Added command ``/freeze <player>``
 - Added a command to confirm the overwrite of an already existing home. You can disable this option in `modules/homes/config.yml`
+- Added a command to confirm the deletion of an home. You can disable this option in `modules/homes/config.yml`
 - Fixed commands ``/sethome <player>:<home name>`` and ``/delhome <player>:<home name>`` which did not work if the player was online. 
 
 # 1.0.0.8

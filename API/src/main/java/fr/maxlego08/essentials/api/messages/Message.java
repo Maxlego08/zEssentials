@@ -184,6 +184,7 @@ public enum Message {
     DESCRIPTION_SET_HOME("Create a home"),
     DESCRIPTION_SET_HOME_CONFIRM("Confirm the creation of a home"),
     DESCRIPTION_DEL_HOME("Delete a home"),
+    DESCRIPTION_DEL_HOME_CONFIRM("Confirm the deletion of a home"),
     DESCRIPTION_HOME("Teleport to a home"),
     DESCRIPTION_KICK("Kick a player"),
     DESCRIPTION_FREEZE("Freeze a player"),
@@ -436,6 +437,12 @@ public enum Message {
     COMMAND_HOME_ICON_SUCCESS("<success>You just changed the home icon &f%name%<success>."),
     COMMAND_HOME_ICON_RESET("<success>You just reset the home icon &f%name%<success>."),
     COMMAND_HOME_DELETE("#99E0FFYou just deleted the home &f%name%#99E0FF."),
+    COMMAND_HOME_DELETE_CONFIRM(
+            "",
+            "#99E0FFYou really want to delete the home &f%name%#99E0FF.",
+            "<success><hover:show_text:'&fClick to overwrite the home %name%'><click:run_command:'/delhomeconfirm %name%'>ᴄᴏɴғɪʀᴍ</click></hover>",
+            ""
+    ),
     COMMAND_HOME_ADMIN_DELETE("<success>You just deleted home &f%name%<success> of &b%player%<success>."),
     COMMAND_HOME_ADMIN_SET("<success>You just created home &f%name%<success> of &b%player%<success>."),
     COMMAND_HOME_ADMIN_LIST("#8cc0cc%player% ʜᴏᴍᴇs&8:&f%homes%"),

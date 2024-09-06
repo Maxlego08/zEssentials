@@ -14,7 +14,7 @@ public class CommandFreeze extends VCommand {
         this.setModule(SanctionModule.class);
         this.setPermission(Permission.ESSENTIALS_FREEZE);
         this.setDescription(Message.DESCRIPTION_FREEZE);
-        this.addRequireOfflinePlayerNameArg();
+        this.addRequirePlayerNameArg();
     }
 
     @Override

@@ -24,6 +24,7 @@ import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeSpectat
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeSurvival;
 import fr.maxlego08.essentials.commands.commands.hologram.CommandHologram;
 import fr.maxlego08.essentials.commands.commands.home.CommandDelHome;
+import fr.maxlego08.essentials.commands.commands.home.CommandDelHomeConfirm;
 import fr.maxlego08.essentials.commands.commands.home.CommandHome;
 import fr.maxlego08.essentials.commands.commands.home.CommandSetHome;
 import fr.maxlego08.essentials.commands.commands.home.CommandSetHomeConfirm;
@@ -190,6 +191,7 @@ public class CommandLoader {
 
         register("sethome", CommandSetHome.class, "hcreate", "hc");
         register("sethomeconfirm", CommandSetHomeConfirm.class);
+        register("delhomeconfirm", CommandDelHomeConfirm.class);
         register("delhome", CommandDelHome.class, "hdelete", "hd");
         register("home", CommandHome.class, "h", "homes");
 

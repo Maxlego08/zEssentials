@@ -30,6 +30,7 @@ public class HomeModule extends ZModule {
     private int homeNameMax;
     private int homeNameMin;
     private boolean homeOverwriteConfirm;
+    private boolean homeDeleteConfirm;
 
     public HomeModule(ZEssentialsPlugin plugin) {
         super(plugin, "home");
@@ -220,5 +221,9 @@ public class HomeModule extends ZModule {
 
     public boolean isHomeOverwriteConfirm() {
         return homeOverwriteConfirm;
+    }
+
+    public boolean isHomeDeleteConfirm() {
+        return homeDeleteConfirm;
     }
 }
