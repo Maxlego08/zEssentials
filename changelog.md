@@ -1,5 +1,7 @@
 # Unreleased
 
+# 1.0.0.9
+
 - Added the ability to change default vault names
 - Added NMS support for 1.21.1
 - Fixed an SQL query for updating homes with SQLITE
