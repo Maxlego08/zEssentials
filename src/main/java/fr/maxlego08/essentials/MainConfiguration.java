@@ -73,7 +73,10 @@ public class MainConfiguration extends YamlLoader implements Configuration {
 
     @Override
     public Optional<Integer> getCooldown(Permissible permissible, String command) {
-        return this.commandCooldowns.stream().filter(e -> e.command().equalsIgnoreCase(command)).map(commandCooldown -> commandCooldown.permissions().stream().filter(e -> permissible.hasPermission((String) e.get("permission"))).mapToInt(e -> ((Number) e.get("cooldown")).intValue()).min().orElse(commandCooldown.cooldown())).findFirst();
+        return this.commandCooldowns.stream().filter(commandCooldown -> commandCooldown.command().equalsIgnoreCase(command)).map(commandCooldown -> {
+            List<Map<String, Object>> permissions = commandCooldown.permissions() == null ? new ArrayList<>() : commandCooldown.permissions();
+            return permissions.stream().filter(e -> permissible.hasPermission((String) e.get("permission"))).mapToInt(e -> ((Number) e.get("cooldown")).intValue()).min().orElse(commandCooldown.cooldown());
+        }).findFirst();
     }
 
     @Override

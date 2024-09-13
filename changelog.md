@@ -1,5 +1,7 @@
 # Unreleased
 
+- Fixed command cooldown if permission was not set
+
 # 1.0.0.9
 
 - Added the ability to change default vault names
