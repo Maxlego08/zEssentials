@@ -29,7 +29,26 @@ import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.user.UserRecord;
 import fr.maxlego08.essentials.api.vault.Vault;
-import fr.maxlego08.essentials.migrations.*;
+import fr.maxlego08.essentials.migrations.CreateChatMessageMigration;
+import fr.maxlego08.essentials.migrations.CreateCommandsMigration;
+import fr.maxlego08.essentials.migrations.CreateEconomyTransactionMigration;
+import fr.maxlego08.essentials.migrations.CreatePlayerSlots;
+import fr.maxlego08.essentials.migrations.CreatePlayerVault;
+import fr.maxlego08.essentials.migrations.CreatePlayerVaultItem;
+import fr.maxlego08.essentials.migrations.CreateSanctionsTableMigration;
+import fr.maxlego08.essentials.migrations.CreateServerStorageTableMigration;
+import fr.maxlego08.essentials.migrations.CreateUserCooldownTableMigration;
+import fr.maxlego08.essentials.migrations.CreateUserEconomyMigration;
+import fr.maxlego08.essentials.migrations.CreateUserHomeTableMigration;
+import fr.maxlego08.essentials.migrations.CreateUserMailBoxMigration;
+import fr.maxlego08.essentials.migrations.CreateUserOptionTableMigration;
+import fr.maxlego08.essentials.migrations.CreateUserPlayTimeTableMigration;
+import fr.maxlego08.essentials.migrations.CreateUserPowerToolsMigration;
+import fr.maxlego08.essentials.migrations.CreateUserTableMigration;
+import fr.maxlego08.essentials.migrations.CreateVoteSiteMigration;
+import fr.maxlego08.essentials.migrations.UpdateUserTableAddFreezeColumn;
+import fr.maxlego08.essentials.migrations.UpdateUserTableAddSanctionColumns;
+import fr.maxlego08.essentials.migrations.UpdateUserTableAddVoteColumn;
 import fr.maxlego08.essentials.storage.database.Repositories;
 import fr.maxlego08.essentials.storage.database.Repository;
 import fr.maxlego08.essentials.storage.database.repositeries.ChatMessagesRepository;
@@ -265,6 +284,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
     @Override
     public void updateUserMoney(UUID uniqueId, Consumer<User> consumer) {
         User fakeUser = new ZUser(this.plugin, uniqueId);
+        fakeUser.setEconomies(with(UserEconomyRepository.class).select(uniqueId));
         consumer.accept(fakeUser);
     }
 

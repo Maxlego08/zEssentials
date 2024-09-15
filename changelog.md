@@ -1,5 +1,10 @@
 # Unreleased
 
+# 1.0.1.0
+
+- Fixed command cooldown if permission was not set
+- Fixed the system of economy that did not work with offline players 
+
 # 1.0.0.9
 
 - Added the ability to change default vault names
