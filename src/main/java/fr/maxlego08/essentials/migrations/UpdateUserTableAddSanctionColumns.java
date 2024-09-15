@@ -15,8 +15,9 @@ public class UpdateUserTableAddSanctionColumns extends Migration {
             SchemaBuilder.alter(this, "%prefix%users", schema -> schema.bigInt("mute_sanction_id").nullable());
         } else {
             SchemaBuilder.alter(this, "%prefix%users", schema -> {
-                schema.bigInt("ban_sanction_id").nullable().foreignKey("%prefix%sanctions", "id", false);
-                schema.bigInt("mute_sanction_id").nullable().foreignKey("%prefix%sanctions", "id", false);
+                // ToDo, need to fix for MARIADB ! Its work on MYSQL
+                schema.bigInt("ban_sanction_id").nullable();//.foreignKey("%prefix%sanctions", "id", false);
+                schema.bigInt("mute_sanction_id").nullable();//.foreignKey("%prefix%sanctions", "id", false);
             });
         }
     }
