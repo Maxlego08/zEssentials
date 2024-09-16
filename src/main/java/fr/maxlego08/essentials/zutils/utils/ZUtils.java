@@ -6,9 +6,11 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventPriority;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.MetadataValue;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
@@ -28,6 +30,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public abstract class ZUtils extends MessageUtils {
+
+    protected boolean isVanished(Player player) {
+        for (MetadataValue metadataValue : player.getMetadata("vanished")) {
+            if (metadataValue.asBoolean()) return true;
+        }
+        return false;
+    }
+
+    protected boolean isNotVanished(Player player) {
+        return !isVanished(player);
+    }
 
     protected boolean hasPermission(CommandSender sender, Permission permission) {
         return sender.hasPermission(permission.asPermission());

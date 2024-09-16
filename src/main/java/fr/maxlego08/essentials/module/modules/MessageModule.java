@@ -9,6 +9,8 @@ import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.PrivateMessage;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.ZModule;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 import java.util.Map;
 import java.util.UUID;
@@ -17,6 +19,11 @@ public class MessageModule extends ZModule {
 
     public MessageModule(ZEssentialsPlugin plugin) {
         super(plugin, "messages");
+    }
+
+    protected boolean isVanished(UUID uuid, Map<Option, Boolean> options) {
+        Player player = Bukkit.getPlayer(uuid);
+        return player == null ? options.getOrDefault(Option.VANISH, false) : isVanished(player);
     }
 
     public void sendMessage(User user, UUID uuid, String userName, String message) {
@@ -30,7 +37,9 @@ public class MessageModule extends ZModule {
         }
 
         Map<Option, Boolean> options = iStorage.getOptions(uuid);
-        if (options.getOrDefault(Option.VANISH, false)) {
+
+        // Vanish check
+        if (isVanished(uuid, options)) {
             message(user, Message.PLAYER_NOT_FOUND, "%player%", userName);
             return;
         }

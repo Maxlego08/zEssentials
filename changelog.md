@@ -1,6 +1,7 @@
 # Unreleased
 
 - Added ``/spawn <player>``
+- Added checking if player is vanished for various commands
 
 # 1.0.1.0
 

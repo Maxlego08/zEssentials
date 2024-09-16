@@ -42,7 +42,7 @@ public class PaperServer extends ZUtils implements EssentialsServer {
 
     @Override
     public List<String> getPlayersNames() {
-        return Bukkit.getOnlinePlayers().stream().map(Player::getName).toList();
+        return Bukkit.getOnlinePlayers().stream().filter(this::isNotVanished).map(Player::getName).toList();
     }
 
     @Override
