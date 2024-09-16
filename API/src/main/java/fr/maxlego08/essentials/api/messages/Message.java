@@ -310,6 +310,7 @@ public enum Message {
             ClassicMessage.tchat("&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."),
             ClassicMessage.action("&7Teleporting in #0EEA93%seconds% &7seconds, you must not move.")
     ),
+    TELEPORT_MESSAGE_SPAWN_CONSOLE("<success>You just teleported the player <white>%player% <success>to spawn."),
     TELEPORT_SUCCESS_SPAWN(
             ClassicMessage.tchat("&7You just teleported to #0EEA93spawn &7!"),
             ClassicMessage.action("&7You just teleported to #0EEA93spawn &7!")

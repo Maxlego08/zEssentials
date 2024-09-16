@@ -1,5 +1,7 @@
 # Unreleased
 
+- Added ``/spawn <player>``
+
 # 1.0.1.0
 
 - Fixed command cooldown if permission was not set
