@@ -81,9 +81,9 @@ public class JoinQuitModule extends ZModule {
 
         if (this.allowSilentJoinQuit && hasPermission(player, Permission.ESSENTIALS_SILENT_QUIT)) {
             event.quitMessage(Component.empty());
-        } else if (this.customJoinMessage == JoinQuitMessageType.DISABLE) {
+        } else if (this.customQuitMessage == JoinQuitMessageType.DISABLE) {
             event.quitMessage(Component.empty());
-        } else if (this.customJoinMessage == JoinQuitMessageType.CUSTOM) {
+        } else if (this.customQuitMessage == JoinQuitMessageType.CUSTOM) {
             PaperComponent paperComponent = (PaperComponent) this.componentMessage;
             event.quitMessage(paperComponent.getComponent(getMessage(Message.QUIT_MESSAGE, "%player%", player.getName(), "%displayName%", player.getDisplayName())));
         }

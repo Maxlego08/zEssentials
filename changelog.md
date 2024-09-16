@@ -2,6 +2,7 @@
 
 - Added ``/spawn <player>``
 - Added checking if player is vanished for various commands
+- Fixed message when player leaves server
 
 # 1.0.1.0
 
