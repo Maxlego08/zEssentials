@@ -27,6 +27,10 @@ public class CommandSpawn extends VCommand {
         Player player = this.argAsPlayer(0, this.player);
         if (player == null) return CommandResultType.SYNTAX_ERROR; // Only if its console
 
+        if (this.player != null && !hasPermission(this.player, Permission.ESSENTIALS_SPAWN_OTHER)) {
+            player = this.player;
+        }
+
         User user = this.plugin.getUser(player.getUniqueId());
         if (user == null) return CommandResultType.SYNTAX_ERROR; // Only if its console
 

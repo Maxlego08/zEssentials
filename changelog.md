@@ -1,8 +1,9 @@
 # Unreleased
 
-- Added ``/spawn <player>``
+- Added ``/spawn <player>`` (Permission: `essentials.spawn.other`)
 - Added checking if player is vanished for various commands
-- Fixed message when player leaves server
+- Fixed message when the player leave server
+- Added permission ``essentials.back.death``, the player must have this permission to return to the place of his death
 
 # 1.0.1.0
 
