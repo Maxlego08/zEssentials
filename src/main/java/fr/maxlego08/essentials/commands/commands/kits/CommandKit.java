@@ -15,7 +15,7 @@ import java.util.Optional;
 public class CommandKit extends VCommand {
     public CommandKit(EssentialsPlugin plugin) {
         super(plugin);
-        this.setModule(SanctionModule.class);
+        this.setModule(KitModule.class);
         this.setPermission(Permission.ESSENTIALS_KIT);
         this.setDescription(Message.DESCRIPTION_KIT);
         this.addOptionalArg("kit", (sender, b) -> plugin.getModuleManager().getModule(KitModule.class).getKits(sender).stream().filter(kit -> kit.hasPermission(sender)).map(Kit::getName).toList());
