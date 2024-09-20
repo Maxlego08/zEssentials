@@ -136,7 +136,7 @@ public class ZCommandManager extends ZUtils implements CommandManager {
             }
         }
 
-        return null;
+        return List.of();
     }
 
     public List<String> processTab(CommandSender sender, EssentialsCommand command, String[] args) {
@@ -157,13 +157,14 @@ public class ZCommandManager extends ZUtils implements CommandManager {
                     }
                 }
             }
-            return tabCompleter.size() == 0 ? null : tabCompleter;
+            return tabCompleter.size() == 0 ? List.of() : tabCompleter;
 
         } else if (type.equals(CommandResultType.SUCCESS)) {
-            return command.toTab(this.plugin, sender, args);
+            var list = command.toTab(this.plugin, sender, args);
+            return list == null ? List.of() : list;
         }
 
-        return null;
+        return List.of();
     }
 
     private YamlConfiguration getCommandConfiguration() {
