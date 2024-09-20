@@ -135,7 +135,13 @@ public class HologramModule extends ZModule implements HologramManager {
             return null;
         }
 
-        message(player, Message.HOLOGRAM_CREATE, "%name%", name);
+        String command = switch (hologramType) {
+            case TEXT -> "setline";
+            case BLOCK -> "block";
+            case ITEM -> "item";
+        };
+
+        message(player, Message.HOLOGRAM_CREATE, "%command%", command, "%name%", name);
 
         HologramConfiguration hologramConfiguration = null;
         switch (hologramType) {
