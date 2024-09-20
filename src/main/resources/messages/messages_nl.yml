@@ -677,7 +677,7 @@ hologram-create:
   type: WITHOUT_PREFIX
   messages:
     - "<success>Je hebt zojuist het hologram &f%name%<success> gemaakt."
-    - "&7Gebruik &n<click:run_command:'/hologram edit %name%'>/hologram edit %name%</click>&r&7 commando om het hologram te bewerken."
+    - "&7Gebruik &n<click:run_command:'/hologram %command% %name%'>/hologram %command% %name%</click>&r&7 commando om het hologram te bewerken."
 hologram-delete: "<success>Hologram &f%name% <success>is verwijderd."
 hologram-doesnt-exist: "<error>Hologram &f%name% <error>bestaat niet."
 hologram-is-not-a-text: "<error>Hologram &f%name% <error>is geen tekst-hologram."
