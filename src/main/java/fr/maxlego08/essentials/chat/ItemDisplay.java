@@ -34,6 +34,9 @@ public class ItemDisplay extends ZUtils implements ChatDisplay {
     public String display(AdventureComponent adventureComponent, TagResolver.Builder builder, Player sender, Player receiver, String message) {
 
         ItemStack itemStack = sender.getInventory().getItemInMainHand();
+        if(itemStack.isEmpty()) {
+            return message;
+        }
         Component itemName = Component.translatable(itemStack);
         int amount = itemStack.getAmount();
 
