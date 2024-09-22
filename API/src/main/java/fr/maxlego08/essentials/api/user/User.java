@@ -853,4 +853,8 @@ public interface User {
     void setFrozen(boolean b);
 
     boolean isFrozen();
+
+    void setCurrentDeleteHome(Home home);
+
+    Optional<Home> getCurrentDeleteHome();
 }

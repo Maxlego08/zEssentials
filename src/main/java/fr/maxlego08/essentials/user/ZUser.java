@@ -86,6 +86,7 @@ public class ZUser extends ZUtils implements User {
     private long vote;
     private long offlineVote;
     private Map<String, Long> lastVotes = new HashMap<>();
+    private Home currentDeleteHome;
 
     private boolean freeze;
 
@@ -846,5 +847,15 @@ public class ZUser extends ZUtils implements User {
     @Override
     public void setFrozen(boolean b) {
         freeze = b;
+    }
+
+    @Override
+    public void setCurrentDeleteHome(Home currentDeleteHome) {
+        this.currentDeleteHome = currentDeleteHome;
+    }
+
+    @Override
+    public Optional<Home> getCurrentDeleteHome() {
+        return Optional.ofNullable(this.currentDeleteHome);
     }
 }

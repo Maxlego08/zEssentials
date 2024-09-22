@@ -98,6 +98,11 @@ public class HomeModule extends ZModule {
         this.plugin.getInventoryManager().openInventory(player, this.plugin, this.homeDisplay == HomeDisplay.INVENTORY ? "homes" : "homes_donut");
     }
 
+    public void openInventoryConfirmHome(User user, Home home) {
+        user.setCurrentDeleteHome(home);
+        this.plugin.getInventoryManager().openInventory(user.getPlayer(), this.plugin, "home_delete");
+    }
+
     private Object[] formatHomeInformation(Home home, int homeAmount, int maxHome) {
         Location location = home.getLocation();
         World world = location.getWorld();
