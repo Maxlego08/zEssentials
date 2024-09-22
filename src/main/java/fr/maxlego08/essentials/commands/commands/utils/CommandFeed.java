@@ -20,7 +20,7 @@ public class CommandFeed extends VCommand {
 
         Player player = this.argAsPlayer(0, this.player);
 
-        if (this.player == null) return CommandResultType.SYNTAX_ERROR;
+        if (player == null) return CommandResultType.SYNTAX_ERROR;
 
         if (player != this.player && !hasPermission(sender, Permission.ESSENTIALS_FEED_OTHER)) {
             player = this.player;
