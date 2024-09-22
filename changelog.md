@@ -12,6 +12,7 @@
 - Fixed tabulation with no argument needed
 - Fixed message when you create a home
 - Fixed economy give all command from console [#79](https://github.com/Maxlego08/zEssentials/issues/79)
+- Fixed error when you die in another world [#76](https://github.com/Maxlego08/zEssentials/issues/76)
 
 # 1.0.1.0
 
