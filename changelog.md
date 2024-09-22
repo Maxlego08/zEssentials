@@ -7,6 +7,7 @@
 - Fixed teleport task when player is offline [#92](https://github.com/Maxlego08/zEssentials/issues/92)
 - Fixed command ``/heal <player>`` and `/feed <player>` if you use it in the console [#90](https://github.com/Maxlego08/zEssentials/issues/90)
 - Added two types of home usage MAX and STACK [#84](https://github.com/Maxlego08/zEssentials/issues/84)
+- Fixed home delete inventory [#89](https://github.com/Maxlego08/zEssentials/issues/89)
 
 # 1.0.1.0
 
