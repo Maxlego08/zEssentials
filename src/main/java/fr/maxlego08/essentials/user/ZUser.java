@@ -237,6 +237,11 @@ public class ZUser extends ZUtils implements User {
         ServerImplementation serverImplementation = this.plugin.getScheduler();
         serverImplementation.runAtLocationTimer(location, wrappedTask -> {
 
+            if (!this.isOnline()) {
+                wrappedTask.cancel();
+                return;
+            }
+
             if (!same(playerLocation, getPlayer().getLocation())) {
 
                 message(this, Message.TELEPORT_MOVE);
@@ -245,12 +250,6 @@ public class ZUser extends ZUtils implements User {
             }
 
             int currentSecond = atomicInteger.getAndDecrement();
-
-            if (!this.isOnline()) {
-                wrappedTask.cancel();
-                return;
-            }
-
             if (currentSecond == 0) {
 
                 wrappedTask.cancel();
@@ -840,12 +839,12 @@ public class ZUser extends ZUtils implements User {
     }
 
     @Override
-    public void setFrozen(boolean b) {
-        freeze = b;
+    public boolean isFrozen() {
+        return freeze;
     }
 
     @Override
-    public boolean isFrozen() {
-        return freeze;
+    public void setFrozen(boolean b) {
+        freeze = b;
     }
 }

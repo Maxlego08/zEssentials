@@ -4,6 +4,7 @@
 - Added checking if player is vanished for various commands
 - Fixed message when the player leave server
 - Added permission ``essentials.back.death``, the player must have this permission to return to the place of his death
+- Fixed teleport task when player is offline [#92](https://github.com/Maxlego08/zEssentials/issues/92)
 
 # 1.0.1.0
 
