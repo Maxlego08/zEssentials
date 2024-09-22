@@ -6,6 +6,7 @@
 - Added permission ``essentials.back.death``, the player must have this permission to return to the place of his death
 - Fixed teleport task when player is offline [#92](https://github.com/Maxlego08/zEssentials/issues/92)
 - Fixed command ``/heal <player>`` and `/feed <player>` if you use it in the console [#90](https://github.com/Maxlego08/zEssentials/issues/90)
+- Added two types of home usage MAX and STACK [#84](https://github.com/Maxlego08/zEssentials/issues/84)
 
 # 1.0.1.0
 
