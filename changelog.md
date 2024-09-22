@@ -11,6 +11,7 @@
 - Fixed item display when you try to display an empty item
 - Fixed tabulation with no argument needed
 - Fixed message when you create a home
+- Fixed economy give all command from console [#79](https://github.com/Maxlego08/zEssentials/issues/79)
 
 # 1.0.1.0
 
