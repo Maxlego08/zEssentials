@@ -111,6 +111,8 @@ public abstract class ZUtils extends MessageUtils {
     }
 
     protected boolean isValid(Location location) {
+        if (location == null) return false;
+        if (location.getWorld() == null) return false;
         return !location.getBlock().getType().isSolid() && !relative(location, BlockFace.UP).getBlock().getType().isSolid() && relative(location, BlockFace.DOWN).getBlock().getType().isSolid();
     }
 

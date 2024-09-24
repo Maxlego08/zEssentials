@@ -1,5 +1,7 @@
 # Unreleased
 
+# 1.0.1.1
+
 - Added ``/spawn <player>`` (Permission: `essentials.spawn.other`)
 - Added checking if player is vanished for various commands
 - Fixed message when the player leave server
