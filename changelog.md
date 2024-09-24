@@ -1,5 +1,21 @@
 # Unreleased
 
+# 1.0.1.1
+
+- Added ``/spawn <player>`` (Permission: `essentials.spawn.other`)
+- Added checking if player is vanished for various commands
+- Fixed message when the player leave server
+- Added permission ``essentials.back.death``, the player must have this permission to return to the place of his death
+- Fixed teleport task when player is offline [#92](https://github.com/Maxlego08/zEssentials/issues/92)
+- Fixed command ``/heal <player>`` and `/feed <player>` if you use it in the console [#90](https://github.com/Maxlego08/zEssentials/issues/90)
+- Added two types of home usage MAX and STACK [#84](https://github.com/Maxlego08/zEssentials/issues/84)
+- Fixed home delete inventory [#89](https://github.com/Maxlego08/zEssentials/issues/89)
+- Fixed item display when you try to display an empty item
+- Fixed tabulation with no argument needed
+- Fixed message when you create a home
+- Fixed economy give all command from console [#79](https://github.com/Maxlego08/zEssentials/issues/79)
+- Fixed error when you die in another world [#76](https://github.com/Maxlego08/zEssentials/issues/76)
+
 # 1.0.1.0
 
 - Fixed command cooldown if permission was not set

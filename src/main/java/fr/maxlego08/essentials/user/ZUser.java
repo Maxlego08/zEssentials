@@ -86,6 +86,7 @@ public class ZUser extends ZUtils implements User {
     private long vote;
     private long offlineVote;
     private Map<String, Long> lastVotes = new HashMap<>();
+    private Home currentDeleteHome;
 
     private boolean freeze;
 
@@ -237,6 +238,11 @@ public class ZUser extends ZUtils implements User {
         ServerImplementation serverImplementation = this.plugin.getScheduler();
         serverImplementation.runAtLocationTimer(location, wrappedTask -> {
 
+            if (!this.isOnline()) {
+                wrappedTask.cancel();
+                return;
+            }
+
             if (!same(playerLocation, getPlayer().getLocation())) {
 
                 message(this, Message.TELEPORT_MOVE);
@@ -245,12 +251,6 @@ public class ZUser extends ZUtils implements User {
             }
 
             int currentSecond = atomicInteger.getAndDecrement();
-
-            if (!this.isOnline()) {
-                wrappedTask.cancel();
-                return;
-            }
-
             if (currentSecond == 0) {
 
                 wrappedTask.cancel();
@@ -840,12 +840,22 @@ public class ZUser extends ZUtils implements User {
     }
 
     @Override
+    public boolean isFrozen() {
+        return freeze;
+    }
+
+    @Override
     public void setFrozen(boolean b) {
         freeze = b;
     }
 
     @Override
-    public boolean isFrozen() {
-        return freeze;
+    public void setCurrentDeleteHome(Home currentDeleteHome) {
+        this.currentDeleteHome = currentDeleteHome;
+    }
+
+    @Override
+    public Optional<Home> getCurrentDeleteHome() {
+        return Optional.ofNullable(this.currentDeleteHome);
     }
 }

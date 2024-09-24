@@ -50,3 +50,8 @@ home-overwrite-confirm: true
 
 # The player must confirm with the command /delhomeconfirm if he wants to delete an existing home
 home-delete-confirm: true
+
+# Change the way to get the maximum home number.
+# MAX - Will browse the permission list and retrieve the most home
+# STACK - Will add all permissions to get the maximum home number.
+home-usage-type: MAX

@@ -146,7 +146,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.enchantments.register();
 
         FoliaLib foliaLib = new FoliaLib(this);
-        this.serverImplementation = foliaLib.getImpl();
+        this.serverImplementation = foliaLib.getScheduler();
         this.essentialsUtils = isPaperVersion() ? new PaperUtils(this) : new SpigotUtils(this);
         this.essentialsServer = isPaperVersion() ? new PaperServer(this) : new SpigotServer(this);
         this.interactiveChatHelper = isPaperVersion() ? new InteractiveChatPaperListener() : new InteractiveChatSpigotListener();

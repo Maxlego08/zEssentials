@@ -54,7 +54,11 @@ public class ButtonHomes extends ZButton implements PaginateButton {
         inventory.addItem(slot, menuItemStack.build(player, false, placeholders)).setClick(event -> {
             if (event.isRightClick()) {
 
-                homeModule.deleteHome(player, user, home.getName());
+                if (homeModule.isHomeDeleteConfirm()) {
+                    homeModule.openInventoryConfirmHome(user, home);
+                } else {
+                    homeModule.deleteHome(player, user, home.getName());
+                }
             } else if (event.isLeftClick()) {
 
                 player.closeInventory();

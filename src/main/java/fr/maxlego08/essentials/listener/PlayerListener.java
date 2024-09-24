@@ -88,7 +88,9 @@ public class PlayerListener extends ZUtils implements Listener {
         User user = getUser(event.getPlayer());
         if (user == null) return;
 
-        user.setLastLocation();
+        if (user.hasPermission(Permission.ESSENTIALS_BACK_DEATH)) {
+            user.setLastLocation();
+        }
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)

@@ -4,6 +4,7 @@ import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.home.HomeDisplay;
 import fr.maxlego08.essentials.api.home.HomePermission;
+import fr.maxlego08.essentials.api.home.HomeUsageType;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.User;
@@ -31,6 +32,7 @@ public class HomeModule extends ZModule {
     private int homeNameMin;
     private boolean homeOverwriteConfirm;
     private boolean homeDeleteConfirm;
+    private HomeUsageType homeUsageType;
 
     public HomeModule(ZEssentialsPlugin plugin) {
         super(plugin, "home");
@@ -69,7 +71,8 @@ public class HomeModule extends ZModule {
     }
 
     public int getMaxHome(Permissible permissible) {
-        return this.permissions.stream().filter(homePermission -> permissible.hasPermission(homePermission.permission())).mapToInt(HomePermission::amount).max().orElse(0);
+        var stream = this.permissions.stream().filter(homePermission -> permissible.hasPermission(homePermission.permission())).mapToInt(HomePermission::amount);
+        return this.homeUsageType == HomeUsageType.STACK ? stream.sum() : stream.max().orElse(0);
     }
 
     public void sendHomes(Player player, User user) {
@@ -93,6 +96,11 @@ public class HomeModule extends ZModule {
 
     private void openInventory(Player player) {
         this.plugin.getInventoryManager().openInventory(player, this.plugin, this.homeDisplay == HomeDisplay.INVENTORY ? "homes" : "homes_donut");
+    }
+
+    public void openInventoryConfirmHome(User user, Home home) {
+        user.setCurrentDeleteHome(home);
+        this.plugin.getInventoryManager().openInventory(user.getPlayer(), this.plugin, "home_delete");
     }
 
     private Object[] formatHomeInformation(Home home, int homeAmount, int maxHome) {

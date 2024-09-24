@@ -63,9 +63,11 @@ public class SpawnModule extends ZModule {
 
     private void onPlayerDeath(PlayerDeathEvent playerDeathEvent, Player player) {
 
-        Location respawnLocation = player.getRespawnLocation();
-
-        if (this.respawnAtAnchor && respawnLocation != null) return;
+        try {
+            Location respawnLocation = player.getRespawnLocation();
+            if (this.respawnAtAnchor && respawnLocation != null) return;
+        } catch (Exception ignored) {
+        }
 
         if (this.respawnAtBed) {
             // ToDo

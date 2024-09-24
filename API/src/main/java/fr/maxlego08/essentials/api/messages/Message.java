@@ -310,6 +310,7 @@ public enum Message {
             ClassicMessage.tchat("&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."),
             ClassicMessage.action("&7Teleporting in #0EEA93%seconds% &7seconds, you must not move.")
     ),
+    TELEPORT_MESSAGE_SPAWN_CONSOLE("<success>You just teleported the player <white>%player% <success>to spawn."),
     TELEPORT_SUCCESS_SPAWN(
             ClassicMessage.tchat("&7You just teleported to #0EEA93spawn &7!"),
             ClassicMessage.action("&7You just teleported to #0EEA93spawn &7!")
@@ -653,7 +654,7 @@ public enum Message {
     HOLOGRAM_CREATE_ERROR("<error>Hologram &f%name% <error>already exists."),
     HOLOGRAM_CREATE(MessageType.WITHOUT_PREFIX,
             "<success>You just created the hologram &f%name%<success>.",
-            "&7Use &n<click:run_command:'/hologram edit %name%'>/hologram edit %name%</click>&r&7 command to edit the hologram"
+            "&7Use &n<click:run_command:'/hologram edit %name%'>/hologram %command% %name%</click>&r&7 command to edit the hologram"
     ),
     HOLOGRAM_DELETE("<success>Hologram &f%name% <success>has been deleted."),
     HOLOGRAM_DOESNT_EXIST("<error>Hologram &f%name% <error>doesn't exists."),

@@ -6,7 +6,7 @@ items:
     slot: 13
     item:
       material: BLUE_DYE
-      name: '#00a4fcʜᴏᴍᴇ %zmenu_player_value_home_to_delete%'
+      name: '#00a4fcʜᴏᴍᴇ %zessentials_home_delete%'
 
   cancel:
     type: inventory
@@ -22,7 +22,7 @@ items:
   confirm:
     slot: 15
     commands:
-      - 'delhome %zmenu_player_value_home_to_delete%'
+      - 'delhomeconfirm %zessentials_home_delete%'
     closeInventory: true
     item:
       material: GREEN_STAINED_GLASS_PANE
