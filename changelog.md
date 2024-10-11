@@ -6,6 +6,8 @@
 - Added command ``/fly add <player> <seconds>``
 - Added command ``/fly remove <player> <seconds>``
 - Added command ``/fly set <player> <seconds>``
+- Fixed hologram despawning [#99](https://github.com/Maxlego08/zEssentials/issues/99)
+- Fixed holograms are in every world [#100](https://github.com/Maxlego08/zEssentials/issues/100)
 
 # 1.0.1.1
 

@@ -31,6 +31,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.world.WorldLoadEvent;
@@ -259,12 +260,6 @@ public class HologramModule extends ZModule implements HologramManager {
     }
 
     @EventHandler
-    public void onConnect(PlayerJoinEvent event) {
-        Player player = event.getPlayer();
-        this.holograms.forEach(hologram -> hologram.create(player));
-    }
-
-    @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
         this.holograms.forEach(hologram -> hologram.removePlayer(player));
@@ -342,5 +337,19 @@ public class HologramModule extends ZModule implements HologramManager {
         hologram.createForAllPlayers();
 
         this.plugin.getScheduler().runLater(hologram::deleteForAllPlayers, this.damageIndicator.duration());
+    }
+    
+    @EventHandler
+    public void onConnect(PlayerJoinEvent event) {
+        displayHologram(event.getPlayer());
+    }
+
+    @EventHandler
+    public void onWorldChange(PlayerChangedWorldEvent event) {
+        displayHologram(event.getPlayer());
+    }
+
+    private void displayHologram(Player player) {
+        this.holograms.stream().filter(hologram -> hologram.getLocation().getWorld().equals(player.getWorld())).forEach(hologram -> hologram.create(player));
     }
 }

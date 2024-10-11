@@ -664,7 +664,7 @@ public enum Message {
     HOLOGRAM_CREATE_ERROR("<error>Hologram &f%name% <error>already exists."),
     HOLOGRAM_CREATE(MessageType.WITHOUT_PREFIX,
             "<success>You just created the hologram &f%name%<success>.",
-            "&7Use &n<click:run_command:'/hologram edit %name%'>/hologram %command% %name%</click>&r&7 command to edit the hologram"
+            "&7Use &n<click:suggest_command:'/hologram edit %name%'>/hologram %command% %name%</click>&r&7 command to edit the hologram"
     ),
     HOLOGRAM_DELETE("<success>Hologram &f%name% <success>has been deleted."),
     HOLOGRAM_DOESNT_EXIST("<error>Hologram &f%name% <error>doesn't exists."),
