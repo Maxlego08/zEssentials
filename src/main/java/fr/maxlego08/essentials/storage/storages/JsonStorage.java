@@ -437,4 +437,14 @@ public class JsonStorage extends StorageHelper implements IStorage {
     public void updateUserFrozen(UUID uuid, boolean frozen) {
         this.saveFileAsync(uuid);
     }
+
+    @Override
+    public void upsertFlySeconds(UUID uniqueId, long flySeconds) {
+        throw new NotImplementedException("upsertFly is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public long getFlySeconds(UUID uniqueId) {
+        return 0;
+    }
 }

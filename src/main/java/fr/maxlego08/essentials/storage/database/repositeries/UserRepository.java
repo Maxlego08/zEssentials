@@ -237,4 +237,16 @@ public class UserRepository extends Repository {
             table.where("unique_id", uuid);
         });
     }
+
+    public void upsertFly(UUID uniqueId, long flySeconds) {
+        update(table -> {
+            table.bigInt("fly_seconds", flySeconds);
+            table.where("unique_id", uniqueId);
+        });
+    }
+
+    public long selectFly(UUID uniqueId) {
+        var users = selectUser(uniqueId);
+        return users.isEmpty() ? 0 : users.get(0).fly_seconds();
+    }
 }

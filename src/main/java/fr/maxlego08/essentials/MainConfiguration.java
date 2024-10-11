@@ -42,6 +42,7 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     private boolean enableDebug;
     private boolean enableCooldownBypass;
     private boolean enableCommandLog;
+    private boolean tempFlyTask;
     private int trashSize;
     private String globalDateFormat;
     @NonLoadable
@@ -229,5 +230,10 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     @Override
     public Optional<ReplacePlaceholder> getReplacePlaceholder(String placeholder) {
         return this.replacePlaceholders.stream().filter(replacePlaceholder -> replacePlaceholder.placeholder().equalsIgnoreCase(placeholder)).findFirst();
+    }
+
+    @Override
+    public boolean isTempFlyTask() {
+        return tempFlyTask;
     }
 }

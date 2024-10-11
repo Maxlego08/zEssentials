@@ -414,6 +414,7 @@ teleport-message-spawn:
   - type: ACTION
     message: "&7Téléportation dans #0EEA93%seconds% &7secondes, vous ne devez pas bouger."
   - message: "&7Téléportation dans #0EEA93%seconds% &7secondes, vous ne devez pas bouger."
+teleport-message-spawn-console: "<success>Vous venez de téléporter le joueur <white>%player% <success>au spawn."
 teleport-success-spawn:
   - type: ACTION
     message: "&7Vous venez de téléporter à #0EEA93l'apparition &7!"

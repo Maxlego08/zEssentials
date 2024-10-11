@@ -176,4 +176,6 @@ public interface Configuration extends ConfigurationFile {
      * @return an {@link Optional} containing the found {@link ReplacePlaceholder}, or empty if not found
      */
     Optional<ReplacePlaceholder> getReplacePlaceholder(String placeholder);
+
+    boolean isTempFlyTask();
 }

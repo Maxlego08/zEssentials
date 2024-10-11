@@ -87,6 +87,7 @@ public class ZUser extends ZUtils implements User {
     private long offlineVote;
     private Map<String, Long> lastVotes = new HashMap<>();
     private Home currentDeleteHome;
+    private long flySeconds;
 
     private boolean freeze;
 
@@ -771,6 +772,7 @@ public class ZUser extends ZUtils implements User {
         this.playTime = userDTO.play_time();
         this.lastLocation = stringAsLocation(userDTO.last_location());
         this.freeze = userDTO.frozen() != null && userDTO.frozen();
+        this.flySeconds = userDTO.fly_seconds();
     }
 
     @Override
@@ -850,12 +852,35 @@ public class ZUser extends ZUtils implements User {
     }
 
     @Override
+    public Optional<Home> getCurrentDeleteHome() {
+        return Optional.ofNullable(this.currentDeleteHome);
+    }
+
+    @Override
     public void setCurrentDeleteHome(Home currentDeleteHome) {
         this.currentDeleteHome = currentDeleteHome;
     }
 
     @Override
-    public Optional<Home> getCurrentDeleteHome() {
-        return Optional.ofNullable(this.currentDeleteHome);
+    public long getFlySeconds() {
+        return this.flySeconds;
+    }
+
+    @Override
+    public void setFlySeconds(long seconds) {
+        this.flySeconds = seconds;
+        getStorage().upsertFlySeconds(this.uniqueId, this.flySeconds);
+    }
+
+    @Override
+    public void addFlySeconds(long seconds) {
+        this.flySeconds += seconds;
+        getStorage().upsertFlySeconds(this.uniqueId, this.flySeconds);
+    }
+
+    @Override
+    public void removeFlySeconds(long seconds) {
+        this.flySeconds -= seconds;
+        getStorage().upsertFlySeconds(this.uniqueId, this.flySeconds);
     }
 }

@@ -1,7 +1,7 @@
 package fr.maxlego08.essentials.zutils;
 
 import com.google.gson.Gson;
-import com.tcoded.folialib.impl.ServerImplementation;
+import com.tcoded.folialib.impl.PlatformScheduler;
 import fr.maxlego08.essentials.api.Configuration;
 import fr.maxlego08.essentials.api.ConfigurationFile;
 import fr.maxlego08.essentials.api.commands.CommandManager;
@@ -37,7 +37,7 @@ public class ZPlugin extends JavaPlugin {
     protected EconomyManager economyManager;
     protected Gson gson;
     protected Persist persist;
-    protected ServerImplementation serverImplementation;
+    protected PlatformScheduler platformScheduler;
 
     protected void registerCommand(String command, VCommand vCommand, String... aliases) {
         this.commandManager.registerCommand(this, command, vCommand, Arrays.asList(aliases));

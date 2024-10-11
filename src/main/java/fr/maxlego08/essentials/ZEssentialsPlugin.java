@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tcoded.folialib.FoliaLib;
 import com.tcoded.folialib.impl.FoliaImplementation;
-import com.tcoded.folialib.impl.ServerImplementation;
+import com.tcoded.folialib.impl.PlatformScheduler;
 import fr.maxlego08.essentials.api.Configuration;
 import fr.maxlego08.essentials.api.ConfigurationFile;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
@@ -73,6 +73,7 @@ import fr.maxlego08.essentials.server.SpigotServer;
 import fr.maxlego08.essentials.storage.ConfigStorage;
 import fr.maxlego08.essentials.storage.ZStorageManager;
 import fr.maxlego08.essentials.storage.adapter.UserTypeAdapter;
+import fr.maxlego08.essentials.task.FlyTask;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.user.placeholders.EconomyBaltopPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.ReplacePlaceholders;
@@ -146,7 +147,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.enchantments.register();
 
         FoliaLib foliaLib = new FoliaLib(this);
-        this.serverImplementation = foliaLib.getScheduler();
+        this.platformScheduler = foliaLib.getScheduler();
         this.essentialsUtils = isPaperVersion() ? new PaperUtils(this) : new SpigotUtils(this);
         this.essentialsServer = isPaperVersion() ? new PaperServer(this) : new SpigotServer(this);
         this.interactiveChatHelper = isPaperVersion() ? new InteractiveChatPaperListener() : new InteractiveChatSpigotListener();
@@ -227,6 +228,10 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.registerListener(new InvseeListener());
 
         this.generateDocs();
+
+        if (this.configuration.isTempFlyTask()) {
+            new FlyTask(this);
+        }
     }
 
     @Override
@@ -294,8 +299,8 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     }
 
     @Override
-    public ServerImplementation getScheduler() {
-        return this.serverImplementation;
+    public PlatformScheduler getScheduler() {
+        return this.platformScheduler;
     }
 
     @Override
@@ -396,7 +401,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
     @Override
     public boolean isFolia() {
-        return this.serverImplementation instanceof FoliaImplementation;
+        return this.platformScheduler instanceof FoliaImplementation;
     }
 
     @Override
@@ -439,7 +444,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     @Override
     public void openInventory(Player player, String inventoryName) {
         this.inventoryManager.getInventory(this, inventoryName).ifPresent(inventory -> {
-            this.serverImplementation.runAtLocation(player.getLocation(), wrappedTask -> {
+            this.platformScheduler.runAtLocation(player.getLocation(), wrappedTask -> {
                 this.inventoryManager.getCurrentPlayerInventory(player).ifPresentOrElse(oldInventory -> {
                     this.inventoryManager.openInventory(player, inventory, 1, oldInventory);
                 }, () -> this.inventoryManager.openInventory(player, inventory));

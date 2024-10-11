@@ -422,6 +422,7 @@ teleport-message-spawn:
   - message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
   - type: ACTION
     message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."
+teleport-message-spawn-console: "<success>You just teleported the player <white>%player% <success>to spawn."
 teleport-success-spawn:
   - message: "&7You just teleported to #0EEA93spawn &7!"
   - type: ACTION

@@ -145,4 +145,8 @@ public interface IStorage {
     void updateVault(UUID uniqueId, Vault vault);
 
     void updateUserFrozen(UUID uuid, boolean frozen);
+
+    void upsertFlySeconds(UUID uniqueId, long flySeconds);
+
+    long getFlySeconds(UUID uniqueId);
 }

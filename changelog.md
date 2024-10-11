@@ -1,5 +1,12 @@
 # Unreleased
 
+- Added a temporary fly with the `/fly` command
+- Added permission `essentials.fly.unlimited`, allows fly without time restriction
+- Added permission `essentials.fly.other`, allows to activate the fly to another player
+- Added command ``/fly add <player> <seconds>``
+- Added command ``/fly remove <player> <seconds>``
+- Added command ``/fly set <player> <seconds>``
+
 # 1.0.1.1
 
 - Added ``/spawn <player>`` (Permission: `essentials.spawn.other`)

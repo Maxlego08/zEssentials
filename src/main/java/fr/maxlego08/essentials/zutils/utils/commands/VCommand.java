@@ -511,6 +511,7 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
     protected List<String> generateList(List<String> defaultList, String startWith, Tab tab) {
         List<String> generatedList = new ArrayList<>();
         for (String str : defaultList) {
+            if (str == null) continue;
             if (startWith.length() == 0 || (tab.equals(Tab.START) ? str.toLowerCase().startsWith(startWith.toLowerCase()) : str.toLowerCase().contains(startWith.toLowerCase()))) {
                 generatedList.add(str);
             }

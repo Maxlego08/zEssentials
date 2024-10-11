@@ -42,6 +42,7 @@ public class CommandEconomyGive extends VCommand {
             message(sender, Message.COMMAND_ECONOMY_NOT_FOUND, "%name%", economyName);
             return CommandResultType.DEFAULT;
         }
+
         Economy economy = optional.get();
         fetchUniqueId(userName, uniqueId -> {
 
