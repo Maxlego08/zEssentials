@@ -1,8 +1,10 @@
 package fr.maxlego08.essentials.hologram;
 
+import com.tcoded.folialib.wrapper.task.WrappedTask;
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.TabCompletion;
+import fr.maxlego08.essentials.api.hologram.AutoUpdateTaskConfiguration;
 import fr.maxlego08.essentials.api.hologram.DamageIndicatorConfiguration;
 import fr.maxlego08.essentials.api.hologram.Hologram;
 import fr.maxlego08.essentials.api.hologram.HologramLine;
@@ -53,6 +55,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 public class HologramModule extends ZModule implements HologramManager {
@@ -62,6 +65,8 @@ public class HologramModule extends ZModule implements HologramManager {
     private final List<Hologram> holograms = new ArrayList<>();
     private final Map<String, List<File>> pendingHolograms = new HashMap<>();
     private DamageIndicatorConfiguration damageIndicator;
+    private AutoUpdateTaskConfiguration autoUpdateTask;
+    private WrappedTask wrappedTask = null;
 
     public HologramModule(ZEssentialsPlugin plugin) {
         super(plugin, "hologram");
@@ -72,12 +77,15 @@ public class HologramModule extends ZModule implements HologramManager {
     public void loadConfiguration() {
 
         this.holograms.forEach(Hologram::deleteForAllPlayers);
+        if (this.wrappedTask != null) this.wrappedTask.cancel();
 
         super.loadConfiguration();
         this.loadHolograms();
 
         HandlerList.unregisterAll(this);
         this.registerEvents();
+
+        this.wrappedTask = this.plugin.getScheduler().runTimer(this::updateHolograms, this.autoUpdateTask.milliseconds(), this.autoUpdateTask.milliseconds(), TimeUnit.MILLISECONDS);
     }
 
     private void registerEvents() {
@@ -93,7 +101,7 @@ public class HologramModule extends ZModule implements HologramManager {
     protected void updateEventPlayer(Player player, String eventName) {
 
         List<Hologram> holograms = this.getHologramByEvent(eventName);
-        this.plugin.getScheduler().runNextTick(wrappedTask -> holograms.forEach(hologram -> hologram.updateLine(player, eventName)));
+        this.plugin.getScheduler().runNextTick(wrappedTask -> holograms.forEach(hologram -> hologram.updateLines(player, eventName)));
     }
 
     private List<Hologram> getHologramByEvent(String eventName) {
@@ -154,7 +162,7 @@ public class HologramModule extends ZModule implements HologramManager {
         Hologram hologram = this.createHologram(hologramType, hologramConfiguration, name, name, player.getLocation());
 
         if (hologramType == HologramType.TEXT) {
-            hologram.addLine(new ZHologramLine(1, "&fUse #ff9966/holo setline " + name + " 1 <your text>&f!"));
+            hologram.addLine(new ZHologramLine(1, "&fUse #ff9966/holo setline " + name + " 1 <your text>&f!", false));
         }
 
         hologram.create();
@@ -332,13 +340,13 @@ public class HologramModule extends ZModule implements HologramManager {
         HologramConfiguration hologramConfiguration = new TextHologramConfiguration();
         var hologram = createHologram(HologramType.TEXT, hologramConfiguration, "", "", location);
 
-        hologram.addLine(new ZHologramLine(1, text));
+        hologram.addLine(new ZHologramLine(1, text, false));
         hologram.create();
         hologram.createForAllPlayers();
 
         this.plugin.getScheduler().runLater(hologram::deleteForAllPlayers, this.damageIndicator.duration());
     }
-    
+
     @EventHandler
     public void onConnect(PlayerJoinEvent event) {
         displayHologram(event.getPlayer());
@@ -351,5 +359,16 @@ public class HologramModule extends ZModule implements HologramManager {
 
     private void displayHologram(Player player) {
         this.holograms.stream().filter(hologram -> hologram.getLocation().getWorld().equals(player.getWorld())).forEach(hologram -> hologram.create(player));
+    }
+
+
+    private void updateHolograms() {
+        for (Player onlinePlayer : plugin.getServer().getOnlinePlayers()) {
+            for (Hologram hologram : this.holograms) {
+                if (onlinePlayer.getWorld().equals(hologram.getLocation().getWorld())) {
+                    hologram.autoUpdateLines(onlinePlayer);
+                }
+            }
+        }
     }
 }

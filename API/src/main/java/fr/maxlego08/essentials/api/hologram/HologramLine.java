@@ -41,5 +41,7 @@ public interface HologramLine {
      * @param line the new line number
      */
     void setLine(int line);
+
+    boolean isAutoUpdate();
 }
 

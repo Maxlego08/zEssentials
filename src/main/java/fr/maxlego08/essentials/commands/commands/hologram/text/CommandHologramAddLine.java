@@ -25,7 +25,7 @@ public class CommandHologramAddLine extends VCommandHologram {
 
         String text = this.getArgs(2);
         int nextIndex = hologram.getNextIndex();
-        hologram.addLine(new ZHologramLine(nextIndex, text));
+        hologram.addLine(new ZHologramLine(nextIndex, text, false));
         hologram.updateForAllPlayers();
 
         manager.saveHologram(hologram);
