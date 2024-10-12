@@ -1,6 +1,6 @@
 package fr.maxlego08.essentials.economy;
 
-import com.tcoded.folialib.impl.ServerImplementation;
+import com.tcoded.folialib.impl.PlatformScheduler;
 import com.tcoded.folialib.wrapper.task.WrappedTask;
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.configuration.NonLoadable;
@@ -50,7 +50,7 @@ public class EconomyModule extends ZModule implements EconomyManager {
     private final List<NumberMultiplicationFormat> numberFormatSellMultiplication = new ArrayList<>();
     private final Map<Economy, Baltop> baltops = new HashMap<>();
     private final Map<UUID, OfflineEconomy> offlinePlayers = new HashMap<>();
-    private List<DefaultEconomyConfiguration> defaultEconomies = new ArrayList<>();
+    private final List<DefaultEconomyConfiguration> defaultEconomies = new ArrayList<>();
     private String defaultEconomy;
     private BigDecimal minimumPayAmount;
     private PriceFormat priceFormat;
@@ -112,7 +112,7 @@ public class EconomyModule extends ZModule implements EconomyManager {
 
     @Override
     public void refreshBaltop(Economy economy) {
-        ServerImplementation serverImplementation = this.plugin.getScheduler();
+        PlatformScheduler serverImplementation = this.plugin.getScheduler();
         serverImplementation.runAsync(wrappedTask -> {
 
             IStorage iStorage = this.plugin.getStorageManager().getStorage();

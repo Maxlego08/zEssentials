@@ -12,6 +12,7 @@
 - Added placeholder ``%zessentials_user_fly_seconds%``, returns the number of seconds for temporary fly
 - Added default money when player join [#105](https://github.com/Maxlego08/zEssentials/issues/105)
 - Fixed seen command [#102](https://github.com/Maxlego08/zEssentials/issues/102)
+- Fixed teleportation delay glitch [#96](https://github.com/Maxlego08/zEssentials/issues/96)
 
 # 1.0.1.1
 
