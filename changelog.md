@@ -1,5 +1,7 @@
 # Unreleased
 
+# 1.0.1.2
+
 - Added a temporary fly with the `/fly` command
 - Added permission `essentials.fly.unlimited`, allows fly without time restriction
 - Added permission `essentials.fly.other`, allows to activate the fly to another player
