@@ -11,6 +11,7 @@
 - Added auto update for holograms
 - Added placeholder ``%zessentials_user_fly_seconds%``, returns the number of seconds for temporary fly
 - Added default money when player join [#105](https://github.com/Maxlego08/zEssentials/issues/105)
+- Fixed seen command [#102](https://github.com/Maxlego08/zEssentials/issues/102)
 
 # 1.0.1.1
 
