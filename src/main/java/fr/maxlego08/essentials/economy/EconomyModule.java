@@ -7,6 +7,7 @@ import fr.maxlego08.essentials.api.configuration.NonLoadable;
 import fr.maxlego08.essentials.api.dto.UserEconomyRankingDTO;
 import fr.maxlego08.essentials.api.economy.Baltop;
 import fr.maxlego08.essentials.api.economy.BaltopDisplay;
+import fr.maxlego08.essentials.api.economy.DefaultEconomyConfiguration;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.economy.EconomyManager;
 import fr.maxlego08.essentials.api.economy.NumberFormatReduction;
@@ -15,6 +16,7 @@ import fr.maxlego08.essentials.api.economy.OfflineEconomy;
 import fr.maxlego08.essentials.api.economy.PriceFormat;
 import fr.maxlego08.essentials.api.economy.UserBaltop;
 import fr.maxlego08.essentials.api.event.events.economy.EconomyBaltopUpdateEvent;
+import fr.maxlego08.essentials.api.event.events.user.UserFirstJoinEvent;
 import fr.maxlego08.essentials.api.event.events.user.UserQuitEvent;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.storage.IStorage;
@@ -48,6 +50,7 @@ public class EconomyModule extends ZModule implements EconomyManager {
     private final List<NumberMultiplicationFormat> numberFormatSellMultiplication = new ArrayList<>();
     private final Map<Economy, Baltop> baltops = new HashMap<>();
     private final Map<UUID, OfflineEconomy> offlinePlayers = new HashMap<>();
+    private List<DefaultEconomyConfiguration> defaultEconomies = new ArrayList<>();
     private String defaultEconomy;
     private BigDecimal minimumPayAmount;
     private PriceFormat priceFormat;
@@ -367,9 +370,19 @@ public class EconomyModule extends ZModule implements EconomyManager {
     }
 
     @EventHandler
+    public void onFirstJoin(UserFirstJoinEvent event) {
+        if (this.defaultEconomies.isEmpty()) return;
+        var user = event.getUser();
+        for (DefaultEconomyConfiguration defaultEconomyConfiguration : this.defaultEconomies) {
+            getEconomy(defaultEconomyConfiguration.economy()).ifPresent(economy -> user.deposit(economy, defaultEconomyConfiguration.amount()));
+        }
+    }
+
+    @EventHandler
     public void onQuit(UserQuitEvent event) {
         User user = event.getUser();
         OfflineEconomy offlineEconomy = new ZOfflineEconomy(user.getBalances());
         this.offlinePlayers.put(user.getUniqueId(), offlineEconomy);
     }
+
 }

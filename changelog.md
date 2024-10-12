@@ -9,6 +9,8 @@
 - Fixed hologram despawning [#99](https://github.com/Maxlego08/zEssentials/issues/99)
 - Fixed holograms are in every world [#100](https://github.com/Maxlego08/zEssentials/issues/100)
 - Added auto update for holograms
+- Added placeholder ``%zessentials_user_fly_seconds%``, returns the number of seconds for temporary fly
+- Added default money when player join [#105](https://github.com/Maxlego08/zEssentials/issues/105)
 
 # 1.0.1.1
 
