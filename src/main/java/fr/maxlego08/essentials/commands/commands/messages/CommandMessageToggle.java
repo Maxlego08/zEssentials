@@ -29,7 +29,7 @@ public class CommandMessageToggle extends VCommand {
             return CommandResultType.SYNTAX_ERROR;
         }
 
-        if (player == this.player || !hasPermission(sender, Permission.DESCRIPTION_MESSAGE_TOGGLE_OTHER)) {
+        if (player == this.player || !hasPermission(sender, Permission.ESSENTIALS_MESSAGE_TOGGLE_OTHER)) {
             togglePrivateMessage(player, this.user, sender);
         } else {
             User otherUser = getUser(player);
