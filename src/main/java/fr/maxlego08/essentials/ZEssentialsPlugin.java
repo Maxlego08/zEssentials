@@ -237,6 +237,14 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     @Override
     public void onLoad() {
         try {
+
+            File file = new File(this.getDataFolder(), "modules/economy/config.yml");
+            if (!file.exists()) {
+                this.saveResource("modules/economy/config.yml", false);
+            }
+            YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
+            if (!configuration.getBoolean("enable", false)) return;
+
             Class.forName("net.milkbowl.vault.economy.Economy");
             createInstance("VaultEconomy", false);
             getLogger().info("Register Vault Economy.");

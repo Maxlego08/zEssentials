@@ -13,6 +13,7 @@
 - Added default money when player join [#105](https://github.com/Maxlego08/zEssentials/issues/105)
 - Fixed seen command [#102](https://github.com/Maxlego08/zEssentials/issues/102)
 - Fixed teleportation delay glitch [#96](https://github.com/Maxlego08/zEssentials/issues/96)
+- Fixed vault register when economy is disable [#95](https://github.com/Maxlego08/zEssentials/issues/95)
 
 # 1.0.1.1
 
