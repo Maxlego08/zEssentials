@@ -38,6 +38,7 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     private final List<MessageColor> messageColors = new ArrayList<>();
     private final List<ChatCooldown> cooldowns = new ArrayList<>();
     private final List<NearDistance> nearPermissions = new ArrayList<>();
+    private final List<String> disableFlyWorld = new ArrayList<>();
     private long[] cooldownCommands;
     private boolean enableDebug;
     private boolean enableCooldownBypass;
@@ -235,5 +236,10 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     @Override
     public boolean isTempFlyTask() {
         return tempFlyTask;
+    }
+
+    @Override
+    public List<String> getDisableFlyWorld() {
+        return disableFlyWorld;
     }
 }

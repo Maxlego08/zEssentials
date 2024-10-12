@@ -178,4 +178,6 @@ public interface Configuration extends ConfigurationFile {
     Optional<ReplacePlaceholder> getReplacePlaceholder(String placeholder);
 
     boolean isTempFlyTask();
+
+    List<String> getDisableFlyWorld();
 }

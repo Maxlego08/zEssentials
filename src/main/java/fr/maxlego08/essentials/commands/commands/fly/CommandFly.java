@@ -33,6 +33,11 @@ public class CommandFly extends VCommand {
             player = this.player;
         }
 
+        if (plugin.getConfiguration().getDisableFlyWorld().contains(player.getWorld().getName()) && !hasPermission(player, Permission.ESSENTIALS_FLY_BYPASS_WORLD)) {
+            message(sender, Message.COMMAND_FLY_ERROR_WORLD);
+            return CommandResultType.DEFAULT;
+        }
+
         if (hasPermission(sender, Permission.ESSENTIALS_FLY_UNLIMITED)) {
             player.setAllowFlight(!player.getAllowFlight());
             player.setFlying(player.getAllowFlight());

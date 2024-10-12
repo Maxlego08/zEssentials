@@ -185,3 +185,7 @@ replace-placeholders:
 
 # Allows activating or not the task to check it of players with a temporary fly
 temp-fly-task: false
+
+# Allows to disable fly in some worlds
+disable-fly-world:
+  - world_the_end

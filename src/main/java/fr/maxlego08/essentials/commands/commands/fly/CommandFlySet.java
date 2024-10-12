@@ -7,6 +7,8 @@ import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 
+import java.util.stream.Stream;
+
 public class CommandFlySet extends VCommand {
     public CommandFlySet(EssentialsPlugin plugin) {
         super(plugin);
@@ -14,7 +16,7 @@ public class CommandFlySet extends VCommand {
         this.setPermission(Permission.ESSENTIALS_FLY_SET);
         this.setDescription(Message.DESCRIPTION_FLY_SET);
         this.addRequireOfflinePlayerNameArg();
-        this.addRequireArg("seconds");
+        this.addRequireArg("seconds", (a, b) -> Stream.of(10, 20, 30, 40, 50, 60, 70, 80, 90).map(String::valueOf).toList());
     }
 
     @Override

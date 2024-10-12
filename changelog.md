@@ -14,6 +14,7 @@
 - Fixed seen command [#102](https://github.com/Maxlego08/zEssentials/issues/102)
 - Fixed teleportation delay glitch [#96](https://github.com/Maxlego08/zEssentials/issues/96)
 - Fixed vault register when economy is disable [#95](https://github.com/Maxlego08/zEssentials/issues/95)
+- Added disable fly in certain worlds [#91](https://github.com/Maxlego08/zEssentials/issues/91)
 
 # 1.0.1.1
 

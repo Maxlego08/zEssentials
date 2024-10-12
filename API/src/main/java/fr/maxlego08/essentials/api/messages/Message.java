@@ -62,6 +62,7 @@ public enum Message {
     COMMAND_SPEED_WALK("&7You have just set your &nwalk&r&7 speed to &f%speed%&7 for &f%player%&7. &8(&f2 &7by default&8)"),
     COMMAND_SPEED_ERROR("<error>You must enter a number between &60<error> and &610<error>. &8(&f2 &7by default&8)"),
 
+    COMMAND_FLY_ERROR_WORLD("<error>You can’t fly in this world."),
     COMMAND_FLY_ENABLE("&7Flight mode <success>enable &7for &f%player%<success>."),
     COMMAND_FLY_ENABLE_SECONDS("&7Flight mode <success>enable &7for &f%player%<success>. &8(&7time remaining %time%&8)"),
     COMMAND_FLY_DISABLE("&7Flight mode <error>disable &7for &f%player%<success>."),
