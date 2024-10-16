@@ -1,5 +1,8 @@
 # Unreleased
 
+- Add global commands for VoteParty [#115](https://github.com/Maxlego08/zEssentials/issues/115)
+- Changing the commands of the vote party by zMenu actions, **you must update your configuration**.
+
 # 1.0.1.2
 
 - Added a temporary fly with the `/fly` command
