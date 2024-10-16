@@ -17,15 +17,19 @@ import fr.maxlego08.essentials.api.vote.VotePartyReward;
 import fr.maxlego08.essentials.api.vote.VoteResetConfiguration;
 import fr.maxlego08.essentials.api.vote.VoteSiteConfiguration;
 import fr.maxlego08.essentials.module.ZModule;
+import fr.maxlego08.menu.api.utils.Placeholders;
+import fr.maxlego08.menu.inventory.inventories.InventoryDefault;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -49,6 +53,7 @@ public class VoteModule extends ZModule implements VoteManager {
     private boolean enableVotePartyOpenVoteInventory;
     private boolean enableOfflineVoteMessage;
     private long votePartyObjective;
+    @NonLoadable
     private VotePartyReward votePartyRewards;
     private List<String> rewardOnVote;
     private List<VoteSiteConfiguration> sites;
@@ -67,6 +72,17 @@ public class VoteModule extends ZModule implements VoteManager {
 
         this.currentVoteAmount = this.plugin.getServerStorage().getLong(this.votePartyKey);
         this.loadInventory("vote");
+
+        var buttonManager = this.plugin.getButtonManager();
+        var configuration = getConfiguration();
+        var file = new File(getFolder(), "config.yml");
+
+        var actions = buttonManager.loadActions((List<Map<String, Object>>) configuration.getList("vote-party-rewards.actions"), "vote-party-rewards.actions", file);
+        var permissionActions = buttonManager.loadActions((List<Map<String, Object>>) configuration.getList("vote-party-rewards.permission-actions"), "vote-party-rewards.permission-actions", file);
+        String permission = configuration.getString("vote-party-rewards.permission");
+        List<String> globalCommands = configuration.getStringList("vote-party-rewards.global-commands");
+
+        this.votePartyRewards = new VotePartyReward(actions, permission, permissionActions, globalCommands);
     }
 
     @Override
@@ -203,11 +219,14 @@ public class VoteModule extends ZModule implements VoteManager {
     }
 
     private void giveVotePartyRewards() {
+        this.votePartyRewards.globalCommands().forEach(command -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command));
+
+        InventoryDefault inventoryDefault = this.plugin.getInventoryManager().getFakeInventory();
         Bukkit.getOnlinePlayers().forEach(player -> {
-            this.votePartyRewards.commands().forEach(command -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%player%", player.getName())));
+            this.votePartyRewards.actions().forEach(action -> action.preExecute(player, null, inventoryDefault, new Placeholders()));
 
             if (player.hasPermission(this.votePartyRewards.permissions())) {
-                this.votePartyRewards.commandsPermission().forEach(command -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%player%", player.getName())));
+                this.votePartyRewards.permissionActions().forEach(action -> action.preExecute(player, null, inventoryDefault, new Placeholders()));
             }
         });
     }
