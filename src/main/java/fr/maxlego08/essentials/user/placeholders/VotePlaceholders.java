@@ -22,11 +22,6 @@ public class VotePlaceholders extends ZUtils implements PlaceholderRegister {
             return user == null ? "0" : String.valueOf(user.getVote());
         }, "Returns the player vote amount");
 
-        placeholder.register("vote_amount", (player) -> {
-            User user = iStorage.getUser(player.getUniqueId());
-            return user == null ? "0" : String.valueOf(user.getVote());
-        }, "Returns the player vote amount");
-
         placeholder.register("vote_site_cooldown_", (player, site) -> {
             User user = iStorage.getUser(player.getUniqueId());
             if (user == null) return "User Not Found";
