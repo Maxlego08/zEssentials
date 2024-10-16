@@ -38,10 +38,12 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     private final List<MessageColor> messageColors = new ArrayList<>();
     private final List<ChatCooldown> cooldowns = new ArrayList<>();
     private final List<NearDistance> nearPermissions = new ArrayList<>();
+    private final List<String> disableFlyWorld = new ArrayList<>();
     private long[] cooldownCommands;
     private boolean enableDebug;
     private boolean enableCooldownBypass;
     private boolean enableCommandLog;
+    private boolean tempFlyTask;
     private int trashSize;
     private String globalDateFormat;
     @NonLoadable
@@ -229,5 +231,15 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     @Override
     public Optional<ReplacePlaceholder> getReplacePlaceholder(String placeholder) {
         return this.replacePlaceholders.stream().filter(replacePlaceholder -> replacePlaceholder.placeholder().equalsIgnoreCase(placeholder)).findFirst();
+    }
+
+    @Override
+    public boolean isTempFlyTask() {
+        return tempFlyTask;
+    }
+
+    @Override
+    public List<String> getDisableFlyWorld() {
+        return disableFlyWorld;
     }
 }

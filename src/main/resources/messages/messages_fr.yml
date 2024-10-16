@@ -414,6 +414,7 @@ teleport-message-spawn:
   - type: ACTION
     message: "&7Téléportation dans #0EEA93%seconds% &7secondes, vous ne devez pas bouger."
   - message: "&7Téléportation dans #0EEA93%seconds% &7secondes, vous ne devez pas bouger."
+teleport-message-spawn-console: "<success>Vous venez de téléporter le joueur <white>%player% <success>au spawn."
 teleport-success-spawn:
   - type: ACTION
     message: "&7Vous venez de téléporter à #0EEA93l'apparition &7!"
@@ -687,7 +688,7 @@ hologram-create:
   type: WITHOUT_PREFIX
   messages:
     - "<success>Vous venez de créer le hologramme &f%name%<success>."
-    - "&7Utilisez la commande &n<click:run_command:'/hologram %command% %name%'>/hologram %command% %name%</click>&r&7 pour éditer le hologramme"
+    - "&7Utilisez la commande &n<click:suggest_command:'/hologram %command% %name%'>/hologram %command% %name%</click>&r&7 pour éditer le hologramme"
 hologram-delete: "<success>Le hologramme &f%name% <success>a été supprimé."
 hologram-doesnt-exist: "<error>Le hologramme &f%name% <error>n'existe pas."
 hologram-is-not-a-text: "<error>Le hologramme &f%name% <error>n'est pas un hologramme texte."

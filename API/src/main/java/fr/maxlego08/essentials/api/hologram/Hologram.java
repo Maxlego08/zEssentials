@@ -223,12 +223,7 @@ public abstract class Hologram {
         ComponentCache componentCache = this.caches.computeIfAbsent(player, k -> new ComponentCache());
 
         if (componentCache.isEmpty()) {
-            List<Component> components = this.hologramLines.stream()
-                    .sorted(Comparator.comparingInt(HologramLine::getLine))
-                    .map(HologramLine::getText)
-                    .map(line -> this.plugin.papi(player, line))
-                    .map(componentMessage::getComponent)
-                    .toList();
+            List<Component> components = this.hologramLines.stream().sorted(Comparator.comparingInt(HologramLine::getLine)).map(HologramLine::getText).map(line -> this.plugin.papi(player, line)).map(componentMessage::getComponent).toList();
             componentCache.setComponents(components);
         }
 
@@ -242,9 +237,7 @@ public abstract class Hologram {
      * @return an optional containing the hologram line if found
      */
     public Optional<HologramLine> getHologramLine(int line) {
-        return this.hologramLines.stream()
-                .filter(hologramLine -> hologramLine.getLine() == line)
-                .findFirst();
+        return this.hologramLines.stream().filter(hologramLine -> hologramLine.getLine() == line).findFirst();
     }
 
     /**
@@ -311,13 +304,26 @@ public abstract class Hologram {
      * @param player    the player for whom the hologram line is updated
      * @param eventName the event name associated with the hologram line
      */
-    public void updateLine(Player player, String eventName) {
+    public void updateLines(Player player, String eventName) {
 
         AdventureComponent componentMessage = (AdventureComponent) plugin.getComponentMessage();
         ComponentCache componentCache = this.caches.computeIfAbsent(player, k -> new ComponentCache());
-        List<HologramLine> hologramLines = this.hologramLines.stream()
-                .filter(hologramLine -> hologramLine.getEventName() != null && hologramLine.getEventName().equalsIgnoreCase(eventName))
-                .toList();
+        List<HologramLine> hologramLines = this.hologramLines.stream().filter(hologramLine -> hologramLine.getEventName() != null && hologramLine.getEventName().equalsIgnoreCase(eventName)).toList();
+        hologramLines.forEach(hologramLine -> componentCache.updateComponent(hologramLine.getLine() - 1, componentMessage.getComponent(this.plugin.papi(player, hologramLine.getText()))));
+
+        this.update(player);
+    }
+
+    /**
+     * Updates the hologram line
+     *
+     * @param player the player for whom the hologram line is updated
+     */
+    public void autoUpdateLines(Player player) {
+
+        AdventureComponent componentMessage = (AdventureComponent) plugin.getComponentMessage();
+        ComponentCache componentCache = this.caches.computeIfAbsent(player, k -> new ComponentCache());
+        List<HologramLine> hologramLines = this.hologramLines.stream().filter(HologramLine::isAutoUpdate).toList();
         hologramLines.forEach(hologramLine -> componentCache.updateComponent(hologramLine.getLine() - 1, componentMessage.getComponent(this.plugin.papi(player, hologramLine.getText()))));
 
         this.update(player);

@@ -77,7 +77,7 @@ import fr.maxlego08.essentials.commands.commands.utils.CommandSudo;
 import fr.maxlego08.essentials.commands.commands.utils.CommandTrash;
 import fr.maxlego08.essentials.commands.commands.utils.CommandVersion;
 import fr.maxlego08.essentials.commands.commands.utils.admins.CommandEnchant;
-import fr.maxlego08.essentials.commands.commands.utils.admins.CommandFly;
+import fr.maxlego08.essentials.commands.commands.fly.CommandFly;
 import fr.maxlego08.essentials.commands.commands.utils.admins.CommandGod;
 import fr.maxlego08.essentials.commands.commands.utils.admins.CommandInvsee;
 import fr.maxlego08.essentials.commands.commands.utils.admins.CommandKillAll;

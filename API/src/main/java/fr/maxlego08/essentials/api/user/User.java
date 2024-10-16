@@ -857,4 +857,12 @@ public interface User {
     void setCurrentDeleteHome(Home home);
 
     Optional<Home> getCurrentDeleteHome();
+
+    long getFlySeconds();
+
+    void setFlySeconds(long seconds);
+
+    void addFlySeconds(long seconds);
+
+    void removeFlySeconds(long seconds);
 }

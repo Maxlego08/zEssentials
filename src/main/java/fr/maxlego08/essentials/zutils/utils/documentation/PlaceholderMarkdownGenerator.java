@@ -1,4 +1,4 @@
-package fr.maxlego08.essentials.zutils.utils;
+package fr.maxlego08.essentials.zutils.utils.documentation;
 
 import fr.maxlego08.essentials.placeholders.AutoPlaceholder;
 

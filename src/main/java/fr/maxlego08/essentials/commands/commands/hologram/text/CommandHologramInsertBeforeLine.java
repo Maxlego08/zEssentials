@@ -36,7 +36,7 @@ public class CommandHologramInsertBeforeLine extends VCommandHologram {
             return;
         }
 
-        hologram.insertLineBefore(line, new ZHologramLine(line, text));
+        hologram.insertLineBefore(line, new ZHologramLine(line, text, false));
         hologram.updateForAllPlayers();
 
         manager.saveHologram(hologram);

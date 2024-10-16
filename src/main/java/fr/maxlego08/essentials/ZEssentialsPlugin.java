@@ -4,12 +4,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tcoded.folialib.FoliaLib;
 import com.tcoded.folialib.impl.FoliaImplementation;
-import com.tcoded.folialib.impl.ServerImplementation;
+import com.tcoded.folialib.impl.PlatformScheduler;
 import fr.maxlego08.essentials.api.Configuration;
 import fr.maxlego08.essentials.api.ConfigurationFile;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.chat.InteractiveChat;
 import fr.maxlego08.essentials.api.commands.CommandManager;
+import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.economy.EconomyManager;
 import fr.maxlego08.essentials.api.enchantment.Enchantments;
 import fr.maxlego08.essentials.api.hologram.HologramManager;
@@ -73,6 +74,7 @@ import fr.maxlego08.essentials.server.SpigotServer;
 import fr.maxlego08.essentials.storage.ConfigStorage;
 import fr.maxlego08.essentials.storage.ZStorageManager;
 import fr.maxlego08.essentials.storage.adapter.UserTypeAdapter;
+import fr.maxlego08.essentials.task.FlyTask;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.user.placeholders.EconomyBaltopPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.ReplacePlaceholders;
@@ -85,12 +87,14 @@ import fr.maxlego08.essentials.vault.VaultModule;
 import fr.maxlego08.essentials.worldedit.WorldeditModule;
 import fr.maxlego08.essentials.zutils.Metrics;
 import fr.maxlego08.essentials.zutils.ZPlugin;
-import fr.maxlego08.essentials.zutils.utils.CommandMarkdownGenerator;
 import fr.maxlego08.essentials.zutils.utils.ComponentMessageHelper;
-import fr.maxlego08.essentials.zutils.utils.PlaceholderMarkdownGenerator;
 import fr.maxlego08.essentials.zutils.utils.PlaceholderUtils;
 import fr.maxlego08.essentials.zutils.utils.VersionChecker;
 import fr.maxlego08.essentials.zutils.utils.ZServerStorage;
+import fr.maxlego08.essentials.zutils.utils.documentation.CommandMarkdownGenerator;
+import fr.maxlego08.essentials.zutils.utils.documentation.PermissionInfo;
+import fr.maxlego08.essentials.zutils.utils.documentation.PermissionMarkdownGenerator;
+import fr.maxlego08.essentials.zutils.utils.documentation.PlaceholderMarkdownGenerator;
 import fr.maxlego08.essentials.zutils.utils.paper.PaperUtils;
 import fr.maxlego08.essentials.zutils.utils.spigot.SpigotUtils;
 import fr.maxlego08.menu.api.ButtonManager;
@@ -115,6 +119,7 @@ import java.io.Reader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -146,7 +151,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.enchantments.register();
 
         FoliaLib foliaLib = new FoliaLib(this);
-        this.serverImplementation = foliaLib.getScheduler();
+        this.platformScheduler = foliaLib.getScheduler();
         this.essentialsUtils = isPaperVersion() ? new PaperUtils(this) : new SpigotUtils(this);
         this.essentialsServer = isPaperVersion() ? new PaperServer(this) : new SpigotServer(this);
         this.interactiveChatHelper = isPaperVersion() ? new InteractiveChatPaperListener() : new InteractiveChatSpigotListener();
@@ -227,11 +232,23 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.registerListener(new InvseeListener());
 
         this.generateDocs();
+
+        if (this.configuration.isTempFlyTask()) {
+            new FlyTask(this);
+        }
     }
 
     @Override
     public void onLoad() {
         try {
+
+            File file = new File(this.getDataFolder(), "modules/economy/config.yml");
+            if (!file.exists()) {
+                this.saveResource("modules/economy/config.yml", false);
+            }
+            YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
+            if (!configuration.getBoolean("enable", false)) return;
+
             Class.forName("net.milkbowl.vault.economy.Economy");
             createInstance("VaultEconomy", false);
             getLogger().info("Register Vault Economy.");
@@ -294,8 +311,8 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     }
 
     @Override
-    public ServerImplementation getScheduler() {
-        return this.serverImplementation;
+    public PlatformScheduler getScheduler() {
+        return this.platformScheduler;
     }
 
     @Override
@@ -364,9 +381,11 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     private void generateDocs() {
         CommandMarkdownGenerator commandMarkdownGenerator = new CommandMarkdownGenerator();
         PlaceholderMarkdownGenerator placeholderMarkdownGenerator = new PlaceholderMarkdownGenerator();
+        PermissionMarkdownGenerator permissionMarkdownGenerator = new PermissionMarkdownGenerator();
 
         File fileCommand = new File(getDataFolder(), "commands.md");
         File filePlaceholder = new File(getDataFolder(), "placeholders.md");
+        File filePermissions = new File(getDataFolder(), "permissions.md");
         try {
             commandMarkdownGenerator.generateMarkdownFile(this.commandManager.getSortCommands(), fileCommand.toPath());
             getLogger().info("Markdown 'commands.md' file successfully generated!");
@@ -380,6 +399,33 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
             getLogger().info("Markdown 'placeholders.md' file successfully generated!");
         } catch (IOException exception) {
             getLogger().severe("Error while writing the file placeholders: " + exception.getMessage());
+            exception.printStackTrace();
+        }
+
+
+        try {
+
+            List<PermissionInfo> permissions = new ArrayList<>();
+
+            var commands = commandManager.getCommands();
+            for (Permission permission : Permission.values()) {
+
+                var optional = commands.stream().filter(e -> e.getPermission() != null && e.getPermission().equals(permission.asPermission())).findFirst();
+                String description = permission.getDescription();
+                if (optional.isPresent()) {
+                    var command = optional.get();
+                    if (command.getDescription() != null) {
+                        description = command.getDescription();
+                    }
+                }
+
+                permissions.add(new PermissionInfo(permission.asPermission(), description));
+            }
+
+            permissionMarkdownGenerator.generateMarkdownFile(permissions, filePermissions.toPath());
+            getLogger().info("Markdown 'permissions.md' file successfully generated!");
+        } catch (IOException exception) {
+            getLogger().severe("Error while writing the file permissions: " + exception.getMessage());
             exception.printStackTrace();
         }
     }
@@ -396,7 +442,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
     @Override
     public boolean isFolia() {
-        return this.serverImplementation instanceof FoliaImplementation;
+        return this.platformScheduler instanceof FoliaImplementation;
     }
 
     @Override
@@ -439,7 +485,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     @Override
     public void openInventory(Player player, String inventoryName) {
         this.inventoryManager.getInventory(this, inventoryName).ifPresent(inventory -> {
-            this.serverImplementation.runAtLocation(player.getLocation(), wrappedTask -> {
+            this.platformScheduler.runAtLocation(player.getLocation(), wrappedTask -> {
                 this.inventoryManager.getCurrentPlayerInventory(player).ifPresentOrElse(oldInventory -> {
                     this.inventoryManager.openInventory(player, inventory, 1, oldInventory);
                 }, () -> this.inventoryManager.openInventory(player, inventory));

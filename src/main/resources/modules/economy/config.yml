@@ -159,3 +159,8 @@ baltop-message-amount: 10
 # Allows players to cache their money offline.
 # If you want to have a baltop system with all your players you must activate this option
 store-offline-player-money: false
+
+# Allows setting the default number and by economy that the player will receive when he first login.
+default-economies:
+  - economy: money
+    amount: 100

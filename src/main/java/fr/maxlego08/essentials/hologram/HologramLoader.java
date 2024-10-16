@@ -104,9 +104,9 @@ public class HologramLoader extends ZUtils implements Loader<Hologram> {
             String text = (String) map.get("text");
             int line = ((Number) map.get("line")).intValue();
             String eventName = map.containsKey("event") ? (String) map.get("event") : null;
+            boolean isAutoUpdate = map.containsKey("update") && (boolean) map.get("update");
 
-            hologram.addLine(new ZHologramLine(line, text, eventName));
-
+            hologram.addLine(new ZHologramLine(line, text, eventName, isAutoUpdate));
         });
     }
 

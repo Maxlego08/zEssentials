@@ -1,5 +1,23 @@
 # Unreleased
 
+# 1.0.1.2
+
+- Added a temporary fly with the `/fly` command
+- Added permission `essentials.fly.unlimited`, allows fly without time restriction
+- Added permission `essentials.fly.other`, allows to activate the fly to another player
+- Added command ``/fly add <player> <seconds>``
+- Added command ``/fly remove <player> <seconds>``
+- Added command ``/fly set <player> <seconds>``
+- Fixed hologram despawning [#99](https://github.com/Maxlego08/zEssentials/issues/99)
+- Fixed holograms are in every world [#100](https://github.com/Maxlego08/zEssentials/issues/100)
+- Added auto update for holograms
+- Added placeholder ``%zessentials_user_fly_seconds%``, returns the number of seconds for temporary fly
+- Added default money when player join [#105](https://github.com/Maxlego08/zEssentials/issues/105)
+- Fixed seen command [#102](https://github.com/Maxlego08/zEssentials/issues/102)
+- Fixed teleportation delay glitch [#96](https://github.com/Maxlego08/zEssentials/issues/96)
+- Fixed vault register when economy is disable [#95](https://github.com/Maxlego08/zEssentials/issues/95)
+- Added disable fly in certain worlds [#91](https://github.com/Maxlego08/zEssentials/issues/91)
+
 # 1.0.1.1
 
 - Added ``/spawn <player>`` (Permission: `essentials.spawn.other`)

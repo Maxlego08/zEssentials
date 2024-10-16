@@ -21,6 +21,7 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
@@ -189,6 +190,18 @@ public class PlayerListener extends ZUtils implements Listener {
 
         if (user != null && user.getOption(Option.NIGHT_VISION)) {
             this.plugin.getScheduler().runAtLocationLater(player.getLocation(), wrappedTask -> player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1, false, false, false), true), 2);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onChangeWorld(PlayerChangedWorldEvent event) {
+
+        var player = event.getPlayer();
+
+        if (plugin.getConfiguration().getDisableFlyWorld().contains(player.getWorld().getName()) && player.isFlying() && !hasPermission(player, Permission.ESSENTIALS_FLY_BYPASS_WORLD)) {
+            player.setAllowFlight(false);
+            player.setFlying(false);
+            message(player, Message.COMMAND_FLY_ERROR_WORLD);
         }
     }
 }

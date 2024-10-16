@@ -46,6 +46,7 @@ import fr.maxlego08.essentials.migrations.CreateUserPlayTimeTableMigration;
 import fr.maxlego08.essentials.migrations.CreateUserPowerToolsMigration;
 import fr.maxlego08.essentials.migrations.CreateUserTableMigration;
 import fr.maxlego08.essentials.migrations.CreateVoteSiteMigration;
+import fr.maxlego08.essentials.migrations.UpdateUserTableAddFlyColumn;
 import fr.maxlego08.essentials.migrations.UpdateUserTableAddFreezeColumn;
 import fr.maxlego08.essentials.migrations.UpdateUserTableAddSanctionColumns;
 import fr.maxlego08.essentials.migrations.UpdateUserTableAddVoteColumn;
@@ -153,6 +154,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
         MigrationManager.registerMigration(new CreatePlayerVault());
         MigrationManager.registerMigration(new CreatePlayerSlots());
         MigrationManager.registerMigration(new UpdateUserTableAddFreezeColumn());
+        MigrationManager.registerMigration(new UpdateUserTableAddFlyColumn());
 
         // Repositories
         this.repositories = new Repositories(plugin, this.connection);
@@ -585,6 +587,16 @@ public class SqlStorage extends StorageHelper implements IStorage {
     @Override
     public void updateUserFrozen(UUID uuid, boolean frozen) {
         async(() -> with(UserRepository.class).updateFrozen(uuid, frozen));
+    }
+
+    @Override
+    public void upsertFlySeconds(UUID uniqueId, long flySeconds) {
+        async(() -> with(UserRepository.class).upsertFly(uniqueId, flySeconds));
+    }
+
+    @Override
+    public long getFlySeconds(UUID uniqueId) {
+        return with(UserRepository.class).selectFly(uniqueId);
     }
 
     public DatabaseConnection getConnection() {

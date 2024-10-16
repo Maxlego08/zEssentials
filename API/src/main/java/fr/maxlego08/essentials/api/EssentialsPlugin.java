@@ -1,7 +1,7 @@
 package fr.maxlego08.essentials.api;
 
 import com.google.gson.Gson;
-import com.tcoded.folialib.impl.ServerImplementation;
+import com.tcoded.folialib.impl.PlatformScheduler;
 import fr.maxlego08.essentials.api.chat.InteractiveChat;
 import fr.maxlego08.essentials.api.commands.CommandManager;
 import fr.maxlego08.essentials.api.economy.EconomyManager;
@@ -81,7 +81,7 @@ public interface EssentialsPlugin extends Plugin {
      *
      * @return The scheduler implementation.
      */
-    ServerImplementation getScheduler();
+    PlatformScheduler getScheduler();
 
     /**
      * Gets the module manager for managing plugin modules.

@@ -161,8 +161,8 @@ global-date-format: "yyyy-MM-dd HH:mm:ss"
 # Then simply use the placeholder: %zessentials_replace_<placeholder>% to use this configuration
 replace-placeholders:
   # Placeholder %player_ping% (https://api.extendedclip.com/expansions/player/) will be replaced to add color to indicate the player’s ping status.
-  # For this example, the placeholder to used will be: %zessentials_replace_player_ping%
-  # In this example the player’s ping color will change depending on his ping
+  # For this example, the placeholder to use will be: %zessentials_replace_player_ping%
+  # In this example, the player’s ping color will change depending on his ping
   - placeholder: 'player_ping' # Placeholder to be replaced, do not add %
     default: '&c%result%' # Default if no condition found
     replaces: # List of conditions to replace placeholder
@@ -181,3 +181,11 @@ replace-placeholders:
       - type: NUMBER # The type of the condition, here NUMBER allows to check if a number is lower or equal to a given number
         max: 299 # The maximum possible number
         value: '&c%result%' # The value that will be used, you can add %result% to return the value of the placeholder
+
+
+# Allows activating or not the task to check it of players with a temporary fly
+temp-fly-task: false
+
+# Allows to disable fly in some worlds
+disable-fly-world:
+  - world_the_end

@@ -13,6 +13,13 @@
 
 enable: true
 
+# Allows to update automatically the holograms
+# You must set "update: true" for each line that needs to be updated
+auto-update-task:
+  enable: false
+  # The number of milliseconds for the task, by default 1000ms = 1s
+  milliseconds: 1000
+
 # Displays a hologram that indicates the number of credits an entity will receive
 damage-indicator:
   # Do you want this feature enabled ?

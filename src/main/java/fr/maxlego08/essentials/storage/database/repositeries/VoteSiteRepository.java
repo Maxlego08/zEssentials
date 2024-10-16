@@ -21,7 +21,7 @@ public class VoteSiteRepository extends Repository {
     public void setLastVote(UUID uniqueId, String site) {
         upsert(table -> {
             table.uuid("player_id", uniqueId).primary();
-            table.string("site", site);
+            table.string("site", site).primary();
             table.object("last_vote_at", new Date());
         });
     }

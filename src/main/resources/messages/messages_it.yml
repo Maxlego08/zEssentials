@@ -693,7 +693,7 @@ hologram-create:
   type: WITHOUT_PREFIX
   messages:
     - "<success>Hai creato l'ologramma &f%name%<success>."
-    - "&7Usa &n<click:run_command:'/hologram %command% %name%'>/hologram %command% %name%</click>&r&7 per modificare l'ologramma"
+    - "&7Usa &n<click:suggest_command:'/hologram %command% %name%'>/hologram %command% %name%</click>&r&7 per modificare l'ologramma"
 hologram-delete: "<success>Ologramma di nome &f%name% <success>è stato rimosso."
 hologram-doesnt-exist: "<error>Ologramma di nome &f%name% <error>non esiste."
 hologram-is-not-a-text: "<error>Ologramma di nome &f%name% <error>non è un text hologram."

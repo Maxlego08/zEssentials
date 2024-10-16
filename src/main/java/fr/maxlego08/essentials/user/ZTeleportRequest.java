@@ -1,6 +1,6 @@
 package fr.maxlego08.essentials.user;
 
-import com.tcoded.folialib.impl.ServerImplementation;
+import com.tcoded.folialib.impl.PlatformScheduler;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
@@ -54,16 +54,16 @@ public class ZTeleportRequest extends ZUtils implements TeleportRequest {
         message(this.toUser, Message.COMMAND_TPA_ACCEPT_RECEIVER, this.fromUser);
 
         TeleportationModule teleportationModule = this.plugin.getModuleManager().getModule(TeleportationModule.class);
+        AtomicInteger atomicInteger = new AtomicInteger(teleportationModule.getTeleportationDelay(fromUser.getPlayer()));
 
-        if (teleportationModule.isTeleportDelayBypass() && this.fromUser.hasPermission(Permission.ESSENTIALS_TELEPORT_BYPASS)) {
+        if (teleportationModule.isTeleportDelayBypass() && this.fromUser.hasPermission(Permission.ESSENTIALS_TELEPORT_BYPASS) || atomicInteger.get() <= 0) {
             this.teleport(teleportationModule);
             return;
         }
 
         Location playerLocation = fromUser.getPlayer().getLocation();
-        AtomicInteger atomicInteger = new AtomicInteger(teleportationModule.getTeleportationDelay(fromUser.getPlayer()));
 
-        ServerImplementation serverImplementation = this.plugin.getScheduler();
+        PlatformScheduler serverImplementation = this.plugin.getScheduler();
         serverImplementation.runAtLocationTimer(this.toUser.getPlayer().getLocation(), wrappedTask -> {
 
             if (!same(playerLocation, fromUser.getPlayer().getLocation())) {
@@ -81,7 +81,7 @@ public class ZTeleportRequest extends ZUtils implements TeleportRequest {
                 return;
             }
 
-            if (currentSecond == 0) {
+            if (currentSecond <= 0) {
 
                 wrappedTask.cancel();
                 this.teleport(teleportationModule);
