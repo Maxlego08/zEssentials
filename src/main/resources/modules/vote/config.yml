@@ -44,9 +44,7 @@ vote-party-rewards:
 
 # Rewards on each vote
 reward-on-vote:
-  - type: console_command
-    commands:
-      - "cr give %player% vote"
+  - "cr give %player% vote"
 
 sites:
   - name: "ServeurMinecraftVote"

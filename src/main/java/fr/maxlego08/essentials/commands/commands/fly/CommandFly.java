@@ -17,6 +17,8 @@ public class CommandFly extends VCommand {
         this.addSubCommand(new CommandFlyAdd(plugin));
         this.addSubCommand(new CommandFlyRemove(plugin));
         this.addSubCommand(new CommandFlySet(plugin));
+        this.addSubCommand(new CommandFlyInfo(plugin));
+        this.addSubCommand(new CommandFlyGet(plugin));
         this.addOptionalArg("player");
     }
 

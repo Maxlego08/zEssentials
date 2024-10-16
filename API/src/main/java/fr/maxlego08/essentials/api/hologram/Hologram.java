@@ -175,7 +175,11 @@ public abstract class Hologram {
      * Creates the hologram for all online players.
      */
     public void createForAllPlayers() {
-        Bukkit.getOnlinePlayers().forEach(this::create);
+        Bukkit.getOnlinePlayers().forEach(player -> {
+            if (player.getWorld().equals(this.getLocation().getWorld())) {
+                this.create(player);
+            }
+        });
     }
 
     /**

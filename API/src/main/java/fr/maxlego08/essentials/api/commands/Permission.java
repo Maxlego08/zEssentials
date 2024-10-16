@@ -62,6 +62,8 @@ public enum Permission {
     ESSENTIALS_FLY,
     ESSENTIALS_FLY_BYPASS_WORLD("Allows to activate fly even in the world where the fly is disabled"),
     ESSENTIALS_FLY_ADD,
+    ESSENTIALS_FLY_GET,
+    ESSENTIALS_FLY_INFO,
     ESSENTIALS_FLY_REMOVE,
     ESSENTIALS_FLY_SET,
     ESSENTIALS_FLY_UNLIMITED("Allows to have the fly unlimited"),

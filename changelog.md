@@ -2,6 +2,9 @@
 
 - Add global commands for VoteParty [#115](https://github.com/Maxlego08/zEssentials/issues/115)
 - Changing the commands of the vote party by zMenu actions, **you must update your configuration**.
+- Fixed the appearance of holograms in other worlds
+- Added command ``/fly get <player>``
+- Added command ``/fly info``
 
 # 1.0.1.2
 
