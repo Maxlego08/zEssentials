@@ -134,6 +134,7 @@ public enum Message {
     COMMAND_PLAYER_TIME_CHANGE("&7You’re here to change your time."),
 
     DESCRIPTION_RELOAD("Reload configuration files"),
+    DESCRIPTION_DELETE_WORLD("Removes data being linked to a world"),
     DESCRIPTION_GAMEMODE("Change player gamemode"),
     DESCRIPTION_GAMEMODE_CREATIVE("Change player gamemode to creative"),
     DESCRIPTION_GAMEMODE_SURVIVAL("Change player gamemode to survival"),

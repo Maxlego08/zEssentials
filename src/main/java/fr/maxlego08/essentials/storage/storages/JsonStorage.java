@@ -447,4 +447,9 @@ public class JsonStorage extends StorageHelper implements IStorage {
     public long getFlySeconds(UUID uniqueId) {
         return 0;
     }
+
+    @Override
+    public void deleteWorldData(String worldName) {
+        throw new NotImplementedException("upsertFly is not implemented, use MYSQL storage");
+    }
 }

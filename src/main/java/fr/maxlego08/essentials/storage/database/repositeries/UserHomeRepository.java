@@ -40,4 +40,8 @@ public class UserHomeRepository extends Repository {
     public List<Home> getHomes(UUID uuid) {
         return select(HomeDTO.class, schema -> schema.where("unique_id", uuid)).stream().map(homeDTO -> (Home) new ZHome(stringAsLocation(homeDTO.location()), homeDTO.name(), null)).toList();
     }
+
+    public void deleteWorldData(String worldName) {
+        delete(table -> table.where("location", "LIKE", "%" + worldName + "%"));
+    }
 }

@@ -21,7 +21,12 @@ public class TimerBuilder {
             message.append(minutes).append(" ").append(minutes <= 1 ? Message.FORMAT_MINUTE.getMessageAsString() : Message.FORMAT_MINUTES.getMessageAsString()).append(" ");
         }
         if (totalSeconds < 10) {
-            message.append(String.format("%.1f", totalSeconds)).append(" ").append(Message.FORMAT_SECONDS.getMessageAsString());
+            if (totalSeconds == (long) totalSeconds) {
+                long roundedSeconds = (long) totalSeconds;
+                message.append(roundedSeconds).append(" ").append(roundedSeconds <= 1 ? Message.FORMAT_SECOND.getMessageAsString() : Message.FORMAT_SECONDS.getMessageAsString());
+            } else {
+                message.append(String.format("%.1f", totalSeconds)).append(" ").append(Message.FORMAT_SECONDS.getMessageAsString());
+            }
         } else if (seconds > 0 || message.length() == 0) {
             message.append(seconds).append(" ").append(seconds <= 1 ? Message.FORMAT_SECOND.getMessageAsString() : Message.FORMAT_SECONDS.getMessageAsString());
         }

@@ -599,6 +599,12 @@ public class SqlStorage extends StorageHelper implements IStorage {
         return with(UserRepository.class).selectFly(uniqueId);
     }
 
+    @Override
+    public void deleteWorldData(String worldName) {
+     with(UserRepository.class).deleteWorldData(worldName);
+     with(UserHomeRepository.class).deleteWorldData(worldName);
+    }
+
     public DatabaseConnection getConnection() {
         return connection;
     }
