@@ -1,5 +1,18 @@
 # Unreleased
 
+# 1.0.1.3
+
+- Add global commands for VoteParty [#115](https://github.com/Maxlego08/zEssentials/issues/115)
+- Changing the commands of the vote party by zMenu actions, **you must update your configuration**.
+- Fixed the appearance of holograms in other worlds
+- Added command ``/fly get <player>``
+- Added command ``/fly info``
+- Added command ``/ess delete-world <world>``, allows you to delete data related to a world
+- Fixed delete home sql request [#119](https://github.com/Maxlego08/zEssentials/issues/119)
+- Added permission ``essentials.fly.safelogin``, Players with this permission will automatically enter fly mode upon logging in if they are suspended in the air. [#117](https://github.com/Maxlego08/zEssentials/issues/117)
+- If the player does not have the `essentials.speed` permission, the walk and fly speed will be reset to default values
+- Tab completion for editing hologram and itemrename [#116](https://github.com/Maxlego08/zEssentials/issues/116)
+
 # 1.0.1.2
 
 - Added a temporary fly with the `/fly` command

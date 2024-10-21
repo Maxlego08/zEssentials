@@ -84,13 +84,16 @@ public abstract class Repository extends ZUtils {
         return new ArrayList<>();
     }
 
-    protected void delete(Consumer<Schema> consumer) {
+    protected int delete(Consumer<Schema> consumer) {
         Schema schema = SchemaBuilder.delete(getTableName());
         consumer.accept(schema);
         try {
-            schema.execute(this.connection, JULogger.from(this.plugin.getLogger()));
+            return schema.execute(this.connection, JULogger.from(this.plugin.getLogger()));
         } catch (SQLException exception) {
             exception.printStackTrace();
+            return -1;
         }
     }
+
+
 }

@@ -1,9 +1,9 @@
-package fr.maxlego08.essentials.hooks.protocollib.component.adapters;
+package fr.maxlego08.essentials.zutils.utils.component.adapters;
 
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import fr.maxlego08.essentials.hooks.protocollib.component.components.ClickEvent;
+import fr.maxlego08.essentials.zutils.utils.component.components.ClickEvent;
 
 import java.io.IOException;
 

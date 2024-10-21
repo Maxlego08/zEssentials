@@ -27,13 +27,20 @@ vote-party-objective: 200
 vote-party-rewards:
 
   # Commands executed for all players
-  commands:
-    - "eco give money %player% 5000"
+  actions:
+    - type: console_command
+      commands:
+        - "eco give money %player% 5000"
 
   # If the player has this permission he will receive more rewards
-  permissions: "zessentials.vote.double"
-  commandsPermission:
-    - "eco give money %player% 5000"
+  permission: "zessentials.vote.double"
+  permission-actions:
+    - type: console_command
+      commands:
+        - "eco give money %player% 5000"
+
+  global-commands:
+    - "bc Its VoteParty Time"
 
 # Rewards on each vote
 reward-on-vote:

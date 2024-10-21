@@ -149,4 +149,6 @@ public interface IStorage {
     void upsertFlySeconds(UUID uniqueId, long flySeconds);
 
     long getFlySeconds(UUID uniqueId);
+
+    void deleteWorldData(String worldName);
 }

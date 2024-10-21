@@ -364,7 +364,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     @Override
     public void deleteHome(UUID uniqueId, String name) {
-        async(() -> with(UserHomeRepository.class).deleteHomes(uniqueId, name));
+        async(() -> with(UserHomeRepository.class).deleteHome(uniqueId, name));
     }
 
     @Override
@@ -597,6 +597,12 @@ public class SqlStorage extends StorageHelper implements IStorage {
     @Override
     public long getFlySeconds(UUID uniqueId) {
         return with(UserRepository.class).selectFly(uniqueId);
+    }
+
+    @Override
+    public void deleteWorldData(String worldName) {
+     with(UserRepository.class).deleteWorldData(worldName);
+     with(UserHomeRepository.class).deleteWorldData(worldName);
     }
 
     public DatabaseConnection getConnection() {

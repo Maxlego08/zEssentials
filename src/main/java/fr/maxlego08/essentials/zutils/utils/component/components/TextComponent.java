@@ -1,6 +1,6 @@
-package fr.maxlego08.essentials.hooks.protocollib.component.components;
+package fr.maxlego08.essentials.zutils.utils.component.components;
 
-import fr.maxlego08.essentials.hooks.protocollib.component.AbstractComponent;
+import fr.maxlego08.essentials.zutils.utils.component.AbstractComponent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;

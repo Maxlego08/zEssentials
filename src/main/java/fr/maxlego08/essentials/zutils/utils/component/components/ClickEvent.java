@@ -1,4 +1,4 @@
-package fr.maxlego08.essentials.hooks.protocollib.component.components;
+package fr.maxlego08.essentials.zutils.utils.component.components;
 
 /**
  * The ClickEvent class represents a click event that can be associated with a text component.

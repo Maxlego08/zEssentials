@@ -1,10 +1,10 @@
-package fr.maxlego08.essentials.hooks.protocollib.component.adapters;
+package fr.maxlego08.essentials.zutils.utils.component.adapters;
 
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import fr.maxlego08.essentials.hooks.protocollib.component.AbstractComponent;
-import fr.maxlego08.essentials.hooks.protocollib.component.components.TranslatingComponent;
+import fr.maxlego08.essentials.zutils.utils.component.AbstractComponent;
+import fr.maxlego08.essentials.zutils.utils.component.components.TranslatingComponent;
 
 import java.io.IOException;
 

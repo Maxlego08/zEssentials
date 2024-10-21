@@ -249,4 +249,11 @@ public class UserRepository extends Repository {
         var users = selectUser(uniqueId);
         return users.isEmpty() ? 0 : users.get(0).fly_seconds();
     }
+
+    public void deleteWorldData(String worldName) {
+        update(table -> {
+            table.string("last_location", null);
+            table.where("last_location", "LIKE", "%" + worldName + "%");
+        });
+    }
 }

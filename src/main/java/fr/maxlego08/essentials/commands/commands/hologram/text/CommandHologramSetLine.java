@@ -9,6 +9,8 @@ import fr.maxlego08.essentials.api.hologram.HologramType;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.commands.commands.hologram.VCommandHologram;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Optional;
 
 public class CommandHologramSetLine extends VCommandHologram {
@@ -19,7 +21,26 @@ public class CommandHologramSetLine extends VCommandHologram {
         this.setDescription(Message.DESCRIPTION_HOLOGRAM_SET_LINE);
         this.addSubCommand("setline");
         this.addRequireArgHologram("line", (sender, hologram) -> lineToList(hologram));
-        this.addRequireArg("text");
+        this.addRequireArg("text", (sender, args) -> {
+            HologramManager manager = this.plugin.getHologramManager();
+            if (args.length >= 2) {
+                String hologramName = args[1];
+                Optional<Hologram> optional = manager.getHologram(hologramName);
+                if (optional.isPresent()) {
+                    Hologram hologram = optional.get();
+                    try {
+                        int line = Integer.parseInt(args[2]);
+                        var optionalLine = hologram.getHologramLine(line);
+                        if (optionalLine.isPresent()) {
+                            HologramLine hologramLine = optionalLine.get();
+                            return Collections.singletonList(hologramLine.getText());
+                        }
+                    } catch (Exception ignored) {
+                    }
+                }
+            }
+            return new ArrayList<>();
+        });
         this.setExtendedArgs(true);
     }
 

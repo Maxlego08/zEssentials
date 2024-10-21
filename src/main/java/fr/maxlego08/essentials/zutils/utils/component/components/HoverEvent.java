@@ -1,9 +1,9 @@
-package fr.maxlego08.essentials.hooks.protocollib.component.components;
+package fr.maxlego08.essentials.zutils.utils.component.components;
 
 // ToDo REWORK Hover, doesnt work very well
 
-import fr.maxlego08.essentials.hooks.protocollib.component.AbstractComponent;
-import fr.maxlego08.essentials.hooks.protocollib.component.adapters.HoverAdapter;
+import fr.maxlego08.essentials.zutils.utils.component.AbstractComponent;
+import fr.maxlego08.essentials.zutils.utils.component.adapters.HoverAdapter;
 
 public class HoverEvent {
 

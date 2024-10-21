@@ -13,6 +13,7 @@ public class CommandEssentials extends VCommand {
         this.setPermission(Permission.ESSENTIALS_USE);
         this.addSubCommand(new CommandEssentialsReload(plugin));
         this.addSubCommand(new CommandEssentialsConvert(plugin));
+        this.addSubCommand(new CommandEssentialsDeleteWorld(plugin));
     }
 
     @Override

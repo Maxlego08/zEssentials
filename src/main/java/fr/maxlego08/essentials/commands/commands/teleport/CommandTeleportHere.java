@@ -23,7 +23,12 @@ public class CommandTeleportHere extends VCommand {
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
         Player targetPlayer = this.argAsPlayer(0);
-        getUser(targetPlayer).teleportNow(player.getLocation());
+        if (targetPlayer == null) return CommandResultType.SYNTAX_ERROR;
+
+        var user = getUser(targetPlayer);
+        if (user == null) return CommandResultType.SYNTAX_ERROR;
+
+        user.teleportNow(player.getLocation());
         message(this.sender, Message.COMMAND_TP_SELF, targetPlayer);
 
         return CommandResultType.SUCCESS;

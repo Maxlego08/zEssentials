@@ -8,6 +8,7 @@ public enum Permission {
 
     ESSENTIALS_USE,
     ESSENTIALS_RELOAD,
+    ESSENTIALS_DELETE_WORLD,
     ESSENTIALS_CONVERT,
     ESSENTIALS_GAMEMODE,
     ESSENTIALS_GAMEMODE_OTHER,
@@ -62,6 +63,8 @@ public enum Permission {
     ESSENTIALS_FLY,
     ESSENTIALS_FLY_BYPASS_WORLD("Allows to activate fly even in the world where the fly is disabled"),
     ESSENTIALS_FLY_ADD,
+    ESSENTIALS_FLY_GET,
+    ESSENTIALS_FLY_INFO,
     ESSENTIALS_FLY_REMOVE,
     ESSENTIALS_FLY_SET,
     ESSENTIALS_FLY_UNLIMITED("Allows to have the fly unlimited"),
@@ -239,7 +242,8 @@ public enum Permission {
     ESSENTIALS_EXPERIENCE_GRANT,
     ESSENTIALS_EXPERIENCE_QUERY,
     ESSENTIALS_EXPERIENCE_SET,
-    ESSENTIALS_SPAWN_OTHER;
+    ESSENTIALS_SPAWN_OTHER,
+    ESSENTIALS_FLY_SAFELOGIN("Players with this permission will automatically enter fly mode upon logging in if they are suspended in the air.");
 
     private final String description;
 
