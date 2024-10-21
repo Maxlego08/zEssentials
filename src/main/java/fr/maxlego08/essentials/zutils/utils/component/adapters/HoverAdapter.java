@@ -1,13 +1,13 @@
-package fr.maxlego08.essentials.hooks.protocollib.component.adapters;
+package fr.maxlego08.essentials.zutils.utils.component.adapters;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import fr.maxlego08.essentials.hooks.protocollib.component.AbstractComponent;
-import fr.maxlego08.essentials.hooks.protocollib.component.components.HoverEvent;
-import fr.maxlego08.essentials.hooks.protocollib.component.components.TextComponent;
+import fr.maxlego08.essentials.zutils.utils.component.AbstractComponent;
+import fr.maxlego08.essentials.zutils.utils.component.components.HoverEvent;
+import fr.maxlego08.essentials.zutils.utils.component.components.TextComponent;
 
 import java.io.IOException;
 import java.util.UUID;

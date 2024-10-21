@@ -342,4 +342,18 @@ public abstract class ZUtils extends MessageUtils {
         return Strings.repeat(completedColor + symbol, progressBars) + Strings.repeat(notCompletedColor + symbol, totalBars - progressBars);
     }
 
+    protected String colorReverse(String message) {
+        Pattern pattern = Pattern.compile(net.md_5.bungee.api.ChatColor.COLOR_CHAR + "x[a-fA-F0-9-" + net.md_5.bungee.api.ChatColor.COLOR_CHAR + "]{12}");
+        Matcher matcher = pattern.matcher(message);
+        while (matcher.find()) {
+            String color = message.substring(matcher.start(), matcher.end());
+            String colorReplace = color.replace("§x", "#");
+            colorReplace = colorReplace.replace("§", "");
+            message = message.replace(color, colorReplace);
+            matcher = pattern.matcher(message);
+        }
+
+        return message == null ? null : message.replace("§", "&");
+    }
+
 }

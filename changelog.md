@@ -9,6 +9,7 @@
 - Fixed delete home sql request [#119](https://github.com/Maxlego08/zEssentials/issues/119)
 - Added permission ``essentials.fly.safelogin``, Players with this permission will automatically enter fly mode upon logging in if they are suspended in the air. [#117](https://github.com/Maxlego08/zEssentials/issues/117)
 - If the player does not have the `essentials.speed` permission, the walk and fly speed will be reset to default values
+- Tab completion for editing hologram and itemrename [#116](https://github.com/Maxlego08/zEssentials/issues/116)
 
 # 1.0.1.2
 
