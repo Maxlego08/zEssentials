@@ -140,9 +140,22 @@ public class PlayerListener extends ZUtils implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
 
-        User user = this.plugin.getUser(event.getPlayer().getUniqueId());
-        if (user == null) return;
-        user.startCurrentSessionPlayTime();
+        var player = event.getPlayer();
+        User user = this.plugin.getUser(player.getUniqueId());
+        if (user != null) user.startCurrentSessionPlayTime();
+
+        plugin.getScheduler().runNextTick(wrappedTask -> {
+
+            if (hasPermission(player, Permission.ESSENTIALS_FLY_SAFELOGIN) && shouldFlyBasedOnLocation(player.getLocation())) {
+                player.setAllowFlight(true);
+                player.setFlying(true);
+            }
+
+            if (!hasPermission(player, Permission.ESSENTIALS_SPEED)) {
+                player.setFlySpeed(0.1f);
+                player.setWalkSpeed(0.2f);
+            }
+        });
     }
 
     @EventHandler(priority = EventPriority.LOWEST)

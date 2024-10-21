@@ -4,13 +4,15 @@ import com.google.common.base.Strings;
 import fr.maxlego08.essentials.api.commands.Permission;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventPriority;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.MetadataValue;
+import org.bukkit.permissions.Permissible;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
@@ -31,6 +33,30 @@ import java.util.regex.Pattern;
 
 public abstract class ZUtils extends MessageUtils {
 
+    public static boolean shouldFlyBasedOnLocation(final Location location) {
+        final World world = location.getWorld();
+        int y = (int) Math.floor(location.getY());
+        final int x = location.getBlockX();
+        final int z = location.getBlockZ();
+        int unsafeBlockCount = 0;
+
+        for (int i = 0; i < 3; i++) {
+            if (isBlockUnsafe(world, x, y, z)) {
+                unsafeBlockCount++;
+            } else {
+                break;
+            }
+            y--;
+        }
+
+        return unsafeBlockCount == 3 || y < world.getMinHeight();
+    }
+
+    private static boolean isBlockUnsafe(World world, int x, int y, int z) {
+        Block block = world.getBlockAt(x, y, z);
+        return block.isEmpty() || block.isLiquid();
+    }
+
     protected boolean isVanished(Player player) {
         for (MetadataValue metadataValue : player.getMetadata("vanished")) {
             if (metadataValue.asBoolean()) return true;
@@ -42,8 +68,8 @@ public abstract class ZUtils extends MessageUtils {
         return !isVanished(player);
     }
 
-    protected boolean hasPermission(CommandSender sender, Permission permission) {
-        return sender.hasPermission(permission.asPermission());
+    protected boolean hasPermission(Permissible permissible, Permission permission) {
+        return permissible.hasPermission(permission.asPermission());
     }
 
     protected String name(String string) {
