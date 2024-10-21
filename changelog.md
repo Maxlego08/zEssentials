@@ -6,6 +6,7 @@
 - Added command ``/fly get <player>``
 - Added command ``/fly info``
 - Added command ``/ess delete-world <world>``, allows you to delete data related to a world
+- Fixed delete home sql request
 
 # 1.0.1.2
 

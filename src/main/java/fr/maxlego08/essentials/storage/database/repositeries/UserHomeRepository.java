@@ -29,8 +29,8 @@ public class UserHomeRepository extends Repository {
         return select(HomeDTO.class, schema -> schema.where("unique_id", uuid));
     }
 
-    public void deleteHomes(UUID uuid, String name) {
-        delete(table -> table.where("unique_id", name).where("name", name));
+    public void deleteHome(UUID uuid, String name) {
+        delete(table -> table.where("unique_id", uuid).where("name", name));
     }
 
     public List<Home> getHomes(UUID uuid, String homeName) {

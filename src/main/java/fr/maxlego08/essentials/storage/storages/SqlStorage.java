@@ -364,7 +364,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     @Override
     public void deleteHome(UUID uniqueId, String name) {
-        async(() -> with(UserHomeRepository.class).deleteHomes(uniqueId, name));
+        async(() -> with(UserHomeRepository.class).deleteHome(uniqueId, name));
     }
 
     @Override
