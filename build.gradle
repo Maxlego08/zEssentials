@@ -1,7 +1,6 @@
 plugins {
     id 'java'
     id 'io.github.goooler.shadow' version '8.1.8'
-    id 'maven-publish'
 }
 
 group 'zEssentials'
@@ -147,7 +146,7 @@ build {
     dependsOn clean
 }
 
-publish.shouldRunAfter shadowJar
+// publish.shouldRunAfter shadowJar
 shadowJar.shouldRunAfter build
 build.shouldRunAfter subprojects.build
 clean.shouldRunAfter copyAPI
@@ -159,4 +158,8 @@ compileJava.options.encoding = 'UTF-8'
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
+}
+
+tasks.register('publish') {
+    dependsOn ':API:publish'
 }
