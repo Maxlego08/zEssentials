@@ -146,7 +146,11 @@ build {
     dependsOn clean
 }
 
-// publish.shouldRunAfter shadowJar
+tasks.register('publish') {
+    dependsOn ':API:publish'
+}
+
+publish.shouldRunAfter shadowJar
 shadowJar.shouldRunAfter build
 build.shouldRunAfter subprojects.build
 clean.shouldRunAfter copyAPI
@@ -158,8 +162,4 @@ compileJava.options.encoding = 'UTF-8'
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
-}
-
-tasks.register('publish') {
-    dependsOn ':API:publish'
 }
