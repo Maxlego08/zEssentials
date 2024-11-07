@@ -85,7 +85,9 @@ public class HologramModule extends ZModule implements HologramManager {
         HandlerList.unregisterAll(this);
         this.registerEvents();
 
-        this.wrappedTask = this.plugin.getScheduler().runTimer(this::updateHolograms, this.autoUpdateTask.milliseconds(), this.autoUpdateTask.milliseconds(), TimeUnit.MILLISECONDS);
+        if (this.autoUpdateTask.enable()) {
+            this.wrappedTask = this.plugin.getScheduler().runTimer(this::updateHolograms, this.autoUpdateTask.milliseconds(), this.autoUpdateTask.milliseconds(), TimeUnit.MILLISECONDS);
+        }
     }
 
     private void registerEvents() {

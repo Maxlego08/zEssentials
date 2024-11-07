@@ -1,5 +1,7 @@
 # Unreleased
 
+- Fixed auto update task for hologram module
+
 # 1.0.1.3
 
 - Add global commands for VoteParty [#115](https://github.com/Maxlego08/zEssentials/issues/115)
