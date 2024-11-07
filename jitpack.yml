@@ -1,4 +1,2 @@
 jdk:
   - openjdk21
-install:
-  - ./gradlew publish
