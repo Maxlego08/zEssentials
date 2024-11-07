@@ -60,7 +60,6 @@ allprojects {
         }
     }
 
-
     build {
         dependsOn checkDebug
         dependsOn shadowJar

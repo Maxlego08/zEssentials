@@ -1,9 +1,24 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
 java {
     withSourcesJar()
 }
 
-group 'API'
+group = 'API'
+version = rootProject.version
 
 task generateAPIDocs(type: Javadoc) {
     source = sourceSets.main.allJava
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifactId = 'API'
+        }
+    }
 }
