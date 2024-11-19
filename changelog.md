@@ -3,6 +3,7 @@
 - Fixed auto update task for hologram module
 - Fixed autocompletion for cooldown commands
 - Fixed the cooldown system that could be applied to commands even if an error occurred
+- Fixed folia on player join [#124](https://github.com/Maxlego08/zEssentials/issues/124)
 
 # 1.0.1.3
 

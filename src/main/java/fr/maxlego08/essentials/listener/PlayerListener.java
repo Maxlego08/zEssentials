@@ -144,7 +144,7 @@ public class PlayerListener extends ZUtils implements Listener {
         User user = this.plugin.getUser(player.getUniqueId());
         if (user != null) user.startCurrentSessionPlayTime();
 
-        plugin.getScheduler().runNextTick(wrappedTask -> {
+        this.plugin.getScheduler().runAtLocationLater(player.getLocation(), () -> {
 
             if (hasPermission(player, Permission.ESSENTIALS_FLY_SAFELOGIN) && shouldFlyBasedOnLocation(player.getLocation())) {
                 player.setAllowFlight(true);
@@ -155,7 +155,7 @@ public class PlayerListener extends ZUtils implements Listener {
                 player.setFlySpeed(0.1f);
                 player.setWalkSpeed(0.2f);
             }
-        });
+        }, 1);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)

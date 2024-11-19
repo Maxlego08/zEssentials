@@ -33,7 +33,7 @@ import java.util.regex.Pattern;
 
 public abstract class ZUtils extends MessageUtils {
 
-    public static boolean shouldFlyBasedOnLocation(final Location location) {
+    public boolean shouldFlyBasedOnLocation(final Location location) {
         final World world = location.getWorld();
         int y = (int) Math.floor(location.getY());
         final int x = location.getBlockX();
@@ -52,7 +52,7 @@ public abstract class ZUtils extends MessageUtils {
         return unsafeBlockCount == 3 || y < world.getMinHeight();
     }
 
-    private static boolean isBlockUnsafe(World world, int x, int y, int z) {
+    private boolean isBlockUnsafe(World world, int x, int y, int z) {
         Block block = world.getBlockAt(x, y, z);
         return block.isEmpty() || block.isLiquid();
     }
