@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.commands.commands.cooldown;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.commands.CommandCooldown;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
@@ -17,8 +18,8 @@ public class CommandCooldownCreate extends VCommand {
         this.setPermission(Permission.ESSENTIALS_COOLDOWN_CREATE);
         this.setDescription(Message.DESCRIPTION_COOLDOWN_CREATE);
         this.addSubCommand("create");
-        this.addRequireArg("player");
-        this.addRequireArg("key");
+        this.addRequireOfflinePlayerNameArg();
+        this.addRequireArg("key", (a, b) -> plugin.getConfiguration().getCommandCooldown().stream().map(CommandCooldown::command).toList());
         this.addRequireArg("duration", (a, b) -> this.cooldowns);
     }
 

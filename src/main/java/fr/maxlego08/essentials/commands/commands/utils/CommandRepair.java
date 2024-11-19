@@ -19,7 +19,6 @@ public class CommandRepair extends VCommand {
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
-
         ItemStack itemStack = this.player.getInventory().getItemInMainHand();
         ItemMeta itemMeta = itemStack.getItemMeta();
 

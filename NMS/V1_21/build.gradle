@@ -1,5 +1,5 @@
 plugins {
-    id("io.papermc.paperweight.userdev") version "1.7.1"
+    id("io.papermc.paperweight.userdev") version "1.7.5"
 }
 
 java {
@@ -11,7 +11,8 @@ java {
 group 'NMS:v1_21'
 
 dependencies {
-    paperweightDevelopmentBundle("io.papermc.paper:dev-bundle:1.21-R0.1-SNAPSHOT")
+    // paperweightDevelopmentBundle("io.papermc.paper:dev-bundle:1.21-R0.1-SNAPSHOT")
+    paperweight.paperDevBundle("1.21-R0.1-SNAPSHOT")
     compileOnly project(":API")
     compileOnly rootProject
 }
