@@ -220,7 +220,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
                 UserDTO userDTO = userDTOS.get(0);
 
-                if (userDTO.mute_sanction_id() != null) { // Check if player is mute
+                if (userDTO.mute_sanction_id() != null) { // Check if the player is mute
                     SanctionDTO sanction = with(UserSanctionRepository.class).getSanction(userDTO.mute_sanction_id());
                     if (sanction.isActive()) {
                         user.setMuteSanction(Sanction.fromDTO(sanction));
