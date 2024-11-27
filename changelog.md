@@ -1,5 +1,7 @@
 # Unreleased
 
+# 1.0.1.4
+
 - Fixed auto update task for hologram module
 - Fixed autocompletion for cooldown commands
 - Fixed the cooldown system that could be applied to commands even if an error occurred
