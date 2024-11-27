@@ -7,6 +7,7 @@ import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.DynamicCooldown;
+import fr.maxlego08.essentials.storage.ConfigStorage;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import org.bukkit.Material;
@@ -144,7 +145,11 @@ public class PlayerListener extends ZUtils implements Listener {
         User user = this.plugin.getUser(player.getUniqueId());
         if (user != null) user.startCurrentSessionPlayTime();
 
-        plugin.getScheduler().runNextTick(wrappedTask -> {
+        if (user != null && user.isFirstJoin() && ConfigStorage.spawnLocation != null) {
+            this.plugin.getScheduler().teleportAsync(player, ConfigStorage.spawnLocation);
+        }
+
+        this.plugin.getScheduler().runAtLocationLater(player.getLocation(), () -> {
 
             if (hasPermission(player, Permission.ESSENTIALS_FLY_SAFELOGIN) && shouldFlyBasedOnLocation(player.getLocation())) {
                 player.setAllowFlight(true);
@@ -155,11 +160,11 @@ public class PlayerListener extends ZUtils implements Listener {
                 player.setFlySpeed(0.1f);
                 player.setWalkSpeed(0.2f);
             }
-        });
+        }, 1);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onQuid(PlayerQuitEvent event) {
+    public void onQuit(PlayerQuitEvent event) {
         User user = this.plugin.getUser(event.getPlayer().getUniqueId());
         if (user == null) return;
         long sessionPlayTime = (System.currentTimeMillis() - user.getCurrentSessionPlayTime()) / 1000;

@@ -21,7 +21,7 @@ public class CommandCooldownDelete extends VCommand {
         this.setPermission(Permission.ESSENTIALS_COOLDOWN_DELETE);
         this.setDescription(Message.DESCRIPTION_COOLDOWN_DELETE);
         this.addSubCommand("delete");
-        this.addRequireArg("player");
+        this.addRequireOfflinePlayerNameArg();
         this.addRequireArg("cooldown", (sender, args) -> {
 
             try {

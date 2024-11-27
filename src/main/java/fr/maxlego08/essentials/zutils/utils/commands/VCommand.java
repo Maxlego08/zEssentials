@@ -459,7 +459,7 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
 
             CommandResultType commandResultType = perform(plugin);
 
-            if (commandResultType != CommandResultType.SYNTAX_ERROR && cooldownSeconds != 0 && this.user != null && (!this.user.hasPermission(Permission.ESSENTIALS_BYPASS_COOLDOWN) || !configuration.isEnableCooldownBypass())) {
+            if (commandResultType == CommandResultType.SUCCESS && cooldownSeconds != 0 && this.user != null && (!this.user.hasPermission(Permission.ESSENTIALS_BYPASS_COOLDOWN) || !configuration.isEnableCooldownBypass())) {
                 this.user.addCooldown(key, cooldownSeconds);
             }
 

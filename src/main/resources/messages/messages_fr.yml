@@ -399,6 +399,14 @@ description-vault-give: "Donner des objets au coffre du joueur"
 description-vault-add-slot: "Ajouter un emplacement au coffre du joueur"
 description-vault-set-slot: "Définir un emplacement dans le coffre du joueur"
 description-show-item: "Afficher l'objet du joueur"
+description-experience-query: "Consulter l'expérience d'un joueur"
+description-experience-set: "Définir l'expérience d'un joueur"
+description-experience-grant: "Donner de l'expérience à un joueur"
+description-del-home-confirm: "Confirmez la suppression d'une maison"
+description-set-home-confirm: "Confirmez la création d'une maison"
+description-freeze: "Geler un joueur"
+description-experience: "Gérer l'expérience des joueurs"
+description-delete-world: "Supprime les données liées à un monde"
 
 
 # Format de l'heure
@@ -491,6 +499,11 @@ command-set-home-create:
   - "#99E0FFVous venez de créer la maison &f%name%#99E0FF. &8(&7%current%&8/&7%max%&8)"
   - "&fUtilisez la commande &n<hover:show_text:'&fCliquez pour vous téléporter à la maison'><click:suggest_command:'/home %name%'>/home %name%</click></hover>&r pour vous y téléporter."
   - ""
+command-set-home-create-confirm:
+  - ""
+  - "#99E0FFLa maison &f%name%#99E0FF existe déjà. Voulez-vous l'écraser ?"
+  - "<hover:show_text:'&fCliquez pour écraser la maison %name%'><click:run_command:'/sethomeconfirm %name%'><success>ᴄᴏɴғɪʀᴍᴇʀ</click></hover>"
+  - ""
 command-home-doesnt-exist: "<error>La maison &f%name%<error> n'existe pas."
 
 # En-tête multi-lignes des informations sur les maisons
@@ -519,6 +532,11 @@ command-home-icon-error: "<error>Vous devez avoir un objet en main pour changer 
 command-home-icon-success: "<success>Vous venez de changer l'icône de la maison &f%name%<success>."
 command-home-icon-reset: "<success>Vous venez de réinitialiser l'icône de la maison &f%name%<success>."
 command-home-delete: "#99E0FFVous venez de supprimer la maison &f%name%#99E0FF."
+command-home-delete-confirm:
+  - ""
+  - "#99E0FFVous voulez vraiment supprimer la maison &f%name%#99E0FF."
+  - "<success><hover:show_text:'&fCliquez pour confirmer la suppression de la maison %name%'><click:run_command:'/delhomeconfirm %name%'>ᴄᴏɴғɪʀᴍᴇʀ</click></hover>"
+  - ""
 command-home-admin-delete: "<success>Vous venez de supprimer la maison &f%name%<success> de &b%player%<success>."
 command-home-admin-set: "<success>Vous venez de créer la maison &f%name%<success> pour &b%player%<success>."
 command-home-admin-list: "#8cc0ccMaisons de %player%&8:&f%homes%"
@@ -850,3 +868,16 @@ worldedit-refund-material: " <white><hover:show_text:'<white>Quantité<dark_gray
 worldedit-refund-empty: " Aucun bloc à rembourser"
 worldedit-bossbar: "#45ff45Temps restant<dark_gray> : <white>%time%"
 worldedit-speed-error: "<error>Vous n'avez pas la permission de définir la vitesse par seconde."
+message-freeze:
+  - ""
+  - "&fVous venez d'être gelé."
+  - ""
+message-un-freeze:
+  - ""
+  - "&fVous venez d'être dégelé."
+  - ""
+command-freeze-success: "&7Vous venez de geler le joueur &f%player%&7."
+command-un-freeze_success: "&7Vous venez de dégeler le joueur &f%player%&7."
+experience-granted: "<success>Vous venez de donner <white>%amount% %type% <success>à <white>%player%<success>."
+experience-setted: "<success>Vous venez de définir <white>%amount% %type% <success>pour <white>%player%<success>."
+experience-queried: "<success><white>%player% <success>a <white>%amount% <success>%type%."

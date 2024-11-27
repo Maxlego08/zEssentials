@@ -21,4 +21,7 @@ publishing {
             artifactId = 'API'
         }
     }
+    repositories {
+        mavenLocal()  // Publie l'API localement pour JitPack
+    }
 }

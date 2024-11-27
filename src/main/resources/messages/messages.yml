@@ -33,8 +33,6 @@ rules:
   - "#3f3f3f• &7Keep chat clean and respectful."
   - "#3f3f3f• &7No spamming or advertising."
 
-
-
 # Commands
 command-syntax-error: "<error>You must execute the command like this#656665: &f%syntax%"
 command-no-permission: "<error>You do not have permission to run this command."
@@ -407,7 +405,13 @@ description-vault-give: "Give items to player's vault"
 description-vault-add-slot: "Add slot to player's vault"
 description-vault-set-slot: "Set slot to player's vault"
 description-show-item: "Show player's item"
+description-freeze: "Freeze a player"
 description-experience: "Manage player experience"
+description-experience-query: "Query player experience"
+description-experience-set: "Set player experience"
+description-experience-grant: "Grant experience to player"
+description-delete-world: "Removes data being linked to a world"
+
 
 # Time format
 format-second: "second"
@@ -620,17 +624,16 @@ message-ban-join:
   - "&fMinecraft-Inventory-Builder.com"
   - ""
 
-description_freeze: "Freeze a player"
-message_freeze:
+message-freeze:
     - ""
     - "&fYou have just been frozen."
     - ""
-message_un_freeze:
+message-un-freeze:
   - ""
   - "&fYou have just been unfrozen."
   - ""
-command_freeze_success: "&7You just freeze the player &f%player%&7."
-command_un_freeze_success: "&7You just unfreeze the player &f%player%&7."
+command-freeze-success: "&7You just freeze the player &f%player%&7."
+command-un-freeze_success: "&7You just unfreeze the player &f%player%&7."
 
 # Chat
 chat-error: "<error>Impossible to let you speak, your data is not loaded."
@@ -901,6 +904,3 @@ worldedit-speed-error: "<error>You have no permission to set blocks per second."
 experience-granted: "<success>You have just given <white>%amount% %type% <success>to <white>%player%<success>."
 experience-setted: "<success>You have just set <white>%amount% %type% <success>to <white>%player%<success>."
 experience-queried: "<success><white>%player% <success>have <white>%amount% <success>%type%."
-description-experience-query: "Query player experience"
-description-experience-set: "Set player experience"
-description-experience-grant: "Grant experience to player"
