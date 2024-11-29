@@ -1,5 +1,7 @@
 # Unreleased
 
+- Added ``/clearinventory [<player>]`` [#101](https://github.com/Maxlego08/zEssentials/issues/124) 
+
 # 1.0.1.4
 
 - Fixed auto update task for hologram module

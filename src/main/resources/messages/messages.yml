@@ -411,6 +411,7 @@ description-experience-query: "Query player experience"
 description-experience-set: "Set player experience"
 description-experience-grant: "Grant experience to player"
 description-delete-world: "Removes data being linked to a world"
+description-clearinventory: "Clear player's inventory"
 
 
 # Time format
@@ -904,3 +905,5 @@ worldedit-speed-error: "<error>You have no permission to set blocks per second."
 experience-granted: "<success>You have just given <white>%amount% %type% <success>to <white>%player%<success>."
 experience-setted: "<success>You have just set <white>%amount% %type% <success>to <white>%player%<success>."
 experience-queried: "<success><white>%player% <success>have <white>%amount% <success>%type%."
+command-clearinventory-success: "<success>You have cleared your inventory."
+command-clearinventory-success-other: "<success>You have cleared the inventory of &f%player%<success>."

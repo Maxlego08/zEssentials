@@ -407,7 +407,7 @@ description-set-home-confirm: "Confirmez la création d'une maison"
 description-freeze: "Geler un joueur"
 description-experience: "Gérer l'expérience des joueurs"
 description-delete-world: "Supprime les données liées à un monde"
-
+description-clearinventory: "Vider l'inventaire du joueur"
 
 # Format de l'heure
 format-second: "seconde"
@@ -881,3 +881,5 @@ command-un-freeze_success: "&7Vous venez de dégeler le joueur &f%player%&7."
 experience-granted: "<success>Vous venez de donner <white>%amount% %type% <success>à <white>%player%<success>."
 experience-setted: "<success>Vous venez de définir <white>%amount% %type% <success>pour <white>%player%<success>."
 experience-queried: "<success><white>%player% <success>a <white>%amount% <success>%type%."
+command-clearinventory-success: "<success>Vous avez effacé votre inventaire."
+command-clearinventory-success-other: "<success>Vous avez effacé l'inventaire de &f%player%<success>."
