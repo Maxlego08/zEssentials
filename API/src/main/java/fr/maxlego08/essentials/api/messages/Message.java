@@ -85,6 +85,8 @@ public enum Message {
     COMMAND_FEED_SENDER("&7You just feed the player &f%player%&7."),
     COMMAND_FEED_RECEIVER("<success>You have been feed."),
     COMMAND_FEED_ERROR("<error>You cannot feed someone who is dead !"),
+    COMMAND_CLEARINVENTORY_SUCCESS("<success>You have cleared your inventory."),
+    COMMAND_CLEARINVENTORY_SUCCESS_OTHER("<success>You have cleared the inventory of &f%player%<success>."),
 
     // Teleport Command
     COMMAND_TPA_ERROR("<error>You have already sent a request to #34cfe0%player%<error>."),
@@ -178,6 +180,7 @@ public enum Message {
     DESCRIPTION_STONECUTTER("Open a stone cutter"),
     DESCRIPTION_SMITHINGTABLE("Open a smithing table"),
     DESCRIPTION_INVSEE("Open player's inventory"),
+    DESCRIPTION_CLEARINVENTORY("Clear player's inventory"),
     DESCRIPTION_COMPACT("Compact the items in your hand"),
     DESCRIPTION_HAT("Create your custom hat !"),
     DESCRIPTION_PLAYER_WEATHER("Change your weather"),

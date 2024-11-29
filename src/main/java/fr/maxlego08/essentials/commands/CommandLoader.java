@@ -9,6 +9,7 @@ import fr.maxlego08.essentials.commands.commands.chat.CommandChatDisable;
 import fr.maxlego08.essentials.commands.commands.chat.CommandChatEnable;
 import fr.maxlego08.essentials.commands.commands.chat.CommandChatHistory;
 import fr.maxlego08.essentials.commands.commands.chat.CommandShowItem;
+import fr.maxlego08.essentials.commands.commands.clearinventory.ClearInventoryCommand;
 import fr.maxlego08.essentials.commands.commands.cooldown.CommandCooldown;
 import fr.maxlego08.essentials.commands.commands.economy.CommandBalanceTop;
 import fr.maxlego08.essentials.commands.commands.economy.CommandEconomy;
@@ -151,6 +152,7 @@ public class CommandLoader {
         register("craft", CommandCraft.class);
         register("enchanting", CommandEnchanting.class);
         register("invsee", CommandInvsee.class);
+        register("clearinventory", ClearInventoryCommand.class, "clear", "ci");
         register("compact", CommandCompact.class, "blocks", "condense");
         register("compactall", CommandCompactAll.class, "blocksall", "condenseall");
         register("hat", CommandHat.class);
