@@ -44,6 +44,8 @@ public enum Permission {
     ESSENTIALS_CRAFT,
     ESSENTIALS_ENCHANTING,
     ESSENTIALS_INVSEE_INTERACT("Allows to interact with a player’s inventory"),
+    ESSENTIALS_CLEARINVENTORY("Allows to clear your own inventory"),
+    ESSENTIALS_CLEARINVENTORY_OTHER("Allows to clear the inventory of another player"),
     ESSENTIALS_COMPACT,
     ESSENTIALS_HAT,
     ESSENTIALS_PLAYER_WEATHER,
@@ -280,4 +282,3 @@ public enum Permission {
         return description;
     }
 }
-
