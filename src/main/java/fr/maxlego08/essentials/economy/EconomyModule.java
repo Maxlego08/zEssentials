@@ -17,6 +17,7 @@ import fr.maxlego08.essentials.api.economy.PriceFormat;
 import fr.maxlego08.essentials.api.economy.UserBaltop;
 import fr.maxlego08.essentials.api.event.events.economy.EconomyBaltopUpdateEvent;
 import fr.maxlego08.essentials.api.event.events.user.UserFirstJoinEvent;
+import fr.maxlego08.essentials.api.event.events.user.UserJoinEvent;
 import fr.maxlego08.essentials.api.event.events.user.UserQuitEvent;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.storage.IStorage;
@@ -168,19 +169,31 @@ public class EconomyModule extends ZModule implements EconomyManager {
 
     @Override
     public boolean deposit(UUID uniqueId, Economy economy, BigDecimal amount) {
-        perform(uniqueId, user -> user.deposit(economy, amount));
+        perform(uniqueId, user -> {
+            user.deposit(economy, amount);
+            var offlineEconomy = getOfflineEconomy(uniqueId);
+            offlineEconomy.deposit(economy.getName(), amount);
+        });
         return true;
     }
 
     @Override
     public boolean withdraw(UUID uniqueId, Economy economy, BigDecimal amount) {
-        perform(uniqueId, user -> user.withdraw(economy, amount));
+        perform(uniqueId, user -> {
+            user.withdraw(economy, amount);
+            var offlineEconomy = getOfflineEconomy(uniqueId);
+            offlineEconomy.withdraw(economy.getName(), amount);
+        });
         return true;
     }
 
     @Override
     public boolean set(UUID uniqueId, Economy economy, BigDecimal amount) {
-        perform(uniqueId, user -> user.set(economy, amount));
+        perform(uniqueId, user -> {
+            user.set(economy, amount);
+            var offlineEconomy = getOfflineEconomy(uniqueId);
+            offlineEconomy.set(economy.getName(), amount);
+        });
         return true;
     }
 
@@ -383,6 +396,11 @@ public class EconomyModule extends ZModule implements EconomyManager {
         User user = event.getUser();
         OfflineEconomy offlineEconomy = new ZOfflineEconomy(user.getBalances());
         this.offlinePlayers.put(user.getUniqueId(), offlineEconomy);
+    }
+
+    @EventHandler
+    public void onConnect(UserJoinEvent event) {
+        this.offlinePlayers.remove(event.getUser().getUniqueId());
     }
 
 }

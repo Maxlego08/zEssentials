@@ -1,6 +1,7 @@
 # Unreleased
 
-- Added ``/clearinventory [<player>]`` [#101](https://github.com/Maxlego08/zEssentials/issues/124) 
+- Added ``/clearinventory [<player>]`` [#101](https://github.com/Maxlego08/zEssentials/issues/124)
+- Improve economy module with offline players
 
 # 1.0.1.4
 
