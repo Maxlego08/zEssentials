@@ -290,6 +290,15 @@ public interface User {
     void set(Economy economy, BigDecimal bigDecimal);
 
     /**
+     * Sets the balance of the user in the specified economy.
+     *
+     * @param economy    The economy to set the balance for.
+     * @param bigDecimal The new balance of the user in the specified economy.
+     * @param reason     The reason for the transaction.
+     */
+    void set(Economy economy, BigDecimal bigDecimal, String reason);
+
+    /**
      * Withdraws currency from the user in the specified economy.
      *
      * @param economy    The economy to withdraw currency from.
@@ -298,12 +307,30 @@ public interface User {
     void withdraw(Economy economy, BigDecimal bigDecimal);
 
     /**
+     * Withdraws currency from the user in the specified economy.
+     *
+     * @param economy    The economy to withdraw currency from.
+     * @param bigDecimal The amount of currency to withdraw.
+     * @param reason     The reason for the transaction.
+     */
+    void withdraw(Economy economy, BigDecimal bigDecimal, String reason);
+
+    /**
      * Deposits currency to the user in the specified economy.
      *
      * @param economy    The economy to deposit currency to.
      * @param bigDecimal The amount of currency to deposit.
      */
     void deposit(Economy economy, BigDecimal bigDecimal);
+
+    /**
+     * Deposits currency to the user in the specified economy.
+     *
+     * @param economy    The economy to deposit currency to.
+     * @param bigDecimal The amount of currency to deposit.
+     * @param reason     The reason for the transaction.
+     */
+    void deposit(Economy economy, BigDecimal bigDecimal, String reason);
 
     /**
      * Sets the balance of the user from the specified source UUID in the specified economy.
@@ -315,6 +342,16 @@ public interface User {
     void set(UUID fromUuid, Economy economy, BigDecimal bigDecimal);
 
     /**
+     * Sets the balance of the user from the specified source UUID in the specified economy.
+     *
+     * @param fromUuid   The UUID of the source account.
+     * @param economy    The economy to set the balance for.
+     * @param bigDecimal The new balance of the user in the specified economy.
+     * @param reason     The reason for the transaction.
+     */
+    void set(UUID fromUuid, Economy economy, BigDecimal bigDecimal, String reason);
+
+    /**
      * Withdraws currency from the user from the specified source UUID in the specified economy.
      *
      * @param fromUuid   The UUID of the source account.
@@ -324,6 +361,16 @@ public interface User {
     void withdraw(UUID fromUuid, Economy economy, BigDecimal bigDecimal);
 
     /**
+     * Withdraws currency from the user from the specified source UUID in the specified economy.
+     *
+     * @param fromUuid   The UUID of the source account.
+     * @param economy    The economy to withdraw currency from.
+     * @param bigDecimal The amount of currency to withdraw.
+     * @param reason     The reason for the transaction.
+     */
+    void withdraw(UUID fromUuid, Economy economy, BigDecimal bigDecimal, String reason);
+
+    /**
      * Deposits currency to the user from the specified source UUID in the specified economy.
      *
      * @param fromUuid   The UUID of the source account.
@@ -331,6 +378,16 @@ public interface User {
      * @param bigDecimal The amount of currency to deposit.
      */
     void deposit(UUID fromUuid, Economy economy, BigDecimal bigDecimal);
+
+    /**
+     * Deposits currency to the user from the specified source UUID in the specified economy.
+     *
+     * @param fromUuid   The UUID of the source account.
+     * @param economy    The economy to deposit currency to.
+     * @param bigDecimal The amount of currency to deposit.
+     * @param reason     The reason for the transaction.
+     */
+    void deposit(UUID fromUuid, Economy economy, BigDecimal bigDecimal, String reason);
 
     /**
      * Gets all economy balances of the user.
@@ -850,13 +907,13 @@ public interface User {
      */
     void playSound(Sound sound, float volume, float pitch);
 
-    void setFrozen(boolean b);
-
     boolean isFrozen();
 
-    void setCurrentDeleteHome(Home home);
+    void setFrozen(boolean b);
 
     Optional<Home> getCurrentDeleteHome();
+
+    void setCurrentDeleteHome(Home home);
 
     long getFlySeconds();
 

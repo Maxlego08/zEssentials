@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.dto.ChatMessageDTO;
 import fr.maxlego08.essentials.api.dto.CommandDTO;
 import fr.maxlego08.essentials.api.dto.CooldownDTO;
 import fr.maxlego08.essentials.api.dto.EconomyDTO;
+import fr.maxlego08.essentials.api.dto.EconomyTransactionDTO;
 import fr.maxlego08.essentials.api.dto.MailBoxDTO;
 import fr.maxlego08.essentials.api.dto.OptionDTO;
 import fr.maxlego08.essentials.api.dto.PlayTimeDTO;
@@ -46,6 +47,7 @@ import fr.maxlego08.essentials.migrations.CreateUserPlayTimeTableMigration;
 import fr.maxlego08.essentials.migrations.CreateUserPowerToolsMigration;
 import fr.maxlego08.essentials.migrations.CreateUserTableMigration;
 import fr.maxlego08.essentials.migrations.CreateVoteSiteMigration;
+import fr.maxlego08.essentials.migrations.UpdateEconomyTransactionAddColumn;
 import fr.maxlego08.essentials.migrations.UpdateUserTableAddFlyColumn;
 import fr.maxlego08.essentials.migrations.UpdateUserTableAddFreezeColumn;
 import fr.maxlego08.essentials.migrations.UpdateUserTableAddSanctionColumns;
@@ -155,6 +157,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
         MigrationManager.registerMigration(new CreatePlayerSlots());
         MigrationManager.registerMigration(new UpdateUserTableAddFreezeColumn());
         MigrationManager.registerMigration(new UpdateUserTableAddFlyColumn());
+        MigrationManager.registerMigration(new UpdateEconomyTransactionAddColumn());
 
         // Repositories
         this.repositories = new Repositories(plugin, this.connection);
@@ -348,8 +351,13 @@ public class SqlStorage extends StorageHelper implements IStorage {
     }
 
     @Override
-    public void storeTransactions(UUID fromUuid, UUID toUuid, Economy economy, BigDecimal fromAmount, BigDecimal toAmount) {
-        async(() -> with(EconomyTransactionsRepository.class).upsert(fromUuid, toUuid, economy, fromAmount, toAmount));
+    public void storeTransactions(UUID fromUuid, UUID toUuid, Economy economy, BigDecimal fromAmount, BigDecimal toAmount, String reason) {
+        async(() -> with(EconomyTransactionsRepository.class).upsert(fromUuid, toUuid, economy, fromAmount, toAmount, reason));
+    }
+
+    @Override
+    public List<EconomyTransactionDTO> getTransactions(UUID toUuid, Economy economy) {
+        return with(EconomyTransactionsRepository.class).selectTransactions(toUuid, economy);
     }
 
     @Override

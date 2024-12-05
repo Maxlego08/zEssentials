@@ -313,9 +313,9 @@ public class ZCommandManager extends ZUtils implements CommandManager {
     public List<EssentialsCommand> getSortCommands() {
         List<EssentialsCommand> essentialsCommands = new ArrayList<>();
 
-        commands.stream().filter(e -> e.getParent() == null).sorted(Comparator.comparing(EssentialsCommand::getMainCommand)).forEach(command -> {
+        this.commands.stream().filter(e -> e.getParent() == null).sorted(Comparator.comparing(EssentialsCommand::getMainCommand)).forEach(command -> {
             essentialsCommands.add(command);
-            essentialsCommands.addAll(commands.stream().filter(e -> e.getMainParent() == command).sorted(Comparator.comparing(EssentialsCommand::getMainCommand)).toList());
+            essentialsCommands.addAll(this.commands.stream().filter(e -> e.getMainParent() == command).sorted(Comparator.comparing(EssentialsCommand::getMainCommand)).toList());
         });
         return essentialsCommands;
     }

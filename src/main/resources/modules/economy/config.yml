@@ -164,3 +164,6 @@ store-offline-player-money: false
 default-economies:
   - economy: money
     amount: 100
+
+pay-withdraw-reason: "Payment sent to %player%"
+pay-deposit-reason: "Payment received from %player%"

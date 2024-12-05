@@ -47,6 +47,8 @@ import java.util.function.Consumer;
 public class EconomyModule extends ZModule implements EconomyManager {
 
     @NonLoadable
+    public static final String NO_REASON = "No reason";
+    @NonLoadable
     private final List<Economy> economies = new ArrayList<>();
     private final List<NumberMultiplicationFormat> numberFormatSellMultiplication = new ArrayList<>();
     private final Map<Economy, Baltop> baltops = new HashMap<>();
@@ -63,6 +65,8 @@ public class EconomyModule extends ZModule implements EconomyManager {
     private long baltopRefreshSeconds;
     private String baltopPlaceholderUserEmpty;
     private String baltopMessageEconomy;
+    private String payWithdrawReason;
+    private String payDepositReason;
     private int baltopMessageAmount;
     private BaltopDisplay baltopDisplay;
     private WrappedTask baltopTask;
@@ -169,8 +173,23 @@ public class EconomyModule extends ZModule implements EconomyManager {
 
     @Override
     public boolean deposit(UUID uniqueId, Economy economy, BigDecimal amount) {
+        return deposit(uniqueId, economy, amount, NO_REASON);
+    }
+
+    @Override
+    public boolean set(UUID uniqueId, Economy economy, BigDecimal amount) {
+        return set(uniqueId, economy, amount, NO_REASON);
+    }
+
+    @Override
+    public boolean withdraw(UUID uniqueId, Economy economy, BigDecimal amount) {
+        return withdraw(uniqueId, economy, amount, NO_REASON);
+    }
+
+    @Override
+    public boolean deposit(UUID uniqueId, Economy economy, BigDecimal amount, String reason) {
         perform(uniqueId, user -> {
-            user.deposit(economy, amount);
+            user.deposit(economy, amount, reason);
             var offlineEconomy = getOfflineEconomy(uniqueId);
             offlineEconomy.deposit(economy.getName(), amount);
         });
@@ -178,9 +197,9 @@ public class EconomyModule extends ZModule implements EconomyManager {
     }
 
     @Override
-    public boolean withdraw(UUID uniqueId, Economy economy, BigDecimal amount) {
+    public boolean withdraw(UUID uniqueId, Economy economy, BigDecimal amount, String reason) {
         perform(uniqueId, user -> {
-            user.withdraw(economy, amount);
+            user.withdraw(economy, amount, reason);
             var offlineEconomy = getOfflineEconomy(uniqueId);
             offlineEconomy.withdraw(economy.getName(), amount);
         });
@@ -188,9 +207,9 @@ public class EconomyModule extends ZModule implements EconomyManager {
     }
 
     @Override
-    public boolean set(UUID uniqueId, Economy economy, BigDecimal amount) {
+    public boolean set(UUID uniqueId, Economy economy, BigDecimal amount, String reason) {
         perform(uniqueId, user -> {
-            user.set(economy, amount);
+            user.set(economy, amount, reason);
             var offlineEconomy = getOfflineEconomy(uniqueId);
             offlineEconomy.set(economy.getName(), amount);
         });
@@ -278,8 +297,8 @@ public class EconomyModule extends ZModule implements EconomyManager {
     @Override
     public void pay(UUID fromUuid, String fromName, UUID toUuid, String toName, Economy economy, BigDecimal amount) {
 
-        perform(fromUuid, user -> user.withdraw(toUuid, economy, amount));
-        perform(toUuid, user -> user.deposit(fromUuid, economy, amount));
+        perform(fromUuid, user -> user.withdraw(toUuid, economy, amount, this.payWithdrawReason.replace("%player%", toName)));
+        perform(toUuid, user -> user.deposit(fromUuid, economy, amount, this.payDepositReason.replace("%player%", fromName)));
 
         message(fromUuid, Message.COMMAND_PAY_SENDER, "%amount%", this.format(economy, amount), "%player%", toName);
         message(toUuid, Message.COMMAND_PAY_RECEIVER, "%amount%", this.format(economy, amount), "%player%", fromName);
