@@ -190,6 +190,7 @@ public enum Message {
     DESCRIPTION_ECO_SET("Sets the specified player's balance to the specified amount of money"),
     DESCRIPTION_ECO_TAKE("Takes the specified amount of money from the specified player"),
     DESCRIPTION_ECO_GIVE("Gives the specified player the specified amount of money"),
+    DESCRIPTION_ECO_GIVE_RANDOM("Gives the specified player a random amount of money"),
     DESCRIPTION_ECO_GIVE_ALL("Gives for all players the specified amount of money"),
     DESCRIPTION_ECO_RESET("Resets the specified player's balance to the server's starting balance"),
     DESCRIPTION_ECO_SHOW("Show player money"),

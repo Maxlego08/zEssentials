@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-public class CommandEconomyGive extends VCommand {
+public class CommandEconomyGive extends GiveCommand {
 
 
     public CommandEconomyGive(EssentialsPlugin plugin) {
@@ -36,25 +36,6 @@ public class CommandEconomyGive extends VCommand {
         double amount = this.argAsDouble(2);
         boolean silent = this.argAsBoolean(3, false);
 
-        EconomyManager economyManager = plugin.getEconomyManager();
-        Optional<Economy> optional = economyManager.getEconomy(economyName);
-        if (optional.isEmpty()) {
-            message(sender, Message.COMMAND_ECONOMY_NOT_FOUND, "%name%", economyName);
-            return CommandResultType.DEFAULT;
-        }
-
-        Economy economy = optional.get();
-        fetchUniqueId(userName, uniqueId -> {
-
-            economyManager.deposit(uniqueId, economy, new BigDecimal(amount));
-
-            String economyFormat = economyManager.format(economy, amount);
-            message(sender, Message.COMMAND_ECONOMY_GIVE_SENDER, "%player%", userName, "%economyFormat%", economyFormat);
-            if (!silent) {
-                message(uniqueId, Message.COMMAND_ECONOMY_GIVE_RECEIVER, "%economyFormat%", economyFormat);
-            }
-        });
-
-        return CommandResultType.SUCCESS;
+        return give(this.sender, userName, economyName, amount, silent);
     }
 }

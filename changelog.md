@@ -13,6 +13,7 @@
 - Fixed teleport request [#134](https://github.com/Maxlego08/zEssentials/pull/134)
 - Added ``/suicide`` [#135](https://github.com/Maxlego08/zEssentials/pull/135)
 - Move ``commands.md``, `placeholders.md` and `permissions.md` in docs folder
+- Added ``/eco give <economy> <player> <min amount> <max amount>`` command [#120](https://github.com/Maxlego08/zEssentials/pull/120)
 
 # 1.0.1.4
 
