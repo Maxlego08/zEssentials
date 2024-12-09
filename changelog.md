@@ -6,6 +6,7 @@
 - Added a method in the API to retrieve player’s transaction history
 - Added a reason for each transaction made by the player
 - Fixed sql port [#144](https://github.com/Maxlego08/zEssentials/issues/144)
+- Fixed rtp with folia [#138](https://github.com/Maxlego08/zEssentials/issues/138)
 
 # 1.0.1.4
 
