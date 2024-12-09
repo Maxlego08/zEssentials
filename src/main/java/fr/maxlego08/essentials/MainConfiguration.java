@@ -93,7 +93,7 @@ public class MainConfiguration extends YamlLoader implements Configuration {
                 configuration.getString("database-configuration.tablePrefix"),
                 configuration.getString("database-configuration.user"),
                 configuration.getString("database-configuration.password"),
-                configuration.getInt("database-configuration.password", 3306),
+                configuration.getInt("database-configuration.port", 3306),
                 configuration.getString("database-configuration.host"),
                 configuration.getString("database-configuration.database"),
                 configuration.getBoolean("database-configuration.debug"),

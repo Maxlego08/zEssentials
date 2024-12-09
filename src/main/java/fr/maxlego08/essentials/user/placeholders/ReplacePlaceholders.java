@@ -45,22 +45,21 @@ public class ReplacePlaceholders extends ZUtils implements PlaceholderRegister {
 
         placeholder.register("progressbar_", (player, args) -> {
 
-                    List<String> values = splitIgnoringBraces(args).stream().map(e -> e.replace("{", "%").replace("}", "%")).toList();
-                    if (values.size() != 6) return "The format is invalid! Please try again";
+            List<String> values = splitIgnoringBraces(args).stream().map(e -> e.replace("{", "%").replace("}", "%")).toList();
+            if (values.size() != 6) return "The format is invalid! Please try again";
 
-                    try {
-                        long start = Long.parseLong(PapiHelper.papi(values.get(0), player));
-                        long end = Long.parseLong(PapiHelper.papi(values.get(1), player));
-                        int totalBar = Integer.parseInt(PapiHelper.papi(values.get(2), player));
-                        char symbol = values.get(3).charAt(0);
-                        String completedColor = PapiHelper.papi(values.get(4), player);
-                        String notCompletedColor = PapiHelper.papi(values.get(5), player);
-                        return getProgressBar(start, end, totalBar, symbol, completedColor, notCompletedColor);
-                    } catch (Exception exception) {
-                        return "The format is invalid! Please try again";
-                    }
-                }, "Allows to transform two numbers into a progressbar, you can use placeholders",
-                "current", "max", "size", "symbol", "completedColor", "notCompletedColor");
+            try {
+                long start = Long.parseLong(PapiHelper.papi(values.get(0), player));
+                long end = Long.parseLong(PapiHelper.papi(values.get(1), player));
+                int totalBar = Integer.parseInt(PapiHelper.papi(values.get(2), player));
+                char symbol = values.get(3).charAt(0);
+                String completedColor = PapiHelper.papi(values.get(4), player);
+                String notCompletedColor = PapiHelper.papi(values.get(5), player);
+                return getProgressBar(start, end, totalBar, symbol, completedColor, notCompletedColor);
+            } catch (Exception exception) {
+                return "The format is invalid! Please try again";
+            }
+        }, "Allows to transform two numbers into a progressbar, you can use placeholders", "current", "max", "size", "symbol", "completedColor", "notCompletedColor");
     }
 
     public List<String> splitIgnoringBraces(String input) {
@@ -76,7 +75,7 @@ public class ReplacePlaceholders extends ZUtils implements PlaceholderRegister {
             }
 
             if (c == '_' && !insideBraces) {
-                if (current.length() > 0) {
+                if (!current.isEmpty()) {
                     result.add(current.toString());
                     current.setLength(0);
                 }
@@ -85,7 +84,7 @@ public class ReplacePlaceholders extends ZUtils implements PlaceholderRegister {
             }
         }
 
-        if (current.length() > 0) {
+        if (!current.isEmpty()) {
             result.add(current.toString());
         }
 
