@@ -180,14 +180,30 @@ public class ZUser extends ZUtils implements User {
             return;
         }
 
-        this.teleports.remove(targetUser.getUniqueId());
 
-        if (targetUser.getTeleportRequest() != null && targetUser.getTeleportRequest().getFromUser() == this) {
-            targetUser.setTeleportRequest(null);
+        var request = targetUser.getTeleportRequest();
+        if (request == null) {
+            message(this, Message.COMMAND_TP_CANCEL_ERROR, targetUser);
+            return;
         }
 
-        message(this, Message.COMMAND_TP_CANCEL_SENDER, targetUser);
-        message(targetUser, Message.COMMAND_TP_CANCEL_RECEIVER, this);
+        if (!request.isValid()) {
+            message(this, Message.COMMAND_TP_CANCEL_ERROR, targetUser);
+            this.teleports.remove(targetUser.getUniqueId());
+            return;
+        }
+
+        if (request.getFromUser() == this) {
+
+            targetUser.setTeleportRequest(null);
+            this.teleports.remove(targetUser.getUniqueId());
+
+            message(this, Message.COMMAND_TP_CANCEL_SENDER, targetUser);
+            message(targetUser, Message.COMMAND_TP_CANCEL_RECEIVER, this);
+        } else {
+
+            message(this, Message.COMMAND_TP_CANCEL_ERROR, targetUser);
+        }
     }
 
     @Override

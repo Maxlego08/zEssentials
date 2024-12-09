@@ -10,6 +10,7 @@
 - Fixed kit permission
 - Fixed method ``stringToDuration`` [#143](https://github.com/Maxlego08/zEssentials/pull/143)
 - Fixed the cooldown command for commands that don’t come from zEssentials [#137](https://github.com/Maxlego08/zEssentials/pull/137)
+- Fixed teleport request [#134](https://github.com/Maxlego08/zEssentials/pull/134)
 
 # 1.0.1.4
 
