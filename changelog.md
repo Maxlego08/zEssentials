@@ -9,6 +9,7 @@
 - Fixed rtp with folia [#138](https://github.com/Maxlego08/zEssentials/issues/138)
 - Fixed kit permission
 - Fixed method ``stringToDuration`` [#143](https://github.com/Maxlego08/zEssentials/pull/143)
+- Fixed the cooldown command for commands that don’t come from zEssentials [#137](https://github.com/Maxlego08/zEssentials/pull/137)
 
 # 1.0.1.4
 

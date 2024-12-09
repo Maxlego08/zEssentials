@@ -184,7 +184,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         ConfigStorage.getInstance().load(getPersist());
 
         // Commands
-        this.commandManager = new ZCommandManager(this);
+        this.registerListener(this.commandManager = new ZCommandManager(this));
         this.registerCommand("zessentials", new CommandEssentials(this), "ess");
 
         CommandLoader commandLoader = new CommandLoader(this);
