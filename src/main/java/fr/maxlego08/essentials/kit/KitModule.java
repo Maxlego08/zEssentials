@@ -37,7 +37,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class KitModule extends ZModule {
 
     private final List<Kit> kits = new ArrayList<>();
-    private final KitDisplay display = KitDisplay.IN_LINE;
+    private KitDisplay display;
 
     public KitModule(ZEssentialsPlugin plugin) {
         super(plugin, "kits");
@@ -147,7 +147,7 @@ public class KitModule extends ZModule {
     }
 
     public List<Kit> getKits(Permissible permissible) {
-        return this.kits.stream().filter(kit -> permissible.hasPermission(Permission.ESSENTIALS_KIT.asPermission(kit.getName()))).toList();
+        return this.kits.stream().filter(kit -> permissible.hasPermission(Permission.ESSENTIALS_KIT_.asPermission(kit.getName()))).toList();
     }
 
     public boolean giveKit(User user, Kit kit, boolean bypassCooldown) {
