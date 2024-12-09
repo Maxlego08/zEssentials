@@ -1,5 +1,7 @@
 # Unreleased
 
+# 1.0.1.5
+
 - Added ``/clearinventory [<player>]`` [#101](https://github.com/Maxlego08/zEssentials/issues/124)
 - Improve economy module with offline players
 - Fixed teleport command with relative coordinates [#142](https://github.com/Maxlego08/zEssentials/issues/142)
