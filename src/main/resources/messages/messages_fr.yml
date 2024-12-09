@@ -408,6 +408,7 @@ description-freeze: "Geler un joueur"
 description-experience: "Gérer l'expérience des joueurs"
 description-delete-world: "Supprime les données liées à un monde"
 description-clearinventory: "Vider l'inventaire du joueur"
+description-suicide: "En finir avec la vie"
 
 # Format de l'heure
 format-second: "seconde"

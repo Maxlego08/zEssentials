@@ -258,6 +258,7 @@ public enum Message {
     DESCRIPTION_MAIL_GIVE("Give an item to player's mailbox"),
     DESCRIPTION_MAIL_GIVEALL("Give an items to players mailbox"),
     DESCRIPTION_RULES("Read server rules"),
+    DESCRIPTION_SUICIDE("Kill yourself"),
     DESCRIPTION_HOLOGRAM("Show hologram commands"),
     DESCRIPTION_HOLOGRAM_CREATE("Create a hologram"),
     DESCRIPTION_HOLOGRAM_DELETE("Delete a hologram"),

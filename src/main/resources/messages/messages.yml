@@ -412,7 +412,7 @@ description-experience-set: "Set player experience"
 description-experience-grant: "Grant experience to player"
 description-delete-world: "Removes data being linked to a world"
 description-clearinventory: "Clear player's inventory"
-
+description-suicide: "Kill yourself"
 
 # Time format
 format-second: "second"
