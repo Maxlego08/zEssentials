@@ -24,6 +24,8 @@ public class CommandTeleportTo extends VCommand {
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
         Player targetPlayer = this.argAsPlayer(0);
+        if (targetPlayer == null) return CommandResultType.SYNTAX_ERROR;
+
         User targetUser = plugin.getStorageManager().getStorage().getUser(targetPlayer.getUniqueId());
 
         if (targetUser.getUniqueId().equals(this.player.getUniqueId())) {

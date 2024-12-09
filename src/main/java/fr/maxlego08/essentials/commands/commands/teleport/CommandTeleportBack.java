@@ -24,6 +24,7 @@ public class CommandTeleportBack extends VCommand {
             message(this.sender, Message.COMMAND_BACK_ERROR);
             return CommandResultType.DEFAULT;
         }
+        
         this.user.teleport(user.getLastLocation());
         message(this.sender, Message.COMMAND_BACK);
 
