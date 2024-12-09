@@ -30,6 +30,7 @@ public class CommandTeleport extends VCommand {
 
         if (args.length == 1) {
             Player targetPlayer = this.argAsPlayer(0);
+            if (targetPlayer == null) return CommandResultType.SYNTAX_ERROR;
             this.user.teleportNow(targetPlayer.getLocation());
             message(this.sender, Message.COMMAND_TP, targetPlayer);
         } else {
@@ -71,6 +72,8 @@ public class CommandTeleport extends VCommand {
                 } else {
 
                     Player targetPlayer = this.argAsPlayer(0);
+
+                    if (targetPlayer == null) return CommandResultType.SYNTAX_ERROR;
 
                     yaw = (float) this.argAsDouble(4, targetPlayer.getLocation().getYaw());
                     pitch = (float) this.argAsDouble(5, targetPlayer.getLocation().getPitch());
