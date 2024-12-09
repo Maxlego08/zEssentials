@@ -184,7 +184,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         ConfigStorage.getInstance().load(getPersist());
 
         // Commands
-        this.commandManager = new ZCommandManager(this);
+        this.registerListener(this.commandManager = new ZCommandManager(this));
         this.registerCommand("zessentials", new CommandEssentials(this), "ess");
 
         CommandLoader commandLoader = new CommandLoader(this);
@@ -383,9 +383,10 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         PlaceholderMarkdownGenerator placeholderMarkdownGenerator = new PlaceholderMarkdownGenerator();
         PermissionMarkdownGenerator permissionMarkdownGenerator = new PermissionMarkdownGenerator();
 
-        File fileCommand = new File(getDataFolder(), "commands.md");
-        File filePlaceholder = new File(getDataFolder(), "placeholders.md");
-        File filePermissions = new File(getDataFolder(), "permissions.md");
+        File fileCommand = new File(getDataFolder(), "docs/commands.md");
+        File filePlaceholder = new File(getDataFolder(), "docs/placeholders.md");
+        File filePermissions = new File(getDataFolder(), "docs/permissions.md");
+
         try {
             commandMarkdownGenerator.generateMarkdownFile(this.commandManager.getSortCommands(), fileCommand.toPath());
             getLogger().info("Markdown 'commands.md' file successfully generated!");
@@ -402,7 +403,6 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
             exception.printStackTrace();
         }
 
-
         try {
 
             List<PermissionInfo> permissions = new ArrayList<>();
@@ -410,7 +410,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
             var commands = commandManager.getCommands();
             for (Permission permission : Permission.values()) {
 
-                var optional = commands.stream().filter(e -> e.getPermission() != null && e.getPermission().equals(permission.asPermission())).findFirst();
+                var optional = commands.stream().filter(essentialsCommand -> essentialsCommand.getPermission() != null && essentialsCommand.getPermission().equals(permission.asPermission())).findFirst();
                 String description = permission.getDescription();
                 if (optional.isPresent()) {
                     var command = optional.get();

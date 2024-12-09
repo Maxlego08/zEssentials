@@ -27,6 +27,7 @@ import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.DynamicCooldown;
 import fr.maxlego08.essentials.api.worldedit.Selection;
 import fr.maxlego08.essentials.api.worldedit.WorldEditTask;
+import fr.maxlego08.essentials.economy.EconomyModule;
 import fr.maxlego08.essentials.module.modules.TeleportationModule;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import org.bukkit.Bukkit;
@@ -179,14 +180,30 @@ public class ZUser extends ZUtils implements User {
             return;
         }
 
-        this.teleports.remove(targetUser.getUniqueId());
 
-        if (targetUser.getTeleportRequest() != null && targetUser.getTeleportRequest().getFromUser() == this) {
-            targetUser.setTeleportRequest(null);
+        var request = targetUser.getTeleportRequest();
+        if (request == null) {
+            message(this, Message.COMMAND_TP_CANCEL_ERROR, targetUser);
+            return;
         }
 
-        message(this, Message.COMMAND_TP_CANCEL_SENDER, targetUser);
-        message(targetUser, Message.COMMAND_TP_CANCEL_RECEIVER, this);
+        if (!request.isValid()) {
+            message(this, Message.COMMAND_TP_CANCEL_ERROR, targetUser);
+            this.teleports.remove(targetUser.getUniqueId());
+            return;
+        }
+
+        if (request.getFromUser() == this) {
+
+            targetUser.setTeleportRequest(null);
+            this.teleports.remove(targetUser.getUniqueId());
+
+            message(this, Message.COMMAND_TP_CANCEL_SENDER, targetUser);
+            message(targetUser, Message.COMMAND_TP_CANCEL_RECEIVER, this);
+        } else {
+
+            message(this, Message.COMMAND_TP_CANCEL_ERROR, targetUser);
+        }
     }
 
     @Override
@@ -380,7 +397,7 @@ public class ZUser extends ZUtils implements User {
     }
 
     @Override
-    public void set(UUID fromUuid, Economy economy, BigDecimal bigDecimal) {
+    public void set(UUID fromUuid, Economy economy, BigDecimal bigDecimal, String reason) {
         Economy finalEconomy;
         BigDecimal finalBigDecimal;
 
@@ -403,7 +420,7 @@ public class ZUser extends ZUtils implements User {
         this.balances.put(finalEconomy.getName(), toAmount);
 
         getStorage().updateEconomy(this.uniqueId, finalEconomy, finalBigDecimal);
-        getStorage().storeTransactions(fromUuid, this.uniqueId, finalEconomy, fromAmount, toAmount);
+        getStorage().storeTransactions(fromUuid, this.uniqueId, finalEconomy, fromAmount, toAmount, reason);
 
         if (isOnline() && this.plugin.getServer().isPrimaryThread()) {
             UserEconomyPostUpdateEvent postUpdateEvent = new UserEconomyPostUpdateEvent(this, finalEconomy, finalBigDecimal);
@@ -412,8 +429,23 @@ public class ZUser extends ZUtils implements User {
     }
 
     @Override
+    public void set(UUID fromUuid, Economy economy, BigDecimal bigDecimal) {
+        set(fromUuid, economy, bigDecimal, EconomyModule.NO_REASON);
+    }
+
+    @Override
+    public void withdraw(UUID fromUuid, Economy economy, BigDecimal bigDecimal, String reason) {
+        set(fromUuid, economy, getBalance(economy).subtract(bigDecimal), reason);
+    }
+
+    @Override
     public void withdraw(UUID fromUuid, Economy economy, BigDecimal bigDecimal) {
         set(fromUuid, economy, getBalance(economy).subtract(bigDecimal));
+    }
+
+    @Override
+    public void deposit(UUID fromUuid, Economy economy, BigDecimal bigDecimal, String reason) {
+        set(fromUuid, economy, getBalance(economy).add(bigDecimal), reason);
     }
 
     @Override
@@ -434,6 +466,21 @@ public class ZUser extends ZUtils implements User {
     @Override
     public void withdraw(Economy economy, BigDecimal bigDecimal) {
         withdraw(this.plugin.getConsoleUniqueId(), economy, bigDecimal);
+    }
+
+    @Override
+    public void set(Economy economy, BigDecimal bigDecimal, String reason) {
+        set(this.plugin.getConsoleUniqueId(), economy, bigDecimal, reason);
+    }
+
+    @Override
+    public void deposit(Economy economy, BigDecimal bigDecimal, String reason) {
+        deposit(this.plugin.getConsoleUniqueId(), economy, bigDecimal, reason);
+    }
+
+    @Override
+    public void withdraw(Economy economy, BigDecimal bigDecimal, String reason) {
+        withdraw(this.plugin.getConsoleUniqueId(), economy, bigDecimal, reason);
     }
 
     @Override

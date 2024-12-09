@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.dto.ChatMessageDTO;
 import fr.maxlego08.essentials.api.dto.CommandDTO;
 import fr.maxlego08.essentials.api.dto.CooldownDTO;
 import fr.maxlego08.essentials.api.dto.EconomyDTO;
+import fr.maxlego08.essentials.api.dto.EconomyTransactionDTO;
 import fr.maxlego08.essentials.api.dto.MailBoxDTO;
 import fr.maxlego08.essentials.api.dto.OptionDTO;
 import fr.maxlego08.essentials.api.dto.PlayTimeDTO;
@@ -46,6 +47,7 @@ import fr.maxlego08.essentials.migrations.CreateUserPlayTimeTableMigration;
 import fr.maxlego08.essentials.migrations.CreateUserPowerToolsMigration;
 import fr.maxlego08.essentials.migrations.CreateUserTableMigration;
 import fr.maxlego08.essentials.migrations.CreateVoteSiteMigration;
+import fr.maxlego08.essentials.migrations.UpdateEconomyTransactionAddColumn;
 import fr.maxlego08.essentials.migrations.UpdateUserTableAddFlyColumn;
 import fr.maxlego08.essentials.migrations.UpdateUserTableAddFreezeColumn;
 import fr.maxlego08.essentials.migrations.UpdateUserTableAddSanctionColumns;
@@ -83,6 +85,7 @@ import fr.maxlego08.sarah.logger.JULogger;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
+import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -102,17 +105,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     public SqlStorage(EssentialsPlugin plugin, StorageType storageType) {
         super(plugin);
-        DatabaseConfiguration oldConfiguration = plugin.getConfiguration().getDatabaseConfiguration();
-        DatabaseConfiguration databaseConfiguration = new DatabaseConfiguration(
-                oldConfiguration.getTablePrefix(),
-                oldConfiguration.getUser(),
-                oldConfiguration.getPassword(),
-                oldConfiguration.getPort(),
-                oldConfiguration.getHost(),
-                oldConfiguration.getDatabase(),
-                oldConfiguration.isDebug(),
-                storageType == StorageType.SQLITE ? DatabaseType.SQLITE : DatabaseType.MYSQL
-        );
+        DatabaseConfiguration databaseConfiguration = getDatabaseConfiguration(plugin, storageType);
         this.connection = switch (storageType) {
             case HIKARICP -> new HikariDatabaseConnection(databaseConfiguration);
             case SQLITE -> new SqliteConnection(databaseConfiguration, plugin.getDataFolder());
@@ -155,6 +148,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
         MigrationManager.registerMigration(new CreatePlayerSlots());
         MigrationManager.registerMigration(new UpdateUserTableAddFreezeColumn());
         MigrationManager.registerMigration(new UpdateUserTableAddFlyColumn());
+        MigrationManager.registerMigration(new UpdateEconomyTransactionAddColumn());
 
         // Repositories
         this.repositories = new Repositories(plugin, this.connection);
@@ -185,6 +179,11 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
         List<ServerStorageDTO> serverStorageDTOS = with(ServerStorageRepository.class).select();
         plugin.getServerStorage().setContents(serverStorageDTOS);
+    }
+
+    private @NotNull DatabaseConfiguration getDatabaseConfiguration(EssentialsPlugin plugin, StorageType storageType) {
+        DatabaseConfiguration oldConfiguration = plugin.getConfiguration().getDatabaseConfiguration();
+        return new DatabaseConfiguration(oldConfiguration.getTablePrefix(), oldConfiguration.getUser(), oldConfiguration.getPassword(), oldConfiguration.getPort(), oldConfiguration.getHost(), oldConfiguration.getDatabase(), oldConfiguration.isDebug(), storageType == StorageType.SQLITE ? DatabaseType.SQLITE : DatabaseType.MYSQL);
     }
 
     @Override
@@ -348,8 +347,13 @@ public class SqlStorage extends StorageHelper implements IStorage {
     }
 
     @Override
-    public void storeTransactions(UUID fromUuid, UUID toUuid, Economy economy, BigDecimal fromAmount, BigDecimal toAmount) {
-        async(() -> with(EconomyTransactionsRepository.class).upsert(fromUuid, toUuid, economy, fromAmount, toAmount));
+    public void storeTransactions(UUID fromUuid, UUID toUuid, Economy economy, BigDecimal fromAmount, BigDecimal toAmount, String reason) {
+        async(() -> with(EconomyTransactionsRepository.class).upsert(fromUuid, toUuid, economy, fromAmount, toAmount, reason));
+    }
+
+    @Override
+    public List<EconomyTransactionDTO> getTransactions(UUID toUuid, Economy economy) {
+        return with(EconomyTransactionsRepository.class).selectTransactions(toUuid, economy);
     }
 
     @Override
@@ -601,8 +605,8 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     @Override
     public void deleteWorldData(String worldName) {
-     with(UserRepository.class).deleteWorldData(worldName);
-     with(UserHomeRepository.class).deleteWorldData(worldName);
+        with(UserRepository.class).deleteWorldData(worldName);
+        with(UserHomeRepository.class).deleteWorldData(worldName);
     }
 
     public DatabaseConnection getConnection() {

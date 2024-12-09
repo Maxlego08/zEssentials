@@ -35,6 +35,8 @@ public class CommandHeal extends VCommand {
         player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue());
         player.setFoodLevel(20);
         player.setFireTicks(0);
+        Player finalPlayer = player;
+        player.getActivePotionEffects().forEach(potionEffect -> finalPlayer.removePotionEffect(potionEffect.getType()));
 
         if (player == sender) {
 

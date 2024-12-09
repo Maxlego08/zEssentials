@@ -302,12 +302,12 @@ public abstract class ZUtils extends MessageUtils {
                 case "s" -> Duration.of(amount, ChronoUnit.SECONDS);
                 case "m" -> Duration.of(amount, ChronoUnit.MINUTES);
                 case "h" -> Duration.of(amount, ChronoUnit.HOURS);
-                case "j", "d" -> Duration.of(amount, ChronoUnit.DAYS);
-                case "w" -> Duration.of(amount, ChronoUnit.WEEKS);
-                case "M" -> Duration.of(amount, ChronoUnit.MONTHS);
-                case "y" -> Duration.of(amount, ChronoUnit.YEARS);
-                case "D" -> Duration.of(amount, ChronoUnit.DECADES);
-                case "c" -> Duration.of(amount, ChronoUnit.CENTURIES);
+                case "d", "j" -> Duration.of(amount, ChronoUnit.DAYS);
+                case "w" -> Duration.of(amount * 7, ChronoUnit.DAYS);
+                case "M" -> Duration.of(amount * 30, ChronoUnit.DAYS);
+                case "y" -> Duration.of(amount * 365, ChronoUnit.DAYS);
+                case "D" -> Duration.of(amount * 10, ChronoUnit.YEARS);
+                case "c" -> Duration.of(amount * 100, ChronoUnit.YEARS);
                 default -> Duration.ZERO;
             };
         } else {

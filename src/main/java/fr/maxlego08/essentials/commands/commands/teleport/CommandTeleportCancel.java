@@ -23,6 +23,8 @@ public class CommandTeleportCancel extends VCommand {
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
         Player targetPlayer = this.argAsPlayer(0);
+        if (targetPlayer == null) return CommandResultType.SYNTAX_ERROR;
+
         this.user.cancelTeleportRequest(plugin.getStorageManager().getStorage().getUser(targetPlayer.getUniqueId()));
 
         return CommandResultType.SUCCESS;

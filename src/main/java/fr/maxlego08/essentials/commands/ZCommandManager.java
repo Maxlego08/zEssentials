@@ -5,6 +5,8 @@ import fr.maxlego08.essentials.api.commands.CommandManager;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.EssentialsCommand;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.user.User;
+import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -14,6 +16,8 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
@@ -26,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ZCommandManager extends ZUtils implements CommandManager {
@@ -44,8 +49,8 @@ public class ZCommandManager extends ZUtils implements CommandManager {
         }
     }
 
-    private final ZEssentialsPlugin plugin;
     protected final List<EssentialsCommand> commands = new ArrayList<>();
+    private final ZEssentialsPlugin plugin;
 
     public ZCommandManager(ZEssentialsPlugin plugin) {
         this.plugin = plugin;
@@ -313,10 +318,43 @@ public class ZCommandManager extends ZUtils implements CommandManager {
     public List<EssentialsCommand> getSortCommands() {
         List<EssentialsCommand> essentialsCommands = new ArrayList<>();
 
-        commands.stream().filter(e -> e.getParent() == null).sorted(Comparator.comparing(EssentialsCommand::getMainCommand)).forEach(command -> {
+        this.commands.stream().filter(e -> e.getParent() == null).sorted(Comparator.comparing(EssentialsCommand::getMainCommand)).forEach(command -> {
             essentialsCommands.add(command);
-            essentialsCommands.addAll(commands.stream().filter(e -> e.getMainParent() == command).sorted(Comparator.comparing(EssentialsCommand::getMainCommand)).toList());
+            essentialsCommands.addAll(this.commands.stream().filter(e -> e.getMainParent() == command).sorted(Comparator.comparing(EssentialsCommand::getMainCommand)).toList());
         });
         return essentialsCommands;
+    }
+
+    private boolean isEssentialsCommand(String command) {
+        return this.commands.stream().anyMatch(e -> e.getParent() == null && e.getSubCommands().contains(command));
+    }
+
+    @EventHandler
+    public void onCommand(PlayerCommandPreprocessEvent event) {
+
+        var player = event.getPlayer();
+        String[] split = event.getMessage().substring(1).split(" ");
+        String key = split.length > 0 ? split[0].toLowerCase() : "";
+        if (isEssentialsCommand(key)) {
+            return;
+        }
+
+        User user = this.plugin.getUser(player.getUniqueId());
+        int cooldownSeconds = 0;
+
+        var configuration = this.plugin.getConfiguration();
+        if (user != null && (!user.hasPermission(fr.maxlego08.essentials.api.commands.Permission.ESSENTIALS_BYPASS_COOLDOWN) || !configuration.isEnableCooldownBypass())) {
+            Optional<Integer> optional = configuration.getCooldown(player, key);
+            if (optional.isPresent()) {
+                cooldownSeconds = optional.get();
+                if (user.isCooldown(key)) {
+                    event.setCancelled(true);
+                    long milliSeconds = user.getCooldown(key) - System.currentTimeMillis();
+                    message(player, Message.COOLDOWN, "%cooldown%", TimerBuilder.getStringTime(milliSeconds));
+                } else {
+                    user.addCooldown(key, cooldownSeconds);
+                }
+            }
+        }
     }
 }

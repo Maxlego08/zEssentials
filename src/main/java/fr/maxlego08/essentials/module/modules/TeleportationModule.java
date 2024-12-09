@@ -128,8 +128,10 @@ public class TeleportationModule extends ZModule {
 
         world.getChunkAtAsync(x, z).thenAccept(chunk -> {
             Location location = new Location(world, x + 0.5, y, z + 0.5, 360 * random.nextFloat() - 180, 0);
-            location.setY(World.Environment.NETHER == world.getEnvironment() ? getNetherYAt(location) : world.getHighestBlockYAt(location));
-            future.complete(location);
+            this.plugin.getScheduler().runAtLocation(location, wrappedTask -> {
+                location.setY(World.Environment.NETHER == world.getEnvironment() ? getNetherYAt(location) : world.getHighestBlockYAt(location));
+                future.complete(location);
+            });
         });
 
         return future;

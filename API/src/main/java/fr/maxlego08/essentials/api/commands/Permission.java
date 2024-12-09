@@ -44,7 +44,7 @@ public enum Permission {
     ESSENTIALS_CRAFT,
     ESSENTIALS_ENCHANTING,
     ESSENTIALS_INVSEE_INTERACT("Allows to interact with a player’s inventory"),
-    ESSENTIALS_CLEARINVENTORY("Allows to clear your own inventory"),
+    ESSENTIALS_CLEARINVENTORY,
     ESSENTIALS_CLEARINVENTORY_OTHER("Allows to clear the inventory of another player"),
     ESSENTIALS_COMPACT,
     ESSENTIALS_HAT,
@@ -245,7 +245,7 @@ public enum Permission {
     ESSENTIALS_EXPERIENCE_QUERY,
     ESSENTIALS_EXPERIENCE_SET,
     ESSENTIALS_SPAWN_OTHER,
-    ESSENTIALS_FLY_SAFELOGIN("Players with this permission will automatically enter fly mode upon logging in if they are suspended in the air.");
+    ESSENTIALS_FLY_SAFELOGIN("Players with this permission will automatically enter fly mode upon logging in if they are suspended in the air."), ESSENTIALS_SUICIDE, ESSENTIALS_ECO_GIVE_RANDOM;
 
     private final String description;
 

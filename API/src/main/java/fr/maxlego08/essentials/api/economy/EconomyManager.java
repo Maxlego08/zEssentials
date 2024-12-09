@@ -20,7 +20,7 @@ public interface EconomyManager extends Module {
      *
      * @param player  The player to check.
      * @param economy The economy to check.
-     * @param amount The amount to check.
+     * @param amount  The amount to check.
      * @return true if the player has enough money, false otherwise.
      */
     boolean hasMoney(OfflinePlayer player, Economy economy, BigDecimal amount);
@@ -45,6 +45,17 @@ public interface EconomyManager extends Module {
     boolean deposit(UUID uniqueId, Economy economy, BigDecimal amount);
 
     /**
+     * Deposits the specified amount of currency into the account with the specified UUID and economy.
+     *
+     * @param uniqueId The UUID of the account to deposit to.
+     * @param economy  The economy to deposit currency into.
+     * @param amount   The amount of currency to deposit.
+     * @param reason   The reason for the transaction
+     * @return true if the deposit was successful, false otherwise.
+     */
+    boolean deposit(UUID uniqueId, Economy economy, BigDecimal amount, String reason);
+
+    /**
      * Withdraws the specified amount of currency from the account with the specified UUID and economy.
      *
      * @param uniqueId The UUID of the account to withdraw from.
@@ -55,6 +66,17 @@ public interface EconomyManager extends Module {
     boolean withdraw(UUID uniqueId, Economy economy, BigDecimal amount);
 
     /**
+     * Withdraws the specified amount of currency from the account with the specified UUID and economy.
+     *
+     * @param uniqueId The UUID of the account to withdraw from.
+     * @param economy  The economy to withdraw currency from.
+     * @param amount   The amount of currency to withdraw.
+     * @param reason   The reason for the transaction
+     * @return true if the withdrawal was successful, false otherwise.
+     */
+    boolean withdraw(UUID uniqueId, Economy economy, BigDecimal amount, String reason);
+
+    /**
      * Sets the balance of the account with the specified UUID in the specified economy to the specified amount.
      *
      * @param uniqueId The UUID of the account.
@@ -63,6 +85,17 @@ public interface EconomyManager extends Module {
      * @return true if the balance was set successfully, false otherwise.
      */
     boolean set(UUID uniqueId, Economy economy, BigDecimal amount);
+
+    /**
+     * Sets the balance of the account with the specified UUID in the specified economy to the specified amount.
+     *
+     * @param uniqueId The UUID of the account.
+     * @param economy  The economy to set the balance for.
+     * @param amount   The new balance.
+     * @param reason   The reason for the transaction
+     * @return true if the balance was set successfully, false otherwise.
+     */
+    boolean set(UUID uniqueId, Economy economy, BigDecimal amount, String reason);
 
     /**
      * Gets all available economies.

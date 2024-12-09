@@ -28,7 +28,7 @@ public class CommandTeleportWorld extends VCommand {
         World world = this.argAsWorld(0);
         Player player = this.argAsPlayer(1, this.player);
 
-        if (player == null) return CommandResultType.SYNTAX_ERROR;
+        if (player == null || world == null) return CommandResultType.SYNTAX_ERROR;
 
         player.teleportAsync(world.getSpawnLocation());
 

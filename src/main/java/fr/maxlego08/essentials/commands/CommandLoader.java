@@ -75,6 +75,7 @@ import fr.maxlego08.essentials.commands.commands.utils.CommandRepair;
 import fr.maxlego08.essentials.commands.commands.utils.CommandRepairAll;
 import fr.maxlego08.essentials.commands.commands.utils.CommandRules;
 import fr.maxlego08.essentials.commands.commands.utils.CommandSudo;
+import fr.maxlego08.essentials.commands.commands.utils.CommandSuicide;
 import fr.maxlego08.essentials.commands.commands.utils.CommandTrash;
 import fr.maxlego08.essentials.commands.commands.utils.CommandVersion;
 import fr.maxlego08.essentials.commands.commands.utils.admins.CommandEnchant;
@@ -257,6 +258,8 @@ public class CommandLoader {
         register("vote", CommandVote.class);
         register("vault", CommandVault.class, "sac", "bag", "b", "coffre", "chest");
         register("player-worldedit", CommandWorldEdit.class, "pwe", "ess-worldedit", "eworldedit", "ew");
+
+        register("suicide", CommandSuicide.class);
 
         for (RegisterCommand registerCommand : this.commands) {
             try {
