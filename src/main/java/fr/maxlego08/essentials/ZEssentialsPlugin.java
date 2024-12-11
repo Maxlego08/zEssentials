@@ -383,9 +383,12 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         PlaceholderMarkdownGenerator placeholderMarkdownGenerator = new PlaceholderMarkdownGenerator();
         PermissionMarkdownGenerator permissionMarkdownGenerator = new PermissionMarkdownGenerator();
 
-        File fileCommand = new File(getDataFolder(), "docs/commands.md");
-        File filePlaceholder = new File(getDataFolder(), "docs/placeholders.md");
-        File filePermissions = new File(getDataFolder(), "docs/permissions.md");
+        File folder = new File(getDataFolder(), "docs");
+        if (!folder.exists()) folder.mkdirs();
+
+        File fileCommand = new File(folder, "commands.md");
+        File filePlaceholder = new File(folder, "placeholders.md");
+        File filePermissions = new File(folder, "permissions.md");
 
         try {
             commandMarkdownGenerator.generateMarkdownFile(this.commandManager.getSortCommands(), fileCommand.toPath());
