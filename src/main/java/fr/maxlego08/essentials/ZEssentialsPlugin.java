@@ -34,6 +34,7 @@ import fr.maxlego08.essentials.api.worldedit.WorldeditManager;
 import fr.maxlego08.essentials.buttons.ButtonHomes;
 import fr.maxlego08.essentials.buttons.ButtonPayConfirm;
 import fr.maxlego08.essentials.buttons.ButtonTeleportationConfirm;
+import fr.maxlego08.essentials.buttons.ButtonTeleportationConfirmHere;
 import fr.maxlego08.essentials.buttons.kit.ButtonKitPreview;
 import fr.maxlego08.essentials.buttons.mail.ButtonMailBox;
 import fr.maxlego08.essentials.buttons.mail.ButtonMailBoxAdmin;
@@ -269,14 +270,15 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
     private void registerButtons() {
 
-        this.buttonManager.register(new NoneLoader(this, ButtonTeleportationConfirm.class, "zessentials_teleportation_confirm"));
-        this.buttonManager.register(new NoneLoader(this, ButtonPayConfirm.class, "zessentials_pay_confirm"));
-        this.buttonManager.register(new NoneLoader(this, ButtonHomes.class, "zessentials_homes"));
-        this.buttonManager.register(new NoneLoader(this, ButtonSanctionInformation.class, "zessentials_sanction_information"));
-        this.buttonManager.register(new NoneLoader(this, ButtonSanctions.class, "zessentials_sanctions"));
-        this.buttonManager.register(new NoneLoader(this, ButtonKitPreview.class, "zessentials_kit_preview"));
-        this.buttonManager.register(new NoneLoader(this, ButtonMailBox.class, "zessentials_mailbox"));
-        this.buttonManager.register(new NoneLoader(this, ButtonMailBoxAdmin.class, "zessentials_mailbox_admin"));
+        this.buttonManager.register(new NoneLoader(this, ButtonTeleportationConfirmHere.class, "ZESSENTIALS_TELEPORTATION_CONFIRM_HERE"));
+        this.buttonManager.register(new NoneLoader(this, ButtonTeleportationConfirm.class, "ZESSENTIALS_TELEPORTATION_CONFIRM"));
+        this.buttonManager.register(new NoneLoader(this, ButtonPayConfirm.class, "ZESSENTIALS_PAY_CONFIRM"));
+        this.buttonManager.register(new NoneLoader(this, ButtonHomes.class, "ZESSENTIALS_HOMES"));
+        this.buttonManager.register(new NoneLoader(this, ButtonSanctionInformation.class, "ZESSENTIALS_SANCTION_INFORMATION"));
+        this.buttonManager.register(new NoneLoader(this, ButtonSanctions.class, "ZESSENTIALS_SANCTIONS"));
+        this.buttonManager.register(new NoneLoader(this, ButtonKitPreview.class, "ZESSENTIALS_KIT_PREVIEW"));
+        this.buttonManager.register(new NoneLoader(this, ButtonMailBox.class, "ZESSENTIALS_MAILBOX"));
+        this.buttonManager.register(new NoneLoader(this, ButtonMailBoxAdmin.class, "ZESSENTIALS_MAILBOX_ADMIN"));
         this.buttonManager.register(new NoneLoader(this, ButtonVaultSlotDisable.class, "ZESSENTIALS_VAULT_SLOTS_DISABLE"));
         this.buttonManager.register(new NoneLoader(this, ButtonVaultSlotItems.class, "ZESSENTIALS_VAULT_SLOTS_ITEMS"));
         this.buttonManager.register(new NoneLoader(this, ButtonVaultIcon.class, "ZESSENTIALS_VAULT_CHANGE_ICON"));

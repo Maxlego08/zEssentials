@@ -70,6 +70,13 @@ public interface User {
     void sendTeleportRequest(User targetUser);
 
     /**
+     * Sends a teleport request to another user.
+     *
+     * @param targetUser The user to send the teleport request to.
+     */
+    void sendTeleportHereRequest(User targetUser);
+
+    /**
      * Cancels a teleport request sent to another user.
      *
      * @param targetUser The user to cancel the teleport request for.

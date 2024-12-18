@@ -173,6 +173,41 @@ public class ZUser extends ZUtils implements User {
     }
 
     @Override
+    public void sendTeleportHereRequest(User targetUser) {
+
+        if (targetUser == null || !targetUser.isOnline()) {
+            message(this, Message.COMMAND_TPA_HERE_ERROR_SAME);
+            return;
+        }
+
+        if (targetUser.getUniqueId().equals(this.uniqueId)) {
+            message(this, Message.COMMAND_TPA_HERE_ERROR_SAME);
+            return;
+        }
+
+        if (targetUser.isIgnore(this.uniqueId)) {
+            message(this, Message.COMMAND_TELEPORT_IGNORE_PLAYER, targetUser);
+            return;
+        }
+
+        this.teleports.entrySet().removeIf(next -> !next.getValue().isValid());
+
+        if (this.teleports.containsKey(targetUser.getUniqueId())) {
+            message(this, Message.COMMAND_TPA_HERE_ERROR, targetUser);
+            return;
+        }
+
+        TeleportationModule teleportationModule = this.plugin.getModuleManager().getModule(TeleportationModule.class);
+        long expired = System.currentTimeMillis() + (teleportationModule.getTeleportTpaExpire() * 1000L);
+        TeleportRequest teleportRequest = new ZTeleportHereRequest(this.plugin, targetUser, this, expired);
+        targetUser.setTeleportRequest(teleportRequest);
+        this.teleports.put(targetUser.getUniqueId(), teleportRequest);
+
+        message(this, Message.COMMAND_TPA_HERE_SENDER, targetUser);
+        message(targetUser, Message.COMMAND_TPA_HERE_RECEIVER, getPlayer());
+    }
+
+    @Override
     public void cancelTeleportRequest(User targetUser) {
 
         if (!this.teleports.containsKey(targetUser.getUniqueId())) {
