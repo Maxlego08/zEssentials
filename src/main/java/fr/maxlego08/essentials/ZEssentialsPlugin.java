@@ -80,6 +80,8 @@ import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.user.placeholders.EconomyBaltopPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.ReplacePlaceholders;
 import fr.maxlego08.essentials.user.placeholders.UserHomePlaceholders;
+import fr.maxlego08.essentials.user.placeholders.UserItems1_21Placeholders;
+import fr.maxlego08.essentials.user.placeholders.UserItemsPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.UserKitPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.UserPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.UserPlayTimePlaceholders;
@@ -102,6 +104,7 @@ import fr.maxlego08.menu.api.ButtonManager;
 import fr.maxlego08.menu.api.InventoryManager;
 import fr.maxlego08.menu.api.pattern.PatternManager;
 import fr.maxlego08.menu.button.loader.NoneLoader;
+import fr.maxlego08.menu.zcore.utils.nms.NmsVersion;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -212,6 +215,10 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
         this.registerListener(new PlayerListener(this));
         this.registerPlaceholder(UserPlaceholders.class);
+        this.registerPlaceholder(UserItemsPlaceholders.class);
+        if (NmsVersion.getCurrentVersion().getVersion() >= NmsVersion.V_1_21.getVersion()) {
+            this.registerPlaceholder(UserItems1_21Placeholders.class);
+        }
         this.registerPlaceholder(UserHomePlaceholders.class);
         this.registerPlaceholder(UserPlayTimePlaceholders.class);
         this.registerPlaceholder(UserKitPlaceholders.class);
