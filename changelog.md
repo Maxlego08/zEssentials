@@ -8,6 +8,27 @@
 - Fixed commands that could not be used from the console
 - Fixed docs files
 - Fixed warps inventory
+- `zessentials_iteminhand_amount%` Returns the amount of items in the main hand
+- `zessentials_iteminhand_custommodeldata%` Returns the custom model data of the item in hand
+- `zessentials_iteminhand_displayname%` Returns the display name of the item in hand
+- `zessentials_iteminhand_durability%` Returns the amount of durability left of the item in hand
+- `zessentials_iteminhand_enchantmentlevel_%` Returns the level of a specific enchantment on the item in hand
+- `zessentials_iteminhand_enchantments%` Returns the enchantments of the item in hand with their level
+- `zessentials_iteminhand_fire_resistant%` Returns true if the item in hand is fire resistant
+- `zessentials_iteminhand_glint%` Returns true if the item in hand has the glint enchantment
+- `zessentials_iteminhand_hasenchantment_%` Returns true if the item in hand has at least one enchantment
+- `zessentials_iteminhand_hasitemflag_%` Returns true if the item in hand has a specific itemflag
+- `zessentials_iteminhand_hide_tooltip%` Returns true if the item in hand has its tooltip hidden
+- `zessentials_iteminhand_hide_unbreakable%` Returns true if the tooltip unbreakable of the item in hand is hidden
+- `zessentials_iteminhand_itemflags%` Returns the itemflags of the item in hand
+- `zessentials_iteminhand_lore%` Returns the lore of the item in hand
+- `zessentials_iteminhand_maxdurability%` Returns the maximum durability of the item in hand
+- `zessentials_iteminhand_maxstacksize%` Returns the max stack size of the item in hand
+- `zessentials_iteminhand_rarity%` Returns the rarity of the item in hand
+- `zessentials_iteminhand_realname%` Returns the formatted material name of the item in hand
+- `zessentials_iteminhand_repaircost%` Returns the repair cost of the item in hand
+- `zessentials_iteminhand_type%` Returns the material name of the item in hand
+- `zessentials_iteminhand_unbreakable%` Returns true if the item in hand is unbreakable
 
 # 1.0.1.5
 
