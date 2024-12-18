@@ -27,7 +27,7 @@ public class CommandFly extends VCommand {
 
         Player player = this.argAsPlayer(0, this.player);
 
-        if (this.player == null) {
+        if (player == null) {
             return CommandResultType.SYNTAX_ERROR;
         }
 

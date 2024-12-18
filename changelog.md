@@ -3,6 +3,8 @@
 - Fix docs files
 - Added ``%zessentials_can_repair_all%`` placeholder, indicates whether the player can fix everything
 - Added ``%zessentials_count_repair_all%`` placeholder, counting the items to be repaired
+- Added ``/repairall [<player>]``
+- Fixed commands that could not be used from the console
 
 # 1.0.1.5
 
