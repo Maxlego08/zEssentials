@@ -1,5 +1,7 @@
 # Unreleased
 
+# 1.0.1.6
+
 - You are required to use java 21
 - Added ``%zessentials_can_repair_all%`` placeholder, indicates whether the player can fix everything
 - Added ``%zessentials_count_repair_all%`` placeholder, counting the items to be repaired
