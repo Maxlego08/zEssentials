@@ -11,6 +11,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventPriority;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.permissions.Permissible;
 
@@ -332,13 +334,28 @@ public abstract class ZUtils extends MessageUtils {
         return sb.toString();
     }
 
+    /**
+     * Generate a progress bar based on the given parameters.
+     *
+     * @param current           the current progress
+     * @param max               the maximum progress
+     * @param totalBars         the total number of bars to display
+     * @param symbol            the symbol to display for each bar
+     * @param completedColor    the color to use for completed bars
+     * @param notCompletedColor the color to use for non-completed bars
+     * @return the generated progress bar
+     */
     protected String getProgressBar(long current, long max, int totalBars, char symbol, String completedColor, String notCompletedColor) {
-
+        // if the current progress is greater than the maximum progress, set it to the maximum progress
         if (current > max) current = max;
 
+        // calculate the percentage
         float percent = (float) current / max;
+
+        // calculate the number of completed bars
         int progressBars = (int) (totalBars * percent);
 
+        // generate the progress bar
         return Strings.repeat(completedColor + symbol, progressBars) + Strings.repeat(notCompletedColor + symbol, totalBars - progressBars);
     }
 
@@ -353,7 +370,22 @@ public abstract class ZUtils extends MessageUtils {
             matcher = pattern.matcher(message);
         }
 
-        return message == null ? null : message.replace("§", "&");
+        return message.replace("§", "&");
+    }
+
+    protected int countRepairItems(Inventory inventory) {
+        int amount = 0;
+        for (ItemStack itemStack : inventory) {
+            if (itemStack != null && itemStack.hasItemMeta()) {
+                ItemMeta itemMeta = itemStack.getItemMeta();
+                if (itemMeta instanceof Damageable damageable) {
+                    if (damageable.hasDamage()) {
+                        amount++;
+                    }
+                }
+            }
+        }
+        return amount;
     }
 
 }

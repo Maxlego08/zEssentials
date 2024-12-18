@@ -1,11 +1,13 @@
 package fr.maxlego08.essentials.commands.commands.utils.admins;
 
+import com.google.common.collect.Lists;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 import org.bukkit.Location;
+import org.bukkit.Registry;
 import org.bukkit.entity.Cat;
 
 import java.util.Random;
@@ -26,8 +28,9 @@ public class CommandKittyCannon extends VCommand {
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
         Location location = player.getEyeLocation();
+        var cats = Lists.newArrayList(Registry.CAT_VARIANT);
         location.getWorld().spawn(location, Cat.class, cat -> {
-            cat.setCatType(Cat.Type.values()[random.nextInt(Cat.Type.values().length)]);
+            cat.setCatType(cats.get(random.nextInt(cats.size())));
             cat.setTamed(true);
             cat.setBaby();
             cat.setVelocity(location.getDirection().multiply(2));

@@ -9,6 +9,7 @@ import fr.maxlego08.sarah.DatabaseConnection;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class EconomyTransactionsRepository extends Repository {
 
@@ -29,6 +30,8 @@ public class EconomyTransactionsRepository extends Repository {
     }
 
     public List<EconomyTransactionDTO> selectTransactions(UUID toUuid, Economy economy) {
-        return this.select(EconomyTransactionDTO.class, table -> table.where("to_unique_id", toUuid).where("economy_name", economy.getName()));
+        return this.select(EconomyTransactionDTO.class, table -> table.where("to_unique_id", toUuid).where("economy_name", economy.getName())).stream().map(transactionDTO -> {
+            return new EconomyTransactionDTO(transactionDTO.from_unique_id(), transactionDTO.to_unique_id(), transactionDTO.economy_name(), transactionDTO.reason() == null ? "No reason" : transactionDTO.reason(), transactionDTO.amount(), transactionDTO.from_amount(), transactionDTO.to_amount(), transactionDTO.created_at(), transactionDTO.updated_at());
+        }).collect(Collectors.toList());
     }
 }

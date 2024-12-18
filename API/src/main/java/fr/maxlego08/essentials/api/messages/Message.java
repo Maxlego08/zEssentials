@@ -102,6 +102,18 @@ public enum Message {
     ),
     COMMAND_TPA_ACCEPT_RECEIVER("<success>You have just accepted the teleport request from #34cfe0%player%<success>."),
     COMMAND_TPA_ACCEPT_SENDER("#34cfe0%player%<success> has just accepted your teleport request."),
+
+    COMMAND_TPA_HERE_ERROR("<error>You have already sent a request to #34cfe0%player%<error>."),
+    COMMAND_TPA_HERE_ERROR_SAME("<error>You cannot teleport to yourself."),
+    COMMAND_TPA_HERE_SENDER("&7You have just sent a teleport request to #34cfe0%player%&7."),
+    COMMAND_TPA_HERE_RECEIVER(
+            "#34cfe0%player% &7request to teleport you to him.",
+            "&7You have <error>60 &6seconds&e to accept the teleport request.",
+            "&7To accept the request do #0EEA93/tpaccept&7."
+    ),
+    COMMAND_TPA_HERE_ACCEPT_RECEIVER("<success>You have just accepted the teleport request from #34cfe0%player%<success>."),
+    COMMAND_TPA_HERE_ACCEPT_SENDER("#34cfe0%player%<success> has just accepted your teleport request."),
+
     COMMAND_TELEPORT_IGNORE_PLAYER("<error>You cannot send a teleport request to #34cfe0%player%<error> they are ignoring you."),
     COMMAND_TELEPORT_WORLD("<error>You need to be in the same world to teleport."),
     COMMAND_TPA_ERROR_TO_LATE("<error>You do not have a teleport request."),
@@ -159,6 +171,7 @@ public enum Message {
     DESCRIPTION_BOTTOM("Teleporting to top"),
     DESCRIPTION_SPEED("Change player speed"),
     DESCRIPTION_TPA("Teleport to a player"),
+    DESCRIPTION_TPA_HERE("Teleport a player to your location"),
     DESCRIPTION_TP("Teleport to a player"),
     DESCRIPTION_TP_ALL("Teleport all player to your position"),
     DESCRIPTION_TP_RANDOM("Random Teleport in the world"),

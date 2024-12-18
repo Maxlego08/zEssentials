@@ -33,6 +33,11 @@ public class CommandWarp extends VCommand {
 
         if (warpName == null) {
 
+            if (warpModule.isEnableInventory()) {
+                plugin.getInventoryManager().openInventory(this.player, plugin, "warps");
+                return CommandResultType.DEFAULT;
+            }
+
             if (warpModule.isEnableNoArgumentMessage()) {
 
                 List<String> warps = plugin.getWarps().stream().filter(warp -> warp.hasPermission(sender)).map(warp -> getMessage(Message.COMMAND_WARP_DESTINATION, "%name%", warp.name())).toList();
@@ -45,11 +50,6 @@ public class CommandWarp extends VCommand {
                 message(sender, Message.COMMAND_WARP_USE, "%destinations%", Strings.join(warps, ','));
 
                 return CommandResultType.SUCCESS;
-            }
-
-            if (warpModule.isEnableInventory()) {
-                plugin.getInventoryManager().openInventory(this.player, plugin, "warps");
-                return CommandResultType.DEFAULT;
             }
 
             return CommandResultType.SYNTAX_ERROR;

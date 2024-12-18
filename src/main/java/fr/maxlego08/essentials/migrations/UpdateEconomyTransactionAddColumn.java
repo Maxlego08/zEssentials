@@ -6,6 +6,6 @@ import fr.maxlego08.sarah.database.Migration;
 public class UpdateEconomyTransactionAddColumn extends Migration {
     @Override
     public void up() {
-        SchemaBuilder.alter(this, "%prefix%economy_transactions", schema -> schema.longText("reason").defaultValue("`No reason`"));
+        SchemaBuilder.alter(this, "%prefix%economy_transactions", schema -> schema.longText("reason").nullable());
     }
 }

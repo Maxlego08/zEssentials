@@ -34,6 +34,7 @@ import fr.maxlego08.essentials.api.worldedit.WorldeditManager;
 import fr.maxlego08.essentials.buttons.ButtonHomes;
 import fr.maxlego08.essentials.buttons.ButtonPayConfirm;
 import fr.maxlego08.essentials.buttons.ButtonTeleportationConfirm;
+import fr.maxlego08.essentials.buttons.ButtonTeleportationConfirmHere;
 import fr.maxlego08.essentials.buttons.kit.ButtonKitPreview;
 import fr.maxlego08.essentials.buttons.mail.ButtonMailBox;
 import fr.maxlego08.essentials.buttons.mail.ButtonMailBoxAdmin;
@@ -78,7 +79,10 @@ import fr.maxlego08.essentials.task.FlyTask;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.user.placeholders.EconomyBaltopPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.ReplacePlaceholders;
+import fr.maxlego08.essentials.user.placeholders.ServerPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.UserHomePlaceholders;
+import fr.maxlego08.essentials.user.placeholders.UserItems1_21Placeholders;
+import fr.maxlego08.essentials.user.placeholders.UserItemsPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.UserKitPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.UserPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.UserPlayTimePlaceholders;
@@ -101,6 +105,7 @@ import fr.maxlego08.menu.api.ButtonManager;
 import fr.maxlego08.menu.api.InventoryManager;
 import fr.maxlego08.menu.api.pattern.PatternManager;
 import fr.maxlego08.menu.button.loader.NoneLoader;
+import fr.maxlego08.menu.zcore.utils.nms.NmsVersion;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -142,10 +147,12 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     private ScoreboardManager scoreboardManager;
     private HologramManager hologramManager;
     private InteractiveChatHelper interactiveChatHelper;
+    private long serverStartUptime;
 
     @Override
     public void onEnable() {
 
+        this.serverStartUptime = System.currentTimeMillis();
         this.saveDefaultConfig();
         this.saveOrUpdateConfiguration("config.yml", true);
         this.enchantments.register();
@@ -211,12 +218,17 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
         this.registerListener(new PlayerListener(this));
         this.registerPlaceholder(UserPlaceholders.class);
+        this.registerPlaceholder(UserItemsPlaceholders.class);
+        if (NmsVersion.getCurrentVersion().getVersion() >= NmsVersion.V_1_21.getVersion()) {
+            this.registerPlaceholder(UserItems1_21Placeholders.class);
+        }
         this.registerPlaceholder(UserHomePlaceholders.class);
         this.registerPlaceholder(UserPlayTimePlaceholders.class);
         this.registerPlaceholder(UserKitPlaceholders.class);
         this.registerPlaceholder(ReplacePlaceholders.class);
         this.registerPlaceholder(EconomyBaltopPlaceholders.class);
         this.registerPlaceholder(VotePlaceholders.class);
+        this.registerPlaceholder(ServerPlaceholders.class);
 
         new Metrics(this, 21703);
         new VersionChecker(this, 325);
@@ -269,14 +281,15 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
     private void registerButtons() {
 
-        this.buttonManager.register(new NoneLoader(this, ButtonTeleportationConfirm.class, "zessentials_teleportation_confirm"));
-        this.buttonManager.register(new NoneLoader(this, ButtonPayConfirm.class, "zessentials_pay_confirm"));
-        this.buttonManager.register(new NoneLoader(this, ButtonHomes.class, "zessentials_homes"));
-        this.buttonManager.register(new NoneLoader(this, ButtonSanctionInformation.class, "zessentials_sanction_information"));
-        this.buttonManager.register(new NoneLoader(this, ButtonSanctions.class, "zessentials_sanctions"));
-        this.buttonManager.register(new NoneLoader(this, ButtonKitPreview.class, "zessentials_kit_preview"));
-        this.buttonManager.register(new NoneLoader(this, ButtonMailBox.class, "zessentials_mailbox"));
-        this.buttonManager.register(new NoneLoader(this, ButtonMailBoxAdmin.class, "zessentials_mailbox_admin"));
+        this.buttonManager.register(new NoneLoader(this, ButtonTeleportationConfirmHere.class, "ZESSENTIALS_TELEPORTATION_CONFIRM_HERE"));
+        this.buttonManager.register(new NoneLoader(this, ButtonTeleportationConfirm.class, "ZESSENTIALS_TELEPORTATION_CONFIRM"));
+        this.buttonManager.register(new NoneLoader(this, ButtonPayConfirm.class, "ZESSENTIALS_PAY_CONFIRM"));
+        this.buttonManager.register(new NoneLoader(this, ButtonHomes.class, "ZESSENTIALS_HOMES"));
+        this.buttonManager.register(new NoneLoader(this, ButtonSanctionInformation.class, "ZESSENTIALS_SANCTION_INFORMATION"));
+        this.buttonManager.register(new NoneLoader(this, ButtonSanctions.class, "ZESSENTIALS_SANCTIONS"));
+        this.buttonManager.register(new NoneLoader(this, ButtonKitPreview.class, "ZESSENTIALS_KIT_PREVIEW"));
+        this.buttonManager.register(new NoneLoader(this, ButtonMailBox.class, "ZESSENTIALS_MAILBOX"));
+        this.buttonManager.register(new NoneLoader(this, ButtonMailBoxAdmin.class, "ZESSENTIALS_MAILBOX_ADMIN"));
         this.buttonManager.register(new NoneLoader(this, ButtonVaultSlotDisable.class, "ZESSENTIALS_VAULT_SLOTS_DISABLE"));
         this.buttonManager.register(new NoneLoader(this, ButtonVaultSlotItems.class, "ZESSENTIALS_VAULT_SLOTS_ITEMS"));
         this.buttonManager.register(new NoneLoader(this, ButtonVaultIcon.class, "ZESSENTIALS_VAULT_CHANGE_ICON"));
@@ -383,9 +396,12 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         PlaceholderMarkdownGenerator placeholderMarkdownGenerator = new PlaceholderMarkdownGenerator();
         PermissionMarkdownGenerator permissionMarkdownGenerator = new PermissionMarkdownGenerator();
 
-        File fileCommand = new File(getDataFolder(), "docs/commands.md");
-        File filePlaceholder = new File(getDataFolder(), "docs/placeholders.md");
-        File filePermissions = new File(getDataFolder(), "docs/permissions.md");
+        File folder = new File(getDataFolder(), "docs");
+        if (!folder.exists()) folder.mkdirs();
+
+        File fileCommand = new File(folder, "commands.md");
+        File filePlaceholder = new File(folder, "placeholders.md");
+        File filePermissions = new File(folder, "permissions.md");
 
         try {
             commandMarkdownGenerator.generateMarkdownFile(this.commandManager.getSortCommands(), fileCommand.toPath());
@@ -662,5 +678,10 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     @Override
     public Enchantments getEnchantments() {
         return this.enchantments;
+    }
+
+    @Override
+    public long getServerStartupTime() {
+        return serverStartUptime;
     }
 }

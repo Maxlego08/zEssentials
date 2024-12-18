@@ -27,6 +27,7 @@ public class TeleportationModule extends ZModule {
     private int teleportTpaExpire;
     private boolean teleportDelayBypass;
     private boolean openConfirmInventoryForTpa;
+    private boolean openConfirmInventoryForTpaHere;
     private int maxRtpAttempts;
     private int rtpCenterX;
     private int rtpCenterZ;
@@ -44,6 +45,7 @@ public class TeleportationModule extends ZModule {
         super.loadConfiguration();
 
         this.loadInventory("confirm_request_inventory");
+        this.loadInventory("confirm_request_here_inventory");
     }
 
     public boolean isTeleportSafety() {
@@ -74,12 +76,20 @@ public class TeleportationModule extends ZModule {
         return openConfirmInventoryForTpa;
     }
 
+    public boolean isOpenConfirmInventoryForTpaHere() {
+        return openConfirmInventoryForTpaHere;
+    }
+
     public int getTeleportationDelay(Player player) {
         return this.teleportDelayPermissions.stream().filter(teleportPermission -> player.hasPermission(teleportPermission.permission)).mapToInt(TeleportPermission::delay).min().orElse(this.teleportDelay);
     }
 
     public void openConfirmInventory(Player player) {
         this.plugin.getInventoryManager().openInventory(player, this.plugin, "confirm_request_inventory");
+    }
+
+    public void openConfirmHereInventory(Player player) {
+        this.plugin.getInventoryManager().openInventory(player, this.plugin, "confirm_request_here_inventory");
     }
 
     public void randomTeleport(Player player) {

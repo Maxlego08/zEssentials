@@ -1,5 +1,52 @@
 # Unreleased
 
+# 1.0.1.6
+
+- You are required to use java 21
+- Added ``%zessentials_can_repair_all%`` placeholder, indicates whether the player can fix everything
+- Added ``%zessentials_count_repair_all%`` placeholder, counting the items to be repaired
+- Added ``/repairall [<player>]``
+- Added ``/tpahere <player>`` [#103](https://github.com/Maxlego08/zEssentials/issues/103)
+- Fixed commands that could not be used from the console
+- Fixed docs files
+- Fixed warps inventory
+- `zessentials_iteminhand_amount%` Returns the amount of items in the main hand
+- `zessentials_iteminhand_custommodeldata%` Returns the custom model data of the item in hand
+- `zessentials_iteminhand_displayname%` Returns the display name of the item in hand
+- `zessentials_iteminhand_durability%` Returns the amount of durability left of the item in hand
+- `zessentials_iteminhand_enchantmentlevel_%` Returns the level of a specific enchantment on the item in hand
+- `zessentials_iteminhand_enchantments%` Returns the enchantments of the item in hand with their level
+- `zessentials_iteminhand_fire_resistant%` Returns true if the item in hand is fire resistant
+- `zessentials_iteminhand_glint%` Returns true if the item in hand has the glint enchantment
+- `zessentials_iteminhand_hasenchantment_%` Returns true if the item in hand has at least one enchantment
+- `zessentials_iteminhand_hasitemflag_%` Returns true if the item in hand has a specific itemflag
+- `zessentials_iteminhand_hide_tooltip%` Returns true if the item in hand has its tooltip hidden
+- `zessentials_iteminhand_hide_unbreakable%` Returns true if the tooltip unbreakable of the item in hand is hidden
+- `zessentials_iteminhand_itemflags%` Returns the itemflags of the item in hand
+- `zessentials_iteminhand_lore%` Returns the lore of the item in hand
+- `zessentials_iteminhand_maxdurability%` Returns the maximum durability of the item in hand
+- `zessentials_iteminhand_maxstacksize%` Returns the max stack size of the item in hand
+- `zessentials_iteminhand_rarity%` Returns the rarity of the item in hand
+- `zessentials_iteminhand_realname%` Returns the formatted material name of the item in hand
+- `zessentials_iteminhand_repaircost%` Returns the repair cost of the item in hand
+- `zessentials_iteminhand_type%` Returns the material name of the item in hand
+- `zessentials_iteminhand_unbreakable%` Returns true if the item in hand is unbreakable
+- `%zessentials_user_world%` Returns the name of the world the player is currently in 
+- `%zessentials_user_x%` Returns the x coordinate of the player 
+- `%zessentials_user_y%` Returns the y coordinate of the player 
+- `%zessentials_user_z%` Returns the z coordinate of the player 
+- `%zessentials_user_biome%` Returns the biome of the player 
+- `%zessentials_user_block_x%` Returns the block x coordinate of the player 
+- `%zessentials_user_block_y%` Returns the block y coordinate of the player 
+- `%zessentials_user_block_z%` Returns the block z coordinate of the player 
+- `%zessentials_server_name%` Returns the server name 
+- `%zessentials_server_uptime%` Returns the server update in format day, hour, minutes and seconds 
+- `%zessentials_server_uptime_in_second%` Returns the server update in second 
+- `%zessentials_last_random_number_<player name>%` Returns the last random number generated for the player within the last hour 
+- `%zessentials_last_random_player%` Returns the last random player name online 
+- `%zessentials_random_number_<from>_<to>%` Returns a random number between the two given arguments 
+- `%zessentials_random_player%` Returns a random player name online 
+
 # 1.0.1.5
 
 - Added ``/clearinventory [<player>]`` [#101](https://github.com/Maxlego08/zEssentials/issues/124)

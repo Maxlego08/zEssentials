@@ -151,5 +151,20 @@ public class UserPlaceholders extends ZUtils implements PlaceholderRegister {
             User user = iStorage.getUser(player.getUniqueId());
             return String.valueOf(user.getFlySeconds());
         }, "Returns the number of seconds for temporary fly");
+
+        // Repair all
+        placeholder.register("can_repair_all", (player) -> {
+            return countRepairItems(player.getInventory()) > 0 ? "true" : "false";
+        }, "Returns true if the player can repair all of their items");
+
+        placeholder.register("count_repair_all", (player) -> String.valueOf(countRepairItems(player.getInventory())), "Returns the number of items that the player can repair");
+        placeholder.register("user_world", (player) -> player.getWorld().getName(), "Returns the name of the world the player is currently in");
+        placeholder.register("user_x", (player) -> String.valueOf(player.getLocation().getX()), "Returns the x coordinate of the player");
+        placeholder.register("user_y", (player) -> String.valueOf(player.getLocation().getY()), "Returns the y coordinate of the player");
+        placeholder.register("user_z", (player) -> String.valueOf(player.getLocation().getZ()), "Returns the z coordinate of the player");
+        placeholder.register("user_block_x", (player) -> String.valueOf(player.getLocation().getBlockX()), "Returns the block x coordinate of the player");
+        placeholder.register("user_block_y", (player) -> String.valueOf(player.getLocation().getBlockY()), "Returns the block y coordinate of the player");
+        placeholder.register("user_block_z", (player) -> String.valueOf(player.getLocation().getBlockZ()), "Returns the block z coordinate of the player");
+        placeholder.register("user_biome", (player) -> player.getWorld().getBiome(player.getLocation()).name(), "Returns the biome of the player");
     }
 }

@@ -57,6 +57,7 @@ import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportDeny;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportHere;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportRandom;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportTo;
+import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportToHere;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportWorld;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTop;
 import fr.maxlego08.essentials.commands.commands.utils.CommandCompact;
@@ -172,6 +173,7 @@ public class CommandLoader {
         register("tpall", CommandTeleportAll.class);
         register("tphere", CommandTeleportHere.class, "s");
         register("tpa", CommandTeleportTo.class);
+        register("tpahere", CommandTeleportToHere.class);
         register("tpaccept", CommandTeleportAccept.class, "tpyes");
         register("tpdeny", CommandTeleportDeny.class, "tpno");
         register("tpacancel", CommandTeleportCancel.class);

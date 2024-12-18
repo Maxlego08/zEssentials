@@ -362,4 +362,6 @@ public interface EssentialsPlugin extends Plugin {
      * @return an {@link Optional} containing the instance if successful, or empty if not
      */
     <T> Optional<T> createInstance(String className, boolean displayLog);
+
+    long getServerStartupTime();
 }
