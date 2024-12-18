@@ -151,5 +151,12 @@ public class UserPlaceholders extends ZUtils implements PlaceholderRegister {
             User user = iStorage.getUser(player.getUniqueId());
             return String.valueOf(user.getFlySeconds());
         }, "Returns the number of seconds for temporary fly");
+
+        // Repair all
+        placeholder.register("can_repair_all", (player) -> {
+            return countRepairItems(player.getInventory()) > 0 ? "true" : "false";
+        }, "Returns true if the player can repair all of their items");
+
+        placeholder.register("count_repair_all", (player) -> String.valueOf(countRepairItems(player.getInventory())), "Returns the number of items that the player can repair");
     }
 }
