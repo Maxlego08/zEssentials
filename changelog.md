@@ -29,6 +29,21 @@
 - `zessentials_iteminhand_repaircost%` Returns the repair cost of the item in hand
 - `zessentials_iteminhand_type%` Returns the material name of the item in hand
 - `zessentials_iteminhand_unbreakable%` Returns true if the item in hand is unbreakable
+- `%zessentials_user_world%` Returns the name of the world the player is currently in 
+- `%zessentials_user_x%` Returns the x coordinate of the player 
+- `%zessentials_user_y%` Returns the y coordinate of the player 
+- `%zessentials_user_z%` Returns the z coordinate of the player 
+- `%zessentials_user_biome%` Returns the biome of the player 
+- `%zessentials_user_block_x%` Returns the block x coordinate of the player 
+- `%zessentials_user_block_y%` Returns the block y coordinate of the player 
+- `%zessentials_user_block_z%` Returns the block z coordinate of the player 
+- `%zessentials_server_name%` Returns the server name 
+- `%zessentials_server_uptime%` Returns the server update in format day, hour, minutes and seconds 
+- `%zessentials_server_uptime_in_second%` Returns the server update in second 
+- `%zessentials_last_random_number_<player name>%` Returns the last random number generated for the player within the last hour 
+- `%zessentials_last_random_player%` Returns the last random player name online 
+- `%zessentials_random_number_<from>_<to>%` Returns a random number between the two given arguments 
+- `%zessentials_random_player%` Returns a random player name online 
 
 # 1.0.1.5
 

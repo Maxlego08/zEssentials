@@ -79,6 +79,7 @@ import fr.maxlego08.essentials.task.FlyTask;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.user.placeholders.EconomyBaltopPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.ReplacePlaceholders;
+import fr.maxlego08.essentials.user.placeholders.ServerPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.UserHomePlaceholders;
 import fr.maxlego08.essentials.user.placeholders.UserItems1_21Placeholders;
 import fr.maxlego08.essentials.user.placeholders.UserItemsPlaceholders;
@@ -146,10 +147,12 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     private ScoreboardManager scoreboardManager;
     private HologramManager hologramManager;
     private InteractiveChatHelper interactiveChatHelper;
+    private long serverStartUptime;
 
     @Override
     public void onEnable() {
 
+        this.serverStartUptime = System.currentTimeMillis();
         this.saveDefaultConfig();
         this.saveOrUpdateConfiguration("config.yml", true);
         this.enchantments.register();
@@ -225,6 +228,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.registerPlaceholder(ReplacePlaceholders.class);
         this.registerPlaceholder(EconomyBaltopPlaceholders.class);
         this.registerPlaceholder(VotePlaceholders.class);
+        this.registerPlaceholder(ServerPlaceholders.class);
 
         new Metrics(this, 21703);
         new VersionChecker(this, 325);
@@ -674,5 +678,10 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     @Override
     public Enchantments getEnchantments() {
         return this.enchantments;
+    }
+
+    @Override
+    public long getServerStartupTime() {
+        return serverStartUptime;
     }
 }
