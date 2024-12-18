@@ -1,11 +1,12 @@
 # Unreleased
 
-- Fix docs files
 - Added ``%zessentials_can_repair_all%`` placeholder, indicates whether the player can fix everything
 - Added ``%zessentials_count_repair_all%`` placeholder, counting the items to be repaired
 - Added ``/repairall [<player>]``
+- Added ``/tpahere <player>`` [#103](https://github.com/Maxlego08/zEssentials/issues/103)
 - Fixed commands that could not be used from the console
-- Added ``/tpahere <player>``
+- Fixed docs files
+- Fixed warps inventory
 
 # 1.0.1.5
 
