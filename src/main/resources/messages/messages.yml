@@ -240,6 +240,7 @@ first-join-motd:
 # Spawn
 command-set-spawn: "&fYou just set the spawn location."
 command-spawn-not-define: "<error>The spawn does not exist. Please contact an administrator."
+command-spawn-location-invalid: "<error>The spawn is invalid, please contact an administrator"
 
 
 # Command description

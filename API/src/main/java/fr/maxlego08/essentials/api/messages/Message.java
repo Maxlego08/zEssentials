@@ -420,6 +420,7 @@ public enum Message {
 
     COMMAND_SET_SPAWN("&fYou just set the spawn location."),
     COMMAND_SPAWN_NOT_DEFINE("<error>The spawn does not exist. Please contact an administrator."),
+    COMMAND_SPAWN_LOCATION_INVALID("<error>The spawn is invalid, please contact an administrator"),
 
     COMMAND_WARP_ALREADY_EXIST("<error>Warp &f%name% <error>already exists. &7Use &n<hover:show_text:'&fUse this command'><click:suggest_command:'/setwarp %name% true'>/setwarp %name% true</click></hover>&r command to modify the warp"),
     COMMAND_WARP_DOESNT_EXIST("<error>Warp &f%name% <error> does not exist."),

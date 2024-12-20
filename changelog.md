@@ -1,5 +1,7 @@
 # Unreleased
 
+- Fixed error if spawn world is not found
+
 # 1.0.1.6
 
 - You are required to use java 21

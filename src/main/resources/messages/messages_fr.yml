@@ -224,7 +224,7 @@ command-back-error: "<error>Vous n'avez pas de dernier emplacement. Impossible d
 command-random-tp-error: "<error>Aucun emplacement sûr trouvé après plusieurs tentatives, veuillez réessayer."
 command-set-spawn: "&fVous venez de définir l'emplacement de spawn."
 command-spawn-not-define: "<error>Le spawn n'est pas défini. Veuillez contacter un administrateur."
-
+command-spawn-location-invalid: "<error>Le spawn est invalide, veuillez contacter un administrateur."
 
 # Première connexion
 join-message: "#99E0FF%player% &7a rejoint la partie."

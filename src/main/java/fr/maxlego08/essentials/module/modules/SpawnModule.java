@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.module.modules;
 
 import fr.maxlego08.essentials.ZEssentialsPlugin;
+import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.essentials.storage.ConfigStorage;
@@ -16,8 +17,8 @@ import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
 public class SpawnModule extends ZModule {
 
-    private String respawnListenerPriority = "normal";
-    private String spawnJoinListenerPriority = "normal";
+    private final String respawnListenerPriority = "normal";
+    private final String spawnJoinListenerPriority = "normal";
     private boolean respawnAtAnchor;
     private boolean respawnAtHome;
     private boolean respawnAtBed;
@@ -77,8 +78,16 @@ public class SpawnModule extends ZModule {
             // ToDo
         }
 
-        if (ConfigStorage.spawnLocation != null) {
-            player.setRespawnLocation(ConfigStorage.spawnLocation, true);
+        if (ConfigStorage.spawnLocation != null && ConfigStorage.spawnLocation.getWorld() != null) {
+            try {
+                if (ConfigStorage.spawnLocation.getWorld() != null) {
+                    player.setRespawnLocation(ConfigStorage.spawnLocation, true);
+                } else {
+                    message(player, Message.COMMAND_SPAWN_LOCATION_INVALID, "%location%", ConfigStorage.spawnLocation);
+                }
+            } catch (Exception ignored) {
+                message(player, Message.COMMAND_SPAWN_LOCATION_INVALID, "%location%", ConfigStorage.spawnLocation);
+            }
         }
     }
 
