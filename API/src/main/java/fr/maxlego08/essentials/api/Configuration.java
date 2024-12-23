@@ -180,4 +180,6 @@ public interface Configuration extends ConfigurationFile {
     boolean isTempFlyTask();
 
     List<String> getDisableFlyWorld();
+
+    List<String> getRandomWords();
 }

@@ -17,6 +17,7 @@ import fr.maxlego08.essentials.api.storage.ServerStorage;
 import fr.maxlego08.essentials.api.storage.StorageManager;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.EssentialsUtils;
+import fr.maxlego08.essentials.api.utils.RandomWord;
 import fr.maxlego08.essentials.api.utils.Warp;
 import fr.maxlego08.essentials.api.utils.component.ComponentMessage;
 import fr.maxlego08.essentials.api.vault.VaultManager;
@@ -364,4 +365,6 @@ public interface EssentialsPlugin extends Plugin {
     <T> Optional<T> createInstance(String className, boolean displayLog);
 
     long getServerStartupTime();
+
+    RandomWord getRandomWord();
 }

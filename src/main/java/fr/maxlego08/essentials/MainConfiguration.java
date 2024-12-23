@@ -53,6 +53,7 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     private double nearDistance;
     private SimpleDateFormat simpleDateFormat;
     private List<ReplacePlaceholder> replacePlaceholders = new ArrayList<>();
+    private List<String> randomWords;
 
     public MainConfiguration(ZEssentialsPlugin plugin) {
         this.plugin = plugin;
@@ -241,5 +242,10 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     @Override
     public List<String> getDisableFlyWorld() {
         return disableFlyWorld;
+    }
+
+    @Override
+    public List<String> getRandomWords() {
+        return randomWords;
     }
 }

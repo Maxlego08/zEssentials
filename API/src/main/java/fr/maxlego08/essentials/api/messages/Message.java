@@ -147,6 +147,7 @@ public enum Message {
     COMMAND_PLAYER_TIME_RESET("&7You just changed the time to that of the server."),
     COMMAND_PLAYER_TIME_CHANGE("&7You’re here to change your time."),
 
+    DESCRIPTION_CLEAR_RANDOM_WORD("Clear random words"),
     DESCRIPTION_RELOAD("Reload configuration files"),
     DESCRIPTION_DELETE_WORLD("Removes data being linked to a world"),
     DESCRIPTION_GAMEMODE("Change player gamemode"),
@@ -844,7 +845,7 @@ public enum Message {
     DESCRIPTION_EXPERIENCE_QUERY("Query player experience"),
     DESCRIPTION_EXPERIENCE_SET("Set player experience"),
     DESCRIPTION_EXPERIENCE_GRANT("Grant experience to player"),
-    ;
+    RANDOM_WORD_CLEAR("<success>The random word has been cleared."),;
 
     private EssentialsPlugin plugin;
     private List<EssentialsMessage> messages = new ArrayList<>();
