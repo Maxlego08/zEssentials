@@ -1,0 +1,39 @@
+bot-token: "DISCORD-TOKEN"
+
+guild-id: 0
+
+database-configuration:
+  # The prefix that will be applied to all tables, if you have several plugins with the same database you must have one.
+  # It is advisable not to change this value
+  tablePrefix: "zessentials_"
+  # IP Address of the machine the database is hosted on
+  host: 192.168.10.10
+  # Port of the database, by default, MYSQL's port is 3306
+  port: 3306
+  # Database username
+  user: homestead
+  # Database password
+  password: 'secret'
+  # Database
+  database: zessentials
+  # Enable of not the sql debug mode
+  debug: false
+
+link:
+  enable: true
+
+  button:
+    name: "Click to link your minecraft account"
+    style: SUCCESS
+
+  embed:
+    title:
+      title: "Zessentials"
+      # url: "https://zessentials.net"
+    description: "Check out our website at: https://zessentials.net"
+
+    color:
+      r: 10
+      g: 150
+      b: 10
+      # alpha: 0
