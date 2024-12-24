@@ -93,8 +93,8 @@ public abstract class VCommand extends Arguments {
             return perform(discordBot);
         } catch (Exception exception) {
             if (this.DEBUG) {
-                System.out.println("Commands: " + this);
-                System.out.println("Error:");
+                System.err.println("Commands: " + this);
+                System.err.println("Error:");
                 exception.printStackTrace();
             }
             return CommandResultType.SYNTAX_ERROR;

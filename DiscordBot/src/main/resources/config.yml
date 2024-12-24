@@ -29,11 +29,38 @@ link:
   embed:
     title:
       title: "Zessentials"
-      # url: "https://zessentials.net"
+      url: "https://zessentials.net" # Ajout de l'URL au titre
+
     description: "Check out our website at: https://zessentials.net"
 
     color:
       r: 10
       g: 150
       b: 10
-      # alpha: 0
+      alpha: 255 # Valeur maximale pour l'alpha (optionnel)
+
+    footer:
+      text: "Footer text here"
+      iconUrl: "https://example.com/footer-icon.png" # Optionnel
+
+    thumbnail:
+      url: "https://example.com/thumbnail.png"
+
+    image:
+      url: "https://example.com/image.png"
+
+    author:
+      name: "Author Name"
+      url: "https://authorwebsite.net" # Optionnel
+      iconUrl: "https://example.com/author-icon.png"
+
+    fields:
+      - name: "Field 1"
+        value: "Value for field 1"
+        inline: true # True pour aligner les champs sur la même ligne
+      - name: "Field 2"
+        value: "Value for field 2"
+        inline: true
+      - name: "Field 3"
+        value: "Value for field 3"
+        inline: false # False pour placer le champ sur une nouvelle ligne

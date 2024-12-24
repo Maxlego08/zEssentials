@@ -21,7 +21,6 @@ public class DiscordBot {
     private final CommandManager commandManager;
     private final StorageManager storageManager;
     private final LinkManager linkManager;
-    private boolean isRunning = true;
     private Scanner scanner;
 
     private DiscordBot() {
@@ -80,7 +79,6 @@ public class DiscordBot {
     }
 
     public void forceShutdown() {
-        this.isRunning = false;
         this.scanner.close();
         this.jda.shutdown();
         System.out.println("Bot disconnected.");
@@ -100,5 +98,12 @@ public class DiscordBot {
 
     public LinkManager getLinkManager() {
         return linkManager;
+    }
+
+    public void reload() {
+
+        this.configurationManager.loadOrCreateConfig();
+        this.configuration.loadConfiguration(configurationManager.getConfig());
+
     }
 }

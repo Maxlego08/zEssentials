@@ -18,9 +18,12 @@ import org.bukkit.permissions.Permissible;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -206,16 +209,27 @@ public abstract class ZUtils extends MessageUtils {
 
                 if (value != null) {
                     try {
-                        if (paramType.isArray()) {
-                            Class<?> componentType = paramType.getComponentType();
-                            List<?> list = (List<?>) value;
-                            Object array = Array.newInstance(componentType, list.size());
-                            for (int j = 0; j < list.size(); j++) {
-                                Object element = list.get(j);
-                                element = convertToRequiredType(logger, element, componentType);
-                                Array.set(array, j, element);
+                        if (value instanceof Map<?, ?> newMap) {
+                            value = createInstanceFromMap(logger, paramType.getConstructors()[0], newMap);
+                        } else if (value instanceof List<?> list && paramType.isAssignableFrom(List.class)) {
+                            Type genericType = parameters[i].getParameterizedType();
+
+                            if (genericType instanceof ParameterizedType parameterizedType) {
+                                Class<?> componentType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
+
+                                List<Object> convertedList = new ArrayList<>();
+                                for (Object element : list) {
+                                    if (element instanceof Map<?, ?> mapElement) {
+                                        element = createInstanceFromMap(logger, componentType.getConstructors()[0], mapElement);
+                                    } else {
+                                        element = convertToRequiredType(logger, element, componentType);
+                                    }
+                                    convertedList.add(element);
+                                }
+                                value = convertedList;
+                            } else {
+                                throw new RuntimeException("Cannot determine component type of " + paramType.getName());
                             }
-                            value = array;
                         } else {
                             value = convertToRequiredType(logger, value, paramType);
                         }
@@ -237,6 +251,17 @@ public abstract class ZUtils extends MessageUtils {
 
     protected Object convertToRequiredType(Logger logger, Object value, Class<?> type) {
         if (value == null) {
+            if (type == Integer.class || type == int.class) {
+                return 0;
+            } else if (type == Double.class || type == double.class) {
+                return 0.0;
+            } else if (type == Long.class || type == long.class) {
+                return 0L;
+            } else if (type == Float.class || type == float.class) {
+                return 0f;
+            } else if (type == Boolean.class || type == boolean.class) {
+                return false;
+            }
             return null;
         } else if (type.isEnum()) {
             try {
