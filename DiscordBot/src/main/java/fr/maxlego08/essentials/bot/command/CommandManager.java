@@ -14,7 +14,7 @@ import java.util.List;
 public class CommandManager {
 
     private final DiscordBot instance;
-    private final List<VCommand> commands = new ArrayList<VCommand>();
+    private final List<VCommand> commands = new ArrayList<>();
 
     public CommandManager(DiscordBot instance) {
         super();

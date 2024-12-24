@@ -118,6 +118,8 @@ public abstract class ConfigurationUtils {
                         System.err.printf("Error converting value '%s' for parameter '%s' to type '%s'%n", value, paramName, paramType.getName());
                         exception.printStackTrace();
                     }
+                } else {
+                    value = convertToRequiredType(value, paramType);
                 }
 
                 arguments[i] = value;

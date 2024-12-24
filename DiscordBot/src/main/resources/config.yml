@@ -21,39 +21,34 @@ database-configuration:
 
 link:
   enable: true
-
+  replyMessage: "Use the command `/link %code%` to link your account."
   button:
     name: "Click to link your minecraft account"
     style: SUCCESS
+    disabled: false
+    # emoji: "U+2795"
 
   embed:
     title:
       title: "Zessentials"
       url: "https://zessentials.net" # Ajout de l'URL au titre
-
     description: "Check out our website at: https://zessentials.net"
-
     color:
       r: 10
       g: 150
       b: 10
       alpha: 255 # Valeur maximale pour l'alpha (optionnel)
-
     footer:
       text: "Footer text here"
       iconUrl: "https://example.com/footer-icon.png" # Optionnel
-
     thumbnail:
       url: "https://example.com/thumbnail.png"
-
     image:
       url: "https://example.com/image.png"
-
     author:
       name: "Author Name"
       url: "https://authorwebsite.net" # Optionnel
       iconUrl: "https://example.com/author-icon.png"
-
     fields:
       - name: "Field 1"
         value: "Value for field 1"

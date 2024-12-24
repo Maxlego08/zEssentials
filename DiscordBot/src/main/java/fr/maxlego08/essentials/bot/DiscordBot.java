@@ -38,15 +38,16 @@ public class DiscordBot {
                 .enableIntents(GatewayIntent.GUILD_MESSAGE_TYPING)
                 .enableIntents(GatewayIntent.MESSAGE_CONTENT)
                 .setMemberCachePolicy(MemberCachePolicy.ALL)
-                .addEventListeners(new CommandListener(this));
-        this.jda = builder.build();
+                .addEventListeners(new CommandListener(this))
+                .addEventListeners(this.linkManager = new LinkManager(this));
 
         this.commandManager = new CommandManager(this);
 
         this.storageManager = new StorageManager();
         this.storageManager.connect(this.configuration);
 
-        this.linkManager = new LinkManager(this);
+        this.jda = builder.build();
+        this.linkManager.loadCodes();
 
         this.shutdown();
     }
