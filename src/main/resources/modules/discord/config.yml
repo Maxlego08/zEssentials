@@ -53,3 +53,5 @@ first-join-message:
         name: "%player% just logged in for the first time"
         icon-url: "https://mc-heads.net/head/%uuid%"
       color: "#44ff44" # Sets the color of the embed
+
+enable-link-account: false

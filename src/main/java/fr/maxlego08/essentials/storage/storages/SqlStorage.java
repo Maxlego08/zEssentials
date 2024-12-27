@@ -1,9 +1,12 @@
 package fr.maxlego08.essentials.storage.storages;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.discord.DiscordAction;
 import fr.maxlego08.essentials.api.dto.ChatMessageDTO;
 import fr.maxlego08.essentials.api.dto.CommandDTO;
 import fr.maxlego08.essentials.api.dto.CooldownDTO;
+import fr.maxlego08.essentials.api.dto.DiscordAccountDTO;
+import fr.maxlego08.essentials.api.dto.DiscordCodeDTO;
 import fr.maxlego08.essentials.api.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.dto.EconomyTransactionDTO;
 import fr.maxlego08.essentials.api.dto.MailBoxDTO;
@@ -33,6 +36,9 @@ import fr.maxlego08.essentials.api.vault.Vault;
 import fr.maxlego08.essentials.migrations.CreateChatMessageMigration;
 import fr.maxlego08.essentials.migrations.CreateCommandsMigration;
 import fr.maxlego08.essentials.migrations.CreateEconomyTransactionMigration;
+import fr.maxlego08.essentials.migrations.CreateLinkAccountMigration;
+import fr.maxlego08.essentials.migrations.CreateLinkCodeMigrations;
+import fr.maxlego08.essentials.migrations.CreateLinkHistoryMigration;
 import fr.maxlego08.essentials.migrations.CreatePlayerSlots;
 import fr.maxlego08.essentials.migrations.CreatePlayerVault;
 import fr.maxlego08.essentials.migrations.CreatePlayerVaultItem;
@@ -57,6 +63,9 @@ import fr.maxlego08.essentials.storage.database.Repository;
 import fr.maxlego08.essentials.storage.database.repositeries.ChatMessagesRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.CommandsRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.EconomyTransactionsRepository;
+import fr.maxlego08.essentials.storage.database.repositeries.LinkAccountRepository;
+import fr.maxlego08.essentials.storage.database.repositeries.LinkCodeRepository;
+import fr.maxlego08.essentials.storage.database.repositeries.LinkHistoryRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.PlayerSlotRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.ServerStorageRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserCooldownsRepository;
@@ -78,7 +87,6 @@ import fr.maxlego08.sarah.DatabaseConfiguration;
 import fr.maxlego08.sarah.DatabaseConnection;
 import fr.maxlego08.sarah.HikariDatabaseConnection;
 import fr.maxlego08.sarah.MigrationManager;
-import fr.maxlego08.sarah.MySqlConnection;
 import fr.maxlego08.sarah.SqliteConnection;
 import fr.maxlego08.sarah.database.DatabaseType;
 import fr.maxlego08.sarah.logger.JULogger;
@@ -92,6 +100,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
@@ -107,9 +116,9 @@ public class SqlStorage extends StorageHelper implements IStorage {
         super(plugin);
         DatabaseConfiguration databaseConfiguration = getDatabaseConfiguration(plugin, storageType);
         this.connection = switch (storageType) {
-            case HIKARICP -> new HikariDatabaseConnection(databaseConfiguration);
+            // case HIKARICP -> new HikariDatabaseConnection(databaseConfiguration);
             case SQLITE -> new SqliteConnection(databaseConfiguration, plugin.getDataFolder());
-            default -> new MySqlConnection(databaseConfiguration);
+            default -> new HikariDatabaseConnection(databaseConfiguration);
         };
 
         if (!this.connection.isValid()) {
@@ -149,6 +158,9 @@ public class SqlStorage extends StorageHelper implements IStorage {
         MigrationManager.registerMigration(new UpdateUserTableAddFreezeColumn());
         MigrationManager.registerMigration(new UpdateUserTableAddFlyColumn());
         MigrationManager.registerMigration(new UpdateEconomyTransactionAddColumn());
+        MigrationManager.registerMigration(new CreateLinkCodeMigrations());
+        MigrationManager.registerMigration(new CreateLinkAccountMigration());
+        MigrationManager.registerMigration(new CreateLinkHistoryMigration());
 
         // Repositories
         this.repositories = new Repositories(plugin, this.connection);
@@ -169,6 +181,9 @@ public class SqlStorage extends StorageHelper implements IStorage {
         this.repositories.register(PlayerSlotRepository.class);
         this.repositories.register(VaultItemRepository.class);
         this.repositories.register(VaultRepository.class);
+        this.repositories.register(LinkAccountRepository.class);
+        this.repositories.register(LinkCodeRepository.class);
+        this.repositories.register(LinkHistoryRepository.class);
 
         MigrationManager.execute(this.connection, JULogger.from(this.plugin.getLogger()));
 
@@ -208,16 +223,16 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
         this.plugin.getScheduler().runAsync(wrappedTask -> {
 
-            List<UserDTO> userDTOS = with(UserRepository.class).selectUser(uniqueId);
+            var optional = with(UserRepository.class).selectUser(uniqueId).stream().findFirst();
             // First join!
-            if (userDTOS.isEmpty()) {
+            if (optional.isEmpty()) {
                 this.firstJoin(user);
             }
 
             with(UserRepository.class).upsert(uniqueId, playerName); // Create the player or update his name
-            if (!userDTOS.isEmpty()) {
 
-                UserDTO userDTO = userDTOS.get(0);
+            if (optional.isPresent()) {
+                UserDTO userDTO = optional.get();
 
                 if (userDTO.mute_sanction_id() != null) { // Check if the player is mute
                     SanctionDTO sanction = with(UserSanctionRepository.class).getSanction(userDTO.mute_sanction_id());
@@ -237,6 +252,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
                 user.setPowerTools(with(UserPowerToolsRepository.class).select(uniqueId).stream().collect(Collectors.toMap(PowerToolsDTO::material, PowerToolsDTO::command)));
                 user.setMailBoxItems(with(UserMailBoxRepository.class).select(uniqueId));
                 user.setVoteSites(with(VoteSiteRepository.class).select(uniqueId));
+                with(LinkAccountRepository.class).select(uniqueId).ifPresent(user::setDiscordAccount);
             }
         });
 
@@ -607,6 +623,31 @@ public class SqlStorage extends StorageHelper implements IStorage {
     public void deleteWorldData(String worldName) {
         with(UserRepository.class).deleteWorldData(worldName);
         with(UserHomeRepository.class).deleteWorldData(worldName);
+    }
+
+    @Override
+    public void linkDiscordAccount(UUID uniqueId, String minecraftName, String discordName, long userId) {
+        async(() -> with(LinkAccountRepository.class).insert(uniqueId, minecraftName, discordName, userId));
+    }
+
+    @Override
+    public Optional<DiscordAccountDTO> selectDiscordAccount(UUID uniqueId) {
+        return with(LinkAccountRepository.class).select(uniqueId);
+    }
+
+    @Override
+    public Optional<DiscordCodeDTO> selectCode(String code) {
+        return with(LinkCodeRepository.class).getCode(code);
+    }
+
+    @Override
+    public void clearCode(DiscordCodeDTO code) {
+        with(LinkCodeRepository.class).clearCode(code);
+    }
+
+    @Override
+    public void insertDiscordLog(DiscordAction action, UUID uniqueId, String minecraftName, String discordName, long userId, String data) {
+        async(() -> with(LinkHistoryRepository.class).insertLog(action, uniqueId, minecraftName, discordName, userId, data));
     }
 
     public DatabaseConnection getConnection() {

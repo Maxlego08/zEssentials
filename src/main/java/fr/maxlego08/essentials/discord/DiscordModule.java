@@ -1,11 +1,17 @@
 package fr.maxlego08.essentials.discord;
 
 import fr.maxlego08.essentials.ZEssentialsPlugin;
+import fr.maxlego08.essentials.api.discord.DiscordAccount;
+import fr.maxlego08.essentials.api.discord.DiscordAction;
 import fr.maxlego08.essentials.api.discord.DiscordConfiguration;
 import fr.maxlego08.essentials.api.discord.DiscordEmbedConfiguration;
 import fr.maxlego08.essentials.api.discord.DiscordManager;
 import fr.maxlego08.essentials.api.discord.DiscordWebhook;
+import fr.maxlego08.essentials.api.dto.DiscordAccountDTO;
 import fr.maxlego08.essentials.api.event.events.user.UserFirstJoinEvent;
+import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.storage.IStorage;
+import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.ZModule;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
@@ -19,6 +25,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -30,6 +38,7 @@ public class DiscordModule extends ZModule implements DiscordManager {
     private DiscordConfiguration joinConfiguration = DiscordConfiguration.disabled();
     private DiscordConfiguration leftConfiguration = DiscordConfiguration.disabled();
     private DiscordConfiguration firstJoinConfiguration = DiscordConfiguration.disabled();
+    private boolean enableLinkAccount;
 
     public DiscordModule(ZEssentialsPlugin plugin) {
         super(plugin, "discord");
@@ -175,4 +184,36 @@ public class DiscordModule extends ZModule implements DiscordManager {
         var player = event.getUser();
         sendDiscordMessage(player.getName(), player.getUniqueId(), "", this.firstJoinConfiguration);
     }
+
+    @Override
+    public void linkAccount(User user, String discordCode) {
+
+        if (user.isDiscordLinked()) {
+            message(user, Message.COMMAND_LINK_ACCOUNT_ALREADY_LINKED);
+            return;
+        }
+
+        IStorage iStorage = this.plugin.getStorageManager().getStorage();
+        this.plugin.getScheduler().runAsync(wrappedTask -> {
+
+            var optional = iStorage.selectCode(discordCode);
+            if (optional.isEmpty()) {
+                message(user, Message.COMMAND_LINK_ACCOUNT_INVALID_CODE);
+                iStorage.insertDiscordLog(DiscordAction.TRY_LINK_ACCOUNT, user.getUniqueId(), user.getName(), null, -1, discordCode);
+                return;
+            }
+
+            var code = optional.get();
+
+            iStorage.clearCode(code);
+            iStorage.linkDiscordAccount(user.getUniqueId(), user.getName(), code.discord_name(), code.user_id());
+            iStorage.insertDiscordLog(DiscordAction.LINK_ACCOUNT, user.getUniqueId(), user.getName(), code.discord_name(), code.user_id(), code.code());
+
+            DiscordAccount discordAccount = new DiscordAccountDTO(code.user_id(), user.getUniqueId(), user.getName(), code.discord_name(), new Timestamp(System.currentTimeMillis()));
+            user.setDiscordAccount(discordAccount);
+
+            message(user, Message.COMMAND_LINK_ACCOUNT_SUCCESS, "%discord%", code.discord_name());
+        });
+    }
+
 }

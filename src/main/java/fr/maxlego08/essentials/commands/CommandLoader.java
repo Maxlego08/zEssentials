@@ -11,6 +11,7 @@ import fr.maxlego08.essentials.commands.commands.chat.CommandChatHistory;
 import fr.maxlego08.essentials.commands.commands.chat.CommandShowItem;
 import fr.maxlego08.essentials.commands.commands.clearinventory.ClearInventoryCommand;
 import fr.maxlego08.essentials.commands.commands.cooldown.CommandCooldown;
+import fr.maxlego08.essentials.commands.commands.discord.CommandLink;
 import fr.maxlego08.essentials.commands.commands.economy.CommandBalanceTop;
 import fr.maxlego08.essentials.commands.commands.economy.CommandEconomy;
 import fr.maxlego08.essentials.commands.commands.economy.CommandMoney;
@@ -262,6 +263,7 @@ public class CommandLoader {
         register("player-worldedit", CommandWorldEdit.class, "pwe", "ess-worldedit", "eworldedit", "ew");
 
         register("suicide", CommandSuicide.class);
+        register("link", CommandLink.class);
 
         for (RegisterCommand registerCommand : this.commands) {
             try {

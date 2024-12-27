@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.api.user;
 
 import fr.maxlego08.essentials.api.commands.Permission;
+import fr.maxlego08.essentials.api.discord.DiscordAccount;
 import fr.maxlego08.essentials.api.dto.CooldownDTO;
 import fr.maxlego08.essentials.api.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.dto.HomeDTO;
@@ -929,4 +930,12 @@ public interface User {
     void addFlySeconds(long seconds);
 
     void removeFlySeconds(long seconds);
+
+    DiscordAccount getDiscordAccount();
+
+    boolean isDiscordLinked();
+
+    void setDiscordAccount(DiscordAccount discordAccount);
+
+    void removeDiscordAccount();
 }

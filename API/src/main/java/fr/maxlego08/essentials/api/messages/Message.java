@@ -331,6 +331,7 @@ public enum Message {
     DESCRIPTION_VAULT_SET_SLOT("Set slot to player's vault"),
     DESCRIPTION_SHOW_ITEM("Show player's item"),
     DESCRIPTION_EXPERIENCE("Manage player experience"),
+    DESCRIPTION_DISCORD_LINK("Link your discord account"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -845,7 +846,13 @@ public enum Message {
     DESCRIPTION_EXPERIENCE_QUERY("Query player experience"),
     DESCRIPTION_EXPERIENCE_SET("Set player experience"),
     DESCRIPTION_EXPERIENCE_GRANT("Grant experience to player"),
-    RANDOM_WORD_CLEAR("<success>The random word has been cleared."),;
+    RANDOM_WORD_CLEAR("<success>The random word has been cleared."),
+
+
+    COMMAND_LINK_ACCOUNT_ALREADY_LINKED("<error>You are already linked to an account."),
+    COMMAND_LINK_ACCOUNT_INVALID_CODE("<error>Invalid code."),
+    COMMAND_LINK_ACCOUNT_SUCCESS("<success>You have just linked your account <white>%discord%<success>."),
+    ;
 
     private EssentialsPlugin plugin;
     private List<EssentialsMessage> messages = new ArrayList<>();

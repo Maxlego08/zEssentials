@@ -1,5 +1,8 @@
 package fr.maxlego08.essentials.api.discord;
 
+import fr.maxlego08.essentials.api.user.User;
+import org.bukkit.entity.Player;
+
 /**
  * Interface for managing Discord-related configurations and operations.
  * Provides methods to retrieve different types of Discord configurations.
@@ -34,4 +37,5 @@ public interface DiscordManager {
      */
     DiscordConfiguration getLeftConfiguration();
 
+    void linkAccount(User user, String code);
 }
