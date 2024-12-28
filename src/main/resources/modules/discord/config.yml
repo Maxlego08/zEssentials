@@ -17,7 +17,7 @@
 enable: true
 
 # Send the player’s message on your discord
-chat-message:
+chat-configuration:
   enable: false # Enable or not the webhook
   webhook: "https://discord.com/api/webhooks/"
   avatar: "https://mc-heads.net/avatar/%uuid%"
@@ -25,7 +25,7 @@ chat-message:
   username: "%player%"
 
 # Send a message when a player logs in
-join-message:
+join-configuration:
   enable: false # Enable or not the webhook
   webhook: "https://discord.com/api/webhooks/"
   embeds:
@@ -35,7 +35,7 @@ join-message:
       color: "#00ff00" # Sets the color of the embed
 
 # Send a message when a player logs out
-left-message:
+left-configuration:
   enable: false # Enable or not the webhook
   webhook: "https://discord.com/api/webhooks/"
   embeds:
@@ -45,7 +45,7 @@ left-message:
       color: "#ff0000" # Sets the color of the embed
 
 # Sends a message when the player first logs in
-first-join-message:
+first-join-configuration:
   enable: false # Enable or not the webhook
   webhook: "https://discord.com/api/webhooks/"
   embeds:

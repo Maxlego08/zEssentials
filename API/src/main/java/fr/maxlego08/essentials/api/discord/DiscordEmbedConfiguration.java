@@ -4,11 +4,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 public record DiscordEmbedConfiguration(String title, String description, String url, Color color, Footer footer,
-                                        Thumbnail thumbnail,
-                                        Image image, Author author, List<Field> fields) {
+                                        Thumbnail thumbnail, Image image, Author author, List<Field> fields) {
 
     public static List<DiscordEmbedConfiguration> convertToEmbedObjects(List<Map<?, ?>> data) {
         List<DiscordEmbedConfiguration> embedObjects = new ArrayList<>();
@@ -116,18 +114,14 @@ public record DiscordEmbedConfiguration(String title, String description, String
         return new Color(r, g, b, a);
     }
 
-    public void apply(DiscordWebhook discordWebhook, String playerName, UUID playerUuid, String message) {
+    public void apply(DiscordWebhook discordWebhook, String... args) {
 
         DiscordWebhook.EmbedObject embedObject = new DiscordWebhook.EmbedObject();
 
-        embedObject.setAuthor(
-                replace(this.author.name, playerName, message, playerUuid),
-                replace(this.author.url, playerName, message, playerUuid),
-                replace(this.author.iconUrl, playerName, message, playerUuid)
-        );
+        embedObject.setAuthor(replace(this.author.name, args), replace(this.author.url, args), replace(this.author.iconUrl, args));
 
         if (this.description != null) {
-            embedObject.setDescription(replace(this.description, playerName, message, playerUuid));
+            embedObject.setDescription(replace(this.description, args));
         }
 
         if (this.color != null) {
@@ -135,14 +129,24 @@ public record DiscordEmbedConfiguration(String title, String description, String
         }
 
         if (this.title != null) {
-            embedObject.setTitle(replace(this.title, playerName, message, playerUuid));
+            embedObject.setTitle(replace(this.title, args));
         }
 
         discordWebhook.addEmbed(embedObject);
     }
 
-    private String replace(String value, String playerName, String message, UUID uuid) {
-        return value == null ? "" : value.replace("%player%", playerName).replace("%message%", message == null ? "" : message).replace("%uuid%", uuid.toString());
+    private String replace(String message, Object[] newArgs) {
+        if (newArgs.length % 2 != 0) {
+            throw new IllegalArgumentException("Number of invalid arguments. Arguments must be in pairs.");
+        }
+
+        for (int i = 0; i < newArgs.length; i += 2) {
+            if (newArgs[i] == null || newArgs[i + 1] == null) {
+                throw new IllegalArgumentException("Keys and replacement values must not be null.");
+            }
+            message = message.replace(newArgs[i].toString(), newArgs[i + 1].toString());
+        }
+        return message;
     }
 
     public record Footer(String text, String iconUrl) {

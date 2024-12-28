@@ -332,6 +332,7 @@ public enum Message {
     DESCRIPTION_SHOW_ITEM("Show player's item"),
     DESCRIPTION_EXPERIENCE("Manage player experience"),
     DESCRIPTION_DISCORD_LINK("Link your discord account"),
+    DESCRIPTION_DISCORD_UNLINK("Unlink your discord account"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -852,7 +853,7 @@ public enum Message {
     COMMAND_LINK_ACCOUNT_ALREADY_LINKED("<error>You are already linked to an account."),
     COMMAND_LINK_ACCOUNT_INVALID_CODE("<error>Invalid code."),
     COMMAND_LINK_ACCOUNT_SUCCESS("<success>You have just linked your account <white>%discord%<success>."),
-    ;
+    COMMAND_LINK_ACCOUNT_DISABLED("<error>This command is disabled."),;
 
     private EssentialsPlugin plugin;
     private List<EssentialsMessage> messages = new ArrayList<>();
