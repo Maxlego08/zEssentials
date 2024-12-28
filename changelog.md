@@ -1,6 +1,7 @@
 # Unreleased
 
-- Fixed error if spawn world is not found
+- Fixed error if the spawn world is not found
+- You can use placeholders in the join and quit message
 
 # 1.0.1.6
 
