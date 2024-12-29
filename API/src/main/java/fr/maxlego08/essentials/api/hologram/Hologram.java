@@ -2,6 +2,7 @@ package fr.maxlego08.essentials.api.hologram;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.hologram.configuration.HologramConfiguration;
+import fr.maxlego08.essentials.api.utils.SafeLocation;
 import fr.maxlego08.essentials.api.utils.component.AdventureComponent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
@@ -33,7 +34,7 @@ public abstract class Hologram {
     protected final List<HologramLine> hologramLines = new ArrayList<>();
     protected final Map<Player, ComponentCache> caches = new HashMap<>();
     protected final HologramConfiguration configuration;
-    protected Location location;
+    protected SafeLocation location;
 
     /**
      * Constructs a new `Hologram`.
@@ -45,7 +46,7 @@ public abstract class Hologram {
      * @param location      the location of the hologram
      * @param configuration the hologram's configuration
      */
-    public Hologram(EssentialsPlugin plugin, HologramType hologramType, String name, String fileName, Location location, HologramConfiguration configuration) {
+    public Hologram(EssentialsPlugin plugin, HologramType hologramType, String name, String fileName, SafeLocation location, HologramConfiguration configuration) {
         this.plugin = plugin;
         this.hologramType = hologramType;
         this.name = name;
@@ -104,7 +105,7 @@ public abstract class Hologram {
      *
      * @return the location
      */
-    public Location getLocation() {
+    public SafeLocation getLocation() {
         return location;
     }
 
@@ -264,7 +265,7 @@ public abstract class Hologram {
      * @param location the new location to teleport the hologram to
      */
     public void teleport(Location location) {
-        this.location = location;
+        this.location = new SafeLocation(location);
         this.updateLocation();
     }
 

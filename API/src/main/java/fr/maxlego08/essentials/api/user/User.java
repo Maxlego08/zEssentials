@@ -17,6 +17,7 @@ import fr.maxlego08.essentials.api.mailbox.MailBoxItem;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.utils.DynamicCooldown;
+import fr.maxlego08.essentials.api.utils.SafeLocation;
 import fr.maxlego08.essentials.api.worldedit.Selection;
 import fr.maxlego08.essentials.api.worldedit.WorldEditTask;
 import org.bukkit.Location;
@@ -461,7 +462,7 @@ public interface User {
      *
      * @param location The last location of the user.
      */
-    void setLastLocation(Location location);
+    void setLastLocation(SafeLocation location);
 
     /**
      * Checks if the user is joining the server for the first time.

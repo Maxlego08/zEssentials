@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.hologram.Hologram;
 import fr.maxlego08.essentials.api.hologram.HologramManager;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.utils.SafeLocation;
 import fr.maxlego08.essentials.commands.commands.hologram.VCommandHologram;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -31,10 +32,10 @@ public class CommandHologramMoveTo extends VCommandHologram {
         double y = this.argAsDouble(2);
         double z = this.argAsDouble(3);
 
-        Location location = hologram.getLocation();
+        SafeLocation location = hologram.getLocation();
         location.set(x, y, z);
 
-        hologram.teleport(location);
+        hologram.teleport(location.getLocation());
 
         hologram.updateForAllPlayers();
         manager.saveHologram(hologram);

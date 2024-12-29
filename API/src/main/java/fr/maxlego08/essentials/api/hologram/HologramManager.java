@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.api.hologram;
 import fr.maxlego08.essentials.api.commands.TabCompletion;
 import fr.maxlego08.essentials.api.hologram.configuration.HologramConfiguration;
 import fr.maxlego08.essentials.api.modules.Module;
+import fr.maxlego08.essentials.api.utils.SafeLocation;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -112,5 +113,5 @@ public interface HologramManager extends Module {
      * @param location      the location to place the hologram
      * @return the created hologram
      */
-    Hologram createHologram(HologramType hologramType, HologramConfiguration configuration, String fileName, String name, Location location);
+    Hologram createHologram(HologramType hologramType, HologramConfiguration configuration, String fileName, String name, SafeLocation location);
 }

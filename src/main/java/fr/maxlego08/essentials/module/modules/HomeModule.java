@@ -8,6 +8,7 @@ import fr.maxlego08.essentials.api.home.HomeUsageType;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.User;
+import fr.maxlego08.essentials.api.utils.SafeLocation;
 import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.essentials.user.ZHome;
 import fr.maxlego08.menu.api.utils.Placeholders;
@@ -215,7 +216,7 @@ public class HomeModule extends ZModule {
             if (user != null) {
                 user.setHome(homeName, player.getLocation(), true);
             } else {
-                Home home = new ZHome(player.getLocation(), homeName, null);
+                Home home = new ZHome(new SafeLocation(player.getLocation()), homeName, null);
                 iStorage.upsertHome(uuid, home);
             }
 

@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.hologram.Hologram;
 import fr.maxlego08.essentials.api.hologram.HologramManager;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.utils.SafeLocation;
 import fr.maxlego08.essentials.commands.commands.hologram.VCommandHologram;
 import org.bukkit.Location;
 
@@ -19,7 +20,7 @@ public class CommandHologramTeleport extends VCommandHologram {
 
     @Override
     protected void perform(EssentialsPlugin plugin, Hologram hologram, HologramManager manager) {
-        Location location = hologram.getLocation();
-        player.teleportAsync(location);
+        SafeLocation location = hologram.getLocation();
+        player.teleportAsync(location.getLocation());
     }
 }

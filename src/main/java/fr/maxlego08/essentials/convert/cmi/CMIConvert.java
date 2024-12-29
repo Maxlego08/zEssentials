@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.convert.cmi;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.convert.Convert;
 import fr.maxlego08.essentials.api.home.Home;
+import fr.maxlego08.essentials.api.utils.SafeLocation;
 import fr.maxlego08.essentials.storage.database.repositeries.UserEconomyRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserHomeRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserRepository;
@@ -120,9 +121,7 @@ public class CMIConvert extends ZUtils implements Convert {
                 double yaw = Double.parseDouble(parts[index + 4]);
                 double pitch = Double.parseDouble(parts[index + 5]);
 
-                var bukkitWorld = Bukkit.getWorld(world);
-                if (bukkitWorld == null) continue;
-                homes.add(new ZHome(new Location(bukkitWorld, x, y, z, (float) pitch, (float) yaw), name, material));
+                homes.add(new ZHome(new SafeLocation(world, x, y, z, (float) pitch, (float) yaw), name, material));
             } catch (Exception exception) {
                 exception.printStackTrace();
                 this.plugin.getLogger().severe("Unable to convert the home " + entry);
