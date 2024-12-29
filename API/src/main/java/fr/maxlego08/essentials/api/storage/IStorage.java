@@ -535,4 +535,6 @@ public interface IStorage {
     void clearCode(DiscordCodeDTO code);
 
     void insertDiscordLog(DiscordAction action, UUID uniqueId, String minecraftName, String discordName, long userId, String data);
+
+    void unlinkDiscordAccount(UUID uniqueId);
 }

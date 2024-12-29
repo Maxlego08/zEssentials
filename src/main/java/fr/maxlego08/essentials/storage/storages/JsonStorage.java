@@ -486,4 +486,9 @@ public class JsonStorage extends StorageHelper implements IStorage {
     public void insertDiscordLog(DiscordAction action, UUID uniqueId, String minecraftName, String discordName, long userId, String data) {
         throw new NotImplementedException("insertDiscordLog is not implemented, use MYSQL storage");
     }
+
+    @Override
+    public void unlinkDiscordAccount(UUID uniqueId) {
+        throw new NotImplementedException("unlinkDiscordAccount is not implemented, use MYSQL storage");
+    }
 }

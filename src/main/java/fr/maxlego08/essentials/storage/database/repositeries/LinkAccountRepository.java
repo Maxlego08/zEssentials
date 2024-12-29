@@ -26,4 +26,8 @@ public class LinkAccountRepository extends Repository {
     public Optional<DiscordAccountDTO> select(UUID uniqueId) {
         return this.select(DiscordAccountDTO.class, table -> table.where("unique_id", uniqueId)).stream().findFirst();
     }
+
+    public void delete(UUID uniqueId) {
+        this.delete(table -> table.where("unique_id", uniqueId));
+    }
 }

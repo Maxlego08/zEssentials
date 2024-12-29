@@ -221,5 +221,20 @@ public class DiscordModule extends ZModule implements DiscordManager {
             message(user, Message.COMMAND_LINK_ACCOUNT_DISABLED);
         }
 
+        if (!user.isDiscordLinked()) {
+            message(user, Message.COMMAND_LINK_ACCOUNT_NOT_LINKED);
+            return;
+        }
+
+        var discordAccount = user.getDiscordAccount();
+        IStorage iStorage = this.plugin.getStorageManager().getStorage();
+        iStorage.unlinkDiscordAccount(user.getUniqueId());
+        iStorage.insertDiscordLog(DiscordAction.UNLINK_ACCOUNT, user.getUniqueId(), user.getName(), discordAccount.getDiscordName(), discordAccount.getUserId(), null);
+
+        user.removeDiscordAccount();
+
+        message(user, Message.COMMAND_LINK_ACCOUNT_RESET);
+
+        sendDiscord(this.logUnlinkConfiguration, "%player%", user.getName(), "%discord-name%", discordAccount.getDiscordName(), "%discord-id%", String.valueOf(discordAccount.getUserId()));
     }
 }

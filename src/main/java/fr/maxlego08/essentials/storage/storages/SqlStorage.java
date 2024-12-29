@@ -650,6 +650,11 @@ public class SqlStorage extends StorageHelper implements IStorage {
         async(() -> with(LinkHistoryRepository.class).insertLog(action, uniqueId, minecraftName, discordName, userId, data));
     }
 
+    @Override
+    public void unlinkDiscordAccount(UUID uniqueId) {
+        async(() -> with(LinkAccountRepository.class).delete(uniqueId));
+    }
+
     public DatabaseConnection getConnection() {
         return connection;
     }
