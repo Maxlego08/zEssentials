@@ -136,6 +136,9 @@ public record DiscordEmbedConfiguration(String title, String description, String
     }
 
     private String replace(String message, Object[] newArgs) {
+
+        if (message == null) return null;
+
         if (newArgs.length % 2 != 0) {
             throw new IllegalArgumentException("Number of invalid arguments. Arguments must be in pairs.");
         }

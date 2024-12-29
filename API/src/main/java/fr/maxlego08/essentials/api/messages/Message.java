@@ -853,7 +853,7 @@ public enum Message {
     COMMAND_LINK_ACCOUNT_ALREADY_LINKED("<error>You are already linked to an account."),
     COMMAND_LINK_ACCOUNT_INVALID_CODE("<error>Invalid code."),
     COMMAND_LINK_ACCOUNT_SUCCESS("<success>You have just linked your account <white>%discord%<success>."),
-    COMMAND_LINK_ACCOUNT_DISABLED("<error>This command is disabled."),;
+    COMMAND_LINK_ACCOUNT_DISABLED("<error>You cannot link your account at this time."),;
 
     private EssentialsPlugin plugin;
     private List<EssentialsMessage> messages = new ArrayList<>();

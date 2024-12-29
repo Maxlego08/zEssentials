@@ -17,7 +17,7 @@
 enable: true
 
 # Send the player’s message on your discord
-chat-configuration:
+chat-message:
   enable: false # Enable or not the webhook
   webhook: "https://discord.com/api/webhooks/"
   avatar: "https://mc-heads.net/avatar/%uuid%"
@@ -25,7 +25,7 @@ chat-configuration:
   username: "%player%"
 
 # Send a message when a player logs in
-join-configuration:
+join-message:
   enable: false # Enable or not the webhook
   webhook: "https://discord.com/api/webhooks/"
   embeds:
@@ -35,7 +35,7 @@ join-configuration:
       color: "#00ff00" # Sets the color of the embed
 
 # Send a message when a player logs out
-left-configuration:
+left-message:
   enable: false # Enable or not the webhook
   webhook: "https://discord.com/api/webhooks/"
   embeds:
@@ -45,7 +45,7 @@ left-configuration:
       color: "#ff0000" # Sets the color of the embed
 
 # Sends a message when the player first logs in
-first-join-configuration:
+first-join-message:
   enable: false # Enable or not the webhook
   webhook: "https://discord.com/api/webhooks/"
   embeds:
@@ -55,3 +55,18 @@ first-join-configuration:
       color: "#44ff44" # Sets the color of the embed
 
 enable-link-account: false
+
+log-link-error-message:
+  enable: false # Enable or not the webhook
+  webhook: "https://discord.com/api/webhooks/"
+  message: "%player% vient d'essayer de lier son compte avec le code `%code%`"
+
+log-link-success-message:
+  enable: false # Enable or not the webhook
+  webhook: "https://discord.com/api/webhooks/"
+  message: "%player% vient de lier son compte avec le code `%code%` (%discord-name%:%discord-id%)"
+
+log-unlink-message:
+  enable: false # Enable or not the webhook
+  webhook: "https://discord.com/api/webhooks/"
+  message: "%player% vient de délier son compte (%discord-name%:%discord-id%)"

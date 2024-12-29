@@ -22,10 +22,11 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -33,9 +34,10 @@ import java.util.function.Consumer;
 
 public class DiscordModule extends ZModule implements DiscordManager {
 
-    private final DiscordConfiguration logLinkErrorConfiguration = DiscordConfiguration.disabled();
-    private final DiscordConfiguration logLinkSuccessConfiguration = DiscordConfiguration.disabled();
-    private final DiscordConfiguration logUnlinkConfiguration = DiscordConfiguration.disabled();
+    private final Map<String, Boolean> webhookUrlCache = new HashMap<>();
+    private DiscordConfiguration logLinkErrorConfiguration = DiscordConfiguration.disabled();
+    private DiscordConfiguration logLinkSuccessConfiguration = DiscordConfiguration.disabled();
+    private DiscordConfiguration logUnlinkConfiguration = DiscordConfiguration.disabled();
     private DiscordConfiguration chatConfiguration = DiscordConfiguration.disabled();
     private DiscordConfiguration joinConfiguration = DiscordConfiguration.disabled();
     private DiscordConfiguration leftConfiguration = DiscordConfiguration.disabled();
@@ -52,28 +54,18 @@ public class DiscordModule extends ZModule implements DiscordManager {
 
         YamlConfiguration configuration = getConfiguration();
 
-        ConfigurationSection configurationSection = configuration.getConfigurationSection("chat-message");
-        if (configurationSection != null) {
-            loadConfiguration(configurationSection, d -> this.chatConfiguration = d);
-        }
-
-        configurationSection = configuration.getConfigurationSection("join-message");
-        if (configurationSection != null) {
-            loadConfiguration(configurationSection, d -> this.joinConfiguration = d);
-        }
-
-        configurationSection = configuration.getConfigurationSection("first-join-message");
-        if (configurationSection != null) {
-            loadConfiguration(configurationSection, d -> this.firstJoinConfiguration = d);
-        }
-
-        configurationSection = configuration.getConfigurationSection("left-message");
-        if (configurationSection != null) {
-            loadConfiguration(configurationSection, d -> this.leftConfiguration = d);
-        }
+        loadConfiguration(configuration.getConfigurationSection("chat-message"), d -> this.chatConfiguration = d);
+        loadConfiguration(configuration.getConfigurationSection("join-message"), d -> this.joinConfiguration = d);
+        loadConfiguration(configuration.getConfigurationSection("first-join-message"), d -> this.firstJoinConfiguration = d);
+        loadConfiguration(configuration.getConfigurationSection("left-message"), d -> this.leftConfiguration = d);
+        loadConfiguration(configuration.getConfigurationSection("log-link-error-message"), d -> this.logLinkErrorConfiguration = d);
+        loadConfiguration(configuration.getConfigurationSection("log-link-success-message"), d -> this.logLinkSuccessConfiguration = d);
+        loadConfiguration(configuration.getConfigurationSection("log-unlink-message"), d -> this.logUnlinkConfiguration = d);
     }
 
     private void loadConfiguration(ConfigurationSection configurationSection, Consumer<DiscordConfiguration> consumer) {
+
+        if (configurationSection == null) return;
 
         boolean isEnable = configurationSection.getBoolean("enable");
         String webhookUrl = configurationSection.getString("webhook");
@@ -82,23 +74,25 @@ public class DiscordModule extends ZModule implements DiscordManager {
         String username = configurationSection.getString("username");
         List<Map<?, ?>> values = configurationSection.getMapList("embeds");
 
-        this.plugin.getScheduler().runAsync(wrappedTask -> {
-            if (checkWebhookExists(webhookUrl)) {
-                var config = new DiscordConfiguration(isEnable, webhookUrl, avatarUrl, message, username, DiscordEmbedConfiguration.convertToEmbedObjects(values));
-                consumer.accept(config);
-            } else {
-                var config = DiscordConfiguration.disabled();
-                if (isEnable) {
-                    plugin.getLogger().severe("URL " + webhookUrl + " is invalid ! Disable your discord configuration.");
-                }
-                consumer.accept(config);
+        if (checkWebhookExists(webhookUrl)) {
+            var config = new DiscordConfiguration(isEnable, webhookUrl, avatarUrl, message, username, DiscordEmbedConfiguration.convertToEmbedObjects(values));
+            consumer.accept(config);
+        } else {
+            var config = DiscordConfiguration.disabled();
+            if (isEnable) {
+                plugin.getLogger().severe("URL " + webhookUrl + " is invalid ! Disable your discord configuration.");
             }
-        });
+            consumer.accept(config);
+        }
     }
 
     private boolean checkWebhookExists(String webhookUrl) {
+        if (this.webhookUrlCache.containsKey(webhookUrl)) {
+            return this.webhookUrlCache.get(webhookUrl);
+        }
+
         try {
-            URL url = new URL(webhookUrl);
+            URL url = new URI(webhookUrl).toURL();
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setConnectTimeout(5000);
@@ -106,9 +100,11 @@ public class DiscordModule extends ZModule implements DiscordManager {
 
             int responseCode = connection.getResponseCode();
 
+            this.webhookUrlCache.put(webhookUrl, responseCode == 200);
             return responseCode == 200;
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            this.webhookUrlCache.put(webhookUrl, false);
             return false;
         }
     }
