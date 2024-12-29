@@ -6,16 +6,14 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.World;
+import fr.maxlego08.essentials.api.utils.SafeLocation;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LocationAdapter extends TypeAdapter<Location> {
+public class LocationAdapter extends TypeAdapter<SafeLocation> {
 
     private static final Type seriType = new TypeToken<Map<String, Object>>() {
     }.getType();
@@ -27,16 +25,13 @@ public class LocationAdapter extends TypeAdapter<Location> {
     private static final String PITCH = "pitch";
     private final EssentialsPlugin plugin;
 
-    /**
-     * @param plugin
-     */
     public LocationAdapter(EssentialsPlugin plugin) {
         super();
         this.plugin = plugin;
     }
 
     @Override
-    public void write(JsonWriter jsonWriter, Location location) throws IOException {
+    public void write(JsonWriter jsonWriter, SafeLocation location) throws IOException {
         if (location == null) {
             jsonWriter.nullValue();
             return;
@@ -45,7 +40,7 @@ public class LocationAdapter extends TypeAdapter<Location> {
     }
 
     @Override
-    public Location read(JsonReader jsonReader) throws IOException {
+    public SafeLocation read(JsonReader jsonReader) throws IOException {
         if (jsonReader.peek() == JsonToken.NULL) {
             jsonReader.nextNull();
             return null;
@@ -53,9 +48,9 @@ public class LocationAdapter extends TypeAdapter<Location> {
         return fromRaw(jsonReader.nextString());
     }
 
-    private String getRaw(Location location) {
+    private String getRaw(SafeLocation location) {
         Map<String, Object> serial = new HashMap<>();
-        serial.put(NAME, location.getWorld().getName());
+        serial.put(NAME, location.getWorld());
         serial.put(X, Double.toString(location.getX()));
         serial.put(Y, Double.toString(location.getY()));
         serial.put(Z, Double.toString(location.getZ()));
@@ -64,12 +59,10 @@ public class LocationAdapter extends TypeAdapter<Location> {
         return plugin.getGson().toJson(serial);
     }
 
-    private Location fromRaw(String raw) {
+    private SafeLocation fromRaw(String raw) {
         Map<String, Object> keys = this.plugin.getGson().fromJson(raw, seriType);
-        World w = Bukkit.getWorld((String) keys.get(NAME));
-        return new Location(w, Double.parseDouble((String) keys.get(X)), Double.parseDouble((String) keys.get(Y)),
-                Double.parseDouble((String) keys.get(Z)), Float.parseFloat((String) keys.get(YAW)),
-                Float.parseFloat((String) keys.get(PITCH)));
+        String worldName = (String) keys.get(NAME);
+        return new SafeLocation(worldName, Double.parseDouble((String) keys.get(X)), Double.parseDouble((String) keys.get(Y)), Double.parseDouble((String) keys.get(Z)), Float.parseFloat((String) keys.get(YAW)), Float.parseFloat((String) keys.get(PITCH)));
     }
 
 }

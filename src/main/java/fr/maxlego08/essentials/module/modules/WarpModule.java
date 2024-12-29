@@ -33,7 +33,13 @@ public class WarpModule extends ZModule {
     }
 
     public void teleport(User user, Warp warp) {
-        user.teleport(warp.location(), Message.TELEPORT_MESSAGE_WARP, Message.TELEPORT_SUCCESS_WARP, "%name%", warp.name());
+
+        if (!warp.location().isValid()) {
+            message(user, Message.COMMAND_WARP_INVALID, "%name%", warp.name());
+            return;
+        }
+
+        user.teleport(warp.location().getLocation(), Message.TELEPORT_MESSAGE_WARP, Message.TELEPORT_SUCCESS_WARP, "%name%", warp.name());
     }
 
     public void teleport(User user, String warpName) {

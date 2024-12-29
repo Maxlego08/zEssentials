@@ -1,6 +1,10 @@
 # Unreleased
 
+- Added a bot discord. Se bot allows to link your account discord to your minecraft account. Download the bot here: TODO
+- Added command ``/link <code>``, allows to link your minecraft account
+- Added command ``/unlink``, allows to unlink your minecraft account
 - Fixed error if the spawn world is not found
+- Fixed location for spawn and warps if your world load after zEssentials
 - You can use placeholders in the join and quit message
 
 # 1.0.1.6

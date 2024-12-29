@@ -441,6 +441,7 @@ public enum Message {
     COMMAND_WARP_LIST("&7Warps&8:&f%destinations%"),
     COMMAND_WARP_LIST_INFO(" <hover:show_text:'&fClick to teleport to warp &n%name%'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"),
     COMMAND_WARP_DELETE("<success>You just removed the warp &f%name%<success>."),
+    COMMAND_WARP_INVALID("<error>Warp &f%name% <error>has an invalide location."),
 
     COMMAND_RANDOM_TP_ERROR("<error>No safe location found after multiple attempts, please try again."),
 
@@ -855,7 +856,9 @@ public enum Message {
     COMMAND_LINK_ACCOUNT_SUCCESS("<success>You have just linked your account <white>%discord%<success>."),
     COMMAND_LINK_ACCOUNT_DISABLED("<error>You cannot link your account at this time."),
     COMMAND_LINK_ACCOUNT_NOT_LINKED("<error>You are not linked to an account."),
-    COMMAND_LINK_ACCOUNT_RESET("<success>You have just reset your account link."),;
+    COMMAND_LINK_ACCOUNT_RESET("<success>You have just reset your account link."),
+
+    ;
 
     private EssentialsPlugin plugin;
     private List<EssentialsMessage> messages = new ArrayList<>();

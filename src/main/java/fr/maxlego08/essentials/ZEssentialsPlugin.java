@@ -27,6 +27,7 @@ import fr.maxlego08.essentials.api.storage.adapter.LocationAdapter;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.EssentialsUtils;
 import fr.maxlego08.essentials.api.utils.RandomWord;
+import fr.maxlego08.essentials.api.utils.SafeLocation;
 import fr.maxlego08.essentials.api.utils.Warp;
 import fr.maxlego08.essentials.api.utils.component.ComponentMessage;
 import fr.maxlego08.essentials.api.vault.VaultManager;
@@ -108,7 +109,6 @@ import fr.maxlego08.menu.api.InventoryManager;
 import fr.maxlego08.menu.api.pattern.PatternManager;
 import fr.maxlego08.menu.button.loader.NoneLoader;
 import fr.maxlego08.menu.zcore.utils.nms.NmsVersion;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -363,7 +363,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     }
 
     private GsonBuilder getGsonBuilder() {
-        return new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().serializeNulls().excludeFieldsWithModifiers(Modifier.TRANSIENT, Modifier.VOLATILE).registerTypeAdapter(Location.class, new LocationAdapter(this)).registerTypeAdapter(User.class, new UserTypeAdapter(this)).registerTypeAdapter(ZUser.class, new UserTypeAdapter(this));
+        return new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().serializeNulls().excludeFieldsWithModifiers(Modifier.TRANSIENT, Modifier.VOLATILE).registerTypeAdapter(SafeLocation.class, new LocationAdapter(this)).registerTypeAdapter(User.class, new UserTypeAdapter(this)).registerTypeAdapter(ZUser.class, new UserTypeAdapter(this));
     }
 
     private <T extends PlaceholderRegister> T registerPlaceholder(Class<T> placeholderClass) {

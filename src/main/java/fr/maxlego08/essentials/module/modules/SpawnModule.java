@@ -78,30 +78,24 @@ public class SpawnModule extends ZModule {
             // ToDo
         }
 
-        if (ConfigStorage.spawnLocation != null && ConfigStorage.spawnLocation.getWorld() != null) {
-            try {
-                if (ConfigStorage.spawnLocation.getWorld() != null) {
-                    player.setRespawnLocation(ConfigStorage.spawnLocation, true);
-                } else {
-                    message(player, Message.COMMAND_SPAWN_LOCATION_INVALID, "%location%", ConfigStorage.spawnLocation);
-                }
-            } catch (Exception ignored) {
-                message(player, Message.COMMAND_SPAWN_LOCATION_INVALID, "%location%", ConfigStorage.spawnLocation);
-            }
+        if (ConfigStorage.spawnLocation.isValid()) {
+            player.setRespawnLocation(ConfigStorage.spawnLocation.getLocation(), true);
+        } else {
+            message(player, Message.COMMAND_SPAWN_LOCATION_INVALID, "%location%", ConfigStorage.spawnLocation);
         }
     }
 
     public void onSpawnLocation(PlayerSpawnLocationEvent event, Player player) {
         User user = getUser(player);
-        if (user != null && user.isFirstJoin() && ConfigStorage.spawnLocation != null) {
-            event.setSpawnLocation(ConfigStorage.spawnLocation);
+        if (user != null && user.isFirstJoin() && ConfigStorage.spawnLocation != null && ConfigStorage.spawnLocation.isValid()) {
+            event.setSpawnLocation(ConfigStorage.spawnLocation.getLocation());
         }
     }
 
     private void onRespawn(PlayerRespawnEvent event, Player player) {
 
         // If the spawn does not exist, we must do nothing
-        if (ConfigStorage.spawnLocation == null) return;
+        if (ConfigStorage.spawnLocation == null || !ConfigStorage.spawnLocation.isValid()) return;
 
         if (event.isAnchorSpawn() && respawnAtAnchor) {
             return;
@@ -120,6 +114,6 @@ public class SpawnModule extends ZModule {
             }
         }
 
-        event.setRespawnLocation(ConfigStorage.spawnLocation);
+        event.setRespawnLocation(ConfigStorage.spawnLocation.getLocation());
     }
 }
