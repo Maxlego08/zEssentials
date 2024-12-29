@@ -8,6 +8,8 @@ import fr.maxlego08.essentials.api.discord.DiscordEmbedConfiguration;
 import fr.maxlego08.essentials.api.discord.DiscordManager;
 import fr.maxlego08.essentials.api.discord.DiscordWebhook;
 import fr.maxlego08.essentials.api.dto.DiscordAccountDTO;
+import fr.maxlego08.essentials.api.event.events.discord.DiscordLinkEvent;
+import fr.maxlego08.essentials.api.event.events.discord.DiscordUnlinkEvent;
 import fr.maxlego08.essentials.api.event.events.user.UserFirstJoinEvent;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.storage.IStorage;
@@ -201,17 +203,24 @@ public class DiscordModule extends ZModule implements DiscordManager {
             }
 
             var code = optional.get();
-
-            iStorage.clearCode(code);
-            iStorage.linkDiscordAccount(user.getUniqueId(), user.getName(), code.discord_name(), code.user_id());
-            iStorage.insertDiscordLog(DiscordAction.LINK_ACCOUNT, user.getUniqueId(), user.getName(), code.discord_name(), code.user_id(), code.code());
-
             DiscordAccount discordAccount = new DiscordAccountDTO(code.user_id(), user.getUniqueId(), user.getName(), code.discord_name(), new Timestamp(System.currentTimeMillis()));
-            user.setDiscordAccount(discordAccount);
 
-            message(user, Message.COMMAND_LINK_ACCOUNT_SUCCESS, "%discord%", code.discord_name());
+            this.plugin.getScheduler().runNextTick(w2 -> {
 
-            sendDiscord(this.logLinkSuccessConfiguration, "%player%", user.getName(), "%discord-name%", code.discord_name(), "%discord-id%", String.valueOf(code.user_id()), "%code%", code.code());
+                var event = new DiscordLinkEvent(user, discordAccount);
+                event.callEvent();
+                if (event.isCancelled()) return;
+
+                iStorage.clearCode(code);
+                iStorage.linkDiscordAccount(user.getUniqueId(), user.getName(), code.discord_name(), code.user_id());
+                iStorage.insertDiscordLog(DiscordAction.LINK_ACCOUNT, user.getUniqueId(), user.getName(), code.discord_name(), code.user_id(), code.code());
+
+                user.setDiscordAccount(discordAccount);
+
+                message(user, Message.COMMAND_LINK_ACCOUNT_SUCCESS, "%discord%", code.discord_name());
+
+                sendDiscord(this.logLinkSuccessConfiguration, "%player%", user.getName(), "%discord-name%", code.discord_name(), "%discord-id%", String.valueOf(code.user_id()), "%code%", code.code());
+            });
         });
     }
 
@@ -227,6 +236,11 @@ public class DiscordModule extends ZModule implements DiscordManager {
         }
 
         var discordAccount = user.getDiscordAccount();
+
+        var event = new DiscordUnlinkEvent(user, discordAccount);
+        event.callEvent();
+        if (event.isCancelled()) return;
+
         IStorage iStorage = this.plugin.getStorageManager().getStorage();
         iStorage.unlinkDiscordAccount(user.getUniqueId());
         iStorage.insertDiscordLog(DiscordAction.UNLINK_ACCOUNT, user.getUniqueId(), user.getName(), discordAccount.getDiscordName(), discordAccount.getUserId(), null);
