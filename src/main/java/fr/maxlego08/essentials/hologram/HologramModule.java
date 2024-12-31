@@ -361,14 +361,14 @@ public class HologramModule extends ZModule implements HologramManager {
     }
 
     private void displayHologram(Player player) {
-        this.holograms.stream().filter(hologram -> hologram.getLocation().getWorld().equals(player.getWorld())).forEach(hologram -> hologram.create(player));
+        this.holograms.stream().filter(hologram -> hologram.getLocation().getWorld().equals(player.getWorld().getName())).forEach(hologram -> hologram.create(player));
     }
 
 
     private void updateHolograms() {
         for (Player onlinePlayer : plugin.getServer().getOnlinePlayers()) {
             for (Hologram hologram : this.holograms) {
-                if (onlinePlayer.getWorld().equals(hologram.getLocation().getWorld())) {
+                if (onlinePlayer.getWorld().getName().equals(hologram.getLocation().getWorld())) {
                     hologram.autoUpdateLines(onlinePlayer);
                 }
             }

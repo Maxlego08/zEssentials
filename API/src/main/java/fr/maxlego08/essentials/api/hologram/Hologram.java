@@ -177,7 +177,7 @@ public abstract class Hologram {
      */
     public void createForAllPlayers() {
         Bukkit.getOnlinePlayers().forEach(player -> {
-            if (player.getWorld().equals(this.getLocation().getWorld())) {
+            if (player.getWorld().getName().equals(this.getLocation().getWorld())) {
                 this.create(player);
             }
         });
