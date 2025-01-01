@@ -1,6 +1,9 @@
 package fr.maxlego08.essentials.api.storage;
 
+import fr.maxlego08.essentials.api.discord.DiscordAction;
+import fr.maxlego08.essentials.api.dto.DiscordAccountDTO;
 import fr.maxlego08.essentials.api.dto.ChatMessageDTO;
+import fr.maxlego08.essentials.api.dto.DiscordCodeDTO;
 import fr.maxlego08.essentials.api.dto.CooldownDTO;
 import fr.maxlego08.essentials.api.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.dto.EconomyTransactionDTO;
@@ -26,6 +29,7 @@ import org.bukkit.Material;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
@@ -521,4 +525,16 @@ public interface IStorage {
      * @param worldName the world name
      */
     void deleteWorldData(String worldName);
+
+    void linkDiscordAccount(UUID uniqueId, String minecraftName, String discordName, long userId);
+
+    Optional<DiscordAccountDTO> selectDiscordAccount(UUID uniqueId);
+
+    Optional<DiscordCodeDTO> selectCode(String code);
+
+    void clearCode(DiscordCodeDTO code);
+
+    void insertDiscordLog(DiscordAction action, UUID uniqueId, String minecraftName, String discordName, long userId, String data);
+
+    void unlinkDiscordAccount(UUID uniqueId);
 }

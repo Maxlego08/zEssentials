@@ -147,6 +147,7 @@ public enum Message {
     COMMAND_PLAYER_TIME_RESET("&7You just changed the time to that of the server."),
     COMMAND_PLAYER_TIME_CHANGE("&7You’re here to change your time."),
 
+    DESCRIPTION_CLEAR_RANDOM_WORD("Clear random words"),
     DESCRIPTION_RELOAD("Reload configuration files"),
     DESCRIPTION_DELETE_WORLD("Removes data being linked to a world"),
     DESCRIPTION_GAMEMODE("Change player gamemode"),
@@ -330,6 +331,8 @@ public enum Message {
     DESCRIPTION_VAULT_SET_SLOT("Set slot to player's vault"),
     DESCRIPTION_SHOW_ITEM("Show player's item"),
     DESCRIPTION_EXPERIENCE("Manage player experience"),
+    DESCRIPTION_DISCORD_LINK("Link your discord account"),
+    DESCRIPTION_DISCORD_UNLINK("Unlink your discord account"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -420,6 +423,7 @@ public enum Message {
 
     COMMAND_SET_SPAWN("&fYou just set the spawn location."),
     COMMAND_SPAWN_NOT_DEFINE("<error>The spawn does not exist. Please contact an administrator."),
+    COMMAND_SPAWN_LOCATION_INVALID("<error>The spawn is invalid, please contact an administrator"),
 
     COMMAND_WARP_ALREADY_EXIST("<error>Warp &f%name% <error>already exists. &7Use &n<hover:show_text:'&fUse this command'><click:suggest_command:'/setwarp %name% true'>/setwarp %name% true</click></hover>&r command to modify the warp"),
     COMMAND_WARP_DOESNT_EXIST("<error>Warp &f%name% <error> does not exist."),
@@ -437,6 +441,7 @@ public enum Message {
     COMMAND_WARP_LIST("&7Warps&8:&f%destinations%"),
     COMMAND_WARP_LIST_INFO(" <hover:show_text:'&fClick to teleport to warp &n%name%'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"),
     COMMAND_WARP_DELETE("<success>You just removed the warp &f%name%<success>."),
+    COMMAND_WARP_INVALID("<error>Warp &f%name% <error>has an invalide location."),
 
     COMMAND_RANDOM_TP_ERROR("<error>No safe location found after multiple attempts, please try again."),
 
@@ -843,6 +848,16 @@ public enum Message {
     DESCRIPTION_EXPERIENCE_QUERY("Query player experience"),
     DESCRIPTION_EXPERIENCE_SET("Set player experience"),
     DESCRIPTION_EXPERIENCE_GRANT("Grant experience to player"),
+    RANDOM_WORD_CLEAR("<success>The random word has been cleared."),
+
+
+    COMMAND_LINK_ACCOUNT_ALREADY_LINKED("<error>You are already linked to an account."),
+    COMMAND_LINK_ACCOUNT_INVALID_CODE("<error>Invalid code."),
+    COMMAND_LINK_ACCOUNT_SUCCESS("<success>You have just linked your account <white>%discord%<success>."),
+    COMMAND_LINK_ACCOUNT_DISABLED("<error>You cannot link your account at this time."),
+    COMMAND_LINK_ACCOUNT_NOT_LINKED("<error>You are not linked to an account."),
+    COMMAND_LINK_ACCOUNT_RESET("<success>You have just reset your account link."),
+
     ;
 
     private EssentialsPlugin plugin;

@@ -6,9 +6,9 @@ import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.hologram.Hologram;
 import fr.maxlego08.essentials.api.hologram.HologramManager;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.utils.SafeLocation;
 import fr.maxlego08.essentials.hologram.HologramModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
-import org.bukkit.Location;
 
 public class CommandHologramList extends VCommand {
 
@@ -32,8 +32,8 @@ public class CommandHologramList extends VCommand {
         }
 
         for (Hologram hologram : manager.getHolograms()) {
-            Location location = hologram.getLocation();
-            message(sender, Message.HOLOGRAM_LIST, "%name%", hologram.getName(), "%x%", location.getBlockX(), "%y%", location.getBlockY(), "%z%", location.getBlockZ(), "%world%", location.getWorld().getName());
+            SafeLocation location = hologram.getLocation();
+            message(sender, Message.HOLOGRAM_LIST, "%name%", hologram.getName(), "%x%", location.getBlockX(), "%y%", location.getBlockY(), "%z%", location.getBlockZ(), "%world%", location.getWorld());
         }
 
         return CommandResultType.SUCCESS;

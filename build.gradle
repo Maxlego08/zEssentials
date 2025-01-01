@@ -78,6 +78,15 @@ subprojects {
         archiveFileName = "${project.name}.jar"
         destinationDirectory = rootProject.archiveFolder
     }
+
+    if (project.name == 'DiscordBot') {
+        tasks.withType(JavaCompile).configureEach {
+            onlyIf { !project.hasProperty('excludeDiscordBot') || !project.property('excludeDiscordBot').toBoolean() }
+        }
+        tasks.withType(Jar).configureEach {
+            onlyIf { !project.hasProperty('excludeDiscordBot') || !project.property('excludeDiscordBot').toBoolean() }
+        }
+    }
 }
 
 repositories {

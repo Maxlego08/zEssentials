@@ -1,8 +1,11 @@
 package fr.maxlego08.essentials.storage.storages;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.discord.DiscordAction;
 import fr.maxlego08.essentials.api.dto.ChatMessageDTO;
 import fr.maxlego08.essentials.api.dto.CooldownDTO;
+import fr.maxlego08.essentials.api.dto.DiscordAccountDTO;
+import fr.maxlego08.essentials.api.dto.DiscordCodeDTO;
 import fr.maxlego08.essentials.api.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.dto.EconomyTransactionDTO;
 import fr.maxlego08.essentials.api.dto.HomeDTO;
@@ -457,5 +460,35 @@ public class JsonStorage extends StorageHelper implements IStorage {
     @Override
     public void deleteWorldData(String worldName) {
         throw new NotImplementedException("upsertFly is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public void linkDiscordAccount(UUID uniqueId, String minecraftName, String discordName, long userId) {
+        throw new NotImplementedException("linkDiscordAccount is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public Optional<DiscordAccountDTO> selectDiscordAccount(UUID uniqueId) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<DiscordCodeDTO> selectCode(String code) {
+        return Optional.empty();
+    }
+
+    @Override
+    public void clearCode(DiscordCodeDTO code) {
+        throw new NotImplementedException("clearCode is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public void insertDiscordLog(DiscordAction action, UUID uniqueId, String minecraftName, String discordName, long userId, String data) {
+        throw new NotImplementedException("insertDiscordLog is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public void unlinkDiscordAccount(UUID uniqueId) {
+        throw new NotImplementedException("unlinkDiscordAccount is not implemented, use MYSQL storage");
     }
 }

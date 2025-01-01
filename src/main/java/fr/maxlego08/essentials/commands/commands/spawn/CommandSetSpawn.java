@@ -4,6 +4,7 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.utils.SafeLocation;
 import fr.maxlego08.essentials.module.modules.SpawnModule;
 import fr.maxlego08.essentials.storage.ConfigStorage;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
@@ -26,7 +27,7 @@ public class CommandSetSpawn extends VCommand {
         /*plugin.getServerStorage().setSpawnLocation(location);
         plugin.getStorageManager().getStorage().upsertStorage("spawn_location", locationAsString(location));*/
 
-        ConfigStorage.spawnLocation = location.clone();
+        ConfigStorage.spawnLocation = new SafeLocation(location.clone());
         ConfigStorage.getInstance().save(plugin.getPersist());
 
         message(sender, Message.COMMAND_SET_SPAWN);

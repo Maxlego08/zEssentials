@@ -10,6 +10,7 @@ import fr.maxlego08.essentials.api.dto.OptionDTO;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
+import fr.maxlego08.essentials.api.utils.SafeLocation;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.utils.LocationUtils;
 import org.bukkit.Location;
@@ -94,7 +95,7 @@ public class UserTypeAdapter extends TypeAdapter<User> {
         Map<String, Long> cooldowns = new HashMap<>();
         Map<String, BigDecimal> balances = new HashMap<>();
         List<HomeDTO> homeDTOS = new ArrayList<>();
-        Location lastLocation = null;
+        SafeLocation lastLocation = null;
 
         in.beginObject();
         while (in.hasNext()) {

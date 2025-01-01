@@ -34,7 +34,7 @@ public class CommandSpawn extends VCommand {
         User user = this.plugin.getUser(player.getUniqueId());
         if (user == null) return CommandResultType.SYNTAX_ERROR; // Only if its console
 
-        Location location = ConfigStorage.spawnLocation;
+        Location location = ConfigStorage.spawnLocation.getLocation();
         if (location == null) {
             message(sender, Message.COMMAND_SPAWN_NOT_DEFINE);
             return CommandResultType.DEFAULT;

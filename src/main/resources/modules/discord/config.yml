@@ -53,3 +53,20 @@ first-join-message:
         name: "%player% just logged in for the first time"
         icon-url: "https://mc-heads.net/head/%uuid%"
       color: "#44ff44" # Sets the color of the embed
+
+enable-link-account: false
+
+log-link-error-message:
+  enable: false # Enable or not the webhook
+  webhook: "https://discord.com/api/webhooks/"
+  message: "%player% vient d'essayer de lier son compte avec le code `%code%`"
+
+log-link-success-message:
+  enable: false # Enable or not the webhook
+  webhook: "https://discord.com/api/webhooks/"
+  message: "%player% vient de lier son compte avec le code `%code%` (%discord-name%:%discord-id%)"
+
+log-unlink-message:
+  enable: false # Enable or not the webhook
+  webhook: "https://discord.com/api/webhooks/"
+  message: "%player% vient de délier son compte (%discord-name%:%discord-id%)"

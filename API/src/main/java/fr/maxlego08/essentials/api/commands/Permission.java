@@ -247,7 +247,7 @@ public enum Permission {
     ESSENTIALS_EXPERIENCE_QUERY,
     ESSENTIALS_EXPERIENCE_SET,
     ESSENTIALS_SPAWN_OTHER,
-    ESSENTIALS_FLY_SAFELOGIN("Players with this permission will automatically enter fly mode upon logging in if they are suspended in the air."), ESSENTIALS_SUICIDE, ESSENTIALS_ECO_GIVE_RANDOM;
+    ESSENTIALS_FLY_SAFELOGIN("Players with this permission will automatically enter fly mode upon logging in if they are suspended in the air."), ESSENTIALS_SUICIDE, ESSENTIALS_ECO_GIVE_RANDOM, ESSENTIALS_CLEAR_RANDOM_WORD, ESSENTIALS_DISCORD_LINK, ESSENTIALS_DISCORD_UNLINK;
 
     private final String description;
 

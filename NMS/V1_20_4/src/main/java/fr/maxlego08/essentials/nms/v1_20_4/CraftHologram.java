@@ -9,6 +9,7 @@ import fr.maxlego08.essentials.api.hologram.configuration.HologramConfiguration;
 import fr.maxlego08.essentials.api.hologram.configuration.ItemHologramConfiguration;
 import fr.maxlego08.essentials.api.hologram.configuration.TextHologramConfiguration;
 import fr.maxlego08.essentials.api.utils.ReflectionUtils;
+import fr.maxlego08.essentials.api.utils.SafeLocation;
 import io.papermc.paper.adventure.PaperAdventure;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -38,7 +39,7 @@ public class CraftHologram extends Hologram {
 
     private Display display = null;
 
-    public CraftHologram(EssentialsPlugin plugin, HologramType hologramType, HologramConfiguration configuration, String fileName, String name, Location location) {
+    public CraftHologram(EssentialsPlugin plugin, HologramType hologramType, HologramConfiguration configuration, String fileName, String name, SafeLocation location) {
         super(plugin, hologramType, name, fileName, location, configuration);
     }
 
@@ -72,7 +73,7 @@ public class CraftHologram extends Hologram {
 
     @Override
     public void create() {
-        ServerLevel serverLevel = ((CraftWorld) location.getWorld()).getHandle();
+        ServerLevel serverLevel = ((CraftWorld) location.getLocation().getWorld()).getHandle();
         switch (hologramType) {
             case BLOCK -> this.display = new Display.BlockDisplay(EntityType.BLOCK_DISPLAY, serverLevel);
             case ITEM -> this.display = new Display.ItemDisplay(EntityType.ITEM_DISPLAY, serverLevel);
@@ -88,7 +89,7 @@ public class CraftHologram extends Hologram {
 
     @Override
     public void updateLocation() {
-        display.setPosRaw(location.x(), location.y(), location.z());
+        display.setPosRaw(location.getX(), location.getY(), location.getZ());
         display.setYRot(location.getYaw());
         display.setXRot(location.getPitch());
     }

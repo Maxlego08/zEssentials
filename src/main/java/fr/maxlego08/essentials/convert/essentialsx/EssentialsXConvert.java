@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.convert.essentialsx;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.convert.Convert;
 import fr.maxlego08.essentials.api.home.Home;
+import fr.maxlego08.essentials.api.utils.SafeLocation;
 import fr.maxlego08.essentials.storage.database.repositeries.UserEconomyRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserHomeRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserRepository;
@@ -126,16 +127,14 @@ public class EssentialsXConvert extends ZUtils implements Convert {
         if (configurationSection != null) {
             configurationSection.getKeys(false).forEach(homeName -> {
 
-                World world = Bukkit.getWorld(configurationSection.getString(homeName + ".world-name", ""));
+                String world = configurationSection.getString(homeName + ".world-name", "world");
                 double x = configurationSection.getDouble(homeName + ".x");
                 double y = configurationSection.getDouble(homeName + ".y");
                 double z = configurationSection.getDouble(homeName + ".z");
                 double yaw = configurationSection.getDouble(homeName + ".yaw");
                 double pitch = configurationSection.getDouble(homeName + ".pitch");
 
-                if (world == null) return;
-
-                var home = new ZHome(new Location(world, x, y, z, (float) yaw, (float) pitch), homeName, null);
+                var home = new ZHome(new SafeLocation(world, x, y, z, (float) yaw, (float) pitch), homeName, null);
                 homes.add(home);
             });
         }

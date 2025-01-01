@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.module.modules;
 
 import fr.maxlego08.essentials.ZEssentialsPlugin;
+import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.essentials.storage.ConfigStorage;
@@ -16,8 +17,8 @@ import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
 public class SpawnModule extends ZModule {
 
-    private String respawnListenerPriority = "normal";
-    private String spawnJoinListenerPriority = "normal";
+    private final String respawnListenerPriority = "normal";
+    private final String spawnJoinListenerPriority = "normal";
     private boolean respawnAtAnchor;
     private boolean respawnAtHome;
     private boolean respawnAtBed;
@@ -77,22 +78,24 @@ public class SpawnModule extends ZModule {
             // ToDo
         }
 
-        if (ConfigStorage.spawnLocation != null) {
-            player.setRespawnLocation(ConfigStorage.spawnLocation, true);
+        if (ConfigStorage.spawnLocation.isValid()) {
+            player.setRespawnLocation(ConfigStorage.spawnLocation.getLocation(), true);
+        } else {
+            message(player, Message.COMMAND_SPAWN_LOCATION_INVALID, "%location%", ConfigStorage.spawnLocation);
         }
     }
 
     public void onSpawnLocation(PlayerSpawnLocationEvent event, Player player) {
         User user = getUser(player);
-        if (user != null && user.isFirstJoin() && ConfigStorage.spawnLocation != null) {
-            event.setSpawnLocation(ConfigStorage.spawnLocation);
+        if (user != null && user.isFirstJoin() && ConfigStorage.spawnLocation != null && ConfigStorage.spawnLocation.isValid()) {
+            event.setSpawnLocation(ConfigStorage.spawnLocation.getLocation());
         }
     }
 
     private void onRespawn(PlayerRespawnEvent event, Player player) {
 
         // If the spawn does not exist, we must do nothing
-        if (ConfigStorage.spawnLocation == null) return;
+        if (ConfigStorage.spawnLocation == null || !ConfigStorage.spawnLocation.isValid()) return;
 
         if (event.isAnchorSpawn() && respawnAtAnchor) {
             return;
@@ -111,6 +114,6 @@ public class SpawnModule extends ZModule {
             }
         }
 
-        event.setRespawnLocation(ConfigStorage.spawnLocation);
+        event.setRespawnLocation(ConfigStorage.spawnLocation.getLocation());
     }
 }

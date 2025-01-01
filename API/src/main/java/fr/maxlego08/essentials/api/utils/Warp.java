@@ -8,7 +8,7 @@ import org.bukkit.permissions.Permissible;
  * Represents a warp location.
  * This record encapsulates data related to a warp, including its name and location.
  */
-public record Warp(String name, Location location) {
+public record Warp(String name, SafeLocation location) {
 
     /**
      * Checks if the specified permissible entity has permission to warp to this location.

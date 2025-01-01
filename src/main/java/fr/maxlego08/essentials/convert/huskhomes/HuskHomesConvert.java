@@ -2,6 +2,7 @@ package fr.maxlego08.essentials.convert.huskhomes;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.convert.Convert;
+import fr.maxlego08.essentials.api.utils.SafeLocation;
 import fr.maxlego08.essentials.storage.database.repositeries.UserHomeRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserRepository;
 import fr.maxlego08.essentials.storage.storages.SqlStorage;
@@ -83,13 +84,7 @@ public class HuskHomesConvert extends ZUtils implements Convert {
 
             var position = optionalPosition.get();
 
-            World world = Bukkit.getWorld(position.world_name());
-            if (world == null) {
-                this.plugin.getLogger().severe("Impossible to find home position with id " + home.saved_position_id() + " for home " + home.uuid());
-                return;
-            }
-
-            Location location = new Location(world, position.x(), position.y(), position.z(), (float) position.yaw(), (float) position.pitch());
+            SafeLocation location = new SafeLocation(position.world_name(), position.x(), position.y(), position.z(), (float) position.yaw(), (float) position.pitch());
             userHomeRepository.upsert(home.owner_uuid(), new ZHome(location, savedPosition.name(), null));
         });
 

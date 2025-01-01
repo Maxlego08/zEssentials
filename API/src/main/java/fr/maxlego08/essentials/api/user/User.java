@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.api.user;
 
 import fr.maxlego08.essentials.api.commands.Permission;
+import fr.maxlego08.essentials.api.discord.DiscordAccount;
 import fr.maxlego08.essentials.api.dto.CooldownDTO;
 import fr.maxlego08.essentials.api.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.dto.HomeDTO;
@@ -16,6 +17,7 @@ import fr.maxlego08.essentials.api.mailbox.MailBoxItem;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.utils.DynamicCooldown;
+import fr.maxlego08.essentials.api.utils.SafeLocation;
 import fr.maxlego08.essentials.api.worldedit.Selection;
 import fr.maxlego08.essentials.api.worldedit.WorldEditTask;
 import org.bukkit.Location;
@@ -460,7 +462,7 @@ public interface User {
      *
      * @param location The last location of the user.
      */
-    void setLastLocation(Location location);
+    void setLastLocation(SafeLocation location);
 
     /**
      * Checks if the user is joining the server for the first time.
@@ -929,4 +931,12 @@ public interface User {
     void addFlySeconds(long seconds);
 
     void removeFlySeconds(long seconds);
+
+    DiscordAccount getDiscordAccount();
+
+    boolean isDiscordLinked();
+
+    void setDiscordAccount(DiscordAccount discordAccount);
+
+    void removeDiscordAccount();
 }

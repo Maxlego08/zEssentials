@@ -1,16 +1,17 @@
 package fr.maxlego08.essentials.user;
 
 import fr.maxlego08.essentials.api.home.Home;
+import fr.maxlego08.essentials.api.utils.SafeLocation;
 import org.bukkit.Location;
 import org.bukkit.Material;
 
 public class ZHome implements Home {
 
-    private final Location location;
+    private final SafeLocation location;
     private final String name;
     private Material material;
 
-    public ZHome(Location location, String name, Material material) {
+    public ZHome(SafeLocation location, String name, Material material) {
         this.location = location;
         this.name = name;
         this.material = material;
@@ -18,7 +19,7 @@ public class ZHome implements Home {
 
     @Override
     public Location getLocation() {
-        return location;
+        return location.getLocation();
     }
 
     @Override

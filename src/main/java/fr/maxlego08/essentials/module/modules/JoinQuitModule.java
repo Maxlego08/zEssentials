@@ -62,7 +62,8 @@ public class JoinQuitModule extends ZModule {
             event.joinMessage(Component.empty());
         } else if (this.customJoinMessage == JoinQuitMessageType.CUSTOM) {
             PaperComponent paperComponent = (PaperComponent) this.componentMessage;
-            event.joinMessage(paperComponent.getComponent(getMessage(Message.JOIN_MESSAGE, "%player%", player.getName(), "%displayName%", player.getDisplayName())));
+            var papiMessage = papi(getMessage(Message.JOIN_MESSAGE, "%player%", player.getName(), "%displayName%", player.getDisplayName()), player);
+            event.joinMessage(paperComponent.getComponent(papiMessage));
         }
 
         if (user != null && user.isFirstJoin() && this.allowFirstJoinMotd) {
@@ -85,7 +86,8 @@ public class JoinQuitModule extends ZModule {
             event.quitMessage(Component.empty());
         } else if (this.customQuitMessage == JoinQuitMessageType.CUSTOM) {
             PaperComponent paperComponent = (PaperComponent) this.componentMessage;
-            event.quitMessage(paperComponent.getComponent(getMessage(Message.QUIT_MESSAGE, "%player%", player.getName(), "%displayName%", player.getDisplayName())));
+            var papiMessage = papi(getMessage(Message.QUIT_MESSAGE, "%player%", player.getName(), "%displayName%", player.getDisplayName()), player);
+            event.quitMessage(paperComponent.getComponent(papiMessage));
         }
     }
 }

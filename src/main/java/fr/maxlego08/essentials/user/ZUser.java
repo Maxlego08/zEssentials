@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.user;
 import com.tcoded.folialib.impl.PlatformScheduler;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.Permission;
+import fr.maxlego08.essentials.api.discord.DiscordAccount;
 import fr.maxlego08.essentials.api.dto.CooldownDTO;
 import fr.maxlego08.essentials.api.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.dto.HomeDTO;
@@ -25,6 +26,7 @@ import fr.maxlego08.essentials.api.user.PrivateMessage;
 import fr.maxlego08.essentials.api.user.TeleportRequest;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.DynamicCooldown;
+import fr.maxlego08.essentials.api.utils.SafeLocation;
 import fr.maxlego08.essentials.api.worldedit.Selection;
 import fr.maxlego08.essentials.api.worldedit.WorldEditTask;
 import fr.maxlego08.essentials.economy.EconomyModule;
@@ -70,7 +72,7 @@ public class ZUser extends ZUtils implements User {
     private User targetUser;
     private BigDecimal targetAmount;
     private Economy targetEconomy;
-    private Location lastLocation;
+    private SafeLocation lastLocation;
     private boolean firstJoin;
     private int banId;
     private int muteId;
@@ -89,6 +91,7 @@ public class ZUser extends ZUtils implements User {
     private Map<String, Long> lastVotes = new HashMap<>();
     private Home currentDeleteHome;
     private long flySeconds;
+    private DiscordAccount discordAccount;
 
     private boolean freeze;
 
@@ -554,17 +557,17 @@ public class ZUser extends ZUtils implements User {
     public void setLastLocation() {
         Player player = this.getPlayer();
         if (player == null) return;
-        this.lastLocation = player.getLocation().clone();
+        this.lastLocation = new SafeLocation(player.getLocation().clone());
         this.getStorage().upsertUser(this);
     }
 
     @Override
     public Location getLastLocation() {
-        return this.lastLocation;
+        return this.lastLocation.getLocation();
     }
 
     @Override
-    public void setLastLocation(Location location) {
+    public void setLastLocation(SafeLocation location) {
         this.lastLocation = location;
     }
 
@@ -592,7 +595,7 @@ public class ZUser extends ZUtils implements User {
         // Delete home with the same name before
         this.homes.removeIf(home -> home.getName().equalsIgnoreCase(name));
 
-        Home home = new ZHome(location, name, material.get());
+        Home home = new ZHome(new SafeLocation(location), name, material.get());
         this.homes.add(home);
         this.getStorage().upsertHome(this.uniqueId, home);
 
@@ -964,5 +967,25 @@ public class ZUser extends ZUtils implements User {
     public void removeFlySeconds(long seconds) {
         this.flySeconds -= seconds;
         getStorage().upsertFlySeconds(this.uniqueId, this.flySeconds);
+    }
+
+    @Override
+    public DiscordAccount getDiscordAccount() {
+        return discordAccount;
+    }
+
+    @Override
+    public void setDiscordAccount(DiscordAccount discordAccount) {
+        this.discordAccount = discordAccount;
+    }
+
+    @Override
+    public boolean isDiscordLinked() {
+        return this.discordAccount != null;
+    }
+
+    @Override
+    public void removeDiscordAccount() {
+        this.discordAccount = null;
     }
 }

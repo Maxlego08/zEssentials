@@ -15,6 +15,7 @@ import fr.maxlego08.essentials.api.hologram.configuration.HologramConfiguration;
 import fr.maxlego08.essentials.api.hologram.configuration.ItemHologramConfiguration;
 import fr.maxlego08.essentials.api.hologram.configuration.TextHologramConfiguration;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.utils.SafeLocation;
 import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.menu.exceptions.InventoryException;
 import fr.maxlego08.menu.zcore.utils.loader.Loader;
@@ -161,7 +162,7 @@ public class HologramModule extends ZModule implements HologramManager {
             case ITEM -> hologramConfiguration = new ItemHologramConfiguration();
         }
 
-        Hologram hologram = this.createHologram(hologramType, hologramConfiguration, name, name, player.getLocation());
+        Hologram hologram = this.createHologram(hologramType, hologramConfiguration, name, name, new SafeLocation(player.getLocation()));
 
         if (hologramType == HologramType.TEXT) {
             hologram.addLine(new ZHologramLine(1, "&fUse #ff9966/holo setline " + name + " 1 <your text>&f!", false));
@@ -286,14 +287,14 @@ public class HologramModule extends ZModule implements HologramManager {
     }
 
     @Override
-    public Hologram createHologram(HologramType hologramType, HologramConfiguration configuration, String fileName, String name, Location location) {
+    public Hologram createHologram(HologramType hologramType, HologramConfiguration configuration, String fileName, String name, SafeLocation location) {
 
         String version = NmsVersion.getCurrentVersion().name().replace("V_", "v");
         String className = String.format("fr.maxlego08.essentials.nms.%s.CraftHologram", version);
 
         try {
             Class<?> clazz = Class.forName(className);
-            Constructor<?> constructor = clazz.getConstructor(EssentialsPlugin.class, HologramType.class, HologramConfiguration.class, String.class, String.class, Location.class);
+            Constructor<?> constructor = clazz.getConstructor(EssentialsPlugin.class, HologramType.class, HologramConfiguration.class, String.class, String.class, SafeLocation.class);
             return (Hologram) constructor.newInstance(this.plugin, hologramType, configuration, fileName, name, location);
         } catch (Exception exception) {
             this.plugin.getLogger().severe("Cannot create a new instance for the class " + className);
@@ -340,7 +341,7 @@ public class HologramModule extends ZModule implements HologramManager {
         text = getMessage(text, "%damage%", new DecimalFormat(this.damageIndicator.decimalFormat()).format(damage));
 
         HologramConfiguration hologramConfiguration = new TextHologramConfiguration();
-        var hologram = createHologram(HologramType.TEXT, hologramConfiguration, "", "", location);
+        var hologram = createHologram(HologramType.TEXT, hologramConfiguration, "", "", new SafeLocation(location));
 
         hologram.addLine(new ZHologramLine(1, text, false));
         hologram.create();
@@ -360,14 +361,14 @@ public class HologramModule extends ZModule implements HologramManager {
     }
 
     private void displayHologram(Player player) {
-        this.holograms.stream().filter(hologram -> hologram.getLocation().getWorld().equals(player.getWorld())).forEach(hologram -> hologram.create(player));
+        this.holograms.stream().filter(hologram -> hologram.getLocation().getWorld().equals(player.getWorld().getName())).forEach(hologram -> hologram.create(player));
     }
 
 
     private void updateHolograms() {
         for (Player onlinePlayer : plugin.getServer().getOnlinePlayers()) {
             for (Hologram hologram : this.holograms) {
-                if (onlinePlayer.getWorld().equals(hologram.getLocation().getWorld())) {
+                if (onlinePlayer.getWorld().getName().equals(hologram.getLocation().getWorld())) {
                     hologram.autoUpdateLines(onlinePlayer);
                 }
             }

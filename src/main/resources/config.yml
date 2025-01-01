@@ -189,3 +189,15 @@ temp-fly-task: false
 # Allows to disable fly in some worlds
 disable-fly-world:
   - world_the_end
+
+random-words:
+  - "enderdragon"
+  - "netherite"
+  - "crafting"
+  - "survival"
+  - "adventure"
+  - "exploration"
+  - "obsidian"
+  - "diamond"
+  - "goldmine"
+  - "enderchest"

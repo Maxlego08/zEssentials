@@ -9,6 +9,7 @@ import fr.maxlego08.essentials.api.hologram.configuration.BlockHologramConfigura
 import fr.maxlego08.essentials.api.hologram.configuration.HologramConfiguration;
 import fr.maxlego08.essentials.api.hologram.configuration.ItemHologramConfiguration;
 import fr.maxlego08.essentials.api.hologram.configuration.TextHologramConfiguration;
+import fr.maxlego08.essentials.api.utils.SafeLocation;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import fr.maxlego08.menu.exceptions.InventoryException;
 import fr.maxlego08.menu.zcore.utils.loader.Loader;
@@ -45,7 +46,7 @@ public class HologramLoader extends ZUtils implements Loader<Hologram> {
 
         HologramType hologramType = HologramType.valueOf(configuration.getString("type"));
         String name = configuration.getString("name");
-        Location location = stringAsLocation(configuration.getString("location"));
+        SafeLocation location = stringAsLocation(configuration.getString("location"));
 
         HologramConfiguration hologramConfiguration;
         hologramConfiguration = hologramType == HologramType.BLOCK ? new BlockHologramConfiguration() : hologramType == HologramType.ITEM ? new ItemHologramConfiguration() : new TextHologramConfiguration();

@@ -26,6 +26,8 @@ import fr.maxlego08.essentials.api.storage.StorageManager;
 import fr.maxlego08.essentials.api.storage.adapter.LocationAdapter;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.EssentialsUtils;
+import fr.maxlego08.essentials.api.utils.RandomWord;
+import fr.maxlego08.essentials.api.utils.SafeLocation;
 import fr.maxlego08.essentials.api.utils.Warp;
 import fr.maxlego08.essentials.api.utils.component.ComponentMessage;
 import fr.maxlego08.essentials.api.vault.VaultManager;
@@ -78,6 +80,7 @@ import fr.maxlego08.essentials.storage.adapter.UserTypeAdapter;
 import fr.maxlego08.essentials.task.FlyTask;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.user.placeholders.EconomyBaltopPlaceholders;
+import fr.maxlego08.essentials.user.placeholders.RandomWordPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.ReplacePlaceholders;
 import fr.maxlego08.essentials.user.placeholders.ServerPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.UserHomePlaceholders;
@@ -106,7 +109,6 @@ import fr.maxlego08.menu.api.InventoryManager;
 import fr.maxlego08.menu.api.pattern.PatternManager;
 import fr.maxlego08.menu.button.loader.NoneLoader;
 import fr.maxlego08.menu.zcore.utils.nms.NmsVersion;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -147,6 +149,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     private ScoreboardManager scoreboardManager;
     private HologramManager hologramManager;
     private InteractiveChatHelper interactiveChatHelper;
+    private RandomWord randomWord;
     private long serverStartUptime;
 
     @Override
@@ -229,6 +232,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.registerPlaceholder(EconomyBaltopPlaceholders.class);
         this.registerPlaceholder(VotePlaceholders.class);
         this.registerPlaceholder(ServerPlaceholders.class);
+        this.randomWord = this.registerPlaceholder(RandomWordPlaceholders.class);
 
         new Metrics(this, 21703);
         new VersionChecker(this, 325);
@@ -359,16 +363,18 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     }
 
     private GsonBuilder getGsonBuilder() {
-        return new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().serializeNulls().excludeFieldsWithModifiers(Modifier.TRANSIENT, Modifier.VOLATILE).registerTypeAdapter(Location.class, new LocationAdapter(this)).registerTypeAdapter(User.class, new UserTypeAdapter(this)).registerTypeAdapter(ZUser.class, new UserTypeAdapter(this));
+        return new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().serializeNulls().excludeFieldsWithModifiers(Modifier.TRANSIENT, Modifier.VOLATILE).registerTypeAdapter(SafeLocation.class, new LocationAdapter(this)).registerTypeAdapter(User.class, new UserTypeAdapter(this)).registerTypeAdapter(ZUser.class, new UserTypeAdapter(this));
     }
 
-    private void registerPlaceholder(Class<? extends PlaceholderRegister> placeholderClass) {
+    private <T extends PlaceholderRegister> T registerPlaceholder(Class<T> placeholderClass) {
         try {
             PlaceholderRegister placeholderRegister = placeholderClass.getConstructor().newInstance();
             placeholderRegister.register(this.placeholder, this);
+            return (T) placeholderRegister;
         } catch (Exception exception) {
             exception.printStackTrace();
         }
+        return null;
     }
 
     @Override
@@ -683,5 +689,10 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     @Override
     public long getServerStartupTime() {
         return serverStartUptime;
+    }
+
+    @Override
+    public RandomWord getRandomWord() {
+        return randomWord;
     }
 }

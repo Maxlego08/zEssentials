@@ -4,6 +4,7 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.utils.SafeLocation;
 import fr.maxlego08.essentials.api.utils.Warp;
 import fr.maxlego08.essentials.module.modules.WarpModule;
 import fr.maxlego08.essentials.storage.ConfigStorage;
@@ -37,7 +38,7 @@ public class CommandSetWarp extends VCommand {
         }
 
         ConfigStorage.warps.removeIf(warp -> warp.name().equalsIgnoreCase(warpName));
-        ConfigStorage.warps.add(new Warp(warpName, this.player.getLocation()));
+        ConfigStorage.warps.add(new Warp(warpName, new SafeLocation(this.player.getLocation())));
         ConfigStorage.getInstance().save(plugin.getPersist());
 
         message(sender, Message.COMMAND_WARP_CREATE, "%name%", warpName);

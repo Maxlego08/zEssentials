@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.hologram.Hologram;
 import fr.maxlego08.essentials.api.hologram.HologramManager;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.utils.SafeLocation;
 import fr.maxlego08.essentials.commands.commands.hologram.VCommandHologram;
 import org.bukkit.Location;
 
@@ -24,10 +25,10 @@ public class CommandHologramYaw extends VCommandHologram {
     protected void perform(EssentialsPlugin plugin, Hologram hologram, HologramManager manager) {
 
         float yaw = (float) this.argAsDouble(1);
-        Location location = hologram.getLocation();
+        SafeLocation location = hologram.getLocation();
         location.setYaw(yaw);
 
-        hologram.teleport(location);
+        hologram.teleport(location.getLocation());
         hologram.updateForAllPlayers();
         manager.saveHologram(hologram);
 

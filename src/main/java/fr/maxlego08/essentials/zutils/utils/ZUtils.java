@@ -18,9 +18,12 @@ import org.bukkit.permissions.Permissible;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -237,6 +240,17 @@ public abstract class ZUtils extends MessageUtils {
 
     protected Object convertToRequiredType(Logger logger, Object value, Class<?> type) {
         if (value == null) {
+            if (type == Integer.class || type == int.class) {
+                return 0;
+            } else if (type == Double.class || type == double.class) {
+                return 0.0;
+            } else if (type == Long.class || type == long.class) {
+                return 0L;
+            } else if (type == Float.class || type == float.class) {
+                return 0f;
+            } else if (type == Boolean.class || type == boolean.class) {
+                return false;
+            }
             return null;
         } else if (type.isEnum()) {
             try {
