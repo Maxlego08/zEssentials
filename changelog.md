@@ -2,7 +2,7 @@
 
 # 1.0.1.7
 
-- Added a bot discord. Se bot allows linking your account discord to your minecraft account. Download the bot here: TODO
+- Added a bot discord. Se bot allows linking your account discord to your minecraft account. Download the bot here: https://groupez.dev/resources/zessentials-discord-bot.340
 - Added command ``/link <code>``, allows linking your minecraft account
 - Added command ``/unlink``, allows unlinking your minecraft account
 - Added placeholder ``%zessentials_user_has_discord_linked%``
