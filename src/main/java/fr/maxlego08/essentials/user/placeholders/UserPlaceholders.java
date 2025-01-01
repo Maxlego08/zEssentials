@@ -166,5 +166,7 @@ public class UserPlaceholders extends ZUtils implements PlaceholderRegister {
         placeholder.register("user_block_y", (player) -> String.valueOf(player.getLocation().getBlockY()), "Returns the block y coordinate of the player");
         placeholder.register("user_block_z", (player) -> String.valueOf(player.getLocation().getBlockZ()), "Returns the block z coordinate of the player");
         placeholder.register("user_biome", (player) -> player.getWorld().getBiome(player.getLocation()).name(), "Returns the biome of the player");
+
+        placeholder.register("user_has_discord_linked", (player) -> iStorage.getUser(player.getUniqueId()).isDiscordLinked() ? "true" : "false", "Returns true if the player has a discord linked");
     }
 }

@@ -3,6 +3,7 @@
 - Added a bot discord. Se bot allows linking your account discord to your minecraft account. Download the bot here: TODO
 - Added command ``/link <code>``, allows linking your minecraft account
 - Added command ``/unlink``, allows unlinking your minecraft account
+- Added placeholder ``%zessentials_user_has_discord_linked%``
 - Fixed locations that could not be loaded if the world loaded after zEssentials
 - You can use placeholders in the join and quit message
 
