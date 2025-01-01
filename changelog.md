@@ -1,5 +1,7 @@
 # Unreleased
 
+# 1.0.1.7
+
 - Added a bot discord. Se bot allows linking your account discord to your minecraft account. Download the bot here: TODO
 - Added command ``/link <code>``, allows linking your minecraft account
 - Added command ``/unlink``, allows unlinking your minecraft account
