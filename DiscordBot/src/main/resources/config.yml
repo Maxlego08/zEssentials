@@ -1,6 +1,10 @@
+# Se bot discord is not a minecraft plugin!
+
+# The token of your Discord Bot
 bot-token: "DISCORD-TOKEN"
 
-guild-id: 0
+# The guild ID of your Discord Server
+guild-id: 511516467615760405
 
 database-configuration:
   # The prefix that will be applied to all tables, if you have several plugins with the same database you must have one.
@@ -16,46 +20,48 @@ database-configuration:
   password: 'secret'
   # Database
   database: zessentials
-  # Enable of not the sql debug mode
+  # Enable of not the SQL debug mode
   debug: false
 
 link:
+
   enable: true
-  replyMessage: "Use the command `/link %code%` to link your account."
+
+  # Allows logs of actions performed by a user
+  log:
+    channel: 1324025378142163025
+    create: "**%name%** (%id%) has just created the code `%code%`."
+    ask: "**%name%** (%id%) has just requested the code `%code%`."
+
+  # Message sent when user interacts with the message
+  messages:
+    code: "Use the command `/link %code%` to link your account."
+    already: "Your account is already linked."
+
+  # Button that the player will have to interact to link his account
   button:
-    name: "Click to link your minecraft account"
+    name: "Click to link your account"
     style: SUCCESS
-    disabled: false
-    # emoji: "U+2795"
+    emoji: "U+2795" # The emoji that will be displayed on the button
 
   embed:
     title:
-      title: "Zessentials"
-      url: "https://zessentials.net" # Ajout de l'URL au titre
-    description: "Check out our website at: https://zessentials.net"
+      title: "Link my account"
+      # url: "https://zessentials.net" # The URL of the title
+    description: "To link your account, follow these steps:\n1. Click the button above.\n2. Run the command in-game to complete the linking of your account."
     color:
       r: 10
       g: 150
       b: 10
-      alpha: 255 # Valeur maximale pour l'alpha (optionnel)
+      alpha: 255 # The alpha value of the color (optional)
     footer:
-      text: "Footer text here"
-      iconUrl: "https://example.com/footer-icon.png" # Optionnel
-    thumbnail:
-      url: "https://example.com/thumbnail.png"
-    image:
-      url: "https://example.com/image.png"
-    author:
-      name: "Author Name"
-      url: "https://authorwebsite.net" # Optionnel
-      iconUrl: "https://example.com/author-icon.png"
-    fields:
-      - name: "Field 1"
-        value: "Value for field 1"
-        inline: true # True pour aligner les champs sur la même ligne
-      - name: "Field 2"
-        value: "Value for field 2"
-        inline: true
-      - name: "Field 3"
-        value: "Value for field 3"
-        inline: false # False pour placer le champ sur une nouvelle ligne
+      text: "zEssentials - 2025"
+      # iconUrl: "https://groupez.dev/storage/images/users/0/0/0/1.png" # Optional
+    # thumbnail:
+      # url: "https://groupez.dev/storage/images/users/0/0/0/1.png"
+    # image:
+      # url: "https://example.com/image.png"
+    # author:
+      # name: "Author Name"
+      # url: "https://authorwebsite.net" # Optional
+      # iconUrl: "https://groupez.dev/storage/images/users/0/0/0/1.png"

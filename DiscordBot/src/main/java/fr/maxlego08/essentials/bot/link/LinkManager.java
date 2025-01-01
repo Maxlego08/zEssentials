@@ -14,24 +14,16 @@ import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import net.dv8tion.jda.internal.interactions.component.ButtonImpl;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public class LinkManager extends ListenerAdapter {
 
     public static final String BUTTON_LINK_NAME = "zessentials:link";
     private final DiscordBot instance;
-    private final List<DiscordCodeDTO> codes = new ArrayList<>();
 
     public LinkManager(DiscordBot instance) {
         this.instance = instance;
-    }
-
-    public void loadCodes() {
-        var codes = instance.getStorageManager().loadCodes();
-        this.codes.clear();
-        this.codes.addAll(codes);
     }
 
     public void sendLinkMessage(MessageChannelUnion textChannel) {
@@ -81,9 +73,8 @@ public class LinkManager extends ListenerAdapter {
                 }
 
                 // Otherwise, we will create one
-                String generatedCode = java.util.UUID.randomUUID().toString().replace("-", "").substring(0, 16);
+                String generatedCode = UUID.randomUUID().toString().replace("-", "").substring(0, 16);
                 DiscordCodeDTO newCode = new DiscordCodeDTO(generatedCode, user.getIdLong(), user.getName());
-                this.codes.add(newCode);
                 replyCode(generatedCode, event);
                 storage.saveCode(newCode);
                 storage.insertLog(DiscordAction.CREATE_CODE, null, null, user.getEffectiveName(), user.getIdLong(), generatedCode);
@@ -114,6 +105,6 @@ public class LinkManager extends ListenerAdapter {
     }
 
     private Optional<DiscordCodeDTO> getCode(long userId) {
-        return this.codes.stream().filter(code -> code.user_id() == userId).findFirst();
+        return this.instance.getStorageManager().getCode(userId);
     }
 }

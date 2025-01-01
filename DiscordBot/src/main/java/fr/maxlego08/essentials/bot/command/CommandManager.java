@@ -4,7 +4,6 @@ import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.bot.DiscordBot;
 import fr.maxlego08.essentials.bot.command.commands.CommandReload;
 import fr.maxlego08.essentials.bot.command.commands.CommandSetLinkMessage;
-import fr.maxlego08.essentials.bot.command.commands.CommandStop;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 import java.util.ArrayList;
@@ -24,7 +23,6 @@ public class CommandManager {
 
     public void registerCommands() {
         this.commands.clear();
-        registerCommand("stop", new CommandStop(this), "end");
         registerCommand("setlinkmessage", new CommandSetLinkMessage(this));
         registerCommand("reload", new CommandReload(this));
     }

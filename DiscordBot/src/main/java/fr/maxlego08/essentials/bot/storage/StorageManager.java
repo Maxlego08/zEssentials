@@ -11,7 +11,6 @@ import fr.maxlego08.sarah.HikariDatabaseConnection;
 import fr.maxlego08.sarah.RequestHelper;
 import fr.maxlego08.sarah.logger.Logger;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.Executor;
@@ -41,10 +40,6 @@ public class StorageManager {
         return requestHelper;
     }
 
-    public List<DiscordCodeDTO> loadCodes() {
-        return this.requestHelper.selectAll(Tables.LINK_CODES, DiscordCodeDTO.class);
-    }
-
     public void saveCode(DiscordCodeDTO code) {
         this.executor.execute(() -> this.requestHelper.insert(Tables.LINK_CODES, table -> {
             table.object("code", code.code());
@@ -70,5 +65,9 @@ public class StorageManager {
             if (userId != -1) table.bigInt("discord_id", userId);
             if (data != null) table.object("data", data);
         }));
+    }
+
+    public Optional<DiscordCodeDTO> getCode(long userId) {
+        return this.requestHelper.select(Tables.LINK_CODES, DiscordCodeDTO.class, table -> table.where("user_id", userId)).stream().findFirst();
     }
 }

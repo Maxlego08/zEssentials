@@ -47,42 +47,43 @@ public class DiscordBot {
         this.storageManager.connect(this.configuration);
 
         this.jda = builder.build();
-        this.linkManager.loadCodes();
 
-        this.shutdown();
+        this.addShutdownHook();
+        this.listenForCommands();
     }
 
     public static void main(String[] args) {
         new DiscordBot();
     }
 
-    private void shutdown() {
-        // Add shutdown hook to disconnect the bot
+    private void addShutdownHook() {
+        // Add shutdown hook to ensure proper cleanup
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             if (this.jda != null) {
-                this.jda.shutdown();
-                System.out.println("Bot disconnected.");
+                this.jda.shutdownNow();
+                System.out.println("Bot disconnected by shutdown hook.");
             }
         }));
-
-        // Scanner to listen for "stop" command
-        this.scanner = new Scanner(System.in);
-        while (true) {
-            String command = scanner.nextLine();
-            if (command.equalsIgnoreCase("stop")) {
-                if (this.jda != null) {
-                    this.jda.shutdownNow();
-                    System.out.println("Bot stopped by user command.");
-                }
-                break;
-            }
-        }
     }
 
-    public void forceShutdown() {
-        this.scanner.close();
-        this.jda.shutdown();
-        System.out.println("Bot disconnected.");
+    private void listenForCommands() {
+        // Scanner to listen for "stop" command
+        this.scanner = new Scanner(System.in);
+        Thread commandThread = new Thread(() -> {
+            while (true) {
+                String command = scanner.nextLine();
+                if (command.equalsIgnoreCase("stop")) {
+                    if (this.jda != null) {
+                        this.jda.shutdownNow();
+                        System.out.println("Bot stopped by user command.");
+                    }
+                    break;
+                }
+            }
+            scanner.close();
+        });
+        commandThread.setDaemon(true); // Ensures JVM exits when the main thread stops
+        commandThread.start();
     }
 
     public Configuration getConfiguration() {
@@ -102,9 +103,7 @@ public class DiscordBot {
     }
 
     public void reload() {
-
         this.configurationManager.loadOrCreateConfig();
         this.configuration.loadConfiguration(configurationManager.getConfig());
-
     }
 }
