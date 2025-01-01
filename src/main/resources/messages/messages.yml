@@ -430,6 +430,9 @@ description-experience-grant: "Grant experience to player"
 description-delete-world: "Removes data being linked to a world"
 description-clearinventory: "Clear player's inventory"
 description-suicide: "Kill yourself"
+description-discord-link: "Link your discord account"
+description-discord-unlink: "Unlink your discord account"
+description-clear-random-word: "Clear random words"
 
 # Time format
 format-second: "second"
@@ -503,6 +506,7 @@ command-warp-destination: " <hover:show_text:'&fClick to teleport to warp &n%nam
 command-warp-list: "&7Warps&8:&f%destinations%"
 command-warp-list-info: " <hover:show_text:'&fClick to teleport to warp &n%name%'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"
 command-warp-delete: "#00ff00You just removed the warp &f%name%#00ff00."
+command-warp-invalid: "<error>Warp &f%name% <error>has an invalid location."
 
 
 # Homes
@@ -924,3 +928,13 @@ experience-setted: "<success>You have just set <white>%amount% %type% <success>t
 experience-queried: "<success><white>%player% <success>have <white>%amount% <success>%type%."
 command-clearinventory-success: "<success>You have cleared your inventory."
 command-clearinventory-success-other: "<success>You have cleared the inventory of &f%player%<success>."
+
+# Discord
+command-link-account-already-linked: "<error>You are already linked to an account."
+command-link-account-invalid-code: "<error>Invalid code."
+command-link-account-success: "<success>You have just linked your account <white>%discord%<success>."
+command-link-account-disabled: "<error>You cannot link your account at this time."
+command-link-account-not-linked: "<error>You are not linked to an account."
+command-link-account-reset: "<success>You have just reset your account link."
+
+random-word-clear: "<success>The random word has been cleared."

@@ -425,6 +425,9 @@ description-experience: "Gérer l'expérience des joueurs"
 description-delete-world: "Supprime les données liées à un monde"
 description-clearinventory: "Vider l'inventaire du joueur"
 description-suicide: "En finir avec la vie"
+description-discord-link: "Lier votre compte Discord"
+description-discord-unlink: "Dissocier votre compte Discord"
+description-clear-random-word: "Supprimer les mots aléatoires"
 
 # Format de l'heure
 format-second: "seconde"
@@ -502,7 +505,7 @@ command-warp-destination: " <hover:show_text:'&fCliquez pour vous téléporter a
 command-warp-list: "&7Points de téléportation&8:&f%destinations%"
 command-warp-list-info: " <hover:show_text:'&fCliquez pour vous téléporter au point de téléportation &n%name%'><click:run_command:'/warp %name%'>&f%name%</click></hover>&7"
 command-warp-delete: "<success>Vous venez de supprimer le point de téléportation &f%name%<success>."
-
+command-warp-invalid: "<error>Le point de téléportation &f%name% <error>a une position invalide."
 
 
 # Maisons (Homes)
@@ -900,3 +903,13 @@ experience-setted: "<success>Vous venez de définir <white>%amount% %type% <succ
 experience-queried: "<success><white>%player% <success>a <white>%amount% <success>%type%."
 command-clearinventory-success: "<success>Vous avez effacé votre inventaire."
 command-clearinventory-success-other: "<success>Vous avez effacé l'inventaire de &f%player%<success>."
+
+# Discord
+command-link-account-already-linked: "<error>Vous êtes déjà lié à un compte."
+command-link-account-invalid-code: "<error>Code invalide."
+command-link-account-success: "<success>Vous venez de lier votre compte <white>%discord%<success>."
+command-link-account-disabled: "<error>Vous ne pouvez pas lier votre compte pour l'instant."
+command-link-account-not-linked: "<error>Vous n'êtes pas lié à un compte."
+command-link-account-reset: "<success>Vous venez de réinitialiser votre lien de compte."
+
+random-word-clear: "<success>Les mots aléatoire viennent d'être effacé."
