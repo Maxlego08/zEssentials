@@ -1,5 +1,7 @@
 # Unreleased
 
+- Fix placeholder on messages
+
 # 1.0.1.7
 
 - Added a bot discord. Se bot allows linking your account discord to your minecraft account. Download the bot here: https://groupez.dev/resources/zessentials-discord-bot.340
