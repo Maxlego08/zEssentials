@@ -1,6 +1,8 @@
 package fr.maxlego08.essentials.server;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.cache.ExpiringCache;
+import fr.maxlego08.essentials.api.cache.SimpleCache;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.server.EssentialsServer;
@@ -24,6 +26,7 @@ import java.util.UUID;
 public class PaperServer extends ZUtils implements EssentialsServer {
 
     private final EssentialsPlugin plugin;
+    private final ExpiringCache<String, List<String>> cache = new ExpiringCache<>(60 * 5 * 1000); // 5 minutes
 
 
     public PaperServer(EssentialsPlugin plugin) {
@@ -47,7 +50,7 @@ public class PaperServer extends ZUtils implements EssentialsServer {
 
     @Override
     public List<String> getOfflinePlayersNames() {
-        return Arrays.stream(Bukkit.getOfflinePlayers()).map(OfflinePlayer::getName).toList();
+        return this.cache.get("offline-players-names", () -> Arrays.stream(Bukkit.getOfflinePlayers()).map(OfflinePlayer::getName).toList());
     }
 
     @Override

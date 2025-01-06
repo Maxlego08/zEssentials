@@ -1,6 +1,7 @@
 # Unreleased
 
-- Fix placeholder on messages
+- Fixed placeholder on messages
+- Added a cache on the nicknames of offline players
 
 # 1.0.1.7
 
