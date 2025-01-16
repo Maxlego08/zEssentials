@@ -1,7 +1,11 @@
+# Idée:
+- Ajouter un broadcast de message centré avec le support des \n pour ajouter plusieurs lignes
+
 # Unreleased
 
 - Fixed placeholder on messages
 - Added a cache on the nicknames of offline players
+- Fixed the `/skull` command and added support for hexadecimal format
 
 # 1.0.1.7
 
