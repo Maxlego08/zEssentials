@@ -54,6 +54,7 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     private SimpleDateFormat simpleDateFormat;
     private List<ReplacePlaceholder> replacePlaceholders = new ArrayList<>();
     private List<String> randomWords;
+    private boolean enableOfflinePlayerNames;
 
     public MainConfiguration(ZEssentialsPlugin plugin) {
         this.plugin = plugin;
@@ -247,5 +248,10 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     @Override
     public List<String> getRandomWords() {
         return randomWords;
+    }
+
+    @Override
+    public boolean isEnableOfflinePlayersName() {
+        return this.enableOfflinePlayerNames;
     }
 }

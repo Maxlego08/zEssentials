@@ -182,4 +182,6 @@ public interface Configuration extends ConfigurationFile {
     List<String> getDisableFlyWorld();
 
     List<String> getRandomWords();
+
+    boolean isEnableOfflinePlayersName();
 }

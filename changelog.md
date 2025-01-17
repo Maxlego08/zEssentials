@@ -1,10 +1,12 @@
 # Idée:
 - Ajouter un broadcast de message centré avec le support des \n pour ajouter plusieurs lignes
+- Ajouter une option pour désactiver la tabulation des joueurs hors ligne
 
 # Unreleased
 
-- Fixed placeholder on messages
 - Added a cache on the nicknames of offline players
+- Added an option to disable the list of offline player usernames for the completion tab of certain commands
+- Fixed placeholder on messages
 - Fixed the `/skull` command and added support for hexadecimal format
 
 # 1.0.1.7

@@ -117,7 +117,7 @@ public class RedisServer implements EssentialsServer, Listener {
 
     @Override
     public List<String> getOfflinePlayersNames() {
-        return Arrays.stream(Bukkit.getOfflinePlayers()).map(OfflinePlayer::getName).toList();
+        return this.plugin.getConfiguration().isEnableOfflinePlayersName() ? Arrays.stream(Bukkit.getOfflinePlayers()).map(OfflinePlayer::getName).toList() : getPlayersNames();
     }
 
     @Override

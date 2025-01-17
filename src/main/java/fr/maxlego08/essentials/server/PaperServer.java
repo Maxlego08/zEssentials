@@ -50,7 +50,7 @@ public class PaperServer extends ZUtils implements EssentialsServer {
 
     @Override
     public List<String> getOfflinePlayersNames() {
-        return this.cache.get("offline-players-names", () -> Arrays.stream(Bukkit.getOfflinePlayers()).map(OfflinePlayer::getName).toList());
+        return this.plugin.getConfiguration().isEnableOfflinePlayersName() ? this.cache.get("offline-players-names", () -> Arrays.stream(Bukkit.getOfflinePlayers()).map(OfflinePlayer::getName).toList()) : getPlayersNames();
     }
 
     @Override
