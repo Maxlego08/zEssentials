@@ -23,12 +23,13 @@ public class ButtonVaultSlotDisable extends ZButton {
 
     @Override
     public void onRender(Player player, InventoryDefault inventory) {
-        PlayerVaults playerVaults = plugin.getVaultManager().getPlayerVaults(player);
+        var manager = this.plugin.getVaultManager();
+        PlayerVaults playerVaults = manager.getPlayerVaults(player);
         Vault vault = playerVaults.getTargetVault();
         if (vault == null) return;
 
         int current = vault.getVaultId();
-        int startSlot = playerVaults.getSlots() - (this.slots.size() * (vault.getVaultId() - 1));
+        int startSlot = manager.getMaxSlotsPlayer(player) - (this.slots.size() * (vault.getVaultId() - 1));
         if (startSlot > this.slots.size() * current) return;
 
         for (int index = Math.max(0, startSlot); index < this.slots.size(); index++) {

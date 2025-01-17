@@ -14,6 +14,7 @@ import fr.maxlego08.essentials.api.vault.VaultManager;
 import fr.maxlego08.essentials.api.vault.VaultResult;
 import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.menu.zcore.utils.nms.ItemStackUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
@@ -250,7 +251,8 @@ public class VaultModule extends ZModule implements VaultManager {
     @Override
     public boolean hasPermission(UUID uniqueId, int vaultId) {
         PlayerVaults playerVaults = this.getPlayerVaults(uniqueId);
-        return playerVaults.getSlots() > (vaultId * 45) - 45;
+        Player player = Bukkit.getPlayer(uniqueId);
+        return (player == null ? playerVaults.getSlots() : getMaxSlotsPlayer(player)) > (vaultId * 45) - 45;
     }
 
     @Override

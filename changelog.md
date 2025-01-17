@@ -8,6 +8,7 @@
 - Added an option to disable the list of offline player usernames for the completion tab of certain commands
 - Fixed placeholder on messages
 - Fixed the `/skull` command and added support for hexadecimal format
+- Fixed vault default slot by permission
 
 # 1.0.1.7
 
