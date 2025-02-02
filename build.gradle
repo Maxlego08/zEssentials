@@ -32,7 +32,7 @@ allprojects {
         compileOnly("io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT")
         compileOnly("com.github.maxlego08:zMenu-API:1.0.3.7")
         implementation "com.github.technicallycoded:FoliaLib:0.4.3"
-        implementation 'com.github.Maxlego08:Sarah:1.12'
+        implementation 'com.github.Maxlego08:Sarah:1.13'
         implementation 'fr.mrmicky:fastboard:2.1.3'
     }
 

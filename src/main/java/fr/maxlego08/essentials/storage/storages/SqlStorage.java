@@ -53,7 +53,9 @@ import fr.maxlego08.essentials.migrations.CreateUserPlayTimeTableMigration;
 import fr.maxlego08.essentials.migrations.CreateUserPowerToolsMigration;
 import fr.maxlego08.essentials.migrations.CreateUserTableMigration;
 import fr.maxlego08.essentials.migrations.CreateVoteSiteMigration;
+import fr.maxlego08.essentials.migrations.ReCreatePowerToolsMigration;
 import fr.maxlego08.essentials.migrations.UpdateEconomyTransactionAddColumn;
+import fr.maxlego08.essentials.migrations.DropPowerToolsMigration;
 import fr.maxlego08.essentials.migrations.UpdateUserTableAddFlyColumn;
 import fr.maxlego08.essentials.migrations.UpdateUserTableAddFreezeColumn;
 import fr.maxlego08.essentials.migrations.UpdateUserTableAddSanctionColumns;
@@ -98,6 +100,7 @@ import org.jetbrains.annotations.NotNull;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -161,6 +164,8 @@ public class SqlStorage extends StorageHelper implements IStorage {
         MigrationManager.registerMigration(new CreateLinkCodeMigrations());
         MigrationManager.registerMigration(new CreateLinkAccountMigration());
         MigrationManager.registerMigration(new CreateLinkHistoryMigration());
+        MigrationManager.registerMigration(new DropPowerToolsMigration());
+        MigrationManager.registerMigration(new ReCreatePowerToolsMigration());
 
         // Repositories
         this.repositories = new Repositories(plugin, this.connection);
@@ -249,7 +254,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
                 user.setCooldowns(with(UserCooldownsRepository.class).select(uniqueId));
                 user.setEconomies(with(UserEconomyRepository.class).select(uniqueId));
                 user.setHomes(with(UserHomeRepository.class).select(uniqueId));
-                user.setPowerTools(with(UserPowerToolsRepository.class).select(uniqueId).stream().collect(Collectors.toMap(PowerToolsDTO::material, PowerToolsDTO::command)));
+                user.setPowerTools(with(UserPowerToolsRepository.class).select(uniqueId).stream().collect(Collectors.toMap(PowerToolsDTO::material, PowerToolsDTO::command, (a, b) -> b, LinkedHashMap::new)));
                 user.setMailBoxItems(with(UserMailBoxRepository.class).select(uniqueId));
                 user.setVoteSites(with(VoteSiteRepository.class).select(uniqueId));
                 with(LinkAccountRepository.class).select(uniqueId).ifPresent(user::setDiscordAccount);

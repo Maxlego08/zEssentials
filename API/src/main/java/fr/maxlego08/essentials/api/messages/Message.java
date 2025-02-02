@@ -680,8 +680,8 @@ public enum Message {
 
     COMMAND_POWER_TOOL_ERROR_ITEM("<error>You have no item in your hand."),
     COMMAND_POWER_TOOL_ERROR_RESET("<error>This item has no recorded command."),
-    COMMAND_POWER_TOOL_INFO("<success>You just put the command &f/%command%<success> on the item &f%item<success>."),
-    COMMAND_POWER_TOOL_RESET("<success>You have just deleted the command on the item &f%item<success>."),
+    COMMAND_POWER_TOOL_INFO("<success>You just put the command &f/%command%<success> on the item &f%item%<success>."),
+    COMMAND_POWER_TOOL_RESET("<success>You have just deleted the command on the item &f%item%<success>."),
 
     MAILBOX_REMOVE_FULL("<error>You must have space in your inventory to retrieve an item."),
     MAILBOX_REMOVE_EXPIRE("<error>You can no longer retrieve this item, it has expired."),

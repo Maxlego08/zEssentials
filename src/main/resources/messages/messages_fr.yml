@@ -724,8 +724,8 @@ command-give-vault: "<success>Vous venez de donner &n&fx%amount% %item%&r <succe
 
 command-power-tool-error-item: "<error>Vous n'avez aucun objet dans votre main."
 command-power-tool-error-reset: "<error>Cet objet n'a pas de commande enregistrée."
-command-power-tool-info: "<success>Vous venez d'attribuer la commande &f/%command%<success> à l'objet &f%item<success>."
-command-power-tool-reset: "<success>Vous avez supprimé la commande de l'objet &f%item<success>."
+command-power-tool-info: "<success>Vous venez d'attribuer la commande &f/%command%<success> à l'objet &f%item%<success>."
+command-power-tool-reset: "<success>Vous avez supprimé la commande de l'objet &f%item%<success>."
 
 mailbox-remove-full: "<error>Vous devez avoir de la place dans votre inventaire pour récupérer un objet."
 mailbox-remove-expire: "<error>Vous ne pouvez plus récupérer cet objet, il a expiré."
