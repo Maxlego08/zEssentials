@@ -12,6 +12,7 @@ import fr.maxlego08.essentials.api.vault.Vault;
 import fr.maxlego08.essentials.api.vault.VaultItem;
 import fr.maxlego08.essentials.api.vault.VaultManager;
 import fr.maxlego08.essentials.api.vault.VaultResult;
+import fr.maxlego08.essentials.api.vault.VaultSlotType;
 import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.menu.zcore.utils.nms.ItemStackUtils;
 import org.bukkit.Bukkit;
@@ -43,6 +44,7 @@ public class VaultModule extends ZModule implements VaultManager {
     private String vaultNameRegex;
     private String defaultVaultName;
     private List<PermissionSlotsVault> vaultPermissions;
+    private VaultSlotType vaultSlotType = VaultSlotType.MAX;
 
     public VaultModule(ZEssentialsPlugin plugin) {
         super(plugin, "vault");
@@ -127,10 +129,9 @@ public class VaultModule extends ZModule implements VaultManager {
 
     @Override
     public int getMaxSlotsPlayer(Player player) {
-        return Math.max(getPlayerVaults(player.getUniqueId()).getSlots(),
-                this.vaultPermissions.stream()
-                        .filter(permission -> player.hasPermission(permission.permission()))
-                        .mapToInt(PermissionSlotsVault::slots).max().orElse(0));
+        int playerVaultSlot = getPlayerVaults(player.getUniqueId()).getSlots();
+        int permissionSlot = this.vaultPermissions.stream().filter(permission -> player.hasPermission(permission.permission())).mapToInt(PermissionSlotsVault::slots).max().orElse(0);
+        return (this.vaultSlotType == null || this.vaultSlotType == VaultSlotType.MAX) ? Math.max(playerVaultSlot, permissionSlot) : playerVaultSlot + permissionSlot;
     }
 
     @Override
@@ -339,8 +340,10 @@ public class VaultModule extends ZModule implements VaultManager {
     @Override
     public void resetName(Player player, Vault vault) {
 
-        vault.setName("Vault-" + vault.getVaultId());
+        vault.setName(this.defaultVaultName.replace("%vault-id%", String.valueOf(vault.getVaultId())));
+
         getStorage().updateVault(player.getUniqueId(), vault);
+
         message(player, Message.COMMAND_VAULT_RENAME_RESET);
         openVault(player, vault.getVaultId());
     }

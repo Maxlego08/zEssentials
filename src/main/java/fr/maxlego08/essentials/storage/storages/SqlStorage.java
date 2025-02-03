@@ -56,6 +56,7 @@ import fr.maxlego08.essentials.migrations.CreateVoteSiteMigration;
 import fr.maxlego08.essentials.migrations.ReCreatePowerToolsMigration;
 import fr.maxlego08.essentials.migrations.UpdateEconomyTransactionAddColumn;
 import fr.maxlego08.essentials.migrations.DropPowerToolsMigration;
+import fr.maxlego08.essentials.migrations.UpdatePlayerSlots;
 import fr.maxlego08.essentials.migrations.UpdateUserTableAddFlyColumn;
 import fr.maxlego08.essentials.migrations.UpdateUserTableAddFreezeColumn;
 import fr.maxlego08.essentials.migrations.UpdateUserTableAddSanctionColumns;
@@ -166,6 +167,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
         MigrationManager.registerMigration(new CreateLinkHistoryMigration());
         MigrationManager.registerMigration(new DropPowerToolsMigration());
         MigrationManager.registerMigration(new ReCreatePowerToolsMigration());
+        MigrationManager.registerMigration(new UpdatePlayerSlots());
 
         // Repositories
         this.repositories = new Repositories(plugin, this.connection);

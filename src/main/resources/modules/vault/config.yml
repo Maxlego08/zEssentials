@@ -36,3 +36,8 @@ vault-permissions:
     slots: 90
   - permission: zessentials.vault.size.admin
     slots: 500
+
+# Allows you to define how vault slots are counted
+# MAX - Selects the maximum value between the vault-permission and the number of slots you have set for the player
+# ADDITION - Adds together the number of slots from the vault-permission and the number of slots you have set for the player
+vault-slot-type: MAX

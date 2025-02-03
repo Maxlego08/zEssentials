@@ -1,8 +1,7 @@
 package fr.maxlego08.essentials.api.vault;
 
 import fr.maxlego08.essentials.api.utils.component.ComponentMessage;
-import org.bukkit.inventory.ItemStack;
-
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 /**
@@ -35,10 +34,11 @@ public interface VaultItem {
      * Gets the display item stack for showing to players, potentially with additional
      * information provided by a component message.
      *
+     * @param player             the player
      * @param adventureComponent the component message to apply to the display item
      * @return the display ItemStack
      */
-    ItemStack getDisplayItemStack(ComponentMessage adventureComponent);
+    ItemStack getDisplayItemStack(Player player, ComponentMessage adventureComponent);
 
     /**
      * Adds a specified amount to the quantity of the item.

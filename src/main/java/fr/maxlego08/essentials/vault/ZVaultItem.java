@@ -4,16 +4,18 @@ import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.utils.component.AdventureComponent;
 import fr.maxlego08.essentials.api.utils.component.ComponentMessage;
 import fr.maxlego08.essentials.api.vault.VaultItem;
+import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ZVaultItem implements VaultItem {
+public class ZVaultItem extends ZUtils implements VaultItem {
 
     private final int slot;
     private final ItemStack itemStack;
@@ -37,7 +39,7 @@ public class ZVaultItem implements VaultItem {
         return quantity;
     }
 
-    public ItemStack getDisplayItemStack(ComponentMessage componentMessage) {
+    public ItemStack getDisplayItemStack(Player player, ComponentMessage componentMessage) {
 
         ItemStack itemStack = this.itemStack.clone();
         itemStack.setAmount(1);
@@ -49,7 +51,7 @@ public class ZVaultItem implements VaultItem {
             if (lore == null) lore = new ArrayList<>();
             for (String message : Message.VAULT_LORE.getMessageAsStringList()) {
                 message = message.replace("%quantity%", String.valueOf(this.quantity));
-                lore.add(adventureComponent.getComponent(message).decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE));
+                lore.add(adventureComponent.getComponent(papi(message, player)).decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE));
             }
 
             itemMeta.lore(lore);

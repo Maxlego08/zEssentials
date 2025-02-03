@@ -6,11 +6,14 @@
 
 - Added a cache on the nicknames of offline players
 - Added an option to disable the list of offline player usernames for the completion tab of certain commands
+- Added ``vault-slot-type``, allows you to define how vault slots are counted
 - Fixed placeholder on messages
 - Fixed the `/skull` command and added support for hexadecimal format
 - Fixed vault default slot by permission
 - Fixed placeholder on messages
 - Fixed duplicate key with power tools
+- Fixed player slots sql table
+- Fixed button reset vault name 
 
 # 1.0.1.7
 

@@ -33,7 +33,7 @@ public class VaultOpenLoader implements ButtonLoader {
 
     @Override
     public Button load(YamlConfiguration configuration, String path, DefaultButtonValue defaultButtonValue) {
-        int vaultId = configuration.getInt(path + "vault", 1);
+        int vaultId = Integer.parseInt(configuration.getString(path + "vault", "1"));
         return new ButtonVaultOpen(this.plugin, vaultId);
     }
 }
