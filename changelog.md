@@ -7,6 +7,7 @@
 - Added a cache on the nicknames of offline players
 - Added an option to disable the list of offline player usernames for the completion tab of certain commands
 - Added ``vault-slot-type``, allows you to define how vault slots are counted
+- Added ``teleport-at-spawn-on-join``, allows to teleport the player when connecting
 - Fixed placeholder on messages
 - Fixed the `/skull` command and added support for hexadecimal format
 - Fixed vault default slot by permission

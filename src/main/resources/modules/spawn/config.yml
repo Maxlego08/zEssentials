@@ -16,8 +16,8 @@ enable: true
 # What priority should we use for handling respawns?
 # Set this to none, if you want vanilla respawning behaviour.
 # Set this to lowest, if you want Multiverse to handle the respawning.
-# Set this to high, if you want EssentialsSpawn to handle the respawning.
-# Set this to highest, if you want to force EssentialsSpawn to handle the respawning.
+# Set this to high, if you want zEssentials to handle the respawning.
+# Set this to highest, if you want to force zEssentials to handle the respawning.
 # Note: Changes will not apply until after the server is restarted.
 respawn-listener-priority: highest
 
@@ -35,3 +35,6 @@ respawn-at-home: false
 
 # When users die, should they respawn at their bed instead of the spawnpoint?
 respawn-at-bed: true
+
+# Allows teleporting the player to spawn when logged in
+teleport-at-spawn-on-join: false

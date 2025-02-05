@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.plugin.PluginManager;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
@@ -22,6 +23,7 @@ public class SpawnModule extends ZModule {
     private boolean respawnAtAnchor;
     private boolean respawnAtHome;
     private boolean respawnAtBed;
+    private boolean teleportAtSpawnOnJoin;
 
     public SpawnModule(ZEssentialsPlugin plugin) {
         super(plugin, "spawn");
@@ -60,6 +62,17 @@ public class SpawnModule extends ZModule {
                 }
             }, this.plugin);
         }
+
+        if (this.teleportAtSpawnOnJoin) {
+            pluginManager.registerEvent(PlayerJoinEvent.class, this, EventPriority.LOWEST, (listener, event) -> {
+                if (listener instanceof SpawnModule spawnModule && event instanceof PlayerJoinEvent playerJoinEvent) {
+                    var player = playerJoinEvent.getPlayer();
+                    if (ConfigStorage.spawnLocation != null && ConfigStorage.spawnLocation.isValid()) {
+                        player.teleport(ConfigStorage.spawnLocation.getLocation());
+                    }
+                }
+            }, this.plugin);
+        }
     }
 
     private void onPlayerDeath(PlayerDeathEvent playerDeathEvent, Player player) {
@@ -78,7 +91,7 @@ public class SpawnModule extends ZModule {
             // ToDo
         }
 
-        if (ConfigStorage.spawnLocation.isValid()) {
+        if (ConfigStorage.spawnLocation != null && ConfigStorage.spawnLocation.isValid()) {
             player.setRespawnLocation(ConfigStorage.spawnLocation.getLocation(), true);
         } else {
             message(player, Message.COMMAND_SPAWN_LOCATION_INVALID, "%location%", ConfigStorage.spawnLocation);
