@@ -120,7 +120,7 @@ public class MessageLoader implements ConfigurationFile {
 
                         } else if (messageType == MessageType.TITLE) {
 
-                            String title = getValue(map, "username", path, "Default username", true);
+                            String title = getValue(map, "title", path, "Default title", true);
                             String subtitle = getValue(map, "subtitle", path, "Default subtitle", true);
                             long start = getValue(map, "start", path, 100L, false);
                             long time = getValue(map, "time", path, 2800L, false);
@@ -153,7 +153,7 @@ public class MessageLoader implements ConfigurationFile {
 
                     if (messageType == MessageType.TITLE) {
 
-                        String title = configuration.getString(key + ".username", "Default username");
+                        String title = configuration.getString(key + ".title", "Default title");
                         String subtitle = configuration.getString(key + ".subtitle", "Default subtitle");
                         long start = configuration.getLong(key + ".start", 100);
                         long time = configuration.getLong(key + ".time", 2800);

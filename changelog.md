@@ -15,6 +15,7 @@
 - Fixed duplicate key with power tools
 - Fixed player slots sql table
 - Fixed button reset vault name 
+- Fixed title messages
 
 # 1.0.1.7
 
