@@ -4,18 +4,20 @@
 
 # Unreleased
 
-- Added a cache on the nicknames of offline players
-- Added an option to disable the list of offline player usernames for the completion tab of certain commands
-- Added ``vault-slot-type``, allows you to define how vault slots are counted
-- Added ``teleport-at-spawn-on-join``, allows to teleport the player when connecting
-- Fixed placeholder on messages
-- Fixed the `/skull` command and added support for hexadecimal format
-- Fixed vault default slot by permission
-- Fixed placeholder on messages
-- Fixed duplicate key with power tools
-- Fixed player slots sql table
-- Fixed button reset vault name 
-- Fixed title messages
+# 1.0.1.8
+
+- Added a cache for the nicknames of offline players.
+- Added an option to disable the list of offline player usernames in the completion tab for certain commands.
+- Added `vault-slot-type`, allowing you to define how vault slots are counted.
+- Added `teleport-at-spawn-on-join`, enabling player teleportation to spawn upon joining.
+- Fixed placeholders in messages.
+- Fixed the `/skull` command and added support for hexadecimal format.
+- Fixed default vault slot assignment by permission.
+- Fixed duplicate keys in power tools.
+- Fixed the SQL table for player slots.
+- Fixed the button to reset vault names.
+- Fixed title messages.
+
 
 # 1.0.1.7
 
