@@ -61,7 +61,7 @@ public class ButtonVaultSlotItems extends ZButton {
     }
 
     private void setVaultItem(Integer slot, Vault vault, VaultItem vaultItem, InventoryDefault inventory, Player player) {
-        ItemStack itemStack = vaultItem.getDisplayItemStack(this.plugin.getComponentMessage());
+        ItemStack itemStack = vaultItem.getDisplayItemStack(player, this.plugin.getComponentMessage());
         inventory.addItem(slot, itemStack).setClick(event -> {
             event.setCancelled(true);
             this.onBagClick(player, vault, vaultItem, event.getClick(), slot, inventory, event);
@@ -77,23 +77,23 @@ public class ButtonVaultSlotItems extends ZButton {
         if (clickType == ClickType.RIGHT && isPickup) {
 
             manager.remove(vault, vaultItem, player, 64, slot);
-            updateInventoryBag(vaultItem, slot, inventoryDefault, vault);
+            updateInventoryBag(player, vaultItem, slot, inventoryDefault, vault);
         } else if (clickType == ClickType.LEFT && isPickup) {
 
             manager.remove(vault, vaultItem, player, 1, slot);
-            updateInventoryBag(vaultItem, slot, inventoryDefault, vault);
+            updateInventoryBag(player, vaultItem, slot, inventoryDefault, vault);
         } else if (clickType == ClickType.SHIFT_LEFT) {
 
             manager.remove(vault, vaultItem, player, -1, slot);
-            updateInventoryBag(vaultItem, slot, inventoryDefault, vault);
+            updateInventoryBag(player, vaultItem, slot, inventoryDefault, vault);
         }
     }
 
-    private void updateInventoryBag(VaultItem bagItem, int slot, InventoryDefault inventoryDefault, Vault vault) {
+    private void updateInventoryBag(Player player, VaultItem bagItem, int slot, InventoryDefault inventoryDefault, Vault vault) {
         if (bagItem.getQuantity() <= 0 || !vault.contains(slot)) {
             releaseSlot(inventoryDefault, slot);
         } else
-            inventoryDefault.getSpigotInventory().setItem(slot, bagItem.getDisplayItemStack(this.plugin.getComponentMessage()));
+            inventoryDefault.getSpigotInventory().setItem(slot, bagItem.getDisplayItemStack(player, this.plugin.getComponentMessage()));
     }
 
     protected void releaseSlot(InventoryDefault inventory, int slot) {

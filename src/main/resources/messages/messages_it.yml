@@ -675,8 +675,8 @@ command-give-vault: "<success>Hai dato &n&fx%amount% %item%&r <success>alla cass
 
 command-power-tool-error-item: "<error>Non stai tenendo nessun oggetto."
 command-power-tool-error-reset: "<error>Questo oggetto non ha nessun comando registrato in sé."
-command-power-tool-info: "<success>Hai appena dato il comando &f/%command%<success> all'oggetto &f%item<success>."
-command-power-tool-reset: "<success>Hai eliminato il comando dell'oggetto &f%item<success>."
+command-power-tool-info: "<success>Hai appena dato il comando &f/%command%<success> all'oggetto &f%item%<success>."
+command-power-tool-reset: "<success>Hai eliminato il comando dell'oggetto &f%item%<success>."
 
 mailbox-remove-full: "<error>Devi avere dello spazio vuoto nell'inventario per ottenere l'oggetto."
 mailbox-remove-expire: "<error>Non puoi più ottenere questo oggetto. Tempo scaduto."

@@ -679,8 +679,8 @@ command-give-vault: "<success>Acabas de dar &n&fx%amount% %item%&r <success>al v
 
 command-power-tool-error-item: "<error>No tienes ningún objeto en la mano.</error>"
 command-power-tool-error-reset: "<error>Este objeto no tiene ningún comando registrado.</error>"
-command-power-tool-info: "<success>Acabas de poner el comando &f/%command%<success> en el objeto &f%item<success>."
-command-power-tool-reset: "<success>Acabas de eliminar el comando en el objeto &f%item<success>."
+command-power-tool-info: "<success>Acabas de poner el comando &f/%command%<success> en el objeto &f%item%<success>."
+command-power-tool-reset: "<success>Acabas de eliminar el comando en el objeto &f%item%<success>."
 
 mailbox-remove-full: "<error>Debes tener espacio en tu inventario para recuperar un objeto.</error>"
 mailbox-remove-expire: "<error>Ya no puedes recuperar este objeto, ha caducado.</error>"

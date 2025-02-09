@@ -720,8 +720,8 @@ command-give-vault: "<success>Du hast gerade &n&fx%amount% %item%&r <success>an 
 
 command-power-tool-error-item: "<error>Du hast keinen Gegenstand in der Hand."
 command-power-tool-error-reset: "<error>Dieser Gegenstand hat keinen aufgezeichneten Befehl."
-command-power-tool-info: "<success>Du hast gerade den Befehl &f/%command%<success> auf den Gegenstand &f%item<success> gesetzt."
-command-power-tool-reset: "<success>Du hast gerade den Befehl auf dem Gegenstand &f%item<success> gelöscht."
+command-power-tool-info: "<success>Du hast gerade den Befehl &f/%command%<success> auf den Gegenstand &f%item%<success> gesetzt."
+command-power-tool-reset: "<success>Du hast gerade den Befehl auf dem Gegenstand &f%item%<success> gelöscht."
 
 mailbox-remove-full: "<error>Du musst Platz in deinem Inventar haben, um einen Gegenstand abzuholen."
 mailbox-remove-expire: "<error>Du kannst diesen Gegenstand nicht mehr abholen, da er abgelaufen ist."

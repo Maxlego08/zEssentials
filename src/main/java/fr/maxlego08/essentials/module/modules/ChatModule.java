@@ -44,11 +44,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -300,10 +296,16 @@ public class ChatModule extends ZModule {
             int maxPage = getMaxPage(messages, 10);
             int page = targetPage > maxPage ? maxPage : targetPage < 0 ? 1 : targetPage;
 
-            pagination.paginate(messages, 10, page).forEach(chatMessageDTO -> message(sender, Message.CHAT_MESSAGES_LINE, "%date%", this.simpleDateFormat.format(chatMessageDTO.created_at()), "%message%", chatMessageDTO.content()));
+            pagination.paginate(messages, 10, page).forEach(chatMessageDTO -> message(sender, Message.CHAT_MESSAGES_LINE, "%date%", format(chatMessageDTO.created_at()), "%message%", chatMessageDTO.content()));
 
             message(sender, Message.CHAT_MESSAGES_FOOTER, "%page%", page, "%nextPage%", page + 1, "%previousPage%", page - 1, "%maxPage%", maxPage, "%player%", targetName);
         });
+    }
+
+
+    private String format(Date date){
+        if (date == null) return "";
+        return this.simpleDateFormat.format(date);
     }
 
     private void updatePlayerNamePattern() {

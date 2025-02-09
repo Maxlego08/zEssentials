@@ -201,3 +201,6 @@ random-words:
   - "diamond"
   - "goldmine"
   - "enderchest"
+
+# Displays the nicknames of online and offline players in the command completion tab
+enable-offline-player-names: true

@@ -1,4 +1,23 @@
+# Idée:
+- Ajouter un broadcast de message centré avec le support des \n pour ajouter plusieurs lignes
+- Ajouter une option pour désactiver la tabulation des joueurs hors ligne
+
 # Unreleased
+
+# 1.0.1.8
+
+- Added a cache for the nicknames of offline players.
+- Added an option to disable the list of offline player usernames in the completion tab for certain commands.
+- Added `vault-slot-type`, allowing you to define how vault slots are counted.
+- Added `teleport-at-spawn-on-join`, enabling player teleportation to spawn upon joining.
+- Fixed placeholders in messages.
+- Fixed the `/skull` command and added support for hexadecimal format.
+- Fixed default vault slot assignment by permission.
+- Fixed duplicate keys in power tools.
+- Fixed the SQL table for player slots.
+- Fixed the button to reset vault names.
+- Fixed title messages.
+
 
 # 1.0.1.7
 

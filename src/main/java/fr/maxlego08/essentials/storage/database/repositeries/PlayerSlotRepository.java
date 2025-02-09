@@ -20,9 +20,19 @@ public class PlayerSlotRepository extends Repository {
     }
 
     public void setSlot(UUID uniqueId, int slot) {
+
+        if (slot == 0) {
+            this.deleteSlot(uniqueId);
+            return;
+        }
+
         upsert(table -> {
             table.uuid("unique_id", uniqueId).primary();
-            table.bigInt("slots", slot).primary();
+            table.bigInt("slots", slot);
         });
+    }
+
+    public void deleteSlot(UUID uniqueId) {
+        delete(table -> table.where("unique_id", uniqueId));
     }
 }

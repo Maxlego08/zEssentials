@@ -21,7 +21,6 @@ import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.kyori.adventure.text.minimessage.tag.standard.StandardTags;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
-import org.bukkit.boss.BarColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -172,8 +171,12 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
 
     @Override
     public void sendMessage(CommandSender sender, String message) {
-        Component component = this.cache.get(message, () -> this.MINI_MESSAGE.deserialize(colorMiniMessage(message)));
-        sender.sendMessage(component);
+        if (sender instanceof Player player) {
+            sender.sendMessage(this.MINI_MESSAGE.deserialize(papi(colorMiniMessage(message), player)));
+        } else {
+            Component component = this.cache.get(message, () -> this.MINI_MESSAGE.deserialize(colorMiniMessage(message)));
+            sender.sendMessage(component);
+        }
     }
 
     public Component getComponentMessage(Message message, Object... args) {

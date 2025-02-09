@@ -758,8 +758,8 @@ command-give-vault: "<success>You just gave &n&fx%amount% %item%&r <success>to &
 
 command-power-tool-error-item: "<error>You have no item in your hand."
 command-power-tool-error-reset: "<error>This item has no recorded command."
-command-power-tool-info: "<success>You just put the command &f/%command%<success> on the item &f%item<success>."
-command-power-tool-reset: "<success>You have just deleted the command on the item &f%item<success>."
+command-power-tool-info: "<success>You just put the command &f/%command%<success> on the item &f%item%<success>."
+command-power-tool-reset: "<success>You have just deleted the command on the item &f%item%<success>."
 
 mailbox-remove-full: "<error>You must have space in your inventory to retrieve an item."
 mailbox-remove-expire: "<error>You can no longer retrieve this item, it has expired."
