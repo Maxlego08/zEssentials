@@ -287,3 +287,5 @@ worldedit-boss-bar:
   color: RED
   # PROGRESS, NOTCHED_6, NOTCHED_10, NOTCHED_12, NOTCHED_20
   style: PROGRESS
+
+enable-color-visualisation: true

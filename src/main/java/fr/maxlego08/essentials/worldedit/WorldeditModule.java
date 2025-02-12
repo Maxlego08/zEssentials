@@ -80,6 +80,7 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
     private List<PermissionHeight> permissionsCylinderHeight;
     private int batchSize;
     private WorldeditBossBarConfiguration worldeditBossBar;
+    private boolean enableColorVisualisation = false;
 
     public WorldeditModule(ZEssentialsPlugin plugin) {
         super(plugin, "worldedit");
@@ -331,6 +332,7 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
 
         message(user, Message.WORLDEDIT_START_CHECK_INVENTORY);
 
+        user.getSelection().reset();
         var economy = plugin.getEconomyManager().getDefaultEconomy();
 
         task.confirm(result -> {
@@ -565,6 +567,9 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
     @EventHandler
     public void onQuit(UserQuitEvent event) {
         var user = event.getUser();
+
+        var selection = user.getSelection();
+        if (selection != null) selection.reset();
 
         var task = user.getWorldeditTask();
         if (task == null || task.getWorldeditStatus() != WorldeditStatus.RUNNING) return;

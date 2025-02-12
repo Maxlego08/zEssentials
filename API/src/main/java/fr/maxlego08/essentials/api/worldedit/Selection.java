@@ -51,4 +51,6 @@ public interface Selection {
      * @return the {@link Cuboid} representing the selected area
      */
     Cuboid getCuboid();
+
+    void reset();
 }
