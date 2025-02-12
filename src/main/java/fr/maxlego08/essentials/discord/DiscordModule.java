@@ -19,6 +19,7 @@ import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -135,19 +136,19 @@ public class DiscordModule extends ZModule implements DiscordManager {
     public void onTalk(AsyncChatEvent event) {
         String message = PlainTextComponentSerializer.plainText().serialize(event.message());
         var player = event.getPlayer();
-        sendDiscordMessage(player.getName(), player.getUniqueId(), message, this.chatConfiguration);
+        sendDiscordMessage(player, player.getName(), player.getUniqueId(), message, this.chatConfiguration);
     }
 
-    private void sendDiscordMessage(String playerName, UUID uuid, String message, DiscordConfiguration configuration) {
-        sendDiscord(configuration, "%player%", playerName, "%uuid%", uuid.toString(), "%message%", message);
+    private void sendDiscordMessage(Player player, String playerName, UUID uuid, String message, DiscordConfiguration configuration) {
+        sendDiscord(player, configuration, "%player%", playerName, "%uuid%", uuid.toString(), "%message%", message);
     }
 
-    private void sendDiscord(DiscordConfiguration configuration, String... args) {
+    private void sendDiscord(Player player, DiscordConfiguration configuration, String... args) {
 
         if (!configuration.isEnable()) return;
 
         DiscordWebhook discordWebhook = new DiscordWebhook(configuration.webhookUrl());
-        configuration.apply(discordWebhook, args);
+        configuration.apply(text -> text == null ? null : player == null ? text : papi(text, player), discordWebhook, args);
 
         plugin.getScheduler().runAsync(wrappedTask -> {
             try {
@@ -163,19 +164,19 @@ public class DiscordModule extends ZModule implements DiscordManager {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         var player = event.getPlayer();
-        sendDiscordMessage(player.getName(), player.getUniqueId(), "", this.joinConfiguration);
+        sendDiscordMessage(player, player.getName(), player.getUniqueId(), "", this.joinConfiguration);
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         var player = event.getPlayer();
-        sendDiscordMessage(player.getName(), player.getUniqueId(), "", this.leftConfiguration);
+        sendDiscordMessage(player, player.getName(), player.getUniqueId(), "", this.leftConfiguration);
     }
 
     @EventHandler
     public void onFirstJoin(UserFirstJoinEvent event) {
-        var player = event.getUser();
-        sendDiscordMessage(player.getName(), player.getUniqueId(), "", this.firstJoinConfiguration);
+        var user = event.getUser();
+        sendDiscordMessage(user.getPlayer(), user.getName(), user.getUniqueId(), "", this.firstJoinConfiguration);
     }
 
     @Override
@@ -198,7 +199,7 @@ public class DiscordModule extends ZModule implements DiscordManager {
             if (optional.isEmpty()) {
                 message(user, Message.COMMAND_LINK_ACCOUNT_INVALID_CODE);
                 iStorage.insertDiscordLog(DiscordAction.TRY_LINK_ACCOUNT, user.getUniqueId(), user.getName(), null, -1, discordCode);
-                sendDiscord(this.logLinkErrorConfiguration, "%player%", user.getName(), "%code%", discordCode);
+                sendDiscord(user.getPlayer(), this.logLinkErrorConfiguration, "%player%", user.getName(), "%code%", discordCode);
                 return;
             }
 
@@ -219,7 +220,7 @@ public class DiscordModule extends ZModule implements DiscordManager {
 
                 message(user, Message.COMMAND_LINK_ACCOUNT_SUCCESS, "%discord%", code.discord_name());
 
-                sendDiscord(this.logLinkSuccessConfiguration, "%player%", user.getName(), "%discord-name%", code.discord_name(), "%discord-id%", String.valueOf(code.user_id()), "%code%", code.code());
+                sendDiscord(user.getPlayer(), this.logLinkSuccessConfiguration, "%player%", user.getName(), "%discord-name%", code.discord_name(), "%discord-id%", String.valueOf(code.user_id()), "%code%", code.code());
             });
         });
     }
@@ -249,6 +250,6 @@ public class DiscordModule extends ZModule implements DiscordManager {
 
         message(user, Message.COMMAND_LINK_ACCOUNT_RESET);
 
-        sendDiscord(this.logUnlinkConfiguration, "%player%", user.getName(), "%discord-name%", discordAccount.getDiscordName(), "%discord-id%", String.valueOf(discordAccount.getUserId()));
+        sendDiscord(user.getPlayer(), this.logUnlinkConfiguration, "%player%", user.getName(), "%discord-name%", discordAccount.getDiscordName(), "%discord-id%", String.valueOf(discordAccount.getUserId()));
     }
 }
