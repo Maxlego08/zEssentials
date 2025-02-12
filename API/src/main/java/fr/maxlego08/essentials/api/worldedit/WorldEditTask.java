@@ -402,6 +402,9 @@ public abstract class WorldEditTask {
             }
 
             block.setType(blockInfo.newMaterial());
+            if (!blockInfo.newMaterial().isAir()) {
+                plugin.getBlockTracker().track(block);
+            }
         });
     }
 

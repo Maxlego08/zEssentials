@@ -2,6 +2,7 @@ package fr.maxlego08.essentials.api;
 
 import com.google.gson.Gson;
 import com.tcoded.folialib.impl.PlatformScheduler;
+import fr.maxlego08.essentials.api.block.BlockTracker;
 import fr.maxlego08.essentials.api.chat.InteractiveChat;
 import fr.maxlego08.essentials.api.commands.CommandManager;
 import fr.maxlego08.essentials.api.economy.EconomyManager;
@@ -367,4 +368,8 @@ public interface EssentialsPlugin extends Plugin {
     long getServerStartupTime();
 
     RandomWord getRandomWord();
+
+    void setBlockTracker(BlockTracker blockTracker);
+
+    BlockTracker getBlockTracker();
 }

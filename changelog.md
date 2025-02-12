@@ -4,6 +4,8 @@
 
 # Unreleased
 
+- Added [BlockTracker](https://modrinth.com/plugin/blocktracker) for Player WorldEdit
+
 # 1.0.1.8
 
 - Added a cache for the nicknames of offline players.

@@ -8,6 +8,7 @@ import com.tcoded.folialib.impl.PlatformScheduler;
 import fr.maxlego08.essentials.api.Configuration;
 import fr.maxlego08.essentials.api.ConfigurationFile;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.block.BlockTracker;
 import fr.maxlego08.essentials.api.chat.InteractiveChat;
 import fr.maxlego08.essentials.api.commands.CommandManager;
 import fr.maxlego08.essentials.api.commands.Permission;
@@ -95,6 +96,7 @@ import fr.maxlego08.essentials.worldedit.WorldeditModule;
 import fr.maxlego08.essentials.zutils.Metrics;
 import fr.maxlego08.essentials.zutils.ZPlugin;
 import fr.maxlego08.essentials.zutils.utils.ComponentMessageHelper;
+import fr.maxlego08.essentials.zutils.utils.DefaultBlockTracker;
 import fr.maxlego08.essentials.zutils.utils.PlaceholderUtils;
 import fr.maxlego08.essentials.zutils.utils.VersionChecker;
 import fr.maxlego08.essentials.zutils.utils.ZServerStorage;
@@ -151,6 +153,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     private InteractiveChatHelper interactiveChatHelper;
     private RandomWord randomWord;
     private long serverStartUptime;
+    private BlockTracker blockTracker = new DefaultBlockTracker();
 
     @Override
     public void onEnable() {
@@ -242,6 +245,11 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
             PacketListener packetListener = new PacketListener();
             packetListener.registerPackets(this);
         }*/
+
+        if (getServer().getPluginManager().isPluginEnabled("BlockTracker")) {
+            var optional = createInstance("BlockTrackerHook", false);
+            optional.ifPresent(object -> this.blockTracker = (BlockTracker) object);
+        }
 
         this.getServer().getServicesManager().register(EssentialsPlugin.class, this, this, ServicePriority.Normal);
 
@@ -694,5 +702,15 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     @Override
     public RandomWord getRandomWord() {
         return randomWord;
+    }
+
+    @Override
+    public BlockTracker getBlockTracker() {
+        return this.blockTracker;
+    }
+
+    @Override
+    public void setBlockTracker(BlockTracker blockTracker) {
+        this.blockTracker = blockTracker;
     }
 }
