@@ -4,7 +4,6 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.commands.commands.worldedit.options.CommandWorldEditOption;
-import fr.maxlego08.essentials.commands.commands.worldedit.options.CommandWorldEditOptionInventory;
 import fr.maxlego08.essentials.worldedit.WorldeditModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 
@@ -26,11 +25,14 @@ public class CommandWorldEdit extends VCommand {
         this.addSubCommand(new CommandWorldEditPos2(plugin));
         this.addSubCommand(new CommandWorldEditCyl(plugin));
         this.addSubCommand(new CommandWorldEditOption(plugin));
+        this.addSubCommand(new CommandWorldEditCancel(plugin));
     }
 
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
-        syntaxMessage();
+        if (this.plugin.getWorldeditManager().isOpenHelpInventory()) {
+            plugin.openInventory(player, "pw-help");
+        } else syntaxMessage();
         return CommandResultType.SUCCESS;
     }
 }

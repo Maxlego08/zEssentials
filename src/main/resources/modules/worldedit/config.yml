@@ -14,7 +14,8 @@
 enable: true
 
 items:
-  playerWand:
+  - name: player-wand
+    display-name: "Player Wand"
     max-use: 50
     price-multiplier: 1.2
     item:
@@ -30,7 +31,8 @@ items:
         - '#3f3f3f• &7Max Distance#3f3f3f: #4cd5ff20'
         - '#3f3f3f• &7Use#3f3f3f: #4cd5ff%use%#3f3f3f/#4cf8ff50'
         - ''
-  adminWand:
+  - name: admin-Wand
+    display-name: "Admin Wand"
     max-use: -1
     price-multiplier: 0
     item:
@@ -288,4 +290,6 @@ worldedit-boss-bar:
   # PROGRESS, NOTCHED_6, NOTCHED_10, NOTCHED_12, NOTCHED_20
   style: PROGRESS
 
-enable-color-visualisation: true
+enable-color-visualisation: false
+
+open-help-inventory: false

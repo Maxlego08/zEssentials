@@ -53,4 +53,6 @@ public interface Selection {
     Cuboid getCuboid();
 
     void reset();
+
+    void cancel();
 }

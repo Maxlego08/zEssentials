@@ -13,6 +13,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public record WorldEditItem(
         String name,
+        String displayName,
         long maxUse,
         double priceMultiplier,
         MenuItemStack menuItemStack

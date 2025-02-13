@@ -321,6 +321,7 @@ public enum Message {
     DESCRIPTION_WORLDEDIT_CUT("Cut all blocks of your selection"),
     DESCRIPTION_WORLDEDIT_STOP("Stop the current edition"),
     DESCRIPTION_WORLDEDIT_CONFIRM("Confirm worldedit action"),
+    DESCRIPTION_WORLDEDIT_CANCEL("Cancel current selection"),
     DESCRIPTION_WORLDEDIT_POS1("Set first position of the selection"),
     DESCRIPTION_WORLDEDIT_POS2("Set second position of the selection"),
     DESCRIPTION_WORLDEDIT_OPTION("Configure your use of worldedit"),
@@ -488,6 +489,7 @@ public enum Message {
     COMMAND_HOME_ADMIN_SET("<success>You just created home &f%name%<success> of &b%player%<success>."),
     COMMAND_HOME_ADMIN_LIST("#8cc0cc%player% ʜᴏᴍᴇs&8:&f%homes%"),
     COMMAND_HOME_ADMIN_LIST_INFO(" <hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %player%:%name%'>&f%name%</click></hover>&7"),
+    COMMAND_HOME_ERROR_TELEPORT("<error>Unable to find the position for teleportation, please delete your home."),
 
     COMMAND_KICK_NOTIFY(MessageType.WITHOUT_PREFIX, "<hover:show_text:'&7By: <white>%sender%<newline>&7Duration: <white>%duration%<newline>&7Reason: <white>%reason%<newline>&7Date: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just kicked the player #e0d12d%target%#e33414.</click></hover>"),
     COMMAND_BAN_NOTIFY(MessageType.WITHOUT_PREFIX, "<hover:show_text:'&7By: <white>%sender%<newline>&7Duration: <white>%duration%<newline>&7Reason: <white>%reason%<newline>&7Date: <white>%created_at%<newline>&7Expires: <white>%expired_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just banned the player #e0d12d%target%#e33414.</click></hover>"),
@@ -817,6 +819,7 @@ public enum Message {
     COMMAND_WORLDEDIT_OPTION_INVENTORY_DISABLE("<error>You just disabled worldedit to use your inventory."),
     COMMAND_WORLDEDIT_OPTION_BOSSBAR_ENABLE("<success>You have just activated worldedit progress bar."),
     COMMAND_WORLDEDIT_OPTION_BOSSBAR_DISABLE("<error>You just disabled worldedit worldedit progress bar."),
+    COMMAND_WORLDEDIT_CANCEL("<success>You have just cancelled your current selection."),
 
     WORLDEDIT_SELECTION_ERROR("<error>You must select two positions before you make this command."),
     WORLDEDIT_SELECTION_VOLUME("<error>You cannot change more than &f%blocks% <error>at the same time."),

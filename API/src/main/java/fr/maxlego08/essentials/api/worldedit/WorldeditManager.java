@@ -255,4 +255,8 @@ public interface WorldeditManager {
      * @return the WorldEdit boss bar configuration
      */
     WorldeditBossBarConfiguration getWorldeditConfiguration();
+
+    void cancelSelection(User user);
+
+    boolean isOpenHelpInventory();
 }

@@ -91,6 +91,7 @@ import fr.maxlego08.essentials.user.placeholders.UserKitPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.UserPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.UserPlayTimePlaceholders;
 import fr.maxlego08.essentials.user.placeholders.VotePlaceholders;
+import fr.maxlego08.essentials.user.placeholders.WorldEditPlaceholders;
 import fr.maxlego08.essentials.vault.VaultModule;
 import fr.maxlego08.essentials.worldedit.WorldeditModule;
 import fr.maxlego08.essentials.zutils.Metrics;
@@ -234,6 +235,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.registerPlaceholder(ReplacePlaceholders.class);
         this.registerPlaceholder(EconomyBaltopPlaceholders.class);
         this.registerPlaceholder(VotePlaceholders.class);
+        this.registerPlaceholder(WorldEditPlaceholders.class);
         this.registerPlaceholder(ServerPlaceholders.class);
         this.randomWord = this.registerPlaceholder(RandomWordPlaceholders.class);
 

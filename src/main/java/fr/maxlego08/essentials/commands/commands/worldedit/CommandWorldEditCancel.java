@@ -7,21 +7,21 @@ import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.worldedit.WorldeditModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 
-public class CommandWorldEditStop extends VCommand {
+public class CommandWorldEditCancel extends VCommand {
 
-    public CommandWorldEditStop(EssentialsPlugin plugin) {
+    public CommandWorldEditCancel(EssentialsPlugin plugin) {
         super(plugin);
         this.setModule(WorldeditModule.class);
-        this.setPermission(Permission.ESSENTIALS_WORLDEDIT_STOP);
-        this.setDescription(Message.DESCRIPTION_WORLDEDIT_STOP);
-        this.addSubCommand("stop");
+        this.setPermission(Permission.ESSENTIALS_WORLDEDIT_CANCEL);
+        this.setDescription(Message.DESCRIPTION_WORLDEDIT_CANCEL);
+        this.addSubCommand("cancel");
         this.onlyPlayers();
     }
 
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
-        plugin.getWorldeditManager().stopEdition(this.user);
+        plugin.getWorldeditManager().cancelSelection(this.user);
 
         return CommandResultType.SUCCESS;
     }

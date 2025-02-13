@@ -36,13 +36,22 @@ public class ZSelection implements Selection {
 
     private void createOrUpdate(Location location) {
 
-        if (this.cubeDisplay == null) {
+        if (this.cubeDisplay != null) {
+            this.cubeDisplay.remove();
+        }
+
+        if (!isValid()) {
+
             this.cubeDisplay = new CubeDisplay(new Location(location.getWorld(), location.getBlockX() + 0.5, location.getBlockY() + 0.5, location.getBlockZ() + 0.5), 4.01, 4.01, 4.01, Color.fromARGB(80, 250, 40, 40));
             this.cubeDisplay.spawn();
+
         } else {
 
             var cuboid = getCuboid();
-            this.cubeDisplay.update(cuboid.getSizeX() * 4 + 0.01, cuboid.getSizeY() * 4 + 0.01, cuboid.getSizeZ() * 4 + 0.01, Color.fromARGB(80, 40, 250, 40));
+            location = cuboid.getCenter();
+
+            this.cubeDisplay = new CubeDisplay(location, cuboid.getSizeX() * 4 + 0.1, cuboid.getSizeY() * 4 + 0.01, cuboid.getSizeZ() * 4 + 0.1, Color.fromARGB(80, 40, 250, 40));
+            this.cubeDisplay.spawn();
         }
     }
 
@@ -50,6 +59,7 @@ public class ZSelection implements Selection {
     public void reset() {
         if (this.cubeDisplay != null) {
             this.cubeDisplay.remove();
+            this.cubeDisplay = null;
         }
     }
 
@@ -61,5 +71,12 @@ public class ZSelection implements Selection {
     @Override
     public Cuboid getCuboid() {
         return new Cuboid(this.firstLocation, this.secondLocation);
+    }
+
+    @Override
+    public void cancel() {
+        reset();
+        this.firstLocation = null;
+        this.secondLocation = null;
     }
 }

@@ -1,0 +1,10 @@
+name: "&8Help Player Warp"
+size: 54
+items:
+  example:
+    slot: 22
+    item:
+      material: PAPER
+      name: "Player WorldEdit"
+      lore:
+        - "&7/pw ...."
