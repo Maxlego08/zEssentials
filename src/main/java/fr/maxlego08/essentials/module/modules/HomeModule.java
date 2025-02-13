@@ -126,6 +126,12 @@ public class HomeModule extends ZModule {
     }
 
     public void teleport(User user, Home home) {
+
+        if (home.getLocation() == null || home.getLocation().getWorld() == null) {
+            message(user, Message.COMMAND_HOME_ERROR_TELEPORT);
+            return;
+        }
+
         user.teleport(home.getLocation(), Message.TELEPORT_MESSAGE_HOME, Message.TELEPORT_SUCCESS_HOME, "%name%", home.getName());
     }
 

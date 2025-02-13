@@ -406,6 +406,7 @@ description-worldedit-cyl: "Remplir tous les blocs de votre sélection avec un c
 description-worldedit-cut: "Couper tous les blocs de votre sélection"
 description-worldedit-stop: "Arrêter l'édition en cours"
 description-worldedit-confirm: "Confirmer l'action worldedit"
+description-worldedit-cancel: "Annuler l'édition en cours"
 description-worldedit-pos1: "Définir la première position de la sélection"
 description-worldedit-pos2: "Définir la deuxième position de la sélection"
 description-worldedit-option: "Configurer votre utilisation de worldedit"
@@ -561,7 +562,7 @@ command-home-admin-delete: "<success>Vous venez de supprimer la maison &f%name%<
 command-home-admin-set: "<success>Vous venez de créer la maison &f%name%<success> pour &b%player%<success>."
 command-home-admin-list: "#8cc0ccMaisons de %player%&8:&f%homes%"
 command-home-admin-list-info: " <hover:show_text:'&7Cliquez pour vous téléporter à la maison &f&n%name%'><click:run_command:'/home %player%:%name%'>&f%name%</click></hover>&7"
-
+command-home-error-teleport: "<error>Impossible de trouver la position pour le téléportation, veuillez supprimer votre maison."
 
 
 # Sanctions
@@ -865,6 +866,7 @@ command-worldedit-option-inventory-enable: "<success>Vous venez d'activer worlde
 command-worldedit-option-inventory-disable: "<error>Vous venez de désactiver worldedit pour utiliser votre inventaire."
 command-worldedit-option-bossbar-enable: "<success>Vous venez d'activer la barre de progression worldedit."
 command-worldedit-option-bossbar-disable: "<error>Vous venez de désactiver la barre de progression worldedit."
+command-worldedit-cancel: "<success>Vous venez d'annuler votre selection en cours."
 
 worldedit-selection-error: "<error>Vous devez sélectionner deux positions avant d'exécuter cette commande."
 worldedit-already-running: "<error>Vous avez déjà une édition en cours, veuillez attendre qu'elle soit terminée."
