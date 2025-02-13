@@ -293,3 +293,7 @@ worldedit-boss-bar:
 enable-color-visualisation: false
 
 open-help-inventory: false
+
+withdraw-reason: "Use of player worldedit"
+
+refund-reason: "Refund from player worldedit"

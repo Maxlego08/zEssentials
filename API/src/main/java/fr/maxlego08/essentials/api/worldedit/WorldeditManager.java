@@ -259,4 +259,8 @@ public interface WorldeditManager {
     void cancelSelection(User user);
 
     boolean isOpenHelpInventory();
+
+    String getRefundMessage();
+
+    String getWithdrawMessage();
 }

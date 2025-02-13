@@ -80,6 +80,8 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
     private WorldeditBossBarConfiguration worldeditBossBar;
     private boolean enableColorVisualisation = false;
     private boolean openHelpInventory = false;
+    private String withdrawReason;
+    private String refundReason;
 
     public WorldeditModule(ZEssentialsPlugin plugin) {
         super(plugin, "worldedit");
@@ -360,7 +362,7 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
                     user.setItemInMainHand(itemStack);
                 }
 
-                user.withdraw(economy, task.getTotalPrice());
+                user.withdraw(economy, task.getTotalPrice(), this.withdrawReason);
                 message(user, Message.WORLDEDIT_START_RUNNING);
 
                 task.startPlaceBlocks();
@@ -586,5 +588,15 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
     @Override
     public boolean isOpenHelpInventory() {
         return openHelpInventory;
+    }
+
+    @Override
+    public String getRefundMessage() {
+        return this.refundReason;
+    }
+
+    @Override
+    public String getWithdrawMessage() {
+        return this.withdrawReason;
     }
 }

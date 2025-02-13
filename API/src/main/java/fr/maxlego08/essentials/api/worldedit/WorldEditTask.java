@@ -426,7 +426,7 @@ public abstract class WorldEditTask {
         this.blockInfos.clear();
 
         var economy = this.plugin.getEconomyManager().getDefaultEconomy();
-        this.user.deposit(economy, refundPrice);
+        this.user.deposit(economy, refundPrice, this.worldeditManager.getRefundMessage());
         refundMaterials.putAll(this.needToGiveMaterials);
 
         giveItems(player, refundMaterials);
