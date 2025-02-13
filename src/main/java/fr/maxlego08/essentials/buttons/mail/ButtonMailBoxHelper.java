@@ -12,6 +12,8 @@ import fr.maxlego08.menu.inventory.inventories.InventoryDefault;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.stream.Collectors;
+
 public abstract class ButtonMailBoxHelper extends ZButton {
 
     private final EssentialsPlugin plugin;
@@ -28,7 +30,7 @@ public abstract class ButtonMailBoxHelper extends ZButton {
         placeholders.register("expiration", TimerBuilder.getStringTime(mailBoxItem.getExpiredAt().getTime() - System.currentTimeMillis()));
 
         ItemStack itemStack = mailBoxItem.getItemStack().clone();
-        ComponentMessageHelper.componentMessage.addToLore(itemStack, this.getItemStack().getLore(), placeholders);
+        ComponentMessageHelper.componentMessage.addToLore(itemStack, this.getItemStack().getLore().stream().map(e -> this.plugin.papi(player, e)).collect(Collectors.toList()), placeholders);
 
         inventory.addItem(slot, itemStack).setClick(event -> mailBoxModule.removeItem(user, player, mailBoxItem));
     }
