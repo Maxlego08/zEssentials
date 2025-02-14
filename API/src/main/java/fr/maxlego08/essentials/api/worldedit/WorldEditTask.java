@@ -72,7 +72,7 @@ public abstract class WorldEditTask {
             this.loadBlocks();
 
             // Process the blocks in batches and calculate the total price
-            processNextBatch(blocks.stream().map(b -> new BlockInfo(b, null, BigDecimal.ZERO)).collect(Collectors.toList()), 0, this.worldeditManager.getBatchSize(), () -> {
+            processNextBatch(blocks.stream().filter(b -> worldeditManager.hasPermission(user.getPlayer(), b)).map(b -> new BlockInfo(b, null, BigDecimal.ZERO)).collect(Collectors.toList()), 0, this.worldeditManager.getBatchSize(), () -> {
 
                 this.totalPrice = this.blockInfos.stream().map(BlockInfo::price).reduce(BigDecimal.ZERO, BigDecimal::add);
                 this.materials = this.blockInfos.stream().collect(Collectors.groupingBy(BlockInfo::newMaterial, Collectors.counting()));
@@ -99,7 +99,7 @@ public abstract class WorldEditTask {
             return;
         }
 
-        var firstBlock = currentBatch.get(0);
+        var firstBlock = currentBatch.getFirst();
 
         var scheduler = this.plugin.getScheduler();
         scheduler.runAtLocation(firstBlock.block().getLocation(), wrappedTask -> {

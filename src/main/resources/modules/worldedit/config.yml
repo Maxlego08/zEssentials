@@ -290,10 +290,19 @@ worldedit-boss-bar:
   # PROGRESS, NOTCHED_6, NOTCHED_10, NOTCHED_12, NOTCHED_20
   style: PROGRESS
 
+# Enable color visualization when using the worldedit command
 enable-color-visualisation: false
 
+# Open the help inventory when the player executes the worldedit command
 open-help-inventory: false
 
+# Reason that will be used when a player withdraws his money
 withdraw-reason: "Use of player worldedit"
 
+# Reason that will be used when a player gets a refund
 refund-reason: "Refund from player worldedit"
+
+# List of worlds where the player can't use the worldedit command
+blacklist-worlds:
+  - world_the_end
+  - world_nether

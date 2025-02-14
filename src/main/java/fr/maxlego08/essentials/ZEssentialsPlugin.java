@@ -17,6 +17,7 @@ import fr.maxlego08.essentials.api.enchantment.Enchantments;
 import fr.maxlego08.essentials.api.hologram.HologramManager;
 import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
+import fr.maxlego08.essentials.api.permission.PermissionChecker;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.placeholders.PlaceholderRegister;
 import fr.maxlego08.essentials.api.scoreboard.ScoreboardManager;
@@ -143,6 +144,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     private final UUID consoleUniqueId = UUID.fromString("00000000-0000-0000-0000-000000000000");
     private final List<Material> materials = Arrays.stream(Material.values()).filter(e -> !e.name().startsWith("LEGACY_")).toList();
     private final Enchantments enchantments = new ZEnchantments();
+    private final List<PermissionChecker> permissionCheckers = new ArrayList<>();
     private EssentialsUtils essentialsUtils;
     private ServerStorage serverStorage = new ZServerStorage(this);
     private InventoryManager inventoryManager;
@@ -250,7 +252,18 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
         if (getServer().getPluginManager().isPluginEnabled("BlockTracker")) {
             var optional = createInstance("BlockTrackerHook", false);
-            optional.ifPresent(object -> this.blockTracker = (BlockTracker) object);
+            optional.ifPresent(object -> {
+                this.blockTracker = (BlockTracker) object;
+                this.getLogger().info("Register BlockTracker.");
+            });
+        }
+
+        if (getServer().getPluginManager().isPluginEnabled("SuperiorSkyBlock2")) {
+            var optional = createInstance("SuperiorSkyBlockPermission", false);
+            optional.ifPresent(object -> {
+                this.permissionCheckers.add((PermissionChecker) object);
+                this.getLogger().info("Register SuperiorSkyBlock Permission Checker.");
+            });
         }
 
         this.getServer().getServicesManager().register(EssentialsPlugin.class, this, this, ServicePriority.Normal);
@@ -714,5 +727,10 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     @Override
     public void setBlockTracker(BlockTracker blockTracker) {
         this.blockTracker = blockTracker;
+    }
+
+    @Override
+    public List<PermissionChecker> getPermissions() {
+        return this.permissionCheckers;
     }
 }

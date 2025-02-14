@@ -10,6 +10,7 @@ import fr.maxlego08.essentials.api.enchantment.Enchantments;
 import fr.maxlego08.essentials.api.hologram.HologramManager;
 import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
+import fr.maxlego08.essentials.api.permission.PermissionChecker;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.scoreboard.ScoreboardManager;
 import fr.maxlego08.essentials.api.server.EssentialsServer;
@@ -365,11 +366,38 @@ public interface EssentialsPlugin extends Plugin {
      */
     <T> Optional<T> createInstance(String className, boolean displayLog);
 
+    /**
+     * Returns the time when the server started in milliseconds.
+     *
+     * @return the start time of the server in milliseconds
+     */
     long getServerStartupTime();
 
+    /**
+     * Returns an instance of the {@link RandomWord} class.
+     *
+     * @return the {@link RandomWord} instance
+     */
     RandomWord getRandomWord();
 
+    /**
+     * Sets the block tracker to the specified block tracker.
+     *
+     * @param blockTracker the block tracker to set
+     */
     void setBlockTracker(BlockTracker blockTracker);
 
+    /**
+     * Returns the block tracker.
+     *
+     * @return the block tracker
+     */
     BlockTracker getBlockTracker();
+
+    /**
+     * Returns a list of permission checkers.
+     *
+     * @return a list of permission checkers
+     */
+    List<PermissionChecker> getPermissions();
 }

@@ -890,6 +890,7 @@ worldedit-refund-material: " <white><hover:show_text:'<white>Quantité<dark_gray
 worldedit-refund-empty: " Aucun bloc à rembourser"
 worldedit-bossbar: "#45ff45Temps restant<dark_gray> : <white>%time%"
 worldedit-speed-error: "<error>Vous n'avez pas la permission de définir la vitesse par seconde."
+worldedit-permission-error: "<error>Vous ne pouvez pas utiliser le worldedit ici."
 message-freeze:
   - ""
   - "&fVous venez d'être gelé."

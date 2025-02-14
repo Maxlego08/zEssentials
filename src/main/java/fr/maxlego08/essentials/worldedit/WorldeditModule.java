@@ -36,6 +36,7 @@ import fr.maxlego08.menu.api.utils.TypedMapAccessor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -67,6 +68,8 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
     private final List<String> blacklistBlocks = new ArrayList<>();
     @NonLoadable
     private final WorldeditBossBar bossBar;
+    private final boolean enableColorVisualisation = false;
+    private final boolean openHelpInventory = false;
     private BigDecimal defaultBlockPrice;
     private List<BlockPrice> blocksPrice;
     private List<PermissionBlockPerSecond> permissionsBlocksPerSecond;
@@ -78,10 +81,9 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
     private List<PermissionHeight> permissionsCylinderHeight;
     private int batchSize;
     private WorldeditBossBarConfiguration worldeditBossBar;
-    private boolean enableColorVisualisation = false;
-    private boolean openHelpInventory = false;
     private String withdrawReason;
     private String refundReason;
+    private List<String> blacklistWorlds;
 
     public WorldeditModule(ZEssentialsPlugin plugin) {
         super(plugin, "worldedit");
@@ -417,6 +419,8 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
 
     private boolean cantUseWorldEditItem(ItemStack itemStack) {
 
+        if (!itemStack.hasItemMeta()) return true;
+
         ItemMeta itemMeta = itemStack.getItemMeta();
         PersistentDataContainer persistentDataContainer = itemMeta.getPersistentDataContainer();
         String key = persistentDataContainer.get(WorldEditItem.KEY_WORLDEDIT, PersistentDataType.STRING);
@@ -457,6 +461,11 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
         User user = this.getUser(player);
         if (user == null) return;
 
+        if (!hasPermission(player, location.getBlock())) {
+            message(player, Message.WORLDEDIT_PERMISSION_ERROR);
+            return;
+        }
+
         Selection selection = user.getSelection();
         selection.setFirstLocation(location);
         message(player, Message.WORLDEDIT_SELECTION_POS1);
@@ -466,6 +475,11 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
     public void setPos2(Player player, Location location) {
         User user = this.getUser(player);
         if (user == null) return;
+
+        if (!hasPermission(player, location.getBlock())) {
+            message(player, Message.WORLDEDIT_PERMISSION_ERROR);
+            return;
+        }
 
         Selection selection = user.getSelection();
         selection.setSecondLocation(location);
@@ -598,5 +612,17 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
     @Override
     public String getWithdrawMessage() {
         return this.withdrawReason;
+    }
+
+    @Override
+    public boolean hasPermission(Player player, Block block) {
+
+        if (this.blacklistWorlds.contains(block.getWorld().getName())) return false;
+
+        return this.plugin.getPermissions().stream().allMatch(permissionChecker -> {
+            var v = permissionChecker.hasPermission(player, block);
+            System.out.println("R + " + v);
+            return v;
+        });
     }
 }

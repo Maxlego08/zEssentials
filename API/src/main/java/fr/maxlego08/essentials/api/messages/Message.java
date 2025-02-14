@@ -830,6 +830,7 @@ public enum Message {
     WORLDEDIT_SELECTION_POS1("<success>You have just defined the first position."),
     WORLDEDIT_SELECTION_POS2("<success>You have just defined the second position."),
     WORLDEDIT_SPEED_ERROR("<error>You have no permission to set speed per second."),
+    WORLDEDIT_PERMISSION_ERROR("<error>You cannot use the worldedit here."),
 
     WORLDEDIT_START_CALCULATE_PRICE("&7Price calculation in progress, please wait..."),
     WORLDEDIT_START_CHECK_INVENTORY("&7Checking that you have enough items in your inventory, please wait..."),
