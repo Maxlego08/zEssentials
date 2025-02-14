@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataContainer;
 
 public class CommandRepairAll extends VCommand {
     public CommandRepairAll(EssentialsPlugin plugin) {
@@ -34,9 +35,14 @@ public class CommandRepairAll extends VCommand {
         int amount = 0;
 
         for (ItemStack itemStack : player.getInventory().getContents()) {
-            if (itemStack != null) {
+            if (itemStack != null && itemStack.hasItemMeta()) {
                 ItemMeta itemMeta = itemStack.getItemMeta();
                 if (itemMeta instanceof Damageable damageable) {
+
+                    PersistentDataContainer persistentDataContainer = itemMeta.getPersistentDataContainer();
+                    if (damageable.getDamage() == 0 || persistentDataContainer.has(CommandRepair.UNREPAIRABLE_KEY)) {
+                        continue;
+                    }
 
                     damageable.setDamage(0);
                     itemStack.setItemMeta(itemMeta);

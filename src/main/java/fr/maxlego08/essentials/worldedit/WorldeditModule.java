@@ -619,10 +619,6 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
 
         if (this.blacklistWorlds.contains(block.getWorld().getName())) return false;
 
-        return this.plugin.getPermissions().stream().allMatch(permissionChecker -> {
-            var v = permissionChecker.hasPermission(player, block);
-            System.out.println("R + " + v);
-            return v;
-        });
+        return this.plugin.getPermissions().stream().allMatch(permissionChecker -> permissionChecker.hasPermission(player, block));
     }
 }
