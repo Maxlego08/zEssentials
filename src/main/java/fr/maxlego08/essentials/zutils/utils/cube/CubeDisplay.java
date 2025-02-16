@@ -8,13 +8,14 @@ import org.bukkit.entity.Display;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.TextDisplay;
 import org.bukkit.util.Transformation;
-import org.joml.Vector3f;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CubeDisplay {
+    public static final double TEXT_DISPLAY_TO_BLOCK_FACE_RATIO = 16 * 2.5;
+
     private final List<TextDisplay> faces = new ArrayList<>();
     private final Location center;
     private double width;
@@ -44,33 +45,34 @@ public class CubeDisplay {
         World world = center.getWorld();
         if (world == null) return;
 
-        int div = 8;
+        faces.add(createFace(world, center.clone().add(0, 0, 0), width, height, 0, 0));   // Avant
+        faces.add(createFace(world, center.clone().add(width, 0, -depth), width, height, 180, 0)); // Arrière
+        faces.add(createFace(world, center.clone().add(width, 0, 0), depth, height, -90, 0));  // Gauche
+        faces.add(createFace(world, center.clone().add(0, 0, -depth), depth, height, 90, 0)); // Droite
 
-        faces.add(createFace(world, center.clone().add(0, 0, -(depth / div)), width, height, 180, 0));   // Avant
-        faces.add(createFace(world, center.clone().add(0, 0, depth / div), width, height, 0, 0)); // Arrière
-        faces.add(createFace(world, center.clone().add(-(width / div), 0, 0), depth, height, 90, 0));  // Gauche
-        faces.add(createFace(world, center.clone().add(width / div, 0, 0), depth, height, -90, 0)); // Droite
-
-        faces.add(createFace(world, center.clone().add(0, height / div, 0), width, depth, 0, -90)); // Haut
-        faces.add(createFace(world, center.clone().add(0, -height / div, 0), width, depth, 0, 90)); // Bas
+        faces.add(createFace(world, center.clone().add(0, height, 0), width, depth, 0, -90)); // Haut
+        faces.add(createFace(world, center.clone().add(width, 0, 0), width, depth, 180, 90)); // Bas
     }
 
     private TextDisplay createFace(World world, Location location, double faceWidth, double faceHeight, float yaw, float pitch) {
 
-        location.setYaw(yaw);
-        location.setPitch(pitch);
 
         TextDisplay display = (TextDisplay) world.spawnEntity(location, EntityType.TEXT_DISPLAY);
-        display.text(Component.text(" "));
+        display.text(Component.text(""));
         display.setPersistent(false);
         display.setBackgroundColor(backgroundColor);
         display.setBillboard(Display.Billboard.FIXED);
 
         Transformation transformation = display.getTransformation();
-        transformation.getScale().set((float) faceWidth * 2, (float) faceHeight, 1);
-        transformation.getTranslation().set(new Vector3f((float) (faceHeight * -0.025f), (float) (faceHeight * -0.125f), 0));
+        transformation.getScale().set(faceWidth * TEXT_DISPLAY_TO_BLOCK_FACE_RATIO,
+                faceHeight * TEXT_DISPLAY_TO_BLOCK_FACE_RATIO, 0);
         display.setTransformation(transformation);
 
+
+        location.setYaw(yaw);
+        location.setPitch(pitch);
+
+        display.teleport(location);
         return display;
     }
 
