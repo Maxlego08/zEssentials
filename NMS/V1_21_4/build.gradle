@@ -9,15 +9,14 @@ repositories {
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(21))
+        languageVersion.set(JavaLanguageVersion.of(22))
     }
 }
 
-group 'NMS:v1_21'
+group 'NMS:v1_21_4'
 
 dependencies {
-    // paperweightDevelopmentBundle("io.papermc.paper:dev-bundle:1.21-R0.1-SNAPSHOT")
-    paperweight.paperDevBundle("1.21-R0.1-SNAPSHOT")
+    paperweight.paperDevBundle("1.21.4-R0.1-SNAPSHOT")
     compileOnly project(":API")
     compileOnly rootProject
 }
