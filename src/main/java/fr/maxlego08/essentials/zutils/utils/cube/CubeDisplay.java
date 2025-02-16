@@ -45,22 +45,22 @@ public class CubeDisplay {
         World world = center.getWorld();
         if (world == null) return;
 
-        faces.add(createFace(backgroundColor, world, center.clone().add(0, 0, 0), width, height, 0, 0));   // Avant
-        faces.add(createFace(backgroundColor, world, center.clone().add(width, 0, -depth), width, height, 180, 0)); // Arrière
-        faces.add(createFace(backgroundColor, world, center.clone().add(width, 0, 0), depth, height, -90, 0));  // Gauche
-        faces.add(createFace(backgroundColor, world, center.clone().add(0, 0, -depth), depth, height, 90, 0)); // Droite
+        faces.add(createFace(world, center.clone().add(0, 0, 0), width, height, 0, 0));   // Avant
+        faces.add(createFace(world, center.clone().add(width, 0, -depth), width, height, 180, 0)); // Arrière
+        faces.add(createFace(world, center.clone().add(width, 0, 0), depth, height, -90, 0));  // Gauche
+        faces.add(createFace(world, center.clone().add(0, 0, -depth), depth, height, 90, 0)); // Droite
 
-        faces.add(createFace(backgroundColor, world, center.clone().add(0, height, 0), width, depth, 0, -90)); // Haut
-        faces.add(createFace(backgroundColor, world, center.clone().add(width, 0, 0), width, depth, 180, 90)); // Bas
+        faces.add(createFace(world, center.clone().add(0, height, 0), width, depth, 0, -90)); // Haut
+        faces.add(createFace(world, center.clone().add(width, 0, 0), width, depth, 180, 90)); // Bas
     }
 
-    private TextDisplay createFace(Color color, World world, Location location, double faceWidth, double faceHeight, float yaw, float pitch) {
+    private TextDisplay createFace(World world, Location location, double faceWidth, double faceHeight, float yaw, float pitch) {
 
 
         TextDisplay display = (TextDisplay) world.spawnEntity(location, EntityType.TEXT_DISPLAY);
         display.text(Component.text(""));
         display.setPersistent(false);
-        display.setBackgroundColor(color);
+        display.setBackgroundColor(backgroundColor);
         display.setBillboard(Display.Billboard.FIXED);
 
         Transformation transformation = display.getTransformation();
