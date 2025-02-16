@@ -400,4 +400,6 @@ public interface EssentialsPlugin extends Plugin {
      * @return a list of permission checkers
      */
     List<PermissionChecker> getPermissions();
+
+    void addMailBoxItem(UUID uuid, ItemStack itemStack);
 }

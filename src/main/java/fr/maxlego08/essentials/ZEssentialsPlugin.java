@@ -733,4 +733,9 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     public List<PermissionChecker> getPermissions() {
         return this.permissionCheckers;
     }
+
+    @Override
+    public void addMailBoxItem(UUID uuid, ItemStack itemStack) {
+        getModuleManager().getModule(MailBoxModule.class).addItem(uuid, itemStack);
+    }
 }
