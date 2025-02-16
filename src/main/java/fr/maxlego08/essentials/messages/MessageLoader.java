@@ -105,7 +105,7 @@ public class MessageLoader implements ConfigurationFile {
 
                         if (messageType == MessageType.BOSSBAR) {
 
-                            String text = getValue(map, "text", path, "Default text", true);
+                            String text = replaceMessagesColors(getValue(map, "text", path, "Default text", true));
                             String color = getValue(map, "color", path, "WHITE", false);
                             String overlay = getValue(map, "overlay", path, "PROGRESS", false);
                             List<String> flags = getValue(map, "flags", path, new ArrayList<>(), false);
@@ -120,8 +120,8 @@ public class MessageLoader implements ConfigurationFile {
 
                         } else if (messageType == MessageType.TITLE) {
 
-                            String title = getValue(map, "title", path, "Default title", true);
-                            String subtitle = getValue(map, "subtitle", path, "Default subtitle", true);
+                            String title = replaceMessagesColors(getValue(map, "title", path, "Default title", true));
+                            String subtitle = replaceMessagesColors(getValue(map, "subtitle", path, "Default subtitle", true));
                             long start = getValue(map, "start", path, 100L, false);
                             long time = getValue(map, "time", path, 2800L, false);
                             long end = getValue(map, "end", path, 100L, false);
@@ -138,7 +138,7 @@ public class MessageLoader implements ConfigurationFile {
                                 plugin.getLogger().severe("Message is empty for " + key + " and index " + index + ", use default configuration.");
                             } else {
 
-                                EssentialsMessage essentialsMessage = new ClassicMessage(messageType, messages);
+                                EssentialsMessage essentialsMessage = new ClassicMessage(messageType, messages.stream().map(this::replaceMessagesColors).collect(Collectors.toList()));
                                 essentialsMessages.add(essentialsMessage);
                             }
                         }
@@ -153,8 +153,8 @@ public class MessageLoader implements ConfigurationFile {
 
                     if (messageType == MessageType.TITLE) {
 
-                        String title = configuration.getString(key + ".title", "Default title");
-                        String subtitle = configuration.getString(key + ".subtitle", "Default subtitle");
+                        String title = replaceMessagesColors(configuration.getString(key + ".title", "Default title"));
+                        String subtitle = replaceMessagesColors(configuration.getString(key + ".subtitle", "Default subtitle"));
                         long start = configuration.getLong(key + ".start", 100);
                         long time = configuration.getLong(key + ".time", 2800);
                         long end = configuration.getLong(key + ".end", 100);
@@ -164,7 +164,7 @@ public class MessageLoader implements ConfigurationFile {
 
                     } else if (messageType == MessageType.BOSSBAR) {
 
-                        String text = configuration.getString(key + ".text", "Default Text");
+                        String text = replaceMessagesColors(configuration.getString(key + ".text", "Default Text"));
                         String color = configuration.getString("color", "WHITE");
                         String overlay = configuration.getString("overlay", "PROGRESS");
                         List<String> flags = configuration.getStringList("flags");
