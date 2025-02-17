@@ -14,6 +14,7 @@ import fr.maxlego08.essentials.api.dto.OptionDTO;
 import fr.maxlego08.essentials.api.dto.PlayTimeDTO;
 import fr.maxlego08.essentials.api.dto.PlayerSlotDTO;
 import fr.maxlego08.essentials.api.dto.PowerToolsDTO;
+import fr.maxlego08.essentials.api.dto.PrivateMessageDTO;
 import fr.maxlego08.essentials.api.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.dto.ServerStorageDTO;
 import fr.maxlego08.essentials.api.dto.UserDTO;
@@ -42,6 +43,7 @@ import fr.maxlego08.essentials.migrations.CreateLinkHistoryMigration;
 import fr.maxlego08.essentials.migrations.CreatePlayerSlots;
 import fr.maxlego08.essentials.migrations.CreatePlayerVault;
 import fr.maxlego08.essentials.migrations.CreatePlayerVaultItem;
+import fr.maxlego08.essentials.migrations.CreatePrivateMessagesMigration;
 import fr.maxlego08.essentials.migrations.CreateSanctionsTableMigration;
 import fr.maxlego08.essentials.migrations.CreateServerStorageTableMigration;
 import fr.maxlego08.essentials.migrations.CreateUserCooldownTableMigration;
@@ -70,6 +72,7 @@ import fr.maxlego08.essentials.storage.database.repositeries.LinkAccountReposito
 import fr.maxlego08.essentials.storage.database.repositeries.LinkCodeRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.LinkHistoryRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.PlayerSlotRepository;
+import fr.maxlego08.essentials.storage.database.repositeries.PrivateMessagesRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.ServerStorageRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserCooldownsRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserEconomyRepository;
@@ -168,6 +171,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
         MigrationManager.registerMigration(new DropPowerToolsMigration());
         MigrationManager.registerMigration(new ReCreatePowerToolsMigration());
         MigrationManager.registerMigration(new UpdatePlayerSlots());
+        MigrationManager.registerMigration(new CreatePrivateMessagesMigration());
 
         // Repositories
         this.repositories = new Repositories(plugin, this.connection);
@@ -191,6 +195,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
         this.repositories.register(LinkAccountRepository.class);
         this.repositories.register(LinkCodeRepository.class);
         this.repositories.register(LinkHistoryRepository.class);
+        this.repositories.register(PrivateMessagesRepository.class);
 
         MigrationManager.execute(this.connection, JULogger.from(this.plugin.getLogger()));
 
@@ -458,6 +463,11 @@ public class SqlStorage extends StorageHelper implements IStorage {
     @Override
     public void insertChatMessage(UUID uuid, String content) {
         async(() -> with(ChatMessagesRepository.class).insert(new ChatMessageDTO(uuid, content, new Date())));
+    }
+
+    @Override
+    public void insertPrivateMessage(UUID sender, UUID receiver, String content) {
+        async(() -> with(PrivateMessagesRepository.class).insert(new PrivateMessageDTO(sender, receiver, content, new Date())));
     }
 
     @Override

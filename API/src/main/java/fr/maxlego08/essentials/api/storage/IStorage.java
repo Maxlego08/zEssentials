@@ -278,6 +278,8 @@ public interface IStorage {
      */
     void insertChatMessage(UUID uuid, String content);
 
+    void insertPrivateMessage(UUID sender, UUID receiver, String content);
+
     /**
      * Retrieves chat messages from a user.
      *

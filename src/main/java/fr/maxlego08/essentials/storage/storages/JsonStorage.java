@@ -304,6 +304,11 @@ public class JsonStorage extends StorageHelper implements IStorage {
     }
 
     @Override
+    public void insertPrivateMessage(UUID sender, UUID receiver, String content) {
+        throw new NotImplementedException("insertPrivateMessage is not implemented, use MYSQL storage");
+    }
+
+    @Override
     public void insertCommand(UUID uuid, String command) {
         // throw new NotImplementedException("insertCommand is not implemented, use MYSQL storage");
     }
