@@ -569,6 +569,11 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
         return stringBuilder.toString();
     }
 
+    protected String getArgs(int start, String defaultValue) {
+        var result = getArgs(start);
+        return result.isEmpty() ? defaultValue : result;
+    }
+
     private static class VCommandComparator implements Comparator<VCommand> {
         @Override
         public int compare(VCommand command1, VCommand command2) {

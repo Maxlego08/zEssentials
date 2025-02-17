@@ -26,6 +26,8 @@ public class CommandEconomyGiveAll extends VCommand {
         this.addRequireArg("economy", (a, b) -> plugin.getEconomyManager().getEconomies().stream().map(Economy::getName).toList());
         this.addRequireArg("amount", (a, b) -> Stream.of(10, 20, 30, 40, 50, 60, 70, 80, 90).map(String::valueOf).toList());
         this.addBooleanOptionalArg("silent");
+        this.addOptionalArg("reason");
+        this.setExtendedArgs(true);
     }
 
     @Override
@@ -34,6 +36,7 @@ public class CommandEconomyGiveAll extends VCommand {
         String economyName = this.argAsString(0);
         double amount = this.argAsDouble(1);
         boolean silent = this.argAsBoolean(2, false);
+        String reason = this.getArgs(4, "Give all by " + sender.getName());
 
         EconomyManager economyManager = plugin.getEconomyManager();
         Optional<Economy> optional = economyManager.getEconomy(economyName);
@@ -44,7 +47,7 @@ public class CommandEconomyGiveAll extends VCommand {
         Economy economy = optional.get();
         String economyFormat = economyManager.format(economy, amount);
         Bukkit.getOnlinePlayers().forEach(onlinePlayer -> {
-            economyManager.deposit(onlinePlayer.getUniqueId(), economy, new BigDecimal(amount));
+            economyManager.deposit(onlinePlayer.getUniqueId(), economy, new BigDecimal(amount), reason);
             if (!silent) {
                 message(onlinePlayer, Message.COMMAND_ECONOMY_GIVE_RECEIVER, "%economyFormat%", economyFormat);
             }

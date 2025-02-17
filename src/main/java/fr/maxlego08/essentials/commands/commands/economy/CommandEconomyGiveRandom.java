@@ -23,6 +23,8 @@ public class CommandEconomyGiveRandom extends GiveCommand {
         this.addRequireArg("min-amount", (a, b) -> Stream.of(10, 20, 30, 40, 50, 60, 70, 80, 90).map(String::valueOf).toList());
         this.addRequireArg("max-amount", (a, b) -> Stream.of(10, 20, 30, 40, 50, 60, 70, 80, 90).map(String::valueOf).toList());
         this.addBooleanOptionalArg("silent");
+        this.addOptionalArg("reason");
+        this.setExtendedArgs(true);
     }
 
     @Override
@@ -33,10 +35,11 @@ public class CommandEconomyGiveRandom extends GiveCommand {
         double minAmount = this.argAsDouble(2);
         double maxAmount = this.argAsDouble(3);
         boolean silent = this.argAsBoolean(4, false);
+        String reason = this.getArgs(6, "Give random by " + sender.getName());
 
         minAmount = Math.min(minAmount, maxAmount);
         maxAmount = Math.max(minAmount, maxAmount);
 
-        return give(this.sender, userName, economyName, minAmount + Math.random() * (maxAmount - minAmount), silent);
+        return give(this.sender, userName, economyName, minAmount + Math.random() * (maxAmount - minAmount), silent, reason);
     }
 }
