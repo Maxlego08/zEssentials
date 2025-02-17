@@ -334,6 +334,7 @@ public enum Message {
     DESCRIPTION_EXPERIENCE("Manage player experience"),
     DESCRIPTION_DISCORD_LINK("Link your discord account"),
     DESCRIPTION_DISCORD_UNLINK("Unlink your discord account"),
+    DESCRIPTION_PUB("Send a message highlighted in the chat"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -862,7 +863,8 @@ public enum Message {
     COMMAND_LINK_ACCOUNT_NOT_LINKED("<error>You are not linked to an account."),
     COMMAND_LINK_ACCOUNT_RESET("<success>You have just reset your account link."),
 
-    ;
+    COMMAND_PUB_PATTERN_ERROR("<error>Your message contains forbidden characters."),
+    COMMAND_PUB(MessageType.WITHOUT_PREFIX, "&8[&fPUB&8] <white>%player%<dark_gray>: <red>%message%"),;
 
     private EssentialsPlugin plugin;
     private List<EssentialsMessage> messages = new ArrayList<>();

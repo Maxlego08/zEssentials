@@ -434,6 +434,7 @@ description-suicide: "Kill yourself"
 description-discord-link: "Link your discord account"
 description-discord-unlink: "Unlink your discord account"
 description-clear-random-word: "Clear random words"
+description-pub: "Send a message highlighted in the chat"
 
 # Time format
 format-second: "second"
@@ -942,3 +943,7 @@ command-link-account-not-linked: "<error>You are not linked to an account."
 command-link-account-reset: "<success>You have just reset your account link."
 
 random-word-clear: "<success>The random word has been cleared."
+command-pub-pattern-error: "<error>Your message contains forbidden characters."
+command-pub:
+  type: WITHOUT_PREFIX
+  message: "&8[&fPUB&8] <white>%player%<dark_gray>: <red>%message%"

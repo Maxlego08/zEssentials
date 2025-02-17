@@ -429,6 +429,7 @@ description-suicide: "En finir avec la vie"
 description-discord-link: "Lier votre compte Discord"
 description-discord-unlink: "Dissocier votre compte Discord"
 description-clear-random-word: "Supprimer les mots aléatoires"
+description-pub: "Envoyer un message mis en avant dans le chat"
 
 # Format de l'heure
 format-second: "seconde"
@@ -916,3 +917,7 @@ command-link-account-not-linked: "<error>Vous n'êtes pas lié à un compte."
 command-link-account-reset: "<success>Vous venez de réinitialiser votre lien de compte."
 
 random-word-clear: "<success>Les mots aléatoire viennent d'être effacé."
+command-pub-pattern-error: "<error>Votre message contient des caractères interdits."
+command-pub:
+  type: WITHOUT_PREFIX
+  message: "&8[&fPUB&8] <white>%player%<dark_gray>: <red>%message%"

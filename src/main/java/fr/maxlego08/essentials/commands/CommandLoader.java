@@ -8,6 +8,7 @@ import fr.maxlego08.essentials.commands.commands.chat.CommandChatClear;
 import fr.maxlego08.essentials.commands.commands.chat.CommandChatDisable;
 import fr.maxlego08.essentials.commands.commands.chat.CommandChatEnable;
 import fr.maxlego08.essentials.commands.commands.chat.CommandChatHistory;
+import fr.maxlego08.essentials.commands.commands.chat.CommandPub;
 import fr.maxlego08.essentials.commands.commands.chat.CommandShowItem;
 import fr.maxlego08.essentials.commands.commands.clearinventory.ClearInventoryCommand;
 import fr.maxlego08.essentials.commands.commands.cooldown.CommandCooldown;
@@ -266,6 +267,8 @@ public class CommandLoader {
         register("suicide", CommandSuicide.class);
         register("link", CommandLink.class, "lier");
         register("unlink", CommandUnLink.class, "delier");
+
+        register("pub", CommandPub.class);
 
         for (RegisterCommand registerCommand : this.commands) {
             try {

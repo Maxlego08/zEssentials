@@ -64,6 +64,7 @@ public class ChatModule extends ZModule {
     private String alphanumericRegex;
     private String linkRegex;
     private String itemaddersFontRegex;
+    private String pubRegex;
     private String defaultChatFormat;
     private String moderatorAction;
     private String linkTransform;
@@ -75,6 +76,7 @@ public class ChatModule extends ZModule {
     private Pattern linkPattern;
     private Pattern fontPattern;
     private Pattern floodRegex;
+    private Pattern pubPattern;
     private boolean enableAlphanumericRegex;
     private boolean enableLinkRegex;
     private boolean enableItemaddersFontRegex;
@@ -109,6 +111,7 @@ public class ChatModule extends ZModule {
         this.linkPattern = Pattern.compile(or(this.linkRegex, "[-a-zA-Z0-9@:%._+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)"));
         this.fontPattern = Pattern.compile(or(this.itemaddersFontRegex, "(?<=:)(.*?)(?=\\s*\\:)"));
         this.floodRegex = Pattern.compile(or(this.antiFloodRegex, "(.)\\1{3,}"));
+        this.pubPattern = Pattern.compile(or(this.pubRegex, ".*(§[0-9a-fk-or]|#[0-9a-fA-F]{6}|%[^%]+%|<[^>]+>).*"));
         this.chatCooldownArray = this.chatCooldowns.stream().flatMapToLong(cooldown -> LongStream.of(cooldown.cooldown(), cooldown.messages())).toArray();
         this.simpleDateFormat = new SimpleDateFormat(or(this.dateFormat, "yyyy-MM-dd HH:mm:ss"));
 
@@ -397,4 +400,7 @@ public class ChatModule extends ZModule {
         }
     }
 
+    public Pattern getPubPattern() {
+        return pubPattern;
+    }
 }

@@ -6,6 +6,7 @@ import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.PrivateMessage;
 import fr.maxlego08.essentials.api.user.User;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.List;
 import java.util.UUID;
@@ -133,4 +134,6 @@ public interface EssentialsServer {
      * @return The list of all offline players names.
      */
     List<String> getOfflinePlayersNames();
+
+    void pub(Player player, String message);
 }

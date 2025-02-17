@@ -152,6 +152,12 @@ public class RedisServer implements EssentialsServer, Listener {
     }
 
     @Override
+    public void pub(Player player, String message) {
+        this.utils.broadcast(Message.COMMAND_PUB, "%message%", message, "%player%", player.getName());
+        sendMessage(new ServerMessage(ServerMessageType.BROADCAST, null, null, null, Message.COMMAND_PUB, new String[]{"%message%", message, "%player%", player.getName()}));
+    }
+
+    @Override
     public void sendPrivateMessage(User user, PrivateMessage privateMessage, String message) {
 
         // First check if player is online on this server
