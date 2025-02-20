@@ -22,6 +22,7 @@ import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.mailbox.MailBoxItem;
 import fr.maxlego08.essentials.api.sanction.Sanction;
+import fr.maxlego08.essentials.api.steps.Step;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.essentials.api.user.Option;
@@ -495,5 +496,15 @@ public class JsonStorage extends StorageHelper implements IStorage {
     @Override
     public void unlinkDiscordAccount(UUID uniqueId) {
         throw new NotImplementedException("unlinkDiscordAccount is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public void canCreateStep(UUID uniqueId, Step step, Consumer<Boolean> consumer) {
+        throw new NotImplementedException("canCreateStep is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public void registerStep(UUID uniqueId, Step step, String data) {
+        throw new NotImplementedException("registerStep is not implemented, use MYSQL storage");
     }
 }

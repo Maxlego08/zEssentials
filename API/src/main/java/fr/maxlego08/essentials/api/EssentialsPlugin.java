@@ -14,6 +14,7 @@ import fr.maxlego08.essentials.api.permission.PermissionChecker;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.scoreboard.ScoreboardManager;
 import fr.maxlego08.essentials.api.server.EssentialsServer;
+import fr.maxlego08.essentials.api.steps.StepManager;
 import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.essentials.api.storage.ServerStorage;
 import fr.maxlego08.essentials.api.storage.StorageManager;
@@ -402,4 +403,6 @@ public interface EssentialsPlugin extends Plugin {
     List<PermissionChecker> getPermissions();
 
     void addMailBoxItem(UUID uuid, ItemStack itemStack);
+
+    StepManager getStepManager();
 }

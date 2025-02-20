@@ -28,6 +28,7 @@ import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.mailbox.MailBoxItem;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.sanction.SanctionType;
+import fr.maxlego08.essentials.api.steps.Step;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.storage.StorageType;
 import fr.maxlego08.essentials.api.user.Option;
@@ -53,11 +54,12 @@ import fr.maxlego08.essentials.migrations.CreateUserMailBoxMigration;
 import fr.maxlego08.essentials.migrations.CreateUserOptionTableMigration;
 import fr.maxlego08.essentials.migrations.CreateUserPlayTimeTableMigration;
 import fr.maxlego08.essentials.migrations.CreateUserPowerToolsMigration;
+import fr.maxlego08.essentials.migrations.CreateUserStepMigration;
 import fr.maxlego08.essentials.migrations.CreateUserTableMigration;
 import fr.maxlego08.essentials.migrations.CreateVoteSiteMigration;
+import fr.maxlego08.essentials.migrations.DropPowerToolsMigration;
 import fr.maxlego08.essentials.migrations.ReCreatePowerToolsMigration;
 import fr.maxlego08.essentials.migrations.UpdateEconomyTransactionAddColumn;
-import fr.maxlego08.essentials.migrations.DropPowerToolsMigration;
 import fr.maxlego08.essentials.migrations.UpdatePlayerSlots;
 import fr.maxlego08.essentials.migrations.UpdateUserTableAddFlyColumn;
 import fr.maxlego08.essentials.migrations.UpdateUserTableAddFreezeColumn;
@@ -83,6 +85,7 @@ import fr.maxlego08.essentials.storage.database.repositeries.UserPlayTimeReposit
 import fr.maxlego08.essentials.storage.database.repositeries.UserPowerToolsRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserSanctionRepository;
+import fr.maxlego08.essentials.storage.database.repositeries.UserStepRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.VaultItemRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.VaultRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.VoteSiteRepository;
@@ -172,6 +175,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
         MigrationManager.registerMigration(new ReCreatePowerToolsMigration());
         MigrationManager.registerMigration(new UpdatePlayerSlots());
         MigrationManager.registerMigration(new CreatePrivateMessagesMigration());
+        MigrationManager.registerMigration(new CreateUserStepMigration());
 
         // Repositories
         this.repositories = new Repositories(plugin, this.connection);
@@ -196,6 +200,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
         this.repositories.register(LinkCodeRepository.class);
         this.repositories.register(LinkHistoryRepository.class);
         this.repositories.register(PrivateMessagesRepository.class);
+        this.repositories.register(UserStepRepository.class);
 
         MigrationManager.execute(this.connection, JULogger.from(this.plugin.getLogger()));
 
@@ -670,6 +675,16 @@ public class SqlStorage extends StorageHelper implements IStorage {
     @Override
     public void unlinkDiscordAccount(UUID uniqueId) {
         async(() -> with(LinkAccountRepository.class).delete(uniqueId));
+    }
+
+    @Override
+    public void canCreateStep(UUID uniqueId, Step step, Consumer<Boolean> consumer) {
+        async(() -> consumer.accept(with(UserStepRepository.class).doestExist(uniqueId, step)));
+    }
+
+    @Override
+    public void registerStep(UUID uniqueId, Step step, String data) {
+        async(() -> with(UserStepRepository.class).insert(uniqueId, step, data));
     }
 
     public DatabaseConnection getConnection() {

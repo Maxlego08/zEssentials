@@ -22,6 +22,7 @@ import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.placeholders.PlaceholderRegister;
 import fr.maxlego08.essentials.api.scoreboard.ScoreboardManager;
 import fr.maxlego08.essentials.api.server.EssentialsServer;
+import fr.maxlego08.essentials.api.steps.StepManager;
 import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.essentials.api.storage.ServerStorage;
 import fr.maxlego08.essentials.api.storage.StorageManager;
@@ -70,6 +71,7 @@ import fr.maxlego08.essentials.messages.MessageLoader;
 import fr.maxlego08.essentials.module.ZModuleManager;
 import fr.maxlego08.essentials.module.modules.HomeModule;
 import fr.maxlego08.essentials.module.modules.MailBoxModule;
+import fr.maxlego08.essentials.module.modules.StepModule;
 import fr.maxlego08.essentials.module.modules.VoteModule;
 import fr.maxlego08.essentials.placeholders.DistantPlaceholder;
 import fr.maxlego08.essentials.placeholders.LocalPlaceholder;
@@ -738,4 +740,10 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     public void addMailBoxItem(UUID uuid, ItemStack itemStack) {
         getModuleManager().getModule(MailBoxModule.class).addItem(uuid, itemStack);
     }
+
+    @Override
+    public StepManager getStepManager(){
+        return getModuleManager().getModule(StepModule.class);
+    }
+
 }

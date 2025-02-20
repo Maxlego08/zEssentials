@@ -21,6 +21,7 @@ import fr.maxlego08.essentials.commands.commands.economy.CommandPay;
 import fr.maxlego08.essentials.commands.commands.economy.CommandPayToggle;
 import fr.maxlego08.essentials.commands.commands.enderchest.CommandEnderChest;
 import fr.maxlego08.essentials.commands.commands.enderchest.CommandEnderSee;
+import fr.maxlego08.essentials.commands.commands.fly.CommandFly;
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameMode;
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeAdventure;
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeCreative;
@@ -46,10 +47,20 @@ import fr.maxlego08.essentials.commands.commands.messages.CommandMessage;
 import fr.maxlego08.essentials.commands.commands.messages.CommandMessageToggle;
 import fr.maxlego08.essentials.commands.commands.messages.CommandReply;
 import fr.maxlego08.essentials.commands.commands.messages.CommandSocialSpy;
-import fr.maxlego08.essentials.commands.commands.sanction.*;
+import fr.maxlego08.essentials.commands.commands.sanction.CommandBan;
+import fr.maxlego08.essentials.commands.commands.sanction.CommandFreeze;
+import fr.maxlego08.essentials.commands.commands.sanction.CommandKick;
+import fr.maxlego08.essentials.commands.commands.sanction.CommandKickAll;
+import fr.maxlego08.essentials.commands.commands.sanction.CommandMute;
+import fr.maxlego08.essentials.commands.commands.sanction.CommandSanction;
+import fr.maxlego08.essentials.commands.commands.sanction.CommandSeen;
+import fr.maxlego08.essentials.commands.commands.sanction.CommandSeenIp;
+import fr.maxlego08.essentials.commands.commands.sanction.CommandUnBan;
+import fr.maxlego08.essentials.commands.commands.sanction.CommandUnMute;
 import fr.maxlego08.essentials.commands.commands.scoreboard.CommandScoreboard;
 import fr.maxlego08.essentials.commands.commands.spawn.CommandSetSpawn;
 import fr.maxlego08.essentials.commands.commands.spawn.CommandSpawn;
+import fr.maxlego08.essentials.commands.commands.step.CommandStep;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandBottom;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleport;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportAccept;
@@ -83,7 +94,6 @@ import fr.maxlego08.essentials.commands.commands.utils.CommandSuicide;
 import fr.maxlego08.essentials.commands.commands.utils.CommandTrash;
 import fr.maxlego08.essentials.commands.commands.utils.CommandVersion;
 import fr.maxlego08.essentials.commands.commands.utils.admins.CommandEnchant;
-import fr.maxlego08.essentials.commands.commands.fly.CommandFly;
 import fr.maxlego08.essentials.commands.commands.utils.admins.CommandGod;
 import fr.maxlego08.essentials.commands.commands.utils.admins.CommandInvsee;
 import fr.maxlego08.essentials.commands.commands.utils.admins.CommandKillAll;
@@ -269,6 +279,7 @@ public class CommandLoader {
         register("unlink", CommandUnLink.class, "delier");
 
         register("pub", CommandPub.class);
+        register("step", CommandStep.class);
 
         for (RegisterCommand registerCommand : this.commands) {
             try {
