@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.storage.database.repositeries;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.dto.StepDTO;
 import fr.maxlego08.essentials.api.steps.Step;
 import fr.maxlego08.essentials.storage.database.Repository;
 import fr.maxlego08.sarah.DatabaseConnection;
@@ -21,10 +22,11 @@ public class UserStepRepository extends Repository {
         });
     }
 
-    public boolean doestExist(UUID uniqueId, Step step) {
-        return this.select(table -> {
+    public StepDTO selectStep(UUID uniqueId, Step step) {
+        var elements = this.select(StepDTO.class, table -> {
             table.where("unique_id", uniqueId);
             table.where("step_name", step.name());
-        }) == 0;
+        });
+        return elements.isEmpty() ? null : elements.getFirst();
     }
 }

@@ -17,6 +17,7 @@ import fr.maxlego08.essentials.api.dto.PowerToolsDTO;
 import fr.maxlego08.essentials.api.dto.PrivateMessageDTO;
 import fr.maxlego08.essentials.api.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.dto.ServerStorageDTO;
+import fr.maxlego08.essentials.api.dto.StepDTO;
 import fr.maxlego08.essentials.api.dto.UserDTO;
 import fr.maxlego08.essentials.api.dto.UserEconomyDTO;
 import fr.maxlego08.essentials.api.dto.UserEconomyRankingDTO;
@@ -678,8 +679,8 @@ public class SqlStorage extends StorageHelper implements IStorage {
     }
 
     @Override
-    public void canCreateStep(UUID uniqueId, Step step, Consumer<Boolean> consumer) {
-        async(() -> consumer.accept(with(UserStepRepository.class).doestExist(uniqueId, step)));
+    public StepDTO selectStep(UUID uniqueId, Step step) {
+        return with(UserStepRepository.class).selectStep(uniqueId, step);
     }
 
     @Override

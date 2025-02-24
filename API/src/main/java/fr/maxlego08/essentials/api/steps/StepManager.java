@@ -13,4 +13,6 @@ public interface StepManager {
     Optional<Step> getStep(String stepName);
 
     List<Step> getSteps();
+
+    void registerStep(CustomStep customStep);
 }

@@ -14,19 +14,21 @@ public class PlayerStep {
     private final Map<String, Map<String, Integer>> blocksStatistics;
     private final Map<String, Map<String, Integer>> itemsStatistics;
     private final Map<String, Map<String, Integer>> entitiesStatistics;
-    private final Map<String, Object> additionalDatas = new HashMap<>();
+    private final Map<String, Object> additionalDatas;
 
-    public PlayerStep(Player player) {
+    public PlayerStep(Player player, Map<String, Object> additionalData) {
+
+        this.additionalDatas = additionalData;
         this.statistics = new HashMap<>();
         this.blocksStatistics = new HashMap<>();
         this.itemsStatistics = new HashMap<>();
         this.entitiesStatistics = new HashMap<>();
 
         for (Statistic stat : Statistic.values()) {
-            try {
+            if (stat.getType() == Statistic.Type.UNTYPED) {
+
                 int value = player.getStatistic(stat);
                 statistics.put(stat.name(), value);
-            } catch (IllegalArgumentException ignored) {
             }
         }
 
@@ -70,13 +72,6 @@ public class PlayerStep {
                 }
             }
         }
-    }
-
-    public PlayerStep(Map<String, Integer> statistics, Map<String, Map<String, Integer>> blocksStatistics, Map<String, Map<String, Integer>> itemsStatistics, Map<String, Map<String, Integer>> entitiesStatistics) {
-        this.statistics = statistics;
-        this.blocksStatistics = blocksStatistics;
-        this.itemsStatistics = itemsStatistics;
-        this.entitiesStatistics = entitiesStatistics;
     }
 
     public Map<String, Integer> getStatistics() {

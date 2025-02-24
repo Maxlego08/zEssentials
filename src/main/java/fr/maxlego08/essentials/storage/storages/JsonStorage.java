@@ -12,6 +12,7 @@ import fr.maxlego08.essentials.api.dto.HomeDTO;
 import fr.maxlego08.essentials.api.dto.MailBoxDTO;
 import fr.maxlego08.essentials.api.dto.PlayerSlotDTO;
 import fr.maxlego08.essentials.api.dto.SanctionDTO;
+import fr.maxlego08.essentials.api.dto.StepDTO;
 import fr.maxlego08.essentials.api.dto.UserDTO;
 import fr.maxlego08.essentials.api.dto.UserEconomyDTO;
 import fr.maxlego08.essentials.api.dto.UserEconomyRankingDTO;
@@ -499,7 +500,7 @@ public class JsonStorage extends StorageHelper implements IStorage {
     }
 
     @Override
-    public void canCreateStep(UUID uniqueId, Step step, Consumer<Boolean> consumer) {
+    public StepDTO selectStep(UUID uniqueId, Step step) {
         throw new NotImplementedException("canCreateStep is not implemented, use MYSQL storage");
     }
 

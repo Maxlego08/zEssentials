@@ -10,6 +10,7 @@ import fr.maxlego08.essentials.api.dto.EconomyTransactionDTO;
 import fr.maxlego08.essentials.api.dto.MailBoxDTO;
 import fr.maxlego08.essentials.api.dto.PlayerSlotDTO;
 import fr.maxlego08.essentials.api.dto.SanctionDTO;
+import fr.maxlego08.essentials.api.dto.StepDTO;
 import fr.maxlego08.essentials.api.dto.UserDTO;
 import fr.maxlego08.essentials.api.dto.UserEconomyDTO;
 import fr.maxlego08.essentials.api.dto.UserEconomyRankingDTO;
@@ -581,7 +582,7 @@ public interface IStorage {
      */
     void unlinkDiscordAccount(UUID uniqueId);
 
-    void canCreateStep(UUID uniqueId, Step step, Consumer<Boolean> consumer);
+    StepDTO selectStep(UUID uniqueId, Step step);
 
     void registerStep(UUID uniqueId, Step step, String data);
 }
