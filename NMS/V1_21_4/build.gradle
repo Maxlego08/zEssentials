@@ -4,7 +4,7 @@ plugins {
 
 repositories {
     gradlePluginPortal()
-    maven { url "https://repo.papermc.io/repository/maven-public/" }
+    maven { url = "https://repo.papermc.io/repository/maven-public/" }
 }
 
 java {
@@ -13,7 +13,7 @@ java {
     }
 }
 
-group 'NMS:v1_21_4'
+group = 'NMS:v1_21_4'
 
 dependencies {
     paperweight.paperDevBundle("1.21.4-R0.1-SNAPSHOT")
