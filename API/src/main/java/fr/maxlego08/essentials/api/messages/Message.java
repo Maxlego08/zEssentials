@@ -26,17 +26,17 @@ public enum Message {
             "#3f3f3f• &7No spamming or advertising."
     ),
 
-    FORMAT_SECOND("second"),
-    FORMAT_SECONDS("seconds"),
+    FORMAT_SECOND(" second"),
+    FORMAT_SECONDS(" seconds"),
 
-    FORMAT_MINUTE("minute"),
-    FORMAT_MINUTES("minutes"),
+    FORMAT_MINUTE(" minute"),
+    FORMAT_MINUTES(" minutes"),
 
-    FORMAT_HOUR("hour"),
-    FORMAT_HOURS("hours"),
+    FORMAT_HOUR(" hour"),
+    FORMAT_HOURS(" hours"),
 
-    FORMAT_DAY("d"),
-    FORMAT_DAYS("days"),
+    FORMAT_DAY(" d"),
+    FORMAT_DAYS(" days"),
 
     COMMAND_SYNTAX_ERROR("<error>You must execute the command like this&7: <success>%syntax%"),
     COMMAND_NO_PERMISSION("<error>You do not have permission to run this command."),
