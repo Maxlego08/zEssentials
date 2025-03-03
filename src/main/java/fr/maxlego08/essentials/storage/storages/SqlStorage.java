@@ -225,11 +225,13 @@ public class SqlStorage extends StorageHelper implements IStorage {
         var commands = this.cache.get(CommandDTO.class);
         var messages = this.cache.get(ChatMessageDTO.class);
         var privateMessages = this.cache.get(PrivateMessageDTO.class);
+        var transactions = this.cache.get(EconomyTransactionDTO.class);
 
         async(() -> {
             with(CommandsRepository.class).insertCommands(commands);
             with(ChatMessagesRepository.class).insertMessages(messages);
             with(PrivateMessagesRepository.class).insertMessages(privateMessages);
+            with(EconomyTransactionsRepository.class).insertTransactions(transactions);
         });
 
         this.cache.clearAll();
@@ -403,7 +405,8 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     @Override
     public void storeTransactions(UUID fromUuid, UUID toUuid, Economy economy, BigDecimal fromAmount, BigDecimal toAmount, String reason) {
-        async(() -> with(EconomyTransactionsRepository.class).upsert(fromUuid, toUuid, economy, fromAmount, toAmount, reason));
+        // async(() -> with(EconomyTransactionsRepository.class).insert(fromUuid, toUuid, economy, fromAmount, toAmount, reason));
+        this.cache.add(new EconomyTransactionDTO(fromUuid, toUuid, economy.getName(), reason, toAmount.subtract(fromAmount), fromAmount, toAmount, new Date(), new Date()));
     }
 
     @Override
