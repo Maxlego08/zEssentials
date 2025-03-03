@@ -12,10 +12,10 @@ import fr.maxlego08.essentials.storage.storages.JsonStorage;
 import fr.maxlego08.essentials.storage.storages.SqlStorage;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
@@ -60,6 +60,12 @@ public class ZStorageManager extends ZUtils implements StorageManager {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onLogin(PlayerLoginEvent event) {
+
+        if (this.plugin.getConfiguration().getBlacklistUuids().contains(event.getPlayer().getUniqueId())) {
+            event.disallow(PlayerLoginEvent.Result.KICK_OTHER, Component.text("Unable to verify your connection, please try again."));
+            this.plugin.getLogger().info("A blacklist player try to connect: " + event.getPlayer().getName() + " (" + event.getPlayer().getUniqueId() + ")");
+            return;
+        }
 
         PlayerLoginEvent.Result result = event.getResult();
         if (result != PlayerLoginEvent.Result.ALLOWED) return;

@@ -15,6 +15,7 @@ import org.bukkit.permissions.Permissible;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Represents the configuration of the plugin.
@@ -211,4 +212,6 @@ public interface Configuration extends ConfigurationFile {
      * @return the batch auto save interval in milliseconds
      */
     long getBatchAutoSave();
+
+    List<UUID> getBlacklistUuids();
 }

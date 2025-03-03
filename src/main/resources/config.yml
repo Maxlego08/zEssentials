@@ -207,3 +207,7 @@ random-words:
 
 # Displays the nicknames of online and offline players in the command completion tab
 enable-offline-player-names: true
+
+# List of players that will be blacklist of your server, they will not be able to connect
+blacklist-uuids:
+  - "00000000-0000-0000-0000-000000000000"

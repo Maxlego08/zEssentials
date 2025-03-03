@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.LongStream;
 
 public class MainConfiguration extends YamlLoader implements Configuration {
@@ -56,6 +57,7 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     private List<String> randomWords;
     private boolean enableOfflinePlayerNames;
     private long batchAutoSave;
+    private List<UUID> blacklistUuids;
 
     public MainConfiguration(ZEssentialsPlugin plugin) {
         this.plugin = plugin;
@@ -259,5 +261,10 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     @Override
     public long getBatchAutoSave() {
         return this.batchAutoSave;
+    }
+
+    @Override
+    public List<UUID> getBlacklistUuids() {
+        return blacklistUuids;
     }
 }

@@ -7,6 +7,7 @@
 
 - Added [BlockTracker](https://modrinth.com/plugin/blocktracker) for Player WorldEdit
 - Added a cache system for updating certain data in batches. This greatly reduces the number of SQL queries executed.
+- Added a list of UUID blacklist from your server. It will no longer be able to connect
 
 # 1.0.1.8
 
