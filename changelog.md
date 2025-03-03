@@ -1,6 +1,7 @@
 # Idée:
 - Ajouter un broadcast de message centré avec le support des \n pour ajouter plusieurs lignes
 - Ajouter une option pour désactiver la tabulation des joueurs hors ligne
+- Ajouter un placeholder pour transformet les caractères en lettre spécial
 
 # Unreleased
 

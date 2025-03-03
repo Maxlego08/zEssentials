@@ -55,6 +55,7 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     private List<ReplacePlaceholder> replacePlaceholders = new ArrayList<>();
     private List<String> randomWords;
     private boolean enableOfflinePlayerNames;
+    private long batchAutoSave;
 
     public MainConfiguration(ZEssentialsPlugin plugin) {
         this.plugin = plugin;
@@ -92,7 +93,7 @@ public class MainConfiguration extends YamlLoader implements Configuration {
         this.loadYamlConfirmation(this.plugin, configuration);
 
         this.databaseConfiguration = new DatabaseConfiguration(
-                configuration.getString("database-configuration.tablePrefix"),
+                configuration.getString("database-configuration.tablePrefix", configuration.getString("database-configuration.table-prefix")),
                 configuration.getString("database-configuration.user"),
                 configuration.getString("database-configuration.password"),
                 configuration.getInt("database-configuration.port", 3306),
@@ -253,5 +254,10 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     @Override
     public boolean isEnableOfflinePlayersName() {
         return this.enableOfflinePlayerNames;
+    }
+
+    @Override
+    public long getBatchAutoSave() {
+        return this.batchAutoSave;
     }
 }

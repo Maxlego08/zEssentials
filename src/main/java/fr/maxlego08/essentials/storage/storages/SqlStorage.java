@@ -92,6 +92,7 @@ import fr.maxlego08.essentials.storage.database.repositeries.VaultRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.VoteSiteRepository;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.utils.StorageHelper;
+import fr.maxlego08.essentials.zutils.utils.TypeSafeCache;
 import fr.maxlego08.menu.zcore.utils.nms.ItemStackUtils;
 import fr.maxlego08.sarah.DatabaseConfiguration;
 import fr.maxlego08.sarah.DatabaseConnection;
@@ -115,11 +116,13 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class SqlStorage extends StorageHelper implements IStorage {
 
+    private final TypeSafeCache cache = new TypeSafeCache();
     private final DatabaseConnection connection;
     private final Repositories repositories;
 
@@ -212,6 +215,24 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
         List<ServerStorageDTO> serverStorageDTOS = with(ServerStorageRepository.class).select();
         plugin.getServerStorage().setContents(serverStorageDTOS);
+
+        long ms = plugin.getConfiguration().getBatchAutoSave();
+        plugin.getScheduler().runTimer(this::processBatchs, ms, ms, TimeUnit.MILLISECONDS);
+    }
+
+    public void processBatchs() {
+
+        var commands = this.cache.get(CommandDTO.class);
+        var messages = this.cache.get(ChatMessageDTO.class);
+        var privateMessages = this.cache.get(PrivateMessageDTO.class);
+
+        async(() -> {
+            with(CommandsRepository.class).insertCommands(commands);
+            with(ChatMessagesRepository.class).insertMessages(messages);
+            with(PrivateMessagesRepository.class).insertMessages(privateMessages);
+        });
+
+        this.cache.clearAll();
     }
 
     private @NotNull DatabaseConfiguration getDatabaseConfiguration(EssentialsPlugin plugin, StorageType storageType) {
@@ -468,17 +489,20 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     @Override
     public void insertChatMessage(UUID uuid, String content) {
-        async(() -> with(ChatMessagesRepository.class).insert(new ChatMessageDTO(uuid, content, new Date())));
+        // async(() -> with(ChatMessagesRepository.class).insert(new ChatMessageDTO(uuid, content, new Date())));
+        this.cache.add(new ChatMessageDTO(uuid, content, new Date()));
     }
 
     @Override
     public void insertPrivateMessage(UUID sender, UUID receiver, String content) {
-        async(() -> with(PrivateMessagesRepository.class).insert(new PrivateMessageDTO(sender, receiver, content, new Date())));
+        // async(() -> with(PrivateMessagesRepository.class).insert(new PrivateMessageDTO(sender, receiver, content, new Date())));
+        this.cache.add(new PrivateMessageDTO(sender, receiver, content, new Date()));
     }
 
     @Override
     public void insertCommand(UUID uuid, String command) {
-        async(() -> with(CommandsRepository.class).insert(new CommandDTO(uuid, command, new Date())));
+        // async(() -> with(CommandsRepository.class).insert(new CommandDTO(uuid, command, new Date())));
+        this.cache.add(new CommandDTO(uuid, command, new Date()));
     }
 
     @Override

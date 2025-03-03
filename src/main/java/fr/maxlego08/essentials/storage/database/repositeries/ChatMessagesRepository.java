@@ -13,17 +13,24 @@ public class ChatMessagesRepository extends Repository {
         super(plugin, connection, "chat_message");
     }
 
-    public void insert(ChatMessageDTO chatMessage) {
+    /*public void insert(ChatMessageDTO chatMessage) {
         insert(table -> {
             table.uuid("unique_id", chatMessage.unique_id());
             table.string("content", chatMessage.content());
         });
-    }
+    }*/
 
     public List<ChatMessageDTO> getMessages(UUID uuid) {
         return this.select(ChatMessageDTO.class, table -> {
             table.uuid("unique_id", uuid);
             table.orderByDesc("created_at");
         });
+    }
+
+    public void insertMessages(List<ChatMessageDTO> messages) {
+        insert(messages.stream().map(dto -> schema(table -> {
+            table.uuid("unique_id", dto.unique_id());
+            table.string("content", dto.content());
+        })).toList());
     }
 }
