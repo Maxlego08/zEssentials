@@ -586,8 +586,8 @@ public class SqlStorage extends StorageHelper implements IStorage {
     }
 
     @Override
-    public void setVote(UUID uuid, long vote, long offline) {
-        async(() -> with(UserRepository.class).setVote(uuid, vote, offline));
+    public void setVote(UUID uniqueId, long vote, long offline) {
+        async(() -> with(UserRepository.class).setVote(uniqueId, vote, offline));
     }
 
     @Override
@@ -596,7 +596,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
         if (user != null) return new UserVoteDTO(uniqueId, user.getVote(), 0);
 
         var users = with(UserRepository.class).selectVoteUser(uniqueId);
-        return users.isEmpty() ? new UserVoteDTO(uniqueId, 0, 0) : users.get(0);
+        return users.isEmpty() ? new UserVoteDTO(uniqueId, 0, 0) : users.getFirst();
     }
 
     @Override

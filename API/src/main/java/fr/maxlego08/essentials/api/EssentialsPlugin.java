@@ -30,6 +30,7 @@ import fr.maxlego08.menu.api.ButtonManager;
 import fr.maxlego08.menu.api.InventoryManager;
 import fr.maxlego08.menu.api.pattern.PatternManager;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.Permissible;
@@ -286,6 +287,14 @@ public interface EssentialsPlugin extends Plugin {
      * @param itemStack the item to give
      */
     void give(Player player, ItemStack itemStack);
+
+    /**
+     * Gives an item to an offline player.
+     *
+     * @param offlinePlayer the offline player to give the item to
+     * @param itemStack     the item to give
+     */
+    void give(OfflinePlayer offlinePlayer, ItemStack itemStack);
 
     /**
      * Retrieves the hologram manager.

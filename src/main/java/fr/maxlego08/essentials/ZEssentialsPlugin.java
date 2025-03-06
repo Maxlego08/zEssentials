@@ -116,6 +116,7 @@ import fr.maxlego08.menu.api.pattern.PatternManager;
 import fr.maxlego08.menu.button.loader.NoneLoader;
 import fr.maxlego08.menu.zcore.utils.nms.NmsVersion;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -136,6 +137,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -612,6 +614,23 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     }
 
     @Override
+    public void give(OfflinePlayer offlinePlayer, ItemStack itemStack) {
+        if (offlinePlayer.isOnline()) {
+            give(Objects.requireNonNull(offlinePlayer.getPlayer()), itemStack);
+        } else {
+            MailBoxModule mailBoxModule = this.moduleManager.getModule(MailBoxModule.class);
+            if (!mailBoxModule.isEnable()) {
+                var location = offlinePlayer.getLocation();
+                if (location == null) return;
+                location.getWorld().dropItemNaturally(location, itemStack);
+                return;
+            }
+
+            mailBoxModule.addItemAndFix(offlinePlayer.getUniqueId(), itemStack);
+        }
+    }
+
+    @Override
     public void give(Player player, ItemStack itemStack) {
 
         PlayerInventory inventory = player.getInventory();
@@ -625,22 +644,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
             return;
         }
 
-        result.values().forEach(item -> {
-            int amount = itemStack.getAmount();
-            if (amount > itemStack.getMaxStackSize()) {
-                while (amount > 0) {
-                    int currentAmount = Math.min(itemStack.getMaxStackSize(), amount);
-                    amount -= currentAmount;
-
-                    ItemStack clonedItemStacks = item.clone();
-                    clonedItemStacks.setAmount(currentAmount);
-
-                    mailBoxModule.addItem(player.getUniqueId(), clonedItemStacks);
-                }
-            } else {
-                mailBoxModule.addItem(player.getUniqueId(), item);
-            }
-        });
+        result.values().forEach(item -> mailBoxModule.addItemAndFix(player.getUniqueId(), item));
     }
 
     @Override
@@ -742,7 +746,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     }
 
     @Override
-    public StepManager getStepManager(){
+    public StepManager getStepManager() {
         return getModuleManager().getModule(StepModule.class);
     }
 

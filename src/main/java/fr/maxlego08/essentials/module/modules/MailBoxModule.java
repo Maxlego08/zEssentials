@@ -34,6 +34,23 @@ public class MailBoxModule extends ZModule {
         this.loadInventory("mailbox_admin");
     }
 
+    public void addItemAndFix(UUID uuid, ItemStack itemStack) {
+        int amount = itemStack.getAmount();
+        if (amount > itemStack.getMaxStackSize()) {
+            while (amount > 0) {
+                int currentAmount = Math.min(itemStack.getMaxStackSize(), amount);
+                amount -= currentAmount;
+
+                ItemStack clonedItemStacks = itemStack.clone();
+                clonedItemStacks.setAmount(currentAmount);
+
+                addItem(uuid, clonedItemStacks);
+            }
+        } else {
+            addItem(uuid, itemStack);
+        }
+    }
+
     public void addItem(UUID uuid, ItemStack itemStack) {
 
         MailBoxItem mailBoxItem = new MailBoxItem(uuid, itemStack, new Date(System.currentTimeMillis() + (this.expiration * 1000)));
