@@ -4,7 +4,6 @@ import fr.maxlego08.essentials.api.scoreboard.EssentialsScoreboard;
 import fr.maxlego08.essentials.api.scoreboard.PlayerBoard;
 import fr.maxlego08.essentials.api.scoreboard.ScoreboardAnimationType;
 import fr.maxlego08.essentials.api.scoreboard.ScoreboardLine;
-import fr.maxlego08.essentials.api.scoreboard.ScoreboardType;
 import fr.maxlego08.essentials.api.scoreboard.configurations.ColorWaveConfiguration;
 import fr.maxlego08.essentials.api.scoreboard.configurations.NoneConfiguration;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
@@ -13,10 +12,8 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class ZEssentialsScoreboard extends ZUtils implements EssentialsScoreboard {
 
@@ -24,20 +21,17 @@ public class ZEssentialsScoreboard extends ZUtils implements EssentialsScoreboar
     private final boolean isDefault;
     private final String title;
     private final List<ScoreboardLine> lines = new ArrayList<>();
-    private final ScoreboardType scoreboardType;
 
-    public ZEssentialsScoreboard(String name, boolean isDefault, String title, List<ScoreboardLine> lines, ScoreboardType scoreboardType) {
+    public ZEssentialsScoreboard(String name, boolean isDefault, String title, List<ScoreboardLine> lines) {
         this.name = name;
         this.isDefault = isDefault;
         this.title = title;
-        this.scoreboardType = scoreboardType;
     }
 
     public ZEssentialsScoreboard(String scoreboardName, ConfigurationSection configurationSection) {
         this.name = scoreboardName;
         this.isDefault = configurationSection.getBoolean("default", false);
         this.title = configurationSection.getString("title", "");
-        this.scoreboardType = ScoreboardType.valueOf(configurationSection.getString("type", ScoreboardType.NORMAL.name()).toUpperCase());
 
         configurationSection.getMapList("lines").forEach(currentLine -> {
 
@@ -107,9 +101,10 @@ public class ZEssentialsScoreboard extends ZUtils implements EssentialsScoreboar
         List<String> lines = new ArrayList<>();
         int line = 0;
         for (ScoreboardLine scoreboardLine : this.lines) {
-            String[] split = scoreboardLine.getText().split("\n");
+            String text = papi(scoreboardLine.getText(), playerBoard.getPlayer());
+            String[] split = text.split("\n");
             for (String s : split) {
-                lines.add(line, papi(s, playerBoard.getPlayer()));
+                lines.add(line, s);
                 line++;
             }
             scoreboardLine.setLine(line - split.length);
@@ -120,8 +115,6 @@ public class ZEssentialsScoreboard extends ZUtils implements EssentialsScoreboar
 
     @Override
     public void update(PlayerBoard playerBoard, String eventName) {
-
-        if (this.scoreboardType != ScoreboardType.NORMAL) return;
 
         this.lines.stream().filter(scoreboardLine -> scoreboardLine.getEventName() != null && scoreboardLine.getEventName().equals(eventName)).forEach(scoreboardLine -> scoreboardLine.update(playerBoard));
     }

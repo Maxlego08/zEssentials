@@ -54,5 +54,10 @@ public interface ScoreboardLine {
      */
     void setLine(int line);
 
+    /**
+     * Gets the line number this scoreboard line was configured at.
+     *
+     * @return the configuration line number
+     */
     int getConfigurationLine();
 }

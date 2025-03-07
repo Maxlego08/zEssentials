@@ -260,9 +260,8 @@ public class ScoreboardModule extends ZModule implements ScoreboardManager {
 
     private void updateScoreboards() {
         for (Player player : Bukkit.getOnlinePlayers()) {
-
             User user = plugin.getUser(player.getUniqueId());
-            if (user != null && user.getOption(Option.DISABLE_SCOREBOARD)) continue;
+            if (user != null && user.getOption(Option.DISABLE_SCOREBOARD)) return;
 
             getBoard(player).ifPresent(playerBoard -> {
 
@@ -274,5 +273,17 @@ public class ScoreboardModule extends ZModule implements ScoreboardManager {
                 }
             });
         }
+    }
+
+    @Override
+    public void update(Player player) {
+        User user = plugin.getUser(player.getUniqueId());
+        if (user != null && user.getOption(Option.DISABLE_SCOREBOARD)) return;
+
+        getBoard(player).ifPresent(playerBoard -> {
+
+            EssentialsScoreboard essentialsScoreboard = getTaskScoreboard(player);
+            essentialsScoreboard.update(playerBoard);
+        });
     }
 }
