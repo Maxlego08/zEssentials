@@ -12,14 +12,16 @@ import fr.maxlego08.essentials.scoreboard.animation.ColorWaveAnimation;
 import fr.maxlego08.essentials.zutils.utils.PlaceholderUtils;
 
 public class ZScoreboardLine implements ScoreboardLine {
-    private final int line;
+
+    private final int configurationLine;
     private final String text;
     private final String eventName;
     private final ScoreboardAnimationType animation;
     private final AnimationConfiguration configuration;
+    private int line;
 
     public ZScoreboardLine(int line, String text, String eventName) {
-        this.line = line;
+        this.line = this.configurationLine = line;
         this.text = text;
         this.eventName = eventName;
         this.animation = ScoreboardAnimationType.NONE;
@@ -27,7 +29,7 @@ public class ZScoreboardLine implements ScoreboardLine {
     }
 
     public ZScoreboardLine(int line, String text, ScoreboardAnimationType animation, AnimationConfiguration configuration) {
-        this.line = line;
+        this.line = this.configurationLine = line;
         this.text = text;
         this.eventName = null;
         this.animation = animation;
@@ -37,6 +39,16 @@ public class ZScoreboardLine implements ScoreboardLine {
     @Override
     public int getLine() {
         return this.line;
+    }
+
+    @Override
+    public void setLine(int line) {
+        this.line = line;
+    }
+
+    @Override
+    public int getConfigurationLine() {
+        return this.configurationLine;
     }
 
     @Override

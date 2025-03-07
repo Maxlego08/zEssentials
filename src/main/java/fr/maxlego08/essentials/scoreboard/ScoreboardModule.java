@@ -154,10 +154,7 @@ public class ScoreboardModule extends ZModule implements ScoreboardManager {
     }
 
     private void updatePlayerBoard(PlayerBoard board, String eventName) {
-        this.plugin.getScheduler().runNextTick(wrappedTask -> {
-            EssentialsScoreboard essentialsScoreboard = board.getScoreboard();
-            essentialsScoreboard.getLines().stream().filter(scoreboardLine -> scoreboardLine.getEventName() != null && scoreboardLine.getEventName().equals(eventName)).forEach(scoreboardLine -> scoreboardLine.update(board));
-        });
+        this.plugin.getScheduler().runNextTick(wrappedTask -> board.getScoreboard().update(board, eventName));
     }
 
     @Override

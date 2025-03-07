@@ -41,4 +41,21 @@ public interface EssentialsScoreboard {
      * @param playerBoard the {@link PlayerBoard} representing the player's scoreboard
      */
     void create(PlayerBoard playerBoard);
+
+    /**
+     * Updates the scoreboard for a specific player.
+     *
+     * @param playerBoard the {@link PlayerBoard} representing the player's scoreboard
+     */
+    void update(PlayerBoard playerBoard);
+
+    /**
+     * Updates the scoreboard for a specific player when a specific event is triggered.
+     * This can be used to update the scoreboard when a player joins or leaves the server,
+     * or when a player completes a task.
+     *
+     * @param playerBoard the {@link PlayerBoard} representing the player's scoreboard
+     * @param eventName   the name of the event that triggered the update
+     */
+    void update(PlayerBoard playerBoard, String eventName);
 }
