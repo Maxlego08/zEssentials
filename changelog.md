@@ -5,11 +5,20 @@
 
 # Unreleased
 
+- Added 1.21.4 NMS support
 - Added [BlockTracker](https://modrinth.com/plugin/blocktracker) for Player WorldEdit.
 - Added a cache system for updating certain data in batches. This greatly reduces the number of SQL queries executed..
 - Added a list of UUID blacklist from your server. It will no longer be able to connect.
 - Added newline support for scoreboard lines with ``\n``.
 - Fixed command `/vault give`, using the correct value for the player name.
+- Fixed loading of messages with placeholder replacement.
+- Added the ``/pub`` command, allowing you to send a message to the chat.
+- Added a reason for economy commands. A default value is added and can be configured.
+- Added a history module for private messages between players.
+- Added a module ``step`` which allows you to save player data (statistics and custom data). This allows you to analyze your players' behavior more effectively, such as how long it took them to reach a key milestone in your server.
+- Fixed messages for time display. Removed the non-configurable space.
+- Improved SQL queries for private message history, command history, chat history and transaction history. Using a single SQL query instead of multiple ones for the same action.
+- Improved vote module configuration. You can define different rewards based on the number of player votes.
 
 # 1.0.1.8
 
