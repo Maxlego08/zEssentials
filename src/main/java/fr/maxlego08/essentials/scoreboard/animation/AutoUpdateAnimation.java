@@ -9,13 +9,11 @@ import java.util.concurrent.TimeUnit;
 
 public class AutoUpdateAnimation extends ScoreboardAnimation {
 
-    private final int line;
     private final String text;
     private final NoneConfiguration configuration;
 
     public AutoUpdateAnimation(PlayerBoard playerBoard, int line, String text, NoneConfiguration configuration) {
-        super(playerBoard);
-        this.line = line;
+        super(playerBoard, line);
         this.text = text;
         this.configuration = configuration;
     }
