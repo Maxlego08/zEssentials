@@ -5,6 +5,8 @@
 
 # Unreleased
 
+# 1.0.1.9
+
 - Added 1.21.4 NMS support
 - Added [BlockTracker](https://modrinth.com/plugin/blocktracker) for Player WorldEdit.
 - Added a cache system for updating certain data in batches. This greatly reduces the number of SQL queries executed..
