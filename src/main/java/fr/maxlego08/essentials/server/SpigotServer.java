@@ -87,6 +87,11 @@ public class SpigotServer implements EssentialsServer {
     }
 
     @Override
+    public void pub(Player player, String message) {
+
+    }
+
+    @Override
     public void sendPrivateMessage(User user, PrivateMessage privateMessage, String message) {
         IStorage iStorage = this.plugin.getStorageManager().getStorage();
         User targetUser = iStorage.getUser(privateMessage.uuid());

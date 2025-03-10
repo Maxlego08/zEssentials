@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ZEssentialsScoreboard extends ZUtils implements EssentialsScoreboard {
+
     private final String name;
     private final boolean isDefault;
     private final String title;
@@ -31,6 +32,7 @@ public class ZEssentialsScoreboard extends ZUtils implements EssentialsScoreboar
         this.name = scoreboardName;
         this.isDefault = configurationSection.getBoolean("default", false);
         this.title = configurationSection.getString("title", "");
+
         configurationSection.getMapList("lines").forEach(currentLine -> {
 
             TypedMapAccessor accessor = new TypedMapAccessor((Map<String, Object>) currentLine);
@@ -84,13 +86,36 @@ public class ZEssentialsScoreboard extends ZUtils implements EssentialsScoreboar
 
     @Override
     public void create(PlayerBoard playerBoard) {
+        this.update(playerBoard);
+
+        this.lines.forEach(line -> line.startAnimation(playerBoard));
+    }
+
+    @Override
+    public void update(PlayerBoard playerBoard) {
+
         Player player = playerBoard.getPlayer();
 
         playerBoard.updateTitle(papi(this.title, player));
 
-        List<String> lines = this.lines.stream().map(ScoreboardLine::getText).map(line -> papi(line, player)).toList();
-        playerBoard.updateLines(lines);
+        List<String> lines = new ArrayList<>();
+        int line = 0;
+        for (ScoreboardLine scoreboardLine : this.lines) {
+            String text = papi(scoreboardLine.getText(), playerBoard.getPlayer());
+            String[] split = text.split("\n");
+            for (String s : split) {
+                lines.add(line, s);
+                line++;
+            }
+            scoreboardLine.setLine(line - split.length);
+        }
 
-        this.lines.forEach(line -> line.startAnimation(playerBoard));
+        playerBoard.updateLines(lines);
+    }
+
+    @Override
+    public void update(PlayerBoard playerBoard, String eventName) {
+
+        this.lines.stream().filter(scoreboardLine -> scoreboardLine.getEventName() != null && scoreboardLine.getEventName().equals(eventName)).forEach(scoreboardLine -> scoreboardLine.update(playerBoard));
     }
 }

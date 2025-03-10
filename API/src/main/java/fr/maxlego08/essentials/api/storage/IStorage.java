@@ -1,15 +1,16 @@
 package fr.maxlego08.essentials.api.storage;
 
 import fr.maxlego08.essentials.api.discord.DiscordAction;
-import fr.maxlego08.essentials.api.dto.DiscordAccountDTO;
 import fr.maxlego08.essentials.api.dto.ChatMessageDTO;
-import fr.maxlego08.essentials.api.dto.DiscordCodeDTO;
 import fr.maxlego08.essentials.api.dto.CooldownDTO;
+import fr.maxlego08.essentials.api.dto.DiscordAccountDTO;
+import fr.maxlego08.essentials.api.dto.DiscordCodeDTO;
 import fr.maxlego08.essentials.api.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.dto.EconomyTransactionDTO;
 import fr.maxlego08.essentials.api.dto.MailBoxDTO;
 import fr.maxlego08.essentials.api.dto.PlayerSlotDTO;
 import fr.maxlego08.essentials.api.dto.SanctionDTO;
+import fr.maxlego08.essentials.api.dto.StepDTO;
 import fr.maxlego08.essentials.api.dto.UserDTO;
 import fr.maxlego08.essentials.api.dto.UserEconomyDTO;
 import fr.maxlego08.essentials.api.dto.UserEconomyRankingDTO;
@@ -20,6 +21,7 @@ import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.mailbox.MailBoxItem;
 import fr.maxlego08.essentials.api.sanction.Sanction;
+import fr.maxlego08.essentials.api.steps.Step;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.user.UserRecord;
@@ -278,6 +280,8 @@ public interface IStorage {
      */
     void insertChatMessage(UUID uuid, String content);
 
+    void insertPrivateMessage(UUID sender, UUID receiver, String content);
+
     /**
      * Retrieves chat messages from a user.
      *
@@ -526,15 +530,59 @@ public interface IStorage {
      */
     void deleteWorldData(String worldName);
 
+    /**
+     * Links a discord account.
+     *
+     * @param uniqueId      the UUID of the user
+     * @param minecraftName the name of the minecraft user
+     * @param discordName   the name of the discord user
+     * @param userId        the user ID of the discord user
+     */
     void linkDiscordAccount(UUID uniqueId, String minecraftName, String discordName, long userId);
 
+    /**
+     * Retrieves the discord account.
+     *
+     * @param uniqueId the UUID of the user
+     * @return the discord account
+     */
     Optional<DiscordAccountDTO> selectDiscordAccount(UUID uniqueId);
 
+    /**
+     * Retrieves the discord code.
+     *
+     * @param code the code
+     * @return the discord code
+     */
     Optional<DiscordCodeDTO> selectCode(String code);
 
+    /**
+     * Clears a discord code.
+     *
+     * @param code the code
+     */
     void clearCode(DiscordCodeDTO code);
 
+    /**
+     * Inserts a discord log.
+     *
+     * @param action        the action
+     * @param uniqueId      the UUID of the user
+     * @param minecraftName the name of the minecraft user
+     * @param discordName   the name of the discord user
+     * @param userId        the user ID of the discord user
+     * @param data          the data
+     */
     void insertDiscordLog(DiscordAction action, UUID uniqueId, String minecraftName, String discordName, long userId, String data);
 
+    /**
+     * Unlinks a discord account.
+     *
+     * @param uniqueId the UUID of the user
+     */
     void unlinkDiscordAccount(UUID uniqueId);
+
+    StepDTO selectStep(UUID uniqueId, Step step);
+
+    void registerStep(UUID uniqueId, Step step, String data);
 }

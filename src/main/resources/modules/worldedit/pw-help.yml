@@ -1,0 +1,257 @@
+name: "&8Help Player Warp"
+size: 54
+items:
+  pw-set:
+    slot: 11
+    item:
+      material: PAPER
+      name: "#8cc0ccCommand"
+      lore:
+        - "&7● &f/pw set <material>"
+        - ""
+        - "#8cc0ccDescription"
+        - "&7● &fAllows you to place blocks in your selection"
+        - ""
+        - "#edacfExample"
+        - "&7● &f/pw set stone"
+  pw-fill:
+    slot: 12
+    item:
+      material: PAPER
+      name: "#8cc0ccCommand"
+      lore:
+        - "&7● &f/pw fill <material>"
+        - ""
+        - "#8cc0ccDescription"
+        - "&7● &fAllows you to fill your selection with blocks"
+        - "&7● &7This command will only take into account"
+        - "&7● &7the air blocks"
+        - ""
+        - "#edacfExample"
+        - "&7● &f/pw fill stone"
+  pw-walls:
+    slot: 13
+    item:
+      material: PAPER
+      name: "#8cc0ccCommand"
+      lore:
+        - "&7● &f/pw walls <material>"
+        - ""
+        - "#8cc0ccDescription"
+        - "&7● &fAllows you to create walls around your selection"
+        - ""
+        - "#edacfExample"
+        - "&7● &f/pw walls stone"
+  pw-cyl:
+    slot: 14
+    item:
+      material: PAPER
+      name: "#8cc0ccCommand"
+      lore:
+        - "&7● &f/pw cyl <material> <radius> <height> [<filled or not>]"
+        - ""
+        - "#8cc0ccDescription"
+        - "&7● &fAllows you to create a cylinder from the first position"
+        - "&7● &fselected (pos1 or left click)"
+        - "&7● &7To define if the cylinder is filled or not,"
+        - "&7● &7you must enter true or false"
+        - ""
+        - "#edacfExample"
+        - "&7● &f/pw cyl stone 5 5 true"
+  pw-cut:
+    slot: 15
+    item:
+      material: PAPER
+      name: "#8cc0ccCommand"
+      lore:
+        - "&7● &f/pw cut"
+        - ""
+        - "#8cc0ccDescription"
+        - "&7● &fAllows you to remove the blocks in your selection"
+        - ""
+        - "#edacfExample"
+        - "&7● &f/pw cut"
+  pw-confirm:
+    slot: 20
+    item:
+      material: PAPER
+      name: "#8cc0ccCommand"
+      lore:
+        - "&7● &f/pw confirm"
+        - ""
+        - "#8cc0ccDescription"
+        - "&7● &fAllows you to confirm the action"
+        - "&7● &7You must execute this command"
+        - "&7● &7after defining your action &8(/pw set, /pw fill etc)"
+        - ""
+        - "#edacfExample"
+        - "&7● &f/pw confirm"
+  pw-pos1:
+    slot: 21
+    item:
+      material: PAPER
+      name: "#8cc0ccCommand"
+      lore:
+        - "&7● &f/pw pos1"
+        - ""
+        - "#8cc0ccDescription"
+        - "&7● &fAllows you to define the first position"
+        - "&7● &f of your selection"
+        - ""
+        - "#edacfExample"
+        - "&7● &f/pw pos1"
+  pw-pos2:
+    slot: 22
+    item:
+      material: PAPER
+      name: "#8cc0ccCommand"
+      lore:
+        - "&7● &f/pw pos2"
+        - ""
+        - "#8cc0ccDescription"
+        - "&7● &fAllows you to define the second position"
+        - "&7● &f of your selection"
+        - ""
+        - "#edacfExample"
+        - "&7● &f/pw pos2"
+  pw-cancel:
+    slot: 23
+    item:
+      material: PAPER
+      name: "#8cc0ccCommand"
+      lore:
+        - "&7● &f/pw cancel"
+        - ""
+        - "#8cc0ccDescription"
+        - "&7● &fAllows you to cancel the current selection"
+        - ""
+        - "#edacfExample"
+        - "&7● &f/pw cancel"
+  pw-stop:
+    slot: 24
+    item:
+      material: PAPER
+      name: "#8cc0ccCommand"
+      lore:
+        - "&7● &f/pw stop"
+        - ""
+        - "#8cc0ccDescription"
+        - "&7● &fAllows you to stop the current editing"
+        - "&7● &7Only the blocks not placed will be refunded"
+        - ""
+        - "#edacfExample"
+        - "&7● &f/pw stop"
+
+  info1:
+    slot: 42
+    item:
+      material: PAPER
+      name: "#8cc0ccAdd multiple materials"
+      lore:
+        - "&7● &fYou can define multiple materials"
+        - "&7● &fIn the same command, you must add a <u>comma</u>"
+        - "&7● &fbetween each material"
+        - ""
+        - "#edacfExample"
+        - "&7● &f/pw set #ff94d7stone#77ff77,#ff94d7dirt#77ff77,#ff94d7grass_block"
+  info2:
+    slot: 43
+    item:
+      material: PAPER
+      name: "#8cc0ccModify the percentage"
+      lore:
+        - "&7● &fYou can define the percentage to apply"
+        - "&7● &fTo a material, you must add a <u>:</u> and the <u>number</u>"
+        - "&7● &fbetween 1 and 100"
+        - ""
+        - "#edacfExample"
+        - "&7● &f/pw set #ff94d7stone,dirt#77ff77:5#ff94d7,grass_block#77ff77:10"
+  info3:
+    slot: 40
+    item:
+      material: PAPER
+      name: "#8cc0ccGet a baguette"
+      lore:
+        - ""
+        - "&7● &fYou can get a #ff94d7baguette"
+        - "&7● &fIn voting &8(/vote)&f, in the store &8(/store&8)"
+        - "&7● &fOr in the island store &8(/isq&8)"
+        - ""
+
+  option-inventory:
+    slot: 37
+    placeholder: '%zessentials_user_worldedit_option_inventory%'
+    value: true
+    action: BOOLEAN
+    actions:
+      - type: player_command
+        commands:
+          - "pw option inventory"
+      - type: refresh
+        delay: 2
+    item:
+      material: PAPER
+      name: "#8cc0ccOption&8: #ff94d7Inventory"
+      lore:
+        - ""
+        - "&7● #8cc0ccState&8: #77ff77Active"
+        - ""
+        - "#8cc0ccDescription"
+        - "&7● &fUses the blocks in your inventory"
+        - "&7● &fin addition to those in your /sac"
+    else:
+      actions:
+        - type: player_command
+          commands:
+            - "pw option inventory"
+        - type: refresh
+          delay: 2
+      item:
+        material: PAPER
+        name: "#8cc0ccOption&8: #ff94d7Inventory"
+        lore:
+          - ""
+          - "&7● #8cc0ccState&8: #ff3535Inactive"
+          - ""
+          - "#8cc0ccDescription"
+          - "&7● &fUses the blocks in your inventory"
+          - "&7● &fin addition to those in your /sac"
+
+  option-bossbar:
+    slot: 38
+    placeholder: '%zessentials_user_worldedit_option_bossbar%'
+    value: false
+    action: BOOLEAN
+    actions:
+      - type: player_command
+        commands:
+          - "pw option bossbar"
+      - type: refresh
+        delay: 2
+    item:
+      material: PAPER
+      name: "#8cc0ccOption&8: #ff94d7Progress bar"
+      lore:
+        - ""
+        - "&7● #8cc0ccState&8: #77ff77Active"
+        - ""
+        - "#8cc0ccDescription"
+        - "&7● &fAllows you to display a progress bar"
+        - "&7● &fat the top of your screen"
+    else:
+      actions:
+        - type: player_command
+          commands:
+            - "pw option bossbar"
+        - type: refresh
+          delay: 2
+      item:
+        material: PAPER
+        name: "#8cc0ccOption&8: #ff94d7Progress bar"
+        lore:
+          - ""
+          - "&7● #8cc0ccState&8: #ff3535Inactive"
+          - ""
+          - "#8cc0ccDescription"
+          - "&7● &fAllows you to display a progress bar"
+          - "&7● &fat the top of your screen"

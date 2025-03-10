@@ -413,6 +413,7 @@ description-worldedit-cyl: "Fill all blocks of your selection with a cylinder"
 description-worldedit-cut: "Cut all blocks of your selection"
 description-worldedit-stop: "Stops the current session"
 description-worldedit-confirm: "Confirm worldedit action"
+description-worldedit-cancel: "Cancel current selection"
 description-worldedit-pos1: "Set first position of the selection"
 description-worldedit-pos2: "Set second position of the selection"
 description-worldedit-option: "Configure your use of worldedit"
@@ -433,16 +434,18 @@ description-suicide: "Kill yourself"
 description-discord-link: "Link your discord account"
 description-discord-unlink: "Unlink your discord account"
 description-clear-random-word: "Clear random words"
+description-pub: "Send a message highlighted in the chat"
+description-step: "Save a step"
 
 # Time format
-format-second: "second"
-format-seconds: "seconds"
-format-minute: "minute"
-format-minutes: "minutes"
-format-hour: "hour"
-format-hours: "hours"
-format-day: "d"
-format-days: "days"
+format-second: " second"
+format-seconds: " seconds"
+format-minute: " minute"
+format-minutes: " minutes"
+format-hour: " hour"
+format-hours: " hours"
+format-day: " d"
+format-days: " days"
 cooldown: "<error>✘ You must wait for &f%cooldown% <error>before performing this action."
 cooldown-commands: "<error>✘ You must wait for &f%cooldown% <error>before performing this commands."
 
@@ -581,6 +584,7 @@ command-home-admin-delete: "#00ff00You just deleted home &f%name%#00ff00 of &b%p
 command-home-admin-set: "#00ff00You just created home &f%name%#00ff00 of &b%player%#00ff00."
 command-home-admin-list: "#8cc0cc%player% ʜᴏᴍᴇs&8:&f%homes%"
 command-home-admin-list-info: " <hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %player%:%name%'>&f%name%</click></hover>&7"
+command-home-error-teleport: "<error>Unable to find the position for teleportation, please delete your home."
 
 
 # Sanction
@@ -900,6 +904,7 @@ command-worldedit-option-inventory-enable: "<success>You have just activated wor
 command-worldedit-option-inventory-disable: "<error>You just disabled worldedit to use your inventory."
 command-worldedit-option-bossbar-enable: "<success>You have just activated worldedit progress bar."
 command-worldedit-option-bossbar-disable: "<error>You just disabled worldedit progress bar."
+command-worldedit-cancel: "<success>You have just cancelled your current selection."
 
 worldedit-selection-error: "<error>You must select two positions before you make this command."
 worldedit-already-running: "<error>You already have an edit in progress, please wait until it is finished."
@@ -923,6 +928,7 @@ worldedit-refund-material: " <white><hover:show_text:'<white>Amount<dark_gray>: 
 worldedit-refund-empty: " No block to refund"
 worldedit-bossbar: "#45ff45Time remaining<dark_gray>: <white>%time%"
 worldedit-speed-error: "<error>You have no permission to set blocks per second."
+worldedit-permission-error: "<error>You cannot use the worldedit here."
 experience-granted: "<success>You have just given <white>%amount% %type% <success>to <white>%player%<success>."
 experience-setted: "<success>You have just set <white>%amount% %type% <success>to <white>%player%<success>."
 experience-queried: "<success><white>%player% <success>have <white>%amount% <success>%type%."
@@ -938,3 +944,9 @@ command-link-account-not-linked: "<error>You are not linked to an account."
 command-link-account-reset: "<success>You have just reset your account link."
 
 random-word-clear: "<success>The random word has been cleared."
+command-pub-pattern-error: "<error>Your message contains forbidden characters."
+command-pub:
+  type: WITHOUT_PREFIX
+  message: "&8[&fPUB&8] <white>%player%<dark_gray>: <red>%message%"
+step-doesnt-exist: "<error>Step &f%step% <error>does not exist."
+step-already-exist: "<error>Step &f%step% <error>already exist."

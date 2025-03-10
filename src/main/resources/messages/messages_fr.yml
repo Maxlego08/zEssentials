@@ -406,6 +406,7 @@ description-worldedit-cyl: "Remplir tous les blocs de votre sélection avec un c
 description-worldedit-cut: "Couper tous les blocs de votre sélection"
 description-worldedit-stop: "Arrêter l'édition en cours"
 description-worldedit-confirm: "Confirmer l'action worldedit"
+description-worldedit-cancel: "Annuler l'édition en cours"
 description-worldedit-pos1: "Définir la première position de la sélection"
 description-worldedit-pos2: "Définir la deuxième position de la sélection"
 description-worldedit-option: "Configurer votre utilisation de worldedit"
@@ -428,16 +429,18 @@ description-suicide: "En finir avec la vie"
 description-discord-link: "Lier votre compte Discord"
 description-discord-unlink: "Dissocier votre compte Discord"
 description-clear-random-word: "Supprimer les mots aléatoires"
+description-pub: "Envoyer un message mis en avant dans le chat"
+description-step: "Sauvegarder une étape"
 
 # Format de l'heure
-format-second: "seconde"
-format-seconds: "secondes"
-format-minute: "minute"
-format-minutes: "minutes"
-format-hour: "heure"
-format-hours: "heures"
-format-day: "jour"
-format-days: "jours"
+format-second: " seconde"
+format-seconds: " secondes"
+format-minute: " minute"
+format-minutes: " minutes"
+format-hour: " heure"
+format-hours: " heures"
+format-day: " jour"
+format-days: " jours"
 cooldown: "<error>✘ Vous devez attendre &f%cooldown% <error>avant de pouvoir effectuer cette action."
 cooldown-commands: "<error>✘ Vous devez attendre &f%cooldown% <error>avant de pouvoir exécuter cette commande."
 
@@ -561,7 +564,7 @@ command-home-admin-delete: "<success>Vous venez de supprimer la maison &f%name%<
 command-home-admin-set: "<success>Vous venez de créer la maison &f%name%<success> pour &b%player%<success>."
 command-home-admin-list: "#8cc0ccMaisons de %player%&8:&f%homes%"
 command-home-admin-list-info: " <hover:show_text:'&7Cliquez pour vous téléporter à la maison &f&n%name%'><click:run_command:'/home %player%:%name%'>&f%name%</click></hover>&7"
-
+command-home-error-teleport: "<error>Impossible de trouver la position pour le téléportation, veuillez supprimer votre maison."
 
 
 # Sanctions
@@ -865,6 +868,7 @@ command-worldedit-option-inventory-enable: "<success>Vous venez d'activer worlde
 command-worldedit-option-inventory-disable: "<error>Vous venez de désactiver worldedit pour utiliser votre inventaire."
 command-worldedit-option-bossbar-enable: "<success>Vous venez d'activer la barre de progression worldedit."
 command-worldedit-option-bossbar-disable: "<error>Vous venez de désactiver la barre de progression worldedit."
+command-worldedit-cancel: "<success>Vous venez d'annuler votre selection en cours."
 
 worldedit-selection-error: "<error>Vous devez sélectionner deux positions avant d'exécuter cette commande."
 worldedit-already-running: "<error>Vous avez déjà une édition en cours, veuillez attendre qu'elle soit terminée."
@@ -888,6 +892,7 @@ worldedit-refund-material: " <white><hover:show_text:'<white>Quantité<dark_gray
 worldedit-refund-empty: " Aucun bloc à rembourser"
 worldedit-bossbar: "#45ff45Temps restant<dark_gray> : <white>%time%"
 worldedit-speed-error: "<error>Vous n'avez pas la permission de définir la vitesse par seconde."
+worldedit-permission-error: "<error>Vous ne pouvez pas utiliser le worldedit ici."
 message-freeze:
   - ""
   - "&fVous venez d'être gelé."
@@ -913,3 +918,9 @@ command-link-account-not-linked: "<error>Vous n'êtes pas lié à un compte."
 command-link-account-reset: "<success>Vous venez de réinitialiser votre lien de compte."
 
 random-word-clear: "<success>Les mots aléatoire viennent d'être effacé."
+command-pub-pattern-error: "<error>Votre message contient des caractères interdits."
+command-pub:
+  type: WITHOUT_PREFIX
+  message: "&8[&fPUB&8] <white>%player%<dark_gray>: <red>%message%"
+step-doesnt-exist: "<error>L'étape &f%step% <error>n'existe pas."
+step-already-exist: "<error>L'étape &f%step% <error>existe déjà."

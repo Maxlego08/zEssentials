@@ -43,8 +43,18 @@ vote-party-rewards:
     - "bc Its VoteParty Time"
 
 # Rewards on each vote
-reward-on-vote:
-  - "cr give %player% vote"
+rewards-on-vote:
+  - min: 0
+    max: 150
+    commands:
+      - "cr give %player% vote"
+  - min: 151
+    max: 400
+    commands:
+      - "cr give %player% vote"
+  - min: 401
+    commands:
+      - "cr give %player% vote"
 
 sites:
   - name: "ServeurMinecraftVote"

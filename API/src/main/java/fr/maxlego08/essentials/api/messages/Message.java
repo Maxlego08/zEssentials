@@ -26,17 +26,17 @@ public enum Message {
             "#3f3f3f• &7No spamming or advertising."
     ),
 
-    FORMAT_SECOND("second"),
-    FORMAT_SECONDS("seconds"),
+    FORMAT_SECOND(" second"),
+    FORMAT_SECONDS(" seconds"),
 
-    FORMAT_MINUTE("minute"),
-    FORMAT_MINUTES("minutes"),
+    FORMAT_MINUTE(" minute"),
+    FORMAT_MINUTES(" minutes"),
 
-    FORMAT_HOUR("hour"),
-    FORMAT_HOURS("hours"),
+    FORMAT_HOUR(" hour"),
+    FORMAT_HOURS(" hours"),
 
-    FORMAT_DAY("d"),
-    FORMAT_DAYS("days"),
+    FORMAT_DAY(" d"),
+    FORMAT_DAYS(" days"),
 
     COMMAND_SYNTAX_ERROR("<error>You must execute the command like this&7: <success>%syntax%"),
     COMMAND_NO_PERMISSION("<error>You do not have permission to run this command."),
@@ -321,6 +321,7 @@ public enum Message {
     DESCRIPTION_WORLDEDIT_CUT("Cut all blocks of your selection"),
     DESCRIPTION_WORLDEDIT_STOP("Stop the current edition"),
     DESCRIPTION_WORLDEDIT_CONFIRM("Confirm worldedit action"),
+    DESCRIPTION_WORLDEDIT_CANCEL("Cancel current selection"),
     DESCRIPTION_WORLDEDIT_POS1("Set first position of the selection"),
     DESCRIPTION_WORLDEDIT_POS2("Set second position of the selection"),
     DESCRIPTION_WORLDEDIT_OPTION("Configure your use of worldedit"),
@@ -333,6 +334,8 @@ public enum Message {
     DESCRIPTION_EXPERIENCE("Manage player experience"),
     DESCRIPTION_DISCORD_LINK("Link your discord account"),
     DESCRIPTION_DISCORD_UNLINK("Unlink your discord account"),
+    DESCRIPTION_PUB("Send a message highlighted in the chat"),
+    DESCRIPTION_STEP("Save a step"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -488,6 +491,7 @@ public enum Message {
     COMMAND_HOME_ADMIN_SET("<success>You just created home &f%name%<success> of &b%player%<success>."),
     COMMAND_HOME_ADMIN_LIST("#8cc0cc%player% ʜᴏᴍᴇs&8:&f%homes%"),
     COMMAND_HOME_ADMIN_LIST_INFO(" <hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %player%:%name%'>&f%name%</click></hover>&7"),
+    COMMAND_HOME_ERROR_TELEPORT("<error>Unable to find the position for teleportation, please delete your home."),
 
     COMMAND_KICK_NOTIFY(MessageType.WITHOUT_PREFIX, "<hover:show_text:'&7By: <white>%sender%<newline>&7Duration: <white>%duration%<newline>&7Reason: <white>%reason%<newline>&7Date: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just kicked the player #e0d12d%target%#e33414.</click></hover>"),
     COMMAND_BAN_NOTIFY(MessageType.WITHOUT_PREFIX, "<hover:show_text:'&7By: <white>%sender%<newline>&7Duration: <white>%duration%<newline>&7Reason: <white>%reason%<newline>&7Date: <white>%created_at%<newline>&7Expires: <white>%expired_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just banned the player #e0d12d%target%#e33414.</click></hover>"),
@@ -817,6 +821,7 @@ public enum Message {
     COMMAND_WORLDEDIT_OPTION_INVENTORY_DISABLE("<error>You just disabled worldedit to use your inventory."),
     COMMAND_WORLDEDIT_OPTION_BOSSBAR_ENABLE("<success>You have just activated worldedit progress bar."),
     COMMAND_WORLDEDIT_OPTION_BOSSBAR_DISABLE("<error>You just disabled worldedit worldedit progress bar."),
+    COMMAND_WORLDEDIT_CANCEL("<success>You have just cancelled your current selection."),
 
     WORLDEDIT_SELECTION_ERROR("<error>You must select two positions before you make this command."),
     WORLDEDIT_SELECTION_VOLUME("<error>You cannot change more than &f%blocks% <error>at the same time."),
@@ -827,6 +832,7 @@ public enum Message {
     WORLDEDIT_SELECTION_POS1("<success>You have just defined the first position."),
     WORLDEDIT_SELECTION_POS2("<success>You have just defined the second position."),
     WORLDEDIT_SPEED_ERROR("<error>You have no permission to set speed per second."),
+    WORLDEDIT_PERMISSION_ERROR("<error>You cannot use the worldedit here."),
 
     WORLDEDIT_START_CALCULATE_PRICE("&7Price calculation in progress, please wait..."),
     WORLDEDIT_START_CHECK_INVENTORY("&7Checking that you have enough items in your inventory, please wait..."),
@@ -858,7 +864,10 @@ public enum Message {
     COMMAND_LINK_ACCOUNT_NOT_LINKED("<error>You are not linked to an account."),
     COMMAND_LINK_ACCOUNT_RESET("<success>You have just reset your account link."),
 
-    ;
+    COMMAND_PUB_PATTERN_ERROR("<error>Your message contains forbidden characters."),
+    COMMAND_PUB(MessageType.WITHOUT_PREFIX, "&8[&fPUB&8] <white>%player%<dark_gray>: <red>%message%"),
+    STEP_DOESNT_EXIST("<error>Step &f%step% <error>does not exist."),
+    STEP_ALREADY_EXIST("<error>Step &f%step% <error>already exist."),;
 
     private EssentialsPlugin plugin;
     private List<EssentialsMessage> messages = new ArrayList<>();

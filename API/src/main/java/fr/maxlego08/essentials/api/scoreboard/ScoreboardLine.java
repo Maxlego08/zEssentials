@@ -46,4 +46,18 @@ public interface ScoreboardLine {
      * @param board the player board to update
      */
     void update(PlayerBoard board);
+
+    /**
+     * Sets the line number for this scoreboard line.
+     *
+     * @param line the new line number
+     */
+    void setLine(int line);
+
+    /**
+     * Gets the line number this scoreboard line was configured at.
+     *
+     * @return the configuration line number
+     */
+    int getConfigurationLine();
 }

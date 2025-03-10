@@ -1,6 +1,5 @@
 package fr.maxlego08.essentials.api.dto;
 
-import java.util.Date;
 import java.util.UUID;
 
 /**

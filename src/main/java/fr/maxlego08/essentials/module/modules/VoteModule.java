@@ -15,9 +15,11 @@ import fr.maxlego08.essentials.api.vote.VoteCache;
 import fr.maxlego08.essentials.api.vote.VoteManager;
 import fr.maxlego08.essentials.api.vote.VotePartyReward;
 import fr.maxlego08.essentials.api.vote.VoteResetConfiguration;
+import fr.maxlego08.essentials.api.vote.VoteReward;
 import fr.maxlego08.essentials.api.vote.VoteSiteConfiguration;
 import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.menu.api.utils.Placeholders;
+import fr.maxlego08.menu.api.utils.TypedMapAccessor;
 import fr.maxlego08.menu.inventory.inventories.InventoryDefault;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -28,6 +30,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -55,7 +58,8 @@ public class VoteModule extends ZModule implements VoteManager {
     private long votePartyObjective;
     @NonLoadable
     private VotePartyReward votePartyRewards;
-    private List<String> rewardOnVote;
+    @NonLoadable
+    private List<VoteReward> rewardsOnVote = new ArrayList<>();
     private List<VoteSiteConfiguration> sites;
     private String placeholderAvailable;
     private String placeholderCooldown;
@@ -83,6 +87,15 @@ public class VoteModule extends ZModule implements VoteManager {
         List<String> globalCommands = configuration.getStringList("vote-party-rewards.global-commands");
 
         this.votePartyRewards = new VotePartyReward(actions, permission, permissionActions, globalCommands);
+
+        this.rewardsOnVote.clear();
+        for (Map<?, ?> map : configuration.getMapList("rewards-on-vote")) {
+            TypedMapAccessor typedMapAccessor = new TypedMapAccessor((Map<String, Object>) map);
+            int min = typedMapAccessor.getInt("min");
+            int max = typedMapAccessor.getInt("max", Integer.MAX_VALUE);
+            var rewardActions = typedMapAccessor.getStringList("commands");
+            this.rewardsOnVote.add(new VoteReward(min, max, rewardActions));
+        }
     }
 
     @Override
@@ -176,7 +189,13 @@ public class VoteModule extends ZModule implements VoteManager {
         if (voteDTO != null) {
             this.plugin.getScheduler().runAsync(wrappedTask -> {
                 var dto = storage.getVote(uniqueId);
-                storage.setVote(uniqueId, voteDTO.vote() + dto.vote(), this.enableOfflineVoteMessage ? voteDTO.vote_offline() + dto.vote_offline() : 0);
+                long vote = voteDTO.vote() + dto.vote();
+                User user = this.plugin.getUser(uniqueId);
+                if (user != null) {
+                    user.setVote(vote);
+                } else {
+                    storage.setVote(uniqueId, vote, this.enableOfflineVoteMessage ? voteDTO.vote_offline() + dto.vote_offline() : 0);
+                }
             });
         }
     }
@@ -187,8 +206,11 @@ public class VoteModule extends ZModule implements VoteManager {
         if (offlinePlayer == null || offlinePlayer.getName() == null) return;
 
         this.onPlayerVote(offlinePlayer.getUniqueId(), site);
-        this.plugin.getScheduler().runNextTick(wrappedTask -> {
-            this.rewardOnVote.forEach(command -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%player%", offlinePlayer.getName())));
+        var scheduler = this.plugin.getScheduler();
+        scheduler.runAsync(wrappedTask -> {
+            long totalVote = plugin.getStorageManager().getStorage().getVote(offlinePlayer.getUniqueId()).vote() + 1;
+            var actions = this.rewardsOnVote.stream().filter(e -> totalVote >= e.min() && totalVote <= e.max()).map(VoteReward::actions).flatMap(List::stream).toList();
+            scheduler.runNextTick(w2 -> actions.forEach(command -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%player%", offlinePlayer.getName()))));
         });
 
         message(offlinePlayer.getUniqueId(), Message.COMMAND_VOTE);

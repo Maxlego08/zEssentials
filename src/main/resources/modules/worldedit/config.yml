@@ -14,7 +14,8 @@
 enable: true
 
 items:
-  playerWand:
+  - name: player-wand
+    display-name: "Player Wand"
     max-use: 50
     price-multiplier: 1.2
     item:
@@ -30,7 +31,8 @@ items:
         - '#3f3f3f• &7Max Distance#3f3f3f: #4cd5ff20'
         - '#3f3f3f• &7Use#3f3f3f: #4cd5ff%use%#3f3f3f/#4cf8ff50'
         - ''
-  adminWand:
+  - name: admin-Wand
+    display-name: "Admin Wand"
     max-use: -1
     price-multiplier: 0
     item:
@@ -287,3 +289,20 @@ worldedit-boss-bar:
   color: RED
   # PROGRESS, NOTCHED_6, NOTCHED_10, NOTCHED_12, NOTCHED_20
   style: PROGRESS
+
+# Enable color visualization when using the worldedit command
+enable-color-visualisation: false
+
+# Open the help inventory when the player executes the worldedit command
+open-help-inventory: false
+
+# Reason that will be used when a player withdraws his money
+withdraw-reason: "Use of player worldedit"
+
+# Reason that will be used when a player gets a refund
+refund-reason: "Refund from player worldedit"
+
+# List of worlds where the player can't use the worldedit command
+blacklist-worlds:
+  - world_the_end
+  - world_nether

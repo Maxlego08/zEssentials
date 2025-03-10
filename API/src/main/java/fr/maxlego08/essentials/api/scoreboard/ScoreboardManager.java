@@ -86,4 +86,11 @@ public interface ScoreboardManager extends Module {
      * @return the EssentialsScoreboard associated with tasks
      */
     EssentialsScoreboard getTaskScoreboard(Player player);
+
+    /**
+     * Updates the scoreboard for the specified player.
+     *
+     * @param player the player whose scoreboard is to be updated
+     */
+    void update(Player player);
 }

@@ -8,6 +8,7 @@ import com.tcoded.folialib.impl.PlatformScheduler;
 import fr.maxlego08.essentials.api.Configuration;
 import fr.maxlego08.essentials.api.ConfigurationFile;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.block.BlockTracker;
 import fr.maxlego08.essentials.api.chat.InteractiveChat;
 import fr.maxlego08.essentials.api.commands.CommandManager;
 import fr.maxlego08.essentials.api.commands.Permission;
@@ -16,10 +17,12 @@ import fr.maxlego08.essentials.api.enchantment.Enchantments;
 import fr.maxlego08.essentials.api.hologram.HologramManager;
 import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
+import fr.maxlego08.essentials.api.permission.PermissionChecker;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.placeholders.PlaceholderRegister;
 import fr.maxlego08.essentials.api.scoreboard.ScoreboardManager;
 import fr.maxlego08.essentials.api.server.EssentialsServer;
+import fr.maxlego08.essentials.api.steps.StepManager;
 import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.essentials.api.storage.ServerStorage;
 import fr.maxlego08.essentials.api.storage.StorageManager;
@@ -68,6 +71,7 @@ import fr.maxlego08.essentials.messages.MessageLoader;
 import fr.maxlego08.essentials.module.ZModuleManager;
 import fr.maxlego08.essentials.module.modules.HomeModule;
 import fr.maxlego08.essentials.module.modules.MailBoxModule;
+import fr.maxlego08.essentials.module.modules.StepModule;
 import fr.maxlego08.essentials.module.modules.VoteModule;
 import fr.maxlego08.essentials.placeholders.DistantPlaceholder;
 import fr.maxlego08.essentials.placeholders.LocalPlaceholder;
@@ -90,11 +94,13 @@ import fr.maxlego08.essentials.user.placeholders.UserKitPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.UserPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.UserPlayTimePlaceholders;
 import fr.maxlego08.essentials.user.placeholders.VotePlaceholders;
+import fr.maxlego08.essentials.user.placeholders.WorldEditPlaceholders;
 import fr.maxlego08.essentials.vault.VaultModule;
 import fr.maxlego08.essentials.worldedit.WorldeditModule;
 import fr.maxlego08.essentials.zutils.Metrics;
 import fr.maxlego08.essentials.zutils.ZPlugin;
 import fr.maxlego08.essentials.zutils.utils.ComponentMessageHelper;
+import fr.maxlego08.essentials.zutils.utils.DefaultBlockTracker;
 import fr.maxlego08.essentials.zutils.utils.PlaceholderUtils;
 import fr.maxlego08.essentials.zutils.utils.VersionChecker;
 import fr.maxlego08.essentials.zutils.utils.ZServerStorage;
@@ -110,6 +116,7 @@ import fr.maxlego08.menu.api.pattern.PatternManager;
 import fr.maxlego08.menu.button.loader.NoneLoader;
 import fr.maxlego08.menu.zcore.utils.nms.NmsVersion;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -130,6 +137,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -140,6 +148,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     private final UUID consoleUniqueId = UUID.fromString("00000000-0000-0000-0000-000000000000");
     private final List<Material> materials = Arrays.stream(Material.values()).filter(e -> !e.name().startsWith("LEGACY_")).toList();
     private final Enchantments enchantments = new ZEnchantments();
+    private final List<PermissionChecker> permissionCheckers = new ArrayList<>();
     private EssentialsUtils essentialsUtils;
     private ServerStorage serverStorage = new ZServerStorage(this);
     private InventoryManager inventoryManager;
@@ -151,6 +160,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     private InteractiveChatHelper interactiveChatHelper;
     private RandomWord randomWord;
     private long serverStartUptime;
+    private BlockTracker blockTracker = new DefaultBlockTracker();
 
     @Override
     public void onEnable() {
@@ -231,6 +241,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.registerPlaceholder(ReplacePlaceholders.class);
         this.registerPlaceholder(EconomyBaltopPlaceholders.class);
         this.registerPlaceholder(VotePlaceholders.class);
+        this.registerPlaceholder(WorldEditPlaceholders.class);
         this.registerPlaceholder(ServerPlaceholders.class);
         this.randomWord = this.registerPlaceholder(RandomWordPlaceholders.class);
 
@@ -242,6 +253,22 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
             PacketListener packetListener = new PacketListener();
             packetListener.registerPackets(this);
         }*/
+
+        if (getServer().getPluginManager().isPluginEnabled("BlockTracker")) {
+            var optional = createInstance("BlockTrackerHook", false);
+            optional.ifPresent(object -> {
+                this.blockTracker = (BlockTracker) object;
+                this.getLogger().info("Register BlockTracker.");
+            });
+        }
+
+        if (getServer().getPluginManager().isPluginEnabled("SuperiorSkyBlock2")) {
+            var optional = createInstance("SuperiorSkyBlockPermission", false);
+            optional.ifPresent(object -> {
+                this.permissionCheckers.add((PermissionChecker) object);
+                this.getLogger().info("Register SuperiorSkyBlock Permission Checker.");
+            });
+        }
 
         this.getServer().getServicesManager().register(EssentialsPlugin.class, this, this, ServicePriority.Normal);
 
@@ -587,6 +614,23 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     }
 
     @Override
+    public void give(OfflinePlayer offlinePlayer, ItemStack itemStack) {
+        if (offlinePlayer.isOnline()) {
+            give(Objects.requireNonNull(offlinePlayer.getPlayer()), itemStack);
+        } else {
+            MailBoxModule mailBoxModule = this.moduleManager.getModule(MailBoxModule.class);
+            if (!mailBoxModule.isEnable()) {
+                var location = offlinePlayer.getLocation();
+                if (location == null) return;
+                location.getWorld().dropItemNaturally(location, itemStack);
+                return;
+            }
+
+            mailBoxModule.addItemAndFix(offlinePlayer.getUniqueId(), itemStack);
+        }
+    }
+
+    @Override
     public void give(Player player, ItemStack itemStack) {
 
         PlayerInventory inventory = player.getInventory();
@@ -600,22 +644,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
             return;
         }
 
-        result.values().forEach(item -> {
-            int amount = itemStack.getAmount();
-            if (amount > itemStack.getMaxStackSize()) {
-                while (amount > 0) {
-                    int currentAmount = Math.min(itemStack.getMaxStackSize(), amount);
-                    amount -= currentAmount;
-
-                    ItemStack clonedItemStacks = item.clone();
-                    clonedItemStacks.setAmount(currentAmount);
-
-                    mailBoxModule.addItem(player.getUniqueId(), clonedItemStacks);
-                }
-            } else {
-                mailBoxModule.addItem(player.getUniqueId(), item);
-            }
-        });
+        result.values().forEach(item -> mailBoxModule.addItemAndFix(player.getUniqueId(), item));
     }
 
     @Override
@@ -695,4 +724,30 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     public RandomWord getRandomWord() {
         return randomWord;
     }
+
+    @Override
+    public BlockTracker getBlockTracker() {
+        return this.blockTracker;
+    }
+
+    @Override
+    public void setBlockTracker(BlockTracker blockTracker) {
+        this.blockTracker = blockTracker;
+    }
+
+    @Override
+    public List<PermissionChecker> getPermissions() {
+        return this.permissionCheckers;
+    }
+
+    @Override
+    public void addMailBoxItem(UUID uuid, ItemStack itemStack) {
+        getModuleManager().getModule(MailBoxModule.class).addItem(uuid, itemStack);
+    }
+
+    @Override
+    public StepManager getStepManager() {
+        return getModuleManager().getModule(StepModule.class);
+    }
+
 }

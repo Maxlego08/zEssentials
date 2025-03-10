@@ -32,12 +32,11 @@ import fr.maxlego08.essentials.worldedit.taks.SphereTask;
 import fr.maxlego08.essentials.worldedit.taks.WallsTask;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.menu.MenuItemStack;
-import fr.maxlego08.menu.exceptions.InventoryException;
-import fr.maxlego08.menu.loader.MenuItemStackLoader;
-import fr.maxlego08.menu.zcore.utils.loader.Loader;
+import fr.maxlego08.menu.api.utils.TypedMapAccessor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -69,6 +68,8 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
     private final List<String> blacklistBlocks = new ArrayList<>();
     @NonLoadable
     private final WorldeditBossBar bossBar;
+    private final boolean enableColorVisualisation = false;
+    private final boolean openHelpInventory = false;
     private BigDecimal defaultBlockPrice;
     private List<BlockPrice> blocksPrice;
     private List<PermissionBlockPerSecond> permissionsBlocksPerSecond;
@@ -80,6 +81,9 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
     private List<PermissionHeight> permissionsCylinderHeight;
     private int batchSize;
     private WorldeditBossBarConfiguration worldeditBossBar;
+    private String withdrawReason;
+    private String refundReason;
+    private List<String> blacklistWorlds;
 
     public WorldeditModule(ZEssentialsPlugin plugin) {
         super(plugin, "worldedit");
@@ -89,28 +93,25 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
     @Override
     public void loadConfiguration() {
         super.loadConfiguration();
-
-        YamlConfiguration configuration = getConfiguration();
-        var section = configuration.getConfigurationSection("items");
-        if (section == null) return;
-
-        Loader<MenuItemStack> loader = new MenuItemStackLoader(this.plugin.getInventoryManager());
+        this.loadInventory("pw-help");
 
         this.worldEditItems.clear();
-        for (String key : section.getKeys(false)) {
 
-            try {
-                String path = "items." + key + ".";
-                int maxUse = configuration.getInt(path + "max-use", -1);
-                double priceMultiplier = configuration.getDouble(path + "price-multiplier", -1);
-                MenuItemStack menuItemStack = loader.load(configuration, path + "item.", new File(getFolder(), "config.yml"));
+        YamlConfiguration configuration = getConfiguration();
+        var list = configuration.getMapList("items");
+        if (list.isEmpty()) return;
 
-                WorldEditItem worldEditItem = new WorldEditItem(key, maxUse, priceMultiplier, menuItemStack);
-                this.worldEditItems.add(worldEditItem);
+        for (Map<?, ?> map : list) {
+            TypedMapAccessor accessor = new TypedMapAccessor((Map<String, Object>) map);
+            String name = accessor.getString("name");
+            String displayName = accessor.getString("display-name", name);
+            int maxUse = accessor.getInt("max-use", -1);
+            double priceMultiplier = accessor.getDouble("price-multiplier", -1);
+            Map<String, Object> mapItem = (Map<String, Object>) accessor.getObject("item");
+            MenuItemStack menuItemStack = MenuItemStack.fromMap(plugin.getInventoryManager(), new File(getFolder(), "config.yml"), name, mapItem);
 
-            } catch (InventoryException exception) {
-                exception.printStackTrace();
-            }
+            WorldEditItem worldEditItem = new WorldEditItem(name, displayName, maxUse, priceMultiplier, menuItemStack);
+            this.worldEditItems.add(worldEditItem);
         }
     }
 
@@ -132,8 +133,8 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
         ItemStack itemStack = worldeditItem.getItemStack(player, worldeditItem.maxUse());
         plugin.give(player, itemStack);
 
-        message(sender, Message.COMMAND_WORLDEDIT_GIVE_SENDER, "%player%", player.getName(), "%item%", itemName);
-        message(player, Message.COMMAND_WORLDEDIT_GIVE_RECEIVER, "%item%", itemName);
+        message(sender, Message.COMMAND_WORLDEDIT_GIVE_SENDER, "%player%", player.getName(), "%item%", worldeditItem.displayName());
+        message(player, Message.COMMAND_WORLDEDIT_GIVE_RECEIVER, "%item%", worldeditItem.displayName());
     }
 
     @Override
@@ -186,6 +187,7 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
             message(user, Message.WORLDEDIT_SPEED_ERROR);
             return true;
         }
+
         return false;
     }
 
@@ -312,7 +314,6 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
 
             message(user, Message.COMMAND_WORLDEDIT_CONFIRM_PRICE_CUT, "%price%", economyManager.format(economy, price), "%duration%", TimerBuilder.getStringTime(seconds * 1000), "%blocks%", blocks, "%speed%", speed, "%s%", speed > 1 ? "s" : "");
         });
-
     }
 
     @Override
@@ -331,6 +332,7 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
 
         message(user, Message.WORLDEDIT_START_CHECK_INVENTORY);
 
+        user.getSelection().cancel();
         var economy = plugin.getEconomyManager().getDefaultEconomy();
 
         task.confirm(result -> {
@@ -362,7 +364,7 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
                     user.setItemInMainHand(itemStack);
                 }
 
-                user.withdraw(economy, task.getTotalPrice());
+                user.withdraw(economy, task.getTotalPrice(), this.withdrawReason);
                 message(user, Message.WORLDEDIT_START_RUNNING);
 
                 task.startPlaceBlocks();
@@ -417,6 +419,8 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
 
     private boolean cantUseWorldEditItem(ItemStack itemStack) {
 
+        if (!itemStack.hasItemMeta()) return true;
+
         ItemMeta itemMeta = itemStack.getItemMeta();
         PersistentDataContainer persistentDataContainer = itemMeta.getPersistentDataContainer();
         String key = persistentDataContainer.get(WorldEditItem.KEY_WORLDEDIT, PersistentDataType.STRING);
@@ -457,6 +461,11 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
         User user = this.getUser(player);
         if (user == null) return;
 
+        if (!hasPermission(player, location.getBlock())) {
+            message(player, Message.WORLDEDIT_PERMISSION_ERROR);
+            return;
+        }
+
         Selection selection = user.getSelection();
         selection.setFirstLocation(location);
         message(player, Message.WORLDEDIT_SELECTION_POS1);
@@ -466,6 +475,11 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
     public void setPos2(Player player, Location location) {
         User user = this.getUser(player);
         if (user == null) return;
+
+        if (!hasPermission(player, location.getBlock())) {
+            message(player, Message.WORLDEDIT_PERMISSION_ERROR);
+            return;
+        }
 
         Selection selection = user.getSelection();
         selection.setSecondLocation(location);
@@ -483,7 +497,16 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
     public void toggleOptionBossBar(User user) {
 
         user.setOption(Option.WORLDEDIT_BOSSBAR_DISABLE, !user.getOption(Option.WORLDEDIT_BOSSBAR_DISABLE));
-        message(user, user.getOption(Option.WORLDEDIT_BOSSBAR_DISABLE) ? Message.COMMAND_WORLDEDIT_OPTION_BOSSBAR_ENABLE : Message.COMMAND_WORLDEDIT_OPTION_BOSSBAR_DISABLE);
+        message(user, !user.getOption(Option.WORLDEDIT_BOSSBAR_DISABLE) ? Message.COMMAND_WORLDEDIT_OPTION_BOSSBAR_ENABLE : Message.COMMAND_WORLDEDIT_OPTION_BOSSBAR_DISABLE);
+    }
+
+    @Override
+    public void cancelSelection(User user) {
+
+        var selection = user.getSelection();
+        selection.cancel();
+        message(user, Message.COMMAND_WORLDEDIT_CANCEL);
+
     }
 
     @Override
@@ -566,10 +589,36 @@ public class WorldeditModule extends ZModule implements WorldeditManager {
     public void onQuit(UserQuitEvent event) {
         var user = event.getUser();
 
+        var selection = user.getSelection();
+        if (selection != null) selection.reset();
+
         var task = user.getWorldeditTask();
         if (task == null || task.getWorldeditStatus() != WorldeditStatus.RUNNING) return;
 
         task.cancel(user.getPlayer());
 
+    }
+
+    @Override
+    public boolean isOpenHelpInventory() {
+        return openHelpInventory;
+    }
+
+    @Override
+    public String getRefundMessage() {
+        return this.refundReason;
+    }
+
+    @Override
+    public String getWithdrawMessage() {
+        return this.withdrawReason;
+    }
+
+    @Override
+    public boolean hasPermission(Player player, Block block) {
+
+        if (this.blacklistWorlds.contains(block.getWorld().getName())) return false;
+
+        return this.plugin.getPermissions().stream().allMatch(permissionChecker -> permissionChecker.hasPermission(player, block));
     }
 }

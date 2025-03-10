@@ -26,6 +26,8 @@ public class CommandEconomySet extends VCommand {
         this.addRequireOfflinePlayerNameArg();
         this.addRequireArg("amount", (a, b) -> Stream.of(10, 20, 30, 40, 50, 60, 70, 80, 90).map(String::valueOf).toList());
         this.addBooleanOptionalArg("silent");
+        this.addOptionalArg("reason");
+        this.setExtendedArgs(true);
     }
 
     @Override
@@ -35,6 +37,7 @@ public class CommandEconomySet extends VCommand {
         String userName = this.argAsString(1);
         double amount = this.argAsDouble(2);
         boolean silent = this.argAsBoolean(3, false);
+        String reason = this.getArgs(5, "Set by " + sender.getName());
 
         EconomyManager economyManager = plugin.getEconomyManager();
         Optional<Economy> optional = economyManager.getEconomy(economyName);
@@ -45,7 +48,7 @@ public class CommandEconomySet extends VCommand {
         Economy economy = optional.get();
 
         fetchUniqueId(userName, uniqueId -> {
-            economyManager.set(uniqueId, economy, new BigDecimal(amount));
+            economyManager.set(uniqueId, economy, new BigDecimal(amount), reason);
 
             String economyFormat = economyManager.format(economy, amount);
             message(sender, Message.COMMAND_ECONOMY_SET_SENDER, "%player%", userName, "%economyFormat%", economyFormat);

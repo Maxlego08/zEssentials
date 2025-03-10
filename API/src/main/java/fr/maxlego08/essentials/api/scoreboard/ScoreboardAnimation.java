@@ -24,13 +24,16 @@ public abstract class ScoreboardAnimation {
      */
     protected ScheduledFuture<?> future = null;
 
+    protected int line;
+
     /**
      * Constructs a new ScoreboardAnimation for the given player board.
      *
      * @param playerBoard the player board to associate with this animation
      */
-    public ScoreboardAnimation(PlayerBoard playerBoard) {
+    public ScoreboardAnimation(PlayerBoard playerBoard, int line) {
         this.playerBoard = playerBoard;
+        this.line = line;
     }
 
     /**
@@ -67,5 +70,23 @@ public abstract class ScoreboardAnimation {
         int b = (int) (bBase + ratio * (bHighlight - bBase));
 
         return String.format("#%02x%02x%02x", r, g, b);
+    }
+
+    /**
+     * Sets the line number for this animation on the scoreboard.
+     *
+     * @param line the line number to set
+     */
+    public void setLine(int line) {
+        this.line = line;
+    }
+
+    /**
+     * Gets the line number on the scoreboard that this animation is currently on.
+     *
+     * @return the line number
+     */
+    public int getLine() {
+        return line;
     }
 }

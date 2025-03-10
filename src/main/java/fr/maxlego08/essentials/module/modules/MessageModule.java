@@ -26,20 +26,20 @@ public class MessageModule extends ZModule {
         return player == null ? options.getOrDefault(Option.VANISH, false) : isVanished(player);
     }
 
-    public void sendMessage(User user, UUID uuid, String userName, String message) {
+    public void sendMessage(User user, UUID receiverUUID, String userName, String message) {
 
         EssentialsServer essentialsServer = this.plugin.getEssentialsServer();
         IStorage iStorage = this.plugin.getStorageManager().getStorage();
 
-        if (user.getUniqueId().equals(uuid)) {
+        if (user.getUniqueId().equals(receiverUUID)) {
             message(user, Message.COMMAND_MESSAGE_SELF);
             return;
         }
 
-        Map<Option, Boolean> options = iStorage.getOptions(uuid);
+        Map<Option, Boolean> options = iStorage.getOptions(receiverUUID);
 
         // Vanish check
-        if (isVanished(uuid, options)) {
+        if (isVanished(receiverUUID, options)) {
             message(user, Message.PLAYER_NOT_FOUND, "%player%", userName);
             return;
         }
@@ -61,9 +61,11 @@ public class MessageModule extends ZModule {
             return;
         }
 
-        PrivateMessage privateMessage = user.setPrivateMessage(uuid, userName);
+        PrivateMessage privateMessage = user.setPrivateMessage(receiverUUID, userName);
         this.plugin.getUtils().sendPrivateMessage(user, privateMessage, Message.COMMAND_MESSAGE_ME, message);
         essentialsServer.sendPrivateMessage(user, privateMessage, message);
         essentialsServer.broadcastMessage(Option.SOCIAL_SPY, Message.COMMAND_MESSAGE_SOCIAL_SPY, "%sender%", user.getName(), "%receiver%", userName, "%message%", message);
+
+        iStorage.insertPrivateMessage(user.getUniqueId(), receiverUUID, message);
     }
 }

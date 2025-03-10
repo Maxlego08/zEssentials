@@ -4,6 +4,7 @@ import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.user.User;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -255,4 +256,14 @@ public interface WorldeditManager {
      * @return the WorldEdit boss bar configuration
      */
     WorldeditBossBarConfiguration getWorldeditConfiguration();
+
+    void cancelSelection(User user);
+
+    boolean isOpenHelpInventory();
+
+    String getRefundMessage();
+
+    String getWithdrawMessage();
+
+    boolean hasPermission(Player player, Block block);
 }

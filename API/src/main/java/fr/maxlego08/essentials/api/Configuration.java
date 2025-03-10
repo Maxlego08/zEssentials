@@ -15,6 +15,7 @@ import org.bukkit.permissions.Permissible;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Represents the configuration of the plugin.
@@ -177,11 +178,40 @@ public interface Configuration extends ConfigurationFile {
      */
     Optional<ReplacePlaceholder> getReplacePlaceholder(String placeholder);
 
+    /**
+     * Checks if temporary fly tasks are enabled.
+     *
+     * @return true if temporary fly tasks are enabled, false otherwise
+     */
     boolean isTempFlyTask();
 
+    /**
+     * Retrieves a list of world names where the fly feature is disabled.
+     *
+     * @return a list of world names where the fly feature is disabled
+     */
     List<String> getDisableFlyWorld();
 
+    /**
+     * Retrieves a list of random words used by the plugin for various tasks.
+     *
+     * @return a list of random words
+     */
     List<String> getRandomWords();
 
+    /**
+     * Checks if the plugin is enabled to display nicknames of online and offline players in the command completion tab.
+     *
+     * @return true if the plugin is enabled to display nicknames of online and offline players, false otherwise
+     */
     boolean isEnableOfflinePlayersName();
+
+    /**
+     * Retrieves the batch auto save interval in milliseconds.
+     *
+     * @return the batch auto save interval in milliseconds
+     */
+    long getBatchAutoSave();
+
+    List<UUID> getBlacklistUuids();
 }

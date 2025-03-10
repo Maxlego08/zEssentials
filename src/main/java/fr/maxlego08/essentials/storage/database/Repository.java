@@ -6,6 +6,8 @@ import fr.maxlego08.sarah.DatabaseConnection;
 import fr.maxlego08.sarah.SchemaBuilder;
 import fr.maxlego08.sarah.database.Schema;
 import fr.maxlego08.sarah.logger.JULogger;
+import fr.maxlego08.sarah.requests.InsertBatchRequest;
+import fr.maxlego08.sarah.requests.UpsertBatchRequest;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -95,5 +97,18 @@ public abstract class Repository extends ZUtils {
         }
     }
 
+    protected void insert(List<Schema> schemas) {
+        InsertBatchRequest insertBatchRequest = new InsertBatchRequest(schemas);
+        insertBatchRequest.execute(this.connection, this.connection.getDatabaseConfiguration(), JULogger.from(this.plugin.getLogger()));
+    }
+
+    protected void upsert(List<Schema> schemas) {
+        UpsertBatchRequest upsertBatchRequest = new UpsertBatchRequest(schemas);
+        upsertBatchRequest.execute(this.connection, this.connection.getDatabaseConfiguration(), JULogger.from(this.plugin.getLogger()));
+    }
+
+    protected Schema schema(Consumer<Schema> consumer) {
+        return SchemaBuilder.insert(getTableName(), consumer);
+    }
 
 }

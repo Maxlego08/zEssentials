@@ -24,6 +24,8 @@ public class CommandEconomyReset extends VCommand {
         this.addRequireArg("economy", (a, b) -> plugin.getEconomyManager().getEconomies().stream().map(Economy::getName).toList());
         this.addRequireOfflinePlayerNameArg();
         this.addBooleanOptionalArg("silent");
+        this.addOptionalArg("reason");
+        this.setExtendedArgs(true);
     }
 
     @Override
@@ -33,6 +35,7 @@ public class CommandEconomyReset extends VCommand {
         String userName = this.argAsString(1);
         double amount = 0;
         boolean silent = this.argAsBoolean(2, false);
+        String reason = this.getArgs(4, "Reset by " + sender.getName());
 
         EconomyManager economyManager = plugin.getEconomyManager();
         Optional<Economy> optional = economyManager.getEconomy(economyName);
@@ -44,7 +47,7 @@ public class CommandEconomyReset extends VCommand {
         Economy economy = optional.get();
         fetchUniqueId(userName, uniqueId -> {
 
-            economyManager.set(uniqueId, economy, new BigDecimal(0));
+            economyManager.set(uniqueId, economy, new BigDecimal(0), reason);
 
             String economyFormat = economyManager.format(economy, amount);
             message(sender, Message.COMMAND_ECONOMY_SET_SENDER, "%player%", userName, "%economyFormat%", economyFormat);

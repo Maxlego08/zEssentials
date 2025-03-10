@@ -2,7 +2,6 @@ package fr.maxlego08.essentials.server;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.cache.ExpiringCache;
-import fr.maxlego08.essentials.api.cache.SimpleCache;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.server.EssentialsServer;
@@ -104,6 +103,11 @@ public class PaperServer extends ZUtils implements EssentialsServer {
     @Override
     public void broadcast(String message) {
         broadcast(Message.COMMAND_CHAT_BROADCAST, "%message%", message);
+    }
+
+    @Override
+    public void pub(Player player, String message) {
+        broadcast(Message.COMMAND_PUB, "%message%", message, "%player%", player.getName());
     }
 
     @Override

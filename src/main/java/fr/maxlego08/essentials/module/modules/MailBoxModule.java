@@ -34,6 +34,23 @@ public class MailBoxModule extends ZModule {
         this.loadInventory("mailbox_admin");
     }
 
+    public void addItemAndFix(UUID uuid, ItemStack itemStack) {
+        int amount = itemStack.getAmount();
+        if (amount > itemStack.getMaxStackSize()) {
+            while (amount > 0) {
+                int currentAmount = Math.min(itemStack.getMaxStackSize(), amount);
+                amount -= currentAmount;
+
+                ItemStack clonedItemStacks = itemStack.clone();
+                clonedItemStacks.setAmount(currentAmount);
+
+                addItem(uuid, clonedItemStacks);
+            }
+        } else {
+            addItem(uuid, itemStack);
+        }
+    }
+
     public void addItem(UUID uuid, ItemStack itemStack) {
 
         MailBoxItem mailBoxItem = new MailBoxItem(uuid, itemStack, new Date(System.currentTimeMillis() + (this.expiration * 1000)));
@@ -116,10 +133,30 @@ public class MailBoxModule extends ZModule {
             return;
         }
 
-        itemStack.setAmount(Math.max(1, amount));
-        addItem(uuid, itemStack);
+        int realAmount = 0;
+        if (amount > itemStack.getMaxStackSize()) {
 
-        message(sender, Message.MAILBOX_GIVE, "%item%", itemName, "%player%", username, "%amount%", amount);
+            while (amount > 0) {
+
+                ItemStack newItemStack = itemStack.clone();
+                int currentAmount = Math.min(amount, itemStack.getMaxStackSize());
+                if (currentAmount <= 0) break;
+
+                amount -= currentAmount;
+                realAmount += currentAmount;
+
+                newItemStack.setAmount(currentAmount);
+                addItem(uuid, newItemStack);
+            }
+
+        } else {
+            int currentAmount = Math.max(1, amount);
+            realAmount = currentAmount;
+            itemStack.setAmount(currentAmount);
+            addItem(uuid, itemStack);
+        }
+
+        message(sender, Message.MAILBOX_GIVE, "%item%", itemName, "%player%", username, "%amount%", realAmount);
     }
 
     public void giveAllItem(CommandSender sender, String itemName, int amount) {
@@ -134,8 +171,25 @@ public class MailBoxModule extends ZModule {
             var itemStack = itemModule.getItemStack(itemName, player);
             if (itemStack == null) break;
 
-            itemStack.setAmount(Math.max(1, amount));
-            addItem(player.getUniqueId(), itemStack);
+            if (amount > itemStack.getMaxStackSize()) {
+
+                int playerAmount = amount;
+                while (playerAmount > 0) {
+
+                    ItemStack newItemStack = itemStack.clone();
+                    int currentAmount = Math.min(playerAmount, itemStack.getMaxStackSize());
+                    if (currentAmount <= 0) break;
+
+                    playerAmount -= currentAmount;
+
+                    newItemStack.setAmount(currentAmount);
+                    addItem(player.getUniqueId(), newItemStack);
+                }
+
+            } else {
+                itemStack.setAmount(Math.max(1, amount));
+                addItem(player.getUniqueId(), itemStack);
+            }
         }
 
         message(sender, Message.MAILBOX_GIVE_ALL, "%item%", itemName, "%amount%", amount);

@@ -14,8 +14,10 @@ import fr.maxlego08.essentials.api.dto.OptionDTO;
 import fr.maxlego08.essentials.api.dto.PlayTimeDTO;
 import fr.maxlego08.essentials.api.dto.PlayerSlotDTO;
 import fr.maxlego08.essentials.api.dto.PowerToolsDTO;
+import fr.maxlego08.essentials.api.dto.PrivateMessageDTO;
 import fr.maxlego08.essentials.api.dto.SanctionDTO;
 import fr.maxlego08.essentials.api.dto.ServerStorageDTO;
+import fr.maxlego08.essentials.api.dto.StepDTO;
 import fr.maxlego08.essentials.api.dto.UserDTO;
 import fr.maxlego08.essentials.api.dto.UserEconomyDTO;
 import fr.maxlego08.essentials.api.dto.UserEconomyRankingDTO;
@@ -27,6 +29,7 @@ import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.mailbox.MailBoxItem;
 import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.sanction.SanctionType;
+import fr.maxlego08.essentials.api.steps.Step;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.storage.StorageType;
 import fr.maxlego08.essentials.api.user.Option;
@@ -42,6 +45,7 @@ import fr.maxlego08.essentials.migrations.CreateLinkHistoryMigration;
 import fr.maxlego08.essentials.migrations.CreatePlayerSlots;
 import fr.maxlego08.essentials.migrations.CreatePlayerVault;
 import fr.maxlego08.essentials.migrations.CreatePlayerVaultItem;
+import fr.maxlego08.essentials.migrations.CreatePrivateMessagesMigration;
 import fr.maxlego08.essentials.migrations.CreateSanctionsTableMigration;
 import fr.maxlego08.essentials.migrations.CreateServerStorageTableMigration;
 import fr.maxlego08.essentials.migrations.CreateUserCooldownTableMigration;
@@ -51,11 +55,12 @@ import fr.maxlego08.essentials.migrations.CreateUserMailBoxMigration;
 import fr.maxlego08.essentials.migrations.CreateUserOptionTableMigration;
 import fr.maxlego08.essentials.migrations.CreateUserPlayTimeTableMigration;
 import fr.maxlego08.essentials.migrations.CreateUserPowerToolsMigration;
+import fr.maxlego08.essentials.migrations.CreateUserStepMigration;
 import fr.maxlego08.essentials.migrations.CreateUserTableMigration;
 import fr.maxlego08.essentials.migrations.CreateVoteSiteMigration;
+import fr.maxlego08.essentials.migrations.DropPowerToolsMigration;
 import fr.maxlego08.essentials.migrations.ReCreatePowerToolsMigration;
 import fr.maxlego08.essentials.migrations.UpdateEconomyTransactionAddColumn;
-import fr.maxlego08.essentials.migrations.DropPowerToolsMigration;
 import fr.maxlego08.essentials.migrations.UpdatePlayerSlots;
 import fr.maxlego08.essentials.migrations.UpdateUserTableAddFlyColumn;
 import fr.maxlego08.essentials.migrations.UpdateUserTableAddFreezeColumn;
@@ -70,6 +75,7 @@ import fr.maxlego08.essentials.storage.database.repositeries.LinkAccountReposito
 import fr.maxlego08.essentials.storage.database.repositeries.LinkCodeRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.LinkHistoryRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.PlayerSlotRepository;
+import fr.maxlego08.essentials.storage.database.repositeries.PrivateMessagesRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.ServerStorageRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserCooldownsRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserEconomyRepository;
@@ -80,11 +86,13 @@ import fr.maxlego08.essentials.storage.database.repositeries.UserPlayTimeReposit
 import fr.maxlego08.essentials.storage.database.repositeries.UserPowerToolsRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.UserSanctionRepository;
+import fr.maxlego08.essentials.storage.database.repositeries.UserStepRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.VaultItemRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.VaultRepository;
 import fr.maxlego08.essentials.storage.database.repositeries.VoteSiteRepository;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.utils.StorageHelper;
+import fr.maxlego08.essentials.zutils.utils.TypeSafeCache;
 import fr.maxlego08.menu.zcore.utils.nms.ItemStackUtils;
 import fr.maxlego08.sarah.DatabaseConfiguration;
 import fr.maxlego08.sarah.DatabaseConnection;
@@ -108,11 +116,13 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class SqlStorage extends StorageHelper implements IStorage {
 
+    private final TypeSafeCache cache = new TypeSafeCache();
     private final DatabaseConnection connection;
     private final Repositories repositories;
 
@@ -168,6 +178,8 @@ public class SqlStorage extends StorageHelper implements IStorage {
         MigrationManager.registerMigration(new DropPowerToolsMigration());
         MigrationManager.registerMigration(new ReCreatePowerToolsMigration());
         MigrationManager.registerMigration(new UpdatePlayerSlots());
+        MigrationManager.registerMigration(new CreatePrivateMessagesMigration());
+        MigrationManager.registerMigration(new CreateUserStepMigration());
 
         // Repositories
         this.repositories = new Repositories(plugin, this.connection);
@@ -191,6 +203,8 @@ public class SqlStorage extends StorageHelper implements IStorage {
         this.repositories.register(LinkAccountRepository.class);
         this.repositories.register(LinkCodeRepository.class);
         this.repositories.register(LinkHistoryRepository.class);
+        this.repositories.register(PrivateMessagesRepository.class);
+        this.repositories.register(UserStepRepository.class);
 
         MigrationManager.execute(this.connection, JULogger.from(this.plugin.getLogger()));
 
@@ -201,6 +215,26 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
         List<ServerStorageDTO> serverStorageDTOS = with(ServerStorageRepository.class).select();
         plugin.getServerStorage().setContents(serverStorageDTOS);
+
+        long ms = plugin.getConfiguration().getBatchAutoSave();
+        plugin.getScheduler().runTimer(this::processBatchs, ms, ms, TimeUnit.MILLISECONDS);
+    }
+
+    public void processBatchs() {
+
+        var commands = this.cache.get(CommandDTO.class);
+        var messages = this.cache.get(ChatMessageDTO.class);
+        var privateMessages = this.cache.get(PrivateMessageDTO.class);
+        var transactions = this.cache.get(EconomyTransactionDTO.class);
+
+        async(() -> {
+            with(CommandsRepository.class).insertCommands(commands);
+            with(ChatMessagesRepository.class).insertMessages(messages);
+            with(PrivateMessagesRepository.class).insertMessages(privateMessages);
+            with(EconomyTransactionsRepository.class).insertTransactions(transactions);
+        });
+
+        this.cache.clearAll();
     }
 
     private @NotNull DatabaseConfiguration getDatabaseConfiguration(EssentialsPlugin plugin, StorageType storageType) {
@@ -371,7 +405,8 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     @Override
     public void storeTransactions(UUID fromUuid, UUID toUuid, Economy economy, BigDecimal fromAmount, BigDecimal toAmount, String reason) {
-        async(() -> with(EconomyTransactionsRepository.class).upsert(fromUuid, toUuid, economy, fromAmount, toAmount, reason));
+        // async(() -> with(EconomyTransactionsRepository.class).insert(fromUuid, toUuid, economy, fromAmount, toAmount, reason));
+        this.cache.add(new EconomyTransactionDTO(fromUuid, toUuid, economy.getName(), reason, toAmount.subtract(fromAmount), fromAmount, toAmount, new Date(), new Date()));
     }
 
     @Override
@@ -457,12 +492,20 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     @Override
     public void insertChatMessage(UUID uuid, String content) {
-        async(() -> with(ChatMessagesRepository.class).insert(new ChatMessageDTO(uuid, content, new Date())));
+        // async(() -> with(ChatMessagesRepository.class).insert(new ChatMessageDTO(uuid, content, new Date())));
+        this.cache.add(new ChatMessageDTO(uuid, content, new Date()));
+    }
+
+    @Override
+    public void insertPrivateMessage(UUID sender, UUID receiver, String content) {
+        // async(() -> with(PrivateMessagesRepository.class).insert(new PrivateMessageDTO(sender, receiver, content, new Date())));
+        this.cache.add(new PrivateMessageDTO(sender, receiver, content, new Date()));
     }
 
     @Override
     public void insertCommand(UUID uuid, String command) {
-        async(() -> with(CommandsRepository.class).insert(new CommandDTO(uuid, command, new Date())));
+        // async(() -> with(CommandsRepository.class).insert(new CommandDTO(uuid, command, new Date())));
+        this.cache.add(new CommandDTO(uuid, command, new Date()));
     }
 
     @Override
@@ -543,8 +586,8 @@ public class SqlStorage extends StorageHelper implements IStorage {
     }
 
     @Override
-    public void setVote(UUID uuid, long vote, long offline) {
-        async(() -> with(UserRepository.class).setVote(uuid, vote, offline));
+    public void setVote(UUID uniqueId, long vote, long offline) {
+        async(() -> with(UserRepository.class).setVote(uniqueId, vote, offline));
     }
 
     @Override
@@ -553,7 +596,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
         if (user != null) return new UserVoteDTO(uniqueId, user.getVote(), 0);
 
         var users = with(UserRepository.class).selectVoteUser(uniqueId);
-        return users.isEmpty() ? new UserVoteDTO(uniqueId, 0, 0) : users.get(0);
+        return users.isEmpty() ? new UserVoteDTO(uniqueId, 0, 0) : users.getFirst();
     }
 
     @Override
@@ -660,6 +703,16 @@ public class SqlStorage extends StorageHelper implements IStorage {
     @Override
     public void unlinkDiscordAccount(UUID uniqueId) {
         async(() -> with(LinkAccountRepository.class).delete(uniqueId));
+    }
+
+    @Override
+    public StepDTO selectStep(UUID uniqueId, Step step) {
+        return with(UserStepRepository.class).selectStep(uniqueId, step);
+    }
+
+    @Override
+    public void registerStep(UUID uniqueId, Step step, String data) {
+        async(() -> with(UserStepRepository.class).insert(uniqueId, step, data));
     }
 
     public DatabaseConnection getConnection() {

@@ -1,4 +1,4 @@
-group 'Hooks:AxVault'
+group = 'Hooks:AxVault'
 
 dependencies {
 

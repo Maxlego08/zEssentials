@@ -837,7 +837,7 @@ public class ZUser extends ZUtils implements User {
     @Override
     public void setVote(long amount) {
         this.vote = amount;
-        this.getStorage().setVote(this.uniqueId, this.vote, -1);
+        this.getStorage().setVote(this.uniqueId, this.vote, 0);
     }
 
     @Override

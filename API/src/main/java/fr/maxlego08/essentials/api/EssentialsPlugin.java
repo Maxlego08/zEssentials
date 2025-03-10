@@ -2,6 +2,7 @@ package fr.maxlego08.essentials.api;
 
 import com.google.gson.Gson;
 import com.tcoded.folialib.impl.PlatformScheduler;
+import fr.maxlego08.essentials.api.block.BlockTracker;
 import fr.maxlego08.essentials.api.chat.InteractiveChat;
 import fr.maxlego08.essentials.api.commands.CommandManager;
 import fr.maxlego08.essentials.api.economy.EconomyManager;
@@ -9,9 +10,11 @@ import fr.maxlego08.essentials.api.enchantment.Enchantments;
 import fr.maxlego08.essentials.api.hologram.HologramManager;
 import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
+import fr.maxlego08.essentials.api.permission.PermissionChecker;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.scoreboard.ScoreboardManager;
 import fr.maxlego08.essentials.api.server.EssentialsServer;
+import fr.maxlego08.essentials.api.steps.StepManager;
 import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.essentials.api.storage.ServerStorage;
 import fr.maxlego08.essentials.api.storage.StorageManager;
@@ -27,6 +30,7 @@ import fr.maxlego08.menu.api.ButtonManager;
 import fr.maxlego08.menu.api.InventoryManager;
 import fr.maxlego08.menu.api.pattern.PatternManager;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.Permissible;
@@ -285,6 +289,14 @@ public interface EssentialsPlugin extends Plugin {
     void give(Player player, ItemStack itemStack);
 
     /**
+     * Gives an item to an offline player.
+     *
+     * @param offlinePlayer the offline player to give the item to
+     * @param itemStack     the item to give
+     */
+    void give(OfflinePlayer offlinePlayer, ItemStack itemStack);
+
+    /**
      * Retrieves the hologram manager.
      *
      * @return the {@link HologramManager} instance
@@ -364,7 +376,42 @@ public interface EssentialsPlugin extends Plugin {
      */
     <T> Optional<T> createInstance(String className, boolean displayLog);
 
+    /**
+     * Returns the time when the server started in milliseconds.
+     *
+     * @return the start time of the server in milliseconds
+     */
     long getServerStartupTime();
 
+    /**
+     * Returns an instance of the {@link RandomWord} class.
+     *
+     * @return the {@link RandomWord} instance
+     */
     RandomWord getRandomWord();
+
+    /**
+     * Sets the block tracker to the specified block tracker.
+     *
+     * @param blockTracker the block tracker to set
+     */
+    void setBlockTracker(BlockTracker blockTracker);
+
+    /**
+     * Returns the block tracker.
+     *
+     * @return the block tracker
+     */
+    BlockTracker getBlockTracker();
+
+    /**
+     * Returns a list of permission checkers.
+     *
+     * @return a list of permission checkers
+     */
+    List<PermissionChecker> getPermissions();
+
+    void addMailBoxItem(UUID uuid, ItemStack itemStack);
+
+    StepManager getStepManager();
 }

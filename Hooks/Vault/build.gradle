@@ -1,4 +1,4 @@
-group 'Hooks:Vault'
+group = 'Hooks:Vault'
 
 dependencies {
     compileOnly "com.github.MilkBowl:VaultAPI:1.7"

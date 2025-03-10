@@ -12,6 +12,7 @@ import fr.maxlego08.essentials.api.dto.HomeDTO;
 import fr.maxlego08.essentials.api.dto.MailBoxDTO;
 import fr.maxlego08.essentials.api.dto.PlayerSlotDTO;
 import fr.maxlego08.essentials.api.dto.SanctionDTO;
+import fr.maxlego08.essentials.api.dto.StepDTO;
 import fr.maxlego08.essentials.api.dto.UserDTO;
 import fr.maxlego08.essentials.api.dto.UserEconomyDTO;
 import fr.maxlego08.essentials.api.dto.UserEconomyRankingDTO;
@@ -22,6 +23,7 @@ import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.mailbox.MailBoxItem;
 import fr.maxlego08.essentials.api.sanction.Sanction;
+import fr.maxlego08.essentials.api.steps.Step;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.essentials.api.user.Option;
@@ -304,6 +306,11 @@ public class JsonStorage extends StorageHelper implements IStorage {
     }
 
     @Override
+    public void insertPrivateMessage(UUID sender, UUID receiver, String content) {
+        throw new NotImplementedException("insertPrivateMessage is not implemented, use MYSQL storage");
+    }
+
+    @Override
     public void insertCommand(UUID uuid, String command) {
         // throw new NotImplementedException("insertCommand is not implemented, use MYSQL storage");
     }
@@ -490,5 +497,15 @@ public class JsonStorage extends StorageHelper implements IStorage {
     @Override
     public void unlinkDiscordAccount(UUID uniqueId) {
         throw new NotImplementedException("unlinkDiscordAccount is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public StepDTO selectStep(UUID uniqueId, Step step) {
+        throw new NotImplementedException("canCreateStep is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public void registerStep(UUID uniqueId, Step step, String data) {
+        throw new NotImplementedException("registerStep is not implemented, use MYSQL storage");
     }
 }

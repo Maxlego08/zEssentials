@@ -1,5 +1,7 @@
 package fr.maxlego08.essentials.api.discord;
 
+import fr.maxlego08.essentials.api.functionnals.ReturnConsumer;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -114,14 +116,14 @@ public record DiscordEmbedConfiguration(String title, String description, String
         return new Color(r, g, b, a);
     }
 
-    public void apply(DiscordWebhook discordWebhook, String... args) {
+    public void apply(ReturnConsumer<String, String> consumer, DiscordWebhook discordWebhook, String... args) {
 
         DiscordWebhook.EmbedObject embedObject = new DiscordWebhook.EmbedObject();
 
-        embedObject.setAuthor(replace(this.author.name, args), replace(this.author.url, args), replace(this.author.iconUrl, args));
+        embedObject.setAuthor(replace(consumer.accept(this.author.name), args), replace(consumer.accept(this.author.url), args), replace(consumer.accept(this.author.iconUrl), args));
 
         if (this.description != null) {
-            embedObject.setDescription(replace(this.description, args));
+            embedObject.setDescription(replace(consumer.accept(this.description), args));
         }
 
         if (this.color != null) {
@@ -129,7 +131,7 @@ public record DiscordEmbedConfiguration(String title, String description, String
         }
 
         if (this.title != null) {
-            embedObject.setTitle(replace(this.title, args));
+            embedObject.setTitle(replace(consumer.accept(this.title), args));
         }
 
         discordWebhook.addEmbed(embedObject);

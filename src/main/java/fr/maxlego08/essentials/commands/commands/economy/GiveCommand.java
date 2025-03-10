@@ -12,11 +12,12 @@ import java.math.BigDecimal;
 import java.util.Optional;
 
 public abstract class GiveCommand extends VCommand {
+
     public GiveCommand(EssentialsPlugin plugin) {
         super(plugin);
     }
 
-    protected CommandResultType give(CommandSender sender, String userName, String economyName, double amount, boolean silent) {
+    protected CommandResultType give(CommandSender sender, String userName, String economyName, double amount, boolean silent, String reason) {
         EconomyManager economyManager = plugin.getEconomyManager();
         Optional<Economy> optional = economyManager.getEconomy(economyName);
         if (optional.isEmpty()) {
@@ -27,7 +28,7 @@ public abstract class GiveCommand extends VCommand {
         Economy economy = optional.get();
         fetchUniqueId(userName, uniqueId -> {
 
-            economyManager.deposit(uniqueId, economy, new BigDecimal(amount));
+            economyManager.deposit(uniqueId, economy, new BigDecimal(amount), reason);
 
             String economyFormat = economyManager.format(economy, amount);
             message(sender, Message.COMMAND_ECONOMY_GIVE_SENDER, "%player%", userName, "%economyFormat%", economyFormat);

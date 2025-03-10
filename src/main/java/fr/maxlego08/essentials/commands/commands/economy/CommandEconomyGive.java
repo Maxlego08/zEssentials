@@ -4,13 +4,9 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.economy.Economy;
-import fr.maxlego08.essentials.api.economy.EconomyManager;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.economy.EconomyModule;
-import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 
-import java.math.BigDecimal;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 public class CommandEconomyGive extends GiveCommand {
@@ -26,6 +22,8 @@ public class CommandEconomyGive extends GiveCommand {
         this.addRequireOfflinePlayerNameArg();
         this.addRequireArg("amount", (a, b) -> Stream.of(10, 20, 30, 40, 50, 60, 70, 80, 90).map(String::valueOf).toList());
         this.addBooleanOptionalArg("silent");
+        this.addOptionalArg("reason");
+        this.setExtendedArgs(true);
     }
 
     @Override
@@ -35,7 +33,8 @@ public class CommandEconomyGive extends GiveCommand {
         String userName = this.argAsString(1);
         double amount = this.argAsDouble(2);
         boolean silent = this.argAsBoolean(3, false);
+        String reason = this.getArgs(5, "Give by " + sender.getName());
 
-        return give(this.sender, userName, economyName, amount, silent);
+        return give(this.sender, userName, economyName, amount, silent, reason);
     }
 }

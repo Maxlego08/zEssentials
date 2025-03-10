@@ -13,17 +13,24 @@ public class CommandsRepository extends Repository {
         super(plugin, connection, "commands");
     }
 
-    public void insert(CommandDTO chatMessage) {
+    /*public void insert(CommandDTO chatMessage) {
         insert(table -> {
             table.uuid("unique_id", chatMessage.unique_id());
             table.string("command", chatMessage.command());
         });
-    }
+    }*/
 
     public List<CommandDTO> getCommands(UUID uuid) {
         return this.select(CommandDTO.class, table -> {
             table.uuid("unique_id", uuid);
             table.orderByDesc("created_at");
         });
+    }
+
+    public void insertCommands(List<CommandDTO> commands) {
+        insert(commands.stream().map(dto -> schema(table -> {
+            table.uuid("unique_id", dto.unique_id());
+            table.string("command", dto.command());
+        })).toList());
     }
 }

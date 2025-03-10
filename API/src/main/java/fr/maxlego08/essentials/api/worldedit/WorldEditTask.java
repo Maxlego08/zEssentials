@@ -72,7 +72,7 @@ public abstract class WorldEditTask {
             this.loadBlocks();
 
             // Process the blocks in batches and calculate the total price
-            processNextBatch(blocks.stream().map(b -> new BlockInfo(b, null, BigDecimal.ZERO)).collect(Collectors.toList()), 0, this.worldeditManager.getBatchSize(), () -> {
+            processNextBatch(blocks.stream().filter(b -> worldeditManager.hasPermission(user.getPlayer(), b)).map(b -> new BlockInfo(b, null, BigDecimal.ZERO)).collect(Collectors.toList()), 0, this.worldeditManager.getBatchSize(), () -> {
 
                 this.totalPrice = this.blockInfos.stream().map(BlockInfo::price).reduce(BigDecimal.ZERO, BigDecimal::add);
                 this.materials = this.blockInfos.stream().collect(Collectors.groupingBy(BlockInfo::newMaterial, Collectors.counting()));
@@ -99,7 +99,7 @@ public abstract class WorldEditTask {
             return;
         }
 
-        var firstBlock = currentBatch.get(0);
+        var firstBlock = currentBatch.getFirst();
 
         var scheduler = this.plugin.getScheduler();
         scheduler.runAtLocation(firstBlock.block().getLocation(), wrappedTask -> {
@@ -402,6 +402,9 @@ public abstract class WorldEditTask {
             }
 
             block.setType(blockInfo.newMaterial());
+            if (!blockInfo.newMaterial().isAir()) {
+                plugin.getBlockTracker().track(block);
+            }
         });
     }
 
@@ -423,7 +426,7 @@ public abstract class WorldEditTask {
         this.blockInfos.clear();
 
         var economy = this.plugin.getEconomyManager().getDefaultEconomy();
-        this.user.deposit(economy, refundPrice);
+        this.user.deposit(economy, refundPrice, this.worldeditManager.getRefundMessage());
         refundMaterials.putAll(this.needToGiveMaterials);
 
         giveItems(player, refundMaterials);

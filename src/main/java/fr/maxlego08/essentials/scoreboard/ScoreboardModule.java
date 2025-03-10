@@ -154,10 +154,7 @@ public class ScoreboardModule extends ZModule implements ScoreboardManager {
     }
 
     private void updatePlayerBoard(PlayerBoard board, String eventName) {
-        this.plugin.getScheduler().runNextTick(wrappedTask -> {
-            EssentialsScoreboard essentialsScoreboard = board.getScoreboard();
-            essentialsScoreboard.getLines().stream().filter(scoreboardLine -> scoreboardLine.getEventName() != null && scoreboardLine.getEventName().equals(eventName)).forEach(scoreboardLine -> scoreboardLine.update(board));
-        });
+        this.plugin.getScheduler().runNextTick(wrappedTask -> board.getScoreboard().update(board, eventName));
     }
 
     @Override
@@ -263,9 +260,8 @@ public class ScoreboardModule extends ZModule implements ScoreboardManager {
 
     private void updateScoreboards() {
         for (Player player : Bukkit.getOnlinePlayers()) {
-
             User user = plugin.getUser(player.getUniqueId());
-            if (user != null && user.getOption(Option.DISABLE_SCOREBOARD)) continue;
+            if (user != null && user.getOption(Option.DISABLE_SCOREBOARD)) return;
 
             getBoard(player).ifPresent(playerBoard -> {
 
@@ -277,5 +273,17 @@ public class ScoreboardModule extends ZModule implements ScoreboardManager {
                 }
             });
         }
+    }
+
+    @Override
+    public void update(Player player) {
+        User user = plugin.getUser(player.getUniqueId());
+        if (user != null && user.getOption(Option.DISABLE_SCOREBOARD)) return;
+
+        getBoard(player).ifPresent(playerBoard -> {
+
+            EssentialsScoreboard essentialsScoreboard = getTaskScoreboard(player);
+            essentialsScoreboard.update(playerBoard);
+        });
     }
 }

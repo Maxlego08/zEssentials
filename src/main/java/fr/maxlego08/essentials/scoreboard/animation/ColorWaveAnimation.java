@@ -10,13 +10,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class ColorWaveAnimation extends ScoreboardAnimation {
 
     private final String text;
-    private final int line;
     private final ColorWaveConfiguration configuration;
 
     public ColorWaveAnimation(PlayerBoard playerBoard, String text, int line, ColorWaveConfiguration configuration) {
-        super(playerBoard);
+        super(playerBoard, line);
         this.text = text;
-        this.line = line;
         this.configuration = configuration;
     }
 

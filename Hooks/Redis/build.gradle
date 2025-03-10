@@ -1,4 +1,4 @@
-group 'Hooks:Redis'
+group = 'Hooks:Redis'
 
 repositories {
     mavenCentral()

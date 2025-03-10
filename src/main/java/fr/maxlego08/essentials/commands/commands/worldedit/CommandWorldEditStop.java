@@ -14,7 +14,7 @@ public class CommandWorldEditStop extends VCommand {
         this.setModule(WorldeditModule.class);
         this.setPermission(Permission.ESSENTIALS_WORLDEDIT_STOP);
         this.setDescription(Message.DESCRIPTION_WORLDEDIT_STOP);
-        this.addSubCommand("stop", "cancel");
+        this.addSubCommand("stop");
         this.onlyPlayers();
     }
 

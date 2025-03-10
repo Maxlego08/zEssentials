@@ -3,7 +3,7 @@ plugins {
     id 'io.github.goooler.shadow' version '8.1.8'
 }
 
-group 'zEssentials'
+group = 'zEssentials'
 version = property("version")
 
 project.ext {
@@ -23,16 +23,16 @@ allprojects {
     }
 
     repositories {
-        maven { url "https://repo.papermc.io/repository/maven-public/" }
-        maven { url 'https://jitpack.io' }
+        maven { url = "https://repo.papermc.io/repository/maven-public/" }
+        maven { url = 'https://jitpack.io' }
         maven { url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/' }
     }
 
     dependencies {
         compileOnly("io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT")
-        compileOnly("com.github.maxlego08:zMenu-API:1.0.3.7")
+        compileOnly("com.github.maxlego08:zMenu-API:bfbeb882aa")
         implementation "com.github.technicallycoded:FoliaLib:0.4.3"
-        implementation 'com.github.Maxlego08:Sarah:1.14'
+        implementation 'com.github.Maxlego08:Sarah:1.15'
         implementation 'fr.mrmicky:fastboard:2.1.3'
     }
 
@@ -113,7 +113,7 @@ processResources {
     outputs.upToDateWhen { false }
     def props = [version: version]
     inputs.properties props
-    filteringCharset 'UTF-8'
+    filteringCharset = 'UTF-8'
     filesMatching('plugin.yml') {
         expand props
     }

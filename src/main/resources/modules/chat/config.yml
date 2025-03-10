@@ -64,6 +64,9 @@ alphanumeric-regex: '^[a-zA-Z0-9_.?!^¨%ù*&é"#''{(\[-|èêë`\\çà)\]=}ûî+<
 # You can test the regex here before changing the default one: https://regex101.com/
 link-regex: '[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)'
 
+# Regex to check pub message
+pub-regex: '.*(&[0-9a-fk-or]|#[0-9a-fA-F]{6}|%[^%]+%|<[^>]+>).*'
+
 # Regex to check itemAdders font
 itemadders-font-regex: '(?<=:)(.*?)(?=\s*\:)'
 

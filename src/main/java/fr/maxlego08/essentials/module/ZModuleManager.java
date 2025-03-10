@@ -16,6 +16,7 @@ import fr.maxlego08.essentials.module.modules.MessageModule;
 import fr.maxlego08.essentials.module.modules.RuleModule;
 import fr.maxlego08.essentials.module.modules.SanctionModule;
 import fr.maxlego08.essentials.module.modules.SpawnModule;
+import fr.maxlego08.essentials.module.modules.StepModule;
 import fr.maxlego08.essentials.module.modules.TeleportationModule;
 import fr.maxlego08.essentials.module.modules.VoteModule;
 import fr.maxlego08.essentials.module.modules.WarpModule;
@@ -72,6 +73,7 @@ public class ZModuleManager implements ModuleManager {
         this.modules.put(VoteModule.class, new VoteModule(this.plugin));
         this.modules.put(VaultModule.class, new VaultModule(this.plugin));
         this.modules.put(WorldeditModule.class, new WorldeditModule(this.plugin));
+        this.modules.put(StepModule.class, new StepModule(this.plugin));
 
         this.loadConfigurations();
 

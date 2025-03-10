@@ -12,23 +12,23 @@ public class TimerBuilder {
 
         StringBuilder message = new StringBuilder();
         if (days > 0) {
-            message.append(days).append(" ").append(days <= 1 ? Message.FORMAT_DAY.getMessageAsString() : Message.FORMAT_DAYS.getMessageAsString()).append(" ");
+            message.append(days).append(days <= 1 ? Message.FORMAT_DAY.getMessageAsString() : Message.FORMAT_DAYS.getMessageAsString()).append(" ");
         }
         if (hours > 0) {
-            message.append(hours).append(" ").append(hours <= 1 ? Message.FORMAT_HOUR.getMessageAsString() : Message.FORMAT_HOURS.getMessageAsString()).append(" ");
+            message.append(hours).append(hours <= 1 ? Message.FORMAT_HOUR.getMessageAsString() : Message.FORMAT_HOURS.getMessageAsString()).append(" ");
         }
         if (minutes > 0) {
-            message.append(minutes).append(" ").append(minutes <= 1 ? Message.FORMAT_MINUTE.getMessageAsString() : Message.FORMAT_MINUTES.getMessageAsString()).append(" ");
+            message.append(minutes).append(minutes <= 1 ? Message.FORMAT_MINUTE.getMessageAsString() : Message.FORMAT_MINUTES.getMessageAsString()).append(" ");
         }
         if (totalSeconds < 10) {
             if (totalSeconds == (long) totalSeconds) {
                 long roundedSeconds = (long) totalSeconds;
-                message.append(roundedSeconds).append(" ").append(roundedSeconds <= 1 ? Message.FORMAT_SECOND.getMessageAsString() : Message.FORMAT_SECONDS.getMessageAsString());
+                message.append(roundedSeconds).append(roundedSeconds <= 1 ? Message.FORMAT_SECOND.getMessageAsString() : Message.FORMAT_SECONDS.getMessageAsString());
             } else {
-                message.append(String.format("%.1f", totalSeconds)).append(" ").append(Message.FORMAT_SECONDS.getMessageAsString());
+                message.append(String.format("%.1f", totalSeconds)).append(Message.FORMAT_SECONDS.getMessageAsString());
             }
-        } else if (seconds > 0 || message.length() == 0) {
-            message.append(seconds).append(" ").append(seconds <= 1 ? Message.FORMAT_SECOND.getMessageAsString() : Message.FORMAT_SECONDS.getMessageAsString());
+        } else if (seconds > 0 || message.isEmpty()) {
+            message.append(seconds).append(seconds <= 1 ? Message.FORMAT_SECOND.getMessageAsString() : Message.FORMAT_SECONDS.getMessageAsString());
         }
 
         return format(message.toString().trim());

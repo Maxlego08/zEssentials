@@ -12,14 +12,17 @@ import fr.maxlego08.essentials.scoreboard.animation.ColorWaveAnimation;
 import fr.maxlego08.essentials.zutils.utils.PlaceholderUtils;
 
 public class ZScoreboardLine implements ScoreboardLine {
-    private final int line;
+
+    private final int configurationLine;
     private final String text;
     private final String eventName;
     private final ScoreboardAnimationType animation;
     private final AnimationConfiguration configuration;
+    private int line;
+    private ScoreboardAnimation scoreboardAnimation = null;
 
     public ZScoreboardLine(int line, String text, String eventName) {
-        this.line = line;
+        this.line = this.configurationLine = line;
         this.text = text;
         this.eventName = eventName;
         this.animation = ScoreboardAnimationType.NONE;
@@ -27,7 +30,7 @@ public class ZScoreboardLine implements ScoreboardLine {
     }
 
     public ZScoreboardLine(int line, String text, ScoreboardAnimationType animation, AnimationConfiguration configuration) {
-        this.line = line;
+        this.line = this.configurationLine = line;
         this.text = text;
         this.eventName = null;
         this.animation = animation;
@@ -37,6 +40,19 @@ public class ZScoreboardLine implements ScoreboardLine {
     @Override
     public int getLine() {
         return this.line;
+    }
+
+    @Override
+    public void setLine(int line) {
+        this.line = line;
+        if (this.scoreboardAnimation != null) {
+            this.scoreboardAnimation.setLine(line);
+        }
+    }
+
+    @Override
+    public int getConfigurationLine() {
+        return this.configurationLine;
     }
 
     @Override
@@ -52,17 +68,13 @@ public class ZScoreboardLine implements ScoreboardLine {
     @Override
     public void startAnimation(PlayerBoard playerBoard) {
 
-        ScoreboardAnimation scoreboardAnimation;
-        switch (this.animation) {
-            case COLOR_WAVE -> {
-                ColorWaveConfiguration configuration = (ColorWaveConfiguration) this.configuration;
-                scoreboardAnimation = new ColorWaveAnimation(playerBoard, this.text, this.line, configuration);
+        if (this.animation != null && this.animation == ScoreboardAnimationType.COLOR_WAVE) {
+            if (configuration instanceof ColorWaveConfiguration colorWaveConfiguration) {
+                scoreboardAnimation = new ColorWaveAnimation(playerBoard, this.text, this.line, colorWaveConfiguration);
             }
-            default -> {
-                if (this.configuration != null) {
-                    NoneConfiguration configuration = (NoneConfiguration) this.configuration;
-                    scoreboardAnimation = new AutoUpdateAnimation(playerBoard, this.line, this.text, configuration);
-                } else scoreboardAnimation = null;
+        } else {
+            if (this.configuration != null && this.configuration instanceof NoneConfiguration noneConfiguration) {
+                scoreboardAnimation = new AutoUpdateAnimation(playerBoard, this.line, this.text, noneConfiguration);
             }
         }
 
