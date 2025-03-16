@@ -66,6 +66,7 @@ import fr.maxlego08.essentials.migrations.UpdateUserTableAddFlyColumn;
 import fr.maxlego08.essentials.migrations.UpdateUserTableAddFreezeColumn;
 import fr.maxlego08.essentials.migrations.UpdateUserTableAddSanctionColumns;
 import fr.maxlego08.essentials.migrations.UpdateUserTableAddVoteColumn;
+import fr.maxlego08.essentials.storage.GlobalDatabaseConfiguration;
 import fr.maxlego08.essentials.storage.database.Repositories;
 import fr.maxlego08.essentials.storage.database.Repository;
 import fr.maxlego08.essentials.storage.database.repositeries.ChatMessagesRepository;
@@ -238,8 +239,18 @@ public class SqlStorage extends StorageHelper implements IStorage {
     }
 
     private @NotNull DatabaseConfiguration getDatabaseConfiguration(EssentialsPlugin plugin, StorageType storageType) {
-        DatabaseConfiguration oldConfiguration = plugin.getConfiguration().getDatabaseConfiguration();
-        return new DatabaseConfiguration(oldConfiguration.getTablePrefix(), oldConfiguration.getUser(), oldConfiguration.getPassword(), oldConfiguration.getPort(), oldConfiguration.getHost(), oldConfiguration.getDatabase(), oldConfiguration.isDebug(), storageType == StorageType.SQLITE ? DatabaseType.SQLITE : DatabaseType.MYSQL);
+
+        GlobalDatabaseConfiguration globalDatabaseConfiguration = new GlobalDatabaseConfiguration(plugin.getConfig());
+
+        String tablePrefix = globalDatabaseConfiguration.getTablePrefix();
+        String host = globalDatabaseConfiguration.getHost();
+        int port = globalDatabaseConfiguration.getPort();
+        String user = globalDatabaseConfiguration.getUser();
+        String password = globalDatabaseConfiguration.getPassword();
+        String database = globalDatabaseConfiguration.getDatabase();
+        boolean debug = globalDatabaseConfiguration.isDebug();
+
+        return new DatabaseConfiguration(tablePrefix, user, password, port, host, database, debug, storageType == StorageType.SQLITE ? DatabaseType.SQLITE : DatabaseType.MYSQL);
     }
 
     @Override
