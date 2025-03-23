@@ -31,6 +31,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
+import net.minecraft.world.item.ItemDisplayContext;
 import org.bukkit.entity.Player;
 import org.joml.Quaternionf;
 
@@ -126,6 +127,14 @@ public class CraftHologram extends Hologram {
             textDisplay.setFlags(flags);
         } else if (display instanceof Display.ItemDisplay itemDisplay && configuration instanceof ItemHologramConfiguration itemHologramConfiguration) {
 
+            var context = switch (itemHologramConfiguration.getItemDisplayTransform()) {
+                case THIRDPERSON_LEFTHAND -> ItemDisplayContext.THIRD_PERSON_LEFT_HAND;
+                case THIRDPERSON_RIGHTHAND -> ItemDisplayContext.THIRD_PERSON_RIGHT_HAND;
+                case FIRSTPERSON_LEFTHAND -> ItemDisplayContext.FIRST_PERSON_LEFT_HAND;
+                case FIRSTPERSON_RIGHTHAND -> ItemDisplayContext.FIRST_PERSON_RIGHT_HAND;
+                default -> ItemDisplayContext.valueOf(itemHologramConfiguration.getItemDisplayTransform().name());
+            };
+            itemDisplay.setItemTransform(context);
             itemDisplay.setItemStack(ItemStack.fromBukkitCopy(itemHologramConfiguration.getItemStack()));
         } else if (display instanceof Display.BlockDisplay blockDisplay && configuration instanceof BlockHologramConfiguration blockData) {
 

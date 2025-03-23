@@ -5,6 +5,8 @@
 
 # Unreleased
 
+- Fixed Vault implementation [#164](https://github.com/Maxlego08/zEssentials/issues/164)
+
 # 1.0.1.9
 
 - Added 1.21.4 NMS support
