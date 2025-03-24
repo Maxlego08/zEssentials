@@ -8,12 +8,15 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ComponentBoard extends FastBoard implements PlayerBoard {
 
     private final EssentialsScoreboard essentialsScoreboard;
     private final PaperComponent paperComponent = new PaperComponent();
+    private final Map<Integer, Integer> linesModifier = new HashMap<>();
 
     public ComponentBoard(Player player, EssentialsScoreboard essentialsScoreboard) {
         super(player);
@@ -47,5 +50,15 @@ public class ComponentBoard extends FastBoard implements PlayerBoard {
     @Override
     public EssentialsScoreboard getScoreboard() {
         return this.essentialsScoreboard;
+    }
+
+    @Override
+    public Map<Integer, Integer> getLinesModifier() {
+        return this.linesModifier;
+    }
+
+    @Override
+    public int getLineModifier(int line) {
+        return this.linesModifier.getOrDefault(line, line);
     }
 }

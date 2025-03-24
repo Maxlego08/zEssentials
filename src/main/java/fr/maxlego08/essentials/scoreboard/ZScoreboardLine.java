@@ -18,11 +18,10 @@ public class ZScoreboardLine implements ScoreboardLine {
     private final String eventName;
     private final ScoreboardAnimationType animation;
     private final AnimationConfiguration configuration;
-    private int line;
     private ScoreboardAnimation scoreboardAnimation = null;
 
     public ZScoreboardLine(int line, String text, String eventName) {
-        this.line = this.configurationLine = line;
+        this.configurationLine = line;
         this.text = text;
         this.eventName = eventName;
         this.animation = ScoreboardAnimationType.NONE;
@@ -30,7 +29,7 @@ public class ZScoreboardLine implements ScoreboardLine {
     }
 
     public ZScoreboardLine(int line, String text, ScoreboardAnimationType animation, AnimationConfiguration configuration) {
-        this.line = this.configurationLine = line;
+         this.configurationLine = line;
         this.text = text;
         this.eventName = null;
         this.animation = animation;
@@ -39,19 +38,6 @@ public class ZScoreboardLine implements ScoreboardLine {
 
     @Override
     public int getLine() {
-        return this.line;
-    }
-
-    @Override
-    public void setLine(int line) {
-        this.line = line;
-        if (this.scoreboardAnimation != null) {
-            this.scoreboardAnimation.setLine(line);
-        }
-    }
-
-    @Override
-    public int getConfigurationLine() {
         return this.configurationLine;
     }
 
@@ -70,11 +56,11 @@ public class ZScoreboardLine implements ScoreboardLine {
 
         if (this.animation != null && this.animation == ScoreboardAnimationType.COLOR_WAVE) {
             if (configuration instanceof ColorWaveConfiguration colorWaveConfiguration) {
-                scoreboardAnimation = new ColorWaveAnimation(playerBoard, this.text, this.line, colorWaveConfiguration);
+                scoreboardAnimation = new ColorWaveAnimation(playerBoard, this.text, this.configurationLine, colorWaveConfiguration);
             }
         } else {
             if (this.configuration != null && this.configuration instanceof NoneConfiguration noneConfiguration) {
-                scoreboardAnimation = new AutoUpdateAnimation(playerBoard, this.line, this.text, noneConfiguration);
+                scoreboardAnimation = new AutoUpdateAnimation(playerBoard, this.configurationLine, this.text, noneConfiguration);
             }
         }
 
@@ -90,6 +76,6 @@ public class ZScoreboardLine implements ScoreboardLine {
 
     @Override
     public void update(PlayerBoard playerBoard) {
-        playerBoard.updateLine(this.line, PlaceholderUtils.PapiHelper.papi(this.text, playerBoard.getPlayer()));
+        playerBoard.updateLine(playerBoard.getLineModifier(this.configurationLine), PlaceholderUtils.PapiHelper.papi(this.text, playerBoard.getPlayer()));
     }
 }

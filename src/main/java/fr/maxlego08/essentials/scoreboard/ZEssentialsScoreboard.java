@@ -107,7 +107,7 @@ public class ZEssentialsScoreboard extends ZUtils implements EssentialsScoreboar
                 lines.add(line, s);
                 line++;
             }
-            scoreboardLine.setLine(line - split.length);
+            playerBoard.getLinesModifier().put(scoreboardLine.getLine(), line - split.length);
         }
 
         playerBoard.updateLines(lines);

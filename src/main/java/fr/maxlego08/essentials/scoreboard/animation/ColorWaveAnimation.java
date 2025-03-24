@@ -20,7 +20,7 @@ public class ColorWaveAnimation extends ScoreboardAnimation {
 
     @Override
     public void start() {
-        playerBoard.updateLine(this.line, this.configuration.fromColor() + this.text);
+        playerBoard.updateLine(playerBoard.getLineModifier(this.line), this.configuration.fromColor() + this.text);
         EXECUTOR_SERVICE.schedule(this::animation, this.configuration.delayBetween(), TimeUnit.MILLISECONDS);
     }
 
@@ -35,13 +35,12 @@ public class ColorWaveAnimation extends ScoreboardAnimation {
                 future.cancel(false);
                 return;
             }
-
-
+            
             int step = atomicInteger.getAndIncrement();
-            playerBoard.updateLine(this.line, getAnimatedText(this.text, this.configuration.toColor(), this.configuration.fromColor(), step));
+            playerBoard.updateLine(playerBoard.getLineModifier(this.line), getAnimatedText(this.text, this.configuration.toColor(), this.configuration.fromColor(), step));
 
             if (step > this.text.length() + this.configuration.length()) {
-                playerBoard.updateLine(this.line, this.configuration.fromColor() + this.text);
+                playerBoard.updateLine(playerBoard.getLineModifier(this.line), this.configuration.fromColor() + this.text);
                 EXECUTOR_SERVICE.schedule(this::animation, this.configuration.delayBetween(), TimeUnit.MILLISECONDS);
                 future.cancel(false);
             }

@@ -27,7 +27,7 @@ public class AutoUpdateAnimation extends ScoreboardAnimation {
                 return;
             }
 
-            playerBoard.updateLine(this.line, PlaceholderUtils.PapiHelper.papi(this.text, playerBoard.getPlayer()));
+            playerBoard.updateLine(playerBoard.getLineModifier(this.line), PlaceholderUtils.PapiHelper.papi(this.text, playerBoard.getPlayer()));
 
         }, 0, this.configuration.update(), TimeUnit.MILLISECONDS);
     }
