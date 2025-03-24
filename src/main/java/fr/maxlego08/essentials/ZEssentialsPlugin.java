@@ -63,10 +63,11 @@ import fr.maxlego08.essentials.listener.InvseeListener;
 import fr.maxlego08.essentials.listener.PlayerListener;
 import fr.maxlego08.essentials.loader.ButtonKitCooldownLoader;
 import fr.maxlego08.essentials.loader.ButtonKitGetLoader;
+import fr.maxlego08.essentials.loader.ButtonOptionLoader;
 import fr.maxlego08.essentials.loader.ButtonSanctionLoader;
 import fr.maxlego08.essentials.loader.ButtonWarpLoader;
-import fr.maxlego08.essentials.loader.VaultNoPermissionLoader;
-import fr.maxlego08.essentials.loader.VaultOpenLoader;
+import fr.maxlego08.essentials.loader.ButtonVaultNoPermissionLoader;
+import fr.maxlego08.essentials.loader.ButtonVaultOpenLoader;
 import fr.maxlego08.essentials.messages.MessageLoader;
 import fr.maxlego08.essentials.module.ZModuleManager;
 import fr.maxlego08.essentials.module.modules.HomeModule;
@@ -329,8 +330,9 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.buttonManager.register(new ButtonSanctionLoader(this));
         this.buttonManager.register(new ButtonKitCooldownLoader(this));
         this.buttonManager.register(new ButtonKitGetLoader(this));
-        this.buttonManager.register(new VaultOpenLoader(this));
-        this.buttonManager.register(new VaultNoPermissionLoader(this));
+        this.buttonManager.register(new ButtonVaultOpenLoader(this));
+        this.buttonManager.register(new ButtonVaultNoPermissionLoader(this));
+        this.buttonManager.register(new ButtonOptionLoader(this));
 
     }
 
