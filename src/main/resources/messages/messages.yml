@@ -170,6 +170,7 @@ command-pay-receiver: "&f%player% #99E0FFjust sent you #F8F327%amount%#99E0FF."
 command-pay-disable: "<error>You can’t send %name%."
 command-pay-self: "<error>You cannot send money to yourself."
 command-pay-not-enough: "<error>You don't have enough money."
+command-pay-disabled: "<error>You cannot send money to this player."
 
 
 # Teleport commands

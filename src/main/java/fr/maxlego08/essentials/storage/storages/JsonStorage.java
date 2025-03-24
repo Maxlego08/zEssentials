@@ -344,6 +344,11 @@ public class JsonStorage extends StorageHelper implements IStorage {
     }
 
     @Override
+    public void getOption(UUID uuid, Option option, Consumer<Boolean> consumer) {
+        consumer.accept(getOptions(uuid).getOrDefault(option, false));
+    }
+
+    @Override
     public List<CooldownDTO> getCooldowns(UUID uniqueId) {
         return new ArrayList<>();
     }

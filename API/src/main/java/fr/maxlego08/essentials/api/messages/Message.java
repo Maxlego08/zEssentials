@@ -411,6 +411,7 @@ public enum Message {
     COMMAND_PAY_DISABLE("<error>You can’t send %name%."),
     COMMAND_PAY_SELF("<error>You cannot send money to yourself."),
     COMMAND_PAY_NOT_ENOUGH("<error>You don't have enough money."),
+    COMMAND_PAY_DISABLED("<error>You cannot send money to this player."),
 
     JOIN_MESSAGE("#99E0FF%player% &7joined the game"),
     QUIT_MESSAGE("#99E0FF%player% &7left the game"),

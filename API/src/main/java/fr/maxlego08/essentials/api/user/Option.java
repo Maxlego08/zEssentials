@@ -16,11 +16,6 @@ public enum Option {
      */
     GOD,
 
-    /**
-     * Option for disabling messaging feature.
-     */
-    MESSAGE_DISABLE,
-
     BAN,
     MUTE,
     /**

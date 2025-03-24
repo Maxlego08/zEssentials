@@ -170,6 +170,7 @@ command-pay-receiver: "&f%player% #99E0FFvient de vous envoyer #F8F327%amount%#9
 command-pay-disable: "<error>Vous ne pouvez pas envoyer %name%."
 command-pay-self: "<error>Vous ne pouvez pas vous envoyer d'argent à vous-même."
 command-pay-not-enough: "<error>Vous n'avez pas assez d'argent."
+command-pay-disabled: "<error>Vous ne pouvez pas envoyer de l'argent à ce joueur."
 
 # Commandes de téléportation
 command-tpa-error: "<error>Vous avez déjà envoyé une demande à #99E0FF%player%<error>."

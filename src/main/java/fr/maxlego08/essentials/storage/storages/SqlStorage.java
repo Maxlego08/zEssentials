@@ -407,7 +407,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
                     return;
                 }
 
-                UserDTO userDTO = userDTOS.get(0);
+                UserDTO userDTO = userDTOS.getFirst();
                 this.localUUIDS.put(userName, userDTO.unique_id());
                 consumer.accept(userDTO.unique_id());
             });
@@ -554,6 +554,13 @@ public class SqlStorage extends StorageHelper implements IStorage {
             return this.users.get(uuid).getOptions();
         }
         return with(UserOptionRepository.class).select(uuid).stream().collect(Collectors.toMap(OptionDTO::option_name, OptionDTO::option_value));
+    }
+
+    @Override
+    public void getOption(UUID uuid, Option option, Consumer<Boolean> consumer) {
+        var user = getUser(uuid);
+        if (user != null) consumer.accept(user.getOption(option));
+        else async(() -> with(UserOptionRepository.class).select(uuid, option, consumer));
     }
 
     @Override
