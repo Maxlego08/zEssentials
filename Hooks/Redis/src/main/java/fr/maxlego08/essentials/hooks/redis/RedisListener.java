@@ -1,4 +1,4 @@
-package fr.maxlego08.essentials.server;
+package fr.maxlego08.essentials.hooks.redis;
 
 public abstract class RedisListener<T> {
 

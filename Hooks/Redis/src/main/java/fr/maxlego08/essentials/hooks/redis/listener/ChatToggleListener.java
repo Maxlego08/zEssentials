@@ -1,8 +1,8 @@
-package fr.maxlego08.essentials.server.listener;
+package fr.maxlego08.essentials.hooks.redis.listener;
 
 import fr.maxlego08.essentials.api.server.messages.ChatToggle;
 import fr.maxlego08.essentials.api.utils.EssentialsUtils;
-import fr.maxlego08.essentials.server.RedisListener;
+import fr.maxlego08.essentials.hooks.redis.RedisListener;
 
 public class ChatToggleListener extends RedisListener<ChatToggle> {
 

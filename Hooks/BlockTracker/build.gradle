@@ -1,13 +1,6 @@
 group = 'Hooks:BlockTracker'
 
-repositories {
-    maven {
-        url = uri("https://jitpack.io/")
-    }
-}
-
 dependencies {
     compileOnly("dev.krakenied:blocktracker:1.0.6")
     compileOnly project(":API")
-    compileOnly rootProject
 }

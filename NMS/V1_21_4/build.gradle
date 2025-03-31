@@ -1,37 +1,18 @@
 plugins {
-    id("io.papermc.paperweight.userdev") version "2.0.0-beta.14"
-}
-
-repositories {
-    gradlePluginPortal()
-    maven { url = "https://repo.papermc.io/repository/maven-public/" }
-}
-
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(21))
-    }
+    id("io.papermc.paperweight.userdev") version "2.0.0-beta.16"
 }
 
 group = 'NMS:v1_21_4'
 
 dependencies {
-    paperweight.paperDevBundle("1.21.4-R0.1-SNAPSHOT")
     compileOnly project(":API")
-    compileOnly rootProject
+    paperweight.paperDevBundle("1.21.4-R0.1-SNAPSHOT")
 }
 
-shadowJar {
-    archiveFileName = "${project.name}-exclude.jar"
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
 }
 
-assemble {
-    dependsOn(reobfJar)
-}
-
-tasks {
-    reobfJar {
-        File outputFile = new File(rootProject.archiveFolder, "reobf/${project.name}.jar")
-        outputJar.set(layout.buildDirectory.file(outputFile.getPath()))
-    }
+tasks.assemble {
+    dependsOn(tasks.reobfJar)
 }

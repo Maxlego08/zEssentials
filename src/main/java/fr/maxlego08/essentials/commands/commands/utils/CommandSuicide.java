@@ -20,7 +20,8 @@ public class CommandSuicide extends VCommand {
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
-        var attribute = this.player.getAttribute(Attribute.GENERIC_MAX_HEALTH);
+        // GENERIC_MAX_HEALTH
+        var attribute = this.player.getAttribute(Attribute.MAX_HEALTH);
         if (attribute == null) return CommandResultType.SYNTAX_ERROR;
         this.player.damage(attribute.getBaseValue() * 2);
 

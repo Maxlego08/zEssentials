@@ -1,4 +1,4 @@
-package fr.maxlego08.essentials.server;
+package fr.maxlego08.essentials.hooks.redis;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.cache.ExpiringCache;
@@ -20,13 +20,13 @@ import fr.maxlego08.essentials.api.user.PrivateMessage;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.EssentialsUtils;
 import fr.maxlego08.essentials.api.utils.PlayerCache;
-import fr.maxlego08.essentials.server.listener.ChatClearListener;
-import fr.maxlego08.essentials.server.listener.ChatToggleListener;
-import fr.maxlego08.essentials.server.listener.ClearCooldownListener;
-import fr.maxlego08.essentials.server.listener.KickListener;
-import fr.maxlego08.essentials.server.listener.MessageListener;
-import fr.maxlego08.essentials.server.listener.PrivateMessageListener;
-import fr.maxlego08.essentials.server.listener.UpdateCooldownListener;
+import fr.maxlego08.essentials.hooks.redis.listener.ChatClearListener;
+import fr.maxlego08.essentials.hooks.redis.listener.ChatToggleListener;
+import fr.maxlego08.essentials.hooks.redis.listener.ClearCooldownListener;
+import fr.maxlego08.essentials.hooks.redis.listener.KickListener;
+import fr.maxlego08.essentials.hooks.redis.listener.MessageListener;
+import fr.maxlego08.essentials.hooks.redis.listener.PrivateMessageListener;
+import fr.maxlego08.essentials.hooks.redis.listener.UpdateCooldownListener;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;

@@ -1,27 +1,23 @@
 plugins {
-    id 'java'
     id 'maven-publish'
 }
 
-java {
-    withSourcesJar()
-}
-
-group = 'API'
-version = rootProject.version
-
-task generateAPIDocs(type: Javadoc) {
-    source = sourceSets.main.allJava
-}
+group 'API'
 
 publishing {
     publications {
-        mavenJava(MavenPublication) {
+        mavenJava(org.gradle.api.publish.maven.MavenPublication) {
             from components.java
-            artifactId = 'API'
         }
     }
-    repositories {
-        mavenLocal()  // Publie l'API localement pour JitPack
-    }
+}
+
+shadowJar {
+
+    relocate 'com.tcoded.folialib', 'fr.maxlego08.essentials.libs.folialib'
+    relocate 'fr.maxlego08.sarah', 'fr.maxlego08.essentials.libs.sarah'
+    relocate 'fr.mrmicky.fastboard', 'fr.maxlego08.essentials.libs.fastboard'
+
+    destinationDirectory = rootProject.apiFolder
+    archiveFileName = rootProject.name + "-API-" + rootProject.version + ".jar"
 }

@@ -1,7 +1,8 @@
 group = 'Hooks:Vault'
 
 dependencies {
-    compileOnly "com.github.MilkBowl:VaultAPI:1.7"
     compileOnly project(":API")
-    compileOnly rootProject
+    compileOnly('com.github.MilkBowl:VaultAPI:1.7') {
+        exclude group: 'org.bukkit', module: 'bukkit'
+    }
 }

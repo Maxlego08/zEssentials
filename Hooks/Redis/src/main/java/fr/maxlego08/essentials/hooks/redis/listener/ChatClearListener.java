@@ -1,8 +1,8 @@
-package fr.maxlego08.essentials.server.listener;
+package fr.maxlego08.essentials.hooks.redis.listener;
 
 import fr.maxlego08.essentials.api.server.messages.ChatClear;
-import fr.maxlego08.essentials.server.RedisListener;
-import fr.maxlego08.essentials.server.RedisServer;
+import fr.maxlego08.essentials.hooks.redis.RedisListener;
+import fr.maxlego08.essentials.hooks.redis.RedisServer;
 
 public class ChatClearListener extends RedisListener<ChatClear> {
 

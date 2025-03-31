@@ -1,4 +1,4 @@
-package fr.maxlego08.essentials.server;
+package fr.maxlego08.essentials.hooks.redis;
 
 import com.google.gson.Gson;
 import fr.maxlego08.essentials.api.EssentialsPlugin;

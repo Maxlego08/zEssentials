@@ -3,172 +3,124 @@ plugins {
     id 'io.github.goooler.shadow' version '8.1.8'
 }
 
-group = 'zEssentials'
-version = property("version")
+def propertiesFile = file("personal.properties")
+
+if (propertiesFile.exists()) {
+    def properties = new Properties()
+    propertiesFile.withInputStream { stream -> properties.load(stream)
+    }
+
+    properties.each { key, value -> project.ext[key] = value
+    }
+}
 
 project.ext {
-    archiveFolder = file("archive/")
-    targetFolder = file("target/")
-    buildVersion = System.getenv("BUILD_NUMBER") == null || Boolean.parseBoolean(System.getenv("STABLE_BUILD")) ? version : version + "-b" + System.getenv("BUILD_NUMBER")
+    javaVersion = property('java.version')
+    targetFolder = file('target/')
+    apiFolder = file('target-api/')
 }
 
 allprojects {
-    apply plugin: 'java'
-    apply plugin: 'io.github.goooler.shadow'
 
-    java {
-        toolchain {
-            languageVersion.set(JavaLanguageVersion.of(21))
-        }
+    group = 'fr.maxlego08.essentials'
+    version = property('plugin.version')
+
+    apply {
+        plugin 'java'
+        plugin 'io.github.goooler.shadow'
     }
 
     repositories {
-        maven { url = "https://repo.papermc.io/repository/maven-public/" }
-        maven { url = 'https://jitpack.io' }
-        maven { url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/' }
+        mavenCentral()
+        maven {
+            name = "jitpack"
+            url = 'https://jitpack.io'
+        }
+        maven {
+            name = "papermc-repo"
+            url = "https://repo.papermc.io/repository/maven-public/"
+        }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/groups/public/"
+        }
+        maven { url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/'}
     }
 
     dependencies {
-        compileOnly("io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT")
+        compileOnly('io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT')
+        compileOnly('me.clip:placeholderapi:2.11.6')
         compileOnly("com.github.maxlego08:zMenu-API:1.0.3.8")
+
         implementation "com.github.technicallycoded:FoliaLib:0.4.3"
         implementation 'com.github.Maxlego08:Sarah:1.15'
         implementation 'fr.mrmicky:fastboard:2.1.3'
     }
-
-    tasks.register('checkDebug') {
-        doLast {
-            def filesWithDebug = fileTree('src/main/java').filter { file ->
-                file.text.contains('System.out.println')
-            }
-
-            if (!filesWithDebug.isEmpty()) {
-                println "Found debug messages in the following files:"
-                filesWithDebug.each { file ->
-                    println "File: ${file.path}"
-                    file.eachLine { line, number ->
-                        if (line.contains('System.out.println')) {
-                            println "Line ${number}: ${line.trim()}"
-                        }
-                    }
-                    println "--------------------"
-                }
-            } else {
-                println "No debug messages found."
-            }
-        }
-    }
-
-    build {
-        dependsOn checkDebug
-        dependsOn shadowJar
-    }
-
-    compileJava.options.encoding = 'UTF-8'
-
-    tasks.withType(JavaCompile).tap {
-        configureEach {
-            options.encoding = 'UTF-8'
-        }
-    }
-}
-
-subprojects {
-    shadowJar {
-        archiveFileName = "${project.name}.jar"
-        destinationDirectory = rootProject.archiveFolder
-    }
-
-    if (project.name == 'DiscordBot') {
-        tasks.withType(JavaCompile).configureEach {
-            onlyIf { !project.hasProperty('excludeDiscordBot') || !project.property('excludeDiscordBot').toBoolean() }
-        }
-        tasks.withType(Jar).configureEach {
-            onlyIf { !project.hasProperty('excludeDiscordBot') || !project.property('excludeDiscordBot').toBoolean() }
-        }
-    }
-}
-
-repositories {
-    mavenCentral()
 }
 
 dependencies {
-    implementation fileTree(rootProject.archiveFolder.getAbsolutePath())
-    implementation 'org.bstats:bstats-bukkit:3.0.0'
-    implementation project(":API")
+    implementation project(':API')
 
-    compileOnly 'me.clip:placeholderapi:2.11.5'
-}
-
-jar {
-    from {
-        for (File file : rootProject.archiveFolder.listFiles()) {
-            zipTree(file)
-        }
-    }
-}
-
-processResources {
-    outputs.upToDateWhen { false }
-    def props = [version: version]
-    inputs.properties props
-    filteringCharset = 'UTF-8'
-    filesMatching('plugin.yml') {
-        expand props
+    rootProject.subprojects.findAll { it.path.startsWith(':Hooks:') || it.path.startsWith(':NMS:') }.each { subproject ->
+        implementation project(subproject.path)
     }
 }
 
 shadowJar {
     dependsOn(jar)
 
-    relocate 'org.bstats', 'fr.maxlego08.essentials.libs.bstats'
     relocate 'com.tcoded.folialib', 'fr.maxlego08.essentials.libs.folialib'
     relocate 'fr.maxlego08.sarah', 'fr.maxlego08.essentials.libs.sarah'
     relocate 'fr.mrmicky.fastboard', 'fr.maxlego08.essentials.libs.fastboard'
 
-    archiveFileName = rootProject.name + "-" + rootProject.buildVersion + ".jar"
-
-    delete fileTree(rootProject.targetFolder.getAbsolutePath())
-
-    exclude '*exclude.jar'
-
+    archiveFileName = rootProject.name + "-" + rootProject.version + ".jar"
     destinationDirectory = rootProject.targetFolder
-    from sourceSets.getByName("main").output
-    configurations = [project.configurations.getByName("runtimeClasspath")]
 }
 
-tasks.register('copyAPI', Copy) {
-    dependsOn ':API:build'
-    from rootProject.archiveFolder.getAbsolutePath() + '/API.jar'
-    into rootProject.targetFolder.getAbsolutePath()
-    rename('API.jar', rootProject.name + 'API.jar')
+def targetJavaVersion = javaVersion as int
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
 }
 
-clean {
-    delete rootProject.archiveFolder
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        options.release.set(targetJavaVersion)
+    }
 }
 
-build {
-    dependsOn shadowJar
-    dependsOn copyAPI
-    dependsOn clean
+processResources {
+    def props = [version: version, name: rootProject.name]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand props
+    }
 }
 
 tasks.register('publish') {
     dependsOn ':API:publish'
 }
 
-publish.shouldRunAfter shadowJar
-shadowJar.shouldRunAfter build
+tasks.register('copyFiles', Copy) {
+    from "${rootProject.targetFolder}"
+    into rootProject.testFolder
+}
+
+if (propertiesFile.exists()) {
+    shadowJar.finalizedBy('copyFiles')
+} else {
+    println "No personal.properties file found, skipping copyFiles task"
+}
+
+build.finalizedBy(shadowJar)
 build.shouldRunAfter subprojects.build
-clean.shouldRunAfter copyAPI
 
 shadowJar.dependsOn subprojects.build
 compileJava.dependsOn childProjects.values().shadowJar
-
-compileJava.options.encoding = 'UTF-8'
-
-tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8'
-}

@@ -7,5 +7,4 @@ repositories {
 dependencies {
     compileOnly 'com.bgsoftware:SuperiorSkyblockAPI:2024.4'
     compileOnly project(":API")
-    compileOnly rootProject
 }
