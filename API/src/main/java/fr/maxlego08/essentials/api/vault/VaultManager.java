@@ -145,6 +145,20 @@ public interface VaultManager {
     String getIconClose();
 
     /**
+     * Gets the model ID of the open icon for the vault interface.
+     *
+     * @return the model ID of the open icon
+     */
+    int getIconOpenModelId();
+
+    /**
+     * Gets the model ID of the close icon for the vault interface.
+     *
+     * @return the model ID of the close icon
+     */
+    int getIconCloseModelId();
+
+    /**
      * Checks if a player has permission to access a specific vault.
      *
      * @param uniqueId the UUID of the player

@@ -30,8 +30,12 @@ public class ButtonVaultIcon extends ZButton {
         Placeholders placeholders = new Placeholders();
         var vaultManager = plugin.getVaultManager();
 
-        var icon = vault.getIconItemStack() != null ? vault.getIconItemStack().getType().name() : vaultManager.getIconOpen();
+        var vaultItemStack = vault.getIconItemStack();
+        var icon = vaultItemStack != null ? vaultItemStack.getType().name() : vaultManager.getIconOpen();
+        var modelId = vaultItemStack != null && vaultItemStack.hasItemMeta() && vaultItemStack.getItemMeta().hasCustomModelData() ? vaultItemStack.getItemMeta().getCustomModelData() : vaultManager.getIconOpenModelId();
+
         placeholders.register("vault-icon", icon);
+        placeholders.register("vault-model-id", String.valueOf(modelId));
 
         return itemstack.build(player, false, placeholders);
     }

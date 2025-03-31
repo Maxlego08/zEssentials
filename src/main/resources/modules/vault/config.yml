@@ -21,8 +21,14 @@ default-vault-name: "<#353535>Vault<dark_gray>-<white>%vault-id%"
 # Item that will be displayed when a vault is opened
 icon-open: "MINECART"
 
+# Model id that will be displayed when a vault is opened
+icon-open-model-id: 0
+
 # Item that will be displayed when a vault is closed
 icon-close: "CHEST_MINECART"
+
+# Model id that will be displayed when a vault is closed
+icon-close-model-id: 0
 
 # Regex for the vault number, to avoid having anything as a vault name
 vault-name-regex: "^[a-zA-Z0-9_-]{3,16}$"

@@ -33,8 +33,12 @@ public class ButtonVaultOpen extends ZButton {
         Placeholders placeholders = new Placeholders();
         var vaultManager = plugin.getVaultManager();
 
-        var icon = vault.getIconItemStack() != null ? vault.getIconItemStack().getType().name() : targetVault.getVaultId() == this.vaultId ? vaultManager.getIconOpen() : vaultManager.getIconClose();
+        var vaultItemStack = vault.getIconItemStack();
+        var icon = vaultItemStack != null ? vaultItemStack.getType().name() : targetVault.getVaultId() == this.vaultId ? vaultManager.getIconOpen() : vaultManager.getIconClose();
+        var modelId = vaultItemStack != null && vaultItemStack.hasItemMeta() && vaultItemStack.getItemMeta().hasCustomModelData() ? vaultItemStack.getItemMeta().getCustomModelData() : targetVault.getVaultId() == this.vaultId ? vaultManager.getIconOpenModelId() : vaultManager.getIconCloseModelId();
+
         placeholders.register("vault-icon", icon);
+        placeholders.register("vault-model-id", String.valueOf(modelId));
 
         placeholders.register("vault-name", vault.getName());
         placeholders.register("vault-id", String.valueOf(this.vaultId));

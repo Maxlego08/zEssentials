@@ -41,6 +41,8 @@ public class VaultModule extends ZModule implements VaultManager {
     private int maxVaults;
     private String iconOpen;
     private String iconClose;
+    private int iconOpenModelId;
+    private int iconCloseModelId;
     private String vaultNameRegex;
     private String defaultVaultName;
     private List<PermissionSlotsVault> vaultPermissions;
@@ -247,6 +249,16 @@ public class VaultModule extends ZModule implements VaultManager {
     @Override
     public String getIconClose() {
         return this.iconClose;
+    }
+
+    @Override
+    public int getIconOpenModelId() {
+        return this.iconOpenModelId;
+    }
+
+    @Override
+    public int getIconCloseModelId() {
+        return this.iconCloseModelId;
     }
 
     @Override
