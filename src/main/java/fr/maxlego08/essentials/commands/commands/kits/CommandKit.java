@@ -5,8 +5,7 @@ import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.messages.Message;
-import fr.maxlego08.essentials.kit.KitModule;
-import fr.maxlego08.essentials.module.modules.SanctionModule;
+import fr.maxlego08.essentials.module.modules.kit.KitModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 import org.bukkit.command.ConsoleCommandSender;
 

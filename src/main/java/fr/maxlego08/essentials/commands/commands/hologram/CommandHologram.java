@@ -26,7 +26,7 @@ import fr.maxlego08.essentials.commands.commands.hologram.text.CommandHologramSe
 import fr.maxlego08.essentials.commands.commands.hologram.text.CommandHologramTextAlignment;
 import fr.maxlego08.essentials.commands.commands.hologram.text.CommandHologramTextSeeThrough;
 import fr.maxlego08.essentials.commands.commands.hologram.text.CommandHologramTextShadow;
-import fr.maxlego08.essentials.hologram.HologramModule;
+import fr.maxlego08.essentials.module.modules.hologram.HologramModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 
 public class CommandHologram extends VCommand {

@@ -5,7 +5,7 @@ import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.economy.EconomyManager;
 import fr.maxlego08.essentials.api.messages.Message;
-import fr.maxlego08.essentials.economy.EconomyModule;
+import fr.maxlego08.essentials.module.modules.economy.EconomyModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 
 public class CommandEconomyShow extends VCommand {

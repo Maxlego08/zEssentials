@@ -7,7 +7,7 @@ import fr.maxlego08.essentials.api.hologram.HologramLine;
 import fr.maxlego08.essentials.api.hologram.HologramManager;
 import fr.maxlego08.essentials.api.hologram.HologramType;
 import fr.maxlego08.essentials.api.messages.Message;
-import fr.maxlego08.essentials.hologram.HologramModule;
+import fr.maxlego08.essentials.module.modules.hologram.HologramModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 
 import java.util.ArrayList;

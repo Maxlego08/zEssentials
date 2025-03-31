@@ -9,7 +9,7 @@ import fr.maxlego08.essentials.api.economy.NumberMultiplicationFormat;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
-import fr.maxlego08.essentials.economy.EconomyModule;
+import fr.maxlego08.essentials.module.modules.economy.EconomyModule;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 

@@ -9,6 +9,7 @@ import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.PrivateMessage;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.ZModule;
+import fr.maxlego08.essentials.module.modules.chat.ChatModule;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

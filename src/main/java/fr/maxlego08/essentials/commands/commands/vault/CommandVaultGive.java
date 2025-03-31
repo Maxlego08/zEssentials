@@ -5,7 +5,7 @@ import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.module.modules.ItemModule;
-import fr.maxlego08.essentials.vault.VaultModule;
+import fr.maxlego08.essentials.module.modules.vault.VaultModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;

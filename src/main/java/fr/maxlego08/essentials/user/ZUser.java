@@ -29,7 +29,7 @@ import fr.maxlego08.essentials.api.utils.DynamicCooldown;
 import fr.maxlego08.essentials.api.utils.SafeLocation;
 import fr.maxlego08.essentials.api.worldedit.Selection;
 import fr.maxlego08.essentials.api.worldedit.WorldEditTask;
-import fr.maxlego08.essentials.economy.EconomyModule;
+import fr.maxlego08.essentials.module.modules.economy.EconomyModule;
 import fr.maxlego08.essentials.module.modules.TeleportationModule;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import org.bukkit.Bukkit;
