@@ -162,7 +162,9 @@ public class VaultModule extends ZModule implements VaultManager {
             return updateExistingVaultItem(optionalVault.get(), uniqueId, currentItem, quantity);
         }
 
-        return addNewItemToVault(vault, uniqueId, currentItem, quantity, size, playerVault.getSlots(), slot);
+        var player = Bukkit.getPlayer(uniqueId);
+        var totalSlots = player == null ? 999 : getMaxSlotsPlayer(player); // Humm, maybe change that
+        return addNewItemToVault(vault, uniqueId, currentItem, quantity, size, totalSlots, slot);
     }
 
     @Override
@@ -374,15 +376,20 @@ public class VaultModule extends ZModule implements VaultManager {
 
         var vault = playerVaults.find(itemStack).orElseGet(playerVaults::firstAvailableVault);
 
-        vault.find(itemStack).ifPresentOrElse(vaultItem -> {
+        Optional<VaultItem> optional = vault.find(itemStack);
+        if (optional.isPresent()) {
+            VaultItem vaultItem = optional.get();
             vaultItem.addQuantity(amount);
             storage.updateVaultQuantity(uniqueId, vault.getVaultId(), vaultItem.getSlot(), vaultItem.getQuantity());
-        }, () -> {
+        } else {
             int nextSlot = vault.getNextSlot();
+            if (nextSlot == -1) {
+                return false;
+            }
             VaultItem newVaultItem = new ZVaultItem(nextSlot, itemStack, amount);
             vault.getVaultItems().put(nextSlot, newVaultItem);
             storage.createVaultItem(uniqueId, vault.getVaultId(), nextSlot, newVaultItem.getQuantity(), ItemStackUtils.serializeItemStack(itemStack));
-        });
+        }
         return true;
     }
 
