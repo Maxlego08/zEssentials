@@ -470,7 +470,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
                     }
                 }
 
-                permissions.add(new PermissionInfo(permission.asPermission(), description));
+                permissions.add(new PermissionInfo(permission.toPermission(), description));
             }
 
             permissionMarkdownGenerator.generateMarkdownFile(permissions, filePermissions.toPath());
