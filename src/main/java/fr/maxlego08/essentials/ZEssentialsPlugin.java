@@ -173,9 +173,11 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
         FoliaLib foliaLib = new FoliaLib(this);
         this.platformScheduler = foliaLib.getScheduler();
-        this.essentialsUtils = isPaperVersion() ? new PaperUtils(this) : new SpigotUtils(this);
-        this.essentialsServer = isPaperVersion() ? new PaperServer(this) : new SpigotServer(this);
-        this.interactiveChatHelper = isPaperVersion() ? new InteractiveChatPaperListener() : new InteractiveChatSpigotListener();
+
+        var isPaper = isPaperVersion();
+        this.essentialsUtils = isPaper ? new PaperUtils(this) : new SpigotUtils(this);
+        this.essentialsServer = isPaper ? new PaperServer(this) : new SpigotServer(this);
+        this.interactiveChatHelper = isPaper ? new InteractiveChatPaperListener() : new InteractiveChatSpigotListener();
         this.registerListener(this.interactiveChatHelper);
 
         this.placeholder = new LocalPlaceholder(this);
@@ -470,7 +472,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
                     }
                 }
 
-                permissions.add(new PermissionInfo(permission.asPermission(), description));
+                permissions.add(new PermissionInfo(permission.toPermission(), description));
             }
 
             permissionMarkdownGenerator.generateMarkdownFile(permissions, filePermissions.toPath());
