@@ -24,7 +24,7 @@ public abstract class ScoreboardAnimation {
      */
     protected ScheduledFuture<?> future = null;
 
-    protected int line;
+    protected final int line;
 
     /**
      * Constructs a new ScoreboardAnimation for the given player board.
@@ -70,15 +70,6 @@ public abstract class ScoreboardAnimation {
         int b = (int) (bBase + ratio * (bHighlight - bBase));
 
         return String.format("#%02x%02x%02x", r, g, b);
-    }
-
-    /**
-     * Sets the line number for this animation on the scoreboard.
-     *
-     * @param line the line number to set
-     */
-    public void setLine(int line) {
-        this.line = line;
     }
 
     /**

@@ -299,6 +299,15 @@ public interface IStorage {
     Map<Option, Boolean> getOptions(UUID uuid);
 
     /**
+     * Retrieves an option value for a user.
+     *
+     * @param uuid     the UUID of the user
+     * @param option   the option to retrieve
+     * @param consumer the consumer to apply to the option value
+     */
+    void getOption(UUID uuid, Option option, Consumer<Boolean> consumer);
+
+    /**
      * Inserts a command from a user.
      *
      * @param uuid    the UUID of the user

@@ -4,14 +4,8 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
-import fr.maxlego08.essentials.api.worldedit.MaterialPercent;
-import fr.maxlego08.essentials.worldedit.WorldeditModule;
+import fr.maxlego08.essentials.module.modules.worldedit.WorldeditModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
-import org.bukkit.Material;
-import org.bukkit.command.CommandSender;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CommandWorldEditConfirm extends VCommand {
 

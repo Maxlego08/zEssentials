@@ -45,14 +45,17 @@ public class ButtonVaultSlotItems extends ZButton {
 
     @Override
     public void onRender(Player player, InventoryDefault inventory) {
-        PlayerVaults playerVaults = this.plugin.getVaultManager().getPlayerVaults(player);
+
+        var manager = this.plugin.getVaultManager();
+
+        PlayerVaults playerVaults = manager.getPlayerVaults(player);
         Vault vault = playerVaults.getTargetVault();
         if (vault == null) return;
 
-        int slots = playerVaults.getSlots();
         int size = this.slots.size();
 
-        int startSlot = playerVaults.getSlots() - (this.slots.size() * (playerVaults.getSlots() - 1));
+        var slots = manager.getMaxSlotsPlayer(player);
+        int startSlot = slots - (this.slots.size() * (slots - 1));
         if (startSlot > 0 && startSlot < size) {
             for (int index = 0; index < startSlot; index++) this.releaseSlot(inventory, index);
         }
@@ -108,10 +111,15 @@ public class ButtonVaultSlotItems extends ZButton {
         var cursorItemStack = event.getCursor();
         var slot = event.getSlot();
         Inventory topInventory = player.getOpenInventory().getTopInventory();
+        var manager = this.plugin.getVaultManager();
 
-        PlayerVaults playerVaults = this.plugin.getVaultManager().getPlayerVaults(player);
+        PlayerVaults playerVaults = manager.getPlayerVaults(player);
         Vault vault = playerVaults.getTargetVault();
-        if (vault == null) return;
+        if (vault == null) {
+            event.setCancelled(true);
+            return;
+        }
+
 
         if (event.getWhoClicked().getInventory().equals(event.getClickedInventory()) && clickType.isShiftClick() && itemStack != null && itemStack.getType() != Material.AIR) {
 
@@ -120,9 +128,12 @@ public class ButtonVaultSlotItems extends ZButton {
                 return;
             }
 
-            VaultResult vaultResult = this.plugin.getVaultManager().addVaultItem(vault, player.getUniqueId(), event.getCurrentItem(), -1, itemStack.getAmount(), this.slots.size());
+            VaultResult vaultResult = manager.addVaultItem(vault, player.getUniqueId(), event.getCurrentItem(), -1, itemStack.getAmount(), this.slots.size());
 
-            if (vaultResult == null) return;
+            if (vaultResult == null) {
+                event.setCancelled(true);
+                return;
+            }
             event.setCurrentItem(null);
 
             if (vaultResult.vault().getVaultId() == vault.getVaultId()) {
@@ -141,10 +152,12 @@ public class ButtonVaultSlotItems extends ZButton {
             }
 
             VaultItem vaultItem = vault.getVaultItems().get(slot);
-            if (vaultItem != null && !vaultItem.getItemStack().isSimilar(cursorItemStack)) return;
+            if (vaultItem != null && !vaultItem.getItemStack().isSimilar(cursorItemStack)) {
+                return;
+            }
 
             if (event.getClick().equals(ClickType.RIGHT)) {
-                VaultResult vaultResult = this.plugin.getVaultManager().addVaultItem(vault, player.getUniqueId(), cursorItemStack, slot, 1, this.slots.size());
+                VaultResult vaultResult = manager.addVaultItem(vault, player.getUniqueId(), cursorItemStack, slot, 1, this.slots.size());
 
                 if (vaultResult == null) {
                     event.setCancelled(true);
@@ -157,10 +170,11 @@ public class ButtonVaultSlotItems extends ZButton {
                     setVaultItem(vaultResult.slot(), vault, vault.getVaultItems().get(vaultResult.slot()), inventoryDefault, player);
 
                 } else {
-                    plugin.getVaultManager().openVault(player, vaultResult.vault().getVaultId());
+                    manager.openVault(player, vaultResult.vault().getVaultId());
                 }
+
             } else if (event.getClick().equals(ClickType.LEFT)) {
-                VaultResult vaultResult = this.plugin.getVaultManager().addVaultItem(vault, player.getUniqueId(), cursorItemStack, slot, cursorItemStack.getAmount(), this.slots.size());
+                VaultResult vaultResult = manager.addVaultItem(vault, player.getUniqueId(), cursorItemStack, slot, cursorItemStack.getAmount(), this.slots.size());
 
                 if (vaultResult == null) {
                     event.setCancelled(true);
@@ -171,10 +185,9 @@ public class ButtonVaultSlotItems extends ZButton {
                 if (vaultResult.vault().getVaultId() == vault.getVaultId()) {
 
                     setVaultItem(vaultResult.slot(), vault, vault.getVaultItems().get(vaultResult.slot()), inventoryDefault, player);
-
                 } else {
 
-                    plugin.getVaultManager().openVault(player, vaultResult.vault().getVaultId());
+                    manager.openVault(player, vaultResult.vault().getVaultId());
                 }
             }
         }

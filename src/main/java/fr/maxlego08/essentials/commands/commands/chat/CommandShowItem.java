@@ -4,7 +4,7 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
-import fr.maxlego08.essentials.module.modules.ChatModule;
+import fr.maxlego08.essentials.module.modules.chat.ChatModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 
 public class CommandShowItem extends VCommand {

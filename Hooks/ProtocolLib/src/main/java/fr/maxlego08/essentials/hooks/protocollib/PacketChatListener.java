@@ -10,7 +10,7 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.messages.MessageUtils;
 import fr.maxlego08.essentials.api.packet.PacketRegister;
 import fr.maxlego08.essentials.api.utils.component.AdventureComponent;
-import fr.maxlego08.essentials.zutils.utils.component.AbstractComponent;
+// import fr.maxlego08.essentials.zutils.utils.component.AbstractComponent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
@@ -47,7 +47,8 @@ public class PacketChatListener extends PacketAdapter implements PacketRegister 
 
         String json = wrappedChatComponent.getJson();
 
-        String serializedMessage = AbstractComponent.parse(json).toMiniMessage();
+        // String serializedMessage = AbstractComponent.parse(json).toMiniMessage();
+        String serializedMessage = "ToDo";
 
         Matcher matcher = PacketChatListener.this.pattern.matcher(serializedMessage);
         if (matcher.find()) {

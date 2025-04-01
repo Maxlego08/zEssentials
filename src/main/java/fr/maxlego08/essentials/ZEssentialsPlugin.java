@@ -49,24 +49,25 @@ import fr.maxlego08.essentials.buttons.vault.ButtonVaultIcon;
 import fr.maxlego08.essentials.buttons.vault.ButtonVaultRename;
 import fr.maxlego08.essentials.buttons.vault.ButtonVaultSlotDisable;
 import fr.maxlego08.essentials.buttons.vault.ButtonVaultSlotItems;
-import fr.maxlego08.essentials.chat.interactive.InteractiveChatHelper;
-import fr.maxlego08.essentials.chat.interactive.InteractiveChatPaperListener;
-import fr.maxlego08.essentials.chat.interactive.InteractiveChatSpigotListener;
+import fr.maxlego08.essentials.module.modules.chat.interactive.InteractiveChatHelper;
+import fr.maxlego08.essentials.module.modules.chat.interactive.InteractiveChatPaperListener;
+import fr.maxlego08.essentials.module.modules.chat.interactive.InteractiveChatSpigotListener;
 import fr.maxlego08.essentials.commands.CommandLoader;
 import fr.maxlego08.essentials.commands.ZCommandManager;
 import fr.maxlego08.essentials.commands.commands.essentials.CommandEssentials;
-import fr.maxlego08.essentials.economy.EconomyModule;
+import fr.maxlego08.essentials.module.modules.economy.EconomyModule;
 import fr.maxlego08.essentials.enchantments.ZEnchantments;
-import fr.maxlego08.essentials.hologram.HologramModule;
-import fr.maxlego08.essentials.kit.KitModule;
+import fr.maxlego08.essentials.module.modules.hologram.HologramModule;
+import fr.maxlego08.essentials.module.modules.kit.KitModule;
 import fr.maxlego08.essentials.listener.InvseeListener;
 import fr.maxlego08.essentials.listener.PlayerListener;
 import fr.maxlego08.essentials.loader.ButtonKitCooldownLoader;
 import fr.maxlego08.essentials.loader.ButtonKitGetLoader;
+import fr.maxlego08.essentials.loader.ButtonOptionLoader;
 import fr.maxlego08.essentials.loader.ButtonSanctionLoader;
 import fr.maxlego08.essentials.loader.ButtonWarpLoader;
-import fr.maxlego08.essentials.loader.VaultNoPermissionLoader;
-import fr.maxlego08.essentials.loader.VaultOpenLoader;
+import fr.maxlego08.essentials.loader.ButtonVaultNoPermissionLoader;
+import fr.maxlego08.essentials.loader.ButtonVaultOpenLoader;
 import fr.maxlego08.essentials.messages.MessageLoader;
 import fr.maxlego08.essentials.module.ZModuleManager;
 import fr.maxlego08.essentials.module.modules.HomeModule;
@@ -75,7 +76,7 @@ import fr.maxlego08.essentials.module.modules.StepModule;
 import fr.maxlego08.essentials.module.modules.VoteModule;
 import fr.maxlego08.essentials.placeholders.DistantPlaceholder;
 import fr.maxlego08.essentials.placeholders.LocalPlaceholder;
-import fr.maxlego08.essentials.scoreboard.ScoreboardModule;
+import fr.maxlego08.essentials.module.modules.scoreboard.ScoreboardModule;
 import fr.maxlego08.essentials.server.PaperServer;
 import fr.maxlego08.essentials.server.SpigotServer;
 import fr.maxlego08.essentials.storage.ConfigStorage;
@@ -95,8 +96,8 @@ import fr.maxlego08.essentials.user.placeholders.UserPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.UserPlayTimePlaceholders;
 import fr.maxlego08.essentials.user.placeholders.VotePlaceholders;
 import fr.maxlego08.essentials.user.placeholders.WorldEditPlaceholders;
-import fr.maxlego08.essentials.vault.VaultModule;
-import fr.maxlego08.essentials.worldedit.WorldeditModule;
+import fr.maxlego08.essentials.module.modules.vault.VaultModule;
+import fr.maxlego08.essentials.module.modules.worldedit.WorldeditModule;
 import fr.maxlego08.essentials.zutils.Metrics;
 import fr.maxlego08.essentials.zutils.ZPlugin;
 import fr.maxlego08.essentials.zutils.utils.ComponentMessageHelper;
@@ -172,9 +173,11 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
         FoliaLib foliaLib = new FoliaLib(this);
         this.platformScheduler = foliaLib.getScheduler();
-        this.essentialsUtils = isPaperVersion() ? new PaperUtils(this) : new SpigotUtils(this);
-        this.essentialsServer = isPaperVersion() ? new PaperServer(this) : new SpigotServer(this);
-        this.interactiveChatHelper = isPaperVersion() ? new InteractiveChatPaperListener() : new InteractiveChatSpigotListener();
+
+        var isPaper = isPaperVersion();
+        this.essentialsUtils = isPaper ? new PaperUtils(this) : new SpigotUtils(this);
+        this.essentialsServer = isPaper ? new PaperServer(this) : new SpigotServer(this);
+        this.interactiveChatHelper = isPaper ? new InteractiveChatPaperListener() : new InteractiveChatSpigotListener();
         this.registerListener(this.interactiveChatHelper);
 
         this.placeholder = new LocalPlaceholder(this);
@@ -329,8 +332,9 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.buttonManager.register(new ButtonSanctionLoader(this));
         this.buttonManager.register(new ButtonKitCooldownLoader(this));
         this.buttonManager.register(new ButtonKitGetLoader(this));
-        this.buttonManager.register(new VaultOpenLoader(this));
-        this.buttonManager.register(new VaultNoPermissionLoader(this));
+        this.buttonManager.register(new ButtonVaultOpenLoader(this));
+        this.buttonManager.register(new ButtonVaultNoPermissionLoader(this));
+        this.buttonManager.register(new ButtonOptionLoader(this));
 
     }
 
@@ -468,7 +472,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
                     }
                 }
 
-                permissions.add(new PermissionInfo(permission.asPermission(), description));
+                permissions.add(new PermissionInfo(permission.toPermission(), description));
             }
 
             permissionMarkdownGenerator.generateMarkdownFile(permissions, filePermissions.toPath());

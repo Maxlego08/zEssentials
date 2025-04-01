@@ -2,7 +2,6 @@ package fr.maxlego08.essentials.hooks;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.economy.EconomyManager;
-import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.User;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
@@ -135,23 +134,22 @@ public class VaultEconomy implements Economy {
 
     @Override
     public EconomyResponse withdrawPlayer(String playerName, double amount) {
-
-        IStorage iStorage = this.essentialsPlugin.getStorageManager().getStorage();
-        EconomyManager economyManager = this.essentialsPlugin.getEconomyManager();
-        iStorage.fetchUniqueId(playerName, uuid -> {
-            if (uuid == null) return;
-            economyManager.withdraw(uuid, getEconomy(), new BigDecimal(amount));
-        });
-
-        return new EconomyResponse(amount, 0, EconomyResponse.ResponseType.SUCCESS, "Yeah its work (i guess its async withdraw so idk maybe) !");
+        return withdrawPlayer(Bukkit.getOfflinePlayer(playerName), amount);
     }
 
     @Override
     public EconomyResponse withdrawPlayer(OfflinePlayer player, double amount) {
 
+        var economy = getEconomy();
+
+        var newAmount = getBalance(player) - amount;
+        if (new BigDecimal(newAmount).compareTo(economy.getMinValue()) < 0) {
+            return new EconomyResponse(amount, 0, EconomyResponse.ResponseType.FAILURE, "Not enough money");
+        }
+
         EconomyManager economyManager = this.essentialsPlugin.getEconomyManager();
         economyManager.withdraw(player.getUniqueId(), getEconomy(), new BigDecimal(amount));
-        return new EconomyResponse(amount, 0, EconomyResponse.ResponseType.SUCCESS, "Yeah its work (i guess its async withdraw so idk maybe) !");
+        return new EconomyResponse(amount, 0, EconomyResponse.ResponseType.SUCCESS, "Yeah its work");
     }
 
     @Override
@@ -166,15 +164,7 @@ public class VaultEconomy implements Economy {
 
     @Override
     public EconomyResponse depositPlayer(String playerName, double amount) {
-
-        IStorage iStorage = this.essentialsPlugin.getStorageManager().getStorage();
-        EconomyManager economyManager = this.essentialsPlugin.getEconomyManager();
-        iStorage.fetchUniqueId(playerName, uuid -> {
-            if (uuid == null) return;
-            economyManager.deposit(uuid, getEconomy(), new BigDecimal(amount));
-        });
-
-        return new EconomyResponse(amount, 0, EconomyResponse.ResponseType.SUCCESS, "Yeah its work (i guess its async deposit so idk maybe) !");
+        return depositPlayer(Bukkit.getOfflinePlayer(playerName), amount);
     }
 
     @Override
@@ -182,7 +172,7 @@ public class VaultEconomy implements Economy {
 
         EconomyManager economyManager = this.essentialsPlugin.getEconomyManager();
         economyManager.deposit(player.getUniqueId(), getEconomy(), new BigDecimal(amount));
-        return new EconomyResponse(amount, 0, EconomyResponse.ResponseType.SUCCESS, "Yeah its work (i guess its async deposit so idk maybe) !");
+        return new EconomyResponse(amount, 0, EconomyResponse.ResponseType.SUCCESS, "Yeah its work");
     }
 
     @Override

@@ -44,7 +44,8 @@ public class CommandGod extends VCommand {
         boolean isGodEnabled = user.getOption(Option.GOD);
 
         if (isGodEnabled) {
-            player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue());
+            // GENERIC_MAX_HEALTH
+            player.setHealth(player.getAttribute(Attribute.MAX_HEALTH).getBaseValue());
             player.setFoodLevel(20);
         }
 

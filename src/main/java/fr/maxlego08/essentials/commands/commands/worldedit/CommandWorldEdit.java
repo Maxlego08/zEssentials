@@ -4,7 +4,7 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.commands.commands.worldedit.options.CommandWorldEditOption;
-import fr.maxlego08.essentials.worldedit.WorldeditModule;
+import fr.maxlego08.essentials.module.modules.worldedit.WorldeditModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 
 public class CommandWorldEdit extends VCommand {

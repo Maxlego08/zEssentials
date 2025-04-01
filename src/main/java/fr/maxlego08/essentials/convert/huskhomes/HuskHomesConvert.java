@@ -9,11 +9,9 @@ import fr.maxlego08.essentials.storage.storages.SqlStorage;
 import fr.maxlego08.essentials.user.ZHome;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import fr.maxlego08.sarah.DatabaseConfiguration;
+import fr.maxlego08.sarah.DatabaseConnection;
 import fr.maxlego08.sarah.RequestHelper;
 import fr.maxlego08.sarah.SqliteConnection;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 
 import java.io.File;
@@ -30,11 +28,11 @@ public class HuskHomesConvert extends ZUtils implements Convert {
     public void convert(CommandSender sender) {
 
         message(sender, "&fStart convert &7HuskHomes");
-        File file = new File(this.plugin.getDataFolder(), "HuskHomesData.db");
+        /*File file = new File(this.plugin.getDataFolder(), "HuskHomesData.db");
         if (!file.exists()) {
             message(sender, "&cUnable to find &bHuskHomesData.db &cfile in &fplugins/zEssentials&c.");
             return;
-        }
+        }*/
 
         if (this.plugin.getStorageManager().getStorage() instanceof SqlStorage sqlStorage) {
 
@@ -46,11 +44,18 @@ public class HuskHomesConvert extends ZUtils implements Convert {
     }
 
     private void startConvertDatabase(CommandSender sender, SqlStorage sqlStorage) {
-        var databaseConnection = new SqliteConnection(DatabaseConfiguration.sqlite(sqlStorage.getConnection().getDatabaseConfiguration().isDebug()), plugin.getDataFolder());
-        databaseConnection.setFileName("HuskHomesData.db");
 
-        if (!databaseConnection.isValid()) {
-            message(sender, "&cUnable to connect to database.");
+        DatabaseConnection databaseConnection = sqlStorage.getConnection();
+        File file = new File(this.plugin.getDataFolder(), "HuskHomesData.db");
+        if (file.exists()) {
+            var sqliteConnection = new SqliteConnection(DatabaseConfiguration.sqlite(sqlStorage.getConnection().getDatabaseConfiguration().isDebug()), this.plugin.getDataFolder());
+            sqliteConnection.setFileName("HuskHomesData.db");
+            databaseConnection = sqliteConnection;
+
+            if (!databaseConnection.isValid()) {
+                message(sender, "&cUnable to connect to database.");
+                return;
+            }
         }
 
         RequestHelper requestHelper = new RequestHelper(databaseConnection, message -> plugin.getLogger().info(message));

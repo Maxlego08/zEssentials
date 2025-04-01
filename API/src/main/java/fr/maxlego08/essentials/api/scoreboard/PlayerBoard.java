@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.api.scoreboard;
 import org.bukkit.entity.Player;
 
 import java.util.List;
+import java.util.Map;
 
 public interface PlayerBoard {
 
@@ -97,4 +98,13 @@ public interface PlayerBoard {
      * @return the {@link EssentialsScoreboard} instance
      */
     EssentialsScoreboard getScoreboard();
+
+    /**
+     * Get the map of line modifiers. The key is the line and the value is the modifier.
+     *
+     * @return the map of line modifiers
+     */
+    Map<Integer, Integer> getLinesModifier();
+
+    int getLineModifier(int line);
 }

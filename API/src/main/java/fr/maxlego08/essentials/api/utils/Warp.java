@@ -17,6 +17,6 @@ public record Warp(String name, SafeLocation location) {
      * @return true if the permissible entity has permission, false otherwise.
      */
     public boolean hasPermission(Permissible permissible) {
-        return permissible.hasPermission(Permission.ESSENTIALS_WARP.asPermission(this.name));
+        return permissible.hasPermission(Permission.ESSENTIALS_WARP_.asPermission(this.name));
     }
 }

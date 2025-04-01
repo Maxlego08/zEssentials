@@ -5,6 +5,19 @@
 
 # Unreleased
 
+# 1.0.2.0
+
+- Fixed Vault implementation [#164](https://github.com/Maxlego08/zEssentials/issues/164)
+- Added global database configuration (Allows you to have a single database configuration file for multiple plugins)
+- Added item display transformation for holograms
+- Added option type button. Allows toggling an option
+- Fixed multi-line support for the scoreboard
+- Added support for the HuskHome database for data conversion
+- Moved modules into the modules package
+- Added custom model data for open and closed vault items
+- Fixed the Gradle project. This allows for proper use of NMS
+- Fixed permission to teleport to a warp
+
 # 1.0.1.9
 
 - Added 1.21.4 NMS support
