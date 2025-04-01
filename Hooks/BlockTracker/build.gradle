@@ -1,6 +1,0 @@
-group = 'Hooks:BlockTracker'
-
-dependencies {
-    compileOnly("dev.krakenied:blocktracker:1.0.6")
-    compileOnly project(":API")
-}

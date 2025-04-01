@@ -1,7 +1,0 @@
-group = 'Hooks:AxVault'
-
-dependencies {
-
-    compileOnly project(":API")
-    compileOnly files('libs/AxVaults.jar')
-}

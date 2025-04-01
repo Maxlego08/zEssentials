@@ -32,7 +32,6 @@ allprojects {
     }
 
     dependencies {
-        compileOnly("io.papermc.paper:paper-api:1.21.5-R0.1-SNAPSHOT")
         compileOnly("com.github.maxlego08:zMenu-API:1.0.3.8")
 
         implementation("com.github.technicallycoded:FoliaLib:0.4.3")
@@ -43,8 +42,20 @@ allprojects {
 
 dependencies {
     compileOnly("me.clip:placeholderapi:2.11.6")
+    compileOnly("io.papermc.paper:paper-api:1.21.5-R0.1-SNAPSHOT")
 
     api(project(":API"))
+
+    api(project(":NMS:V1_20_4", configuration =  "reobf"))
+    api(project(":NMS:V1_20_6", configuration =  "reobf"))
+    api(project(":NMS:V1_21", configuration =  "reobf"))
+    api(project(":NMS:V1_21_1", configuration =  "reobf"))
+    api(project(":NMS:V1_21_3", configuration =  "reobf"))
+    api(project(":NMS:V1_21_4", configuration =  "reobf"))
+
+    rootProject.subprojects.filter { it.path.startsWith(":Hooks:") }.forEach { subproject ->
+        api(project(subproject.path))
+    }
 }
 
 tasks {
