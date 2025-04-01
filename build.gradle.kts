@@ -66,7 +66,7 @@ tasks {
         relocate("fr.mrmicky.fastboard", "fr.maxlego08.essentials.libs.fastboard")
 
         archiveClassifier = ""
-        minimize()
+        // minimize()
         manifest {
             attributes["paperweight-mappings-namespace"] = "spigot"
         }
