@@ -1,6 +1,12 @@
-rootProject.name = 'zEssentials'
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "0.9.0"
+}
 
-include 'API'
+rootProject.name = "zEssentials"
+
+include("API")
+
+/*include 'API'
 
 include 'Hooks:Vault'
 include 'Hooks:SuperiorSkyBlock2'
@@ -10,7 +16,7 @@ include 'Hooks:BlockTracker'
 include 'Hooks:AxVault'
 
 include 'NMS:v1_21_4'
-/*include 'NMS'
+include 'NMS'
 // include 'NMS:v1_20_4'
 include 'NMS:v1_20_6'
 include 'NMS:v1_21'
