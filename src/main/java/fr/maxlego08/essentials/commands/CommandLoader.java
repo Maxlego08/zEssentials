@@ -31,6 +31,7 @@ import fr.maxlego08.essentials.commands.commands.hologram.CommandHologram;
 import fr.maxlego08.essentials.commands.commands.home.CommandDelHome;
 import fr.maxlego08.essentials.commands.commands.home.CommandDelHomeConfirm;
 import fr.maxlego08.essentials.commands.commands.home.CommandHome;
+import fr.maxlego08.essentials.commands.commands.home.CommandHomeList;
 import fr.maxlego08.essentials.commands.commands.home.CommandSetHome;
 import fr.maxlego08.essentials.commands.commands.home.CommandSetHomeConfirm;
 import fr.maxlego08.essentials.commands.commands.items.CommandGive;
@@ -212,6 +213,7 @@ public class CommandLoader {
         register("delhomeconfirm", CommandDelHomeConfirm.class);
         register("delhome", CommandDelHome.class, "hdelete", "hd");
         register("home", CommandHome.class, "h", "homes");
+        register("home-list", CommandHomeList.class, "hlist");
 
         register("freeze", CommandFreeze.class);
         register("ban", CommandBan.class);

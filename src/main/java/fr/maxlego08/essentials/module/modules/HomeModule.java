@@ -177,23 +177,22 @@ public class HomeModule extends ZModule {
         IStorage iStorage = this.plugin.getStorageManager().getStorage();
         iStorage.fetchUniqueId(username, uuid -> {
 
-            if (homeName.equalsIgnoreCase("list")) {
-                iStorage.getHomes(uuid).thenAccept(homes -> {
+            if (homeName == null) {
+                iStorage.getHomes(uuid, homes -> {
                     List<String> homesAsString = homes.stream().map(home -> getMessage(Message.COMMAND_HOME_ADMIN_LIST_INFO, "%name%", home.getName(), "%player%", username)).toList();
-                    message(user, Message.COMMAND_HOME_ADMIN_LIST, "%homes%", Strings.join(homesAsString, ','), "%player%", username);
+                    message(user, Message.COMMAND_HOME_ADMIN_LIST, "%homes%", homesAsString.isEmpty() ? Message.COMMAND_HOME_ADMIN_LIST_INFO.getMessageAsString() : Strings.join(homesAsString, ','), "%player%", username);
                 });
                 return;
             }
 
-            iStorage.getHome(uuid, homeName).thenAccept(homes -> {
+            iStorage.getHome(uuid, homeName, optional -> {
 
-                if (homes.isEmpty()) {
+                if (optional.isEmpty()) {
                     message(user, Message.COMMAND_HOME_DOESNT_EXIST, "%name%", homeName);
                     return;
                 }
 
-                Home home = homes.get(0);
-                teleport(user, home);
+                teleport(user, optional.get());
             });
         });
     }

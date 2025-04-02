@@ -5,6 +5,8 @@
 
 # Unreleased
 
+- Added `/home-list <player> [<home name>]`, Allows you to view a player’s home list
+
 # 1.0.2.0
 
 - Fixed Vault implementation [#164](https://github.com/Maxlego08/zEssentials/issues/164)

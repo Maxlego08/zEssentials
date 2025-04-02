@@ -221,6 +221,7 @@ public enum Message {
     DESCRIPTION_DEL_HOME("Delete a home"),
     DESCRIPTION_DEL_HOME_CONFIRM("Confirm the deletion of a home"),
     DESCRIPTION_HOME("Teleport to a home"),
+    DESCRIPTION_HOME_LIST("Show player's homes"),
     DESCRIPTION_KICK("Kick a player"),
     DESCRIPTION_FREEZE("Freeze a player"),
     DESCRIPTION_KICK_ALL("Kick all players"),
@@ -492,6 +493,7 @@ public enum Message {
     COMMAND_HOME_ADMIN_SET("<success>You just created home &f%name%<success> of &b%player%<success>."),
     COMMAND_HOME_ADMIN_LIST("#8cc0cc%player% ʜᴏᴍᴇs&8:&f%homes%"),
     COMMAND_HOME_ADMIN_LIST_INFO(" <hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %player%:%name%'>&f%name%</click></hover>&7"),
+    COMMAND_HOME_ADMIN_LIST_EMPTY("The player has no home"),
     COMMAND_HOME_ERROR_TELEPORT("<error>Unable to find the position for teleportation, please delete your home."),
 
     COMMAND_KICK_NOTIFY(MessageType.WITHOUT_PREFIX, "<hover:show_text:'&7By: <white>%sender%<newline>&7Duration: <white>%duration%<newline>&7Reason: <white>%reason%<newline>&7Date: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanction&8) #8aebeb%player% #e33414just kicked the player #e0d12d%target%#e33414.</click></hover>"),

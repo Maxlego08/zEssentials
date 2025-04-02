@@ -314,6 +314,7 @@ description-del-home: "Delete a home"
 description-del-home-confirm: "Confirm the deletion of a home"
 description-set-home-confirm: "Confirm the creation of a home"
 description-home: "Teleport to a home"
+description-home-list: "Show player's homes"
 description-kick: "Kick a player"
 description-kick-all: "Kick all players"
 description-kitty-cannon: "Launch kitty, wtf you want to do that ? monster"
@@ -585,6 +586,7 @@ command-home-admin-delete: "#00ff00You just deleted home &f%name%#00ff00 of &b%p
 command-home-admin-set: "#00ff00You just created home &f%name%#00ff00 of &b%player%#00ff00."
 command-home-admin-list: "#8cc0cc%player% ʜᴏᴍᴇs&8:&f%homes%"
 command-home-admin-list-info: " <hover:show_text:'&7Click to teleport to home &f&n%name%'><click:run_command:'/home %player%:%name%'>&f%name%</click></hover>&7"
+command-home-admin-list-empty: "<error>The player has no home"
 command-home-error-teleport: "<error>Unable to find the position for teleportation, please delete your home."
 
 

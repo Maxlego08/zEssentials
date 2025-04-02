@@ -306,7 +306,8 @@ description-warp-list: "Afficher la liste des points de téléportation"
 description-tp-random: "Téléportation aléatoire dans le monde"
 description-set-home: "Créer un point de maison"
 description-del-home: "Supprimer un point de maison"
-description-home: "Téléporter vers un point de maison"
+description-home: "Téléporter vers une maison"
+description-home-list: "Afficher les maisons d'un joueurs"
 description-kick: "Expulser un joueur"
 description-kick-all: "Expulser tous les joueurs"
 description-kitty-cannon: "Lancer un chat, pourquoi voudriez-vous faire ça ? Monstre !"
@@ -565,6 +566,7 @@ command-home-admin-delete: "<success>Vous venez de supprimer la maison &f%name%<
 command-home-admin-set: "<success>Vous venez de créer la maison &f%name%<success> pour &b%player%<success>."
 command-home-admin-list: "#8cc0ccMaisons de %player%&8:&f%homes%"
 command-home-admin-list-info: " <hover:show_text:'&7Cliquez pour vous téléporter à la maison &f&n%name%'><click:run_command:'/home %player%:%name%'>&f%name%</click></hover>&7"
+command-home-admin-list-empty: "<error>Aucun"
 command-home-error-teleport: "<error>Impossible de trouver la position pour le téléportation, veuillez supprimer votre maison."
 
 
