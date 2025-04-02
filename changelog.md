@@ -6,6 +6,7 @@
 # Unreleased
 
 - Added `/home-list <player> [<home name>]`, Allows you to view a player’s home list
+- Added the permission record when creating orders. This allows players not to access commands that do not have permission with the tab. This also allows plugins like LuckPerms to retrieve the plugin’s permissions list.
 
 # 1.0.2.0
 

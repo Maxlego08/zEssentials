@@ -49,34 +49,36 @@ import fr.maxlego08.essentials.buttons.vault.ButtonVaultIcon;
 import fr.maxlego08.essentials.buttons.vault.ButtonVaultRename;
 import fr.maxlego08.essentials.buttons.vault.ButtonVaultSlotDisable;
 import fr.maxlego08.essentials.buttons.vault.ButtonVaultSlotItems;
-import fr.maxlego08.essentials.module.modules.chat.interactive.InteractiveChatHelper;
-import fr.maxlego08.essentials.module.modules.chat.interactive.InteractiveChatPaperListener;
-import fr.maxlego08.essentials.module.modules.chat.interactive.InteractiveChatSpigotListener;
 import fr.maxlego08.essentials.commands.CommandLoader;
 import fr.maxlego08.essentials.commands.ZCommandManager;
 import fr.maxlego08.essentials.commands.commands.essentials.CommandEssentials;
-import fr.maxlego08.essentials.module.modules.economy.EconomyModule;
 import fr.maxlego08.essentials.enchantments.ZEnchantments;
-import fr.maxlego08.essentials.module.modules.hologram.HologramModule;
-import fr.maxlego08.essentials.module.modules.kit.KitModule;
 import fr.maxlego08.essentials.listener.InvseeListener;
 import fr.maxlego08.essentials.listener.PlayerListener;
 import fr.maxlego08.essentials.loader.ButtonKitCooldownLoader;
 import fr.maxlego08.essentials.loader.ButtonKitGetLoader;
 import fr.maxlego08.essentials.loader.ButtonOptionLoader;
 import fr.maxlego08.essentials.loader.ButtonSanctionLoader;
-import fr.maxlego08.essentials.loader.ButtonWarpLoader;
 import fr.maxlego08.essentials.loader.ButtonVaultNoPermissionLoader;
 import fr.maxlego08.essentials.loader.ButtonVaultOpenLoader;
+import fr.maxlego08.essentials.loader.ButtonWarpLoader;
 import fr.maxlego08.essentials.messages.MessageLoader;
 import fr.maxlego08.essentials.module.ZModuleManager;
 import fr.maxlego08.essentials.module.modules.HomeModule;
 import fr.maxlego08.essentials.module.modules.MailBoxModule;
 import fr.maxlego08.essentials.module.modules.StepModule;
 import fr.maxlego08.essentials.module.modules.VoteModule;
+import fr.maxlego08.essentials.module.modules.chat.interactive.InteractiveChatHelper;
+import fr.maxlego08.essentials.module.modules.chat.interactive.InteractiveChatPaperListener;
+import fr.maxlego08.essentials.module.modules.chat.interactive.InteractiveChatSpigotListener;
+import fr.maxlego08.essentials.module.modules.economy.EconomyModule;
+import fr.maxlego08.essentials.module.modules.hologram.HologramModule;
+import fr.maxlego08.essentials.module.modules.kit.KitModule;
+import fr.maxlego08.essentials.module.modules.scoreboard.ScoreboardModule;
+import fr.maxlego08.essentials.module.modules.vault.VaultModule;
+import fr.maxlego08.essentials.module.modules.worldedit.WorldeditModule;
 import fr.maxlego08.essentials.placeholders.DistantPlaceholder;
 import fr.maxlego08.essentials.placeholders.LocalPlaceholder;
-import fr.maxlego08.essentials.module.modules.scoreboard.ScoreboardModule;
 import fr.maxlego08.essentials.server.PaperServer;
 import fr.maxlego08.essentials.server.SpigotServer;
 import fr.maxlego08.essentials.storage.ConfigStorage;
@@ -96,8 +98,6 @@ import fr.maxlego08.essentials.user.placeholders.UserPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.UserPlayTimePlaceholders;
 import fr.maxlego08.essentials.user.placeholders.VotePlaceholders;
 import fr.maxlego08.essentials.user.placeholders.WorldEditPlaceholders;
-import fr.maxlego08.essentials.module.modules.vault.VaultModule;
-import fr.maxlego08.essentials.module.modules.worldedit.WorldeditModule;
 import fr.maxlego08.essentials.zutils.Metrics;
 import fr.maxlego08.essentials.zutils.ZPlugin;
 import fr.maxlego08.essentials.zutils.utils.ComponentMessageHelper;
@@ -296,8 +296,12 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
             if (!configuration.getBoolean("enable", false)) return;
 
             Class.forName("net.milkbowl.vault.economy.Economy");
-            createInstance("VaultEconomy", false);
-            getLogger().info("Register Vault Economy.");
+            var optional = createInstance("VaultEconomy", true);
+            if (optional.isPresent()) {
+                getLogger().info("Register Vault Economy.");
+            } else {
+                getLogger().severe("Impossible to register Vault Economy.");
+            }
         } catch (final ClassNotFoundException ignored) {
         }
     }
