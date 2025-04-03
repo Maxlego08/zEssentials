@@ -153,9 +153,9 @@ public class UserRepository extends Repository {
         });
     }
 
-    public void updatePlayTime(UUID uniqueId, long sessionPlayTime) {
+    public void updatePlayTime(UUID uniqueId, long playTime) {
         update(table -> {
-            table.decimal("play_time", sessionPlayTime);
+            table.decimal("play_time", playTime);
             table.where("unique_id", uniqueId);
         });
     }

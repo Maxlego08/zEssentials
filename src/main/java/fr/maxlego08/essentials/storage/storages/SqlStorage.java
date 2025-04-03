@@ -482,7 +482,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
         List<UserDTO> userDTOS = with(UserRepository.class).selectUser(uuid);
         if (userDTOS.isEmpty()) return null;
 
-        UserDTO userDTO = userDTOS.get(0);
+        UserDTO userDTO = userDTOS.getFirst();
 
         if (userDTO.mute_sanction_id() != null) {
             SanctionDTO sanction = with(UserSanctionRepository.class).getSanction(userDTO.mute_sanction_id());
@@ -532,7 +532,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
     @Override
     public UserRecord fetchUserRecord(UUID uuid) {
 
-        UserDTO userDTO = with(UserRepository.class).selectUser(uuid).get(0);
+        UserDTO userDTO = with(UserRepository.class).selectUser(uuid).getFirst();
         List<PlayTimeDTO> playTimeDTOS = with(UserPlayTimeRepository.class).select(uuid);
 
         return new UserRecord(userDTO, playTimeDTOS);
