@@ -194,4 +194,9 @@ public class MailBoxModule extends ZModule {
 
         message(sender, Message.MAILBOX_GIVE_ALL, "%item%", itemName, "%amount%", amount);
     }
+
+    public void clear(CommandSender sender, UUID uuid, String username) {
+        getStorage().clearMailBox(uuid);
+        message(sender, Message.MAILBOX_CLEAR, "%player%", username);
+    }
 }

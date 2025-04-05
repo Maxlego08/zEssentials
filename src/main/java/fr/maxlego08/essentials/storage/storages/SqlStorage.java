@@ -579,6 +579,11 @@ public class SqlStorage extends StorageHelper implements IStorage {
     }
 
     @Override
+    public void clearMailBox(UUID uuid) {
+        async(() -> with(UserMailBoxRepository.class).clear(uuid));
+    }
+
+    @Override
     public void removeMailBoxItem(int id) {
         async(() -> with(UserMailBoxRepository.class).delete(id));
     }

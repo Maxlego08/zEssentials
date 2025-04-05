@@ -365,16 +365,23 @@ public interface IStorage {
     void deletePowerTools(UUID uniqueId, Material material);
 
     /**
-     * Adds a mail box item.
+     * Adds a mailbox item.
      *
-     * @param mailBoxItem the mail box item
+     * @param mailBoxItem the mailbox item
      */
     void addMailBoxItem(MailBoxItem mailBoxItem);
 
     /**
-     * Removes a mail box item.
+     * Clears a user's mailbox.
      *
-     * @param id the ID of the mail box item
+     * @param uuid the UUID of the user
+     */
+    void clearMailBox(UUID uuid);
+
+    /**
+     * Removes a mailbox item.
+     *
+     * @param id the ID of the mailbox item
      */
     void removeMailBoxItem(int id);
 

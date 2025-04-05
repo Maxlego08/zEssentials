@@ -272,6 +272,7 @@ public enum Message {
     DESCRIPTION_MAIL("Open mailbox"),
     DESCRIPTION_MAIL_OPEN("Open player's mailbox"),
     DESCRIPTION_MAIL_GIVE("Give an item to player's mailbox"),
+    DESCRIPTION_MAIL_CLEAR("Removes items from the player’s mailbox"),
     DESCRIPTION_MAIL_GIVEALL("Give an items to players mailbox"),
     DESCRIPTION_RULES("Read server rules"),
     DESCRIPTION_SUICIDE("Kill yourself"),
@@ -696,6 +697,7 @@ public enum Message {
     MAILBOX_GIVE_ERROR("<error>Can’t find the item &f%item%<error>."),
     MAILBOX_GIVE("<success>You just gave &n&fx%amount% %item%&r <success>to player &f%player%<success> mailbox."),
     MAILBOX_GIVE_ALL("<success>You just gave &n&fx%amount% %item%&r <success>to online player mailbox."),
+    MAILBOX_CLEAR("<success>You have just cleared the mailbox of &f%player%<success>."),
 
 
     HOLOGRAM_CREATE_ERROR("<error>Hologram &f%name% <error>already exists."),
