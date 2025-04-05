@@ -19,7 +19,7 @@ public class VaultEconomy implements Economy {
 
     public VaultEconomy(EssentialsPlugin essentialsPlugin) {
         this.essentialsPlugin = essentialsPlugin;
-        Bukkit.getServer().getServicesManager().register(Economy.class, this, this.essentialsPlugin, ServicePriority.Normal);
+        essentialsPlugin.getServer().getServicesManager().register(Economy.class, this, essentialsPlugin, ServicePriority.Highest);
     }
 
     private fr.maxlego08.essentials.api.economy.Economy getEconomy() {
