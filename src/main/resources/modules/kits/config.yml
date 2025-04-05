@@ -20,6 +20,10 @@ enable: true
 # MULTI_LINE: Displays a message with a header and footer (optional) and a message per kits
 display: IN_LINE
 
+# Gives kits when the player joins the server for the first time
+kits-on-first-join:
+  - "tools"
+
 # https://docs.zmenu.dev/configurations/items
 kits:
   tools:
