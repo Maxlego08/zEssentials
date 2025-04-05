@@ -248,8 +248,8 @@ public class ZCommandManager extends ZUtils implements CommandManager {
     }
 
     /**
-     * Register spigot command without plugin.yml This method will allow to
-     * register a command in the spigot without using the plugin.yml This saves
+     * Register spigot command without plugin.yml This method will allow
+     * registering a command in the spigot without using the plugin.yml This saves
      * time and understanding, the plugin.yml file is clearer
      *
      * @param mainCommand       - Main command
@@ -287,6 +287,9 @@ public class ZCommandManager extends ZUtils implements CommandManager {
             command.setExecutor(this);
             command.setTabCompleter(this);
             command.setAliases(aliases);
+            if (essentialsCommand.getPermission() != null) {
+                command.setPermission(essentialsCommand.getPermission());
+            }
 
             essentialsCommand.addSubCommand(mainCommand);
             essentialsCommand.addSubCommand(aliases);

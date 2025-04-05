@@ -1,5 +1,5 @@
 name: zEssentials
-version: '${version}'
+version: ${version}
 main: fr.maxlego08.essentials.ZEssentialsPlugin
 folia-supported: true
 description: Provides an essential, core set of commands for Bukkit.

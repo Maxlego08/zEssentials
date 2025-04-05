@@ -2,6 +2,7 @@ package fr.maxlego08.essentials.module.modules.kit;
 
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.Permission;
+import fr.maxlego08.essentials.api.event.events.user.UserJoinEvent;
 import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.kit.KitDisplay;
 import fr.maxlego08.essentials.api.messages.Message;
@@ -21,6 +22,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.Permissible;
@@ -38,6 +40,8 @@ public class KitModule extends ZModule {
 
     private final List<Kit> kits = new ArrayList<>();
     private KitDisplay display;
+
+    private List<String> kitsOnFirstJoin = new ArrayList<>();
 
     public KitModule(ZEssentialsPlugin plugin) {
         super(plugin, "kits");
@@ -117,7 +121,6 @@ public class KitModule extends ZModule {
                 exception.printStackTrace();
             }
         }
-
 
         ConfigurationSection configurationSection = configuration.getConfigurationSection("kits.");
         if (configurationSection != null) {
@@ -257,5 +260,22 @@ public class KitModule extends ZModule {
     public List<String> getKitNames() {
         List<String> kitNames = Arrays.asList("warrior", "archer", "mage", "healer", "miner", "builder", "scout", "assassin", "knight", "ranger", "alchemist", "blacksmith", "explorer", "thief", "fisherman", "farmer", "necromancer", "paladin", "berserker", "enchanter");
         return kitNames.stream().filter(name -> this.kits.stream().noneMatch(kit -> kit.getName().equalsIgnoreCase(name))).toList();
+    }
+
+    @EventHandler
+    public void onJoin(PlayerJoinEvent event) {
+
+        var user = getUser(event.getPlayer());
+        if (this.kitsOnFirstJoin.isEmpty() || !user.isFirstJoin()) return;
+
+        for (String kitName : this.kitsOnFirstJoin) {
+            var optional = getKit(kitName);
+            if (optional.isPresent()) {
+                var kit = optional.get();
+                kit.give(user.getPlayer());
+            } else {
+                this.plugin.getLogger().severe("Cannot find the kit " + kitName);
+            }
+        }
     }
 }

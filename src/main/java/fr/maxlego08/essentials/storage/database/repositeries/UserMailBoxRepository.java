@@ -35,4 +35,8 @@ public class UserMailBoxRepository extends Repository {
     public void deleteExpiredItems() {
         delete(table -> table.where("expired_at", "<", new Date()));
     }
+
+    public void clear(UUID uuid) {
+        delete(table -> table.where("unique_id", uuid));
+    }
 }

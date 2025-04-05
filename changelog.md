@@ -5,6 +5,14 @@
 
 # Unreleased
 
+# 1.0.2.1
+
+- Fixed Vault.
+- Added `/home-list <player> [<home name>]`, Allows you to view a player’s home list.
+- Added `/mailbox clear <player>`, Removes items from the players mailbox.
+- Added the permission record when creating orders. This allows players not to access commands that do not have permission with the tab. This also allows plugins like LuckPerms to retrieve the plugin’s permissions list.
+- Added a kit list to give players when they first log in.
+
 # 1.0.2.0
 
 - Fixed Vault implementation [#164](https://github.com/Maxlego08/zEssentials/issues/164)

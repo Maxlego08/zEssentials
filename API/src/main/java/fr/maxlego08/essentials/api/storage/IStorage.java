@@ -33,8 +33,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
 import java.util.function.Consumer;
 
 public interface IStorage {
@@ -196,17 +194,17 @@ public interface IStorage {
      *
      * @param uuid     the UUID of the user
      * @param homeName the name of the home
-     * @return a CompletableFuture with a list of homes
+     * @param consumer the consumer to apply to the home
      */
-    CompletableFuture<List<Home>> getHome(UUID uuid, String homeName);
+    void getHome(UUID uuid, String homeName, Consumer<Optional<Home>> consumer);
 
     /**
      * Retrieves all homes for a user.
      *
-     * @param uuid the UUID of the user
-     * @return a CompletionStage with a list of homes
+     * @param uuid     the UUID of the user
+     * @param consumer the consumer to apply to the list of homes
      */
-    CompletionStage<List<Home>> getHomes(UUID uuid);
+    void getHomes(UUID uuid, Consumer<List<Home>> consumer);
 
     /**
      * Inserts a sanction for a user.
@@ -367,16 +365,23 @@ public interface IStorage {
     void deletePowerTools(UUID uniqueId, Material material);
 
     /**
-     * Adds a mail box item.
+     * Adds a mailbox item.
      *
-     * @param mailBoxItem the mail box item
+     * @param mailBoxItem the mailbox item
      */
     void addMailBoxItem(MailBoxItem mailBoxItem);
 
     /**
-     * Removes a mail box item.
+     * Clears a user's mailbox.
      *
-     * @param id the ID of the mail box item
+     * @param uuid the UUID of the user
+     */
+    void clearMailBox(UUID uuid);
+
+    /**
+     * Removes a mailbox item.
+     *
+     * @param id the ID of the mailbox item
      */
     void removeMailBoxItem(int id);
 

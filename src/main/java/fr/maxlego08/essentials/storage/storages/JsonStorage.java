@@ -46,7 +46,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
 import java.util.function.Consumer;
 
 public class JsonStorage extends StorageHelper implements IStorage {
@@ -257,17 +256,13 @@ public class JsonStorage extends StorageHelper implements IStorage {
     }
 
     @Override
-    public CompletableFuture<List<Home>> getHome(UUID uuid, String homeName) {
-        CompletableFuture<List<Home>> future = new CompletableFuture<>();
-        future.complete(createOrLoad(uuid, "").getHomes().stream().filter(home -> home.getName().equalsIgnoreCase(homeName)).toList());
-        return future;
+    public void getHome(UUID uuid, String homeName, Consumer<Optional<Home>> consumer) {
+        consumer.accept(createOrLoad(uuid, "").getHomes().stream().filter(home -> home.getName().equalsIgnoreCase(homeName)).findFirst());
     }
 
     @Override
-    public CompletionStage<List<Home>> getHomes(UUID uuid) {
-        CompletableFuture<List<Home>> future = new CompletableFuture<>();
-        future.complete(createOrLoad(uuid, "").getHomes());
-        return future;
+    public void getHomes(UUID uuid, Consumer<List<Home>> consumer) {
+        consumer.accept(createOrLoad(uuid, "").getHomes());
     }
 
     @Override
@@ -366,6 +361,11 @@ public class JsonStorage extends StorageHelper implements IStorage {
     @Override
     public void addMailBoxItem(MailBoxItem mailBoxItem) {
         throw new NotImplementedException("addMailBoxItem is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public void clearMailBox(UUID uuid) {
+        throw new NotImplementedException("addMailBoxItem is not clearMaiLBox, use MYSQL storage");
     }
 
     @Override

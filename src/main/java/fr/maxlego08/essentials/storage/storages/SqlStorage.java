@@ -116,7 +116,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -441,17 +440,13 @@ public class SqlStorage extends StorageHelper implements IStorage {
     }
 
     @Override
-    public CompletableFuture<List<Home>> getHome(UUID uuid, String homeName) {
-        CompletableFuture<List<Home>> future = new CompletableFuture<>();
-        future.complete(with(UserHomeRepository.class).getHomes(uuid, homeName));
-        return future;
+    public void getHome(UUID uuid, String homeName, Consumer<Optional<Home>> consumer) {
+        async(() -> consumer.accept(with(UserHomeRepository.class).getHomes(uuid, homeName).stream().findFirst()));
     }
 
     @Override
-    public CompletionStage<List<Home>> getHomes(UUID uuid) {
-        CompletableFuture<List<Home>> future = new CompletableFuture<>();
-        future.complete(with(UserHomeRepository.class).getHomes(uuid));
-        return future;
+    public void getHomes(UUID uuid, Consumer<List<Home>> consumer) {
+        async(() -> consumer.accept(with(UserHomeRepository.class).getHomes(uuid)));
     }
 
     @Override
@@ -487,7 +482,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
         List<UserDTO> userDTOS = with(UserRepository.class).selectUser(uuid);
         if (userDTOS.isEmpty()) return null;
 
-        UserDTO userDTO = userDTOS.get(0);
+        UserDTO userDTO = userDTOS.getFirst();
 
         if (userDTO.mute_sanction_id() != null) {
             SanctionDTO sanction = with(UserSanctionRepository.class).getSanction(userDTO.mute_sanction_id());
@@ -537,7 +532,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
     @Override
     public UserRecord fetchUserRecord(UUID uuid) {
 
-        UserDTO userDTO = with(UserRepository.class).selectUser(uuid).get(0);
+        UserDTO userDTO = with(UserRepository.class).selectUser(uuid).getFirst();
         List<PlayTimeDTO> playTimeDTOS = with(UserPlayTimeRepository.class).select(uuid);
 
         return new UserRecord(userDTO, playTimeDTOS);
@@ -581,6 +576,11 @@ public class SqlStorage extends StorageHelper implements IStorage {
     @Override
     public void addMailBoxItem(MailBoxItem mailBoxItem) {
         async(() -> with(UserMailBoxRepository.class).insert(mailBoxItem));
+    }
+
+    @Override
+    public void clearMailBox(UUID uuid) {
+        async(() -> with(UserMailBoxRepository.class).clear(uuid));
     }
 
     @Override
