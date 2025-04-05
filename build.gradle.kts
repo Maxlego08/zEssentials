@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "zEssentials"
-version = "1.0.2.0"
+version = project.version
 
 extra.set("targetFolder", file("target/"))
 extra.set("apiFolder", file("target-api/"))
@@ -46,12 +46,12 @@ dependencies {
 
     api(project(":API"))
 
-    api(project(":NMS:V1_20_4", configuration =  "reobf"))
-    api(project(":NMS:V1_20_6", configuration =  "reobf"))
-    api(project(":NMS:V1_21", configuration =  "reobf"))
-    api(project(":NMS:V1_21_1", configuration =  "reobf"))
-    api(project(":NMS:V1_21_3", configuration =  "reobf"))
-    api(project(":NMS:V1_21_4", configuration =  "reobf"))
+    api(project(":NMS:V1_20_4", configuration = "reobf"))
+    api(project(":NMS:V1_20_6", configuration = "reobf"))
+    api(project(":NMS:V1_21", configuration = "reobf"))
+    api(project(":NMS:V1_21_1", configuration = "reobf"))
+    api(project(":NMS:V1_21_3", configuration = "reobf"))
+    api(project(":NMS:V1_21_4", configuration = "reobf"))
 
     rootProject.subprojects.filter { it.path.startsWith(":Hooks:") }.forEach { subproject ->
         api(project(subproject.path))
@@ -85,14 +85,8 @@ tasks {
 
     processResources {
         from("resources")
-
         filesMatching("plugin.yml") {
-            expand(
-                "name" to project.name,
-                "version" to project.version,
-                "description" to project.description,
-                "main" to "${project.group}.${project.name}Main"
-            )
+            expand("version" to project.version)
         }
     }
 }
