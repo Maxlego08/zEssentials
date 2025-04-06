@@ -51,4 +51,9 @@ public class SpigotComponent implements ComponentMessage {
     public void sendTitle(Player player, TitleMessage titleMessage, Object... objects) {
         player.sendTitle(titleMessage.title(), titleMessage.subtitle(), (int) titleMessage.start(), (int) titleMessage.time(), (int) titleMessage.end());
     }
+
+    @Override
+    public void kick(Player player, String message) {
+        player.kickPlayer(message);
+    }
 }

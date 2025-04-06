@@ -939,4 +939,10 @@ public interface User {
     void setDiscordAccount(DiscordAccount discordAccount);
 
     void removeDiscordAccount();
+
+    long getLastActiveTime();
+
+    void setLastActiveTime();
+
+    boolean isAfk();
 }

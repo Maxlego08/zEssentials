@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.module;
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.modules.Module;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
+import fr.maxlego08.essentials.module.modules.afk.AFKModule;
 import fr.maxlego08.essentials.module.modules.discord.DiscordModule;
 import fr.maxlego08.essentials.module.modules.economy.EconomyModule;
 import fr.maxlego08.essentials.module.modules.hologram.HologramModule;
@@ -74,6 +75,7 @@ public class ZModuleManager implements ModuleManager {
         this.modules.put(VaultModule.class, new VaultModule(this.plugin));
         this.modules.put(WorldeditModule.class, new WorldeditModule(this.plugin));
         this.modules.put(StepModule.class, new StepModule(this.plugin));
+        this.modules.put(AFKModule.class, new AFKModule(this.plugin));
 
         this.loadConfigurations();
 

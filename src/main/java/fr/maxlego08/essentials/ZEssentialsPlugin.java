@@ -8,6 +8,7 @@ import com.tcoded.folialib.impl.PlatformScheduler;
 import fr.maxlego08.essentials.api.Configuration;
 import fr.maxlego08.essentials.api.ConfigurationFile;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.afk.AfkManager;
 import fr.maxlego08.essentials.api.block.BlockTracker;
 import fr.maxlego08.essentials.api.chat.InteractiveChat;
 import fr.maxlego08.essentials.api.commands.CommandManager;
@@ -68,6 +69,7 @@ import fr.maxlego08.essentials.module.modules.HomeModule;
 import fr.maxlego08.essentials.module.modules.MailBoxModule;
 import fr.maxlego08.essentials.module.modules.StepModule;
 import fr.maxlego08.essentials.module.modules.VoteModule;
+import fr.maxlego08.essentials.module.modules.afk.AFKModule;
 import fr.maxlego08.essentials.module.modules.chat.interactive.InteractiveChatHelper;
 import fr.maxlego08.essentials.module.modules.chat.interactive.InteractiveChatPaperListener;
 import fr.maxlego08.essentials.module.modules.chat.interactive.InteractiveChatSpigotListener;
@@ -758,4 +760,8 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         return getModuleManager().getModule(StepModule.class);
     }
 
+    @Override
+    public AfkManager getAfkManager() {
+        return getModuleManager().getModule(AFKModule.class);
+    }
 }

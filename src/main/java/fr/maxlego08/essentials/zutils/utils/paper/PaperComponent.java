@@ -225,4 +225,9 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
 
         new BossBarAnimation(plugin, player, bossBar, bossBarMessage.duration());
     }
+
+    @Override
+    public void kick(Player player, String message) {
+        player.kick(getComponent(message));
+    }
 }

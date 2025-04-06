@@ -1,0 +1,47 @@
+########################################################################################################################
+#
+# ░█████╗░███████╗██╗░░██╗
+# ██╔══██╗██╔════╝██║░██╔╝
+# ███████║█████╗░░█████═╝░
+# ██╔══██║██╔══╝░░██╔═██╗░
+# ██║░░██║██║░░░░░██║░╚██╗
+# ╚═╝░░╚═╝╚═╝░░░░░╚═╝░░╚═╝
+#
+########################################################################################################################
+
+enable: true
+
+check-interval: 20 # in ticks
+
+# Allows kicking the player with the spigot method, this avoids using a kick command and that your sanction plugin log the kick
+soft-kick: true
+
+soft-kick-message: "<red>You have been kicked for being AFK"
+
+kick-actions:
+  - type: message
+    messages:
+      - "&cYou have been kicked for being AFK"
+  # - type: console command
+  #  commands:
+  #    - "kick %player% AFK"
+
+permissions:
+  - priority: 0
+    permission: "zessentials.afk.player"
+    start-afk-time: 20
+    max-afk-time: 60 # in seconds
+    kick: true
+    message-on-start-afk: "You are now AFK, we have only 40 seconds left before being expelled from the server."
+  - priority: 1
+    permission: "zessentials.afk.vip"
+    start-afk-time: 30
+    max-afk-time: 120 # in seconds
+    message-on-start-afk: "You are now AFK, we have only 90 seconds left before being expelled from the server."
+    kick: true
+  - priority: 2
+    permission: "zessentials.afk.admin"
+    start-afk-time: 60
+    max-afk-time: 300 # in seconds
+    # message-on-start-afk: "You are now AFK, we have only 240 seconds left before being expelled from the server."
+    kick: true

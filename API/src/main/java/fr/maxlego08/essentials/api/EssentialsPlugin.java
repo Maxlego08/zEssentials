@@ -414,4 +414,6 @@ public interface EssentialsPlugin extends Plugin {
     void addMailBoxItem(UUID uuid, ItemStack itemStack);
 
     StepManager getStepManager();
+
+    AfkManager getAfkManager();
 }
