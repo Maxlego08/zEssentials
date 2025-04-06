@@ -7,6 +7,8 @@
 # ╚█████╔╝██║░░██║██║░░██║░░░██║░░░
 # ░╚════╝░╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░
 #
+# Documentation: https://zessentials.groupez.dev/modules/chat
+
 # Permissions
 # essentials.chat.bypass.alphanumeric - Allows bypass check alphanumeric
 # essentials.chat.bypass.dynamic.cooldown - Allows bypass dynamic cooldown
