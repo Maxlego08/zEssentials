@@ -233,7 +233,7 @@ public class CommandLoader {
         register("broadcast", CommandChatBroadcast.class, "bc");
         register("showitem", CommandShowItem.class);
 
-        register("message", CommandMessage.class, "msg", "tell", "whisper", "m");
+        register("message", CommandMessage.class, "msg", "tell", "whisper", "m", "w");
         register("reply", CommandReply.class, "r");
         register("messagetoggle", CommandMessageToggle.class, "msgtoggle", "mtg");
         register("socialspy", CommandSocialSpy.class);
