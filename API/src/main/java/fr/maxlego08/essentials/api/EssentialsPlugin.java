@@ -6,6 +6,7 @@ import fr.maxlego08.essentials.api.afk.AfkManager;
 import fr.maxlego08.essentials.api.block.BlockTracker;
 import fr.maxlego08.essentials.api.chat.InteractiveChat;
 import fr.maxlego08.essentials.api.commands.CommandManager;
+import fr.maxlego08.essentials.api.discord.DiscordManager;
 import fr.maxlego08.essentials.api.economy.EconomyManager;
 import fr.maxlego08.essentials.api.enchantment.Enchantments;
 import fr.maxlego08.essentials.api.hologram.HologramManager;
@@ -428,4 +429,11 @@ public interface EssentialsPlugin extends Plugin {
      * @return the AFK manager
      */
     AfkManager getAfkManager();
+
+    /**
+     * Returns the Discord manager.
+     *
+     * @return the Discord manager
+     */
+    DiscordManager getDiscordManager();
 }

@@ -13,6 +13,7 @@ import fr.maxlego08.essentials.api.block.BlockTracker;
 import fr.maxlego08.essentials.api.chat.InteractiveChat;
 import fr.maxlego08.essentials.api.commands.CommandManager;
 import fr.maxlego08.essentials.api.commands.Permission;
+import fr.maxlego08.essentials.api.discord.DiscordManager;
 import fr.maxlego08.essentials.api.economy.EconomyManager;
 import fr.maxlego08.essentials.api.enchantment.Enchantments;
 import fr.maxlego08.essentials.api.hologram.HologramManager;
@@ -73,6 +74,7 @@ import fr.maxlego08.essentials.module.modules.afk.AFKModule;
 import fr.maxlego08.essentials.module.modules.chat.interactive.InteractiveChatHelper;
 import fr.maxlego08.essentials.module.modules.chat.interactive.InteractiveChatPaperListener;
 import fr.maxlego08.essentials.module.modules.chat.interactive.InteractiveChatSpigotListener;
+import fr.maxlego08.essentials.module.modules.discord.DiscordModule;
 import fr.maxlego08.essentials.module.modules.economy.EconomyModule;
 import fr.maxlego08.essentials.module.modules.hologram.HologramModule;
 import fr.maxlego08.essentials.module.modules.kit.KitModule;
@@ -763,5 +765,10 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     @Override
     public AfkManager getAfkManager() {
         return getModuleManager().getModule(AFKModule.class);
+    }
+
+    @Override
+    public DiscordManager getDiscordManager() {
+        return getModuleManager().getModule(DiscordModule.class);
     }
 }
