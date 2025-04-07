@@ -120,7 +120,9 @@ public record DiscordEmbedConfiguration(String title, String description, String
 
         DiscordWebhook.EmbedObject embedObject = new DiscordWebhook.EmbedObject();
 
-        embedObject.setAuthor(replace(consumer.accept(this.author.name), args), replace(consumer.accept(this.author.url), args), replace(consumer.accept(this.author.iconUrl), args));
+        if (this.author != null) {
+            embedObject.setAuthor(replace(consumer.accept(this.author.name), args), replace(consumer.accept(this.author.url), args), replace(consumer.accept(this.author.iconUrl), args));
+        }
 
         if (this.description != null) {
             embedObject.setDescription(replace(consumer.accept(this.description), args));
