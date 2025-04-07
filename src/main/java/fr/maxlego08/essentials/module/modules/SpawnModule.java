@@ -129,4 +129,11 @@ public class SpawnModule extends ZModule {
 
         event.setRespawnLocation(ConfigStorage.spawnLocation.getLocation());
     }
+
+    public void onPlayerFirstJoin(Player player) {
+
+        if (!this.isEnable || ConfigStorage.spawnLocation == null || !ConfigStorage.spawnLocation.isValid()) return;
+
+        player.teleport(ConfigStorage.spawnLocation.getLocation());
+    }
 }

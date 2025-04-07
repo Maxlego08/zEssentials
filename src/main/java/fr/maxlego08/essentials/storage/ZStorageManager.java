@@ -8,6 +8,7 @@ import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.storage.StorageManager;
 import fr.maxlego08.essentials.api.storage.StorageType;
+import fr.maxlego08.essentials.module.modules.SpawnModule;
 import fr.maxlego08.essentials.storage.storages.JsonStorage;
 import fr.maxlego08.essentials.storage.storages.SqlStorage;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
@@ -83,8 +84,12 @@ public class ZStorageManager extends ZUtils implements StorageManager {
         var user = this.iStorage.createOrLoad(playerUuid, playerName);
         user.setAddress(event.getAddress().getHostAddress());
 
+        if (user.isFirstJoin()){
+            this.plugin.getModuleManager().getModule(SpawnModule.class).onPlayerFirstJoin(event.getPlayer());
+        }
+
         var userEvent = new UserJoinEvent(user);
-        plugin.getScheduler().runNextTick(wrappedTask -> userEvent.callEvent());
+        this.plugin.getScheduler().runNextTick(wrappedTask -> userEvent.callEvent());
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
