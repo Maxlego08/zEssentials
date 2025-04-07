@@ -35,7 +35,7 @@ public class CommandEconomyReset extends VCommand {
         String userName = this.argAsString(1);
         double amount = 0;
         boolean silent = this.argAsBoolean(2, false);
-        String reason = this.getArgs(4, "Reset by " + sender.getName());
+        String reason = this.getArgs(4, getMessage(plugin.getEconomyManager().getCommandResetReason(), "%sender%", sender.getName()));
 
         EconomyManager economyManager = plugin.getEconomyManager();
         Optional<Economy> optional = economyManager.getEconomy(economyName);

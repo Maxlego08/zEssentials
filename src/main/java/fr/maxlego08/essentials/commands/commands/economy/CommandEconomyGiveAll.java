@@ -36,7 +36,7 @@ public class CommandEconomyGiveAll extends VCommand {
         String economyName = this.argAsString(0);
         double amount = this.argAsDouble(1);
         boolean silent = this.argAsBoolean(2, false);
-        String reason = this.getArgs(4, "Give all by " + sender.getName());
+        String reason = this.getArgs(4, getMessage(plugin.getEconomyManager().getCommandGiveAllReason(), "%sender%", sender.getName()));
 
         EconomyManager economyManager = plugin.getEconomyManager();
         Optional<Economy> optional = economyManager.getEconomy(economyName);

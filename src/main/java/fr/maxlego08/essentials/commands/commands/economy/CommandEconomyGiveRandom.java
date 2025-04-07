@@ -35,7 +35,7 @@ public class CommandEconomyGiveRandom extends GiveCommand {
         double minAmount = this.argAsDouble(2);
         double maxAmount = this.argAsDouble(3);
         boolean silent = this.argAsBoolean(4, false);
-        String reason = this.getArgs(6, "Give random by " + sender.getName());
+        String reason = this.getArgs(6, getMessage(plugin.getEconomyManager().getCommandGiveRandomReason(), "%sender%", sender.getName()));
 
         minAmount = Math.min(minAmount, maxAmount);
         maxAmount = Math.max(minAmount, maxAmount);
