@@ -10,6 +10,7 @@ import fr.maxlego08.essentials.api.discord.DiscordManager;
 import fr.maxlego08.essentials.api.economy.EconomyManager;
 import fr.maxlego08.essentials.api.enchantment.Enchantments;
 import fr.maxlego08.essentials.api.hologram.HologramManager;
+import fr.maxlego08.essentials.api.home.HomeManager;
 import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
 import fr.maxlego08.essentials.api.permission.PermissionChecker;
@@ -436,4 +437,11 @@ public interface EssentialsPlugin extends Plugin {
      * @return the Discord manager
      */
     DiscordManager getDiscordManager();
+
+    /**
+     * Returns the home manager.
+     *
+     * @return the home manager
+     */
+    HomeManager getHomeManager();
 }

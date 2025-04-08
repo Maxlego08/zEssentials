@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.commands.commands.home;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
+import fr.maxlego08.essentials.api.home.HomeManager;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.module.modules.HomeModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
@@ -21,14 +22,14 @@ public class CommandSetHomeConfirm extends VCommand {
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
         String homeName = this.argAsString(0);
-        HomeModule homeModule = plugin.getModuleManager().getModule(HomeModule.class);
+        HomeManager homeManager = plugin.getHomeManager();
 
-        if (homeModule.getDisableWorlds().contains(player.getWorld().getName())) {
+        if (homeManager.getDisableWorlds().contains(player.getWorld().getName())) {
             message(sender, Message.COMMAND_SET_HOME_WORLD);
             return CommandResultType.DEFAULT;
         }
 
-        Message nameResult = homeModule.isValidHomeName(homeName);
+        Message nameResult = homeManager.isValidHomeName(homeName);
         if (nameResult != null) {
             message(sender, nameResult, "%name%", homeName);
             return CommandResultType.DEFAULT;

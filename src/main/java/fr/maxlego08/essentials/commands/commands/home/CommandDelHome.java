@@ -4,6 +4,7 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.home.Home;
+import fr.maxlego08.essentials.api.home.HomeManager;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.modules.HomeModule;
@@ -32,23 +33,23 @@ public class CommandDelHome extends VCommand {
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
         String homeName = this.argAsString(0);
-        HomeModule homeModule = plugin.getModuleManager().getModule(HomeModule.class);
+        HomeManager homeManager = plugin.getHomeManager();
 
         // For /delhome Maxlego08:<home name>
         if (homeName.contains(":") && hasPermission(sender, Permission.ESSENTIALS_SET_HOME_OTHER)) {
             String[] values = homeName.split(":", 2);
             String username = values[0];
             String home = values[1];
-            homeModule.deleteHome(this.sender, username, home);
+            homeManager.deleteHome(this.sender, username, home);
             return CommandResultType.DEFAULT;
         }
 
-        if (homeModule.isHomeDeleteConfirm()) {
+        if (homeManager.isHomeDeleteConfirm()) {
             message(user, Message.COMMAND_HOME_DELETE_CONFIRM, "%name%", homeName);
             return CommandResultType.SUCCESS;
         }
 
-        homeModule.deleteHome(this.player, this.user, homeName);
+        homeManager.deleteHome(this.player, this.user, homeName);
 
         return CommandResultType.SUCCESS;
     }

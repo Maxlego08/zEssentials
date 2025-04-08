@@ -4,6 +4,7 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.home.Home;
+import fr.maxlego08.essentials.api.home.HomeManager;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.module.modules.HomeModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
@@ -37,8 +38,8 @@ public class CommandHomeList extends VCommand {
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
-        HomeModule homeModule = plugin.getModuleManager().getModule(HomeModule.class);
-        homeModule.teleport(this.user, this.argAsString(0), this.argAsString(1, null));
+        HomeManager homeManager = plugin.getHomeManager();
+        homeManager.teleport(this.user, this.argAsString(0), this.argAsString(1, null));
 
         return CommandResultType.SUCCESS;
     }
