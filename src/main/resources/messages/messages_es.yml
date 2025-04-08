@@ -136,7 +136,7 @@ command-economy-set-sender: "#99E0FFAcabas de establecer &f%economyFormat% #99E0
 command-economy-set-receiver: "#99E0FFTu &f%economyFormat% #99E0FFha sido modificado."
 command-economy-take-sender: "#99E0FFAcabas de quitar &f%economyFormat% #99E0FFal jugador &7%player%#99E0FF."
 command-economy-take-receiver: "#99E0FFAcabas de perder &f%economyFormat%."
-command-economy-show-empty: "&f%player% <error>no tiene dinero.</error>"
+command-economy-show-empty: "&f%player% <error>no tiene dinero."
 command-economy-show-info: "&7- #99E0FF%economy% &f%amount%."
 command-money:
   - "#99E0FFTienes&8:"
@@ -146,14 +146,14 @@ command-money-other:
   - "#99E0FF%player% tiene&8:"
   - " &7- #99E0FF%economy-name-money% &f%economy-money%."
   - " &7- #99E0FF%economy-name-coins% &f%economy-coins%."
-command-pay-negative: "<error>La cantidad a pagar debe ser positiva.</error>"
+command-pay-negative: "<error>La cantidad a pagar debe ser positiva."
 command-pay-min: "<error>La cantidad mínima que puedes pagar es &f%amount%<error>."
 command-pay-max: "<error>La cantidad máxima que puedes pagar es &f%amount%<error>."
 command-pay-sender: "#99E0FFAcabas de enviar #F8F327%amount%#99E0FF al jugador &f%player%#99E0FF."
 command-pay-receiver: "&f%player% #99E0FFacaba de enviarte #F8F327%amount%#99E0FF."
 command-pay-disable: "<error>No puedes enviar %name%."
 command-pay-self: "<error>No puedes enviarte dinero a ti mismo."
-command-pay-not-enough: "<error>No tienes suficiente dinero.</error>"
+command-pay-not-enough: "<error>No tienes suficiente dinero."
 
 
 # Teleport commands
@@ -397,7 +397,7 @@ cooldown-commands: "<error>✘ Debes esperar &f%cooldown% <error>antes de realiz
 # Teleportation
 teleport-move: "<error>¡No debes moverte!"
 teleport-damage: "<error>¡No debes recibir daño durante la teletransportación!"
-teleport-error-location: "<error>No puedo teletransportarte de forma segura.</error>"
+teleport-error-location: "<error>No puedo teletransportarte de forma segura."
 
 teleport-message:
   type: ACTION
@@ -508,7 +508,7 @@ command-home-information-in-line:
   message: "#8cc0ccʏᴏᴜʀ ʜᴏᴍᴇs <success>♦ &7(%count%/%max%) &8:&f%homes%"
 command-home-information-in-line-info: " <hover:show_text:'&7Haz clic para teletransportarte al hogar &f&n%name%'><click:run_command:'/home %name%'>&f%name%</click></hover>&7"
 
-command-home-icon-error: "<error>Debes tener un objeto en la mano para cambiar el icono de tu hogar.</error>"
+command-home-icon-error: "<error>Debes tener un objeto en la mano para cambiar el icono de tu hogar."
 command-home-icon-success: "#00ff00Acabas de cambiar el icono del hogar &f%name%#00ff00."
 command-home-icon-reset: "#00ff00Acabas de restablecer el icono del hogar &f%name%#00ff00."
 command-home-delete: "#99E0FFAcabas de eliminar el hogar &f%name%#99E0FF."
@@ -581,17 +581,17 @@ message-ban-join:
   - ""
 
 # Chat
-chat-error: "<error>Imposible dejarte hablar, tus datos no se han cargado.</error>"
-chat-alphanumeric-regex: "<error>Usas un carácter prohibido.</error>"
+chat-error: "<error>Imposible dejarte hablar, tus datos no se han cargado."
+chat-alphanumeric-regex: "<error>Usas un carácter prohibido."
 chat-cooldown: "<error>Por favor, espera antes de enviar tu próximo mensaje. &8(&7%cooldown%&8)"
-chat-same: "<error>No puedes poner la misma frase.</error>"
-chat-link: "<error>No puedes enviar un enlace en el chat.</error>"
-chat-disable: "<error>El chat está actualmente no disponible.</error>"
+chat-same: "<error>No puedes poner la misma frase."
+chat-link: "<error>No puedes enviar un enlace en el chat."
+chat-disable: "<error>El chat está actualmente no disponible."
 chat-caps: "<error>¡No tienes que gritar para hablar!"
-chat-flood: "<error>No puedes hablar así.</error>"
+chat-flood: "<error>No puedes hablar así."
 
 chat-default-format: "<white>%displayName% <#656665>• <gray>%message%"
-chat-messages-empty: "&f%player% <error>no escribió ningún mensaje.</error>"
+chat-messages-empty: "&f%player% <error>no escribió ningún mensaje."
 chat-messages-line:
   type: WITHOUT_PREFIX
   message: "&f%date% &7%message%"
@@ -609,15 +609,15 @@ command-chat-broadcast:
 
 
 # Messages
-command-message-self: "<error>No puedes hablar contigo mismo.</error>"
-command-message-disable: "&f%player% <error>ha desactivado los mensajes privados.</error>"
-command-message-mute: "<error>No tienes permitido hablar.</error>"
+command-message-self: "<error>No puedes hablar contigo mismo."
+command-message-disable: "&f%player% <error>ha desactivado los mensajes privados."
+command-message-mute: "<error>No tienes permitido hablar."
 command-message-me: "<hover:show_text:'&fHaz clic para responder'><click:suggest_command:'/r '>&8(#f533f5me &7-> #34cfe0%target%&8) #e6e1e6<message></click></hover>"
 command-message-other: "<hover:show_text:'&fHaz clic para responder'><click:suggest_command:'/r '>&8(#34cfe0%target% &7-> #f533f5me&8) #e6e1e6<message></click></hover>"
 command-message-social-spy:
   type: WITHOUT_PREFIX
   message: "&8(&7SocialSpy&8) &8(<hover:show_text:'&fAbrir sanción para %sender%'><click:run_command:'/sc %sender%'>#34cfe0%sender%</click></hover> &7-> <hover:show_text:'&fAbrir sanción para %receiver%'><click:run_command:'/sc %receiver%'>#f533f5%receiver%</click></hover>&8) #e6e1e6%message%"
-command-message-error: "<error>No tienes a nadie a quien responder.</error>"
+command-message-error: "<error>No tienes a nadie a quien responder."
 command-message-toggle-enable: "&7Mensaje privado <success>activado &7para &f%player%<success>."
 command-message-toggle-disable: "&7Mensaje privado <error>desactivado &7para &f%player%<success>."
 command-social-spy-enable: "&7Espía social <success>activado &7para &f%player%<success>."
@@ -646,7 +646,7 @@ command-kit-delete: "<success>Acabas de eliminar el kit &f%kit%<success>."
 
 # Cooldown
 command-cooldown-header: "&fEnfriamiento del jugador %player% &8(&7%amount%&8)"
-command-cooldown-empty: "&f%player% <error>no tiene enfriamiento.</error>"
+command-cooldown-empty: "&f%player% <error>no tiene enfriamiento."
 # Available placeholders:
 # %key% - The key to the cooldown
 # %value% - The cooldown expiration timestamp
@@ -665,7 +665,7 @@ command-cooldown-delete: "<success>Acabas de eliminar el enfriamiento &f%cooldow
 command-cooldown-create: "<success>Acabas de crear el enfriamiento &f%key% <success>para &n%player%&r<success>."
 
 
-command-item-empty: "<error>No tienes ningún objeto en la mano.</error>"
+command-item-empty: "<error>No tienes ningún objeto en la mano."
 command-item-clear: "<success>Has borrado el nombre de este objeto."
 command-item-set: "<success>Has cambiado el nombre de tu objeto sostenido a &f%name%<success>."
 command-item-lore-add: "<success>Acabas de agregar la línea &f%text%<success>."
@@ -677,13 +677,13 @@ command-give: "<success>Acabas de dar &n&fx%amount% %item%&r <success>al jugador
 command-give-all: "<success>Acabas de dar &n&fx%amount% %item%&r <success>a los jugadores en línea."
 command-give-vault: "<success>Acabas de dar &n&fx%amount% %item%&r <success>al vault de &f%player%<success>."
 
-command-power-tool-error-item: "<error>No tienes ningún objeto en la mano.</error>"
-command-power-tool-error-reset: "<error>Este objeto no tiene ningún comando registrado.</error>"
+command-power-tool-error-item: "<error>No tienes ningún objeto en la mano."
+command-power-tool-error-reset: "<error>Este objeto no tiene ningún comando registrado."
 command-power-tool-info: "<success>Acabas de poner el comando &f/%command%<success> en el objeto &f%item%<success>."
 command-power-tool-reset: "<success>Acabas de eliminar el comando en el objeto &f%item%<success>."
 
-mailbox-remove-full: "<error>Debes tener espacio en tu inventario para recuperar un objeto.</error>"
-mailbox-remove-expire: "<error>Ya no puedes recuperar este objeto, ha caducado.</error>"
+mailbox-remove-full: "<error>Debes tener espacio en tu inventario para recuperar un objeto."
+mailbox-remove-expire: "<error>Ya no puedes recuperar este objeto, ha caducado."
 mailbox-add:
   type: ACTION
   message: "<success>Se acaba de agregar un objeto a tu buzón &8(&f/mail&8)"
@@ -731,7 +731,7 @@ hologram-item-error: "<error>No puedes usar aire para este holograma."
 hologram-item: "<success>Acabas de modificar el objeto del holograma &f%name%<success>."
 hologram-block: "<success>Acabas de modificar el bloque del holograma &f%name%<success> a &f%material%<success>."
 
-scoreboard-disable: "<error>Acabas de desactivar el marcador.</error>"
+scoreboard-disable: "<error>Acabas de desactivar el marcador."
 scoreboard-enable: "<success>Acabas de activar el marcador."
 
 command-baltop-error: "<error>No se puede encontrar la economía &f%name%<error>."
@@ -788,7 +788,7 @@ command-enchant-remove-player: "<success>El encantamiento &f%enchant% <success>h
 command-enchant-success-self: "<success>El encantamiento &f%enchant% <success>ha sido aplicado a tu objeto en la mano."
 command-enchant-success-player: "<success>El encantamiento &f%enchant% <success>ha sido aplicado al objeto de &f%player%’s<success> mano."
 
-command-sudo-error: "<error>No puedes forzar al jugador a ejecutar comandos.</error>"
+command-sudo-error: "<error>No puedes forzar al jugador a ejecutar comandos."
 command-sudo-command: "<success>Acabas de forzar al jugador <white>%player% <success>a ejecutar el comando <white>/%command%<success>."
 command-sudo-message: "<success>Acabas de forzar al jugador <white>%player% <success>a enviar el mensaje <white>%message%<success>."
 
@@ -821,13 +821,13 @@ command-worldedit-option-inventory-disable: "<error>Acabas de desactivar worlded
 command-worldedit-option-bossbar-enable: "<success>Acabas de activar la barra de progreso de worldedit."
 command-worldedit-option-bossbar-disable: "<error>Acabas de desactivar la barra de progreso de worldedit."
 
-worldedit-selection-error: "<error>Debes seleccionar dos posiciones antes de realizar este comando.</error>"
-worldedit-already-running: "<error>Ya tienes una edición en progreso, por favor espera hasta que termine.</error>"
-worldedit-not-enough-money: "<error>No tienes suficiente dinero para realizar esta edición.</error>"
-worldedit-not-enough-items: "<error>No tienes los objetos en tu inventario, no puedes hacer eso.</error>"
+worldedit-selection-error: "<error>Debes seleccionar dos posiciones antes de realizar este comando."
+worldedit-already-running: "<error>Ya tienes una edición en progreso, por favor espera hasta que termine."
+worldedit-not-enough-money: "<error>No tienes suficiente dinero para realizar esta edición."
+worldedit-not-enough-items: "<error>No tienes los objetos en tu inventario, no puedes hacer eso."
 worldedit-selection-pos1: "<success>Acabas de definir la primera posición."
 worldedit-selection-pos2: "<success>Acabas de definir la segunda posición."
-worldedit-selection-volume: "<error>No puedes cambiar más de &f%blocks% <error>al mismo tiempo.</error>"
+worldedit-selection-volume: "<error>No puedes cambiar más de &f%blocks% <error>al mismo tiempo."
 worldedit-selection-distance: "<error>La distancia entre tus dos puntos en tu selección es demasiado grande. <dark_gray>(<gray>Máximo <white>%distance% <gray>bloques<dark_gray>)"
 
 worldedit-start-calculate-price: "&7Cálculo de precio en progreso, por favor espere..."
