@@ -242,6 +242,7 @@ first-join-motd:
 command-set-spawn: "&fYou just set the spawn location."
 command-spawn-not-define: "<error>The spawn does not exist. Please contact an administrator."
 command-spawn-location-invalid: "<error>The spawn is invalid, please contact an administrator"
+command-spawn-first-not-define: "<error>The first spawn does not exist. Please contact an administrator."
 
 
 # Command description
@@ -303,7 +304,9 @@ description-stonecutter: "Open a stone cutter"
 description-smithingtable: "Open a smithing table"
 description-back: "Teleport to your previous location"
 description-set-spawn: "Set server spawn"
+description-set-first-spawn: "Set server first spawn"
 description-spawn: "Teleport to spawn"
+description-spawn-first: "Teleport to first spawn"
 description-warp-set: "Create a warp"
 description-warp-use: "Teleport to a warp"
 description-warp-del: "Delete a warp"

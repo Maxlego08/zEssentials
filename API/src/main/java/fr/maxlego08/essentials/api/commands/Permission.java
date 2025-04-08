@@ -259,7 +259,8 @@ public enum Permission {
     ESSENTIALS_PUB,
     ESSENTIALS_STEP,
     ESSENTIALS_HOME_LIST,
-    ESSENTIALS_AFK_BYPASS("Allows to not be affected by the anti-AFK");
+    ESSENTIALS_AFK_BYPASS("Allows to not be affected by the anti-AFK"),
+    ESSENTIALS_SET_FIRST_SPAWN, ESSENTIALS_SPAWN_FIRST;
 
     private final String description;
     private final String[] args;

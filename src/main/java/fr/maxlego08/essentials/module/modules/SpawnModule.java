@@ -100,8 +100,12 @@ public class SpawnModule extends ZModule {
 
     public void onSpawnLocation(PlayerSpawnLocationEvent event, Player player) {
         User user = getUser(player);
-        if (user != null && user.isFirstJoin() && ConfigStorage.spawnLocation != null && ConfigStorage.spawnLocation.isValid()) {
-            event.setSpawnLocation(ConfigStorage.spawnLocation.getLocation());
+        if (user != null && user.isFirstJoin()) {
+            if (ConfigStorage.firstSpawnLocation != null && ConfigStorage.firstSpawnLocation.isValid()) {
+                event.setSpawnLocation(ConfigStorage.firstSpawnLocation.getLocation());
+            } else if (ConfigStorage.spawnLocation != null && ConfigStorage.spawnLocation.isValid()) {
+                event.setSpawnLocation(ConfigStorage.spawnLocation.getLocation());
+            }
         }
     }
 
@@ -132,8 +136,12 @@ public class SpawnModule extends ZModule {
 
     public void onPlayerFirstJoin(Player player) {
 
-        if (!this.isEnable || ConfigStorage.spawnLocation == null || !ConfigStorage.spawnLocation.isValid()) return;
+        if (!this.isEnable) return;
 
-        player.teleport(ConfigStorage.spawnLocation.getLocation());
+        if (ConfigStorage.firstSpawnLocation != null && ConfigStorage.firstSpawnLocation.isValid()) {
+            player.teleport(ConfigStorage.firstSpawnLocation.getLocation());
+        } else if (ConfigStorage.spawnLocation != null && ConfigStorage.spawnLocation.isValid()) {
+            player.teleport(ConfigStorage.spawnLocation.getLocation());
+        }
     }
 }
