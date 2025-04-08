@@ -666,11 +666,11 @@ command-cooldown-create: "<success>Acabas de crear el enfriamiento &f%key% <succ
 
 
 command-item-empty: "<error>No tienes ningún objeto en la mano.</error>"
-command-item-clear: "<success>Has borrado el nombre de este objeto.</success>"
+command-item-clear: "<success>Has borrado el nombre de este objeto."
 command-item-set: "<success>Has cambiado el nombre de tu objeto sostenido a &f%name%<success>."
 command-item-lore-add: "<success>Acabas de agregar la línea &f%text%<success>."
 command-item-lore-set: "<success>Acabas de establecer la línea %line% en &f%text%<success>."
-command-item-lore-clear: "<success>Acabas de borrar el lore del objeto.</success>"
+command-item-lore-clear: "<success>Acabas de borrar el lore del objeto."
 command-item-lore-set-error: "<error>No se puede encontrar la línea &f%line%<error>."
 command-give-error: "<error>No se puede encontrar el objeto &f%item%<error>."
 command-give: "<success>Acabas de dar &n&fx%amount% %item%&r <success>al jugador &f%player%<success>."
@@ -732,7 +732,7 @@ hologram-item: "<success>Acabas de modificar el objeto del holograma &f%name%<su
 hologram-block: "<success>Acabas de modificar el bloque del holograma &f%name%<success> a &f%material%<success>."
 
 scoreboard-disable: "<error>Acabas de desactivar el marcador.</error>"
-scoreboard-enable: "<success>Acabas de activar el marcador.</success>"
+scoreboard-enable: "<success>Acabas de activar el marcador."
 
 command-baltop-error: "<error>No se puede encontrar la economía &f%name%<error>."
 command-baltop-header:
@@ -825,8 +825,8 @@ worldedit-selection-error: "<error>Debes seleccionar dos posiciones antes de rea
 worldedit-already-running: "<error>Ya tienes una edición en progreso, por favor espera hasta que termine.</error>"
 worldedit-not-enough-money: "<error>No tienes suficiente dinero para realizar esta edición.</error>"
 worldedit-not-enough-items: "<error>No tienes los objetos en tu inventario, no puedes hacer eso.</error>"
-worldedit-selection-pos1: "<success>Acabas de definir la primera posición.</success>"
-worldedit-selection-pos2: "<success>Acabas de definir la segunda posición.</success>"
+worldedit-selection-pos1: "<success>Acabas de definir la primera posición."
+worldedit-selection-pos2: "<success>Acabas de definir la segunda posición."
 worldedit-selection-volume: "<error>No puedes cambiar más de &f%blocks% <error>al mismo tiempo.</error>"
 worldedit-selection-distance: "<error>La distancia entre tus dos puntos en tu selección es demasiado grande. <dark_gray>(<gray>Máximo <white>%distance% <gray>bloques<dark_gray>)"
 
