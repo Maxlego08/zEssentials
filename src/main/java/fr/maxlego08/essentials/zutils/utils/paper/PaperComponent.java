@@ -19,6 +19,7 @@ import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.kyori.adventure.text.minimessage.tag.standard.StandardTags;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -33,6 +34,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -229,5 +231,13 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
     @Override
     public void kick(Player player, String message) {
         player.kick(getComponent(message));
+    }
+
+    @Override
+    public String getItemStackName(ItemStack itemStack) {
+        if (itemStack.hasItemMeta()) return "";
+        var meta = itemStack.getItemMeta();
+        if (!meta.hasDisplayName()) return "";
+        return PlainTextComponentSerializer.plainText().serialize(Objects.requireNonNull(meta.displayName()));
     }
 }

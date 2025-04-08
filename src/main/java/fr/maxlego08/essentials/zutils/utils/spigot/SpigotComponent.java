@@ -56,4 +56,12 @@ public class SpigotComponent implements ComponentMessage {
     public void kick(Player player, String message) {
         player.kickPlayer(message);
     }
+
+    @Override
+    public String getItemStackName(ItemStack itemStack) {
+        if (itemStack.hasItemMeta()) return "";
+        var meta = itemStack.getItemMeta();
+        if (!meta.hasDisplayName()) return "";
+        return meta.getDisplayName().replaceAll("§.", "");
+    }
 }
