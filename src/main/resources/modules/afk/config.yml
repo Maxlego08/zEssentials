@@ -34,16 +34,19 @@ permissions:
     start-afk-time: 20
     max-afk-time: 60 # in seconds
     kick: true
-    message-on-start-afk: "You are now AFK, we have only 40 seconds left before being expelled from the server."
+    message-on-start-afk: "&cYou are now AFK, we have only &f40&c seconds left before being expelled from the server."
+    message-on-end-afk: "&aYou are no longer AFK. You have been afk for &f%duration%&a."
   - priority: 1
     permission: "zessentials.afk.vip"
     start-afk-time: 30
     max-afk-time: 120 # in seconds
-    message-on-start-afk: "You are now AFK, we have only 90 seconds left before being expelled from the server."
+    message-on-start-afk: "&cYou are now AFK, we have only &f90&c seconds left before being expelled from the server."
+    message-on-end-afk: "&aYou are no longer AFK. You have been afk for &f%duration%&a."
     kick: true
   - priority: 2
     permission: "zessentials.afk.admin"
     start-afk-time: 60
     max-afk-time: 300 # in seconds
-    # message-on-start-afk: "You are now AFK, we have only 240 seconds left before being expelled from the server."
+    # message-on-start-afk: "&cYou are now AFK, we have only &f240&c seconds left before being expelled from the server."
+    # message-on-end-afk: "&aYou are no longer AFK. You have been afk for &f%duration%&a."
     kick: true

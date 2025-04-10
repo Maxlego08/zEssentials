@@ -8,11 +8,13 @@ import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.configuration.NonLoadable;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.ZModule;
+import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.menu.api.requirement.Action;
 import fr.maxlego08.menu.api.utils.Placeholders;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -116,6 +118,7 @@ public class AFKModule extends ZModule implements AfkManager {
         var user = getUser(event.getPlayer());
         if (user == null) return;
 
+        endAfk(user);
         user.setLastActiveTime();
     }
 
@@ -124,6 +127,34 @@ public class AFKModule extends ZModule implements AfkManager {
         var user = getUser(event.getPlayer());
         if (user == null) return;
 
+        endAfk(user);
         user.setLastActiveTime();
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onInventoryClick(InventoryClickEvent event) {
+        var user = getUser(event.getWhoClicked());
+        if (user == null) return;
+
+        endAfk(user);
+        user.setLastActiveTime();
+    }
+
+    private void endAfk(User user) {
+
+        if (!user.isAfk()) return;
+
+        var lastActiveTime = user.getLastActiveTime();
+
+        var optional = getPermission(user.getPlayer());
+        if (optional.isEmpty()) return;
+
+        var permission = optional.get();
+        if (permission.messageOnEndAfk() != null) {
+            var component = this.plugin.getComponentMessage();
+            Placeholders placeholders = new Placeholders();
+            placeholders.register("duration", TimerBuilder.getStringTime(System.currentTimeMillis() - lastActiveTime));
+            component.sendMessage(user.getPlayer(), papi(placeholders.parse(permission.messageOnEndAfk()), user.getPlayer()));
+        }
     }
 }
