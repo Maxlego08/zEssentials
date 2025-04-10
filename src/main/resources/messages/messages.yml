@@ -485,6 +485,7 @@ teleport-success-warp:
   - message: "&7You just teleported to warp #0EEA93%name% &7!"
   - type: ACTION
     message: "&7You just teleported to warp #0EEA93%name% &7!"
+teleport-random-start: "&7Searching for a destination... you must not move."
 teleport-message-random:
   type: ACTION
   message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."

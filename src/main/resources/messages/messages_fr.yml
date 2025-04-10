@@ -482,6 +482,7 @@ teleport-success-warp:
     message: "&7Vous venez de téléporter à la balise #0EEA93%name% &7!"
   - message: "&7Vous venez de téléporter à la balise #0EEA93%name% &7!"
 
+teleport-random-start: "&7Recherche d’une destination... vous ne devez pas bouger."
 teleport-message-random:
   type: ACTION
   message: "&7Téléportation dans #0EEA93%seconds% &7secondes, vous ne devez pas bouger."
