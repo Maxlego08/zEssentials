@@ -109,6 +109,7 @@ public class AFKModule extends ZModule implements AfkManager {
         var to = event.getTo();
 
         if (from.getYaw() != to.getYaw() || from.getPitch() != to.getPitch()) {
+            endAfk(user);
             user.setLastActiveTime();
         }
     }
@@ -142,14 +143,17 @@ public class AFKModule extends ZModule implements AfkManager {
 
     private void endAfk(User user) {
 
+        System.out.println(" a " + user.isAfk());
         if (!user.isAfk()) return;
 
         var lastActiveTime = user.getLastActiveTime();
 
         var optional = getPermission(user.getPlayer());
+        System.out.println(" b " + lastActiveTime + " - " + optional);
         if (optional.isEmpty()) return;
 
         var permission = optional.get();
+        System.out.println(" c " + permission.messageOnEndAfk());
         if (permission.messageOnEndAfk() != null) {
             var component = this.plugin.getComponentMessage();
             Placeholders placeholders = new Placeholders();
