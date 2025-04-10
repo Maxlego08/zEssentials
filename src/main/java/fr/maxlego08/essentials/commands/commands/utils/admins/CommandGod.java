@@ -6,6 +6,7 @@ import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
+import fr.maxlego08.essentials.zutils.utils.AttributeUtils;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.command.CommandSender;
@@ -44,8 +45,7 @@ public class CommandGod extends VCommand {
         boolean isGodEnabled = user.getOption(Option.GOD);
 
         if (isGodEnabled) {
-            // GENERIC_MAX_HEALTH
-            player.setHealth(player.getAttribute(Attribute.MAX_HEALTH).getBaseValue());
+            player.setHealth(player.getAttribute(AttributeUtils.getAttribute("max_health")).getBaseValue());
             player.setFoodLevel(20);
         }
 

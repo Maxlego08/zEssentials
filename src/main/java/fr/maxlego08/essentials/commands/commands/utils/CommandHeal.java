@@ -4,6 +4,7 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.zutils.utils.AttributeUtils;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Registry;
@@ -34,9 +35,7 @@ public class CommandHeal extends VCommand {
             return CommandResultType.DEFAULT;
         }
 
-        // GENERIC_MAX_HEALTH
-        var attribute = Registry.ATTRIBUTE.getOrThrow(NamespacedKey.minecraft("generic.max_health"));
-        player.setHealth(player.getAttribute(attribute).getBaseValue());
+        player.setHealth(player.getAttribute(AttributeUtils.getAttribute("max_health")).getBaseValue());
         player.setFoodLevel(20);
         player.setFireTicks(0);
         Player finalPlayer = player;

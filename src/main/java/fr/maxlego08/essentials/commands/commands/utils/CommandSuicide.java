@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.module.modules.RuleModule;
+import fr.maxlego08.essentials.zutils.utils.AttributeUtils;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 import org.bukkit.attribute.Attribute;
 
@@ -21,7 +22,7 @@ public class CommandSuicide extends VCommand {
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
         // GENERIC_MAX_HEALTH
-        var attribute = this.player.getAttribute(Attribute.MAX_HEALTH);
+        var attribute = this.player.getAttribute(AttributeUtils.getAttribute("max_health"));
         if (attribute == null) return CommandResultType.SYNTAX_ERROR;
         this.player.damage(attribute.getBaseValue() * 2);
 

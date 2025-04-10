@@ -454,7 +454,7 @@ public class SanctionModule extends ZModule {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         User user = this.getUser(event.getPlayer());
-        if (user.isFrozen()) {
+        if (user != null && user.isFrozen()) {
             user.getPlayer().setAllowFlight(true);
             user.getPlayer().setFlying(true);
             user.getPlayer().setFlySpeed(0f);
@@ -466,7 +466,7 @@ public class SanctionModule extends ZModule {
     @EventHandler
     public void onCommand(PlayerCommandPreprocessEvent event) {
         User user = this.getUser(event.getPlayer());
-        if (user.isFrozen()) {
+        if (user != null && user.isFrozen()) {
             event.setCancelled(true);
             this.plugin.getEssentialsServer().sendMessage(user.getUniqueId(), Message.MESSAGE_FREEZE);
         }
