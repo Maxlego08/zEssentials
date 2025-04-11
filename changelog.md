@@ -5,6 +5,20 @@
 
 # Unreleased
 
+# 1.0.2.2
+
+- Added [AFK](https://zessentials.groupez.dev/modules/afk) module.
+- Added `/experience grand-random <player> <min> <max> <level/experience>`, Grant experience to player.
+- Added first spawn location (`/setfirstspawn`) [#168](https://github.com/Maxlego08/zEssentials/issues/168)
+- Added default reason for economy commands
+- Added /w aliases for private message command
+- Added ``%zessentials_armor_name_<armor slot>%``, Returns the name of the player’s armor, without the color
+- Added default home icon configuration [#170](https://github.com/Maxlego08/zEssentials/issues/170)
+- Added a message for ``/rtp`` command
+- Fixed spigot attribute
+- Fixed discord webhook
+- Fixed default messages files
+
 # 1.0.2.1
 
 - Fixed Vault.
