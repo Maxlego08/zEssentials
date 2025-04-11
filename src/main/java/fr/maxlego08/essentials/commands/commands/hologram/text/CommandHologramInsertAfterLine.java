@@ -8,7 +8,6 @@ import fr.maxlego08.essentials.api.hologram.HologramManager;
 import fr.maxlego08.essentials.api.hologram.HologramType;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.commands.commands.hologram.VCommandHologram;
-import fr.maxlego08.essentials.module.modules.hologram.ZHologramLine;
 
 import java.util.Optional;
 
@@ -36,7 +35,7 @@ public class CommandHologramInsertAfterLine extends VCommandHologram {
             return;
         }
 
-        hologram.insertAfterLine(line, new ZHologramLine(line, text, false));
+        hologram.insertAfterLine(line, new HologramLine(line, text, false));
         hologram.updateForAllPlayers();
 
         manager.saveHologram(hologram);

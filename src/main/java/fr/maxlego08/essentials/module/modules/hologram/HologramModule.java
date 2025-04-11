@@ -164,7 +164,7 @@ public class HologramModule extends ZModule implements HologramManager {
         Hologram hologram = this.createHologram(hologramType, hologramConfiguration, name, name, new SafeLocation(player.getLocation()));
 
         if (hologramType == HologramType.TEXT) {
-            hologram.addLine(new ZHologramLine(1, "&fUse #ff9966/holo setline " + name + " 1 <your text>&f!", false));
+            hologram.addLine(new HologramLine(1, "&fUse #ff9966/holo setline " + name + " 1 <your text>&f!", false));
         }
 
         hologram.create();
@@ -342,7 +342,7 @@ public class HologramModule extends ZModule implements HologramManager {
         HologramConfiguration hologramConfiguration = new TextHologramConfiguration();
         var hologram = createHologram(HologramType.TEXT, hologramConfiguration, "", "", new SafeLocation(location));
 
-        hologram.addLine(new ZHologramLine(1, text, false));
+        hologram.addLine(new HologramLine(1, text, false));
         hologram.create();
         hologram.createForAllPlayers();
 
