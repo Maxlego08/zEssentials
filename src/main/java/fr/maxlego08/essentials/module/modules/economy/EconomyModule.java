@@ -67,6 +67,12 @@ public class EconomyModule extends ZModule implements EconomyManager {
     private String baltopMessageEconomy;
     private String payWithdrawReason;
     private String payDepositReason;
+    private String commandGiveReason;
+    private String commandGiveAllReason;
+    private String commandGiveRandomReason;
+    private String commandTakeReason;
+    private String commandResetReason;
+    private String commandSetReason;
     private int baltopMessageAmount;
     private BaltopDisplay baltopDisplay;
     private WrappedTask baltopTask;
@@ -422,4 +428,33 @@ public class EconomyModule extends ZModule implements EconomyManager {
         this.offlinePlayers.remove(event.getUser().getUniqueId());
     }
 
+    @Override
+    public String getCommandGiveReason() {
+        return commandGiveReason;
+    }
+
+    @Override
+    public String getCommandGiveAllReason() {
+        return commandGiveAllReason;
+    }
+
+    @Override
+    public String getCommandGiveRandomReason() {
+        return commandGiveRandomReason;
+    }
+
+    @Override
+    public String getCommandTakeReason() {
+        return commandTakeReason;
+    }
+
+    @Override
+    public String getCommandResetReason() {
+        return commandResetReason;
+    }
+
+    @Override
+    public String getCommandSetReason() {
+        return commandSetReason;
+    }
 }

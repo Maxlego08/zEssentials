@@ -99,6 +99,7 @@ public class TeleportationModule extends ZModule {
 
 
     public void randomTeleport(Player player, World world, int centerX, int centerZ, int rangeX, int rangeZ) {
+        message(player, Message.TELEPORT_RANDOM_START);
         getRandomSurfaceLocation(world, centerX, centerZ, rangeX, rangeZ, this.maxRtpAttempts).thenAccept(randomLocation -> {
             if (randomLocation != null) {
                 User user = this.getUser(player);

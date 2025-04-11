@@ -59,6 +59,8 @@ import fr.maxlego08.essentials.commands.commands.sanction.CommandSeenIp;
 import fr.maxlego08.essentials.commands.commands.sanction.CommandUnBan;
 import fr.maxlego08.essentials.commands.commands.sanction.CommandUnMute;
 import fr.maxlego08.essentials.commands.commands.scoreboard.CommandScoreboard;
+import fr.maxlego08.essentials.commands.commands.spawn.CommandFirstSpawn;
+import fr.maxlego08.essentials.commands.commands.spawn.CommandSetFirstSpawn;
 import fr.maxlego08.essentials.commands.commands.spawn.CommandSetSpawn;
 import fr.maxlego08.essentials.commands.commands.spawn.CommandSpawn;
 import fr.maxlego08.essentials.commands.commands.step.CommandStep;
@@ -200,8 +202,10 @@ public class CommandLoader {
         register("pay", CommandPay.class);
         register("paytoggle", CommandPayToggle.class);
 
+        register("setfirstspawn", CommandSetFirstSpawn.class);
         register("setspawn", CommandSetSpawn.class);
         register("spawn", CommandSpawn.class);
+        register("firstspawn", CommandFirstSpawn.class);
 
         register("setwarp", CommandSetWarp.class, "wcreate");
         register("warp", CommandWarp.class, "w");
@@ -233,7 +237,7 @@ public class CommandLoader {
         register("broadcast", CommandChatBroadcast.class, "bc");
         register("showitem", CommandShowItem.class);
 
-        register("message", CommandMessage.class, "msg", "tell", "whisper", "m");
+        register("message", CommandMessage.class, "msg", "tell", "whisper", "m", "w");
         register("reply", CommandReply.class, "r");
         register("messagetoggle", CommandMessageToggle.class, "msgtoggle", "mtg");
         register("socialspy", CommandSocialSpy.class);

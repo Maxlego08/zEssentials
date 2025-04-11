@@ -4,7 +4,10 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.zutils.utils.AttributeUtils;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
+import org.bukkit.NamespacedKey;
+import org.bukkit.Registry;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 
@@ -32,8 +35,7 @@ public class CommandHeal extends VCommand {
             return CommandResultType.DEFAULT;
         }
 
-        // GENERIC_MAX_HEALTH
-        player.setHealth(player.getAttribute(Attribute.MAX_HEALTH).getBaseValue());
+        player.setHealth(player.getAttribute(AttributeUtils.getAttribute("max_health")).getBaseValue());
         player.setFoodLevel(20);
         player.setFireTicks(0);
         Player finalPlayer = player;

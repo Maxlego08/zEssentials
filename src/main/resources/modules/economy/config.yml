@@ -165,5 +165,14 @@ default-economies:
   - economy: money
     amount: 100
 
+# Reasons for pay command
 pay-withdraw-reason: "Payment sent to %player%"
 pay-deposit-reason: "Payment received from %player%"
+
+# Default reasons for admin commands
+command-give-reason: "Give by %sender%"
+command-give-all-reason: "Give by %sender% (Give-all)"
+command-give-random-reason: "Give by %sender% (Random)"
+command-take-reason: "Taken by %sender%"
+command-reset-reason: "Reset by %sender%"
+command-set-reason: "Set by %sender%"

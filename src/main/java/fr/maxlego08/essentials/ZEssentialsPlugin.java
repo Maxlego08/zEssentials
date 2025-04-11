@@ -8,13 +8,16 @@ import com.tcoded.folialib.impl.PlatformScheduler;
 import fr.maxlego08.essentials.api.Configuration;
 import fr.maxlego08.essentials.api.ConfigurationFile;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.afk.AfkManager;
 import fr.maxlego08.essentials.api.block.BlockTracker;
 import fr.maxlego08.essentials.api.chat.InteractiveChat;
 import fr.maxlego08.essentials.api.commands.CommandManager;
 import fr.maxlego08.essentials.api.commands.Permission;
+import fr.maxlego08.essentials.api.discord.DiscordManager;
 import fr.maxlego08.essentials.api.economy.EconomyManager;
 import fr.maxlego08.essentials.api.enchantment.Enchantments;
 import fr.maxlego08.essentials.api.hologram.HologramManager;
+import fr.maxlego08.essentials.api.home.HomeManager;
 import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
 import fr.maxlego08.essentials.api.permission.PermissionChecker;
@@ -68,9 +71,11 @@ import fr.maxlego08.essentials.module.modules.HomeModule;
 import fr.maxlego08.essentials.module.modules.MailBoxModule;
 import fr.maxlego08.essentials.module.modules.StepModule;
 import fr.maxlego08.essentials.module.modules.VoteModule;
+import fr.maxlego08.essentials.module.modules.afk.AFKModule;
 import fr.maxlego08.essentials.module.modules.chat.interactive.InteractiveChatHelper;
 import fr.maxlego08.essentials.module.modules.chat.interactive.InteractiveChatPaperListener;
 import fr.maxlego08.essentials.module.modules.chat.interactive.InteractiveChatSpigotListener;
+import fr.maxlego08.essentials.module.modules.discord.DiscordModule;
 import fr.maxlego08.essentials.module.modules.economy.EconomyModule;
 import fr.maxlego08.essentials.module.modules.hologram.HologramModule;
 import fr.maxlego08.essentials.module.modules.kit.KitModule;
@@ -86,6 +91,7 @@ import fr.maxlego08.essentials.storage.ZStorageManager;
 import fr.maxlego08.essentials.storage.adapter.UserTypeAdapter;
 import fr.maxlego08.essentials.task.FlyTask;
 import fr.maxlego08.essentials.user.ZUser;
+import fr.maxlego08.essentials.user.placeholders.ArmorPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.EconomyBaltopPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.RandomWordPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.ReplacePlaceholders;
@@ -246,6 +252,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.registerPlaceholder(VotePlaceholders.class);
         this.registerPlaceholder(WorldEditPlaceholders.class);
         this.registerPlaceholder(ServerPlaceholders.class);
+        this.registerPlaceholder(ArmorPlaceholders.class);
         this.randomWord = this.registerPlaceholder(RandomWordPlaceholders.class);
 
         new Metrics(this, 21703);
@@ -758,4 +765,18 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         return getModuleManager().getModule(StepModule.class);
     }
 
+    @Override
+    public AfkManager getAfkManager() {
+        return getModuleManager().getModule(AFKModule.class);
+    }
+
+    @Override
+    public DiscordManager getDiscordManager() {
+        return getModuleManager().getModule(DiscordModule.class);
+    }
+
+    @Override
+    public HomeManager getHomeManager() {
+        return getModuleManager().getModule(HomeModule.class);
+    }
 }

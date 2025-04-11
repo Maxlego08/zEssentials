@@ -835,7 +835,7 @@ command-vote:
 
 vote-offline:
   - ""
-  - "<success>Je hebt <gold>%amount% keer gestemd <success>terwijl je offline was. Gebruik het commando <yellow><click:run_command:'/mailbox'>/mailbox</click> <success>om je items te ontvangen!</success>"
+  - "<success>Je hebt <gold>%amount% keer gestemd <success>terwijl je offline was. Gebruik het commando <yellow><click:run_command:'/mailbox'>/mailbox</click> <success>om je items te ontvangen!"
   - ""
 
 vault-lore:

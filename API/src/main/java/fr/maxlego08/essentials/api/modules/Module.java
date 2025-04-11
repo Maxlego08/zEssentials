@@ -23,6 +23,13 @@ public interface Module extends Listener {
     void loadConfiguration();
 
     /**
+     * Retrieves the configuration file associated with the module.
+     *
+     * @return The configuration file.
+     */
+    File getConfigurationFile();
+
+    /**
      * Gets the folder associated with the module.
      *
      * @return The folder associated with the module.

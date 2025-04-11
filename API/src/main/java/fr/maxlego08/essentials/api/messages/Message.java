@@ -211,7 +211,9 @@ public enum Message {
     DESCRIPTION_PAY("Pays another player from your balance"),
     DESCRIPTION_PAY_TOGGLE("Activate or not the receipt of money"),
     DESCRIPTION_SET_SPAWN("Set server spawn"),
+    DESCRIPTION_SET_FIRST_SPAWN("Set server first spawn"),
     DESCRIPTION_SPAWN("Teleport to spawn"),
+    DESCRIPTION_SPAWN_FIRST("Teleport to first spawn"),
     DESCRIPTION_WARP_SET("Create a warp"),
     DESCRIPTION_WARP_USE("Teleport to a warp"),
     DESCRIPTION_WARP_DEL("Delete a warp"),
@@ -347,6 +349,7 @@ public enum Message {
     TELEPORT_MOVE("<error>You must not move!"),
     TELEPORT_MESSAGE(MessageType.ACTION, "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."),
     TELEPORT_SUCCESS(MessageType.ACTION, "#99E0FFYou have just teleported successfully!"),
+    TELEPORT_RANDOM_START("&7Searching for a destination... you must not move."),
     TELEPORT_MESSAGE_RANDOM(MessageType.ACTION, "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."),
     TELEPORT_SUCCESS_RANDOM(MessageType.ACTION, "#99E0FFYou have just teleported successfully!"),
     TELEPORT_MESSAGE_SPAWN(
@@ -429,6 +432,7 @@ public enum Message {
 
     COMMAND_SET_SPAWN("&fYou just set the spawn location."),
     COMMAND_SPAWN_NOT_DEFINE("<error>The spawn does not exist. Please contact an administrator."),
+    COMMAND_SPAWN_FIRST_NOT_DEFINE("<error>The first spawn does not exist. Please contact an administrator."),
     COMMAND_SPAWN_LOCATION_INVALID("<error>The spawn is invalid, please contact an administrator"),
 
     COMMAND_WARP_ALREADY_EXIST("<error>Warp &f%name% <error>already exists. &7Use &n<hover:show_text:'&fUse this command'><click:suggest_command:'/setwarp %name% true'>/setwarp %name% true</click></hover>&r command to modify the warp"),

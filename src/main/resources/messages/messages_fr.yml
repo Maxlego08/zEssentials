@@ -226,6 +226,7 @@ command-random-tp-error: "<error>Aucun emplacement sûr trouvé après plusieurs
 command-set-spawn: "&fVous venez de définir l'emplacement de spawn."
 command-spawn-not-define: "<error>Le spawn n'est pas défini. Veuillez contacter un administrateur."
 command-spawn-location-invalid: "<error>Le spawn est invalide, veuillez contacter un administrateur."
+command-spawn-first-not-define: "<error>Le spawn des nouveaux joueurs n'est pas défini. Veuillez contacter un administrateur."
 
 # Première connexion
 join-message: "#99E0FF%player% &7a rejoint la partie."
@@ -298,7 +299,9 @@ description-stonecutter: "Ouvrir un taille-pierre"
 description-smithingtable: "Ouvrir une table de forgeron"
 description-back: "Téléporter vers votre emplacement précédent"
 description-set-spawn: "Définir le point d'apparition du serveur"
+description-set-first-spawn: "Définir le point d'apparition du serveur pour les nouveaux joueurs"
 description-spawn: "Téléporter vers le point d'apparition"
+description-spawn-first: "Téléporter vers le point d'apparition des nouveaux joueurs"
 description-warp-set: "Créer un point de téléportation"
 description-warp-use: "Se téléporter vers un point de téléportation"
 description-warp-del: "Supprimer un point de téléportation"
@@ -479,6 +482,7 @@ teleport-success-warp:
     message: "&7Vous venez de téléporter à la balise #0EEA93%name% &7!"
   - message: "&7Vous venez de téléporter à la balise #0EEA93%name% &7!"
 
+teleport-random-start: "&7Recherche d’une destination... vous ne devez pas bouger."
 teleport-message-random:
   type: ACTION
   message: "&7Téléportation dans #0EEA93%seconds% &7secondes, vous ne devez pas bouger."

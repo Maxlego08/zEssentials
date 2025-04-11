@@ -12,6 +12,7 @@ import java.util.List;
 public class ConfigStorage {
 
     public static SafeLocation spawnLocation;
+    public static SafeLocation firstSpawnLocation;
     public static List<Warp> warps = new ArrayList<>();
     public static boolean chatEnable = true;
 

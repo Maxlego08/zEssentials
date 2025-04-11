@@ -78,7 +78,12 @@ public abstract class ZModule extends YamlLoader implements Module {
 
     @Override
     public YamlConfiguration getConfiguration() {
-        return YamlConfiguration.loadConfiguration(new File(getFolder(), "config.yml"));
+        return YamlConfiguration.loadConfiguration(getConfigurationFile());
+    }
+
+    @Override
+    public File getConfigurationFile() {
+        return new File(getFolder(), "config.yml");
     }
 
     @Override

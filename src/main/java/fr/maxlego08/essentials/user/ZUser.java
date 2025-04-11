@@ -29,8 +29,8 @@ import fr.maxlego08.essentials.api.utils.DynamicCooldown;
 import fr.maxlego08.essentials.api.utils.SafeLocation;
 import fr.maxlego08.essentials.api.worldedit.Selection;
 import fr.maxlego08.essentials.api.worldedit.WorldEditTask;
-import fr.maxlego08.essentials.module.modules.economy.EconomyModule;
 import fr.maxlego08.essentials.module.modules.TeleportationModule;
+import fr.maxlego08.essentials.module.modules.economy.EconomyModule;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -92,6 +92,7 @@ public class ZUser extends ZUtils implements User {
     private Home currentDeleteHome;
     private long flySeconds;
     private DiscordAccount discordAccount;
+    private long lastActiveTime = System.currentTimeMillis();
 
     private boolean freeze;
 
@@ -987,5 +988,22 @@ public class ZUser extends ZUtils implements User {
     @Override
     public void removeDiscordAccount() {
         this.discordAccount = null;
+    }
+
+    @Override
+    public long getLastActiveTime() {
+        return this.lastActiveTime;
+    }
+
+    @Override
+    public void setLastActiveTime() {
+        this.lastActiveTime = System.currentTimeMillis();
+    }
+
+    @Override
+    public boolean isAfk() {
+        var difference = (System.currentTimeMillis() - this.lastActiveTime) / 1000;
+        var optional = plugin.getAfkManager().getPermission(getPlayer());
+        return optional.filter(afkPermission -> difference >= afkPermission.startAfkTime()).isPresent();
     }
 }

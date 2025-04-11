@@ -37,7 +37,7 @@ public class CommandEconomyTake extends VCommand {
         String userName = this.argAsString(1);
         double amount = this.argAsDouble(2);
         boolean silent = this.argAsBoolean(3, false);
-        String reason = this.getArgs(5, "Take by " + sender.getName());
+        String reason = this.getArgs(5, getMessage(plugin.getEconomyManager().getCommandTakeReason(), "%sender%", sender.getName()));
 
         EconomyManager economyManager = plugin.getEconomyManager();
         Optional<Economy> optional = economyManager.getEconomy(economyName);

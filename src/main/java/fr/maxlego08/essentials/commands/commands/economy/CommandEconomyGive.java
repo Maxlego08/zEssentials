@@ -33,7 +33,7 @@ public class CommandEconomyGive extends GiveCommand {
         String userName = this.argAsString(1);
         double amount = this.argAsDouble(2);
         boolean silent = this.argAsBoolean(3, false);
-        String reason = this.getArgs(5, "Give by " + sender.getName());
+        String reason = this.getArgs(5, getMessage(plugin.getEconomyManager().getCommandGiveReason(), "%sender%", sender.getName()));
 
         return give(this.sender, userName, economyName, amount, silent, reason);
     }

@@ -55,3 +55,7 @@ home-delete-confirm: true
 # MAX - Will browse the permission list and retrieve the most home
 # STACK - Will add all permissions to get the maximum home number.
 home-usage-type: MAX
+
+# Material used by default for the homes button.
+# You can use a zMenu material loader here.
+default-home-material: BLUE_BED

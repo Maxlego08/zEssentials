@@ -57,7 +57,7 @@ public interface ComponentMessage {
      *
      * @param player       the player who will receive the title message
      * @param titleMessage the TitleMessage object containing the title, subtitle, and timing information
-     * @param args The arguments
+     * @param args         The arguments
      */
     void sendTitle(Player player, TitleMessage titleMessage, Object... args);
 
@@ -69,5 +69,22 @@ public interface ComponentMessage {
      * @param bossBarMessage the BossBarMessage object containing the details of the boss bar
      */
     void sendBossBar(EssentialsPlugin plugin, Player player, BossBarMessage bossBarMessage);
+
+    /**
+     * Kicks a player from the server with a specified message.
+     *
+     * @param player  the player to kick
+     * @param message the message to send to the player upon kicking
+     */
+    void kick(Player player, String message);
+
+    /**
+     * Gets the name of a specified ItemStack, which may be a translated name depending on the item.
+     *
+     * @param itemStack the ItemStack for which to retrieve the name
+     * @return the name of the ItemStack
+     */
+    String getItemStackName(ItemStack itemStack);
+
 }
 

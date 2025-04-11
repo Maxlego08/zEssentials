@@ -2,12 +2,15 @@ package fr.maxlego08.essentials.api;
 
 import com.google.gson.Gson;
 import com.tcoded.folialib.impl.PlatformScheduler;
+import fr.maxlego08.essentials.api.afk.AfkManager;
 import fr.maxlego08.essentials.api.block.BlockTracker;
 import fr.maxlego08.essentials.api.chat.InteractiveChat;
 import fr.maxlego08.essentials.api.commands.CommandManager;
+import fr.maxlego08.essentials.api.discord.DiscordManager;
 import fr.maxlego08.essentials.api.economy.EconomyManager;
 import fr.maxlego08.essentials.api.enchantment.Enchantments;
 import fr.maxlego08.essentials.api.hologram.HologramManager;
+import fr.maxlego08.essentials.api.home.HomeManager;
 import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
 import fr.maxlego08.essentials.api.permission.PermissionChecker;
@@ -260,9 +263,9 @@ public interface EssentialsPlugin extends Plugin {
     /**
      * Gives a kit to a user, optionally bypassing the cooldown.
      *
-     * @param user            the user to give the kit to
-     * @param kit             the kit to give
-     * @param bypassCooldown  whether to bypass the kit cooldown
+     * @param user           the user to give the kit to
+     * @param kit            the kit to give
+     * @param bypassCooldown whether to bypass the kit cooldown
      */
     void giveKit(User user, Kit kit, boolean bypassCooldown);
 
@@ -343,8 +346,8 @@ public interface EssentialsPlugin extends Plugin {
     /**
      * Starts an interactive chat session with a player.
      *
-     * @param player   the player to start the chat session with
-     * @param consumer the consumer to handle the chat input
+     * @param player    the player to start the chat session with
+     * @param consumer  the consumer to handle the chat input
      * @param expiredAt the time when the chat session expires
      * @return the {@link InteractiveChat} instance
      */
@@ -391,18 +394,18 @@ public interface EssentialsPlugin extends Plugin {
     RandomWord getRandomWord();
 
     /**
-     * Sets the block tracker to the specified block tracker.
-     *
-     * @param blockTracker the block tracker to set
-     */
-    void setBlockTracker(BlockTracker blockTracker);
-
-    /**
      * Returns the block tracker.
      *
      * @return the block tracker
      */
     BlockTracker getBlockTracker();
+
+    /**
+     * Sets the block tracker to the specified block tracker.
+     *
+     * @param blockTracker the block tracker to set
+     */
+    void setBlockTracker(BlockTracker blockTracker);
 
     /**
      * Returns a list of permission checkers.
@@ -413,5 +416,32 @@ public interface EssentialsPlugin extends Plugin {
 
     void addMailBoxItem(UUID uuid, ItemStack itemStack);
 
+    /**
+     * Returns the step manager. This manager is used to check if a player is near
+     * a certain location.
+     *
+     * @return the step manager
+     */
     StepManager getStepManager();
+
+    /**
+     * Returns the AFK manager.
+     *
+     * @return the AFK manager
+     */
+    AfkManager getAfkManager();
+
+    /**
+     * Returns the Discord manager.
+     *
+     * @return the Discord manager
+     */
+    DiscordManager getDiscordManager();
+
+    /**
+     * Returns the home manager.
+     *
+     * @return the home manager
+     */
+    HomeManager getHomeManager();
 }

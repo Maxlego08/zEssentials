@@ -18,12 +18,9 @@ import org.bukkit.permissions.Permissible;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -204,8 +201,17 @@ public abstract class ZUtils extends MessageUtils {
             java.lang.reflect.Parameter[] parameters = constructor.getParameters();
             for (int i = 0; i < parameters.length; i++) {
                 Class<?> paramType = parameters[i].getType();
+
                 String paramName = parameters[i].getName();
-                Object value = map.get(paramName);
+                String configKey = paramName.replaceAll("([A-Z])", "-$1").toLowerCase();
+
+                Object value = map.containsKey(paramName) ? map.get(paramName) : map.get(configKey);
+                if (value == null && Number.class.isAssignableFrom(paramType)) {
+                    value = 0;
+                }
+                if (value == null && Boolean.class.isAssignableFrom(paramType)) {
+                    value = false;
+                }
 
                 if (value != null) {
                     try {

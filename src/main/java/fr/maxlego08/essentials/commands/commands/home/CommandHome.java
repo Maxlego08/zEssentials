@@ -4,6 +4,7 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.home.Home;
+import fr.maxlego08.essentials.api.home.HomeManager;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.modules.HomeModule;
@@ -34,13 +35,13 @@ public class CommandHome extends VCommand {
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
         String homeName = this.argAsString(0, null);
-        HomeModule homeModule = plugin.getModuleManager().getModule(HomeModule.class);
+        HomeManager homeManager = plugin.getHomeManager();
 
         if (homeName == null) {
 
             if (this.sender instanceof ConsoleCommandSender) return CommandResultType.SYNTAX_ERROR;
 
-            homeModule.sendHomes(player, user);
+            homeManager.sendHomes(player, user);
             return CommandResultType.SUCCESS;
         }
 
@@ -53,7 +54,7 @@ public class CommandHome extends VCommand {
             String[] values = homeName.split(":", 2);
             String username = values[0];
             String home = values[1];
-            homeModule.teleport(this.user, username, home);
+            homeManager.teleport(this.user, username, home);
             return CommandResultType.DEFAULT;
         }
 
@@ -65,7 +66,7 @@ public class CommandHome extends VCommand {
         }
 
         Home home = optional.get();
-        homeModule.teleport(user, home);
+        homeManager.teleport(user, home);
 
         return CommandResultType.SUCCESS;
     }

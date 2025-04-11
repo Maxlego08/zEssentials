@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.module.modules;
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.home.HomeDisplay;
+import fr.maxlego08.essentials.api.home.HomeManager;
 import fr.maxlego08.essentials.api.home.HomePermission;
 import fr.maxlego08.essentials.api.home.HomeUsageType;
 import fr.maxlego08.essentials.api.messages.Message;
@@ -23,7 +24,7 @@ import org.bukkit.permissions.Permissible;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeModule extends ZModule {
+public class HomeModule extends ZModule implements HomeManager {
 
     private final List<HomePermission> permissions = new ArrayList<>();
     private final List<String> disableWorlds = new ArrayList<>();
@@ -34,6 +35,7 @@ public class HomeModule extends ZModule {
     private boolean homeOverwriteConfirm;
     private boolean homeDeleteConfirm;
     private HomeUsageType homeUsageType;
+    private String defaultHomeMaterial;
 
     public HomeModule(ZEssentialsPlugin plugin) {
         super(plugin, "home");
@@ -51,10 +53,12 @@ public class HomeModule extends ZModule {
         this.loadInventory("home_delete");
     }
 
+    @Override
     public List<HomePermission> getPermissions() {
         return permissions;
     }
 
+    @Override
     public Message isValidHomeName(String input) {
         if (!input.matches("[a-zA-Z0-9_-]+")) {
             return Message.COMMAND_SET_HOME_INVALIDE_NAME;
@@ -71,11 +75,13 @@ public class HomeModule extends ZModule {
         return null;
     }
 
+    @Override
     public int getMaxHome(Permissible permissible) {
         var stream = this.permissions.stream().filter(homePermission -> permissible.hasPermission(homePermission.permission())).mapToInt(HomePermission::amount);
         return this.homeUsageType == HomeUsageType.STACK ? stream.sum() : stream.max().orElse(0);
     }
 
+    @Override
     public void sendHomes(Player player, User user) {
 
         if (this.homeDisplay == HomeDisplay.IN_LINE || this.homeDisplay == HomeDisplay.MULTI_LINE) {
@@ -95,10 +101,12 @@ public class HomeModule extends ZModule {
         } else this.openInventory(player);
     }
 
-    private void openInventory(Player player) {
+    @Override
+    public void openInventory(Player player) {
         this.plugin.getInventoryManager().openInventory(player, this.plugin, this.homeDisplay == HomeDisplay.INVENTORY ? "homes" : "homes_donut");
     }
 
+    @Override
     public void openInventoryConfirmHome(User user, Home home) {
         user.setCurrentDeleteHome(home);
         this.plugin.getInventoryManager().openInventory(user.getPlayer(), this.plugin, "home_delete");
@@ -110,6 +118,7 @@ public class HomeModule extends ZModule {
         return new Object[]{"%count%", homeAmount, "%max%", maxHome, "%name%", home.getName(), "%world%", name(world.getName()), "%environment%", name(world.getEnvironment().name()), "%x%", location.getBlockX(), "%y%", location.getBlockY(), "%z%", location.getBlockZ()};
     }
 
+    @Override
     public Placeholders getHomePlaceholders(Home home, int homeAmount, int maxHome) {
         Placeholders placeholders = new Placeholders();
         Location location = home.getLocation();
@@ -125,6 +134,7 @@ public class HomeModule extends ZModule {
         return placeholders;
     }
 
+    @Override
     public void teleport(User user, Home home) {
 
         if (home.getLocation() == null || home.getLocation().getWorld() == null) {
@@ -135,6 +145,7 @@ public class HomeModule extends ZModule {
         user.teleport(home.getLocation(), Message.TELEPORT_MESSAGE_HOME, Message.TELEPORT_SUCCESS_HOME, "%name%", home.getName());
     }
 
+    @Override
     public void changeDisplayItem(Player player, Home home) {
 
         ItemStack itemStack = player.getInventory().getItemInMainHand();
@@ -160,6 +171,7 @@ public class HomeModule extends ZModule {
         this.openInventory(player);
     }
 
+    @Override
     public void deleteHome(Player player, User user, String homeName) {
 
         if (!user.isHomeName(homeName)) {
@@ -172,6 +184,7 @@ public class HomeModule extends ZModule {
         player.closeInventory();
     }
 
+    @Override
     public void teleport(User user, String username, String homeName) {
 
         IStorage iStorage = this.plugin.getStorageManager().getStorage();
@@ -197,6 +210,7 @@ public class HomeModule extends ZModule {
         });
     }
 
+    @Override
     public void deleteHome(CommandSender sender, String username, String homeName) {
         IStorage iStorage = this.plugin.getStorageManager().getStorage();
         iStorage.fetchUniqueId(username, uuid -> {
@@ -212,6 +226,7 @@ public class HomeModule extends ZModule {
         });
     }
 
+    @Override
     public void setHome(Player player, String username, String homeName) {
 
         IStorage iStorage = this.plugin.getStorageManager().getStorage();
@@ -229,15 +244,23 @@ public class HomeModule extends ZModule {
         });
     }
 
+    @Override
     public List<String> getDisableWorlds() {
         return disableWorlds;
     }
 
+    @Override
     public boolean isHomeOverwriteConfirm() {
         return homeOverwriteConfirm;
     }
 
+    @Override
     public boolean isHomeDeleteConfirm() {
         return homeDeleteConfirm;
+    }
+
+    @Override
+    public String getDefaultHomeMaterial() {
+        return defaultHomeMaterial;
     }
 }

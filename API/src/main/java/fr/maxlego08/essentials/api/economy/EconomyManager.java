@@ -255,4 +255,16 @@ public interface EconomyManager extends Module {
      * @return the balance of the offline user as a BigDecimal
      */
     BigDecimal getBalanceOffline(UUID uniqueId);
+
+    String getCommandGiveReason();
+
+    String getCommandGiveAllReason();
+
+    String getCommandGiveRandomReason();
+
+    String getCommandTakeReason();
+
+    String getCommandResetReason();
+
+    String getCommandSetReason();
 }

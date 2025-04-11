@@ -66,7 +66,8 @@ public class DiscordModule extends ZModule implements DiscordManager {
         loadConfiguration(configuration.getConfigurationSection("log-unlink-message"), d -> this.logUnlinkConfiguration = d);
     }
 
-    private void loadConfiguration(ConfigurationSection configurationSection, Consumer<DiscordConfiguration> consumer) {
+    @Override
+    public void loadConfiguration(ConfigurationSection configurationSection, Consumer<DiscordConfiguration> consumer) {
 
         if (configurationSection == null) return;
 
@@ -143,7 +144,8 @@ public class DiscordModule extends ZModule implements DiscordManager {
         sendDiscord(player, configuration, "%player%", playerName, "%uuid%", uuid.toString(), "%message%", message);
     }
 
-    private void sendDiscord(Player player, DiscordConfiguration configuration, String... args) {
+    @Override
+    public void sendDiscord(Player player, DiscordConfiguration configuration, String... args) {
 
         if (!configuration.isEnable()) return;
 

@@ -15,6 +15,7 @@ public class CommandExperience extends VCommand {
         this.addSubCommand(new CommandGrantExperience(plugin));
         this.addSubCommand(new CommandSetExperience(plugin));
         this.addSubCommand(new CommandQueryExperience(plugin));
+        this.addSubCommand(new CommandGrantRandomExperience(plugin));
     }
 
     @Override
