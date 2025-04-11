@@ -857,12 +857,14 @@ public enum Message {
     WORLDEDIT_REFUND_EMPTY("<error>No block to refund"),
     WORLDEDIT_BOSSBAR("#45ff45Time remaining<dark_gray>: <white>%time%"),
 
+    EXPERIENCE_TAKEN("<success>You have just taken <white>%amount% %type% <success>to <white>%player%<success>."),
     EXPERIENCE_GRANTED("<success>You have just given <white>%amount% %type% <success>to <white>%player%<success>."),
     EXPERIENCE_SETTED("<success>You have just set <white>%amount% %type% <success>to <white>%player%<success>."),
     EXPERIENCE_QUERIED("<success><white>%player% <success>have <white>%amount% <success>%type%."),
     DESCRIPTION_EXPERIENCE_QUERY("Query player experience"),
     DESCRIPTION_EXPERIENCE_SET("Set player experience"),
     DESCRIPTION_EXPERIENCE_GRANT("Grant experience to player"),
+    DESCRIPTION_EXPERIENCE_TAKE("Take experience to player"),
     RANDOM_WORD_CLEAR("<success>The random word has been cleared."),
 
 
