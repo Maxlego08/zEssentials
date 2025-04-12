@@ -24,6 +24,7 @@ import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
@@ -41,7 +42,18 @@ import java.util.stream.Collectors;
 
 public class PaperComponent extends PlaceholderUtils implements AdventureComponent {
 
-    private final List<TagPermission> tagPermissions = List.of(new TagPermission(Permission.ESSENTIALS_CHAT_COLOR, StandardTags.color()), new TagPermission(Permission.ESSENTIALS_CHAT_CLICK, StandardTags.clickEvent()), new TagPermission(Permission.ESSENTIALS_CHAT_HOVER, StandardTags.hoverEvent()), new TagPermission(Permission.ESSENTIALS_CHAT_GRADIENT, StandardTags.gradient()), new TagPermission(Permission.ESSENTIALS_CHAT_RAINBOW, StandardTags.rainbow()), new TagPermission(Permission.ESSENTIALS_CHAT_NEWLINE, StandardTags.newline()), new TagPermission(Permission.ESSENTIALS_CHAT_RESET, StandardTags.reset()), new TagPermission(Permission.ESSENTIALS_CHAT_FONT, StandardTags.font()), new TagPermission(Permission.ESSENTIALS_CHAT_KEYBIND, StandardTags.keybind()), new TagPermission(Permission.ESSENTIALS_CHAT_DECORATION, StandardTags.decorations()));
+    private final List<TagPermission> tagPermissions = List.of(
+            new TagPermission(Permission.ESSENTIALS_CHAT_COLOR, StandardTags.color()), //
+            new TagPermission(Permission.ESSENTIALS_CHAT_CLICK, StandardTags.clickEvent()), //
+            new TagPermission(Permission.ESSENTIALS_CHAT_HOVER, StandardTags.hoverEvent()), //
+            new TagPermission(Permission.ESSENTIALS_CHAT_GRADIENT, StandardTags.gradient()), //
+            new TagPermission(Permission.ESSENTIALS_CHAT_RAINBOW, StandardTags.rainbow()), //
+            new TagPermission(Permission.ESSENTIALS_CHAT_NEWLINE, StandardTags.newline()), //
+            new TagPermission(Permission.ESSENTIALS_CHAT_RESET, StandardTags.reset()), //
+            new TagPermission(Permission.ESSENTIALS_CHAT_FONT, StandardTags.font()), //
+            new TagPermission(Permission.ESSENTIALS_CHAT_KEYBIND, StandardTags.keybind()),  //
+            new TagPermission(Permission.ESSENTIALS_CHAT_DECORATION, StandardTags.decorations()) //
+    );
 
     private final MiniMessage MINI_MESSAGE = MiniMessage.builder().tags(TagResolver.builder().resolver(StandardTags.defaults()).build()).build();
     private final Map<String, String> COLORS_MAPPINGS = new HashMap<>();
@@ -147,8 +159,7 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
         return BossBar.bossBar(getComponent(message), 0, barColor, barStyle);
     }
 
-    public Component translateText(Player player, String message, TagResolver... tagResolvers) {
-
+    private TagResolver getTagResolver(Player player, TagResolver... tagResolvers) {
         TagResolver.Builder builder = TagResolver.builder();
 
         if (!player.isOp()) {
@@ -161,8 +172,12 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
         }
 
         builder.resolvers(tagResolvers);
+        return builder.build();
+    }
 
-        return MiniMessage.builder().tags(builder.build()).build().deserialize(colorMiniMessage(message));
+    public Component translateText(Player player, String message, TagResolver... tagResolvers) {
+        var tagResolver = getTagResolver(player, tagResolvers);
+        return MiniMessage.builder().tags(tagResolver).build().deserialize(colorMiniMessage(message));
     }
 
     @Override
@@ -183,7 +198,7 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
 
     public Component getComponentMessage(Message message, Object... args) {
         List<String> strings = message.getMessageAsStringList();
-        if (strings.size() > 0) {
+        if (!strings.isEmpty()) {
             TextComponent.Builder component = Component.text();
             strings.forEach(currentMessage -> {
                 component.append(getComponent(getMessage(currentMessage, args)));
@@ -206,6 +221,7 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
     public void addToLore(ItemStack itemStack, List<String> lore, Placeholders placeholders) {
         ItemMeta itemMeta = itemStack.getItemMeta();
         List<Component> currentLore = itemMeta.hasLore() ? itemMeta.lore() : new ArrayList<>();
+        if (currentLore == null) currentLore = new ArrayList<>();
         currentLore.addAll(lore.stream().map(placeholders::parse).map(this::getComponent).map(e -> e.decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE)).toList());
         itemMeta.lore(currentLore);
         itemStack.setItemMeta(itemMeta);
@@ -239,5 +255,21 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
         var meta = itemStack.getItemMeta();
         if (!meta.hasDisplayName()) return "";
         return PlainTextComponentSerializer.plainText().serialize(Objects.requireNonNull(meta.displayName()));
+    }
+
+    @Override
+    public void changeSignColor(SignChangeEvent event) {
+        var player = event.getPlayer();
+
+        var miniMessage = MiniMessage.builder().tags(getTagResolver(player)).build();
+        var plainTextSerializer = PlainTextComponentSerializer.plainText();
+
+        for (int i = 0; i < event.lines().size(); i++) {
+            var line = event.line(i);
+            if (line == null) continue;
+
+            var plainText = plainTextSerializer.serialize(line);
+            event.line(i, miniMessage.deserialize(colorMiniMessage(plainText)));
+        }
     }
 }

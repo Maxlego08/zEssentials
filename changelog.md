@@ -5,6 +5,9 @@
 
 # Unreleased
 
+- Added the ability to add color to sign text.
+- Added `/experience take <player> <amount> <level/experience>`, Take experience to player.
+
 # 1.0.2.2
 
 - Added [AFK](https://zessentials.groupez.dev/modules/afk) module.
