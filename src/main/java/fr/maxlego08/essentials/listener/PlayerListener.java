@@ -73,7 +73,7 @@ public class PlayerListener extends ZUtils implements Listener {
     @EventHandler
     public void onClick(InventoryClickEvent event) {
         User user = getUser(event.getWhoClicked());
-        if (user.getOption(Option.INVSEE) && !user.hasPermission(Permission.ESSENTIALS_INVSEE_INTERACT)) {
+        if (user != null && user.getOption(Option.INVSEE) && !user.hasPermission(Permission.ESSENTIALS_INVSEE_INTERACT)) {
             event.setCancelled(true);
         }
     }

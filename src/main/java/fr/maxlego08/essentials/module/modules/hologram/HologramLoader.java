@@ -96,7 +96,7 @@ public class HologramLoader extends ZUtils implements Loader<Hologram> {
 
         textHologramConfiguration.setTextShadow(configuration.getBoolean("text-shadow"));
         textHologramConfiguration.setTextAlignment(TextDisplay.TextAlignment.valueOf(configuration.getString("text-alignment")));
-        textHologramConfiguration.setSeeThrough(configuration.getBoolean("see-through"));
+        textHologramConfiguration.setSeeThrough(configuration.getBoolean("see-through", true));
         textHologramConfiguration.setBackground(configureBackground(configuration));
 
         configuration.getMapList("lines").forEach(map -> {

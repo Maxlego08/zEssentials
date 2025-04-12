@@ -28,7 +28,7 @@ public class UserSanctionRepository extends Repository {
 
     public SanctionDTO getSanction(Integer integer) {
         List<SanctionDTO> sanctionDTOS = select(SanctionDTO.class, table -> table.where("id", integer));
-        return sanctionDTOS.isEmpty() ? null : sanctionDTOS.get(0);
+        return sanctionDTOS.isEmpty() ? null : sanctionDTOS.getFirst();
     }
 
     public List<SanctionDTO> getActiveBan() {

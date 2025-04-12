@@ -119,7 +119,7 @@ public class Sanction {
      * @return a new Sanction instance representing an unban
      */
     public static Sanction freeze(UUID playerUniqueId, UUID senderUniqueId) {
-        return new Sanction(-1, playerUniqueId, senderUniqueId, "", -1, new Date(), new Date(), SanctionType.FREEZE);
+        return new Sanction(-1, playerUniqueId, senderUniqueId, "", 0, new Date(), new Date(), SanctionType.FREEZE);
     }
 
     /**
