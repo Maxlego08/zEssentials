@@ -32,8 +32,15 @@ public class SimpleCache<K, V> {
      *         was not found in the cache
      */
     public V get(K key, Loader<V> loader) {
-        return cache.computeIfAbsent(key, k -> loader.load());
+        return cache.computeIfAbsent(key, k -> {
+            V value = loader.load();
+            if (value == null) {
+                throw new IllegalStateException("Cache loader returned null for key: " + key);
+            }
+            return value;
+        });
     }
+
 
     /**
      * Functional interface for loading values into the cache. Implementations of this interface

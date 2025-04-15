@@ -92,11 +92,12 @@ public class HologramLoader extends ZUtils implements Loader<Hologram> {
         blockHologramConfiguration.setMaterial(Material.valueOf(configuration.getString("block-material", "GRASS_BLOCK").toUpperCase()));
     }
 
+
     private void loadTextConfiguration(Hologram hologram, YamlConfiguration configuration, TextHologramConfiguration textHologramConfiguration) {
 
         textHologramConfiguration.setTextShadow(configuration.getBoolean("text-shadow"));
         textHologramConfiguration.setTextAlignment(TextDisplay.TextAlignment.valueOf(configuration.getString("text-alignment")));
-        textHologramConfiguration.setSeeThrough(configuration.getBoolean("see-through", true));
+        textHologramConfiguration.setSeeThrough(configuration.getBoolean("see-through"));
         textHologramConfiguration.setBackground(configureBackground(configuration));
 
         configuration.getMapList("lines").forEach(map -> {
