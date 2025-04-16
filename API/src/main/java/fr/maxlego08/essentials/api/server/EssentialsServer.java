@@ -135,5 +135,11 @@ public interface EssentialsServer {
      */
     List<String> getOfflinePlayersNames();
 
+    /**
+     * Sends a public message to all players in the same world as the given player.
+     *
+     * @param player The player to send the message from.
+     * @param message The message to send.
+     */
     void pub(Player player, String message);
 }

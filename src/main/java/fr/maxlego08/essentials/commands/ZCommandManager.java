@@ -154,19 +154,19 @@ public class ZCommandManager extends ZUtils implements CommandManager {
             List<String> tabCompleter = new ArrayList<>();
             for (EssentialsCommand vCommand : this.commands) {
                 if ((vCommand.getParent() != null && vCommand.getParent() == command)) {
-                    String cmd = vCommand.getSubCommands().get(0);
+                    String cmd = vCommand.getSubCommands().getFirst();
                     if (vCommand.getPermission() == null || sender.hasPermission(vCommand.getPermission())) {
-                        if (startWith.length() == 0 || cmd.startsWith(startWith)) {
+                        if (startWith.isEmpty() || cmd.startsWith(startWith)) {
                             tabCompleter.add(cmd);
                         }
                     }
                 }
             }
-            return tabCompleter.size() == 0 ? List.of() : tabCompleter;
+            return tabCompleter.isEmpty() ? List.of() : tabCompleter;
 
         } else if (type.equals(CommandResultType.SUCCESS)) {
             var list = command.toTab(this.plugin, sender, args);
-            return list == null ? List.of() : list;
+            return list == null ? List.of() : list.stream().limit(100).toList();
         }
 
         return List.of();
