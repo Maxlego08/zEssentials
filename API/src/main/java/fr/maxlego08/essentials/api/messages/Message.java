@@ -75,6 +75,7 @@ public enum Message {
     COMMAND_FLY_INFO("<success>You have &f%time%<success>."),
     COMMAND_FLY_REMOVE("<success>You just removed %time% <success>of fly time to &f%player%<success>."),
     COMMAND_FLY_SET("<success>You just set %time% <success>of fly time to &f%player%<success>."),
+    COMMAND_FLY_REMAINING("<success>You have &f%time% <success> remaining flight time."),
     COMMAND_GOD_ENABLE("&7God mode <success>enable &7for &f%player%<success>."),
     COMMAND_GOD_DISABLE("&7God mode <error>disable &7for &f%player%<success>."),
     COMMAND_NIGHT_VISION_ENABLE("&7Night vision <success>enable &7for &f%player%<success>."),

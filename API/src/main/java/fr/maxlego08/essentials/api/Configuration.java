@@ -213,5 +213,18 @@ public interface Configuration extends ConfigurationFile {
      */
     long getBatchAutoSave();
 
+    /**
+     * Retrieves a list of blacklisted UUIDs, which are the UUIDs of the players
+     * that are not allowed to connect to the server.
+     *
+     * @return a list of blacklisted UUIDs
+     */
     List<UUID> getBlacklistUuids();
+
+    /**
+     * Retrieves a list of intervals in seconds when the plugin should announce the temporary fly task to the player.
+     *
+     * @return a list of intervals in seconds when the plugin should announce the temporary fly task to the player
+     */
+    List<Long> getFlyTaskAnnounce();
 }

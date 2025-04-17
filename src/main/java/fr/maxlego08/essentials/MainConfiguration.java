@@ -58,6 +58,7 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     private boolean enableOfflinePlayerNames;
     private long batchAutoSave;
     private List<UUID> blacklistUuids;
+    private List<Long> flyTaskAnnounce;
 
     public MainConfiguration(ZEssentialsPlugin plugin) {
         this.plugin = plugin;
@@ -106,6 +107,7 @@ public class MainConfiguration extends YamlLoader implements Configuration {
         );
         this.cooldownCommands = this.cooldowns.stream().flatMapToLong(cooldown -> LongStream.of(cooldown.cooldown(), cooldown.messages())).toArray();
         this.simpleDateFormat = this.globalDateFormat == null ? new SimpleDateFormat("yyyy-MM-dd HH:mm:ss") : new SimpleDateFormat(this.globalDateFormat);
+        this.flyTaskAnnounce = configuration.getLongList("fly-task-announce");
         this.loadReplacePlaceholders();
     }
 
@@ -266,5 +268,10 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     @Override
     public List<UUID> getBlacklistUuids() {
         return blacklistUuids;
+    }
+
+    @Override
+    public List<Long> getFlyTaskAnnounce() {
+        return this.flyTaskAnnounce;
     }
 }
