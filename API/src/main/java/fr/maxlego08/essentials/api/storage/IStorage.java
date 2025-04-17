@@ -110,9 +110,8 @@ public interface IStorage {
      * Updates a user's money asynchronously.
      *
      * @param uniqueId the unique identifier of the user
-     * @param consumer the consumer to apply to the user
      */
-    void updateUserMoney(UUID uniqueId, Consumer<User> consumer);
+    User updateUserMoney(UUID uniqueId);
 
     /**
      * Retrieves the economy data of a user by their name.
