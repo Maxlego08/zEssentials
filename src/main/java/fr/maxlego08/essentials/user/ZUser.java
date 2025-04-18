@@ -558,6 +558,11 @@ public class ZUser extends ZUtils implements User {
     public void setLastLocation() {
         Player player = this.getPlayer();
         if (player == null) return;
+
+        if (this.plugin.getConfiguration().getDisableBackWorld().contains(player.getWorld().getName())) {
+            return;
+        }
+
         this.lastLocation = new SafeLocation(player.getLocation().clone());
         this.getStorage().upsertUser(this);
     }

@@ -227,4 +227,6 @@ public interface Configuration extends ConfigurationFile {
      * @return a list of intervals in seconds when the plugin should announce the temporary fly task to the player
      */
     List<Long> getFlyTaskAnnounce();
+
+    List<String> getDisableBackWorld();
 }

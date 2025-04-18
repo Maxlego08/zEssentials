@@ -40,6 +40,7 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     private final List<ChatCooldown> cooldowns = new ArrayList<>();
     private final List<NearDistance> nearPermissions = new ArrayList<>();
     private final List<String> disableFlyWorld = new ArrayList<>();
+    private final List<String> disableBackWorld = new ArrayList<>();
     private long[] cooldownCommands;
     private boolean enableDebug;
     private boolean enableCooldownBypass;
@@ -273,5 +274,10 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     @Override
     public List<Long> getFlyTaskAnnounce() {
         return this.flyTaskAnnounce;
+    }
+
+    @Override
+    public List<String> getDisableBackWorld() {
+        return disableBackWorld;
     }
 }
