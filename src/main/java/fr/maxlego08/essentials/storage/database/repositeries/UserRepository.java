@@ -248,7 +248,7 @@ public class UserRepository extends Repository {
 
     public long selectFly(UUID uniqueId) {
         var users = selectUser(uniqueId);
-        return users.isEmpty() ? 0 : users.get(0).fly_seconds();
+        return users.isEmpty() ? 0 : users.getFirst().fly_seconds();
     }
 
     public void deleteWorldData(String worldName) {
@@ -260,5 +260,11 @@ public class UserRepository extends Repository {
 
     public void upsertFly(List<FlyDTO> flights) {
         flights.forEach(e -> updateFly(e.unique_id(), e.fly_seconds()));
+    }
+
+    public List<String> getPlayerNames() {
+        // Update SARAH for making a query like that: "select name from users"
+        return this.select(UserDTO.class, table -> {
+        }).stream().map(UserDTO::name).toList();
     }
 }

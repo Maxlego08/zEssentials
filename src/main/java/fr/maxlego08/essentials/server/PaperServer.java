@@ -1,7 +1,6 @@
 package fr.maxlego08.essentials.server;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
-import fr.maxlego08.essentials.api.cache.ExpiringCache;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.server.EssentialsServer;
@@ -18,6 +17,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -25,8 +25,8 @@ import java.util.UUID;
 public class PaperServer extends ZUtils implements EssentialsServer {
 
     private final EssentialsPlugin plugin;
-    private final ExpiringCache<String, List<String>> cache = new ExpiringCache<>(60 * 5 * 1000); // 5 minutes
-
+    private long lastUpdate = 0;
+    private List<String> playerNames = new ArrayList<>();
 
     public PaperServer(EssentialsPlugin plugin) {
         this.plugin = plugin;
@@ -49,7 +49,14 @@ public class PaperServer extends ZUtils implements EssentialsServer {
 
     @Override
     public List<String> getOfflinePlayersNames() {
-        return this.plugin.getConfiguration().isEnableOfflinePlayersName() ? this.cache.get("offline-players-names", () -> Arrays.stream(Bukkit.getOfflinePlayers()).map(OfflinePlayer::getName).toList()) : getPlayersNames();
+        if (!this.plugin.getConfiguration().isEnableOfflinePlayersName()) {
+            return getPlayersNames();
+        }
+        if (System.currentTimeMillis() > this.lastUpdate) {
+            this.plugin.getScheduler().runAsync(w -> this.playerNames = this.plugin.getStorageManager().getStorage().getPlayerNames());
+            this.lastUpdate = System.currentTimeMillis() + (1000 * 5 * 60); // 5 minutes
+        }
+        return this.playerNames;
     }
 
     @Override

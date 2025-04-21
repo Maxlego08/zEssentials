@@ -598,4 +598,6 @@ public interface IStorage {
     StepDTO selectStep(UUID uniqueId, Step step);
 
     void registerStep(UUID uniqueId, Step step, String data);
+
+    List<String> getPlayerNames();
 }

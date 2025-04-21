@@ -511,4 +511,9 @@ public class JsonStorage extends StorageHelper implements IStorage {
     public void registerStep(UUID uniqueId, Step step, String data) {
         throw new NotImplementedException("registerStep is not implemented, use MYSQL storage");
     }
+
+    @Override
+    public List<String> getPlayerNames() {
+        return List.of();
+    }
 }

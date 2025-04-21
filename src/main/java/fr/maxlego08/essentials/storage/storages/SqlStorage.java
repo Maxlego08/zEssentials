@@ -770,6 +770,11 @@ public class SqlStorage extends StorageHelper implements IStorage {
         async(() -> with(UserStepRepository.class).insert(uniqueId, step, data));
     }
 
+    @Override
+    public List<String> getPlayerNames() {
+        return with(UserRepository.class).getPlayerNames();
+    }
+
     public DatabaseConnection getConnection() {
         return connection;
     }
