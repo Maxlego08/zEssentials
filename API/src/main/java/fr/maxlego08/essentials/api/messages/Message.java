@@ -260,6 +260,7 @@ public enum Message {
     DESCRIPTION_KIT_SHOW("Show a kit"),
     DESCRIPTION_KIT_EDITOR("Edit a kit"),
     DESCRIPTION_KIT_CREATE("Create a new kit"),
+    DESCRIPTION_KIT_GIVE("Give a kit to a player"),
     DESCRIPTION_KIT_DELETE("Delete a kit"),
     DESCRIPTION_COOLDOWN("Show cooldown commands"),
     DESCRIPTION_COOLDOWN_SHOW("Display a player’s cooldowns"),
@@ -672,6 +673,7 @@ public enum Message {
     COMMAND_KIT_EDITOR_SAVE("<success>You have just modified the kit &f%kit%<success>."),
     COMMAND_KIT_CREATE("<success>You just created the kit &f%kit%<success>."),
     COMMAND_KIT_DELETE("<success>You just deleted the kit &f%kit%<success>."),
+    COMMAND_KIT_GIVE("<success>You just gave the kit &f%kit%<success> to <u>%player%<u><success>."),
 
     COMMAND_COOLDOWN_HEADER("&fPlayer cooldown %player% &8(&7%amount%&8)"),
     COMMAND_COOLDOWN_EMPTY("&f%player% <error>has no cooldown."),

@@ -8,6 +8,7 @@
 - Added the ability to add color to sign text.
 - Added `/experience take <player> <amount> <level/experience>`, Take experience to player.
 - Added a message to tell the player account of flight time they have left.
+- Added ``/kitgive <player> <kit>``
 - Added world back blacklist.
 - Fixed scoreboard in 1.21.5 [#172](https://github.com/Maxlego08/zEssentials/issues/172)
 - Fixed offline give money

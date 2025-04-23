@@ -42,6 +42,7 @@ import fr.maxlego08.essentials.commands.commands.kits.CommandKit;
 import fr.maxlego08.essentials.commands.commands.kits.CommandKitCreate;
 import fr.maxlego08.essentials.commands.commands.kits.CommandKitDelete;
 import fr.maxlego08.essentials.commands.commands.kits.CommandKitEditor;
+import fr.maxlego08.essentials.commands.commands.kits.CommandKitGive;
 import fr.maxlego08.essentials.commands.commands.kits.CommandShowKit;
 import fr.maxlego08.essentials.commands.commands.mail.CommandMail;
 import fr.maxlego08.essentials.commands.commands.messages.CommandMessage;
@@ -259,7 +260,8 @@ public class CommandLoader {
         register("showkit", CommandShowKit.class);
         register("kiteditor", CommandKitEditor.class, "keditor");
         register("kitcreate", CommandKitCreate.class, "kcreate");
-        register("kitdelete", CommandKitDelete.class, "delete");
+        register("kitdelete", CommandKitDelete.class, "kdelete");
+        register("kitgive", CommandKitGive.class, "kgive");
 
         register("cooldown", CommandCooldown.class);
         register("itemname", CommandItemName.class, "iname", "itemrename", "irename");
