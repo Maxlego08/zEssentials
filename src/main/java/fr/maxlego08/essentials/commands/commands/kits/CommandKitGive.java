@@ -18,7 +18,7 @@ public class CommandKitGive extends VCommand {
         this.setPermission(Permission.ESSENTIALS_KIT_GIVE);
         this.setDescription(Message.DESCRIPTION_KIT_GIVE);
         this.addRequirePlayerNameArg();
-        this.addRequireArg("name", (a, b) -> plugin.getModuleManager().getModule(KitModule.class).getKitNames());
+        this.addRequireArg("kit", (sender, b) -> plugin.getModuleManager().getModule(KitModule.class).getKits(sender).stream().map(Kit::getName).toList());
     }
 
     @Override

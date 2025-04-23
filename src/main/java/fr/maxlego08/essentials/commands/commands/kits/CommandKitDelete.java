@@ -16,7 +16,7 @@ public class CommandKitDelete extends VCommand {
         this.setModule(KitModule.class);
         this.setPermission(Permission.ESSENTIALS_KIT_DELETE);
         this.setDescription(Message.DESCRIPTION_KIT_DELETE);
-        this.addOptionalArg("kit", (sender, b) -> plugin.getModuleManager().getModule(KitModule.class).getKits(sender).stream().map(Kit::getName).toList());
+        this.addRequireArg("kit", (sender, b) -> plugin.getModuleManager().getModule(KitModule.class).getKits(sender).stream().map(Kit::getName).toList());
     }
 
     @Override
