@@ -11,6 +11,7 @@ include("Hooks:Redis")
 include("Hooks:ProtocolLib")
 include("Hooks:BlockTracker")
 include("Hooks:AxVault")
+include("Hooks:NuVotifier")
 
 include("NMS:V1_20_4")
 include("NMS:V1_20_6")
