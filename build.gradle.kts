@@ -36,7 +36,7 @@ allprojects {
 
         implementation("com.github.technicallycoded:FoliaLib:0.4.3")
         implementation("com.github.Maxlego08:Sarah:1.17")
-        implementation("fr.mrmicky:fastboard:2.1.3")
+        implementation("fr.mrmicky:fastboard:2.1.4")
     }
 }
 

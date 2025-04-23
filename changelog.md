@@ -7,6 +7,7 @@
 
 - Added the ability to add color to sign text.
 - Added `/experience take <player> <amount> <level/experience>`, Take experience to player.
+- Fixed scoreboard in 1.21.5 [#172](https://github.com/Maxlego08/zEssentials/issues/172)
 
 # 1.0.2.2
 
