@@ -7,7 +7,15 @@
 
 - Added the ability to add color to sign text.
 - Added `/experience take <player> <amount> <level/experience>`, Take experience to player.
+- Added a message to tell the player account of flight time they have left.
+- Added world back blacklist.
 - Fixed scoreboard in 1.21.5 [#172](https://github.com/Maxlego08/zEssentials/issues/172)
+- Fixed offline give money
+- Fixed offline players name for tabulation
+- Fixed heal command when you have night vision
+- Update Hologram API (change `ZHologramLine` to `HologramLine`)
+- Change command ``/cooldown <player>`` to `/cooldown show <player>`
+- Disable ``/invsee`` with offline players
 
 # 1.0.2.2
 

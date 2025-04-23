@@ -17,7 +17,7 @@ public class CommandInvsee extends VCommand {
         super(plugin);
         this.setPermission(Permission.ESSENTIALS_INVSEE);
         this.setDescription(Message.DESCRIPTION_INVSEE);
-        this.addRequireOfflinePlayerNameArg();
+        this.addRequirePlayerNameArg();
     }
 
     @Override

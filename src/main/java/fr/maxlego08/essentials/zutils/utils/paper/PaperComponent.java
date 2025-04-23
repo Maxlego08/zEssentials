@@ -36,6 +36,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -43,6 +44,7 @@ import java.util.stream.Collectors;
 public class PaperComponent extends PlaceholderUtils implements AdventureComponent {
 
     private final List<TagPermission> tagPermissions = List.of(
+            // Chat
             new TagPermission(Permission.ESSENTIALS_CHAT_COLOR, StandardTags.color()), //
             new TagPermission(Permission.ESSENTIALS_CHAT_CLICK, StandardTags.clickEvent()), //
             new TagPermission(Permission.ESSENTIALS_CHAT_HOVER, StandardTags.hoverEvent()), //
@@ -52,7 +54,18 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
             new TagPermission(Permission.ESSENTIALS_CHAT_RESET, StandardTags.reset()), //
             new TagPermission(Permission.ESSENTIALS_CHAT_FONT, StandardTags.font()), //
             new TagPermission(Permission.ESSENTIALS_CHAT_KEYBIND, StandardTags.keybind()),  //
-            new TagPermission(Permission.ESSENTIALS_CHAT_DECORATION, StandardTags.decorations()) //
+            new TagPermission(Permission.ESSENTIALS_CHAT_DECORATION, StandardTags.decorations()), //
+            // Sign
+            new TagPermission(Permission.ESSENTIALS_SIGN_COLOR, StandardTags.color()), //
+            new TagPermission(Permission.ESSENTIALS_SIGN_CLICK, StandardTags.clickEvent()), //
+            new TagPermission(Permission.ESSENTIALS_SIGN_HOVER, StandardTags.hoverEvent()), //
+            new TagPermission(Permission.ESSENTIALS_SIGN_GRADIENT, StandardTags.gradient()), //
+            new TagPermission(Permission.ESSENTIALS_SIGN_RAINBOW, StandardTags.rainbow()), //
+            new TagPermission(Permission.ESSENTIALS_SIGN_NEWLINE, StandardTags.newline()), //
+            new TagPermission(Permission.ESSENTIALS_SIGN_RESET, StandardTags.reset()), //
+            new TagPermission(Permission.ESSENTIALS_SIGN_FONT, StandardTags.font()), //
+            new TagPermission(Permission.ESSENTIALS_SIGN_KEYBIND, StandardTags.keybind()),  //
+            new TagPermission(Permission.ESSENTIALS_SIGN_DECORATION, StandardTags.decorations()) //
     );
 
     private final MiniMessage MINI_MESSAGE = MiniMessage.builder().tags(TagResolver.builder().resolver(StandardTags.defaults()).build()).build();
@@ -164,7 +177,7 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
 
         if (!player.isOp()) {
 
-            List<TagResolver> resolvers = this.tagPermissions.stream().filter(tagPermission -> player.hasPermission(tagPermission.permission().asPermission())).map(TagPermission::tagResolver).toList();
+            Set<TagResolver> resolvers = this.tagPermissions.stream().filter(tagPermission -> player.hasPermission(tagPermission.permission().asPermission())).map(TagPermission::tagResolver).collect(Collectors.toSet());
             builder.resolvers(resolvers);
         } else {
 
