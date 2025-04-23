@@ -75,6 +75,7 @@ public enum Message {
     COMMAND_FLY_INFO("<success>You have &f%time%<success>."),
     COMMAND_FLY_REMOVE("<success>You just removed %time% <success>of fly time to &f%player%<success>."),
     COMMAND_FLY_SET("<success>You just set %time% <success>of fly time to &f%player%<success>."),
+    COMMAND_FLY_REMAINING("<success>You have &f%time% <success> remaining flight time."),
     COMMAND_GOD_ENABLE("&7God mode <success>enable &7for &f%player%<success>."),
     COMMAND_GOD_DISABLE("&7God mode <error>disable &7for &f%player%<success>."),
     COMMAND_NIGHT_VISION_ENABLE("&7Night vision <success>enable &7for &f%player%<success>."),
@@ -259,8 +260,10 @@ public enum Message {
     DESCRIPTION_KIT_SHOW("Show a kit"),
     DESCRIPTION_KIT_EDITOR("Edit a kit"),
     DESCRIPTION_KIT_CREATE("Create a new kit"),
+    DESCRIPTION_KIT_GIVE("Give a kit to a player"),
     DESCRIPTION_KIT_DELETE("Delete a kit"),
-    DESCRIPTION_COOLDOWN("Display a player’s cooldowns"),
+    DESCRIPTION_COOLDOWN("Show cooldown commands"),
+    DESCRIPTION_COOLDOWN_SHOW("Display a player’s cooldowns"),
     DESCRIPTION_COOLDOWN_DELETE("Delete a cooldown"),
     DESCRIPTION_COOLDOWN_CREATE("Create a cooldown"),
     DESCRIPTION_ITEM_NAME("Change the item name"),
@@ -670,6 +673,7 @@ public enum Message {
     COMMAND_KIT_EDITOR_SAVE("<success>You have just modified the kit &f%kit%<success>."),
     COMMAND_KIT_CREATE("<success>You just created the kit &f%kit%<success>."),
     COMMAND_KIT_DELETE("<success>You just deleted the kit &f%kit%<success>."),
+    COMMAND_KIT_GIVE("<success>You just gave the kit &f%kit%<success> to <u>%player%<u><success>."),
 
     COMMAND_COOLDOWN_HEADER("&fPlayer cooldown %player% &8(&7%amount%&8)"),
     COMMAND_COOLDOWN_EMPTY("&f%player% <error>has no cooldown."),
@@ -857,12 +861,14 @@ public enum Message {
     WORLDEDIT_REFUND_EMPTY("<error>No block to refund"),
     WORLDEDIT_BOSSBAR("#45ff45Time remaining<dark_gray>: <white>%time%"),
 
+    EXPERIENCE_TAKEN("<success>You have just taken <white>%amount% %type% <success>to <white>%player%<success>."),
     EXPERIENCE_GRANTED("<success>You have just given <white>%amount% %type% <success>to <white>%player%<success>."),
     EXPERIENCE_SETTED("<success>You have just set <white>%amount% %type% <success>to <white>%player%<success>."),
     EXPERIENCE_QUERIED("<success><white>%player% <success>have <white>%amount% <success>%type%."),
     DESCRIPTION_EXPERIENCE_QUERY("Query player experience"),
     DESCRIPTION_EXPERIENCE_SET("Set player experience"),
     DESCRIPTION_EXPERIENCE_GRANT("Grant experience to player"),
+    DESCRIPTION_EXPERIENCE_TAKE("Take experience to player"),
     RANDOM_WORD_CLEAR("<success>The random word has been cleared."),
 
 

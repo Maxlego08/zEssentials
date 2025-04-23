@@ -17,6 +17,7 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -73,7 +74,7 @@ public class PlayerListener extends ZUtils implements Listener {
     @EventHandler
     public void onClick(InventoryClickEvent event) {
         User user = getUser(event.getWhoClicked());
-        if (user.getOption(Option.INVSEE) && !user.hasPermission(Permission.ESSENTIALS_INVSEE_INTERACT)) {
+        if (user != null && user.getOption(Option.INVSEE) && !user.hasPermission(Permission.ESSENTIALS_INVSEE_INTERACT)) {
             event.setCancelled(true);
         }
     }
@@ -220,6 +221,15 @@ public class PlayerListener extends ZUtils implements Listener {
             player.setAllowFlight(false);
             player.setFlying(false);
             message(player, Message.COMMAND_FLY_ERROR_WORLD);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onSignChange(SignChangeEvent event) {
+        Player player = event.getPlayer();
+        User user = this.plugin.getUser(player.getUniqueId());
+        if (user != null && hasPermission(player, Permission.ESSENTIALS_SIGN_COLOR)) {
+            this.plugin.getComponentMessage().changeSignColor(event);
         }
     }
 }

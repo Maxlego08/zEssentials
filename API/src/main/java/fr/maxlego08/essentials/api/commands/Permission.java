@@ -162,7 +162,9 @@ public enum Permission {
     ESSENTIALS_KIT_BYPASS_COOLDOWN("Bypass the cooldown of the kits"),
     ESSENTIALS_KIT_EDITOR,
     ESSENTIALS_KIT_CREATE,
+    ESSENTIALS_KIT_GIVE,
     ESSENTIALS_COOLDOWN,
+    ESSENTIALS_COOLDOWN_SHOW,
     ESSENTIALS_KIT_DELETE,
     ESSENTIALS_COOLDOWN_DELETE,
     ESSENTIALS_COOLDOWN_CREATE,
@@ -260,7 +262,20 @@ public enum Permission {
     ESSENTIALS_STEP,
     ESSENTIALS_HOME_LIST,
     ESSENTIALS_AFK_BYPASS("Allows to not be affected by the anti-AFK"),
-    ESSENTIALS_SET_FIRST_SPAWN, ESSENTIALS_SPAWN_FIRST;
+    ESSENTIALS_SET_FIRST_SPAWN,
+    ESSENTIALS_SPAWN_FIRST,
+    ESSENTIALS_EXPERIENCE_TAKE,
+    ESSENTIALS_SIGN_COLOR("Allows you to use the color (minecraft color and hex color) mini message format"),
+    ESSENTIALS_SIGN_DECORATION("Allows you to use the decoration (<bold>, <italic>, <underlined>, <strikethrough> and <obfuscated>) mini message format"),
+    ESSENTIALS_SIGN_RAINBOW("Allows you to use the <rainbow> mini message format"),
+    ESSENTIALS_SIGN_GRADIENT("Allows you to use the <gradient mini message format"),
+    ESSENTIALS_SIGN_CLICK("Allows you to use the <click> mini message format"),
+    ESSENTIALS_SIGN_HOVER("Allows you to use the <hover> mini message format"),
+    ESSENTIALS_SIGN_NEWLINE("Allows you to use the <newline> mini message format"),
+    ESSENTIALS_SIGN_RESET("Allows you to use the <reset> mini message format"),
+    ESSENTIALS_SIGN_FONT("Allows you to use the <font> mini message format"),
+    ESSENTIALS_SIGN_KEYBIND("Allows you to use the <key> mini message format"),
+    ;
 
     private final String description;
     private final String[] args;

@@ -9,6 +9,7 @@ import fr.maxlego08.essentials.api.dto.DiscordAccountDTO;
 import fr.maxlego08.essentials.api.dto.DiscordCodeDTO;
 import fr.maxlego08.essentials.api.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.dto.EconomyTransactionDTO;
+import fr.maxlego08.essentials.api.dto.FlyDTO;
 import fr.maxlego08.essentials.api.dto.MailBoxDTO;
 import fr.maxlego08.essentials.api.dto.OptionDTO;
 import fr.maxlego08.essentials.api.dto.PlayTimeDTO;
@@ -25,6 +26,7 @@ import fr.maxlego08.essentials.api.dto.UserVoteDTO;
 import fr.maxlego08.essentials.api.dto.VaultDTO;
 import fr.maxlego08.essentials.api.dto.VaultItemDTO;
 import fr.maxlego08.essentials.api.economy.Economy;
+import fr.maxlego08.essentials.api.economy.PendingEconomyUpdate;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.mailbox.MailBoxItem;
 import fr.maxlego08.essentials.api.sanction.Sanction;
@@ -110,13 +112,14 @@ import org.jetbrains.annotations.NotNull;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -125,6 +128,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
     private final TypeSafeCache cache = new TypeSafeCache();
     private final DatabaseConnection connection;
     private final Repositories repositories;
+    private final Map<String, PendingEconomyUpdate> economyUpdateQueue = new HashMap<>();
 
     public SqlStorage(EssentialsPlugin plugin, StorageType storageType) {
         super(plugin);
@@ -226,12 +230,14 @@ public class SqlStorage extends StorageHelper implements IStorage {
         var messages = this.cache.get(ChatMessageDTO.class);
         var privateMessages = this.cache.get(PrivateMessageDTO.class);
         var transactions = this.cache.get(EconomyTransactionDTO.class);
+        var flights = this.cache.get(FlyDTO.class);
 
         async(() -> {
             with(CommandsRepository.class).insertCommands(commands);
             with(ChatMessagesRepository.class).insertMessages(messages);
             with(PrivateMessagesRepository.class).insertMessages(privateMessages);
             with(EconomyTransactionsRepository.class).insertTransactions(transactions);
+            with(UserRepository.class).upsertFly(flights);
         });
 
         this.cache.clearAll();
@@ -341,7 +347,36 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     @Override
     public void updateEconomy(UUID uniqueId, Economy economy, BigDecimal bigDecimal) {
-        async(() -> with(UserEconomyRepository.class).upsert(uniqueId, economy, bigDecimal));
+        String key = uniqueId + ":" + economy.getName();
+
+        synchronized (economyUpdateQueue) {
+            PendingEconomyUpdate pending = economyUpdateQueue.get(key);
+            if (pending != null) {
+                pending.latestValue().set(bigDecimal);
+                return;
+            }
+
+            PendingEconomyUpdate newPending = new PendingEconomyUpdate(uniqueId, economy, new AtomicReference<>(bigDecimal));
+            economyUpdateQueue.put(key, newPending);
+            launchUpdateTask(key, newPending);
+        }
+    }
+
+    private void launchUpdateTask(String key, PendingEconomyUpdate pending) {
+        async(() -> {
+            while (true) {
+                BigDecimal valueToUpdate = pending.latestValue().get();
+
+                with(UserEconomyRepository.class).upsert(pending.uniqueId(), pending.economy(), valueToUpdate);
+
+                synchronized (economyUpdateQueue) {
+                    if (pending.latestValue().get().equals(valueToUpdate)) {
+                        economyUpdateQueue.remove(key);
+                        break;
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -350,10 +385,10 @@ public class SqlStorage extends StorageHelper implements IStorage {
     }
 
     @Override
-    public void updateUserMoney(UUID uniqueId, Consumer<User> consumer) {
+    public User updateUserMoney(UUID uniqueId) {
         User fakeUser = new ZUser(this.plugin, uniqueId);
         fakeUser.setEconomies(with(UserEconomyRepository.class).select(uniqueId));
-        consumer.accept(fakeUser);
+        return fakeUser;
     }
 
     @Override
@@ -679,7 +714,9 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     @Override
     public void upsertFlySeconds(UUID uniqueId, long flySeconds) {
-        async(() -> with(UserRepository.class).upsertFly(uniqueId, flySeconds));
+        // async(() -> with(UserRepository.class).upsertFly(uniqueId, flySeconds));
+        this.cache.get(FlyDTO.class).removeIf(e -> e.unique_id().equals(uniqueId));
+        this.cache.add(new FlyDTO(uniqueId, flySeconds));
     }
 
     @Override
@@ -731,6 +768,11 @@ public class SqlStorage extends StorageHelper implements IStorage {
     @Override
     public void registerStep(UUID uniqueId, Step step, String data) {
         async(() -> with(UserStepRepository.class).insert(uniqueId, step, data));
+    }
+
+    @Override
+    public List<String> getPlayerNames() {
+        return with(UserRepository.class).getPlayerNames();
     }
 
     public DatabaseConnection getConnection() {

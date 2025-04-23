@@ -27,6 +27,7 @@ import java.util.function.Consumer;
 
 public abstract class VCommand extends Arguments implements EssentialsCommand {
 
+    private static final Map<String, List<Consumer<UUID>>> uuidRequestQueue = new HashMap<>();
     protected final EssentialsPlugin plugin;
     protected final List<String> cooldowns = Arrays.asList(
             "1m",    // 60 seconds
@@ -513,11 +514,11 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
         List<String> generatedList = new ArrayList<>();
         for (String str : defaultList) {
             if (str == null) continue;
-            if (startWith.length() == 0 || (tab.equals(Tab.START) ? str.toLowerCase().startsWith(startWith.toLowerCase()) : str.toLowerCase().contains(startWith.toLowerCase()))) {
+            if (startWith.isEmpty() || (tab.equals(Tab.START) ? str.toLowerCase().startsWith(startWith.toLowerCase()) : str.toLowerCase().contains(startWith.toLowerCase()))) {
                 generatedList.add(str);
             }
         }
-        return generatedList.size() == 0 ? null : generatedList;
+        return generatedList.isEmpty() ? null : generatedList;
     }
 
     public void syntaxMessage() {
@@ -530,21 +531,35 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
         });
     }
 
-    protected void async(Runnable runnable) {
-        this.plugin.getScheduler().runAsync(wrappedTask -> runnable.run());
-    }
-
-    protected void fetchUniqueId(String userName, Consumer<UUID> consumer) {
+    protected synchronized void fetchUniqueId(String userName, Consumer<UUID> consumer) {
         CommandSender commandSender = this.sender;
 
+        synchronized (uuidRequestQueue) {
+            if (uuidRequestQueue.containsKey(userName)) {
+                uuidRequestQueue.get(userName).add(consumer);
+                return;
+            } else {
+                List<Consumer<UUID>> consumers = new ArrayList<>();
+                consumers.add(consumer);
+                uuidRequestQueue.put(userName, consumers);
+            }
+        }
+
         this.plugin.getStorageManager().getStorage().fetchUniqueId(userName, uuid -> {
+
+            List<Consumer<UUID>> consumers;
+            synchronized (uuidRequestQueue) {
+                consumers = uuidRequestQueue.remove(userName);
+            }
 
             if (uuid == null) {
                 message(commandSender, Message.PLAYER_NOT_FOUND, "%player%", userName);
                 return;
             }
 
-            consumer.accept(uuid);
+            for (Consumer<UUID> queuedConsumer : consumers) {
+                queuedConsumer.accept(uuid);
+            }
         });
     }
 

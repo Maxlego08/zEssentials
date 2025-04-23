@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.storage.database.repositeries;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.dto.FlyDTO;
 import fr.maxlego08.essentials.api.dto.UserDTO;
 import fr.maxlego08.essentials.api.dto.UserEconomyRankingDTO;
 import fr.maxlego08.essentials.api.dto.UserVoteDTO;
@@ -238,7 +239,7 @@ public class UserRepository extends Repository {
         });
     }
 
-    public void upsertFly(UUID uniqueId, long flySeconds) {
+    public void updateFly(UUID uniqueId, long flySeconds) {
         update(table -> {
             table.bigInt("fly_seconds", flySeconds);
             table.where("unique_id", uniqueId);
@@ -247,7 +248,7 @@ public class UserRepository extends Repository {
 
     public long selectFly(UUID uniqueId) {
         var users = selectUser(uniqueId);
-        return users.isEmpty() ? 0 : users.get(0).fly_seconds();
+        return users.isEmpty() ? 0 : users.getFirst().fly_seconds();
     }
 
     public void deleteWorldData(String worldName) {
@@ -255,5 +256,15 @@ public class UserRepository extends Repository {
             table.string("last_location", null);
             table.where("last_location", "LIKE", "%" + worldName + "%");
         });
+    }
+
+    public void upsertFly(List<FlyDTO> flights) {
+        flights.forEach(e -> updateFly(e.unique_id(), e.fly_seconds()));
+    }
+
+    public List<String> getPlayerNames() {
+        // Update SARAH for making a query like that: "select name from users"
+        return this.select(UserDTO.class, table -> {
+        }).stream().map(UserDTO::name).toList();
     }
 }

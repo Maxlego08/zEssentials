@@ -45,7 +45,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 public class JsonStorage extends StorageHelper implements IStorage {
@@ -153,9 +152,8 @@ public class JsonStorage extends StorageHelper implements IStorage {
     }
 
     @Override
-    public void updateUserMoney(UUID uniqueId, Consumer<User> consumer) {
-        User loadUser = createOrLoad(uniqueId, "offline");
-        consumer.accept(loadUser);
+    public User updateUserMoney(UUID uniqueId) {
+        return createOrLoad(uniqueId, "offline");
     }
 
     @Override
@@ -512,5 +510,10 @@ public class JsonStorage extends StorageHelper implements IStorage {
     @Override
     public void registerStep(UUID uniqueId, Step step, String data) {
         throw new NotImplementedException("registerStep is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public List<String> getPlayerNames() {
+        return List.of();
     }
 }

@@ -40,6 +40,7 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     private final List<ChatCooldown> cooldowns = new ArrayList<>();
     private final List<NearDistance> nearPermissions = new ArrayList<>();
     private final List<String> disableFlyWorld = new ArrayList<>();
+    private final List<String> disableBackWorld = new ArrayList<>();
     private long[] cooldownCommands;
     private boolean enableDebug;
     private boolean enableCooldownBypass;
@@ -58,6 +59,7 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     private boolean enableOfflinePlayerNames;
     private long batchAutoSave;
     private List<UUID> blacklistUuids;
+    private List<Long> flyTaskAnnounce;
 
     public MainConfiguration(ZEssentialsPlugin plugin) {
         this.plugin = plugin;
@@ -106,6 +108,7 @@ public class MainConfiguration extends YamlLoader implements Configuration {
         );
         this.cooldownCommands = this.cooldowns.stream().flatMapToLong(cooldown -> LongStream.of(cooldown.cooldown(), cooldown.messages())).toArray();
         this.simpleDateFormat = this.globalDateFormat == null ? new SimpleDateFormat("yyyy-MM-dd HH:mm:ss") : new SimpleDateFormat(this.globalDateFormat);
+        this.flyTaskAnnounce = configuration.getLongList("fly-task-announce");
         this.loadReplacePlaceholders();
     }
 
@@ -266,5 +269,15 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     @Override
     public List<UUID> getBlacklistUuids() {
         return blacklistUuids;
+    }
+
+    @Override
+    public List<Long> getFlyTaskAnnounce() {
+        return this.flyTaskAnnounce;
+    }
+
+    @Override
+    public List<String> getDisableBackWorld() {
+        return disableBackWorld;
     }
 }

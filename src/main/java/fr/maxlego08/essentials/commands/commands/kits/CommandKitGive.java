@@ -10,12 +10,14 @@ import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 
 import java.util.Optional;
 
-public class CommandKitDelete extends VCommand {
-    public CommandKitDelete(EssentialsPlugin plugin) {
+public class CommandKitGive extends VCommand {
+
+    public CommandKitGive(EssentialsPlugin plugin) {
         super(plugin);
         this.setModule(KitModule.class);
-        this.setPermission(Permission.ESSENTIALS_KIT_DELETE);
-        this.setDescription(Message.DESCRIPTION_KIT_DELETE);
+        this.setPermission(Permission.ESSENTIALS_KIT_GIVE);
+        this.setDescription(Message.DESCRIPTION_KIT_GIVE);
+        this.addRequirePlayerNameArg();
         this.addRequireArg("kit", (sender, b) -> plugin.getModuleManager().getModule(KitModule.class).getKits(sender).stream().map(Kit::getName).toList());
     }
 
@@ -23,7 +25,8 @@ public class CommandKitDelete extends VCommand {
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
         KitModule kitModule = plugin.getModuleManager().getModule(KitModule.class);
-        String kitName = this.argAsString(0);
+        var player = this.argAsPlayer(0);
+        String kitName = this.argAsString(1);
 
         Optional<Kit> optional = kitModule.getKit(kitName);
         if (optional.isEmpty()) {
@@ -31,8 +34,11 @@ public class CommandKitDelete extends VCommand {
             return CommandResultType.DEFAULT;
         }
 
-        Kit kit = optional.get();
-        kitModule.deleteKit(this.player, kit);
+        var kit = optional.get();
+        kit.give(player);
+
+        message(sender, Message.COMMAND_KIT_GIVE, "%kit%", kitName, "%player%", player.getName());
+
         return CommandResultType.SUCCESS;
     }
 }

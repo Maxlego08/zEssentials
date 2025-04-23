@@ -280,6 +280,11 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
             });
         }
 
+        if (getServer().getPluginManager().isPluginEnabled("Votifier")) {
+            var optional = createInstance("NuVotifierHook", false);
+            optional.ifPresent(object -> this.getLogger().info("Register NuVotifierHook."));
+        }
+
         this.getServer().getServicesManager().register(EssentialsPlugin.class, this, this, ServicePriority.Normal);
 
         this.registerListener(new InvseeListener());

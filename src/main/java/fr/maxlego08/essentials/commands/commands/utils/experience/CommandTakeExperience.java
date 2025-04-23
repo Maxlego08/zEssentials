@@ -9,13 +9,13 @@ import org.bukkit.entity.Player;
 
 import java.util.Arrays;
 
-public class CommandGrantExperience extends VCommand {
+public class CommandTakeExperience extends VCommand {
 
-    public CommandGrantExperience(EssentialsPlugin plugin) {
+    public CommandTakeExperience(EssentialsPlugin plugin) {
         super(plugin);
-        this.setPermission(Permission.ESSENTIALS_EXPERIENCE_GRANT);
-        this.setDescription(Message.DESCRIPTION_EXPERIENCE_GRANT);
-        this.addSubCommand("grant");
+        this.setPermission(Permission.ESSENTIALS_EXPERIENCE_TAKE);
+        this.setDescription(Message.DESCRIPTION_EXPERIENCE_TAKE);
+        this.addSubCommand("take");
         this.addRequirePlayerNameArg();
         this.addRequireArg("amount", (sender, objects) -> Arrays.asList("1", "10", "30" ,"100", "1000"));
         this.addRequireArg("type", (sender, objects) -> Arrays.asList("levels", "points"));
@@ -28,11 +28,11 @@ public class CommandGrantExperience extends VCommand {
         String type = this.argAsString(2);
 
         if (type.equalsIgnoreCase("levels")) {
-            player.giveExpLevels(amount);
+            player.giveExpLevels(-amount);
         } else {
-            player.giveExp(amount);
+            player.giveExp(-amount);
         }
-        message(sender, Message.EXPERIENCE_GRANTED, player, "%amount%",amount, "%type%", type);
+        message(sender, Message.EXPERIENCE_TAKEN, player, "%amount%",amount, "%type%", type);
         return CommandResultType.SUCCESS;
     }
 }

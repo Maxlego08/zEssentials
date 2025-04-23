@@ -6,6 +6,7 @@ import fr.maxlego08.essentials.api.messages.messages.TitleMessage;
 import fr.maxlego08.menu.api.utils.Placeholders;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
@@ -86,5 +87,11 @@ public interface ComponentMessage {
      */
     String getItemStackName(ItemStack itemStack);
 
+    /**
+     * Changes the color of the sign text according to the player's permission, if applicable.
+     *
+     * @param event the SignChangeEvent to modify
+     */
+    void changeSignColor(SignChangeEvent event);
 }
 

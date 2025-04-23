@@ -54,6 +54,7 @@ public class EconomyModule extends ZModule implements EconomyManager {
     private final Map<Economy, Baltop> baltops = new HashMap<>();
     private final Map<UUID, OfflineEconomy> offlinePlayers = new HashMap<>();
     private final List<DefaultEconomyConfiguration> defaultEconomies = new ArrayList<>();
+    private final Map<UUID, List<Consumer<User>>> userRequestQueue = new HashMap<>();
     private String defaultEconomy;
     private BigDecimal minimumPayAmount;
     private PriceFormat priceFormat;
@@ -164,17 +165,47 @@ public class EconomyModule extends ZModule implements EconomyManager {
         return BigDecimal.ZERO;
     }
 
+    /**
+     * Runs the given consumer when the user with the given uuid is loaded.
+     * If the user is already loaded, the consumer is run immediately.
+     * If the user is not yet loaded, it is loaded asynchronously and the consumer is run as soon as it is loaded.
+     * If multiple consumers are added for the same user, they are all run when the user is loaded.
+     *
+     * @param uniqueId the uuid of the user
+     * @param consumer the consumer to run when the user is loaded
+     */
     private void perform(UUID uniqueId, Consumer<User> consumer) {
         IStorage iStorage = this.plugin.getStorageManager().getStorage();
         User user = iStorage.getUser(uniqueId);
 
-        if (user == null) { // Need to load the user, use async scheduler
-
-            this.plugin.getScheduler().runAsync(wrappedTask -> iStorage.updateUserMoney(uniqueId, consumer));
-        } else {
-
+        if (user != null) {
             consumer.accept(user);
+            return;
         }
+
+        synchronized (userRequestQueue) {
+            if (userRequestQueue.containsKey(uniqueId)) {
+                userRequestQueue.get(uniqueId).add(consumer);
+                return;
+            } else {
+                List<Consumer<User>> consumers = new ArrayList<>();
+                consumers.add(consumer);
+                userRequestQueue.put(uniqueId, consumers);
+            }
+        }
+
+        this.plugin.getScheduler().runAsync(wrappedTask -> {
+            User loadedUser = iStorage.updateUserMoney(uniqueId);
+
+            List<Consumer<User>> consumers;
+            synchronized (userRequestQueue) {
+                consumers = userRequestQueue.remove(uniqueId);
+            }
+
+            for (Consumer<User> queuedConsumer : consumers) {
+                queuedConsumer.accept(loadedUser);
+            }
+        });
     }
 
     @Override

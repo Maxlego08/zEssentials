@@ -6,8 +6,10 @@ import fr.maxlego08.essentials.api.messages.messages.TitleMessage;
 import fr.maxlego08.essentials.api.utils.component.ComponentMessage;
 import fr.maxlego08.menu.api.utils.Placeholders;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
@@ -63,5 +65,13 @@ public class SpigotComponent implements ComponentMessage {
         var meta = itemStack.getItemMeta();
         if (!meta.hasDisplayName()) return "";
         return meta.getDisplayName().replaceAll("§.", "");
+    }
+
+    @Override
+    public void changeSignColor(SignChangeEvent event) {
+        var lines = event.getLines();
+        for (int i = 0; i < lines.length; i++) {
+            event.setLine(i, ChatColor.translateAlternateColorCodes('&', lines[i]));
+        }
     }
 }

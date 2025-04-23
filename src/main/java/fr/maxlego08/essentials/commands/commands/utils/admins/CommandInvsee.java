@@ -17,7 +17,7 @@ public class CommandInvsee extends VCommand {
         super(plugin);
         this.setPermission(Permission.ESSENTIALS_INVSEE);
         this.setDescription(Message.DESCRIPTION_INVSEE);
-        this.addRequireOfflinePlayerNameArg();
+        this.addRequirePlayerNameArg();
     }
 
     @Override
@@ -37,7 +37,8 @@ public class CommandInvsee extends VCommand {
 
         } else {
 
-            if (!hasPermission(sender, Permission.ESSENTIALS_INVSEE_OFFLINE)) return CommandResultType.SYNTAX_ERROR;
+            message(sender, "&cOffline invsee is disabled for the moment.");
+            /*if (!hasPermission(sender, Permission.ESSENTIALS_INVSEE_OFFLINE)) return CommandResultType.SYNTAX_ERROR;
 
             String version = NmsVersion.getCurrentVersion().name().replace("V_", "v");
             String className = String.format("fr.maxlego08.essentials.nms.%s.PlayerUtils", version);
@@ -57,7 +58,7 @@ public class CommandInvsee extends VCommand {
                 this.user.setOption(Option.INVSEE, false);
                 this.plugin.getLogger().severe("Cannot create a new instance for the class " + className);
                 this.plugin.getLogger().severe(exception.getMessage());
-            }
+            }*/
         }
 
         return CommandResultType.SUCCESS;

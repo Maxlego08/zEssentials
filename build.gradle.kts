@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "zEssentials"
-version = project.version
+version = "1.0.2.3"
 
 extra.set("targetFolder", file("target/"))
 extra.set("apiFolder", file("target-api/"))
@@ -35,8 +35,8 @@ allprojects {
         compileOnly("com.github.maxlego08:zMenu-API:1.0.3.8")
 
         implementation("com.github.technicallycoded:FoliaLib:0.4.3")
-        implementation("com.github.Maxlego08:Sarah:1.15")
-        implementation("fr.mrmicky:fastboard:2.1.3")
+        implementation("com.github.Maxlego08:Sarah:1.17")
+        implementation("fr.mrmicky:fastboard:2.1.4")
     }
 }
 

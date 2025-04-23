@@ -92,6 +92,7 @@ public class HologramLoader extends ZUtils implements Loader<Hologram> {
         blockHologramConfiguration.setMaterial(Material.valueOf(configuration.getString("block-material", "GRASS_BLOCK").toUpperCase()));
     }
 
+
     private void loadTextConfiguration(Hologram hologram, YamlConfiguration configuration, TextHologramConfiguration textHologramConfiguration) {
 
         textHologramConfiguration.setTextShadow(configuration.getBoolean("text-shadow"));
@@ -106,7 +107,7 @@ public class HologramLoader extends ZUtils implements Loader<Hologram> {
             String eventName = map.containsKey("event") ? (String) map.get("event") : null;
             boolean isAutoUpdate = map.containsKey("update") && (boolean) map.get("update");
 
-            hologram.addLine(new ZHologramLine(line, text, eventName, isAutoUpdate));
+            hologram.addLine(new HologramLine(line, text, eventName, isAutoUpdate));
         });
     }
 

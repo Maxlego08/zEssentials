@@ -4,12 +4,11 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.zutils.utils.AttributeUtils;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Registry;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffectType;
 
 public class CommandHeal extends VCommand {
     public CommandHeal(EssentialsPlugin plugin) {
@@ -30,7 +29,7 @@ public class CommandHeal extends VCommand {
             player = this.player;
         }
 
-        if (!player.isValid()){
+        if (!player.isValid()) {
             message(sender, Message.COMMAND_HEAL_ERROR);
             return CommandResultType.DEFAULT;
         }
@@ -39,7 +38,11 @@ public class CommandHeal extends VCommand {
         player.setFoodLevel(20);
         player.setFireTicks(0);
         Player finalPlayer = player;
-        player.getActivePotionEffects().forEach(potionEffect -> finalPlayer.removePotionEffect(potionEffect.getType()));
+        var user = plugin.getUser(player.getUniqueId());
+        player.getActivePotionEffects().forEach(potionEffect -> {
+            if (potionEffect.getType() == PotionEffectType.NIGHT_VISION && user.getOption(Option.NIGHT_VISION)) return;
+            finalPlayer.removePotionEffect(potionEffect.getType());
+        });
 
         if (player == sender) {
 
