@@ -5,6 +5,14 @@
 
 # Unreleased
 
+# 1.0.2.4
+
+- Rework kit. A kit now has its own configuration file present in the modules/kits/kits doser.
+- You can set a cooldown by permission with `permission-cooldowns`
+- You can define a permission with ``permission``, by default the permission is : `essentials.kit.<kit name>`
+- You can define the items that will be present in players' armor slots
+- Updated kit documentation to include all necessary information.
+
 # 1.0.2.3
 
 - Added the ability to add color to sign text.
