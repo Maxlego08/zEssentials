@@ -704,6 +704,7 @@ command-kit-information-multi-line-footer: ""
 command-kit-editor-save: "<success>Vous venez de modifier le kit &f%kit%<success>."
 command-kit-create: "<success>Vous venez de créer le kit &f%kit%<success>."
 command-kit-delete: "<success>Vous venez de supprimer le kit &f%kit%<success>."
+command-kit-delete-error: "<error>Impossible de supprimer le kit &f%kit%<error>."
 command-kit-give: "<success>Vous venez de donner le kit &f%kit%<success> à <u>%player%<u><success>."
 
 # Cooldown

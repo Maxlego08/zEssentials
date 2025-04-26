@@ -2,10 +2,12 @@ package fr.maxlego08.essentials.api.kit;
 
 import fr.maxlego08.menu.MenuItemStack;
 import fr.maxlego08.menu.api.requirement.Action;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.permissions.Permissible;
 
+import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Represents a kit in the game, which is a predefined set of items or actions
@@ -28,11 +30,23 @@ public interface Kit {
     String getDisplayName();
 
     /**
+     * Gets the cooldown time for the kit in milliseconds, taking into
+     * account any permissions the specified permissible entity may have.
+     *
+     * @param permissible the permissible entity to check permissions for
+     * @return the cooldown time in milliseconds, or 0 if no cooldown is
+     * specified
+     */
+    long getCooldown(Permissible permissible);
+
+    /**
      * Gets the cooldown time for the kit in milliseconds.
      *
      * @return the cooldown time in milliseconds
      */
     long getCooldown();
+
+    Map<String, Long> getPermissionCooldowns();
 
     /**
      * Gets the list of menu item stacks associated with this kit.
@@ -65,9 +79,51 @@ public interface Kit {
     /**
      * Checks if the sender has permission to use this kit.
      *
-     * @param sender the command sender to check permissions for
+     * @param permissible the command sender to check permissions for
      * @return true if the sender has permission, false otherwise
      */
-    boolean hasPermission(CommandSender sender);
+    boolean hasPermission(Permissible permissible);
+
+    /**
+     * Gets the permission string required to use this kit.
+     *
+     * @return the permission string
+     */
+    String getPermission();
+
+    /**
+     * Gets the file associated with this kit.
+     *
+     * @return the file associated with this kit
+     */
+    File getFile();
+
+    /**
+     * Gets the menu item stack associated with the player's helmet.
+     *
+     * @return the menu item stack associated with the player's helmet
+     */
+    MenuItemStack getHelmet();
+
+    /**
+     * Gets the menu item stack associated with the player's chestplate.
+     *
+     * @return the menu item stack associated with the player's chestplate
+     */
+    MenuItemStack getChestplate();
+
+    /**
+     * Gets the menu item stack associated with the player's leggings.
+     *
+     * @return the menu item stack associated with the player's leggings
+     */
+    MenuItemStack getLeggings();
+
+    /**
+     * Gets the menu item stack associated with the player's boots.
+     *
+     * @return the menu item stack associated with the player's boots
+     */
+    MenuItemStack getBoots();
 }
 

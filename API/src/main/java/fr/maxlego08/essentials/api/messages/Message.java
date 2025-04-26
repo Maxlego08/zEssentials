@@ -673,6 +673,7 @@ public enum Message {
     COMMAND_KIT_EDITOR_SAVE("<success>You have just modified the kit &f%kit%<success>."),
     COMMAND_KIT_CREATE("<success>You just created the kit &f%kit%<success>."),
     COMMAND_KIT_DELETE("<success>You just deleted the kit &f%kit%<success>."),
+    COMMAND_KIT_DELETE_ERROR("<error>Impossible to delete the kit &f%kit%<error>."),
     COMMAND_KIT_GIVE("<success>You just gave the kit &f%kit%<success> to <u>%player%<u><success>."),
 
     COMMAND_COOLDOWN_HEADER("&fPlayer cooldown %player% &8(&7%amount%&8)"),

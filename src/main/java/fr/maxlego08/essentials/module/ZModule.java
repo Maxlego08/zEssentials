@@ -22,8 +22,14 @@ import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.plugin.PluginManager;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 public abstract class ZModule extends YamlLoader implements Module {
 
@@ -230,5 +236,13 @@ public abstract class ZModule extends YamlLoader implements Module {
 
     protected IStorage getStorage() {
         return this.plugin.getStorageManager().getStorage();
+    }
+
+    protected void files(File folder, Consumer<File> consumer){
+        try (Stream<Path> stream = Files.walk(Paths.get(folder.getPath()))) {
+            stream.skip(1).map(Path::toFile).filter(File::isFile).filter(e -> e.getName().endsWith(".yml")).forEach(consumer);
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
     }
 }

@@ -737,6 +737,7 @@ command-kit-information-multi-line-footer: ""
 command-kit-editor-save: "<success>You have just modified the kit &f%kit%<success>."
 command-kit-create: "<success>You just created the kit &f%kit%<success>."
 command-kit-delete: "<success>You just deleted the kit &f%kit%<success>."
+command-kit-delete-error: "<error>Impossible to delete the kit &f%kit%<error>."
 command-kit-give: "<success>You just gave the kit &f%kit%<success> to <u>%player%<u><success>."
 
 
