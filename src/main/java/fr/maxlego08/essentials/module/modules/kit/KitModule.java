@@ -10,7 +10,6 @@ import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.menu.MenuItemStack;
 import fr.maxlego08.menu.api.requirement.Action;
-import fr.maxlego08.menu.api.utils.Placeholders;
 import fr.maxlego08.menu.exceptions.InventoryException;
 import fr.maxlego08.menu.loader.MenuItemStackLoader;
 import fr.maxlego08.menu.zcore.utils.loader.Loader;
@@ -22,6 +21,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.Permissible;
@@ -135,8 +135,29 @@ public class KitModule extends ZModule {
 
         List<Action> actions = this.plugin.getButtonManager().loadActions((List<Map<String, Object>>) configuration.getList("actions", new ArrayList<>()), "actions", file);
 
-        this.kits.add(new ZKit(this.plugin, displayName, name, cooldown, items, actions, permission, file));
+        var kit = new ZKit(this.plugin, displayName, name, cooldown, items, actions, permission, file);
+
+        loadKitEquipment(kit, configuration, loader, "helmet.", EquipmentSlot.HEAD);
+        loadKitEquipment(kit, configuration, loader, "chestplate.", EquipmentSlot.CHEST);
+        loadKitEquipment(kit, configuration, loader, "leggings.", EquipmentSlot.LEGS);
+        loadKitEquipment(kit, configuration, loader, "boots.", EquipmentSlot.FEET);
+
+        this.kits.add(kit);
         this.plugin.getLogger().info("Register kit: " + name);
+    }
+
+    private void loadKitEquipment(ZKit kit, YamlConfiguration configuration, Loader<MenuItemStack> loader, String path, EquipmentSlot equipmentSlot) {
+        try {
+            var itemStack = loader.load(configuration, path, kit.getFile());
+            switch (equipmentSlot) {
+                case HEAD -> kit.setHelmet(itemStack);
+                case CHEST -> kit.setChestplate(itemStack);
+                case LEGS -> kit.setLeggings(itemStack);
+                case FEET -> kit.setBoots(itemStack);
+            }
+        } catch (InventoryException exception) {
+            exception.printStackTrace();
+        }
     }
 
     /**
@@ -165,8 +186,6 @@ public class KitModule extends ZModule {
         if (cooldown != 0 && !bypassCooldown && !user.hasPermission(Permission.ESSENTIALS_KIT_BYPASS_COOLDOWN)) {
             user.addKitCooldown(kit, cooldown);
         }
-
-        kit.getActions().forEach(action -> action.preExecute(user.getPlayer(), null, this.plugin.getInventoryManager().getFakeInventory(), new Placeholders()));
 
         return true;
     }

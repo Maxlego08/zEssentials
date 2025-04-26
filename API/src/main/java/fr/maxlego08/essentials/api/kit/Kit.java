@@ -74,5 +74,13 @@ public interface Kit {
     String getPermission();
 
     File getFile();
+
+    MenuItemStack getHelmet();
+
+    MenuItemStack getChestplate();
+
+    MenuItemStack getLeggings();
+
+    MenuItemStack getBoots();
 }
 
