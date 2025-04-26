@@ -2,7 +2,6 @@ package fr.maxlego08.essentials.module.modules.kit;
 
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.Permission;
-import fr.maxlego08.essentials.api.event.events.user.UserJoinEvent;
 import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.kit.KitDisplay;
 import fr.maxlego08.essentials.api.messages.Message;
@@ -58,99 +57,96 @@ public class KitModule extends ZModule {
         this.loadInventory("kit_preview");
     }
 
+    /**
+     * Checks if a kit exists by its name.
+     *
+     * @param name the name of the kit to check
+     * @return true if the kit exists, false otherwise
+     */
     public boolean exist(String name) {
         return this.getKit(name).isPresent();
     }
 
+    /**
+     * Retrieves a kit by its name.
+     *
+     * @param name the name of the kit to retrieve
+     * @return an {@link Optional} containing the kit if found, or empty if not found
+     */
     public Optional<Kit> getKit(String name) {
         return this.kits.stream().filter(e -> e.getName().equalsIgnoreCase(name)).findFirst();
     }
 
+    /**
+     * Loads all kits from the "kits" directory. If the directory does not exist,
+     * default kit files are saved from the resources. Clears the current list of kits
+     * and repopulates it by loading each kit file found in the directory.
+     */
     private void loadKits() {
 
         this.kits.clear();
 
-        YamlConfiguration configuration = getConfiguration();
-        File file = new File(getFolder(), "config.yml");
-
-        ConfigurationSection configurationSection = configuration.getConfigurationSection("kits");
-        if (configurationSection == null) return;
-
-        Loader<MenuItemStack> loader = new MenuItemStackLoader(this.plugin.getInventoryManager());
-
-        for (String key : configurationSection.getKeys(false)) {
-
-            String path = "kits." + key + ".";
-            String name = configuration.getString(path + "name");
-            long cooldown = configuration.getLong(path + "cooldown");
-
-            ConfigurationSection configurationSectionItems = configuration.getConfigurationSection(path + "items");
-            if (configurationSectionItems == null) continue;
-
-            List<MenuItemStack> menuItemStacks = new ArrayList<>();
-
-            for (String itemName : configurationSectionItems.getKeys(false)) {
-                try {
-                    menuItemStacks.add(loader.load(configuration, path + "items." + itemName + ".", file));
-                } catch (InventoryException exception) {
-                    exception.printStackTrace();
-                }
-            }
-
-            if (this.exist(name)) {
-                this.plugin.getLogger().severe("Kit " + name + " already exist !");
-                return;
-            }
-
-            List<Action> actions = this.plugin.getButtonManager().loadActions((List<Map<String, Object>>) configuration.getList(path + "actions", new ArrayList<>()), path, file);
-
-            Kit kit = new ZKit(plugin, name, key, cooldown, menuItemStacks, actions);
-            this.kits.add(kit);
-            this.plugin.getLogger().info("Register kit: " + name);
+        File folder = new File(getFolder(), "kits");
+        if (!folder.exists()) {
+            this.plugin.saveResource("modules/kits/kits/food.yml", true);
+            this.plugin.saveResource("modules/kits/kits/tools.yml", true);
+            this.plugin.saveResource("modules/kits/kits/fight.yml", true);
         }
+
+        files(folder, this::loadKit);
     }
 
-    public void saveKits() {
+    /**
+     * Loads a kit from a file.
+     *
+     * @param file the file containing the kit configuration
+     */
+    private void loadKit(File file) {
 
-        YamlConfiguration configuration = getConfiguration();
-        File file = new File(getFolder(), "config.yml");
-        if (!file.exists()) {
+        Loader<MenuItemStack> loader = new MenuItemStackLoader(this.plugin.getInventoryManager());
+        YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
+
+        String name = configuration.getString("name");
+        String displayName = configuration.getString("display-name", name);
+        String permission = configuration.getString("permission", Permission.ESSENTIALS_KIT_.asPermission(name));
+
+        if (this.exist(name)) {
+            this.plugin.getLogger().severe("Kit " + name + " already exist !");
+            return;
+        }
+
+        long cooldown = configuration.getLong("cooldown");
+
+        ConfigurationSection configurationSectionItems = configuration.getConfigurationSection("items");
+        if (configurationSectionItems == null) {
+            this.plugin.getLogger().severe("Impossible to find items section for " + file.getAbsoluteFile());
+            return;
+        }
+
+        List<MenuItemStack> items = new ArrayList<>();
+
+        for (String itemName : configurationSectionItems.getKeys(false)) {
             try {
-                file.createNewFile();
-            } catch (IOException exception) {
+                items.add(loader.load(configuration, "items." + itemName + ".", file));
+            } catch (InventoryException exception) {
                 exception.printStackTrace();
             }
         }
 
-        ConfigurationSection configurationSection = configuration.getConfigurationSection("kits.");
-        if (configurationSection != null) {
-            configurationSection.getKeys(true).forEach(key -> configurationSection.set(key, null));
-        }
+        List<Action> actions = this.plugin.getButtonManager().loadActions((List<Map<String, Object>>) configuration.getList("actions", new ArrayList<>()), "actions", file);
 
-        this.kits.forEach(kit -> {
-
-            String path = "kits." + kit.getName() + ".";
-            configuration.set(path + "name", kit.getDisplayName());
-
-            if (kit.getCooldown() > 0) configuration.set(path + "cooldown", kit.getCooldown());
-            else configuration.set(path + "cooldown", null);
-
-            Loader<MenuItemStack> loader = new MenuItemStackLoader(this.plugin.getInventoryManager());
-            AtomicInteger atomicInteger = new AtomicInteger(1);
-            kit.getMenuItemStacks().forEach(menuItemStack -> loader.save(menuItemStack, configuration, path + "items.item" + atomicInteger.getAndIncrement() + ".", file));
-
-        });
-
-        try {
-            configuration.save(file);
-        } catch (IOException exception) {
-            exception.printStackTrace();
-        }
-
+        this.kits.add(new ZKit(this.plugin, displayName, name, cooldown, items, actions, permission, file));
+        this.plugin.getLogger().info("Register kit: " + name);
     }
 
+    /**
+     * Return a list of all kits that the given permissible has access to.
+     *
+     * @param permissible The permissible to check permissions for.
+     * @return A list of kits that the permissible has access to.
+     */
     public List<Kit> getKits(Permissible permissible) {
-        return this.kits.stream().filter(kit -> permissible.hasPermission(Permission.ESSENTIALS_KIT_.asPermission(kit.getName()))).toList();
+        return this.kits.stream().filter(kit -> kit.hasPermission(permissible)).toList();
     }
 
     public boolean giveKit(User user, Kit kit, boolean bypassCooldown) {
@@ -175,11 +171,30 @@ public class KitModule extends ZModule {
         return true;
     }
 
+    /**
+     * Sends a message to the specified command sender with a list of all available kits
+     * formatted in a single line. Each kit name is clickable, allowing the user to execute
+     * a command to obtain the kit.
+     *
+     * @param sender the command sender to send the message to
+     */
     public void sendInLine(CommandSender sender) {
         List<String> homesAsString = kits.stream().map(kit -> getMessage(Message.COMMAND_KIT_INFORMATION_IN_LINE_INFO_AVAILABLE, "%name%", kit.getName())).toList();
         message(sender, Message.COMMAND_KIT_INFORMATION_IN_LINE, "%kits%", Strings.join(homesAsString, ','));
     }
 
+    /**
+     * Shows the kits to the given user, either in an inventory or as a message,
+     * depending on the value of {@link #display}.
+     * <p>
+     * If {@link #display} is {@link KitDisplay#INVENTORY}, the kits are shown in an
+     * inventory menu. Otherwise, the kits are shown as a message, with each kit
+     * name clickable, allowing the user to execute a command to obtain the kit.
+     * The message also shows whether the kit is available or not, and if not, the
+     * time remaining until the kit is available again.
+     *
+     * @param user the user to show the kits to
+     */
     public void showKits(User user) {
 
         if (display != KitDisplay.INVENTORY) {
@@ -218,6 +233,12 @@ public class KitModule extends ZModule {
         }
     }
 
+    /**
+     * Opens the kit editor inventory for the specified player to edit the kit.
+     *
+     * @param player the player to open the kit editor for
+     * @param kit    the kit to edit
+     */
     public void openKitEditor(Player player, Kit kit) {
         InventoryHolder inventoryHolder = new KitInventoryHolder(player, kit);
         player.openInventory(inventoryHolder.getInventory());
@@ -235,31 +256,87 @@ public class KitModule extends ZModule {
                 }
             }
             kit.setItems(menuItemStacks);
-            this.saveKits();
+
+            saveKit(kit);
             message(event.getPlayer(), Message.COMMAND_KIT_EDITOR_SAVE, "%kit%", kit.getName());
         }
     }
 
     public void createKit(Player player, String kitName, long cooldown) {
 
-        Kit kit = new ZKit(plugin, kitName, kitName, cooldown, new ArrayList<>(), new ArrayList<>());
+        File file = new File(getFolder(), "kits/" + kitName + ".yml");
+        try {
+            file.createNewFile();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+
+        Kit kit = new ZKit(this.plugin, kitName, kitName, cooldown, new ArrayList<>(), new ArrayList<>(), Permission.ESSENTIALS_KIT_.asPermission(kitName), file);
+
         this.kits.add(kit);
-        this.saveKits();
+        this.saveKit(kit);
 
         message(player, Message.COMMAND_KIT_CREATE, "%kit%", kit.getName());
     }
 
+    /**
+     * Deletes the specified kit from the file system and removes it from the
+     * list of available kits.
+     *
+     * @param player the player who is deleting the kit
+     * @param kit    the kit to delete
+     */
     public void deleteKit(Player player, Kit kit) {
-
-        this.kits.remove(kit);
-        this.saveKits();
-
-        message(player, Message.COMMAND_KIT_DELETE, "%kit%", kit.getName());
+        if (kit.getFile().delete()) {
+            this.kits.remove(kit);
+            message(player, Message.COMMAND_KIT_DELETE, "%kit%", kit.getName());
+        } else {
+            message(player, Message.COMMAND_KIT_DELETE, "%kit%", kit.getName());
+        }
     }
 
+    /**
+     * Gets a list of default kit names that are not already in the list of kits.
+     * <p>
+     * This list of default kit names is used when creating a new kit, and the
+     * names are filtered to exclude any that are already in use by existing kits.
+     * <p>
+     * The resulting list of kit names is a filtered list of the default names
+     * that are not already in use by existing kits.
+     *
+     * @return a list of default kit names that are not already in use
+     */
     public List<String> getKitNames() {
         List<String> kitNames = Arrays.asList("warrior", "archer", "mage", "healer", "miner", "builder", "scout", "assassin", "knight", "ranger", "alchemist", "blacksmith", "explorer", "thief", "fisherman", "farmer", "necromancer", "paladin", "berserker", "enchanter");
         return kitNames.stream().filter(name -> this.kits.stream().noneMatch(kit -> kit.getName().equalsIgnoreCase(name))).toList();
+    }
+
+    /**
+     * Saves the specified kit to the file system.
+     * <p>
+     * This method saves the kit to its associated file, which is specified by the
+     * {@link Kit#getFile()} method.
+     *
+     * @param kit the kit to save
+     */
+    private void saveKit(Kit kit) {
+        var file = kit.getFile();
+        YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
+
+        configuration.set("name", kit.getName());
+        configuration.set("display-name", kit.getDisplayName());
+        configuration.set("permission", kit.getPermission());
+        configuration.set("cooldown", kit.getCooldown());
+
+        Loader<MenuItemStack> loader = new MenuItemStackLoader(this.plugin.getInventoryManager());
+        AtomicInteger atomicInteger = new AtomicInteger(1);
+        kit.getMenuItemStacks().forEach(menuItemStack -> loader.save(menuItemStack, configuration, "items.item-" + atomicInteger.getAndIncrement() + ".", file));
+
+        try {
+            configuration.save(file);
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
     }
 
     @EventHandler

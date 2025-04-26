@@ -42,9 +42,6 @@ import org.bukkit.plugin.PluginManager;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -56,7 +53,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Stream;
 
 public class HologramModule extends ZModule implements HologramManager {
 
@@ -206,11 +202,7 @@ public class HologramModule extends ZModule implements HologramManager {
             this.plugin.saveResource("modules/hologram/holograms/baltop.yml.example", false);
         }
 
-        try (Stream<Path> stream = Files.walk(Paths.get(getHologramsFolder().getPath()))) {
-            stream.skip(1).map(Path::toFile).filter(File::isFile).filter(e -> e.getName().endsWith(".yml")).forEach(this::loadHologram);
-        } catch (IOException exception) {
-            exception.printStackTrace();
-        }
+        files(getHologramsFolder(), this::loadHologram);
     }
 
     @Override

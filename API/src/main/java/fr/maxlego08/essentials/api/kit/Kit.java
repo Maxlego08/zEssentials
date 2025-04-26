@@ -2,9 +2,10 @@ package fr.maxlego08.essentials.api.kit;
 
 import fr.maxlego08.menu.MenuItemStack;
 import fr.maxlego08.menu.api.requirement.Action;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.permissions.Permissible;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -65,9 +66,13 @@ public interface Kit {
     /**
      * Checks if the sender has permission to use this kit.
      *
-     * @param sender the command sender to check permissions for
+     * @param permissible the command sender to check permissions for
      * @return true if the sender has permission, false otherwise
      */
-    boolean hasPermission(CommandSender sender);
+    boolean hasPermission(Permissible permissible);
+
+    String getPermission();
+
+    File getFile();
 }
 

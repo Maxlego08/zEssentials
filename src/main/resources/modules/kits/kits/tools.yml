@@ -1,0 +1,13 @@
+name: tools
+cooldown: 7200
+items:
+  iron_sword:
+    material: IRON_SWORD
+  iron_pickaxe:
+    material: IRON_PICKAXE
+  iron_axe:
+    material: IRON_AXE
+  iron_shovel:
+    material: IRON_SHOVEL
+  iron_hoe:
+    material: IRON_HOE

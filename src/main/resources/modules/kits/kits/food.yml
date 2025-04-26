@@ -1,0 +1,6 @@
+name: food
+cooldown: 3600
+items:
+  beef:
+    material: COOKED_BEEF
+    amount: 16
