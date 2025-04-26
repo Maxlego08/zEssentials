@@ -12,6 +12,7 @@ import org.bukkit.permissions.Permissible;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 public class ZKit extends ZUtils implements Kit {
 
@@ -20,6 +21,7 @@ public class ZKit extends ZUtils implements Kit {
     private final String name;
     private final String permission;
     private final long cooldown;
+    private final Map<String, Long> permissionCooldowns;
     private final List<Action> actions;
     private final File file;
     private List<MenuItemStack> menuItemStacks;
@@ -29,11 +31,12 @@ public class ZKit extends ZUtils implements Kit {
     private MenuItemStack leggings;
     private MenuItemStack boots;
 
-    public ZKit(EssentialsPlugin plugin, String displayName, String name, long cooldown, List<MenuItemStack> menuItemStacks, List<Action> actions, String permission, File file) {
+    public ZKit(EssentialsPlugin plugin, String displayName, String name, long cooldown, Map<String, Long> permissionCooldowns, List<MenuItemStack> menuItemStacks, List<Action> actions, String permission, File file) {
         this.plugin = plugin;
         this.displayName = displayName;
         this.name = name;
         this.cooldown = cooldown;
+        this.permissionCooldowns = permissionCooldowns;
         this.menuItemStacks = menuItemStacks;
         this.actions = actions;
         this.permission = permission;
@@ -41,8 +44,24 @@ public class ZKit extends ZUtils implements Kit {
     }
 
     @Override
+    public long getCooldown(Permissible permissible) {
+        long currentCooldown = this.cooldown;
+        for (Map.Entry<String, Long> entry : this.permissionCooldowns.entrySet()) {
+            if (permissible.hasPermission(entry.getKey())) {
+                currentCooldown = Math.min(currentCooldown, entry.getValue());
+            }
+        }
+        return currentCooldown;
+    }
+
+    @Override
     public long getCooldown() {
-        return this.cooldown;
+        return cooldown;
+    }
+
+    @Override
+    public Map<String, Long> getPermissionCooldowns() {
+        return permissionCooldowns;
     }
 
     @Override

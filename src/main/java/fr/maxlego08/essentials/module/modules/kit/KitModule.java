@@ -10,6 +10,7 @@ import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.menu.MenuItemStack;
 import fr.maxlego08.menu.api.requirement.Action;
+import fr.maxlego08.menu.api.utils.TypedMapAccessor;
 import fr.maxlego08.menu.exceptions.InventoryException;
 import fr.maxlego08.menu.loader.MenuItemStackLoader;
 import fr.maxlego08.menu.zcore.utils.loader.Loader;
@@ -30,6 +31,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -115,7 +117,12 @@ public class KitModule extends ZModule {
             return;
         }
 
-        long cooldown = configuration.getLong("cooldown");
+        long cooldown = configuration.getLong("cooldown", 0);
+        Map<String, Long> permissionCooldowns = new HashMap<>();
+        for (Map<?, ?> map : configuration.getMapList("permission-cooldowns")) {
+            TypedMapAccessor accessor = new TypedMapAccessor((Map<String, Object>) map);
+            permissionCooldowns.put(accessor.getString("permission"), accessor.getLong("cooldown"));
+        }
 
         ConfigurationSection configurationSectionItems = configuration.getConfigurationSection("items");
         if (configurationSectionItems == null) {
@@ -135,7 +142,7 @@ public class KitModule extends ZModule {
 
         List<Action> actions = this.plugin.getButtonManager().loadActions((List<Map<String, Object>>) configuration.getList("actions", new ArrayList<>()), "actions", file);
 
-        var kit = new ZKit(this.plugin, displayName, name, cooldown, items, actions, permission, file);
+        var kit = new ZKit(this.plugin, displayName, name, cooldown, permissionCooldowns, items, actions, permission, file);
 
         loadKitEquipment(kit, configuration, loader, "helmet.", EquipmentSlot.HEAD);
         loadKitEquipment(kit, configuration, loader, "chestplate.", EquipmentSlot.CHEST);
@@ -172,7 +179,7 @@ public class KitModule extends ZModule {
 
     public boolean giveKit(User user, Kit kit, boolean bypassCooldown) {
 
-        long cooldown = kit.getCooldown();
+        long cooldown = kit.getCooldown(user.getPlayer());
         if (cooldown != 0 && !bypassCooldown && !user.hasPermission(Permission.ESSENTIALS_KIT_BYPASS_COOLDOWN)) {
             if (user.isKitCooldown(kit)) {
                 long milliSeconds = user.getKitCooldown(kit) - System.currentTimeMillis();
@@ -223,7 +230,7 @@ public class KitModule extends ZModule {
             if (display == KitDisplay.IN_LINE) {
                 List<String> homesAsString = kits.stream().map(kit -> {
 
-                    long cooldown = kit.getCooldown();
+                    long cooldown = kit.getCooldown(user.getPlayer());
                     long milliSeconds = 0;
                     if (cooldown != 0 && !user.hasPermission(Permission.ESSENTIALS_KIT_BYPASS_COOLDOWN) && user.isKitCooldown(kit)) {
                         milliSeconds = user.getKitCooldown(kit) - System.currentTimeMillis();
@@ -236,7 +243,7 @@ public class KitModule extends ZModule {
                 message(user, Message.COMMAND_KIT_INFORMATION_MULTI_LINE_HEADER);
                 kits.forEach(kit -> {
 
-                    long cooldown = kit.getCooldown();
+                    long cooldown = kit.getCooldown(user.getPlayer());
                     long milliSeconds = 0;
                     if (cooldown != 0 && !user.hasPermission(Permission.ESSENTIALS_KIT_BYPASS_COOLDOWN) && user.isKitCooldown(kit)) {
                         milliSeconds = user.getKitCooldown(kit) - System.currentTimeMillis();
@@ -290,7 +297,7 @@ public class KitModule extends ZModule {
             exception.printStackTrace();
         }
 
-        Kit kit = new ZKit(this.plugin, kitName, kitName, cooldown, new ArrayList<>(), new ArrayList<>(), Permission.ESSENTIALS_KIT_.asPermission(kitName), file);
+        Kit kit = new ZKit(this.plugin, kitName, kitName, cooldown, new HashMap<>(), new ArrayList<>(), new ArrayList<>(), Permission.ESSENTIALS_KIT_.asPermission(kitName), file);
 
         this.kits.add(kit);
         this.saveKit(kit);
@@ -341,6 +348,12 @@ public class KitModule extends ZModule {
     private void saveKit(Kit kit) {
         var file = kit.getFile();
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
+
+        // Clear items
+        ConfigurationSection configurationSection = configuration.getConfigurationSection("items.");
+        if (configurationSection != null) {
+            configurationSection.getKeys(true).forEach(key -> configurationSection.set(key, null));
+        }
 
         configuration.set("name", kit.getName());
         configuration.set("display-name", kit.getDisplayName());

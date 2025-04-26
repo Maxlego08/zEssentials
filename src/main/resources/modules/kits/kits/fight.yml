@@ -1,29 +1,44 @@
 name: fight
+display-name: "Fight"
+
 cooldown: 86400
+
+permission-cooldowns:
+  - permission: 'essentials.kits.fight.vip'
+    cooldown: 82800
+  - permission: 'essentials.kits.fight.admin'
+    cooldown: 3600
+
 items:
   sword:
     material: DIAMOND_SWORD
     enchants:
       - sharpness,2
-  helmet:
-    material: DIAMOND_HELMET
-    enchants:
-      - protection,1
-  chestplate:
-    material: IRON_CHESTPLATE
-    enchants:
-      - protection,3
-  leggings:
-    material: IRON_LEGGINGS
-    enchants:
-      - protection,3
-  boots:
-    material: DIAMOND_BOOTS
-    enchants:
-      - protection,1
   apple:
     material: GOLDEN_APPLE
     amount: 4
   carrot:
     material: GOLDEN_CARROT
     amount: 16
+
+helmet:
+  material: DIAMOND_HELMET
+  enchants:
+    - protection,1
+chestplate:
+  material: IRON_CHESTPLATE
+  enchants:
+    - protection,3
+leggings:
+  material: IRON_LEGGINGS
+  enchants:
+    - protection,3
+boots:
+  material: DIAMOND_BOOTS
+  enchants:
+    - protection,1
+
+actions:
+  - type: console command
+    commands:
+      - 'effect give %player% minecraft:speed 60'

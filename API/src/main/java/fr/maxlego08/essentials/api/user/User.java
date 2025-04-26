@@ -934,9 +934,9 @@ public interface User {
 
     DiscordAccount getDiscordAccount();
 
-    boolean isDiscordLinked();
-
     void setDiscordAccount(DiscordAccount discordAccount);
+
+    boolean isDiscordLinked();
 
     void removeDiscordAccount();
 
