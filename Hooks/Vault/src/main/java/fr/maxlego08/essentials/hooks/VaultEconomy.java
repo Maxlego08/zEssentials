@@ -83,8 +83,8 @@ public class VaultEconomy implements Economy {
 
     @Override
     public double getBalance(String playerName) {
-        this.essentialsPlugin.getLogger().severe("Player Name not supported for getBalance !");
-        return 0;
+        // this.essentialsPlugin.getLogger().severe("Player Name not supported for getBalance !");
+        return getBalance(Bukkit.getOfflinePlayer(playerName));
     }
 
     @Override
