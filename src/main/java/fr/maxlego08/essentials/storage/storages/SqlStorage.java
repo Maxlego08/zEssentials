@@ -58,10 +58,12 @@ import fr.maxlego08.essentials.migrations.create.CreateUserOptionTableMigration;
 import fr.maxlego08.essentials.migrations.create.CreateUserPlayTimeTableMigration;
 import fr.maxlego08.essentials.migrations.create.CreateUserPowerToolsMigration;
 import fr.maxlego08.essentials.migrations.create.CreateUserStepMigration;
+import fr.maxlego08.essentials.migrations.create.CreateUserStepV2Migration;
 import fr.maxlego08.essentials.migrations.create.CreateUserTableMigration;
 import fr.maxlego08.essentials.migrations.create.CreateVoteSiteMigration;
 import fr.maxlego08.essentials.migrations.drop.DropPowerToolsMigration;
 import fr.maxlego08.essentials.migrations.create.CreateUserPowerToolsV2Migration;
+import fr.maxlego08.essentials.migrations.drop.DropStepMigration;
 import fr.maxlego08.essentials.migrations.update.UpdateEconomyTransactionAddColumn;
 import fr.maxlego08.essentials.migrations.update.UpdatePlayerSlots;
 import fr.maxlego08.essentials.migrations.update.UpdateUserTableAddFlyColumn;
@@ -184,6 +186,9 @@ public class SqlStorage extends StorageHelper implements IStorage {
         MigrationManager.registerMigration(new UpdatePlayerSlots());
         MigrationManager.registerMigration(new CreatePrivateMessagesMigration());
         MigrationManager.registerMigration(new CreateUserStepMigration());
+
+        MigrationManager.registerMigration(new DropStepMigration());
+        MigrationManager.registerMigration(new CreateUserStepV2Migration());
 
         // Repositories
         this.repositories = new Repositories(plugin, this.connection);
