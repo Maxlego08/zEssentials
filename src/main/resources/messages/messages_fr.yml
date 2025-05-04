@@ -440,7 +440,9 @@ description-discord-link: "Lier votre compte Discord"
 description-discord-unlink: "Dissocier votre compte Discord"
 description-clear-random-word: "Supprimer les mots aléatoires"
 description-pub: "Envoyer un message mis en avant dans le chat"
-description-step: "Sauvegarder une étape"
+description-step: "Afficher les commandes des étapes"
+description-step-start: "Commencer une étape"
+description-step-finish: "Terminer une étape"
 
 # Format de l'heure
 format-second: " seconde"
@@ -938,4 +940,5 @@ command-pub:
   type: WITHOUT_PREFIX
   message: "&8[&fPUB&8] <white>%player%<dark_gray>: <red>%message%"
 step-doesnt-exist: "<error>L'étape &f%step% <error>n'existe pas."
-step-already-exist: "<error>L'étape &f%step% <error>existe déjà."
+step-already-exist: "<error>L'étape &f%step% <error>a déjà commencé."
+step-doesnt-started: "<error>L'étape &f%step% <error>n'a pas commencé."

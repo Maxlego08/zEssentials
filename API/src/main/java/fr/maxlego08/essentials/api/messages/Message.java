@@ -342,7 +342,9 @@ public enum Message {
     DESCRIPTION_DISCORD_LINK("Link your discord account"),
     DESCRIPTION_DISCORD_UNLINK("Unlink your discord account"),
     DESCRIPTION_PUB("Send a message highlighted in the chat"),
-    DESCRIPTION_STEP("Save a step"),
+    DESCRIPTION_STEP("Show step commands"),
+    DESCRIPTION_STEP_START("Start a step"),
+    DESCRIPTION_STEP_FINISH("Finish a step"),
 
     YOU("you"),
     TRASH("&8Trash"),
@@ -883,7 +885,8 @@ public enum Message {
     COMMAND_PUB_PATTERN_ERROR("<error>Your message contains forbidden characters."),
     COMMAND_PUB(MessageType.WITHOUT_PREFIX, "&8[&fPUB&8] <white>%player%<dark_gray>: <red>%message%"),
     STEP_DOESNT_EXIST("<error>Step &f%step% <error>does not exist."),
-    STEP_ALREADY_EXIST("<error>Step &f%step% <error>already exist."),;
+    STEP_ALREADY_EXIST("<error>Step &f%step% <error>already started."),
+    STEP_DOESNT_STARTED("<error>Step &f%step% <error>doesn't started."),;
 
     private EssentialsPlugin plugin;
     private List<EssentialsMessage> messages = new ArrayList<>();

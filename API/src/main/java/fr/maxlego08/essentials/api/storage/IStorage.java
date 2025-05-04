@@ -597,7 +597,9 @@ public interface IStorage {
 
     StepDTO selectStep(UUID uniqueId, Step step);
 
-    void registerStep(UUID uniqueId, Step step, String data);
+    void createStep(UUID uniqueId, Step step, long playTime);
+
+    void finishStep(UUID uniqueId, Step step, String data, long playTimeEnd, long playTimeBetween);
 
     List<String> getPlayerNames();
 }

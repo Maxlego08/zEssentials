@@ -508,8 +508,13 @@ public class JsonStorage extends StorageHelper implements IStorage {
     }
 
     @Override
-    public void registerStep(UUID uniqueId, Step step, String data) {
+    public void createStep(UUID uniqueId, Step step, long playTime) {
         throw new NotImplementedException("registerStep is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public void finishStep(UUID uniqueId, Step step, String data, long playTimeEnd, long playTimeBetween) {
+        throw new NotImplementedException("finishStep is not implemented, use MYSQL storage");
     }
 
     @Override

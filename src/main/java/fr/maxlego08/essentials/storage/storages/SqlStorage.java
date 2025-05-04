@@ -771,8 +771,13 @@ public class SqlStorage extends StorageHelper implements IStorage {
     }
 
     @Override
-    public void registerStep(UUID uniqueId, Step step, String data) {
-        async(() -> with(UserStepRepository.class).insert(uniqueId, step, data));
+    public void createStep(UUID uniqueId, Step step, long playTime) {
+        async(() -> with(UserStepRepository.class).createStep(uniqueId, step, playTime));
+    }
+
+    @Override
+    public void finishStep(UUID uniqueId, Step step, String data, long playTimeEnd, long playTimeBetween) {
+        async(() -> with(UserStepRepository.class).finishStep(uniqueId, step, data, playTimeBetween, playTimeEnd));
     }
 
     @Override
