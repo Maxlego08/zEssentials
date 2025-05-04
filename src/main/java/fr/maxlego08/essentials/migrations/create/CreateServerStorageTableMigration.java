@@ -1,6 +1,5 @@
-package fr.maxlego08.essentials.migrations;
+package fr.maxlego08.essentials.migrations.create;
 
-import fr.maxlego08.sarah.SchemaBuilder;
 import fr.maxlego08.sarah.database.Migration;
 
 public class CreateServerStorageTableMigration extends Migration {

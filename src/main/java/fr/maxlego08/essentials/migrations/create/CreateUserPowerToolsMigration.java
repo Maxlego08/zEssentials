@@ -1,13 +1,14 @@
-package fr.maxlego08.essentials.migrations;
+package fr.maxlego08.essentials.migrations.create;
 
-import fr.maxlego08.sarah.SchemaBuilder;
 import fr.maxlego08.sarah.database.Migration;
 
-public class CreateCommandsMigration extends Migration {
+public class CreateUserPowerToolsMigration extends Migration {
+
     @Override
     public void up() {
-        create("%prefix%commands", table -> {
+        create("%prefix%user_power_tools", table -> {
             table.uuid("unique_id").foreignKey("%prefix%users");
+            table.string("material", 255);
             table.longText("command");
             table.timestamps();
         });

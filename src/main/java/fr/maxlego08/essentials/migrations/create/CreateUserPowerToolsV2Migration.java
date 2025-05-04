@@ -1,8 +1,8 @@
-package fr.maxlego08.essentials.migrations;
+package fr.maxlego08.essentials.migrations.create;
 
 import fr.maxlego08.sarah.database.Migration;
 
-public class ReCreatePowerToolsMigration extends Migration {
+public class CreateUserPowerToolsV2Migration extends Migration {
 
     @Override
     public void up() {
