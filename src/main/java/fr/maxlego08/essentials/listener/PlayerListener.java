@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.listener;
 import fr.maxlego08.essentials.api.Configuration;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.Permission;
+import fr.maxlego08.essentials.api.event.events.user.UserFirstJoinEvent;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
@@ -137,6 +138,12 @@ public class PlayerListener extends ZUtils implements Listener {
         }
 
         return wait != 0L ? wait : 0.0;
+    }
+
+    @EventHandler
+    public void onFirstJoin(UserFirstJoinEvent event){
+        var user = event.getUser();
+        this.plugin.getConfiguration().getDefaultOptionValues().forEach(user::setOption);
     }
 
     @EventHandler

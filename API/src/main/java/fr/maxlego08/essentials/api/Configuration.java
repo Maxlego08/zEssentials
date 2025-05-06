@@ -6,6 +6,7 @@ import fr.maxlego08.essentials.api.configuration.ReplacePlaceholder;
 import fr.maxlego08.essentials.api.server.RedisConfiguration;
 import fr.maxlego08.essentials.api.server.ServerType;
 import fr.maxlego08.essentials.api.storage.StorageType;
+import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.utils.MessageColor;
 import fr.maxlego08.essentials.api.utils.NearDistance;
 import fr.maxlego08.essentials.api.utils.TransformMaterial;
@@ -14,6 +15,7 @@ import org.bukkit.permissions.Permissible;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -228,5 +230,18 @@ public interface Configuration extends ConfigurationFile {
      */
     List<Long> getFlyTaskAnnounce();
 
+    /**
+     * Retrieves a list of world names where the back feature is disabled.
+     *
+     * @return a list of world names where the back feature is disabled
+     */
     List<String> getDisableBackWorld();
+
+    /**
+     * Retrieves the default values of the options, which are the values
+     * that are set when a player joins the server for the first time.
+     *
+     * @return a map of options and their default values
+     */
+    Map<Option, Boolean> getDefaultOptionValues();
 }
