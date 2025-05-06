@@ -111,7 +111,7 @@ public class StepModule extends ZModule implements StepManager {
         IStorage iStorage = this.plugin.getStorageManager().getStorage();
         var jsonResult = this.plugin.getGson().toJson(playerStep);
         long playTimeBetween = user.getPlayTime() - playTimeStart;
-        iStorage.finishStep(player.getUniqueId(), step, jsonResult, playTimeBetween, user.getPlayTime());
+        iStorage.finishStep(player.getUniqueId(), step, jsonResult, user.getPlayTime(), playTimeBetween);
     }
 
     /**
