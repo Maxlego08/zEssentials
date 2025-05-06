@@ -130,7 +130,7 @@ public abstract class WorldEditTask {
     // Selects a random material based on the defined material percentages.
     public Material selectRandomMaterial() {
 
-        if (this.materialPercents.size() == 1) return this.materialPercents.get(0).material();
+        if (this.materialPercents.size() == 1) return this.materialPercents.getFirst().material();
 
         double randomValue = random.nextDouble() * 100.0;
         double cumulativePercent = 0.0;
@@ -142,7 +142,7 @@ public abstract class WorldEditTask {
             }
         }
 
-        return this.materialPercents.get(this.materialPercents.size() - 1).material();
+        return this.materialPercents.getLast().material();
     }
 
     // Returns the current status of the WorldEdit task.
@@ -211,7 +211,7 @@ public abstract class WorldEditTask {
     // Checks if the player has the required items in their inventory or vault.
     private boolean hasRequiredItems(Player player, Map<Material, Long> requiredItems) {
         Inventory inventory = player.getInventory();
-        var vaultManager = plugin.getVaultManager();
+        var vaultManager = this.plugin.getVaultManager();
 
         for (Map.Entry<Material, Long> entry : requiredItems.entrySet()) {
             Material material = entry.getKey();

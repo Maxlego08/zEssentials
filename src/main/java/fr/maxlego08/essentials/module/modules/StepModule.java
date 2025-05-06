@@ -1,7 +1,8 @@
 package fr.maxlego08.essentials.module.modules;
 
 import fr.maxlego08.essentials.ZEssentialsPlugin;
-import fr.maxlego08.essentials.api.event.events.step.StepRegisterEvent;
+import fr.maxlego08.essentials.api.event.events.step.StepCreateEvent;
+import fr.maxlego08.essentials.api.event.events.step.StepFinishEvent;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.steps.CustomStep;
 import fr.maxlego08.essentials.api.steps.PlayerStep;
@@ -40,7 +41,7 @@ public class StepModule extends ZModule implements StepManager {
     }
 
     @Override
-    public void handleStep(CommandSender sender, Player player, Step step) {
+    public void startStep(CommandSender sender, Player player, Step step) {
 
         var scheduler = this.plugin.getScheduler();
         scheduler.runAsync(w1 -> {
@@ -49,6 +50,22 @@ public class StepModule extends ZModule implements StepManager {
             var stepDTO = iStorage.selectStep(player.getUniqueId(), step);
             if (stepDTO != null) {
                 message(sender, Message.STEP_ALREADY_EXIST, "%step%", step.name());
+                return;
+            }
+
+            scheduler.runNextTick(w2 -> createStep(this.plugin.getUser(player.getUniqueId()), player, step));
+        });
+    }
+
+    @Override
+    public void finishStep(CommandSender sender, Player player, Step step) {
+        var scheduler = this.plugin.getScheduler();
+        scheduler.runAsync(w1 -> {
+
+            IStorage iStorage = plugin.getStorageManager().getStorage();
+            var stepDTO = iStorage.selectStep(player.getUniqueId(), step);
+            if (stepDTO == null) {
+                message(sender, Message.STEP_DOESNT_STARTED, "%step%", step.name());
                 return;
             }
 
@@ -67,22 +84,53 @@ public class StepModule extends ZModule implements StepManager {
                 additionalData.put(customStep.getServiceName(), customStep.register(player, date));
             }
 
-            scheduler.runNextTick(w2 -> createStep(plugin.getUser(player.getUniqueId()), player, step, additionalData));
+            scheduler.runNextTick(w2 -> finishStep(plugin.getUser(player.getUniqueId()), player, step, additionalData, stepDTO.play_time_start()));
         });
     }
 
-    private void createStep(User user, Player player, Step step, Map<String, Object> additionalData) {
+    /**
+     * Finalizes a step for a given player by creating a PlayerStep object,
+     * calling the StepFinishEvent, and updating the storage with the step's data.
+     * If the event is cancelled, the process is halted.
+     *
+     * @param user           The user associated with the step.
+     * @param player         The player for whom the step is being finished.
+     * @param step           The step to finalize.
+     * @param additionalData A map of additional data relevant to the step.
+     * @param playTimeStart  The start time of the play session for the step.
+     */
+    private void finishStep(User user, Player player, Step step, Map<String, Object> additionalData, long playTimeStart) {
 
         PlayerStep playerStep = new PlayerStep(player, additionalData);
 
-        StepRegisterEvent event = new StepRegisterEvent(user, playerStep);
+        StepFinishEvent event = new StepFinishEvent(user, playerStep);
         event.callEvent();
 
         if (event.isCancelled()) return;
 
-        IStorage iStorage = plugin.getStorageManager().getStorage();
+        IStorage iStorage = this.plugin.getStorageManager().getStorage();
         var jsonResult = this.plugin.getGson().toJson(playerStep);
-        iStorage.registerStep(player.getUniqueId(), step, jsonResult);
+        long playTimeBetween = user.getPlayTime() - playTimeStart;
+        iStorage.finishStep(player.getUniqueId(), step, jsonResult, user.getPlayTime(), playTimeBetween);
+    }
+
+    /**
+     * Starts a step for a given player by creating a StepCreateEvent and,
+     * if the event is not cancelled, updating the storage with the step's data.
+     *
+     * @param user   The user associated with the step.
+     * @param player The player for whom the step is being started.
+     * @param step   The step to start.
+     */
+    private void createStep(User user, Player player, Step step) {
+
+        StepCreateEvent event = new StepCreateEvent(user, step);
+        event.callEvent();
+
+        if (event.isCancelled()) return;
+
+        IStorage iStorage = this.plugin.getStorageManager().getStorage();
+        iStorage.createStep(player.getUniqueId(), step, user.getPlayTime());
     }
 
     @Override

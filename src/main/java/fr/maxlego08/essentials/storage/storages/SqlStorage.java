@@ -38,36 +38,38 @@ import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.user.UserRecord;
 import fr.maxlego08.essentials.api.vault.Vault;
-import fr.maxlego08.essentials.migrations.CreateChatMessageMigration;
-import fr.maxlego08.essentials.migrations.CreateCommandsMigration;
-import fr.maxlego08.essentials.migrations.CreateEconomyTransactionMigration;
-import fr.maxlego08.essentials.migrations.CreateLinkAccountMigration;
-import fr.maxlego08.essentials.migrations.CreateLinkCodeMigrations;
-import fr.maxlego08.essentials.migrations.CreateLinkHistoryMigration;
-import fr.maxlego08.essentials.migrations.CreatePlayerSlots;
-import fr.maxlego08.essentials.migrations.CreatePlayerVault;
-import fr.maxlego08.essentials.migrations.CreatePlayerVaultItem;
-import fr.maxlego08.essentials.migrations.CreatePrivateMessagesMigration;
-import fr.maxlego08.essentials.migrations.CreateSanctionsTableMigration;
-import fr.maxlego08.essentials.migrations.CreateServerStorageTableMigration;
-import fr.maxlego08.essentials.migrations.CreateUserCooldownTableMigration;
-import fr.maxlego08.essentials.migrations.CreateUserEconomyMigration;
-import fr.maxlego08.essentials.migrations.CreateUserHomeTableMigration;
-import fr.maxlego08.essentials.migrations.CreateUserMailBoxMigration;
-import fr.maxlego08.essentials.migrations.CreateUserOptionTableMigration;
-import fr.maxlego08.essentials.migrations.CreateUserPlayTimeTableMigration;
-import fr.maxlego08.essentials.migrations.CreateUserPowerToolsMigration;
-import fr.maxlego08.essentials.migrations.CreateUserStepMigration;
-import fr.maxlego08.essentials.migrations.CreateUserTableMigration;
-import fr.maxlego08.essentials.migrations.CreateVoteSiteMigration;
-import fr.maxlego08.essentials.migrations.DropPowerToolsMigration;
-import fr.maxlego08.essentials.migrations.ReCreatePowerToolsMigration;
-import fr.maxlego08.essentials.migrations.UpdateEconomyTransactionAddColumn;
-import fr.maxlego08.essentials.migrations.UpdatePlayerSlots;
-import fr.maxlego08.essentials.migrations.UpdateUserTableAddFlyColumn;
-import fr.maxlego08.essentials.migrations.UpdateUserTableAddFreezeColumn;
-import fr.maxlego08.essentials.migrations.UpdateUserTableAddSanctionColumns;
-import fr.maxlego08.essentials.migrations.UpdateUserTableAddVoteColumn;
+import fr.maxlego08.essentials.migrations.create.CreateChatMessageMigration;
+import fr.maxlego08.essentials.migrations.create.CreateCommandsMigration;
+import fr.maxlego08.essentials.migrations.create.CreateEconomyTransactionMigration;
+import fr.maxlego08.essentials.migrations.create.CreateLinkAccountMigration;
+import fr.maxlego08.essentials.migrations.create.CreateLinkCodeMigrations;
+import fr.maxlego08.essentials.migrations.create.CreateLinkHistoryMigration;
+import fr.maxlego08.essentials.migrations.create.CreatePlayerSlots;
+import fr.maxlego08.essentials.migrations.create.CreatePlayerVault;
+import fr.maxlego08.essentials.migrations.create.CreatePlayerVaultItem;
+import fr.maxlego08.essentials.migrations.create.CreatePrivateMessagesMigration;
+import fr.maxlego08.essentials.migrations.create.CreateSanctionsTableMigration;
+import fr.maxlego08.essentials.migrations.create.CreateServerStorageTableMigration;
+import fr.maxlego08.essentials.migrations.create.CreateUserCooldownTableMigration;
+import fr.maxlego08.essentials.migrations.create.CreateUserEconomyMigration;
+import fr.maxlego08.essentials.migrations.create.CreateUserHomeTableMigration;
+import fr.maxlego08.essentials.migrations.create.CreateUserMailBoxMigration;
+import fr.maxlego08.essentials.migrations.create.CreateUserOptionTableMigration;
+import fr.maxlego08.essentials.migrations.create.CreateUserPlayTimeTableMigration;
+import fr.maxlego08.essentials.migrations.create.CreateUserPowerToolsMigration;
+import fr.maxlego08.essentials.migrations.create.CreateUserStepMigration;
+import fr.maxlego08.essentials.migrations.create.CreateUserStepV2Migration;
+import fr.maxlego08.essentials.migrations.create.CreateUserTableMigration;
+import fr.maxlego08.essentials.migrations.create.CreateVoteSiteMigration;
+import fr.maxlego08.essentials.migrations.drop.DropPowerToolsMigration;
+import fr.maxlego08.essentials.migrations.create.CreateUserPowerToolsV2Migration;
+import fr.maxlego08.essentials.migrations.drop.DropStepMigration;
+import fr.maxlego08.essentials.migrations.update.UpdateEconomyTransactionAddColumn;
+import fr.maxlego08.essentials.migrations.update.UpdatePlayerSlots;
+import fr.maxlego08.essentials.migrations.update.UpdateUserTableAddFlyColumn;
+import fr.maxlego08.essentials.migrations.update.UpdateUserTableAddFreezeColumn;
+import fr.maxlego08.essentials.migrations.update.UpdateUserTableAddSanctionColumns;
+import fr.maxlego08.essentials.migrations.update.UpdateUserTableAddVoteColumn;
 import fr.maxlego08.essentials.storage.GlobalDatabaseConfiguration;
 import fr.maxlego08.essentials.storage.database.Repositories;
 import fr.maxlego08.essentials.storage.database.Repository;
@@ -180,10 +182,13 @@ public class SqlStorage extends StorageHelper implements IStorage {
         MigrationManager.registerMigration(new CreateLinkAccountMigration());
         MigrationManager.registerMigration(new CreateLinkHistoryMigration());
         MigrationManager.registerMigration(new DropPowerToolsMigration());
-        MigrationManager.registerMigration(new ReCreatePowerToolsMigration());
+        MigrationManager.registerMigration(new CreateUserPowerToolsV2Migration());
         MigrationManager.registerMigration(new UpdatePlayerSlots());
         MigrationManager.registerMigration(new CreatePrivateMessagesMigration());
         MigrationManager.registerMigration(new CreateUserStepMigration());
+
+        MigrationManager.registerMigration(new DropStepMigration());
+        MigrationManager.registerMigration(new CreateUserStepV2Migration());
 
         // Repositories
         this.repositories = new Repositories(plugin, this.connection);
@@ -766,8 +771,13 @@ public class SqlStorage extends StorageHelper implements IStorage {
     }
 
     @Override
-    public void registerStep(UUID uniqueId, Step step, String data) {
-        async(() -> with(UserStepRepository.class).insert(uniqueId, step, data));
+    public void createStep(UUID uniqueId, Step step, long playTime) {
+        async(() -> with(UserStepRepository.class).createStep(uniqueId, step, playTime));
+    }
+
+    @Override
+    public void finishStep(UUID uniqueId, Step step, String data, long playTimeEnd, long playTimeBetween) {
+        async(() -> with(UserStepRepository.class).finishStep(uniqueId, step, data, playTimeBetween, playTimeEnd));
     }
 
     @Override

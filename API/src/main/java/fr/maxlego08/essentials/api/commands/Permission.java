@@ -275,7 +275,7 @@ public enum Permission {
     ESSENTIALS_SIGN_RESET("Allows you to use the <reset> mini message format"),
     ESSENTIALS_SIGN_FONT("Allows you to use the <font> mini message format"),
     ESSENTIALS_SIGN_KEYBIND("Allows you to use the <key> mini message format"),
-    ;
+    ESSENTIALS_STEP_START, ESSENTIALS_STEP_FINISH;
 
     private final String description;
     private final String[] args;

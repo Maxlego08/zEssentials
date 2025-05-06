@@ -12,6 +12,7 @@ import fr.maxlego08.essentials.api.configuration.placeholders.StringPlaceholder;
 import fr.maxlego08.essentials.api.server.RedisConfiguration;
 import fr.maxlego08.essentials.api.server.ServerType;
 import fr.maxlego08.essentials.api.storage.StorageType;
+import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.utils.MessageColor;
 import fr.maxlego08.essentials.api.utils.NearDistance;
 import fr.maxlego08.essentials.api.utils.TransformMaterial;
@@ -23,6 +24,7 @@ import org.bukkit.permissions.Permissible;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -41,6 +43,7 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     private final List<NearDistance> nearPermissions = new ArrayList<>();
     private final List<String> disableFlyWorld = new ArrayList<>();
     private final List<String> disableBackWorld = new ArrayList<>();
+    private final Map<Option, Boolean> defaultOptionValues = new HashMap<>();
     private long[] cooldownCommands;
     private boolean enableDebug;
     private boolean enableCooldownBypass;
@@ -110,6 +113,11 @@ public class MainConfiguration extends YamlLoader implements Configuration {
         this.simpleDateFormat = this.globalDateFormat == null ? new SimpleDateFormat("yyyy-MM-dd HH:mm:ss") : new SimpleDateFormat(this.globalDateFormat);
         this.flyTaskAnnounce = configuration.getLongList("fly-task-announce");
         this.loadReplacePlaceholders();
+
+        this.defaultOptionValues.clear();
+        for (Map<?, ?> map : configuration.getMapList("default-options")) {
+            this.defaultOptionValues.put(Option.valueOf((String) map.get("option")), (Boolean) map.get("value"));
+        }
     }
 
     private void loadReplacePlaceholders() {
@@ -279,5 +287,10 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     @Override
     public List<String> getDisableBackWorld() {
         return disableBackWorld;
+    }
+
+    @Override
+    public Map<Option, Boolean> getDefaultOptionValues() {
+        return defaultOptionValues;
     }
 }

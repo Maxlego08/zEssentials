@@ -15,6 +15,7 @@ import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
 import fr.maxlego08.essentials.api.permission.PermissionChecker;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
+import fr.maxlego08.essentials.api.sanction.SanctionManager;
 import fr.maxlego08.essentials.api.scoreboard.ScoreboardManager;
 import fr.maxlego08.essentials.api.server.EssentialsServer;
 import fr.maxlego08.essentials.api.steps.StepManager;
@@ -361,23 +362,13 @@ public interface EssentialsPlugin extends Plugin {
     Enchantments getEnchantments();
 
     /**
-     * Creates an instance of a specified class.
+     * Creates an instance of a specified class with an option to display a log.
      *
-     * @param className the name of the class to create an instance of
      * @param <T>       the type of the instance
+     * @param className the name of the class to create an instance of
      * @return an {@link Optional} containing the instance if successful, or empty if not
      */
     <T> Optional<T> createInstance(String className);
-
-    /**
-     * Creates an instance of a specified class with an option to display a log.
-     *
-     * @param className  the name of the class to create an instance of
-     * @param displayLog whether to display a log message
-     * @param <T>        the type of the instance
-     * @return an {@link Optional} containing the instance if successful, or empty if not
-     */
-    <T> Optional<T> createInstance(String className, boolean displayLog);
 
     /**
      * Returns the time when the server started in milliseconds.
@@ -444,4 +435,11 @@ public interface EssentialsPlugin extends Plugin {
      * @return the home manager
      */
     HomeManager getHomeManager();
+
+    /**
+     * Retrieves the sanction manager. This manager is used to manage sanctions such as bans, mutes, kicks, and warns.
+     *
+     * @return the sanction manager
+     */
+    SanctionManager getSanctionManager();
 }

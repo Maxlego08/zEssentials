@@ -23,6 +23,7 @@ import fr.maxlego08.essentials.api.modules.ModuleManager;
 import fr.maxlego08.essentials.api.permission.PermissionChecker;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.placeholders.PlaceholderRegister;
+import fr.maxlego08.essentials.api.sanction.SanctionManager;
 import fr.maxlego08.essentials.api.scoreboard.ScoreboardManager;
 import fr.maxlego08.essentials.api.server.EssentialsServer;
 import fr.maxlego08.essentials.api.steps.StepManager;
@@ -69,6 +70,7 @@ import fr.maxlego08.essentials.messages.MessageLoader;
 import fr.maxlego08.essentials.module.ZModuleManager;
 import fr.maxlego08.essentials.module.modules.HomeModule;
 import fr.maxlego08.essentials.module.modules.MailBoxModule;
+import fr.maxlego08.essentials.module.modules.SanctionModule;
 import fr.maxlego08.essentials.module.modules.StepModule;
 import fr.maxlego08.essentials.module.modules.VoteModule;
 import fr.maxlego08.essentials.module.modules.afk.AFKModule;
@@ -265,24 +267,25 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         }*/
 
         if (getServer().getPluginManager().isPluginEnabled("BlockTracker")) {
-            var optional = createInstance("BlockTrackerHook", false);
-            optional.ifPresent(object -> {
+            createInstance("BlockTrackerHook").ifPresent(object -> {
                 this.blockTracker = (BlockTracker) object;
                 this.getLogger().info("Register BlockTracker.");
             });
         }
 
         if (getServer().getPluginManager().isPluginEnabled("SuperiorSkyBlock2")) {
-            var optional = createInstance("SuperiorSkyBlockPermission", false);
-            optional.ifPresent(object -> {
+            createInstance("SuperiorSkyBlockPermission").ifPresent(object -> {
                 this.permissionCheckers.add((PermissionChecker) object);
                 this.getLogger().info("Register SuperiorSkyBlock Permission Checker.");
             });
         }
 
         if (getServer().getPluginManager().isPluginEnabled("Votifier")) {
-            var optional = createInstance("NuVotifierHook", false);
-            optional.ifPresent(object -> this.getLogger().info("Register NuVotifierHook."));
+            createInstance("NuVotifierHook").ifPresent(object -> this.getLogger().info("Register NuVotifierHook."));
+        }
+
+        if (getServer().getPluginManager().isPluginEnabled("NChat")) {
+            createInstance("NChatHook").ifPresent(object -> this.getLogger().info("Register NChatHook."));
         }
 
         this.getServer().getServicesManager().register(EssentialsPlugin.class, this, this, ServicePriority.Normal);
@@ -308,7 +311,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
             if (!configuration.getBoolean("enable", false)) return;
 
             Class.forName("net.milkbowl.vault.economy.Economy");
-            var optional = createInstance("VaultEconomy", true);
+            var optional = createInstance("VaultEconomy");
             if (optional.isPresent()) {
                 getLogger().info("Register Vault Economy.");
             } else {
@@ -682,14 +685,8 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         return PlaceholderUtils.PapiHelper.papi(string, player);
     }
 
-
     @Override
     public <T> Optional<T> createInstance(String className) {
-        return createInstance(className, true);
-    }
-
-    @Override
-    public <T> Optional<T> createInstance(String className, boolean displayLog) {
         try {
             Class<?> clazz = Class.forName("fr.maxlego08.essentials.hooks." + className);
 
@@ -783,5 +780,10 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     @Override
     public HomeManager getHomeManager() {
         return getModuleManager().getModule(HomeModule.class);
+    }
+
+    @Override
+    public SanctionManager getSanctionManager() {
+        return getModuleManager().getModule(SanctionModule.class);
     }
 }

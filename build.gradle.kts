@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "zEssentials"
-version = "1.0.2.4"
+version = "1.0.2.5"
 
 extra.set("targetFolder", file("target/"))
 extra.set("apiFolder", file("target-api/"))
@@ -32,7 +32,7 @@ allprojects {
     }
 
     dependencies {
-        compileOnly("com.github.maxlego08:zMenu-API:1.0.3.8")
+        compileOnly("com.github.maxlego08:zMenu-API:1.0.4.0")
 
         implementation("com.github.technicallycoded:FoliaLib:0.4.3")
         implementation("com.github.Maxlego08:Sarah:1.17")

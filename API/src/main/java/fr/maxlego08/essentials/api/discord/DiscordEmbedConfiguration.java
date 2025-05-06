@@ -121,11 +121,13 @@ public record DiscordEmbedConfiguration(String title, String description, String
         DiscordWebhook.EmbedObject embedObject = new DiscordWebhook.EmbedObject();
 
         if (this.author != null) {
-            embedObject.setAuthor(replace(consumer.accept(this.author.name), args), replace(consumer.accept(this.author.url), args), replace(consumer.accept(this.author.iconUrl), args));
+            embedObject.setAuthor(consumer.accept(this.author.name()),
+                    consumer.accept(this.author.url()),
+                    consumer.accept(this.author.iconUrl()));
         }
 
         if (this.description != null) {
-            embedObject.setDescription(replace(consumer.accept(this.description), args));
+            embedObject.setDescription(consumer.accept(this.description));
         }
 
         if (this.color != null) {
@@ -133,7 +135,25 @@ public record DiscordEmbedConfiguration(String title, String description, String
         }
 
         if (this.title != null) {
-            embedObject.setTitle(replace(consumer.accept(this.title), args));
+            embedObject.setTitle(consumer.accept(this.title));
+        }
+
+        if (this.thumbnail != null) {
+            embedObject.setThumbnail(consumer.accept(this.thumbnail.url()));
+        }
+
+        if (this.image != null) {
+            embedObject.setImage(consumer.accept(this.image.url()));
+        }
+
+        if (this.footer != null) {
+            embedObject.setFooter(consumer.accept(this.footer.text()), consumer.accept(this.footer.iconUrl()));
+        }
+
+        if (!this.fields.isEmpty()) {
+            for (Field field : this.fields) {
+                embedObject.addField(consumer.accept(field.name()), consumer.accept(field.value()), field.inline());
+            }
         }
 
         discordWebhook.addEmbed(embedObject);

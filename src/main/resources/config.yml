@@ -232,3 +232,22 @@ enable-offline-player-names: true
 # List of players that will be blacklist of your server, they will not be able to connect
 blacklist-uuids:
   - "00000000-0000-0000-0000-000000000000"
+
+# Allows setting options by value for new players when they first log in
+# Options:
+# - SOCIAL_SPY: Allows to spy private messages between players
+# - GOD: Makes the player invincible
+# - BAN: If player is banned
+# - MUTE: If player is muted
+# - INVSEE: Allows to check the inventory of other players
+# - VANISH: Makes the player invisible
+# - PRIVATE_MESSAGE_DISABLE: Disables private messages
+# - PAY_DISABLE: Disables the economy system
+# - POWER_TOOLS_DISABLE: Disables the power tools
+# - DISABLE_SCOREBOARD: Disables the scoreboard
+# - NIGHT_VISION: Allows to see in the dark
+# - WORLDEDIT_INVENTORY: Allows to use the player's inventory for WorldEdit
+# - WORLDEDIT_BOSSBAR_DISABLE: Disables the WorldEdit bossbar
+default-options:
+  - option: WORLDEDIT_INVENTORY
+    value: true

@@ -15,7 +15,16 @@ public interface StepManager {
      * @param player The player for whom the step is being handled.
      * @param step   The step to be handled.
      */
-    void handleStep(CommandSender sender, Player player, Step step);
+    void startStep(CommandSender sender, Player player, Step step);
+
+    /**
+     * Finishes the specified step for a given player.
+     *
+     * @param sender The command sender who initiated the step finishing.
+     * @param player The player for whom the step is being finished.
+     * @param step   The step to be finished.
+     */
+    void finishStep(CommandSender sender, Player player, Step step);
 
     /**
      * Gets a step by its name.
