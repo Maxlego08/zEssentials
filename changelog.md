@@ -5,6 +5,14 @@
 
 # Unreleased
 
+# 1.0.2.5
+
+- Fix vault economy with player's name
+- Fix discord webhook configuration
+- Rework steps module. The information is more complete and accurate.
+- Added NChat Hook
+- Added default option value in config.yml
+
 # 1.0.2.4
 
 - Rework kit. A kit now has its own configuration file present in the modules/kits/kits doser.

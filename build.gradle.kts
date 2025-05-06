@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "zEssentials"
-version = "1.0.2.4"
+version = "1.0.2.5"
 
 extra.set("targetFolder", file("target/"))
 extra.set("apiFolder", file("target-api/"))
