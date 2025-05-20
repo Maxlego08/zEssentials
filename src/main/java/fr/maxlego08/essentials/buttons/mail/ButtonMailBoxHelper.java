@@ -6,15 +6,16 @@ import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.modules.MailBoxModule;
 import fr.maxlego08.essentials.zutils.utils.ComponentMessageHelper;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
+import fr.maxlego08.menu.api.button.PaginateButton;
 import fr.maxlego08.menu.api.utils.Placeholders;
-import fr.maxlego08.menu.button.ZButton;
-import fr.maxlego08.menu.inventory.inventories.InventoryDefault;
+import fr.maxlego08.menu.api.button.Button;
+import fr.maxlego08.menu.api.engine.InventoryEngine;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.stream.Collectors;
 
-public abstract class ButtonMailBoxHelper extends ZButton {
+public abstract class ButtonMailBoxHelper extends PaginateButton {
 
     private final EssentialsPlugin plugin;
 
@@ -22,7 +23,7 @@ public abstract class ButtonMailBoxHelper extends ZButton {
         this.plugin = plugin;
     }
 
-    protected void displayItem(int slot, MailBoxItem mailBoxItem, Player player, User user, InventoryDefault inventory) {
+    protected void displayItem(int slot, MailBoxItem mailBoxItem, Player player, User user, InventoryEngine inventory) {
 
         MailBoxModule mailBoxModule = this.plugin.getModuleManager().getModule(MailBoxModule.class);
 

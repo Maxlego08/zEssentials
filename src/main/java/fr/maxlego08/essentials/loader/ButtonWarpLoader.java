@@ -6,30 +6,14 @@ import fr.maxlego08.menu.api.button.Button;
 import fr.maxlego08.menu.api.button.DefaultButtonValue;
 import fr.maxlego08.menu.api.loader.ButtonLoader;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.plugin.Plugin;
 
-public class ButtonWarpLoader implements ButtonLoader {
+public class ButtonWarpLoader extends ButtonLoader {
 
     private final EssentialsPlugin plugin;
 
     public ButtonWarpLoader(EssentialsPlugin plugin) {
+        super(plugin, "zessentials_warp");
         this.plugin = plugin;
-    }
-
-
-    @Override
-    public Class<? extends Button> getButton() {
-        return ButtonWarp.class;
-    }
-
-    @Override
-    public String getName() {
-        return "zessentials_warp";
-    }
-
-    @Override
-    public Plugin getPlugin() {
-        return this.plugin;
     }
 
     @Override

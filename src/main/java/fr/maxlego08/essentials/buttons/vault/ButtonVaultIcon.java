@@ -4,14 +4,14 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.vault.PlayerVaults;
 import fr.maxlego08.essentials.api.vault.Vault;
 import fr.maxlego08.menu.api.utils.Placeholders;
-import fr.maxlego08.menu.button.ZButton;
-import fr.maxlego08.menu.inventory.inventories.InventoryDefault;
+import fr.maxlego08.menu.api.button.Button;
+import fr.maxlego08.menu.api.engine.InventoryEngine;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
-public class ButtonVaultIcon extends ZButton {
+public class ButtonVaultIcon extends Button {
 
     private final EssentialsPlugin plugin;
 
@@ -41,7 +41,7 @@ public class ButtonVaultIcon extends ZButton {
     }
 
     @Override
-    public void onLeftClick(Player player, InventoryClickEvent event, InventoryDefault inventory, int slot) {
+    public void onLeftClick(Player player, InventoryClickEvent event, InventoryEngine inventory, int slot) {
         super.onLeftClick(player, event, inventory, slot);
 
         var vaultManager = this.plugin.getVaultManager();
@@ -53,7 +53,7 @@ public class ButtonVaultIcon extends ZButton {
     }
 
     @Override
-    public void onRightClick(Player player, InventoryClickEvent event, InventoryDefault inventory, int slot) {
+    public void onRightClick(Player player, InventoryClickEvent event, InventoryEngine inventory, int slot) {
         super.onRightClick(player, event, inventory, slot);
 
         var vaultManager = this.plugin.getVaultManager();

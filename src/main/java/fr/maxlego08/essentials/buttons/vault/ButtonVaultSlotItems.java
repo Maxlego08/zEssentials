@@ -6,8 +6,8 @@ import fr.maxlego08.essentials.api.vault.Vault;
 import fr.maxlego08.essentials.api.vault.VaultItem;
 import fr.maxlego08.essentials.api.vault.VaultResult;
 import fr.maxlego08.menu.api.utils.Placeholders;
-import fr.maxlego08.menu.button.ZButton;
-import fr.maxlego08.menu.inventory.inventories.InventoryDefault;
+import fr.maxlego08.menu.api.button.Button;
+import fr.maxlego08.menu.api.engine.InventoryEngine;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -18,7 +18,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
-public class ButtonVaultSlotItems extends ZButton {
+public class ButtonVaultSlotItems extends Button {
 
     private final EssentialsPlugin plugin;
 
@@ -32,7 +32,7 @@ public class ButtonVaultSlotItems extends ZButton {
     }
 
     @Override
-    public void onInventoryOpen(Player player, InventoryDefault inventory, Placeholders placeholders) {
+    public void onInventoryOpen(Player player, InventoryEngine inventory, Placeholders placeholders) {
 
         inventory.setDisablePlayerInventoryClick(false);
 
@@ -44,7 +44,7 @@ public class ButtonVaultSlotItems extends ZButton {
     }
 
     @Override
-    public void onRender(Player player, InventoryDefault inventory) {
+    public void onRender(Player player, InventoryEngine inventory) {
 
         var manager = this.plugin.getVaultManager();
 
@@ -63,7 +63,7 @@ public class ButtonVaultSlotItems extends ZButton {
         vault.getVaultItems().forEach((slot, vaultItem) -> setVaultItem(slot, vault, vaultItem, inventory, player));
     }
 
-    private void setVaultItem(Integer slot, Vault vault, VaultItem vaultItem, InventoryDefault inventory, Player player) {
+    private void setVaultItem(Integer slot, Vault vault, VaultItem vaultItem, InventoryEngine inventory, Player player) {
         ItemStack itemStack = vaultItem.getDisplayItemStack(player, this.plugin.getComponentMessage());
         inventory.addItem(slot, itemStack).setClick(event -> {
             event.setCancelled(true);
@@ -71,7 +71,7 @@ public class ButtonVaultSlotItems extends ZButton {
         });
     }
 
-    private void onBagClick(Player player, Vault vault, VaultItem vaultItem, ClickType clickType, int slot, InventoryDefault inventoryDefault, InventoryClickEvent event) {
+    private void onBagClick(Player player, Vault vault, VaultItem vaultItem, ClickType clickType, int slot, InventoryEngine inventoryDefault, InventoryClickEvent event) {
 
         var manager = this.plugin.getVaultManager();
         InventoryAction action = event.getAction();
@@ -92,19 +92,19 @@ public class ButtonVaultSlotItems extends ZButton {
         }
     }
 
-    private void updateInventoryBag(Player player, VaultItem bagItem, int slot, InventoryDefault inventoryDefault, Vault vault) {
+    private void updateInventoryBag(Player player, VaultItem bagItem, int slot, InventoryEngine inventoryDefault, Vault vault) {
         if (bagItem.getQuantity() <= 0 || !vault.contains(slot)) {
             releaseSlot(inventoryDefault, slot);
         } else
             inventoryDefault.getSpigotInventory().setItem(slot, bagItem.getDisplayItemStack(player, this.plugin.getComponentMessage()));
     }
 
-    protected void releaseSlot(InventoryDefault inventory, int slot) {
+    protected void releaseSlot(InventoryEngine inventory, int slot) {
         inventory.addItem(slot, new ItemStack(Material.AIR)).setClick(event -> event.setCancelled(true));
     }
 
     @Override
-    public void onInventoryClick(InventoryClickEvent event, Player player, InventoryDefault inventoryDefault) {
+    public void onInventoryClick(InventoryClickEvent event, Player player, InventoryEngine inventoryDefault) {
 
         var clickType = event.getClick();
         var itemStack = event.getCurrentItem();
@@ -194,7 +194,7 @@ public class ButtonVaultSlotItems extends ZButton {
     }
 
     @Override
-    public void onDrag(InventoryDragEvent event, Player player, InventoryDefault inventoryDefault) {
+    public void onDrag(InventoryDragEvent event, Player player, InventoryEngine inventoryDefault) {
         event.setCancelled(true);
     }
 }

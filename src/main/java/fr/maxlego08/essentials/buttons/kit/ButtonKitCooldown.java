@@ -5,8 +5,8 @@ import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.menu.api.utils.Placeholders;
-import fr.maxlego08.menu.button.ZButton;
-import fr.maxlego08.menu.inventory.inventories.InventoryDefault;
+import fr.maxlego08.menu.api.button.Button;
+import fr.maxlego08.menu.api.engine.InventoryEngine;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
@@ -14,7 +14,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.List;
 import java.util.Optional;
 
-public class ButtonKitCooldown extends ZButton {
+public class ButtonKitCooldown extends Button {
 
     private final EssentialsPlugin plugin;
     private final String kitName;
@@ -25,7 +25,7 @@ public class ButtonKitCooldown extends ZButton {
     }
 
     @Override
-    public void onClick(Player player, InventoryClickEvent event, InventoryDefault inventory, int slot, Placeholders placeholders) {
+    public void onClick(Player player, InventoryClickEvent event, InventoryEngine inventory, int slot, Placeholders placeholders) {
 
         User user = this.plugin.getUser(player.getUniqueId());
         if (user == null) return;
@@ -76,7 +76,7 @@ public class ButtonKitCooldown extends ZButton {
     }
 
     @Override
-    public boolean checkPermission(Player player, InventoryDefault inventory, Placeholders placeholders) {
+    public boolean checkPermission(Player player, InventoryEngine inventory, Placeholders placeholders) {
         User user = this.plugin.getUser(player.getUniqueId());
         if (user == null) return false;
         Optional<Kit> optional = this.plugin.getKit(this.kitName);

@@ -3,12 +3,12 @@ package fr.maxlego08.essentials.buttons.vault;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.vault.PlayerVaults;
 import fr.maxlego08.essentials.api.vault.Vault;
-import fr.maxlego08.menu.button.ZButton;
-import fr.maxlego08.menu.inventory.inventories.InventoryDefault;
+import fr.maxlego08.menu.api.button.Button;
+import fr.maxlego08.menu.api.engine.InventoryEngine;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-public class ButtonVaultSlotDisable extends ZButton {
+public class ButtonVaultSlotDisable extends Button {
 
     private final EssentialsPlugin plugin;
 
@@ -22,7 +22,7 @@ public class ButtonVaultSlotDisable extends ZButton {
     }
 
     @Override
-    public void onRender(Player player, InventoryDefault inventory) {
+    public void onRender(Player player, InventoryEngine inventory) {
         var manager = this.plugin.getVaultManager();
         PlayerVaults playerVaults = manager.getPlayerVaults(player);
         Vault vault = playerVaults.getTargetVault();

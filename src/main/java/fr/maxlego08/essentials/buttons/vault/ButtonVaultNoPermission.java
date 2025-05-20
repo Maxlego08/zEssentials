@@ -4,11 +4,11 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.vault.PlayerVaults;
 import fr.maxlego08.essentials.api.vault.Vault;
 import fr.maxlego08.menu.api.utils.Placeholders;
-import fr.maxlego08.menu.button.ZButton;
+import fr.maxlego08.menu.api.button.Button;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class ButtonVaultNoPermission extends ZButton {
+public class ButtonVaultNoPermission extends Button {
 
     private final int vaultId;
     private final EssentialsPlugin plugin;

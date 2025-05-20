@@ -3,7 +3,7 @@ package fr.maxlego08.essentials.module.modules.kit;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
-import fr.maxlego08.menu.MenuItemStack;
+import fr.maxlego08.menu.api.MenuItemStack;
 import fr.maxlego08.menu.api.requirement.Action;
 import fr.maxlego08.menu.api.utils.Placeholders;
 import org.bukkit.entity.Player;

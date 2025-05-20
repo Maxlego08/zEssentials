@@ -8,12 +8,13 @@ import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
-import fr.maxlego08.menu.MenuItemStack;
+import fr.maxlego08.menu.api.InventoryManager;
+import fr.maxlego08.menu.api.MenuItemStack;
 import fr.maxlego08.menu.api.requirement.Action;
+import fr.maxlego08.menu.api.utils.Loader;
 import fr.maxlego08.menu.api.utils.TypedMapAccessor;
-import fr.maxlego08.menu.exceptions.InventoryException;
 import fr.maxlego08.menu.loader.MenuItemStackLoader;
-import fr.maxlego08.menu.zcore.utils.loader.Loader;
+import fr.maxlego08.menu.zcore.utils.itemstack.MenuItemStackFromItemStack;
 import org.apache.logging.log4j.util.Strings;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
@@ -42,7 +43,7 @@ public class KitModule extends ZModule {
     private final List<Kit> kits = new ArrayList<>();
     private KitDisplay display;
 
-    private List<String> kitsOnFirstJoin = new ArrayList<>();
+    private final List<String> kitsOnFirstJoin = new ArrayList<>();
 
     public KitModule(ZEssentialsPlugin plugin) {
         super(plugin, "kits");
@@ -105,7 +106,6 @@ public class KitModule extends ZModule {
      */
     private void loadKit(File file) {
 
-        Loader<MenuItemStack> loader = new MenuItemStackLoader(this.plugin.getInventoryManager());
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
 
         String name = configuration.getString("name");
@@ -133,37 +133,29 @@ public class KitModule extends ZModule {
         List<MenuItemStack> items = new ArrayList<>();
 
         for (String itemName : configurationSectionItems.getKeys(false)) {
-            try {
-                items.add(loader.load(configuration, "items." + itemName + ".", file));
-            } catch (InventoryException exception) {
-                exception.printStackTrace();
-            }
+            items.add(this.plugin.getInventoryManager().loadItemStack(configuration, "items." + itemName + ".", file));
         }
 
         List<Action> actions = this.plugin.getButtonManager().loadActions((List<Map<String, Object>>) configuration.getList("actions", new ArrayList<>()), "actions", file);
 
         var kit = new ZKit(this.plugin, displayName, name, cooldown, permissionCooldowns, items, actions, permission, file);
 
-        loadKitEquipment(kit, configuration, loader, "helmet.", EquipmentSlot.HEAD);
-        loadKitEquipment(kit, configuration, loader, "chestplate.", EquipmentSlot.CHEST);
-        loadKitEquipment(kit, configuration, loader, "leggings.", EquipmentSlot.LEGS);
-        loadKitEquipment(kit, configuration, loader, "boots.", EquipmentSlot.FEET);
+        loadKitEquipment(kit, configuration, this.plugin.getInventoryManager(), "helmet.", EquipmentSlot.HEAD);
+        loadKitEquipment(kit, configuration, this.plugin.getInventoryManager(), "chestplate.", EquipmentSlot.CHEST);
+        loadKitEquipment(kit, configuration, this.plugin.getInventoryManager(), "leggings.", EquipmentSlot.LEGS);
+        loadKitEquipment(kit, configuration, this.plugin.getInventoryManager(), "boots.", EquipmentSlot.FEET);
 
         this.kits.add(kit);
         this.plugin.getLogger().info("Register kit: " + name);
     }
 
-    private void loadKitEquipment(ZKit kit, YamlConfiguration configuration, Loader<MenuItemStack> loader, String path, EquipmentSlot equipmentSlot) {
-        try {
-            var itemStack = loader.load(configuration, path, kit.getFile());
-            switch (equipmentSlot) {
-                case HEAD -> kit.setHelmet(itemStack);
-                case CHEST -> kit.setChestplate(itemStack);
-                case LEGS -> kit.setLeggings(itemStack);
-                case FEET -> kit.setBoots(itemStack);
-            }
-        } catch (InventoryException exception) {
-            exception.printStackTrace();
+    private void loadKitEquipment(ZKit kit, YamlConfiguration configuration, InventoryManager inventoryManager, String path, EquipmentSlot equipmentSlot) {
+        var itemStack = inventoryManager.loadItemStack(configuration, path, kit.getFile());
+        switch (equipmentSlot) {
+            case HEAD -> kit.setHelmet(itemStack);
+            case CHEST -> kit.setChestplate(itemStack);
+            case LEGS -> kit.setLeggings(itemStack);
+            case FEET -> kit.setBoots(itemStack);
         }
     }
 
@@ -278,7 +270,7 @@ public class KitModule extends ZModule {
             List<MenuItemStack> menuItemStacks = new ArrayList<>();
             for (ItemStack itemStack : event.getInventory().getContents()) {
                 if (itemStack != null) {
-                    menuItemStacks.add(MenuItemStack.fromItemStack(this.plugin.getInventoryManager(), itemStack));
+                    menuItemStacks.add(MenuItemStackFromItemStack.fromItemStack(this.plugin.getInventoryManager(), itemStack));
                 }
             }
             kit.setItems(menuItemStacks);

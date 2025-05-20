@@ -5,14 +5,14 @@ import fr.maxlego08.essentials.api.sanction.SanctionType;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.modules.SanctionModule;
 import fr.maxlego08.menu.api.utils.Placeholders;
-import fr.maxlego08.menu.button.ZButton;
-import fr.maxlego08.menu.inventory.inventories.InventoryDefault;
+import fr.maxlego08.menu.api.button.Button;
+import fr.maxlego08.menu.api.engine.InventoryEngine;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 import java.time.Duration;
 
-public class ButtonSanction extends ZButton {
+public class ButtonSanction extends Button {
 
     private final EssentialsPlugin plugin;
     private final Duration duration;
@@ -27,7 +27,7 @@ public class ButtonSanction extends ZButton {
     }
 
     @Override
-    public void onClick(Player player, InventoryClickEvent event, InventoryDefault inventory, int slot, Placeholders placeholders) {
+    public void onClick(Player player, InventoryClickEvent event, InventoryEngine inventory, int slot, Placeholders placeholders) {
         super.onClick(player, event, inventory, slot, placeholders);
 
         User user = this.plugin.getUser(player.getUniqueId());

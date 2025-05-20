@@ -32,7 +32,7 @@ allprojects {
     }
 
     dependencies {
-        compileOnly("com.github.maxlego08:zMenu-API:1.0.4.0")
+        compileOnly(files("libs/zMenu-1.1.0.0.jar"))
 
         implementation("com.github.technicallycoded:FoliaLib:0.4.3")
         implementation("com.github.Maxlego08:Sarah:1.17")

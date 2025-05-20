@@ -4,12 +4,11 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.home.HomeManager;
 import fr.maxlego08.essentials.api.user.User;
-import fr.maxlego08.menu.MenuItemStack;
+import fr.maxlego08.menu.api.MenuItemStack;
 import fr.maxlego08.menu.api.button.PaginateButton;
+import fr.maxlego08.menu.api.engine.InventoryEngine;
+import fr.maxlego08.menu.api.engine.Pagination;
 import fr.maxlego08.menu.api.utils.Placeholders;
-import fr.maxlego08.menu.button.ZButton;
-import fr.maxlego08.menu.inventory.inventories.InventoryDefault;
-import fr.maxlego08.menu.zcore.utils.inventory.Pagination;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -18,7 +17,7 @@ import org.bukkit.plugin.Plugin;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class ButtonHomes extends ZButton implements PaginateButton {
+public class ButtonHomes extends PaginateButton {
 
     private final EssentialsPlugin plugin;
 
@@ -32,7 +31,7 @@ public class ButtonHomes extends ZButton implements PaginateButton {
     }
 
     @Override
-    public void onRender(Player player, InventoryDefault inventory) {
+    public void onRender(Player player, InventoryEngine inventory) {
 
         User user = plugin.getUser(player.getUniqueId());
         if (user == null) return;
@@ -43,7 +42,7 @@ public class ButtonHomes extends ZButton implements PaginateButton {
         pagination.paginate(homes, this.slots.size(), inventory.getPage()).forEach(home -> displayHome(this.slots.get(atomicInteger.getAndIncrement()), home, player, user, inventory));
     }
 
-    private void displayHome(int slot, Home home, Player player, User user, InventoryDefault inventory) {
+    private void displayHome(int slot, Home home, Player player, User user, InventoryEngine inventory) {
 
         MenuItemStack menuItemStack = this.getItemStack();
         HomeManager homeManager = plugin.getHomeManager();
@@ -76,7 +75,7 @@ public class ButtonHomes extends ZButton implements PaginateButton {
     }
 
     @Override
-    public boolean checkPermission(Player player, InventoryDefault inventory, Placeholders placeholders) {
+    public boolean checkPermission(Player player, InventoryEngine inventory, Placeholders placeholders) {
         User user = plugin.getUser(player.getUniqueId());
         return user != null && user.countHomes() > 0;
     }

@@ -5,8 +5,7 @@ import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
-import fr.maxlego08.menu.MenuItemStack;
-import fr.maxlego08.menu.button.ZButton;
+import fr.maxlego08.menu.ZMenuItemStack;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
@@ -31,7 +30,7 @@ public class CommandSkull extends VCommand {
 
             if (offlinePlayer == null) {
 
-                MenuItemStack menuItemStack = new MenuItemStack(plugin.getInventoryManager(), "", "");
+                ZMenuItemStack menuItemStack = new ZMenuItemStack(plugin.getInventoryManager(), "", "");
                 menuItemStack.setUrl(value);
                 itemStack = menuItemStack.build(player, false);
 
