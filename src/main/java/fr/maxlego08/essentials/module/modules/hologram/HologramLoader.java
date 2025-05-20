@@ -11,8 +11,8 @@ import fr.maxlego08.essentials.api.hologram.configuration.ItemHologramConfigurat
 import fr.maxlego08.essentials.api.hologram.configuration.TextHologramConfiguration;
 import fr.maxlego08.essentials.api.utils.SafeLocation;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
-import fr.maxlego08.menu.exceptions.InventoryException;
-import fr.maxlego08.menu.zcore.utils.loader.Loader;
+import fr.maxlego08.menu.api.exceptions.InventoryException;
+import fr.maxlego08.menu.api.utils.Loader;
 import fr.maxlego08.menu.zcore.utils.nms.ItemStackUtils;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;

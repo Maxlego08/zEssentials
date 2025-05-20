@@ -3,10 +3,7 @@ package fr.maxlego08.essentials.module.modules;
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.module.ZModule;
-import fr.maxlego08.menu.MenuItemStack;
-import fr.maxlego08.menu.exceptions.InventoryException;
-import fr.maxlego08.menu.loader.MenuItemStackLoader;
-import fr.maxlego08.menu.zcore.utils.loader.Loader;
+import fr.maxlego08.menu.api.MenuItemStack;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -34,18 +31,13 @@ public class ItemModule extends ZModule {
     public void loadConfiguration() {
         super.loadConfiguration();
 
-        Loader<MenuItemStack> loader = new MenuItemStackLoader(this.plugin.getInventoryManager());
         YamlConfiguration configuration = getConfiguration();
         ConfigurationSection configurationSection = configuration.getConfigurationSection("custom-items");
         if (configurationSection == null) return;
 
         for (String itemName : configurationSection.getKeys(false)) {
-            try {
-                MenuItemStack menuItemStack = loader.load(configuration, "custom-items." + itemName + ".", new File(getFolder(), "config.yml"));
-                this.items.put(itemName, menuItemStack);
-            } catch (InventoryException exception) {
-                exception.printStackTrace();
-            }
+            MenuItemStack menuItemStack = this.plugin.getInventoryManager().loadItemStack(configuration, "custom-items." + itemName + ".", new File(getFolder(), "config.yml"));
+            this.items.put(itemName, menuItemStack);
         }
     }
 

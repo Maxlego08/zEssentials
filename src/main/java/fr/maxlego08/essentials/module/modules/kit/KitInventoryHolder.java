@@ -1,7 +1,7 @@
 package fr.maxlego08.essentials.module.modules.kit;
 
 import fr.maxlego08.essentials.api.kit.Kit;
-import fr.maxlego08.menu.MenuItemStack;
+import fr.maxlego08.menu.api.MenuItemStack;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;

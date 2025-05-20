@@ -3,13 +3,13 @@ package fr.maxlego08.essentials.buttons.kit;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.api.user.User;
-import fr.maxlego08.menu.MenuItemStack;
-import fr.maxlego08.menu.button.ZButton;
-import fr.maxlego08.menu.inventory.inventories.InventoryDefault;
+import fr.maxlego08.menu.api.MenuItemStack;
+import fr.maxlego08.menu.api.button.Button;
+import fr.maxlego08.menu.api.engine.InventoryEngine;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-public class ButtonKitPreview extends ZButton {
+public class ButtonKitPreview extends Button {
 
     private final EssentialsPlugin plugin;
 
@@ -23,7 +23,7 @@ public class ButtonKitPreview extends ZButton {
     }
 
     @Override
-    public void onRender(Player player, InventoryDefault inventory) {
+    public void onRender(Player player, InventoryEngine inventory) {
 
         User user = this.plugin.getUser(player.getUniqueId());
         if (user == null) return;

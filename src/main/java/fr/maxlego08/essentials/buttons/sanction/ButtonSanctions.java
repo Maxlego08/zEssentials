@@ -6,21 +6,18 @@ import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.modules.SanctionModule;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
-import fr.maxlego08.menu.MenuItemStack;
+import fr.maxlego08.menu.api.MenuItemStack;
 import fr.maxlego08.menu.api.button.PaginateButton;
+import fr.maxlego08.menu.api.engine.InventoryEngine;
 import fr.maxlego08.menu.api.utils.Placeholders;
-import fr.maxlego08.menu.button.ZButton;
-import fr.maxlego08.menu.inventory.inventories.InventoryDefault;
-import fr.maxlego08.menu.zcore.utils.inventory.Pagination;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
-public class ButtonSanctions extends ZButton implements PaginateButton {
+public class ButtonSanctions extends PaginateButton {
 
     private final EssentialsPlugin plugin;
 
@@ -34,7 +31,7 @@ public class ButtonSanctions extends ZButton implements PaginateButton {
     }
 
     @Override
-    public void onRender(Player player, InventoryDefault inventory) {
+    public void onRender(Player player, InventoryEngine inventory) {
 
         User user = this.plugin.getUser(player.getUniqueId());
         if (user == null) return;
@@ -43,16 +40,14 @@ public class ButtonSanctions extends ZButton implements PaginateButton {
         if (targetuser == null) return;
 
         List<Sanction> sanctions = targetuser.getFakeSanctions();
-        Pagination<Sanction> pagination = new Pagination<>();
 
         Placeholders placeholders = new Placeholders();
         placeholders.register("target", targetuser.getName());
 
-        AtomicInteger atomicInteger = new AtomicInteger(0);
-        pagination.paginate(sanctions.stream().sorted(Comparator.comparing(Sanction::getCreatedAt).reversed()).toList(), this.slots.size(), inventory.getPage()).forEach(sanction -> displaySanction(this.slots.get(atomicInteger.getAndIncrement()), sanction, player, targetuser, inventory));
+        paginate(sanctions.stream().sorted(Comparator.comparing(Sanction::getCreatedAt).reversed()).toList(), inventory, (slot, sanction) -> displaySanction(slot, sanction, player, targetuser, inventory));
     }
 
-    private void displaySanction(int slot, Sanction sanction, Player player, User targetuser, InventoryDefault inventory) {
+    private void displaySanction(int slot, Sanction sanction, Player player, User targetuser, InventoryEngine inventory) {
 
         MenuItemStack menuItemStack = this.getItemStack();
         Placeholders placeholders = new Placeholders();
