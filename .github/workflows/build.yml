@@ -1,0 +1,24 @@
+name: Build Action
+
+on:
+  push:
+    branches: [ release/update-to-new-zmenu-api ]
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build and Publish zEssentials
+    uses: GroupeZ-dev/actions/.github/workflows/build.yml@main
+    with:
+      project-name: "zEssentials"
+      publish: true
+      project-to-publish: "API:publish"
+      discord-avatar-url: "https://groupez.dev/storage/images/325.png"
+    secrets:
+      WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
