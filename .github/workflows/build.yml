@@ -2,7 +2,7 @@ name: Build Action
 
 on:
   push:
-    branches: [ release/update-to-new-zmenu-api ]
+    branches: [ feature/update-to-new-zmenu-api ]
   pull_request:
     types: [ opened, synchronize, reopened ]
   workflow_dispatch:
