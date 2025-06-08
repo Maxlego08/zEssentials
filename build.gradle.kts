@@ -10,9 +10,12 @@ version = "1.0.2.5"
 
 extra.set("targetFolder", file("target/"))
 extra.set("apiFolder", file("target-api/"))
+extra.set("classifier", System.getProperty("archive.classifier"))
+extra.set("sha", System.getProperty("github.sha"))
 
 allprojects {
     apply(plugin = "java-library")
+    apply(plugin = "com.gradleup.shadow")
 
     repositories {
         mavenLocal()
@@ -71,7 +74,11 @@ tasks {
             attributes["paperweight-mappings-namespace"] = "spigot"
         }
 
-        archiveFileName.set("${rootProject.name}-${rootProject.version}.jar")
+        rootProject.extra.properties["sha"]?.let { sha ->
+            archiveClassifier.set("${rootProject.extra.properties["classifier"]}-${sha}")
+        } ?: run {
+            archiveClassifier.set(rootProject.extra.properties["classifier"] as String?)
+        }
         destinationDirectory.set(rootProject.extra["targetFolder"] as File)
     }
 
@@ -87,17 +94,6 @@ tasks {
         from("resources")
         filesMatching("plugin.yml") {
             expand("version" to project.version)
-        }
-    }
-}
-
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            groupId = project.group.toString()
-            artifactId = project.name
-            version = project.version.toString()
-            from(project.components["java"])
         }
     }
 }
