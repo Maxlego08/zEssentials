@@ -7,10 +7,6 @@ on:
     types: [ opened, synchronize, reopened ]
   workflow_dispatch:
 
-permissions:
-  contents: read
-  packages: write
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -26,3 +22,5 @@ jobs:
       discord-avatar-url: "https://groupez.dev/storage/images/325.png"
     secrets:
       WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+      MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
+      MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}

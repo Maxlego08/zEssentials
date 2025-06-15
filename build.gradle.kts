@@ -17,6 +17,9 @@ allprojects {
     apply(plugin = "java-library")
     apply(plugin = "com.gradleup.shadow")
 
+    group = "fr.maxlego08.essentials"
+    version = rootProject.version
+
     repositories {
         mavenLocal()
         mavenCentral()
@@ -24,6 +27,14 @@ allprojects {
         maven(url = "https://jitpack.io")
         maven(url = "https://repo.papermc.io/repository/maven-public/")
         maven(url = "https://repo.extendedclip.com/content/repositories/placeholderapi/")
+    }
+
+    java {
+        withSourcesJar()
+
+        if (!project.path.startsWith(":NMS:")) {
+            withJavadocJar()
+        }
     }
 
     tasks.compileJava {
