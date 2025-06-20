@@ -9,7 +9,6 @@ public interface PlayerManager {
 
     /**
      * Loads a Player for an OfflinePlayer.
-     * </p>
      * This method is potentially blocking, and should not be called on the main thread.
      *
      * @param offline the OfflinePlayer

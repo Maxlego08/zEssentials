@@ -6,29 +6,14 @@ import fr.maxlego08.menu.api.button.Button;
 import fr.maxlego08.menu.api.button.DefaultButtonValue;
 import fr.maxlego08.menu.api.loader.ButtonLoader;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.plugin.Plugin;
 
-public class ButtonVaultNoPermissionLoader implements ButtonLoader {
+public class ButtonVaultNoPermissionLoader extends ButtonLoader {
 
     private final EssentialsPlugin plugin;
 
     public ButtonVaultNoPermissionLoader(EssentialsPlugin plugin) {
+        super(plugin, "ZESSENTIALS_VAULT_NO_PERMISSION");
         this.plugin = plugin;
-    }
-
-    @Override
-    public Class<? extends Button> getButton() {
-        return ButtonVaultNoPermission.class;
-    }
-
-    @Override
-    public String getName() {
-        return "ZESSENTIALS_VAULT_NO_PERMISSION";
-    }
-
-    @Override
-    public Plugin getPlugin() {
-        return this.plugin;
     }
 
     @Override

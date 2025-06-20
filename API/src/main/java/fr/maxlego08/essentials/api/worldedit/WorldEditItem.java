@@ -1,7 +1,7 @@
 package fr.maxlego08.essentials.api.worldedit;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
-import fr.maxlego08.menu.MenuItemStack;
+import fr.maxlego08.menu.api.MenuItemStack;
 import fr.maxlego08.menu.api.utils.Placeholders;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;

@@ -36,6 +36,8 @@ public abstract class Hologram {
     protected final HologramConfiguration configuration;
     protected SafeLocation location;
 
+    private boolean isLoaded = false;
+
     /**
      * Constructs a new `Hologram`.
      *
@@ -332,5 +334,17 @@ public abstract class Hologram {
         hologramLines.forEach(hologramLine -> componentCache.updateComponent(hologramLine.getLine() - 1, componentMessage.getComponent(this.plugin.papi(player, hologramLine.getText()))));
 
         this.update(player);
+    }
+
+    public boolean isLoaded() {
+        return isLoaded;
+    }
+
+    public void setLoaded(boolean loaded) {
+        isLoaded = loaded;
+    }
+
+    public boolean canLoad() {
+        return Bukkit.getWorld(this.location.getWorld()) != null;
     }
 }
