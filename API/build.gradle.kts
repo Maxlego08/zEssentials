@@ -39,7 +39,7 @@ publishing {
     repositories {
         maven {
             name = "groupez${repository}"
-            url = uri("https://repo.groupez.dev/snapshots")
+            url = uri("https://repo.groupez.dev/${repository.lowercase()}")
             credentials {
                 username = findProperty("${name}Username") as String? ?: System.getenv("MAVEN_USERNAME")
                 password = findProperty("${name}Password") as String? ?: System.getenv("MAVEN_PASSWORD")
