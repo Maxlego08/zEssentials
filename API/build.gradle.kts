@@ -1,3 +1,5 @@
+import java.util.Locale
+
 plugins {
     `maven-publish`
 }
@@ -33,9 +35,10 @@ tasks {
 }
 
 publishing {
+    var repository = System.getProperty("repository.name", "snapshots").replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
     repositories {
         maven {
-            name = "groupezSnapshots"
+            name = "groupez${repository}"
             url = uri("https://repo.groupez.dev/snapshots")
             credentials {
                 username = findProperty("${name}Username") as String? ?: System.getenv("MAVEN_USERNAME")

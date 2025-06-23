@@ -5,7 +5,7 @@ plugins {
     id("io.papermc.paperweight.userdev") version "2.0.0-beta.16" apply false
 }
 
-group = "zEssentials"
+group = "fr.maxlego08.essentials"
 version = "1.0.2.6"
 
 extra.set("targetFolder", file("target/"))
