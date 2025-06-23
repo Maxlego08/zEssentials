@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "zEssentials"
-version = "1.0.2.5"
+version = "1.0.2.6"
 
 extra.set("targetFolder", file("target/"))
 extra.set("apiFolder", file("target-api/"))
@@ -48,9 +48,9 @@ allprojects {
     dependencies {
         compileOnly(files("libs/zMenu-1.1.0.0.jar"))
 
-        implementation("com.github.technicallycoded:FoliaLib:0.4.3")
-        implementation("com.github.Maxlego08:Sarah:1.17")
-        implementation("fr.mrmicky:fastboard:2.1.4")
+        compileOnly("com.github.technicallycoded:FoliaLib:0.4.3")
+        compileOnly("com.github.Maxlego08:Sarah:1.17")
+        compileOnly("fr.mrmicky:fastboard:2.1.4")
     }
 }
 
@@ -70,6 +70,10 @@ dependencies {
     rootProject.subprojects.filter { it.path.startsWith(":Hooks:") }.forEach { subproject ->
         api(project(subproject.path))
     }
+
+    implementation("com.github.technicallycoded:FoliaLib:0.4.3")
+    implementation("com.github.Maxlego08:Sarah:1.17")
+    implementation("fr.mrmicky:fastboard:2.1.4")
 }
 
 tasks {

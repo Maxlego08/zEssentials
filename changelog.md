@@ -5,6 +5,10 @@
 
 # Unreleased
 
+# 1.0.2.6
+
+- Update to zMenu 1.1.0.0
+
 # 1.0.2.5
 
 - Fix vault economy with player's name

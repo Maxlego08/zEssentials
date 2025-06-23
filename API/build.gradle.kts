@@ -11,6 +11,10 @@ rootProject.extra.properties["sha"]?.let { sha ->
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21.5-R0.1-SNAPSHOT")
     compileOnly(files("../libs/zMenu-1.1.0.0.jar"))
+
+    implementation("com.github.technicallycoded:FoliaLib:0.4.3")
+    implementation("com.github.Maxlego08:Sarah:1.17")
+    implementation("fr.mrmicky:fastboard:2.1.4")
 }
 
 tasks {
