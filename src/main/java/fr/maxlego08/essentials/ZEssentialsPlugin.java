@@ -782,7 +782,6 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
             });
         }
 
-        System.out.println(" -> " + getServer().getPluginManager().getPlugin("WorldGuard"));
         if (getServer().getPluginManager().getPlugin("WorldGuard") != null) {
             createInstance("WorldGuardBlockPermission").ifPresent(object -> {
                 this.permissionCheckers.add((PermissionChecker) object);

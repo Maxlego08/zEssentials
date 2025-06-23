@@ -18,7 +18,6 @@ public class WorldGuardBlockPermission implements PermissionChecker {
         RegionQuery query = WorldGuard.getInstance().getPlatform().getRegionContainer().createQuery();
         LocalPlayer localPlayer = new BukkitPlayer(WorldGuardPlugin.inst(), player);
         var result = query.testBuild(BukkitAdapter.adapt(block.getLocation()), localPlayer, Flags.BLOCK_BREAK);
-        System.out.println(result + " -> " + localPlayer);
 
         return result;
     }
