@@ -8,6 +8,9 @@
 # 1.0.2.6
 
 - Update to zMenu 1.1.0.0
+- Added WorldGuard hook
+- Fix error with scoreboards
+- Fix hologram when world is not loaded
 
 # 1.0.2.5
 
