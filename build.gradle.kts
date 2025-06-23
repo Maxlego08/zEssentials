@@ -6,13 +6,19 @@ plugins {
 }
 
 group = "zEssentials"
-version = "1.0.2.5"
+version = "1.0.2.6"
 
 extra.set("targetFolder", file("target/"))
 extra.set("apiFolder", file("target-api/"))
+extra.set("classifier", System.getProperty("archive.classifier"))
+extra.set("sha", System.getProperty("github.sha"))
 
 allprojects {
     apply(plugin = "java-library")
+    apply(plugin = "com.gradleup.shadow")
+
+    group = "fr.maxlego08.essentials"
+    version = rootProject.version
 
     repositories {
         mavenLocal()
@@ -21,6 +27,14 @@ allprojects {
         maven(url = "https://jitpack.io")
         maven(url = "https://repo.papermc.io/repository/maven-public/")
         maven(url = "https://repo.extendedclip.com/content/repositories/placeholderapi/")
+    }
+
+    java {
+        withSourcesJar()
+
+        if (!project.path.startsWith(":NMS:")) {
+            withJavadocJar()
+        }
     }
 
     tasks.compileJava {
@@ -32,11 +46,11 @@ allprojects {
     }
 
     dependencies {
-        compileOnly("com.github.maxlego08:zMenu-API:1.0.4.0")
+        compileOnly(files("libs/zMenu-1.1.0.0.jar"))
 
-        implementation("com.github.technicallycoded:FoliaLib:0.4.3")
-        implementation("com.github.Maxlego08:Sarah:1.17")
-        implementation("fr.mrmicky:fastboard:2.1.4")
+        compileOnly("com.github.technicallycoded:FoliaLib:0.4.3")
+        compileOnly("com.github.Maxlego08:Sarah:1.17")
+        compileOnly("fr.mrmicky:fastboard:2.1.4")
     }
 }
 
@@ -56,6 +70,10 @@ dependencies {
     rootProject.subprojects.filter { it.path.startsWith(":Hooks:") }.forEach { subproject ->
         api(project(subproject.path))
     }
+
+    implementation("com.github.technicallycoded:FoliaLib:0.4.3")
+    implementation("com.github.Maxlego08:Sarah:1.17")
+    implementation("fr.mrmicky:fastboard:2.1.4")
 }
 
 tasks {
@@ -71,7 +89,11 @@ tasks {
             attributes["paperweight-mappings-namespace"] = "spigot"
         }
 
-        archiveFileName.set("${rootProject.name}-${rootProject.version}.jar")
+        rootProject.extra.properties["sha"]?.let { sha ->
+            archiveClassifier.set("${rootProject.extra.properties["classifier"]}-${sha}")
+        } ?: run {
+            archiveClassifier.set(rootProject.extra.properties["classifier"] as String?)
+        }
         destinationDirectory.set(rootProject.extra["targetFolder"] as File)
     }
 
@@ -87,17 +109,6 @@ tasks {
         from("resources")
         filesMatching("plugin.yml") {
             expand("version" to project.version)
-        }
-    }
-}
-
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            groupId = project.group.toString()
-            artifactId = project.name
-            version = project.version.toString()
-            from(project.components["java"])
         }
     }
 }

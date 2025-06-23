@@ -1,6 +1,6 @@
 package fr.maxlego08.essentials.api.kit;
 
-import fr.maxlego08.menu.MenuItemStack;
+import fr.maxlego08.menu.api.MenuItemStack;
 import fr.maxlego08.menu.api.requirement.Action;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permissible;

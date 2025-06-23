@@ -121,8 +121,8 @@ import fr.maxlego08.essentials.zutils.utils.paper.PaperUtils;
 import fr.maxlego08.essentials.zutils.utils.spigot.SpigotUtils;
 import fr.maxlego08.menu.api.ButtonManager;
 import fr.maxlego08.menu.api.InventoryManager;
+import fr.maxlego08.menu.api.loader.NoneLoader;
 import fr.maxlego08.menu.api.pattern.PatternManager;
-import fr.maxlego08.menu.button.loader.NoneLoader;
 import fr.maxlego08.menu.zcore.utils.nms.NmsVersion;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -266,27 +266,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
             packetListener.registerPackets(this);
         }*/
 
-        if (getServer().getPluginManager().isPluginEnabled("BlockTracker")) {
-            createInstance("BlockTrackerHook").ifPresent(object -> {
-                this.blockTracker = (BlockTracker) object;
-                this.getLogger().info("Register BlockTracker.");
-            });
-        }
-
-        if (getServer().getPluginManager().isPluginEnabled("SuperiorSkyBlock2")) {
-            createInstance("SuperiorSkyBlockPermission").ifPresent(object -> {
-                this.permissionCheckers.add((PermissionChecker) object);
-                this.getLogger().info("Register SuperiorSkyBlock Permission Checker.");
-            });
-        }
-
-        if (getServer().getPluginManager().isPluginEnabled("Votifier")) {
-            createInstance("NuVotifierHook").ifPresent(object -> this.getLogger().info("Register NuVotifierHook."));
-        }
-
-        if (getServer().getPluginManager().isPluginEnabled("NChat")) {
-            createInstance("NChatHook").ifPresent(object -> this.getLogger().info("Register NChatHook."));
-        }
+        this.loadHooks();
 
         this.getServer().getServicesManager().register(EssentialsPlugin.class, this, this, ServicePriority.Normal);
 
@@ -785,5 +765,36 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     @Override
     public SanctionManager getSanctionManager() {
         return getModuleManager().getModule(SanctionModule.class);
+    }
+
+    private void loadHooks() {
+        if (getServer().getPluginManager().isPluginEnabled("BlockTracker")) {
+            createInstance("BlockTrackerHook").ifPresent(object -> {
+                this.blockTracker = (BlockTracker) object;
+                this.getLogger().info("Register BlockTracker.");
+            });
+        }
+
+        if (getServer().getPluginManager().isPluginEnabled("SuperiorSkyBlock2")) {
+            createInstance("SuperiorSkyBlockPermission").ifPresent(object -> {
+                this.permissionCheckers.add((PermissionChecker) object);
+                this.getLogger().info("Register SuperiorSkyBlock Permission Checker.");
+            });
+        }
+
+        if (getServer().getPluginManager().getPlugin("WorldGuard") != null) {
+            createInstance("WorldGuardBlockPermission").ifPresent(object -> {
+                this.permissionCheckers.add((PermissionChecker) object);
+                this.getLogger().info("Register WorldGuard Permission Checker.");
+            });
+        }
+
+        if (getServer().getPluginManager().isPluginEnabled("Votifier")) {
+            createInstance("NuVotifierHook").ifPresent(object -> this.getLogger().info("Register NuVotifierHook."));
+        }
+
+        if (getServer().getPluginManager().isPluginEnabled("NChat")) {
+            createInstance("NChatHook").ifPresent(object -> this.getLogger().info("Register NChatHook."));
+        }
     }
 }

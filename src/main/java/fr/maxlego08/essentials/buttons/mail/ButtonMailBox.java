@@ -3,17 +3,14 @@ package fr.maxlego08.essentials.buttons.mail;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.mailbox.MailBoxItem;
 import fr.maxlego08.essentials.api.user.User;
-import fr.maxlego08.menu.api.button.PaginateButton;
+import fr.maxlego08.menu.api.engine.InventoryEngine;
 import fr.maxlego08.menu.api.utils.Placeholders;
-import fr.maxlego08.menu.inventory.inventories.InventoryDefault;
-import fr.maxlego08.menu.zcore.utils.inventory.Pagination;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
-public class ButtonMailBox extends ButtonMailBoxHelper implements PaginateButton {
+public class ButtonMailBox extends ButtonMailBoxHelper {
 
     private final EssentialsPlugin plugin;
 
@@ -28,15 +25,13 @@ public class ButtonMailBox extends ButtonMailBoxHelper implements PaginateButton
     }
 
     @Override
-    public void onRender(Player player, InventoryDefault inventory) {
+    public void onRender(Player player, InventoryEngine inventory) {
 
         User user = plugin.getUser(player.getUniqueId());
         if (user == null) return;
 
         List<MailBoxItem> mailBoxItems = user.getMailBoxItems().stream().filter(item -> !item.isExpired()).toList();
-        Pagination<MailBoxItem> pagination = new Pagination<>();
-        AtomicInteger atomicInteger = new AtomicInteger(0);
-        pagination.paginate(mailBoxItems, this.slots.size(), inventory.getPage()).forEach(mailBoxItem -> displayItem(this.slots.get(atomicInteger.getAndIncrement()), mailBoxItem, player, user, inventory));
+        paginate(mailBoxItems, inventory, (slot, mailBoxItem) -> displayItem(slot, mailBoxItem, player, user, inventory));
     }
 
     @Override
@@ -45,9 +40,9 @@ public class ButtonMailBox extends ButtonMailBoxHelper implements PaginateButton
     }
 
     @Override
-    public boolean checkPermission(Player player, InventoryDefault inventory, Placeholders placeholders) {
+    public boolean checkPermission(Player player, InventoryEngine inventory, Placeholders placeholders) {
         User user = plugin.getUser(player.getUniqueId());
-        return user != null && user.getMailBoxItems().size() > 0;
+        return user != null && !user.getMailBoxItems().isEmpty();
     }
 
     @Override

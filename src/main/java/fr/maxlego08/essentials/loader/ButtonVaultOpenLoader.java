@@ -8,27 +8,13 @@ import fr.maxlego08.menu.api.loader.ButtonLoader;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
-public class ButtonVaultOpenLoader implements ButtonLoader {
+public class ButtonVaultOpenLoader extends ButtonLoader {
 
     private final EssentialsPlugin plugin;
 
     public ButtonVaultOpenLoader(EssentialsPlugin plugin) {
+        super(plugin, "ZESSENTIALS_VAULT_OPEN");
         this.plugin = plugin;
-    }
-
-    @Override
-    public Class<? extends Button> getButton() {
-        return ButtonVaultOpen.class;
-    }
-
-    @Override
-    public String getName() {
-        return "ZESSENTIALS_VAULT_OPEN";
-    }
-
-    @Override
-    public Plugin getPlugin() {
-        return this.plugin;
     }
 
     @Override

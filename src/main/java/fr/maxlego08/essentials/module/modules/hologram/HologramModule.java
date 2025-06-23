@@ -17,8 +17,8 @@ import fr.maxlego08.essentials.api.hologram.configuration.TextHologramConfigurat
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.utils.SafeLocation;
 import fr.maxlego08.essentials.module.ZModule;
-import fr.maxlego08.menu.exceptions.InventoryException;
-import fr.maxlego08.menu.zcore.utils.loader.Loader;
+import fr.maxlego08.menu.api.exceptions.InventoryException;
+import fr.maxlego08.menu.api.utils.Loader;
 import fr.maxlego08.menu.zcore.utils.nms.NmsVersion;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -46,9 +46,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
@@ -59,7 +57,6 @@ public class HologramModule extends ZModule implements HologramManager {
     // Ajouter une commande pour activer/désactiver un hologram sans avoir besoin de le supprimer
 
     private final List<Hologram> holograms = new ArrayList<>();
-    private final Map<String, List<File>> pendingHolograms = new HashMap<>();
     private DamageIndicatorConfiguration damageIndicator;
     private AutoUpdateTaskConfiguration autoUpdateTask;
     private WrappedTask wrappedTask = null;
@@ -242,16 +239,15 @@ public class HologramModule extends ZModule implements HologramManager {
         Loader<Hologram> loader = new HologramLoader(this.plugin);
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
 
-        String worldName = getWorldName(configuration.getString("location"));
-        if (worldName != null && Bukkit.getWorld(worldName) == null) {
-            var files = pendingHolograms.computeIfAbsent(worldName, w -> new ArrayList<>());
-            files.add(file);
-        }
-
         try {
             Hologram hologram = loader.load(configuration, "", file.getName().replace(".yml", ""));
-            hologram.create();
-            hologram.createForAllPlayers();
+            if (hologram.canLoad()) {
+                hologram.create();
+                hologram.createForAllPlayers();
+                hologram.setLoaded(true);
+            } else {
+                this.plugin.debug("Unable to load hologram " + hologram.getName() + ", world " + hologram.getLocation().getWorld() + " doesn't exist.");
+            }
             this.holograms.add(hologram);
         } catch (InventoryException ignored) {
         }
@@ -259,6 +255,19 @@ public class HologramModule extends ZModule implements HologramManager {
 
     private File getHologramsFolder() {
         return new File(getFolder(), "holograms");
+    }
+
+    @EventHandler
+    public void onWorldLoad(WorldLoadEvent event) {
+        var key = event.getWorld().getName();
+        for (Hologram hologram : this.holograms) {
+            if (!hologram.isLoaded() && hologram.canLoad()) {
+                hologram.create();
+                hologram.createForAllPlayers();
+                hologram.setLoaded(true);
+                this.plugin.debug("Loaded hologram " + hologram.getName() + " for world " + key);
+            }
+        }
     }
 
     @EventHandler
@@ -293,14 +302,6 @@ public class HologramModule extends ZModule implements HologramManager {
         }
 
         return null;
-    }
-
-    @EventHandler
-    public void onLoad(WorldLoadEvent event) {
-        var key = event.getWorld().getName();
-        if (this.pendingHolograms.containsKey(key)) {
-            this.pendingHolograms.remove(key).forEach(this::loadHologram);
-        }
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
