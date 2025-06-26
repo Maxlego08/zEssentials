@@ -54,7 +54,7 @@ public class ZTeleportRequest extends ZUtils implements TeleportRequest {
         message(this.toUser, Message.COMMAND_TPA_ACCEPT_RECEIVER, this.fromUser);
 
         TeleportationModule teleportationModule = this.plugin.getModuleManager().getModule(TeleportationModule.class);
-        AtomicInteger atomicInteger = new AtomicInteger(teleportationModule.getTeleportationDelay(fromUser.getPlayer()));
+        AtomicInteger atomicInteger = new AtomicInteger(teleportationModule.getTeleportDelay(fromUser.getPlayer()));
 
         if (teleportationModule.isTeleportDelayBypass() && this.fromUser.hasPermission(Permission.ESSENTIALS_TELEPORT_BYPASS) || atomicInteger.get() <= 0) {
             this.teleport(teleportationModule);

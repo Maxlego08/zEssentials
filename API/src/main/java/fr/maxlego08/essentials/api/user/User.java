@@ -945,4 +945,8 @@ public interface User {
     void setLastActiveTime();
 
     boolean isAfk();
+
+    long getProtectionDuration();
+
+    void setProtectionDuration(long duration);
 }

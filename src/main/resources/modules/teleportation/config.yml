@@ -66,3 +66,11 @@ blacklist-biomes:
   - ocean
   - river
   - warm_ocean
+
+teleport-protection: 1000
+
+teleport-protections:
+  - permission: "essentials.teleport.protection.vip"
+    delay: 2000
+  - permission: "essentials.teleport.protection.staff"
+    delay: 3000

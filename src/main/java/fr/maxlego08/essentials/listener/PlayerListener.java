@@ -62,6 +62,15 @@ public class PlayerListener extends ZUtils implements Listener {
     public void onDamage(EntityDamageEvent event) {
         if (event.getEntity() instanceof Player player) {
             cancelGoldEvent(player, event);
+
+            var user = getUser(player);
+            if (user == null) return;
+
+            System.out.println(user.getProtectionDuration() + " > " + System.currentTimeMillis());
+            if (user.getProtectionDuration() > System.currentTimeMillis()) {
+                event.setCancelled(true);
+                System.out.println("Cancelled");
+            }
         }
     }
 
@@ -141,7 +150,7 @@ public class PlayerListener extends ZUtils implements Listener {
     }
 
     @EventHandler
-    public void onFirstJoin(UserFirstJoinEvent event){
+    public void onFirstJoin(UserFirstJoinEvent event) {
         var user = event.getUser();
         this.plugin.getConfiguration().getDefaultOptionValues().forEach(user::setOption);
     }

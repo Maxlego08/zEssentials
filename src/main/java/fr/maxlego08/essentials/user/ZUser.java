@@ -93,6 +93,7 @@ public class ZUser extends ZUtils implements User {
     private long flySeconds;
     private DiscordAccount discordAccount;
     private long lastActiveTime = System.currentTimeMillis();
+    private long protectionDuration;
 
     private boolean freeze;
 
@@ -273,6 +274,11 @@ public class ZUser extends ZUtils implements User {
             this.setLastLocation();
         }
         this.plugin.getScheduler().teleportAsync(this.getPlayer(), location);
+
+        int duration = this.plugin.getModuleManager().getModule(TeleportationModule.class).getTeleportProtectionDelay(this.getPlayer());
+        if (duration == 0) return;
+
+        this.protectionDuration = System.currentTimeMillis() + duration;
     }
 
     @Override
@@ -285,7 +291,7 @@ public class ZUser extends ZUtils implements User {
 
         TeleportationModule teleportationModule = this.plugin.getModuleManager().getModule(TeleportationModule.class);
         Location playerLocation = getPlayer().getLocation();
-        AtomicInteger atomicInteger = new AtomicInteger(teleportationModule.getTeleportationDelay(getPlayer()));
+        AtomicInteger atomicInteger = new AtomicInteger(teleportationModule.getTeleportDelay(getPlayer()));
 
         if (teleportationModule.isTeleportDelayBypass() && this.hasPermission(Permission.ESSENTIALS_TELEPORT_BYPASS) || atomicInteger.get() <= 0) {
             this.teleport(teleportationModule, location, successMessage, args);
@@ -1010,5 +1016,15 @@ public class ZUser extends ZUtils implements User {
         var difference = (System.currentTimeMillis() - this.lastActiveTime) / 1000;
         var optional = plugin.getAfkManager().getPermission(getPlayer());
         return optional.filter(afkPermission -> difference >= afkPermission.startAfkTime()).isPresent();
+    }
+
+    @Override
+    public long getProtectionDuration() {
+        return this.protectionDuration;
+    }
+
+    @Override
+    public void setProtectionDuration(long duration) {
+        this.protectionDuration = duration;
     }
 }

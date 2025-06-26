@@ -2,7 +2,7 @@ package fr.maxlego08.essentials.module.modules;
 
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.messages.Message;
-import fr.maxlego08.essentials.api.modules.Loadable;
+import fr.maxlego08.essentials.api.teleportation.TeleportPermission;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.ZModule;
 import org.bukkit.Bukkit;
@@ -20,10 +20,12 @@ public class TeleportationModule extends ZModule {
 
     private final Random random = new Random();
     private final List<TeleportPermission> teleportDelayPermissions = new ArrayList<>();
+    private final List<TeleportPermission> teleportProtections = new ArrayList<>();
     private final List<String> blacklistBiomes = new ArrayList<>();
     private boolean teleportSafety;
     private boolean teleportToCenter;
     private int teleportDelay;
+    private int teleportProtection;
     private int teleportTpaExpire;
     private boolean teleportDelayBypass;
     private boolean openConfirmInventoryForTpa;
@@ -80,8 +82,12 @@ public class TeleportationModule extends ZModule {
         return openConfirmInventoryForTpaHere;
     }
 
-    public int getTeleportationDelay(Player player) {
-        return this.teleportDelayPermissions.stream().filter(teleportPermission -> player.hasPermission(teleportPermission.permission)).mapToInt(TeleportPermission::delay).min().orElse(this.teleportDelay);
+    public int getTeleportDelay(Player player) {
+        return this.teleportDelayPermissions.stream().filter(teleportPermission -> player.hasPermission(teleportPermission.permission())).mapToInt(TeleportPermission::delay).min().orElse(this.teleportDelay);
+    }
+
+    public int getTeleportProtectionDelay(Player player) {
+        return this.teleportProtections.stream().filter(teleportPermission -> player.hasPermission(teleportPermission.permission())).mapToInt(TeleportPermission::delay).min().orElse(this.teleportProtection);
     }
 
     public void openConfirmInventory(Player player) {
@@ -165,9 +171,4 @@ public class TeleportationModule extends ZModule {
         Material blockType = world.getBlockAt(x, y, z).getType();
         return !blockType.isSolid() || blockType == Material.LAVA || blockType == Material.FIRE;
     }
-
-    public record TeleportPermission(String permission, int delay) implements Loadable {
-
-    }
-
 }
