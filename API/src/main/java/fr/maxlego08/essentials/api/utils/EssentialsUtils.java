@@ -8,9 +8,7 @@ import fr.maxlego08.essentials.api.user.PrivateMessage;
 import fr.maxlego08.essentials.api.user.User;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.event.player.PlayerPreLoginEvent;
 
 import java.lang.reflect.Constructor;
 import java.util.Map;
@@ -83,19 +81,74 @@ public interface EssentialsUtils {
      */
     Object createInstanceFromMap(Constructor<?> constructor, Map<?, ?> map);
 
+    /**
+     * Enables or disables the global chat.
+     *
+     * @param value true to enable the chat, false to disable it.
+     */
     void toggleChat(boolean value);
 
+    /**
+     * Broadcasts a message to all players in the server.
+     *
+     * @param message   The message to broadcast.
+     * @param arguments Arguments to format into the message.
+     */
     void broadcast(Message message, Object... arguments);
 
+    /**
+     * Kicks a player from the server with a specified message.
+     *
+     * @param player  The player to be kicked from the server.
+     * @param message The message to send to the player upon being kicked.
+     * @param objects Additional arguments to format into the message.
+     */
     void kick(Player player, Message message, Object... objects);
 
+    /**
+     * Prevents a player from logging in by setting the result of the specified {@link PlayerLoginEvent} to the specified {@link PlayerLoginEvent.Result}.
+     * A message is sent to the player with the specified {@link Message} and format arguments.
+     *
+     * @param event   The {@link PlayerLoginEvent} to modify.
+     * @param result  The {@link PlayerLoginEvent.Result} to set on the event.
+     * @param message The message to send to the player.
+     * @param objects The format arguments to pass to the message.
+     */
     void disallow(PlayerLoginEvent event, PlayerLoginEvent.Result result, Message message, Object... objects);
 
+    /**
+     * Sends a private message from the specified user to the recipient.
+     *
+     * @param user           The user sending the private message.
+     * @param privateMessage The type of private message to send.
+     * @param message        The message used for the private message.
+     * @param content        The content of the private message.
+     */
     void sendPrivateMessage(User user, PrivateMessage privateMessage, Message message, String content);
 
+    /**
+     * Broadcasts a message to all players based on the specified option.
+     *
+     * @param option  The option that determines the criteria for broadcasting the message.
+     * @param message The message to broadcast.
+     * @param objects Additional arguments to format into the message.
+     */
     void broadcast(Option option, Message message, Object... objects);
 
+    /**
+     * Deletes a specified cooldown for a player.
+     *
+     * @param uniqueId     The UUID of the player whose cooldown is to be deleted.
+     * @param cooldownName The name of the cooldown to delete.
+     */
     void deleteCooldown(UUID uniqueId, String cooldownName);
 
+    /**
+     * Updates the expiration time of a specified cooldown for a player.
+     *
+     * @param uniqueId     The UUID of the player whose cooldown is to be updated.
+     * @param cooldownName The name of the cooldown to update.
+     * @param expiredAt    The new expiration time for the cooldown, in milliseconds.
+     */
     void updateCooldown(UUID uniqueId, String cooldownName, long expiredAt);
 }

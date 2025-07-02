@@ -256,15 +256,45 @@ public interface EconomyManager extends Module {
      */
     BigDecimal getBalanceOffline(UUID uniqueId);
 
+    /**
+     * Retrieves the reason string for the /give command.
+     *
+     * @return a string representing the reason for the /give command
+     */
     String getCommandGiveReason();
 
+    /**
+     * Retrieves the reason string for the /giveall command.
+     *
+     * @return a string representing the reason for the /giveall command
+     */
     String getCommandGiveAllReason();
 
+    /**
+     * Retrieves the reason string for the /give random command.
+     *
+     * @return a string representing the reason for the /give random command
+     */
     String getCommandGiveRandomReason();
 
+    /**
+     * Retrieves the reason string for the /take command.
+     *
+     * @return a string representing the reason for the /take command
+     */
     String getCommandTakeReason();
 
+    /**
+     * Retrieves the reason string for the /reset command.
+     *
+     * @return a string representing the reason for the /reset command
+     */
     String getCommandResetReason();
 
+    /**
+     * Retrieves the reason string for the /set command.
+     *
+     * @return a string representing the reason for the /set command
+     */
     String getCommandSetReason();
 }

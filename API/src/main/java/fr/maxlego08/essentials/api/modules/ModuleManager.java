@@ -38,6 +38,11 @@ public interface ModuleManager {
      */
     File getFolder();
 
+    /**
+     * Gets all modules.
+     *
+     * @return A list of all modules.
+     */
     List<Module> getModules();
 }
 

@@ -110,10 +110,25 @@ public interface EssentialsCommand {
      */
     String getDescription();
 
+    /**
+     * Gets the main command of this command.
+     *
+     * @return The main command of this command.
+     */
     String getMainCommand();
 
+    /**
+     * Gets the sub-commands of this command as a list of EssentialsCommand objects.
+     *
+     * @return The sub-commands of this command.
+     */
     List<EssentialsCommand> getSubEssentialsCommands();
 
+    /**
+     * Sets the permission required to use this command.
+     *
+     * @param permission The permission required to use this command.
+     */
     void setPermission(String permission);
 }
 

@@ -1,9 +1,12 @@
-package fr.maxlego08.essentials.api.event.events.vote;
+package fr.maxlego08.essentials.api.event.events.user;
 
 import fr.maxlego08.essentials.api.event.CancellableEssentialsEvent;
 
 import java.util.UUID;
 
+/**
+ * This event is triggered when a user votes on a website.
+ */
 public class UserVoteEvent extends CancellableEssentialsEvent {
 
     private final UUID uniqueId;

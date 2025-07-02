@@ -4,6 +4,9 @@ import fr.maxlego08.essentials.api.event.CancellableUserEvent;
 import fr.maxlego08.essentials.api.steps.PlayerStep;
 import fr.maxlego08.essentials.api.user.User;
 
+/**
+ * This event is triggered when a step is finished by a user.
+ */
 public class StepFinishEvent extends CancellableUserEvent {
 
     private final PlayerStep step;

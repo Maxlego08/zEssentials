@@ -62,7 +62,7 @@ public interface WorldeditManager {
     /**
      * Sets blocks for the specified user according to the provided material percentages.
      *
-     * @param user            the user performing the operation
+     * @param user             the user performing the operation
      * @param materialPercents the list of materials and their respective percentages
      */
     void setBlocks(User user, List<MaterialPercent> materialPercents);
@@ -70,7 +70,7 @@ public interface WorldeditManager {
     /**
      * Fills blocks for the specified user according to the provided material percentages.
      *
-     * @param user            the user performing the operation
+     * @param user             the user performing the operation
      * @param materialPercents the list of materials and their respective percentages
      */
     void fillBlocks(User user, List<MaterialPercent> materialPercents);
@@ -177,17 +177,17 @@ public interface WorldeditManager {
     /**
      * Sends a refund message to the player with the details of refunded materials.
      *
-     * @param player         the player receiving the refund
+     * @param player          the player receiving the refund
      * @param refundMaterials a map of materials and their refunded amounts
-     * @param refundPrice    the total refund price
-     * @param economy        the economy system being used
+     * @param refundPrice     the total refund price
+     * @param economy         the economy system being used
      */
     void sendRefundMessage(Player player, Map<Material, Long> refundMaterials, BigDecimal refundPrice, Economy economy);
 
     /**
      * Creates walls using the specified materials for the user.
      *
-     * @param user            the user performing the operation
+     * @param user             the user performing the operation
      * @param materialPercents the list of materials and their respective percentages
      */
     void wallsBlocks(User user, List<MaterialPercent> materialPercents);
@@ -195,21 +195,21 @@ public interface WorldeditManager {
     /**
      * Creates a sphere using the specified materials for the user.
      *
-     * @param user            the user performing the operation
+     * @param user             the user performing the operation
      * @param materialPercents the list of materials and their respective percentages
-     * @param radius          the radius of the sphere
-     * @param filled          whether the sphere is filled or hollow
+     * @param radius           the radius of the sphere
+     * @param filled           whether the sphere is filled or hollow
      */
     void sphereBlocks(User user, List<MaterialPercent> materialPercents, int radius, boolean filled);
 
     /**
      * Creates a cylinder using the specified materials for the user.
      *
-     * @param user            the user performing the operation
+     * @param user             the user performing the operation
      * @param materialPercents the list of materials and their respective percentages
-     * @param radius          the radius of the cylinder
-     * @param filled          whether the cylinder is filled or hollow
-     * @param height          the height of the cylinder
+     * @param radius           the radius of the cylinder
+     * @param filled           whether the cylinder is filled or hollow
+     * @param height           the height of the cylinder
      */
     void cylBlocks(User user, List<MaterialPercent> materialPercents, int radius, boolean filled, int height);
 
@@ -257,13 +257,42 @@ public interface WorldeditManager {
      */
     WorldeditBossBarConfiguration getWorldeditConfiguration();
 
+    /**
+     * Cancels the current WorldEdit selection for the specified user.
+     * This action stops any ongoing selection process and discards the selected region.
+     *
+     * @param user the user whose selection is being cancelled
+     */
     void cancelSelection(User user);
 
+    /**
+     * Checks if the help inventory is open for the user.
+     *
+     * @return {@code true} if the help inventory is open, {@code false} otherwise
+     */
     boolean isOpenHelpInventory();
 
+    /**
+     * Gets the message to display when refunding the player for a cancelled operation.
+     *
+     * @return the refund message
+     */
     String getRefundMessage();
 
+    /**
+     * Gets the message to display when withdrawing items from the player's inventory for a WorldEdit operation.
+     *
+     * @return the withdraw message
+     */
     String getWithdrawMessage();
 
+    /**
+     * Checks if the player has the required permissions to edit the specified block.
+     * Permissions are checked based on the WorldEdit configuration.
+     *
+     * @param player the player attempting to edit the block
+     * @param block  the block being edited
+     * @return {@code true} if the player has permission to edit the block, {@code false} otherwise
+     */
     boolean hasPermission(Player player, Block block);
 }

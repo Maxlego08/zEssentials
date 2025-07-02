@@ -944,8 +944,8 @@ public class ZUser extends ZUtils implements User {
     }
 
     @Override
-    public void setFrozen(boolean b) {
-        freeze = b;
+    public void setFrozen(boolean isFrozen) {
+        freeze = isFrozen;
     }
 
     @Override

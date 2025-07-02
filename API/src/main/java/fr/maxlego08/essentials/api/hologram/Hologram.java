@@ -336,14 +336,30 @@ public abstract class Hologram {
         this.update(player);
     }
 
+    /**
+     * Checks if the hologram is loaded.
+     *
+     * @return true if the hologram is loaded, false otherwise
+     */
     public boolean isLoaded() {
         return isLoaded;
     }
 
+    /**
+     * Sets whether the hologram is loaded or not.
+     *
+     * @param loaded true if the hologram is loaded, false otherwise
+     */
     public void setLoaded(boolean loaded) {
         isLoaded = loaded;
     }
 
+    /**
+     * Determines if the hologram can be loaded by checking the existence
+     * of its world in the Bukkit server.
+     *
+     * @return true if the world associated with the hologram's location exists, false otherwise
+     */
     public boolean canLoad() {
         return Bukkit.getWorld(this.location.getWorld()) != null;
     }
