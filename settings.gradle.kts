@@ -1,3 +1,13 @@
+pluginManagement {
+    repositories {
+        maven {
+            name = "groupezReleases"
+            url = uri("https://repo.groupez.dev/releases")
+        }
+        gradlePluginPortal()
+    }
+}
+
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.9.0"
 }
