@@ -121,13 +121,13 @@ public record DiscordEmbedConfiguration(String title, String description, String
         DiscordWebhook.EmbedObject embedObject = new DiscordWebhook.EmbedObject();
 
         if (this.author != null) {
-            embedObject.setAuthor(consumer.accept(this.author.name()),
-                    consumer.accept(this.author.url()),
-                    consumer.accept(this.author.iconUrl()));
+            embedObject.setAuthor(replace(consumer.accept(this.author.name()), args),
+                    replace(consumer.accept(this.author.url()), args),
+                    replace(consumer.accept(this.author.iconUrl()), args));
         }
 
         if (this.description != null) {
-            embedObject.setDescription(consumer.accept(this.description));
+            embedObject.setDescription(replace(consumer.accept(this.description), args));
         }
 
         if (this.color != null) {
@@ -135,24 +135,24 @@ public record DiscordEmbedConfiguration(String title, String description, String
         }
 
         if (this.title != null) {
-            embedObject.setTitle(consumer.accept(this.title));
+            embedObject.setTitle(replace(consumer.accept(this.title), args));
         }
 
         if (this.thumbnail != null) {
-            embedObject.setThumbnail(consumer.accept(this.thumbnail.url()));
+            embedObject.setThumbnail(replace(consumer.accept(this.thumbnail.url()), args));
         }
 
         if (this.image != null) {
-            embedObject.setImage(consumer.accept(this.image.url()));
+            embedObject.setImage(replace(consumer.accept(this.image.url()), args));
         }
 
         if (this.footer != null) {
-            embedObject.setFooter(consumer.accept(this.footer.text()), consumer.accept(this.footer.iconUrl()));
+            embedObject.setFooter(replace(consumer.accept(this.footer.text()), args), replace(consumer.accept(this.footer.iconUrl()), args));
         }
 
         if (!this.fields.isEmpty()) {
             for (Field field : this.fields) {
-                embedObject.addField(consumer.accept(field.name()), consumer.accept(field.value()), field.inline());
+                embedObject.addField(replace(consumer.accept(field.name()), args), replace(consumer.accept(field.value()), args), field.inline());
             }
         }
 

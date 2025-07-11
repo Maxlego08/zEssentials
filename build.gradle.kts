@@ -28,6 +28,7 @@ allprojects {
         maven(url = "https://jitpack.io")
         maven(url = "https://repo.papermc.io/repository/maven-public/")
         maven(url = "https://repo.extendedclip.com/content/repositories/placeholderapi/")
+        maven(url = "https://repo.tcoded.com/releases")
     }
 
     java {
@@ -57,9 +58,9 @@ allprojects {
     dependencies {
 //        compileOnly("fr.maxlego08.menu:zmenu-api:1.1.0.0")
         compileOnly(files("libs/zMenu-1.1.0.0.jar"))
-        compileOnly("fr.maxlego08.sarah:sarah:1.18")
 
-        compileOnly("com.github.technicallycoded:FoliaLib:0.4.3")
+        compileOnly("fr.maxlego08.sarah:sarah:1.18")
+        compileOnly("com.tcoded:FoliaLib:0.5.1")
         compileOnly("fr.mrmicky:fastboard:2.1.4")
     }
 }
@@ -80,8 +81,6 @@ dependencies {
     rootProject.subprojects.filter { it.path.startsWith(":Hooks:") }.forEach { subproject ->
         api(project(subproject.path))
     }
-
-    implementation("fr.mrmicky:fastboard:2.1.4")
 }
 
 tasks {
