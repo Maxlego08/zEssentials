@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.user.placeholders;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.economy.EconomyManager;
+import fr.maxlego08.essentials.api.economy.PriceFormat;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.placeholders.PlaceholderRegister;
 import fr.maxlego08.essentials.api.storage.IStorage;
@@ -68,6 +69,26 @@ public class UserPlaceholders extends ZUtils implements PlaceholderRegister {
             Economy economy = optional.get();
             return user.getBalance(economy).toString();
         }, "Returns the number for a given economy", "economy");
+
+        placeholder.register("user_custom_balance_", (player, args) -> {
+            User user = iStorage.getUser(player.getUniqueId());
+            String[] split = args.split("_", 2);
+            if (split.length != 2) return "Error: not enough arguments";
+
+            Optional<Economy> optional = economyManager.getEconomy(split[0]);
+            if (optional.isEmpty()) {
+                return "Economy " + args + " was not found";
+            }
+            try {
+                PriceFormat priceFormat = PriceFormat.valueOf(split[1].toUpperCase());
+                Economy economy = optional.get();
+                return economyManager.format(priceFormat, user.getBalance(economy));
+            } catch (Exception exception) {
+                return "Format " + split[1] + " was not found";
+            }
+        }, "Returns the custom formatted number for a given economy", "economy", "format");
+
+        // Option
 
         placeholder.register("user_option_", (player, args) -> {
             User user = iStorage.getUser(player.getUniqueId());
