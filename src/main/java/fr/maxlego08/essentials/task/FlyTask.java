@@ -6,6 +6,7 @@ import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class FlyTask extends ZUtils {
 
             // Fly
             for (Player player : plugin.getServer().getOnlinePlayers()) {
-                if (player.isFlying() && !player.hasPermission(Permission.ESSENTIALS_FLY_UNLIMITED.asPermission())) {
+                if (player.isFlying() && !player.hasPermission(Permission.ESSENTIALS_FLY_UNLIMITED.asPermission()) && (player.getGameMode() == GameMode.ADVENTURE || player.getGameMode() == GameMode.SURVIVAL)) {
                     User user = plugin.getUser(player.getUniqueId());
                     if (user == null) continue;
 
