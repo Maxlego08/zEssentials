@@ -66,10 +66,8 @@ public class PlayerListener extends ZUtils implements Listener {
             var user = getUser(player);
             if (user == null) return;
 
-            System.out.println(user.getProtectionDuration() + " > " + System.currentTimeMillis());
             if (user.getProtectionDuration() > System.currentTimeMillis()) {
                 event.setCancelled(true);
-                System.out.println("Cancelled");
             }
         }
     }
