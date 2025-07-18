@@ -6,7 +6,6 @@ import org.bukkit.attribute.Attribute;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.NoSuchElementException;
 
 public class AttributeUtils {
 
@@ -14,16 +13,14 @@ public class AttributeUtils {
 
     public static Attribute getAttribute(String name) {
         return attributeCache.computeIfAbsent(name, key -> {
-            try {
-                return Registry.ATTRIBUTE.getOrThrow(NamespacedKey.minecraft(key));
-            } catch (NoSuchElementException ignored) {
-                try {
-                    return Registry.ATTRIBUTE.getOrThrow(NamespacedKey.minecraft("generic." + key));
-                } catch (NoSuchElementException e) {
-                    e.printStackTrace();
-                    return null;
-                }
+            // Try with the key as-is first
+            Attribute attribute = Registry.ATTRIBUTE.get(NamespacedKey.minecraft(key));
+            if (attribute != null) {
+                return attribute;
             }
+
+            // Try with "generic." prefix and return result (null if not found)
+            return Registry.ATTRIBUTE.get(NamespacedKey.minecraft("generic." + key));
         });
     }
 }
