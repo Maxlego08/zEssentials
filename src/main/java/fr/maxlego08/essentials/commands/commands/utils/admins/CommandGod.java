@@ -47,7 +47,7 @@ public class CommandGod extends VCommand {
                 // Use the correct attribute name that we confirmed works
                 Attribute maxHealthAttribute = AttributeUtils.getAttribute("generic.max_health");
                 if (maxHealthAttribute != null) {
-                    var attributeInstance = player.getAttribute(maxHealthAttribute);
+                    AttributeInstance attributeInstance = player.getAttribute(maxHealthAttribute);
                     if (attributeInstance != null) {
                         player.setHealth(attributeInstance.getBaseValue());
                     }
