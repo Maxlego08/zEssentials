@@ -16,6 +16,10 @@ import org.bukkit.entity.Player;
 import java.util.logging.Level;
 
 public class CommandGod extends VCommand {
+    // Constants at class level
+    private static final double DEFAULT_MAX_HEALTH = 20.0;
+    private static final int DEFAULT_MAX_FOOD_LEVEL = 20;
+
     public CommandGod(EssentialsPlugin plugin) {
         super(plugin);
         this.setPermission(Permission.ESSENTIALS_GOD);
@@ -80,9 +84,9 @@ public class CommandGod extends VCommand {
     }
 
     private void setPlayerHealthAndFood(Player player) {
-        // Set health to max health value or fallback to 20.0
+        // Set health to max health value or fallback to default
         Attribute maxHealthAttribute = AttributeUtils.getAttribute("max_health");
-        double maxHealth = 20.0; // Default fallback
+        double maxHealth = DEFAULT_MAX_HEALTH; // Use constant as fallback
 
         if (maxHealthAttribute != null) {
             AttributeInstance attributeInstance = player.getAttribute(maxHealthAttribute);
@@ -92,6 +96,6 @@ public class CommandGod extends VCommand {
         }
 
         player.setHealth(maxHealth);
-        player.setFoodLevel(20);
+        player.setFoodLevel(DEFAULT_MAX_FOOD_LEVEL);
     }
 }
