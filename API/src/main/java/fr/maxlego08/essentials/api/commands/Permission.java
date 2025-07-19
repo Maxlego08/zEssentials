@@ -24,6 +24,7 @@ public enum Permission {
     ESSENTIALS_ENDERSEE_OFFLINE("Allows you to see the enderchest of an offline player"),
     ESSENTIALS_TOP,
     ESSENTIALS_GOD,
+    ESSENTIALS_GOD_OTHER,
     ESSENTIALS_HEAL,
     ESSENTIALS_SPEED,
     ESSENTIALS_TELEPORT_BYPASS("Allows to bypass the waiting time for teleportation"),
