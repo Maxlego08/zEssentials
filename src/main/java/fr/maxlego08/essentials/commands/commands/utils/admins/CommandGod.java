@@ -62,6 +62,9 @@ public class CommandGod extends VCommand {
                 setPlayerHealthAndFood(target);
             } catch (Exception e) {
                 plugin.getLogger().log(Level.WARNING, "Error setting god mode health/food for " + target.getName(), e);
+                // Revert god mode state to maintain consistency
+                user.setOption(Option.GOD, wasGodEnabled);
+                isGodEnabled = wasGodEnabled;
             }
         }
 
