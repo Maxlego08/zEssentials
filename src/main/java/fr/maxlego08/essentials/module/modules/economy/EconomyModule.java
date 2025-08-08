@@ -293,7 +293,11 @@ public class EconomyModule extends ZModule implements EconomyManager {
 
     @Override
     public String format(Economy economy, Number number) {
-        return economy.format(format(economy.getPriceFormat(), number), number.longValue());
+        var result = economy.format(format(economy.getPriceFormat(), number), number.longValue());
+        if (result.contains(":")) {
+            result = this.plugin.getInventoryManager().getFontImage().replace(result);
+        }
+        return result;
     }
 
     protected String getDisplayBalance(Number number) {
