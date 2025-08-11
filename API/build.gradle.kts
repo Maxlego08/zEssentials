@@ -12,7 +12,7 @@ dependencies {
 
     implementation("fr.maxlego08.sarah:sarah:1.18")
     implementation("com.tcoded:FoliaLib:0.5.1")
-    implementation("fr.mrmicky:fastboard:2.1.4")
+    implementation("fr.mrmicky:fastboard:2.1.5")
 }
 
 tasks {

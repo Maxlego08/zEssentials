@@ -150,12 +150,7 @@ public class CraftHologram extends Hologram {
             display.setBrightnessOverride(new Brightness(this.configuration.getBrightness().getBlockLight(), this.configuration.getBrightness().getSkyLight()));
         }
 
-        display.setTransformation(new Transformation(
-                this.configuration.getTranslation(),
-                new Quaternionf(),
-                this.configuration.getScale(),
-                new Quaternionf())
-        );
+        display.setTransformation(new Transformation(this.configuration.getTranslation(), new Quaternionf(), this.configuration.getScale(), new Quaternionf()));
 
         display.setShadowRadius(this.configuration.getShadowRadius());
         display.setShadowStrength(this.configuration.getShadowStrength());
