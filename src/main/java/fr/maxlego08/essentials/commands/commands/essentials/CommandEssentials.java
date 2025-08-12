@@ -16,6 +16,7 @@ public class CommandEssentials extends VCommand {
         this.addSubCommand(new CommandEssentialsDeleteWorld(plugin));
         this.addSubCommand(new CommandEssentialsClearRandomWord(plugin));
         this.addSubCommand(new CommandEssentialsTest(plugin));
+        this.addSubCommand(new CommandEssentialsTestWayPoint(plugin));
     }
 
     @Override
