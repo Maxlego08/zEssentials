@@ -26,6 +26,7 @@ public class CommandEssentialsTestWayPoint extends VCommand {
         this.addRequireArg("y");
         this.addRequireArg("z");
         this.addRequireArg("color");
+        this.addOptionalArg("texture");
     }
 
     @Override
@@ -37,15 +38,16 @@ public class CommandEssentialsTestWayPoint extends VCommand {
         int y = this.argAsInteger(3);
         int z = this.argAsInteger(4);
         int color = this.argAsInteger(5);
+        String texture = this.argAsString(6, null);
 
         var location = new Location(player.getWorld(), x, y, z);
         var helper = plugin.getWayPointHelper();
 
         if (method.equals("create")) {
-            helper.addWayPoint(player, uuid, location, WayPointIcon.of(new Color(color)));
+            helper.addWayPoint(player, uuid, location, WayPointIcon.of(texture,new Color(color)));
             message(sender, "&fWayPoint created!");
         } else if (method.equals("update")) {
-            helper.updateWayPointPosition(player, uuid, location, WayPointIcon.of(new Color(color)));
+            helper.updateWayPointPosition(player, uuid, location, WayPointIcon.of(texture, new Color(color)));
             message(sender, "&fWayPoint updated!");
         } else if (method.equals("remove")) {
             helper.removeWayPoint(player, uuid);

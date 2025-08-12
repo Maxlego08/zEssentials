@@ -18,19 +18,6 @@ import java.util.UUID;
 
 public class WayPointPacket implements WayPointHelper {
 
-    public void show(Player player, Location location) {
-
-        var waypointUUID = UUID.randomUUID();
-
-        var icon = new Waypoint.Icon();
-        icon.style = WaypointStyleAssets.createId("death_waypoint");
-        icon.color = Optional.of(16777215);
-
-        BlockPos blockPos = new BlockPos(location.getBlockX(), location.getBlockY(), location.getBlockZ());
-        ClientboundTrackedWaypointPacket packet = ClientboundTrackedWaypointPacket.addWaypointPosition(player.getUniqueId(), icon, blockPos);
-        ((CraftPlayer) player).getHandle().connection.send(packet);
-    }
-
     @Override
     public void addWayPoint(Player player, UUID uniqueId, Location location, WayPointIcon wayPointIcon) {
 
@@ -96,7 +83,7 @@ public class WayPointPacket implements WayPointHelper {
     private Waypoint.Icon toIcon(WayPointIcon wayPointIcon) {
         var icon = new Waypoint.Icon();
         if (wayPointIcon.texture() != null) {
-            icon.style = WaypointStyleAssets.createId("death_waypoint");
+            icon.style = WaypointStyleAssets.createId(wayPointIcon.texture());
         }
         icon.color = Optional.of(wayPointIcon.color().getRGB() & 0xFFFFFF);
         return icon;
