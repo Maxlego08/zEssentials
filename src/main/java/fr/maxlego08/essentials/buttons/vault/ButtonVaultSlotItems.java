@@ -5,9 +5,9 @@ import fr.maxlego08.essentials.api.vault.PlayerVaults;
 import fr.maxlego08.essentials.api.vault.Vault;
 import fr.maxlego08.essentials.api.vault.VaultItem;
 import fr.maxlego08.essentials.api.vault.VaultResult;
-import fr.maxlego08.menu.api.utils.Placeholders;
 import fr.maxlego08.menu.api.button.Button;
 import fr.maxlego08.menu.api.engine.InventoryEngine;
+import fr.maxlego08.menu.api.utils.Placeholders;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -52,12 +52,12 @@ public class ButtonVaultSlotItems extends Button {
         Vault vault = playerVaults.getTargetVault();
         if (vault == null) return;
 
-        int size = this.slots.size();
+        int startSlot = getStartSlot(player);
 
-        var slots = manager.getMaxSlotsPlayer(player);
-        int startSlot = slots - (this.slots.size() * (slots - 1));
-        if (startSlot > 0 && startSlot < size) {
-            for (int index = 0; index < startSlot; index++) this.releaseSlot(inventory, index);
+        if (startSlot > 0 && startSlot < this.slots.size()) {
+            for (int index = 0; index < startSlot; index++) {
+                this.releaseSlot(inventory, index);
+            }
         }
 
         vault.getVaultItems().forEach((slot, vaultItem) -> setVaultItem(slot, vault, vaultItem, inventory, player));
@@ -120,13 +120,12 @@ public class ButtonVaultSlotItems extends Button {
             return;
         }
 
+        if (!isValidSlot(slot, player)) {
+            event.setCancelled(true);
+            return;
+        }
 
         if (event.getWhoClicked().getInventory().equals(event.getClickedInventory()) && clickType.isShiftClick() && itemStack != null && itemStack.getType() != Material.AIR) {
-
-            if (slot >= 45) {
-                event.setCancelled(true);
-                return;
-            }
 
             VaultResult vaultResult = manager.addVaultItem(vault, player.getUniqueId(), event.getCurrentItem(), -1, itemStack.getAmount(), this.slots.size());
 
@@ -141,15 +140,10 @@ public class ButtonVaultSlotItems extends Button {
                 setVaultItem(vaultResult.slot(), vault, vault.getVaultItems().get(vaultResult.slot()), inventoryDefault, player);
 
             } else {
-                plugin.getVaultManager().openVault(player, vaultResult.vault().getVaultId());
+                manager.openVault(player, vaultResult.vault().getVaultId());
             }
 
         } else if (topInventory.equals(event.getClickedInventory()) && !cursorItemStack.getType().equals(Material.AIR)) {
-
-            if (slot >= 45) {
-                event.setCancelled(true);
-                return;
-            }
 
             VaultItem vaultItem = vault.getVaultItems().get(slot);
             if (vaultItem != null && !vaultItem.getItemStack().isSimilar(cursorItemStack)) {
@@ -196,5 +190,37 @@ public class ButtonVaultSlotItems extends Button {
     @Override
     public void onDrag(InventoryDragEvent event, Player player, InventoryEngine inventoryDefault) {
         event.setCancelled(true);
+    }
+
+    /**
+     * Checks if the given slot is valid for the player's target vault.
+     *
+     * @param slot   the slot to check
+     * @param player the player to check for
+     * @return true if the slot is valid, false otherwise
+     */
+    private boolean isValidSlot(int slot, Player player) {
+
+        int startSlot = getStartSlot(player);
+
+        if (startSlot > 0 && startSlot < this.slots.size()) {
+            return slot < startSlot;
+        }
+        return true;
+    }
+
+    /**
+     * Returns the start slot for the given player's target vault.
+     *
+     * @param player the player to get the start slot for
+     * @return the start slot for the player's target vault, or 0 if the target vault is null
+     */
+    private int getStartSlot(Player player) {
+        var manager = this.plugin.getVaultManager();
+        PlayerVaults playerVaults = manager.getPlayerVaults(player);
+        Vault vault = playerVaults.getTargetVault();
+        if (vault == null) return 0;
+        int size = this.slots.size();
+        return manager.getMaxSlotsPlayer(player) - (size * (vault.getVaultId() - 1));
     }
 }
