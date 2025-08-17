@@ -1,12 +1,12 @@
 plugins {
     `java-library`
-    `maven-publish`
     id("com.gradleup.shadow") version "9.0.0-beta11"
-    id("io.papermc.paperweight.userdev") version "2.0.0-beta.16" apply false
+    id("io.papermc.paperweight.userdev") version "2.0.0-beta.18" apply false
+    id("re.alwyn974.groupez.repository") version "1.0.0"
 }
 
 group = "fr.maxlego08.essentials"
-version = "1.0.2.6"
+version = "1.0.2.7"
 
 extra.set("targetFolder", file("target/"))
 extra.set("apiFolder", file("target-api/"))
@@ -16,6 +16,7 @@ extra.set("sha", System.getProperty("github.sha"))
 allprojects {
     apply(plugin = "java-library")
     apply(plugin = "com.gradleup.shadow")
+    apply(plugin = "re.alwyn974.groupez.repository")
 
     group = "fr.maxlego08.essentials"
     version = rootProject.version
@@ -27,6 +28,7 @@ allprojects {
         maven(url = "https://jitpack.io")
         maven(url = "https://repo.papermc.io/repository/maven-public/")
         maven(url = "https://repo.extendedclip.com/content/repositories/placeholderapi/")
+        maven(url = "https://repo.tcoded.com/releases")
     }
 
     java {
@@ -37,20 +39,29 @@ allprojects {
         }
     }
 
+    tasks.shadowJar {
+        archiveBaseName.set(rootProject.name)
+        archiveAppendix.set(if (project.path == ":") "" else project.name)
+        archiveClassifier.set("")
+    }
+
     tasks.compileJava {
         options.encoding = "UTF-8"
     }
 
     tasks.javadoc {
         options.encoding = "UTF-8"
+        if (JavaVersion.current().isJava9Compatible)
+            (options as StandardJavadocDocletOptions).addBooleanOption("html5", true)
     }
 
     dependencies {
+//        compileOnly("fr.maxlego08.menu:zmenu-api:1.1.0.0")
         compileOnly(files("libs/zMenu-1.1.0.0.jar"))
 
-        compileOnly("com.github.technicallycoded:FoliaLib:0.4.3")
-        compileOnly("com.github.Maxlego08:Sarah:1.17")
-        compileOnly("fr.mrmicky:fastboard:2.1.4")
+        compileOnly("fr.maxlego08.sarah:sarah:1.18")
+        compileOnly("com.tcoded:FoliaLib:0.5.1")
+        compileOnly("fr.mrmicky:fastboard:2.1.5")
     }
 }
 
@@ -66,25 +77,22 @@ dependencies {
     api(project(":NMS:V1_21_1", configuration = "reobf"))
     api(project(":NMS:V1_21_3", configuration = "reobf"))
     api(project(":NMS:V1_21_4", configuration = "reobf"))
+    api(project(":NMS:V1_21_5", configuration = "reobf"))
+    api(project(":NMS:V1_21_6", configuration = "reobf"))
+    api(project(":NMS:V1_21_7", configuration = "reobf"))
+    api(project(":NMS:V1_21_8", configuration = "reobf"))
 
     rootProject.subprojects.filter { it.path.startsWith(":Hooks:") }.forEach { subproject ->
         api(project(subproject.path))
     }
-
-    implementation("com.github.technicallycoded:FoliaLib:0.4.3")
-    implementation("com.github.Maxlego08:Sarah:1.17")
-    implementation("fr.mrmicky:fastboard:2.1.4")
 }
 
 tasks {
     shadowJar {
-
         relocate("com.tcoded.folialib", "fr.maxlego08.essentials.libs.folialib")
         relocate("fr.maxlego08.sarah", "fr.maxlego08.essentials.libs.sarah")
         relocate("fr.mrmicky.fastboard", "fr.maxlego08.essentials.libs.fastboard")
 
-        archiveClassifier = ""
-        // minimize()
         manifest {
             attributes["paperweight-mappings-namespace"] = "spigot"
         }

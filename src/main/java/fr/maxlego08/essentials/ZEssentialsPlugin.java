@@ -39,6 +39,7 @@ import fr.maxlego08.essentials.api.utils.Warp;
 import fr.maxlego08.essentials.api.utils.component.ComponentMessage;
 import fr.maxlego08.essentials.api.vault.VaultManager;
 import fr.maxlego08.essentials.api.vote.VoteManager;
+import fr.maxlego08.essentials.api.waypoint.WayPointHelper;
 import fr.maxlego08.essentials.api.worldedit.WorldeditManager;
 import fr.maxlego08.essentials.buttons.ButtonHomes;
 import fr.maxlego08.essentials.buttons.ButtonPayConfirm;
@@ -170,6 +171,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     private RandomWord randomWord;
     private long serverStartUptime;
     private BlockTracker blockTracker = new DefaultBlockTracker();
+    private WayPointHelper wayPointHelper;
 
     @Override
     public void onEnable() {
@@ -765,6 +767,23 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     @Override
     public SanctionManager getSanctionManager() {
         return getModuleManager().getModule(SanctionModule.class);
+    }
+
+    @Override
+    public WayPointHelper getWayPointHelper() {
+        if (this.wayPointHelper == null) {
+            String version = NmsVersion.getCurrentVersion().name().replace("V_", "v");
+            String className = String.format("fr.maxlego08.essentials.nms.%s.WayPointPacket", version);
+
+            try {
+                Class<?> clazz = Class.forName(className);
+                this.wayPointHelper = (WayPointHelper) clazz.getConstructor().newInstance();
+            } catch (Exception exception) {
+                this.getLogger().severe("Cannot create a new instance for the class " + className);
+                this.getLogger().severe(exception.getMessage());
+            }
+        }
+        return this.wayPointHelper;
     }
 
     private void loadHooks() {

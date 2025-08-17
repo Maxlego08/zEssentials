@@ -1,6 +1,8 @@
 package fr.maxlego08.essentials.user.placeholders;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.economy.Economy;
+import fr.maxlego08.essentials.api.economy.PriceFormat;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.placeholders.PlaceholderRegister;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
@@ -50,6 +52,17 @@ public class ServerPlaceholders extends ZUtils implements PlaceholderRegister {
             }
             return entry.value;
         }, "Returns the last random number generated for the player within the last hour", "player name");
+
+
+        placeholder.register("custom_formatted_number_", (player, arg) -> {
+            String[] args = arg.split("_");
+            if (args.length != 2) return "Error: not enough arguments";
+            try {
+                return plugin.getEconomyManager().format(PriceFormat.valueOf(args[1].toUpperCase()), Double.parseDouble(args[0]));
+            } catch (Exception exception) {
+                return "Format " + args[1] + " was not found";
+            }
+        }, "Returns a formatted number", "number", "format");
 
         placeholder.register("server_uptime_in_second", (player) -> String.valueOf(System.currentTimeMillis() - (plugin.getServerStartupTime() / 1000)), "Returns the server update in second");
         placeholder.register("server_uptime", (player) -> TimerBuilder.getStringTime(System.currentTimeMillis() - plugin.getServerStartupTime()), "Returns the server update in format day, hour, minutes and seconds");

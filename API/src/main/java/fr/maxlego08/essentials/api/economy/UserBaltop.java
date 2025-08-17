@@ -29,5 +29,10 @@ public interface UserBaltop {
      */
     BigDecimal getAmount();
 
+    /**
+     * Retrieves the position of the user in the balance top list.
+     *
+     * @return the position of the user as a long
+     */
     long getPosition();
 }

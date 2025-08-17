@@ -13,6 +13,7 @@ import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Phantom;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.EventHandler;
@@ -20,6 +21,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -62,6 +64,13 @@ public class PlayerListener extends ZUtils implements Listener {
     public void onDamage(EntityDamageEvent event) {
         if (event.getEntity() instanceof Player player) {
             cancelGoldEvent(player, event);
+
+            var user = getUser(player);
+            if (user == null) return;
+
+            if (user.getProtectionDuration() > System.currentTimeMillis()) {
+                event.setCancelled(true);
+            }
         }
     }
 
@@ -141,7 +150,7 @@ public class PlayerListener extends ZUtils implements Listener {
     }
 
     @EventHandler
-    public void onFirstJoin(UserFirstJoinEvent event){
+    public void onFirstJoin(UserFirstJoinEvent event) {
         var user = event.getUser();
         this.plugin.getConfiguration().getDefaultOptionValues().forEach(user::setOption);
     }
@@ -216,6 +225,18 @@ public class PlayerListener extends ZUtils implements Listener {
 
         if (user != null && user.getOption(Option.NIGHT_VISION)) {
             this.plugin.getScheduler().runAtLocationLater(player.getLocation(), wrappedTask -> player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1, false, false, false), true), 2);
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
+    public void onPhantomSpawn(EntityTargetEvent event) {
+        var target = event.getTarget();
+        var entity = event.getEntity();
+        if (entity instanceof Phantom && target instanceof Player player) {
+            User user = this.plugin.getUser(player.getUniqueId());
+            if (user != null && user.getOption(Option.PHANTOMS_DISABLE)) {
+                event.setCancelled(true);
+            }
         }
     }
 

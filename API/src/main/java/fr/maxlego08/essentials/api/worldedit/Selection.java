@@ -52,7 +52,16 @@ public interface Selection {
      */
     Cuboid getCuboid();
 
+    /**
+     * Resets the selection to an empty state. This is equivalent to calling
+     * {@link #setFirstLocation(Location)} and {@link #setSecondLocation(Location)} with null values.
+     */
     void reset();
 
+    /**
+     * Cancels the current selection.
+     * This is typically used to signal to the plugin that the selection process
+     * should be stopped, and any related operations cancelled.
+     */
     void cancel();
 }

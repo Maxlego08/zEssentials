@@ -80,6 +80,8 @@ public enum Message {
     COMMAND_GOD_DISABLE("&7God mode <error>disable &7for &f%player%<success>."),
     COMMAND_NIGHT_VISION_ENABLE("&7Night vision <success>enable &7for &f%player%<success>."),
     COMMAND_NIGHT_VISION_DISABLE("&7Night vision <error>disable &7for &f%player%<success>."),
+    COMMAND_PHANTOMS_ENABLE("&7Phantom spawning <success>enable &7for &f%player%<success>."),
+    COMMAND_PHANTOMS_DISABLE("&7Phantom spawning <error>disable &7for &f%player%<error>."),
     COMMAND_HEAL_SENDER("&7You just healed the player &f%player%&7."),
     COMMAND_HEAL_RECEIVER("<success>You have been healed."),
     COMMAND_HEAL_ERROR("<error>You cannot heal someone who is dead !"),
@@ -126,6 +128,7 @@ public enum Message {
     COMMAND_TP_CANCEL_RECEIVER("&f%player% <error>cancelled their teleport request to you."),
     COMMAND_TP("&7You just teleport to the player #34cfe0%player%&f."),
     COMMAND_TP_LOCATION("&7You just teleport to #34cfe0%x%&f, #34cfe0%y%&f, #34cfe0%z%&f."),
+    COMMAND_TP_LOCATION_ERROR("<error>The coordinates are outside of the world."),
     COMMAND_TP_LOCATION_OTHER("&7You just teleport #34cfe0%player% &fto #34cfe0%x%&f, #34cfe0%y%&f, #34cfe0%z%&f."),
     COMMAND_TP_ALL("&7You just teleported all the players onto you."),
     COMMAND_TP_SELF("&7You just teleported #34cfe0%player%&7 to your position."),
@@ -136,6 +139,7 @@ public enum Message {
     COMMAND_MORE_SUCCESS("&7You just put your item to &f64&7."),
     COMMAND_WORLD_TELEPORT_SELF("<success>You have just been teleported into the world &f%world%<success>."),
     COMMAND_WORLD_TELEPORT_OTHER("<success>You just teleported the player &f%player% <success>in the world &f%world%<success>."),
+    COMMAND_RANDOM_TP_OTHER("<success>You just randomly teleported the player &f%player% <success>in the world &f%world%<success>."),
 
     COMMAND_COMPACT_TYPE("<error>Impossible to compact the material &f%material%<error>."),
     COMMAND_COMPACT_ERROR("<error>You have no &f%item%<error> in your inventory."),
@@ -177,6 +181,7 @@ public enum Message {
     DESCRIPTION_TP("Teleport to a player"),
     DESCRIPTION_TP_ALL("Teleport all player to your position"),
     DESCRIPTION_TP_RANDOM("Random Teleport in the world"),
+    DESCRIPTION_TP_RANDOM_OTHER("Force a random teleport for a player"),
     DESCRIPTION_BACK("Teleport to your previous location"),
     DESCRIPTION_TP_SELF("Teleport a player to your location"),
     DESCRIPTION_TPA_ACCEPT("Accept a teleportation request"),
@@ -318,6 +323,7 @@ public enum Message {
     DESCRIPTION_VOTE_REMOVE("Remove votes from a player"),
     DESCRIPTION_ENCHANT("Add enchant to an item"),
     DESCRIPTION_NIGHT_VISION("Enable or disable night vision"),
+    DESCRIPTION_PHANTOMS("Enable or disable phantom spawning"),
     DESCRIPTION_SUDO("Force a player to execute a command"),
     DESCRIPTION_WORLDEDIT_GIVE("Give a worldedit item to a player"),
     DESCRIPTION_WORLDEDIT_SET("Set all blocks of your selection"),
@@ -459,6 +465,7 @@ public enum Message {
     COMMAND_WARP_INVALID("<error>Warp &f%name% <error>has an invalide location."),
 
     COMMAND_RANDOM_TP_ERROR("<error>No safe location found after multiple attempts, please try again."),
+    COMMAND_RANDOM_TP_CONFIGURATION_NOT_FOUND("<error>Impossible to find the random tp configuration for the world &f%world%<error>."),
 
     COMMAND_SET_HOME_INVALIDE_NAME("&f%name% <error>is not a valid name, please choose another one."),
     COMMAND_SET_HOME_TOO_LONG("&f%name% <error>is too long, please choose another one."),

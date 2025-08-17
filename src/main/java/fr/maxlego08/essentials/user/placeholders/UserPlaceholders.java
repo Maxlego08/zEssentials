@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.user.placeholders;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.economy.EconomyManager;
+import fr.maxlego08.essentials.api.economy.PriceFormat;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.placeholders.PlaceholderRegister;
 import fr.maxlego08.essentials.api.storage.IStorage;
@@ -26,21 +27,22 @@ public class UserPlaceholders extends ZUtils implements PlaceholderRegister {
 
         placeholder.register("user_target_player_name", player -> {
             User user = iStorage.getUser(player.getUniqueId());
-            return user.getTargetUser() != null ? user.getTargetUser().getName() : "no";
+            return user != null && user.getTargetUser() != null ? user.getTargetUser().getName() : "no";
         }, "Returns the name of the target player");
 
         placeholder.register("user_target_is_ban", player -> {
             User user = iStorage.getUser(player.getUniqueId());
-            return user.getTargetUser() != null ? String.valueOf(user.getTargetUser().getOption(Option.BAN)) : "false";
+            return user != null && user.getTargetUser() != null ? String.valueOf(user.getTargetUser().getOption(Option.BAN)) : "false";
         }, "Returns true if the target player is banned, otherwise false");
 
         placeholder.register("user_target_is_mute", player -> {
             User user = iStorage.getUser(player.getUniqueId());
-            return user.getTargetUser() != null ? String.valueOf(user.getTargetUser().getOption(Option.MUTE)) : "false";
+            return user != null && user.getTargetUser() != null ? String.valueOf(user.getTargetUser().getOption(Option.MUTE)) : "false";
         }, "Returns true if the target player is muted, otherwise false");
 
         placeholder.register("user_target_pay_amount", player -> {
             User user = iStorage.getUser(player.getUniqueId());
+            if (user == null) return "0";
             Economy economy = user.getTargetEconomy();
             BigDecimal decimal = user.getTargetDecimal();
             return economy == null || decimal == null ? "0" : economyManager.format(economy, decimal);
@@ -50,6 +52,7 @@ public class UserPlaceholders extends ZUtils implements PlaceholderRegister {
 
         placeholder.register("user_formatted_balance_", (player, args) -> {
             User user = iStorage.getUser(player.getUniqueId());
+            if (user == null) return "0";
             Optional<Economy> optional = economyManager.getEconomy(args);
             if (optional.isEmpty()) {
                 return "Economy " + args + " was not found";
@@ -61,6 +64,7 @@ public class UserPlaceholders extends ZUtils implements PlaceholderRegister {
 
         placeholder.register("user_balance_", (player, args) -> {
             User user = iStorage.getUser(player.getUniqueId());
+            if (user == null) return "0";
             Optional<Economy> optional = economyManager.getEconomy(args);
             if (optional.isEmpty()) {
                 return "Economy " + args + " was not found";
@@ -69,8 +73,30 @@ public class UserPlaceholders extends ZUtils implements PlaceholderRegister {
             return user.getBalance(economy).toString();
         }, "Returns the number for a given economy", "economy");
 
+        placeholder.register("user_custom_balance_", (player, args) -> {
+            User user = iStorage.getUser(player.getUniqueId());
+            if (user == null) return "0";
+            String[] split = args.split("_", 2);
+            if (split.length != 2) return "Error: not enough arguments";
+
+            Optional<Economy> optional = economyManager.getEconomy(split[0]);
+            if (optional.isEmpty()) {
+                return "Economy " + args + " was not found";
+            }
+            try {
+                PriceFormat priceFormat = PriceFormat.valueOf(split[1].toUpperCase());
+                Economy economy = optional.get();
+                return economyManager.format(priceFormat, user.getBalance(economy));
+            } catch (Exception exception) {
+                return "Format " + split[1] + " was not found";
+            }
+        }, "Returns the custom formatted number for a given economy", "economy", "format");
+
+        // Option
+
         placeholder.register("user_option_", (player, args) -> {
             User user = iStorage.getUser(player.getUniqueId());
+            if (user == null) return "false";
             try {
                 Option option = Option.valueOf(args.toUpperCase());
                 return String.valueOf(user.getOption(option));
@@ -84,78 +110,56 @@ public class UserPlaceholders extends ZUtils implements PlaceholderRegister {
         // Cooldowns
         placeholder.register("user_is_cooldown_", (player, key) -> {
             User user = iStorage.getUser(player.getUniqueId());
-            try {
-                return String.valueOf(user.isCooldown(key));
-            } catch (Exception exception) {
-                return "false";
-            }
+            return user == null ? "false" : String.valueOf(user.isCooldown(key));
         }, "Returns true if the key is a cooldown", "cooldown key");
 
         placeholder.register("user_cooldown_second_", (player, key) -> {
             User user = iStorage.getUser(player.getUniqueId());
-            try {
-                return String.valueOf(user.getCooldownSeconds(key));
-            } catch (Exception exception) {
-                return "0";
-            }
+            return user == null ? "0" : String.valueOf(user.getCooldownSeconds(key));
         }, "Returns the remaining time in seconds for the cooldown", "cooldown key");
 
         placeholder.register("user_cooldown_formatted_", (player, key) -> {
             User user = iStorage.getUser(player.getUniqueId());
-            try {
-                return TimerBuilder.getStringTime(user.getCooldown(key) - System.currentTimeMillis());
-            } catch (Exception exception) {
-                return "0s";
-            }
+            return TimerBuilder.getStringTime(user == null ? 0 : (user.getCooldown(key) - System.currentTimeMillis()));
         }, "Returns the remaining formatted time for the cooldown", "cooldown key");
 
         // Sanction
         placeholder.register("user_is_mute", (player) -> {
             User user = iStorage.getUser(player.getUniqueId());
-            return String.valueOf(user.isMute());
+            return user != null ? String.valueOf(user.isMute()) : "false";
         }, "Returns true if the player's is mute");
 
         placeholder.register("user_mute_seconds", (player) -> {
             User user = iStorage.getUser(player.getUniqueId());
-            try {
-                return String.valueOf((user.getMuteSanction().getDurationRemaining().toSeconds()));
-            } catch (Exception exception) {
-                return "0";
-            }
+            return user != null ? String.valueOf((user.getMuteSanction().getDurationRemaining().toSeconds())) : "0";
         }, "Returns the remaining time in seconds for the mute");
 
         placeholder.register("user_mute_formatted", (player) -> {
             User user = iStorage.getUser(player.getUniqueId());
-            try {
-                return TimerBuilder.getStringTime(user.getMuteSanction().getDurationRemaining().toMillis());
-            } catch (Exception exception) {
-                return "0s";
-            }
+            return TimerBuilder.getStringTime(user != null ? user.getMuteSanction().getDurationRemaining().toMillis() : 0);
         }, "Returns the remaining formatted time for the mute");
 
         // Mailbox
 
         placeholder.register("user_mailbox_items", (player) -> {
             User user = iStorage.getUser(player.getUniqueId());
-            return String.valueOf(user.getMailBoxItems().size());
+            return user == null ? "0" : String.valueOf(user.getMailBoxItems().size());
         }, "Returns the number of items in the mailbox");
 
         // God
         placeholder.register("user_is_god", (player) -> {
             User user = iStorage.getUser(player.getUniqueId());
-            return String.valueOf(user.getOption(Option.GOD));
+            return user == null ? "false" : String.valueOf(user.getOption(Option.GOD));
         }, "Returns the true if user is in god mode");
 
         // Fly
         placeholder.register("user_fly_seconds", (player) -> {
             User user = iStorage.getUser(player.getUniqueId());
-            return String.valueOf(user.getFlySeconds());
+            return user == null ? "0" : String.valueOf(user.getFlySeconds());
         }, "Returns the number of seconds for temporary fly");
 
         // Repair all
-        placeholder.register("can_repair_all", (player) -> {
-            return countRepairItems(player.getInventory()) > 0 ? "true" : "false";
-        }, "Returns true if the player can repair all of their items");
+        placeholder.register("can_repair_all", (player) -> countRepairItems(player.getInventory()) > 0 ? "true" : "false", "Returns true if the player can repair all of their items");
 
         placeholder.register("count_repair_all", (player) -> String.valueOf(countRepairItems(player.getInventory())), "Returns the number of items that the player can repair");
         placeholder.register("user_world", (player) -> player.getWorld().getName(), "Returns the name of the world the player is currently in");

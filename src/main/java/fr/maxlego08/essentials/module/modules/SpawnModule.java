@@ -94,7 +94,7 @@ public class SpawnModule extends ZModule {
         if (ConfigStorage.spawnLocation != null && ConfigStorage.spawnLocation.isValid()) {
             player.setRespawnLocation(ConfigStorage.spawnLocation.getLocation(), true);
         } else {
-            message(player, Message.COMMAND_SPAWN_LOCATION_INVALID, "%location%", ConfigStorage.spawnLocation);
+            message(player, Message.COMMAND_SPAWN_LOCATION_INVALID);
         }
     }
 

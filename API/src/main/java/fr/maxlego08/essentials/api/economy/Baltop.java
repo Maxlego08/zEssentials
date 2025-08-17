@@ -39,5 +39,10 @@ public interface Baltop {
      */
     long getCreatedAt();
 
+    /**
+     * Retrieves the list of all users in the balance top list.
+     *
+     * @return the list of UserBaltop instances in the balance top list
+     */
     List<UserBaltop> getUsers();
 }

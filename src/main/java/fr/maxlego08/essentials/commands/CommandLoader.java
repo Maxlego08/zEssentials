@@ -73,7 +73,7 @@ import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportBack;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportCancel;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportDeny;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportHere;
-import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportRandom;
+import fr.maxlego08.essentials.commands.commands.teleport.random.CommandTeleportRandom;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportTo;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportToHere;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportWorld;
@@ -89,6 +89,7 @@ import fr.maxlego08.essentials.commands.commands.utils.CommandHeal;
 import fr.maxlego08.essentials.commands.commands.utils.CommandMore;
 import fr.maxlego08.essentials.commands.commands.utils.CommandNear;
 import fr.maxlego08.essentials.commands.commands.utils.CommandNightVision;
+import fr.maxlego08.essentials.commands.commands.utils.CommandPhantoms;
 import fr.maxlego08.essentials.commands.commands.utils.CommandPlayTime;
 import fr.maxlego08.essentials.commands.commands.utils.CommandRepair;
 import fr.maxlego08.essentials.commands.commands.utils.CommandRepairAll;
@@ -254,6 +255,7 @@ public class CommandLoader {
         register("seenip", CommandSeenIp.class, "whoisip");
         register("enchant", CommandEnchant.class, "enchantment");
         register("nightvision", CommandNightVision.class, "nv");
+        register("phantoms", CommandPhantoms.class);
         register("sudo", CommandSudo.class, "su");
 
         register("kit", CommandKit.class, "kits");

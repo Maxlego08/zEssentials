@@ -29,6 +29,7 @@ import fr.maxlego08.essentials.api.utils.Warp;
 import fr.maxlego08.essentials.api.utils.component.ComponentMessage;
 import fr.maxlego08.essentials.api.vault.VaultManager;
 import fr.maxlego08.essentials.api.vote.VoteManager;
+import fr.maxlego08.essentials.api.waypoint.WayPointHelper;
 import fr.maxlego08.essentials.api.worldedit.WorldeditManager;
 import fr.maxlego08.menu.api.ButtonManager;
 import fr.maxlego08.menu.api.InventoryManager;
@@ -442,4 +443,12 @@ public interface EssentialsPlugin extends Plugin {
      * @return the sanction manager
      */
     SanctionManager getSanctionManager();
+
+    /**
+     * Returns the waypoint helper.
+     * This helper is used to create, update, and delete waypoints from the player's locator bar.
+     *
+     * @return the waypoint helper
+     */
+    WayPointHelper getWayPointHelper();
 }

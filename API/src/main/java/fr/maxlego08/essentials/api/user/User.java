@@ -916,33 +916,125 @@ public interface User {
      */
     void playSound(Sound sound, float volume, float pitch);
 
+    /**
+     * Retrieves the frozen state of the user.
+     * When the user is frozen, they will be unable to move.
+     *
+     * @return true if the user is frozen, false otherwise
+     */
     boolean isFrozen();
 
-    void setFrozen(boolean b);
+    /**
+     * Sets the frozen state of the user.
+     * When the user is frozen, they will be unable to move.
+     *
+     * @param isFrozen the frozen state to set
+     */
+    void setFrozen(boolean isFrozen);
 
+    /**
+     * Retrieves the current home set for deletion by the user.
+     *
+     * @return an optional containing the home location, or empty if not set
+     */
     Optional<Home> getCurrentDeleteHome();
 
+    /**
+     * Sets the current home to be deleted by the user.
+     *
+     * @param home the home to set as the current delete home
+     */
     void setCurrentDeleteHome(Home home);
 
+    /**
+     * Retrieves the total fly time for the user in seconds.
+     * This method does not check if the user has fly enabled or not.
+     *
+     * @return the total fly time in seconds
+     */
     long getFlySeconds();
 
+    /**
+     * Sets the total fly time for the user in seconds.
+     * This method does not check if the user has fly enabled or not.
+     *
+     * @param seconds the total fly time in seconds
+     */
     void setFlySeconds(long seconds);
 
+    /**
+     * Adds the specified number of seconds to the user's fly time.
+     * This method assumes the user has fly enabled.
+     *
+     * @param seconds the number of seconds to add to the user's fly time
+     */
     void addFlySeconds(long seconds);
 
+    /**
+     * Removes the specified number of seconds from the user's fly time.
+     * This method does not check if the user has fly enabled or not.
+     *
+     * @param seconds the number of seconds to remove from the user's fly time
+     */
     void removeFlySeconds(long seconds);
 
+    /**
+     * Retrieves the linked Discord account for the user.
+     *
+     * @return the linked Discord account
+     */
     DiscordAccount getDiscordAccount();
 
+    /**
+     * Sets the linked Discord account for the user.
+     * This does not link the account, but rather sets the account as already linked.
+     *
+     * @param discordAccount the linked Discord account
+     */
     void setDiscordAccount(DiscordAccount discordAccount);
 
+    /**
+     * Checks if the user has linked their Discord account.
+     *
+     * @return true if the user has linked their Discord account, false otherwise
+     */
     boolean isDiscordLinked();
 
+    /**
+     * Removes the linked Discord account from the user.
+     */
     void removeDiscordAccount();
 
+    /**
+     * Retrieves the last active timestamp for the user in milliseconds.
+     *
+     * @return the last active timestamp in milliseconds
+     */
     long getLastActiveTime();
 
+    /**
+     * Sets the last active time for the user to the current timestamp.
+     */
     void setLastActiveTime();
 
+    /**
+     * Gets whether the user is currently AFK or not.
+     *
+     * @return whether the user is AFK or not
+     */
     boolean isAfk();
+
+    /**
+     * Gets the protection duration for the user.
+     *
+     * @return the protection duration in milliseconds
+     */
+    long getProtectionDuration();
+
+    /**
+     * Sets the protection duration for the user.
+     *
+     * @param duration the protection duration to set in milliseconds
+     */
+    void setProtectionDuration(long duration);
 }

@@ -4,6 +4,9 @@ import fr.maxlego08.essentials.api.event.CancellableUserEvent;
 import fr.maxlego08.essentials.api.steps.Step;
 import fr.maxlego08.essentials.api.user.User;
 
+/**
+ * This event is triggered when a new step is created for a user.
+ */
 public class StepCreateEvent extends CancellableUserEvent {
 
     private final Step step;

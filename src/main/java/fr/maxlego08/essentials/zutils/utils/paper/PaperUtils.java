@@ -9,7 +9,6 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.tag.Tag;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 
 public class PaperUtils extends BaseServer {
@@ -33,7 +32,7 @@ public class PaperUtils extends BaseServer {
     @Override
     public void sendPrivateMessage(User user, PrivateMessage privateMessage, Message message, String content) {
         PaperComponent paperComponent = (PaperComponent) this.componentMessage;
-        Component component = paperComponent.getComponentMessage(message.getMessageAsString(), TagResolver.resolver("message", Tag.inserting(Component.text(content))), "%target%", privateMessage.username());
-        user.getPlayer().sendMessage(component);
+        var messageAsString = papi(getMessage(message.getMessageAsString(), "%target%", privateMessage.username()), user.getPlayer());
+        user.getPlayer().sendMessage(paperComponent.getComponent(messageAsString, TagResolver.resolver("message", Tag.inserting(Component.text(content)))));
     }
 }

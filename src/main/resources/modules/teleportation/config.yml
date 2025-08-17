@@ -43,13 +43,12 @@ open-confirm-inventory-for-tpa: false
 # Opens a confirmation inventory for the /tpahere command.
 open-confirm-inventory-for-tpa-here: false
 
-rtp-center-x: 0
-rtp-center-z: 0
-
-rtp-radius-x: 5000
-rtp-radius-z: 5000
-
-rtp-world: "world"
+rtp-worlds:
+  - world: "world"
+    center-x: 0
+    center-z: 0
+    radius-x: 5000
+    radius-z: 5000
 
 max-rtp-attempts: 10
 
@@ -66,3 +65,14 @@ blacklist-biomes:
   - ocean
   - river
   - warm_ocean
+
+teleport-protection: 1000
+
+teleport-protections:
+  - permission: "essentials.teleport.protection.vip"
+    delay: 2000
+  - permission: "essentials.teleport.protection.staff"
+    delay: 3000
+
+# Allows you to obtain information on the search for random teleportation
+enable-random-teleport-search-log-message: false

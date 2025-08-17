@@ -4,7 +4,7 @@ import com.tcoded.folialib.wrapper.task.WrappedTask;
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.configuration.NonLoadable;
 import fr.maxlego08.essentials.api.dto.UserVoteDTO;
-import fr.maxlego08.essentials.api.event.events.vote.UserVoteEvent;
+import fr.maxlego08.essentials.api.event.events.user.UserVoteEvent;
 import fr.maxlego08.essentials.api.event.events.vote.VotePartyEvent;
 import fr.maxlego08.essentials.api.event.events.vote.VotePartyStartEvent;
 import fr.maxlego08.essentials.api.messages.Message;

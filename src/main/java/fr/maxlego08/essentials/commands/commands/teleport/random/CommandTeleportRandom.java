@@ -1,4 +1,4 @@
-package fr.maxlego08.essentials.commands.commands.teleport;
+package fr.maxlego08.essentials.commands.commands.teleport.random;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
@@ -15,13 +15,14 @@ public class CommandTeleportRandom extends VCommand {
         this.setPermission(Permission.ESSENTIALS_TP_RANDOM);
         this.setDescription(Message.DESCRIPTION_TP_RANDOM);
         this.onlyPlayers();
+        this.addSubCommand(new CommandTeleportRandomOther(plugin));
     }
 
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
         TeleportationModule module = plugin.getModuleManager().getModule(TeleportationModule.class);
-        module.randomTeleport(player);
+        module.randomTeleport(player, player.getWorld());
 
         return CommandResultType.SUCCESS;
     }

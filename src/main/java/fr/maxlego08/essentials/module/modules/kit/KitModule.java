@@ -41,9 +41,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class KitModule extends ZModule {
 
     private final List<Kit> kits = new ArrayList<>();
-    private KitDisplay display;
-
     private final List<String> kitsOnFirstJoin = new ArrayList<>();
+    private KitDisplay display;
 
     public KitModule(ZEssentialsPlugin plugin) {
         super(plugin, "kits");
@@ -150,6 +149,7 @@ public class KitModule extends ZModule {
     }
 
     private void loadKitEquipment(ZKit kit, YamlConfiguration configuration, InventoryManager inventoryManager, String path, EquipmentSlot equipmentSlot) {
+        if (configuration.getConfigurationSection(path) == null) return;
         var itemStack = inventoryManager.loadItemStack(configuration, path, kit.getFile());
         switch (equipmentSlot) {
             case HEAD -> kit.setHelmet(itemStack);

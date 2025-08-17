@@ -29,6 +29,7 @@ public class UserKitPlaceholders extends ZUtils implements PlaceholderRegister {
         placeholder.register("user_kit_time_until_available_", (player, kitName) -> {
             Optional<Kit> optional = plugin.getKit(kitName);
             User user = plugin.getUser(player.getUniqueId());
+            if (user == null) return "false";
             if (optional.isEmpty()) return "Kit " + kitName + " was not found";
 
             Kit kit = optional.get();

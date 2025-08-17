@@ -595,11 +595,39 @@ public interface IStorage {
      */
     void unlinkDiscordAccount(UUID uniqueId);
 
+    /**
+     * Retrieves a step for a given player.
+     *
+     * @param uniqueId the UUID of the player
+     * @param step     the step to retrieve
+     * @return the step DTO if the step was found, otherwise an empty optional
+     */
     StepDTO selectStep(UUID uniqueId, Step step);
 
+    /**
+     * Creates a step for a given player.
+     *
+     * @param uniqueId the UUID of the player
+     * @param step     the step to create
+     * @param playTime the play time at which the step was created
+     */
     void createStep(UUID uniqueId, Step step, long playTime);
 
+    /**
+     * Finishes a step for a given player.
+     *
+     * @param uniqueId      the UUID of the player
+     * @param step          the step to finish
+     * @param data          any additional data associated with the step
+     * @param playTimeEnd   the play time at the end of the step
+     * @param playTimeBetween the play time between the start and end of the step
+     */
     void finishStep(UUID uniqueId, Step step, String data, long playTimeEnd, long playTimeBetween);
 
+    /**
+     * Retrieves a list of player names.
+     *
+     * @return a list of player names
+     */
     List<String> getPlayerNames();
 }
