@@ -5,6 +5,8 @@
 
 # Unreleased
 
+- Added support of 1.21.5, 1.21.6, 1.21.7 and 1.21.8 [#182](https://github.com/Maxlego08/zEssentials/issues/182)
+
 # 1.0.2.6
 
 - Update to zMenu 1.1.0.0
