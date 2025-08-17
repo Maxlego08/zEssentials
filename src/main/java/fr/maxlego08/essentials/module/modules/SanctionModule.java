@@ -347,12 +347,17 @@ public class SanctionModule extends ZModule implements SanctionManager {
         else sendOffline(sender, record);
 
         message(sender, Message.COMMAND_SEEN_UUID, "%uuid%", uuid.toString());
-        message(sender, Message.COMMAND_SEEN_IP, "%ips%", record.playTimeDTOS().stream().map(timeDTO -> getMessage(Message.COMMAND_SEEN_ADDRESS, "%ip%", timeDTO.address())).distinct().collect(Collectors.joining(",")));
-        if (user.last_location() != null) {
+
+        if (hasPermission(sender, Permission.ESSENTIALS_SEEN_SHOW_IP)) {
+            message(sender, Message.COMMAND_SEEN_IP, "%ips%", record.playTimeDTOS().stream().map(timeDTO -> getMessage(Message.COMMAND_SEEN_ADDRESS, "%ip%", timeDTO.address())).distinct().collect(Collectors.joining(",")));
+        }
+
+        if (user.last_location() != null && hasPermission(sender, Permission.ESSENTIALS_SEEN_SHOW_LAST_LOCATION)) {
             SafeLocation location = stringAsLocation(user.last_location());
             message(sender, Message.COMMAND_SEEN_LAST_LOCATION, "%x%", location.getBlockX(), "%z%", location.getBlockZ(), "%y%", location.getBlockY(), "%world%", location.getWorld());
         }
-        if (user.created_at() != null) {
+
+        if (user.created_at() != null && hasPermission(sender, Permission.ESSENTIALS_SEEN_SHOW_CREATED_AT)) {
             message(sender, Message.COMMAND_SEEN_FIRST_JOIN, "%created_at%", this.simpleDateFormat.format(user.created_at()));
         }
     }

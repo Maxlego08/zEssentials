@@ -1,4 +1,5 @@
 # Idée:
+
 - Ajouter un broadcast de message centré avec le support des \n pour ajouter plusieurs lignes
 - Ajouter une option pour désactiver la tabulation des joueurs hors ligne
 - Ajouter un placeholder pour transformet les caractères en lettre spécial
@@ -6,6 +7,9 @@
 # Unreleased
 
 - Added support of 1.21.5, 1.21.6, 1.21.7 and 1.21.8 [#182](https://github.com/Maxlego08/zEssentials/issues/182)
+- Fix error with death message if spawn location is not
+  found [#167](https://github.com/Maxlego08/zEssentials/issues/167)
+- Added permission for each element in the ``/seen`` command [#160](https://github.com/Maxlego08/zEssentials/issues/160)
 
 # 1.0.2.6
 
@@ -65,7 +69,8 @@
 - Fixed Vault.
 - Added `/home-list <player> [<home name>]`, Allows you to view a player’s home list.
 - Added `/mailbox clear <player>`, Removes items from the players mailbox.
-- Added the permission record when creating orders. This allows players not to access commands that do not have permission with the tab. This also allows plugins like LuckPerms to retrieve the plugin’s permissions list.
+- Added the permission record when creating orders. This allows players not to access commands that do not have
+  permission with the tab. This also allows plugins like LuckPerms to retrieve the plugin’s permissions list.
 - Added a kit list to give players when they first log in.
 
 # 1.0.2.0
@@ -93,9 +98,11 @@
 - Added the ``/pub`` command, allowing you to send a message to the chat.
 - Added a reason for economy commands. A default value is added and can be configured.
 - Added a history module for private messages between players.
-- Added a module ``step`` which allows you to save player data (statistics and custom data). This allows you to analyze your players' behavior more effectively, such as how long it took them to reach a key milestone in your server.
+- Added a module ``step`` which allows you to save player data (statistics and custom data). This allows you to analyze
+  your players' behavior more effectively, such as how long it took them to reach a key milestone in your server.
 - Fixed messages for time display. Removed the non-configurable space.
-- Improved SQL queries for private message history, command history, chat history and transaction history. Using a single SQL query instead of multiple ones for the same action.
+- Improved SQL queries for private message history, command history, chat history and transaction history. Using a
+  single SQL query instead of multiple ones for the same action.
 - Improved vote module configuration. You can define different rewards based on the number of player votes.
 
 # 1.0.1.8
@@ -112,10 +119,10 @@
 - Fixed the button to reset vault names.
 - Fixed title messages.
 
-
 # 1.0.1.7
 
-- Added a bot discord. Se bot allows linking your account discord to your minecraft account. Download the bot here: https://groupez.dev/resources/zessentials-discord-bot.340
+- Added a bot discord. Se bot allows linking your account discord to your minecraft account. Download the bot
+  here: https://groupez.dev/resources/zessentials-discord-bot.340
 - Added command ``/link <code>``, allows linking your minecraft account
 - Added command ``/unlink``, allows unlinking your minecraft account
 - Added placeholder ``%zessentials_user_has_discord_linked%``
