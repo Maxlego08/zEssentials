@@ -33,7 +33,7 @@ public class CommandTeleportRandomOther extends VCommand {
         TeleportationModule module = plugin.getModuleManager().getModule(TeleportationModule.class);
         module.randomTeleport(target, world);
 
-        message(sender, Message.COMMAND_RANDOM_TP_OTHER, target, "world", world.getName());
+        message(sender, Message.COMMAND_RANDOM_TP_OTHER, target, "%world%", world.getName());
         return CommandResultType.SUCCESS;
     }
 }

@@ -107,7 +107,7 @@ public class TeleportationModule extends ZModule {
 
         RandomTeleportWorld configuration = this.rtpWorldMap.get(world.getName());
         if (configuration == null) {
-            message(player, Message.COMMAND_RANDOM_TP_CONFIGURATION_NOT_FOUND, "world", world.getName());
+            message(player, Message.COMMAND_RANDOM_TP_CONFIGURATION_NOT_FOUND, "%world%", world.getName());
             return;
         }
 
