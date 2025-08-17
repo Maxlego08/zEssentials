@@ -1,20 +1,24 @@
 package fr.maxlego08.essentials.module.modules;
 
 import fr.maxlego08.essentials.ZEssentialsPlugin;
+import fr.maxlego08.essentials.api.configuration.NonLoadable;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.teleportation.RandomTeleportWorld;
 import fr.maxlego08.essentials.api.teleportation.TeleportPermission;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.ZModule;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 public class TeleportationModule extends ZModule {
 
@@ -31,11 +35,9 @@ public class TeleportationModule extends ZModule {
     private boolean openConfirmInventoryForTpa;
     private boolean openConfirmInventoryForTpaHere;
     private int maxRtpAttempts;
-    private int rtpCenterX;
-    private int rtpCenterZ;
-    private int rtpRadiusX;
-    private int rtpRadiusZ;
-    private String rtpWorld = "world";
+    private final List<RandomTeleportWorld> rtpWorlds = new ArrayList<>();
+    @NonLoadable
+    private Map<String, RandomTeleportWorld> rtpWorldMap = new HashMap<>();
 
 
     public TeleportationModule(ZEssentialsPlugin plugin) {
@@ -48,6 +50,8 @@ public class TeleportationModule extends ZModule {
 
         this.loadInventory("confirm_request_inventory");
         this.loadInventory("confirm_request_here_inventory");
+
+        this.rtpWorldMap = this.rtpWorlds.stream().collect(Collectors.toMap(RandomTeleportWorld::world, r -> r));
     }
 
     public boolean isTeleportSafety() {
@@ -99,8 +103,14 @@ public class TeleportationModule extends ZModule {
     }
 
     public void randomTeleport(Player player) {
-        World world = Bukkit.getWorld(this.rtpWorld);
-        this.randomTeleport(player, world, this.rtpCenterX, this.rtpCenterZ, this.rtpRadiusX, this.rtpRadiusZ);
+        RandomTeleportWorld configuration = this.rtpWorldMap.get(player.getWorld().getName());
+        if (configuration == null) {
+            message(player, Message.COMMAND_RANDOM_TP_ERROR);
+            return;
+        }
+
+        World world = player.getWorld();
+        this.randomTeleport(player, world, configuration.centerX(), configuration.centerZ(), configuration.radiusX(), configuration.radiusZ());
     }
 
 
