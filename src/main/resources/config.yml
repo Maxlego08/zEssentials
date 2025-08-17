@@ -246,6 +246,7 @@ blacklist-uuids:
 # - POWER_TOOLS_DISABLE: Disables the power tools
 # - DISABLE_SCOREBOARD: Disables the scoreboard
 # - NIGHT_VISION: Allows to see in the dark
+# - PHANTOMS_DISABLE: Disables phantom spawning
 # - WORLDEDIT_INVENTORY: Allows to use the player's inventory for WorldEdit
 # - WORLDEDIT_BOSSBAR_DISABLE: Disables the WorldEdit bossbar
 default-options:

@@ -21,6 +21,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.entity.PhantomPreSpawnEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -223,6 +224,14 @@ public class PlayerListener extends ZUtils implements Listener {
 
         if (user != null && user.getOption(Option.NIGHT_VISION)) {
             this.plugin.getScheduler().runAtLocationLater(player.getLocation(), wrappedTask -> player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1, false, false, false), true), 2);
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onPhantomSpawn(PhantomPreSpawnEvent event) {
+        User user = this.plugin.getUser(event.getPlayer().getUniqueId());
+        if (user != null && user.getOption(Option.PHANTOMS_DISABLE)) {
+            event.setCancelled(true);
         }
     }
 
