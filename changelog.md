@@ -6,8 +6,22 @@
 
 # Unreleased
 
+# 1.0.2.7
+
 - Added support of 1.21.5, 1.21.6, 1.21.7 and 1.21.8 [#182](https://github.com/Maxlego08/zEssentials/issues/182)
 - Added permission for each element in the ``/seen`` command [#160](https://github.com/Maxlego08/zEssentials/issues/160)
+- Added teleport damage protection
+- Added ``%zessentials_user_custom_balence_<economy>_<price format>%`` placeholder
+- Added ``%zessentials_custom_formatted_number_<price format>%`` placeholder
+- Added itemsadder support for economy font
+- Added PlaceholderAPI support for private messages
+- Added WayPoint helper, only for developers now
+- Added ``/phantoms``, allow you to disable phantom for only you
+- Fix placeholders errors
+- Fix god command [#184](https://github.com/Maxlego08/zEssentials/issues/184)
+- Fix kit module with armor slots
+- Fix fly task if the player is in creative or spectator mode
+- Fix discord webhook errors
 - Fix error with death message if spawn location is not
   found [#167](https://github.com/Maxlego08/zEssentials/issues/167)
 - Prevent teleport to coordinates outside world bounds [#186](https://github.com/Maxlego08/zEssentials/issues/186)

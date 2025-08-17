@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "fr.maxlego08.essentials"
-version = "1.0.2.6"
+version = "1.0.2.7"
 
 extra.set("targetFolder", file("target/"))
 extra.set("apiFolder", file("target-api/"))
