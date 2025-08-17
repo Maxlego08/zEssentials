@@ -7,9 +7,10 @@
 # Unreleased
 
 - Added support of 1.21.5, 1.21.6, 1.21.7 and 1.21.8 [#182](https://github.com/Maxlego08/zEssentials/issues/182)
+- Added permission for each element in the ``/seen`` command [#160](https://github.com/Maxlego08/zEssentials/issues/160)
 - Fix error with death message if spawn location is not
   found [#167](https://github.com/Maxlego08/zEssentials/issues/167)
-- Added permission for each element in the ``/seen`` command [#160](https://github.com/Maxlego08/zEssentials/issues/160)
+- Prevent teleport to coordinates outside world bounds [#186](https://github.com/Maxlego08/zEssentials/issues/186)
 
 # 1.0.2.6
 

@@ -219,12 +219,14 @@ command-world-teleport-self: "<success>You have just been teleported into the wo
 command-world-teleport-other: "<success>You just teleported the player &f%player% <success>in the world &f%world%<success>."
 command-tp: "&fYou just teleport to the player #34cfe0%player%&f."
 command-tp-location: "&fYou just teleport to #34cfe0%x%&f, #34cfe0%y%&f, #34cfe0%z%&f."
+command-tp-location-error: "<error>The coordinates are outside of the world."
 command-tp-location-other: "&fYou just teleport #34cfe0%player% &fto #34cfe0%x%&f, #34cfe0%y%&f, #34cfe0%z%&f."
 command-tp-all: "&fYou just teleported all the players onto you."
 command-tp-self: "&fYou just teleported #34cfe0%player%&f to your position."
 command-back: "&7Returning to previous location."
 command-back-error: "<error>You have no last location. Impossible to go back."
 command-random-tp-error: "<error>No safe location found after multiple attempts, please try again."
+command-random-tp-configuration-not-found: "<error>Impossible to find the random tp configuration for the world &f%world%<error>."
 
 
 # First join

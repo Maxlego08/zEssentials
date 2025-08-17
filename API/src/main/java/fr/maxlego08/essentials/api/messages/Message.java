@@ -126,6 +126,7 @@ public enum Message {
     COMMAND_TP_CANCEL_RECEIVER("&f%player% <error>cancelled their teleport request to you."),
     COMMAND_TP("&7You just teleport to the player #34cfe0%player%&f."),
     COMMAND_TP_LOCATION("&7You just teleport to #34cfe0%x%&f, #34cfe0%y%&f, #34cfe0%z%&f."),
+    COMMAND_TP_LOCATION_ERROR("<error>The coordinates are outside of the world."),
     COMMAND_TP_LOCATION_OTHER("&7You just teleport #34cfe0%player% &fto #34cfe0%x%&f, #34cfe0%y%&f, #34cfe0%z%&f."),
     COMMAND_TP_ALL("&7You just teleported all the players onto you."),
     COMMAND_TP_SELF("&7You just teleported #34cfe0%player%&7 to your position."),
@@ -459,6 +460,7 @@ public enum Message {
     COMMAND_WARP_INVALID("<error>Warp &f%name% <error>has an invalide location."),
 
     COMMAND_RANDOM_TP_ERROR("<error>No safe location found after multiple attempts, please try again."),
+    COMMAND_RANDOM_TP_CONFIGURATION_NOT_FOUND("<error>Impossible to find the random tp configuration for the world &f%world%<error>."),
 
     COMMAND_SET_HOME_INVALIDE_NAME("&f%name% <error>is not a valid name, please choose another one."),
     COMMAND_SET_HOME_TOO_LONG("&f%name% <error>is too long, please choose another one."),

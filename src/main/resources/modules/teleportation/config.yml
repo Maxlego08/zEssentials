@@ -73,3 +73,6 @@ teleport-protections:
     delay: 2000
   - permission: "essentials.teleport.protection.staff"
     delay: 3000
+
+# Allows you to obtain information on the search for random teleportation
+enable-random-teleport-search-log-message: false

@@ -46,9 +46,9 @@ public class CommandTeleport extends VCommand {
                 double z = parseCoordinate(this.argAsString(2), location.getZ());
 
                 location.set(x, y, z);
-                if (!isLocationValid(location)) {
-                    message(this.sender, Message.COMMAND_SYNTAX_ERROR);
-                    return CommandResultType.SYNTAX_ERROR;
+                if (isLocationNotValid(location)) {
+                    message(this.sender, Message.COMMAND_TP_LOCATION_ERROR);
+                    return CommandResultType.DEFAULT;
                 }
 
                 yaw = (float) this.argAsDouble(3, location.getYaw());
@@ -66,9 +66,9 @@ public class CommandTeleport extends VCommand {
                 double z = parseCoordinate(this.argAsString(3), location.getZ());
 
                 location.set(x, y, z);
-                if (!isLocationValid(location)) {
-                    message(this.sender, Message.COMMAND_SYNTAX_ERROR);
-                    return CommandResultType.SYNTAX_ERROR;
+                if (isLocationNotValid(location)) {
+                    message(this.sender, Message.COMMAND_TP_LOCATION_ERROR);
+                    return CommandResultType.DEFAULT;
                 }
 
                 if (value.equalsIgnoreCase("@s")) {
@@ -128,14 +128,14 @@ public class CommandTeleport extends VCommand {
         return Double.parseDouble(coordinate);
     }
 
-    private boolean isLocationValid(Location location) {
-        if (location.getWorld() == null) return false;
+    private boolean isLocationNotValid(Location location) {
+        if (location.getWorld() == null) return true;
         double x = location.getX();
         double y = location.getY();
         double z = location.getZ();
-        if (Double.isNaN(x) || Double.isNaN(y) || Double.isNaN(z)) return false;
-        if (Double.isInfinite(x) || Double.isInfinite(y) || Double.isInfinite(z)) return false;
-        if (Math.abs(x) > MAX_COORDINATE || Math.abs(z) > MAX_COORDINATE) return false;
-        return y >= location.getWorld().getMinHeight() && y <= location.getWorld().getMaxHeight();
+        if (Double.isNaN(x) || Double.isNaN(y) || Double.isNaN(z)) return true;
+        if (Double.isInfinite(x) || Double.isInfinite(y) || Double.isInfinite(z)) return true;
+        if (Math.abs(x) > MAX_COORDINATE || Math.abs(z) > MAX_COORDINATE) return true;
+        return !(y >= location.getWorld().getMinHeight()) || !(y <= location.getWorld().getMaxHeight());
     }
 }

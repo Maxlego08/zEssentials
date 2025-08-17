@@ -73,7 +73,7 @@ import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportBack;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportCancel;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportDeny;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportHere;
-import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportRandom;
+import fr.maxlego08.essentials.commands.commands.teleport.random.CommandTeleportRandom;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportTo;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportToHere;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportWorld;
