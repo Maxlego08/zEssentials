@@ -11,6 +11,8 @@ import org.bukkit.entity.Player;
 
 public class CommandTeleport extends VCommand {
 
+    private static final double MAX_COORDINATE = 30_000_000;
+
     public CommandTeleport(EssentialsPlugin plugin) {
         super(plugin);
         this.setModule(TeleportationModule.class);
@@ -42,10 +44,16 @@ public class CommandTeleport extends VCommand {
                 double x = parseCoordinate(value, location.getX());
                 double y = parseCoordinate(this.argAsString(1), location.getY());
                 double z = parseCoordinate(this.argAsString(2), location.getZ());
+
+                location.set(x, y, z);
+                if (!isLocationValid(location)) {
+                    message(this.sender, Message.COMMAND_SYNTAX_ERROR);
+                    return CommandResultType.SYNTAX_ERROR;
+                }
+
                 yaw = (float) this.argAsDouble(3, location.getYaw());
                 pitch = (float) this.argAsDouble(4, location.getPitch());
 
-                location.set(x, y, z);
                 location.setYaw(yaw);
                 location.setPitch(pitch);
 
@@ -58,6 +66,10 @@ public class CommandTeleport extends VCommand {
                 double z = parseCoordinate(this.argAsString(3), location.getZ());
 
                 location.set(x, y, z);
+                if (!isLocationValid(location)) {
+                    message(this.sender, Message.COMMAND_SYNTAX_ERROR);
+                    return CommandResultType.SYNTAX_ERROR;
+                }
 
                 if (value.equalsIgnoreCase("@s")) {
 
@@ -114,5 +126,16 @@ public class CommandTeleport extends VCommand {
             }
         }
         return Double.parseDouble(coordinate);
+    }
+
+    private boolean isLocationValid(Location location) {
+        if (location.getWorld() == null) return false;
+        double x = location.getX();
+        double y = location.getY();
+        double z = location.getZ();
+        if (Double.isNaN(x) || Double.isNaN(y) || Double.isNaN(z)) return false;
+        if (Double.isInfinite(x) || Double.isInfinite(y) || Double.isInfinite(z)) return false;
+        if (Math.abs(x) > MAX_COORDINATE || Math.abs(z) > MAX_COORDINATE) return false;
+        return y >= location.getWorld().getMinHeight() && y <= location.getWorld().getMaxHeight();
     }
 }
