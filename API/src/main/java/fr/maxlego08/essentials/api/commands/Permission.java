@@ -91,6 +91,7 @@ public enum Permission {
     ESSENTIALS_WARPS,
     ESSENTIALS_WARP_DEL,
     ESSENTIALS_TP_RANDOM,
+    ESSENTIALS_TP_RANDOM_OTHER("Allows to random teleport another player"),
     ESSENTIALS_SET_HOME,
     ESSENTIALS_SET_HOME_CONFIRM,
     ESSENTIALS_SET_HOME_OTHER("Allows to set another player’s home"),
