@@ -31,5 +31,8 @@ include("NMS:V1_21")
 include("NMS:V1_21_1")
 include("NMS:V1_21_3")
 include("NMS:V1_21_4")
+include("NMS:V1_21_5")
+include("NMS:V1_21_6")
+include("NMS:V1_21_7")
 include("NMS:V1_21_8")
 
