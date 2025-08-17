@@ -13,6 +13,7 @@ import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Phantom;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.EventHandler;
@@ -20,8 +21,8 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
-import org.bukkit.event.entity.PhantomPreSpawnEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -227,11 +228,15 @@ public class PlayerListener extends ZUtils implements Listener {
         }
     }
 
-    @EventHandler(ignoreCancelled = true)
-    public void onPhantomSpawn(PhantomPreSpawnEvent event) {
-        User user = this.plugin.getUser(event.getPlayer().getUniqueId());
-        if (user != null && user.getOption(Option.PHANTOMS_DISABLE)) {
-            event.setCancelled(true);
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
+    public void onPhantomSpawn(EntityTargetEvent event) {
+        var target = event.getTarget();
+        var entity = event.getEntity();
+        if (entity instanceof Phantom && target instanceof Player player) {
+            User user = this.plugin.getUser(player.getUniqueId());
+            if (user != null && user.getOption(Option.PHANTOMS_DISABLE)) {
+                event.setCancelled(true);
+            }
         }
     }
 
