@@ -215,6 +215,7 @@ command-tp-cancel-sender: '<error>取消了 #99E0FF您对 %player% 的传送请�
 command-tp-cancel-receiver: '&f%player% <error>取消了他们的传送请求到您。'
 command-world-teleport-self: <success>您刚刚被传送到了世界 &f%world%<success>。
 command-world-teleport-other: <success>您刚刚将玩家 &f%player% <success>传送到了世界 &f%world%<success>。
+command-random-tp-other: <success>你刚刚随机传送了玩家 &f%player% <success>到世界 &f%world%<success>。
 command-tp: '&f您刚刚传送到玩家 #34cfe0%player%&f。'
 command-tp-location: '&f您刚刚传送到 #34cfe0%x%&f, #34cfe0%y%&f, #34cfe0%z%&f。'
 command-tp-location-other: '&f您刚刚将 #34cfe0%player% &f传送到了 #34cfe0%x%&f, #34cfe0%y%&f,
@@ -310,6 +311,7 @@ description-warp-use: 传送到一个传送点
 description-warp-del: 删除一个传送点
 description-warp-list: 显示传送点列表
 description-tp-random: 随机传送到世界中
+description-tp-random-other: 强制玩家随机传送
 description-set-home: 创建一个家
 description-del-home: 删除一个家
 description-del-home-confirm: 确认删除一个家

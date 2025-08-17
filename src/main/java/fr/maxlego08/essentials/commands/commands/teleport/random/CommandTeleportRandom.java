@@ -15,6 +15,7 @@ public class CommandTeleportRandom extends VCommand {
         this.setPermission(Permission.ESSENTIALS_TP_RANDOM);
         this.setDescription(Message.DESCRIPTION_TP_RANDOM);
         this.onlyPlayers();
+        this.addSubCommand(new CommandTeleportRandomOther(plugin));
     }
 
     @Override

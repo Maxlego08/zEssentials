@@ -137,6 +137,7 @@ public enum Message {
     COMMAND_MORE_SUCCESS("&7You just put your item to &f64&7."),
     COMMAND_WORLD_TELEPORT_SELF("<success>You have just been teleported into the world &f%world%<success>."),
     COMMAND_WORLD_TELEPORT_OTHER("<success>You just teleported the player &f%player% <success>in the world &f%world%<success>."),
+    COMMAND_RANDOM_TP_OTHER("<success>You just randomly teleported the player &f%player% <success>in the world &f%world%<success>."),
 
     COMMAND_COMPACT_TYPE("<error>Impossible to compact the material &f%material%<error>."),
     COMMAND_COMPACT_ERROR("<error>You have no &f%item%<error> in your inventory."),
@@ -178,6 +179,7 @@ public enum Message {
     DESCRIPTION_TP("Teleport to a player"),
     DESCRIPTION_TP_ALL("Teleport all player to your position"),
     DESCRIPTION_TP_RANDOM("Random Teleport in the world"),
+    DESCRIPTION_TP_RANDOM_OTHER("Force a random teleport for a player"),
     DESCRIPTION_BACK("Teleport to your previous location"),
     DESCRIPTION_TP_SELF("Teleport a player to your location"),
     DESCRIPTION_TPA_ACCEPT("Accept a teleportation request"),
