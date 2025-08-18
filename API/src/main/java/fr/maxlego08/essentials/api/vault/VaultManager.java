@@ -29,6 +29,15 @@ public interface VaultManager {
     void openVault(Player player, int vaultId);
 
     /**
+     * Opens a specific vault of another player for viewing.
+     *
+     * @param viewer  the player viewing the vault
+     * @param target  the owner of the vault
+     * @param vaultId the ID of the vault to open
+     */
+    void openVault(Player viewer, OfflinePlayer target, int vaultId);
+
+    /**
      * Gets the vaults associated with an offline player.
      *
      * @param offlinePlayer the offline player

@@ -344,6 +344,7 @@ public enum Message {
     DESCRIPTION_VAULT_ADD_SLOT("Add slot to player's vault"),
     DESCRIPTION_VAULT_SET_SLOT("Set slot to player's vault"),
     DESCRIPTION_VAULT_INFO("Get information about player's vault"),
+    DESCRIPTION_VAULT_SHOW("Show a player's vault"),
     DESCRIPTION_SHOW_ITEM("Show player's item"),
     DESCRIPTION_EXPERIENCE("Manage player experience"),
     DESCRIPTION_DISCORD_LINK("Link your discord account"),

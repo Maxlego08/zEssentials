@@ -21,6 +21,7 @@ public class CommandVault extends VCommand {
         this.addSubCommand(new CommandVaultAddSlot(plugin));
         this.addSubCommand(new CommandVaultGive(plugin));
         this.addSubCommand(new CommandVaultInfo(plugin));
+        this.addSubCommand(new CommandVaultShow(plugin));
     }
 
     @Override

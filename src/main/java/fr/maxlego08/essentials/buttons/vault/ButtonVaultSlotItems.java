@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.buttons.vault;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.vault.PlayerVaults;
 import fr.maxlego08.essentials.api.vault.Vault;
 import fr.maxlego08.essentials.api.vault.VaultItem;
@@ -34,10 +35,10 @@ public class ButtonVaultSlotItems extends Button {
     @Override
     public void onInventoryOpen(Player player, InventoryEngine inventory, Placeholders placeholders) {
 
-        inventory.setDisablePlayerInventoryClick(false);
-
         PlayerVaults playerVaults = this.plugin.getVaultManager().getPlayerVaults(player);
         Vault vault = playerVaults.getTargetVault();
+        boolean editable = vault != null && (vault.getUniqueId().equals(player.getUniqueId()) || player.hasPermission(Permission.ESSENTIALS_VAULT_SHOW_EDIT.asPermission()));
+        inventory.setDisablePlayerInventoryClick(!editable);
         if (vault == null) return;
 
         placeholders.register("vault-name", vault.getName());
@@ -76,6 +77,10 @@ public class ButtonVaultSlotItems extends Button {
         var manager = this.plugin.getVaultManager();
         InventoryAction action = event.getAction();
         boolean isPickup = action == InventoryAction.PICKUP_ALL || action == InventoryAction.PICKUP_HALF || action == InventoryAction.PICKUP_ONE || action == InventoryAction.PICKUP_SOME;
+
+        if (!vault.getUniqueId().equals(player.getUniqueId()) && !player.hasPermission(Permission.ESSENTIALS_VAULT_SHOW_EDIT.asPermission())) {
+            return;
+        }
 
         if (clickType == ClickType.RIGHT && isPickup) {
 
@@ -116,6 +121,12 @@ public class ButtonVaultSlotItems extends Button {
         PlayerVaults playerVaults = manager.getPlayerVaults(player);
         Vault vault = playerVaults.getTargetVault();
         if (vault == null) {
+            event.setCancelled(true);
+            return;
+        }
+
+        boolean editable = vault.getUniqueId().equals(player.getUniqueId()) || player.hasPermission(Permission.ESSENTIALS_VAULT_SHOW_EDIT.asPermission());
+        if (!editable) {
             event.setCancelled(true);
             return;
         }
