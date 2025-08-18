@@ -138,6 +138,11 @@ public class ButtonVaultSlotItems extends Button {
 
         if (event.getWhoClicked().getInventory().equals(event.getClickedInventory()) && clickType.isShiftClick() && itemStack != null && itemStack.getType() != Material.AIR) {
 
+            if (!isValidSlot(slot, player)) {
+                event.setCancelled(true);
+                return;
+            }
+
             VaultResult vaultResult = manager.addVaultItem(vault, player.getUniqueId(), event.getCurrentItem(), -1, itemStack.getAmount(), this.slots.size());
 
             if (vaultResult == null) {
@@ -155,6 +160,11 @@ public class ButtonVaultSlotItems extends Button {
             }
 
         } else if (topInventory.equals(event.getClickedInventory()) && !cursorItemStack.getType().equals(Material.AIR)) {
+
+            if (!isValidSlot(slot, player)) {
+                event.setCancelled(true);
+                return;
+            }
 
             VaultItem vaultItem = vault.getVaultItems().get(slot);
             if (vaultItem != null && !vaultItem.getItemStack().isSimilar(cursorItemStack)) {
