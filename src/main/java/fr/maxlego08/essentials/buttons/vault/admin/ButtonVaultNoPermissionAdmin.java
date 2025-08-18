@@ -1,4 +1,4 @@
-package fr.maxlego08.essentials.buttons.vault;
+package fr.maxlego08.essentials.buttons.vault.admin;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.vault.PlayerVaults;

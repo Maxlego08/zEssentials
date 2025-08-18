@@ -1,7 +1,7 @@
 package fr.maxlego08.essentials.loader;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
-import fr.maxlego08.essentials.buttons.vault.ButtonVaultOpenAdmin;
+import fr.maxlego08.essentials.buttons.vault.admin.ButtonVaultOpenAdmin;
 import fr.maxlego08.menu.api.button.Button;
 import fr.maxlego08.menu.api.button.DefaultButtonValue;
 import fr.maxlego08.menu.api.loader.ButtonLoader;

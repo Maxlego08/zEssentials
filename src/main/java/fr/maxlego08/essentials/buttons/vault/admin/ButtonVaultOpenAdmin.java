@@ -1,4 +1,4 @@
-package fr.maxlego08.essentials.buttons.vault;
+package fr.maxlego08.essentials.buttons.vault.admin;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.vault.PlayerVaults;
@@ -65,8 +65,7 @@ public class ButtonVaultOpenAdmin extends Button {
     public void onRightClick(Player player, InventoryClickEvent event, InventoryEngine inventory, int slot) {
         super.onRightClick(player, event, inventory, slot);
 
-        // Keep same behavior as default button; open configuration for player's own vault if permitted
-        this.plugin.getVaultManager().openConfiguration(player, this.vaultId);
+        // ToDo
     }
 
     @Override
