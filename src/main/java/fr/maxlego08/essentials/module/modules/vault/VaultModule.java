@@ -109,6 +109,27 @@ public class VaultModule extends ZModule implements VaultManager {
     }
 
     @Override
+    public void openVault(Player player, OfflinePlayer target, int vaultId) {
+
+        if (vaultId < 1 || vaultId > this.maxVaults) {
+            message(player, Message.COMMAND_VAULT_NOT_FOUND, "%vaultId%", vaultId);
+            return;
+        }
+
+        if (!hasPermission(target.getUniqueId(), vaultId)) {
+            message(player, Message.COMMAND_VAULT_NO_PERMISSION);
+            return;
+        }
+
+        PlayerVaults targetVaults = getPlayerVaults(target);
+        Vault vault = targetVaults.getVault(vaultId);
+        PlayerVaults viewerVaults = getPlayerVaults(player);
+        viewerVaults.setTargetVault(vault);
+
+        this.plugin.openInventory(player, "vault");
+    }
+
+    @Override
     public PlayerVaults getPlayerVaults(OfflinePlayer offlinePlayer) {
         return getPlayerVaults(offlinePlayer.getUniqueId());
     }
@@ -427,5 +448,9 @@ public class VaultModule extends ZModule implements VaultManager {
     @Override
     public String getDefaultVaultName() {
         return defaultVaultName;
+    }
+
+    public List<PermissionSlotsVault> getVaultPermissions() {
+        return this.vaultPermissions;
     }
 }
