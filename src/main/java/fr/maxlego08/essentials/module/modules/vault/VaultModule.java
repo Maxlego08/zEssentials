@@ -58,6 +58,7 @@ public class VaultModule extends ZModule implements VaultManager {
 
         this.loadInventory("vault");
         this.loadInventory("vault-configuration");
+        this.loadInventory("vault-admin");
     }
 
     @Override
@@ -104,6 +105,7 @@ public class VaultModule extends ZModule implements VaultManager {
         PlayerVaults playerVaults = getPlayerVaults(player);
         Vault vault = playerVaults.getVault(vaultId);
         playerVaults.setTargetVault(vault);
+        playerVaults.setTargetPlayerVaults(playerVaults);
 
         this.plugin.openInventory(player, "vault");
     }
@@ -125,8 +127,9 @@ public class VaultModule extends ZModule implements VaultManager {
         Vault vault = targetVaults.getVault(vaultId);
         PlayerVaults viewerVaults = getPlayerVaults(player);
         viewerVaults.setTargetVault(vault);
+        viewerVaults.setTargetPlayerVaults(targetVaults);
 
-        this.plugin.openInventory(player, "vault");
+        this.plugin.openInventory(player, "vault-admin");
     }
 
     @Override
@@ -316,6 +319,7 @@ public class VaultModule extends ZModule implements VaultManager {
         PlayerVaults playerVaults = getPlayerVaults(player);
         Vault vault = playerVaults.getVault(vaultId);
         playerVaults.setTargetVault(vault);
+        playerVaults.setTargetPlayerVaults(playerVaults);
 
         this.plugin.openInventory(player, "vault-configuration");
     }

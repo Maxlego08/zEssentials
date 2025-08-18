@@ -1,0 +1,165 @@
+name: "&f%player% - %vault-name%"
+size: 54
+items:
+  disableSlots:
+    isPermanent: true
+    type: ZESSENTIALS_VAULT_SLOTS_DISABLE
+    slots:
+      - 0-44
+    item:
+      material: STRUCTURE_VOID
+      name: "<red>ʏᴏᴜ ᴅᴏɴ’ᴛ ʜᴀᴠᴇ ᴛʜɪs sʟᴏᴛ"
+  slots:
+    isPermanent: true
+    type: ZESSENTIALS_VAULT_SLOTS_ITEMS
+    slots:
+      - 0-44
+
+  # Navigation
+  vault1:
+    type: ZESSENTIALS_VAULT_OPEN_ADMIN
+    vault: 1
+    slot: 46
+    item:
+      material: "%vault-icon%"
+      name: "%vault-name%"
+      amount: "%vault-id%"
+      lore:
+        - "&8Click to open the vault %vault-id%"
+    else:
+      type: ZESSENTIALS_VAULT_NO_PERMISSION_ADMIN
+      vault: 1
+      item:
+        material: BARRIER
+        name: "%vault-name%"
+        lore:
+          - ""
+          - "<red>✘ You do not have access to se vault"
+          - ""
+          - "&7Get slots on the shop!"
+  vault2:
+    type: ZESSENTIALS_VAULT_OPEN_ADMIN
+    vault: 2
+    slot: 47
+    item:
+      material: "%vault-icon%"
+      name: "%vault-name%"
+      amount: 5
+      lore:
+        - "&8Click to open the vault %vault-id%"
+    else:
+      type: ZESSENTIALS_VAULT_NO_PERMISSION_ADMIN
+      vault: 2
+      item:
+        material: BARRIER
+        name: "%vault-name%"
+        lore:
+          - ""
+          - "<red>✘ You do not have access to se vault"
+          - ""
+          - "&7Get slots on the shop!"
+  vault3:
+    type: ZESSENTIALS_VAULT_OPEN_ADMIN
+    vault: 3
+    slot: 48
+    item:
+      material: "%vault-icon%"
+      name: "%vault-name%"
+      amount: "%vault-id%"
+      lore:
+        - "&8Click to open the vault %vault-id%"
+    else:
+      type: ZESSENTIALS_VAULT_NO_PERMISSION_ADMIN
+      vault: 3
+      item:
+        material: BARRIER
+        name: "%vault-name%"
+        lore:
+          - ""
+          - "<red>✘ You do not have access to se vault"
+          - ""
+          - "&7Get slots on the shop!"
+  vault4:
+    type: ZESSENTIALS_VAULT_OPEN_ADMIN
+    vault: 4
+    slot: 49
+    item:
+      material: "%vault-icon%"
+      name: "%vault-name%"
+      amount: "%vault-id%"
+      lore:
+        - "&8Click to open the vault %vault-id%"
+    else:
+      type: ZESSENTIALS_VAULT_NO_PERMISSION_ADMIN
+      vault: 4
+      item:
+        material: BARRIER
+        name: "%vault-name%"
+        lore:
+          - ""
+          - "<red>✘ You do not have access to se vault"
+          - ""
+          - "&7Get slots on the shop!"
+  vault5:
+    type: ZESSENTIALS_VAULT_OPEN_ADMIN
+    vault: 5
+    slot: 50
+    item:
+      material: "%vault-icon%"
+      name: "%vault-name%"
+      amount: "%vault-id%"
+      lore:
+        - "&8Click to open the vault %vault-id%"
+    else:
+      type: ZESSENTIALS_VAULT_NO_PERMISSION_ADMIN
+      vault: 5
+      item:
+        material: BARRIER
+        name: "%vault-name%"
+        lore:
+          - ""
+          - "<red>✘ You do not have access to se vault"
+          - ""
+          - "&7Get slots on the shop!"
+  vault6:
+    type: ZESSENTIALS_VAULT_OPEN_ADMIN
+    vault: 6
+    slot: 51
+    item:
+      material: "%vault-icon%"
+      name: "%vault-name%"
+      amount: "%vault-id%"
+      lore:
+        - "&8Click to open the vault %vault-id%"
+    else:
+      type: ZESSENTIALS_VAULT_NO_PERMISSION_ADMIN
+      vault: 6
+      item:
+        material: BARRIER
+        name: "%vault-name%"
+        lore:
+          - ""
+          - "<red>✘ You do not have access to se vault"
+          - ""
+          - "&7Get slots on the shop!"
+  vault7:
+    type: ZESSENTIALS_VAULT_OPEN_ADMIN
+    vault: 7
+    slot: 52
+    item:
+      material: "%vault-icon%"
+      name: "%vault-name%"
+      amount: "%vault-id%"
+      lore:
+        - "&8Click to open the vault %vault-id%"
+    else:
+      type: ZESSENTIALS_VAULT_NO_PERMISSION_ADMIN
+      vault: 7
+      item:
+        material: BARRIER
+        name: "%vault-name%"
+        lore:
+          - ""
+          - "<red>✘ You do not have access to se vault"
+          - ""
+          - "&7Get slots on the shop!"
