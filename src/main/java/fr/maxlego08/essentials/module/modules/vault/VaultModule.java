@@ -428,4 +428,8 @@ public class VaultModule extends ZModule implements VaultManager {
     public String getDefaultVaultName() {
         return defaultVaultName;
     }
+
+    public List<PermissionSlotsVault> getVaultPermissions() {
+        return this.vaultPermissions;
+    }
 }
