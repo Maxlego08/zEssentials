@@ -131,11 +131,6 @@ public class ButtonVaultSlotItems extends Button {
             return;
         }
 
-        if (!isValidSlot(slot, player)) {
-            event.setCancelled(true);
-            return;
-        }
-
         if (event.getWhoClicked().getInventory().equals(event.getClickedInventory()) && clickType.isShiftClick() && itemStack != null && itemStack.getType() != Material.AIR) {
 
             if (!isValidSlot(slot, player)) {
