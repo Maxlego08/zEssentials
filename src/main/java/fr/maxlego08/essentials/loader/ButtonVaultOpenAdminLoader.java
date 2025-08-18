@@ -1,0 +1,25 @@
+package fr.maxlego08.essentials.loader;
+
+import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.buttons.vault.ButtonVaultOpenAdmin;
+import fr.maxlego08.menu.api.button.Button;
+import fr.maxlego08.menu.api.button.DefaultButtonValue;
+import fr.maxlego08.menu.api.loader.ButtonLoader;
+import org.bukkit.configuration.file.YamlConfiguration;
+
+public class ButtonVaultOpenAdminLoader extends ButtonLoader {
+
+    private final EssentialsPlugin plugin;
+
+    public ButtonVaultOpenAdminLoader(EssentialsPlugin plugin) {
+        super(plugin, "ZESSENTIALS_VAULT_OPEN_ADMIN");
+        this.plugin = plugin;
+    }
+
+    @Override
+    public Button load(YamlConfiguration configuration, String path, DefaultButtonValue defaultButtonValue) {
+        int vaultId = Integer.parseInt(configuration.getString(path + "vault", "1"));
+        return new ButtonVaultOpenAdmin(this.plugin, vaultId);
+    }
+}
+

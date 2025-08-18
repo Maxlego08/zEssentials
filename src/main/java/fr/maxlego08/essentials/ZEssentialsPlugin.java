@@ -65,7 +65,9 @@ import fr.maxlego08.essentials.loader.ButtonKitGetLoader;
 import fr.maxlego08.essentials.loader.ButtonOptionLoader;
 import fr.maxlego08.essentials.loader.ButtonSanctionLoader;
 import fr.maxlego08.essentials.loader.ButtonVaultNoPermissionLoader;
+import fr.maxlego08.essentials.loader.ButtonVaultNoPermissionAdminLoader;
 import fr.maxlego08.essentials.loader.ButtonVaultOpenLoader;
+import fr.maxlego08.essentials.loader.ButtonVaultOpenAdminLoader;
 import fr.maxlego08.essentials.loader.ButtonWarpLoader;
 import fr.maxlego08.essentials.messages.MessageLoader;
 import fr.maxlego08.essentials.module.ZModuleManager;
@@ -335,6 +337,8 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.buttonManager.register(new ButtonKitGetLoader(this));
         this.buttonManager.register(new ButtonVaultOpenLoader(this));
         this.buttonManager.register(new ButtonVaultNoPermissionLoader(this));
+        this.buttonManager.register(new ButtonVaultOpenAdminLoader(this));
+        this.buttonManager.register(new ButtonVaultNoPermissionAdminLoader(this));
         this.buttonManager.register(new ButtonOptionLoader(this));
 
     }

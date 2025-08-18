@@ -62,6 +62,23 @@ public interface PlayerVaults {
     void setTargetVault(Vault targetVault);
 
     /**
+     * Gets the player vaults currently being viewed by the player.
+     * This is mainly used when an administrator is inspecting another
+     * player's vaults.
+     *
+     * @return the target player's vaults, or {@code null} if the player is
+     * not viewing another player's vaults
+     */
+    PlayerVaults getTargetPlayerVaults();
+
+    /**
+     * Sets the player vaults currently being viewed by the player.
+     *
+     * @param targetPlayerVaults the target player's vaults to view
+     */
+    void setTargetPlayerVaults(PlayerVaults targetPlayerVaults);
+
+    /**
      * Gets a specific vault by its ID.
      *
      * @param vaultId the ID of the vault to retrieve

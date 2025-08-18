@@ -9,6 +9,7 @@ import fr.maxlego08.essentials.api.vault.VaultResult;
 import fr.maxlego08.menu.api.button.Button;
 import fr.maxlego08.menu.api.engine.InventoryEngine;
 import fr.maxlego08.menu.api.utils.Placeholders;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -42,6 +43,8 @@ public class ButtonVaultSlotItems extends Button {
         if (vault == null) return;
 
         placeholders.register("vault-name", vault.getName());
+        var owner = Bukkit.getOfflinePlayer(vault.getUniqueId());
+        placeholders.register("player", owner.getName());
     }
 
     @Override
