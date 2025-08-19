@@ -35,11 +35,9 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
 
 import java.util.Optional;
 
@@ -47,7 +45,6 @@ public class PlayerListener extends ZUtils implements Listener {
 
     private final EssentialsPlugin plugin;
     private final DynamicCooldown dynamicCooldown = new DynamicCooldown();
-    private final Set<UUID> disabledFly = new HashSet<>();
 
     public PlayerListener(EssentialsPlugin plugin) {
         this.plugin = plugin;
@@ -217,7 +214,6 @@ public class PlayerListener extends ZUtils implements Listener {
         long sessionPlayTime = (System.currentTimeMillis() - user.getCurrentSessionPlayTime()) / 1000;
         long playtime = user.getPlayTime();
         this.plugin.getStorageManager().getStorage().insertPlayTime(user.getUniqueId(), sessionPlayTime, playtime, user.getAddress());
-        this.disabledFly.remove(event.getPlayer().getUniqueId());
     }
 
     @EventHandler
@@ -281,11 +277,12 @@ public class PlayerListener extends ZUtils implements Listener {
         if (configuration.getDisableFlyWorld().contains(worldName) && player.isFlying() && !hasPermission(player, Permission.ESSENTIALS_FLY_BYPASS_WORLD)) {
             player.setAllowFlight(false);
             player.setFlying(false);
-            this.disabledFly.add(player.getUniqueId());
+            player.setMetadata("zessentials-fly", new FixedMetadataValue(this.plugin, true));
             message(player, Message.COMMAND_FLY_ERROR_WORLD);
-        } else if (configuration.isEnableFlyReturn() && !configuration.getDisableFlyWorld().contains(worldName) && this.disabledFly.remove(player.getUniqueId())) {
+        } else if (configuration.isEnableFlyReturn() && !configuration.getDisableFlyWorld().contains(worldName) && player.hasMetadata("zessentials-fly")) {
             player.setAllowFlight(true);
             player.setFlying(true);
+            player.removeMetadata("zessentials-fly", this.plugin);
         }
     }
 
