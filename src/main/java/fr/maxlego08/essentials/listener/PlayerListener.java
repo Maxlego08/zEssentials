@@ -118,9 +118,35 @@ public class PlayerListener extends ZUtils implements Listener {
     public void onCommand(PlayerCommandPreprocessEvent event) {
 
         Configuration configuration = this.plugin.getConfiguration();
+        Player player = event.getPlayer();
+
+        String label = event.getMessage().substring(1).split(" ")[0];
+        for (var restriction : configuration.getCommandRestrictions()) {
+            if (restriction.command().equalsIgnoreCase(label)) {
+                String bypass = restriction.bypassPermission();
+                if (bypass != null && !bypass.isEmpty() && player.hasPermission(bypass)) {
+                    continue;
+                }
+                if (restriction.worlds() != null && restriction.worlds().contains(player.getWorld().getName())) {
+                    message(player, Message.COMMAND_RESTRICTED);
+                    event.setCancelled(true);
+                    return;
+                }
+                if (restriction.cuboids() != null) {
+                    var location = player.getLocation();
+                    for (var cuboid : restriction.cuboids()) {
+                        if (cuboid.isIn(location)) {
+                            message(player, Message.COMMAND_RESTRICTED);
+                            event.setCancelled(true);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
         long[] cooldownsArray = configuration.getCooldownCommands();
         if (cooldownsArray.length == 0) return;
-        Player player = event.getPlayer();
         double cooldown = handleCooldown(player, cooldownsArray);
         if (cooldown != 0 && !hasPermission(player, Permission.ESSENTIALS_COOLDOWN_COMMAND_BYPASS)) {
             message(player, Message.COOLDOWN_COMMANDS, "%cooldown%", TimerBuilder.getStringTime(cooldown));

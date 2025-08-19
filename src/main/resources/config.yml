@@ -74,6 +74,15 @@ command-cooldowns:
         # In this example, whoever has "essentials.cooldown.heal.staff" permission can run "/heal" after 20 seconds
         cooldown: 20
 
+# Allows disabling commands in specific worlds or areas (cuboids)
+command-restrictions:
+  - command: "spawn"
+    bypass-permission: "essentials.bypass.commandrestriction.spawn"
+    worlds:
+      - "world_nether"
+    cuboids:
+      - "world,0,0,0,100,255,100"
+
 # Trash can GUI size. Must be 9, 18, 27, 36, 45, 54.
 trash-size: 27
 
