@@ -267,7 +267,7 @@ public class PlayerListener extends ZUtils implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    @EventHandler
     public void onChangeWorld(PlayerChangedWorldEvent event) {
 
         var player = event.getPlayer();
@@ -275,11 +275,13 @@ public class PlayerListener extends ZUtils implements Listener {
         var worldName = player.getWorld().getName();
 
         if (configuration.getDisableFlyWorld().contains(worldName) && player.isFlying() && !hasPermission(player, Permission.ESSENTIALS_FLY_BYPASS_WORLD)) {
+
             player.setAllowFlight(false);
             player.setFlying(false);
             player.setMetadata("zessentials-fly", new FixedMetadataValue(this.plugin, true));
             message(player, Message.COMMAND_FLY_ERROR_WORLD);
         } else if (configuration.isEnableFlyReturn() && !configuration.getDisableFlyWorld().contains(worldName) && player.hasMetadata("zessentials-fly")) {
+
             player.setAllowFlight(true);
             player.setFlying(true);
             player.removeMetadata("zessentials-fly", this.plugin);
