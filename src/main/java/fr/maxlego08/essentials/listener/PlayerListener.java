@@ -126,7 +126,7 @@ public class PlayerListener extends ZUtils implements Listener {
 
         String label = event.getMessage().substring(1).split(" ")[0];
         for (var restriction : configuration.getCommandRestrictions()) {
-            if (restriction.command().equalsIgnoreCase(label)) {
+            if (restriction.commands().contains(label)) {
                 String bypass = restriction.bypassPermission();
                 if (bypass != null && !bypass.isEmpty() && player.hasPermission(bypass)) {
                     continue;

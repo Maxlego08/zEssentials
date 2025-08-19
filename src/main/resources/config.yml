@@ -76,7 +76,8 @@ command-cooldowns:
 
 # Allows disabling commands in specific worlds or areas (cuboids)
 command-restrictions:
-  - command: "spawn"
+  - commands:
+      - "spawn"
     bypass-permission: "essentials.bypass.commandrestriction.spawn"
     worlds:
       - "world_nether"

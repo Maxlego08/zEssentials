@@ -108,7 +108,7 @@ public class MainConfiguration extends YamlLoader implements Configuration {
 
         this.commandRestrictions.clear();
         for (Map<?, ?> map : configuration.getMapList("command-restrictions")) {
-            String command = (String) map.get("command");
+            List<String> commands = (List<String>) map.get("commands");
             String bypass = (String) map.get("bypass-permission");
             List<String> worlds = map.get("worlds") == null ? new ArrayList<>() : (List<String>) map.get("worlds");
 
@@ -136,7 +136,7 @@ public class MainConfiguration extends YamlLoader implements Configuration {
                 }
             }
 
-            this.commandRestrictions.add(new CommandRestriction(command, bypass, worlds, cuboids));
+            this.commandRestrictions.add(new CommandRestriction(commands, bypass, worlds, cuboids));
         }
 
         this.databaseConfiguration = new DatabaseConfiguration(
