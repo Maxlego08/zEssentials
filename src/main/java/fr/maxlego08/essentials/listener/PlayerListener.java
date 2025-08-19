@@ -135,7 +135,7 @@ public class PlayerListener extends ZUtils implements Listener {
                 if (restriction.cuboids() != null) {
                     var location = player.getLocation();
                     for (var cuboid : restriction.cuboids()) {
-                        if (cuboid.isIn(location)) {
+                        if (cuboid.contains(location)) {
                             message(player, Message.COMMAND_RESTRICTED);
                             event.setCancelled(true);
                             return;
