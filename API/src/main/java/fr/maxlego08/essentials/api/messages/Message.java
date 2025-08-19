@@ -42,6 +42,7 @@ public enum Message {
     COMMAND_NO_PERMISSION("<error>You do not have permission to run this command."),
     COMMAND_NO_CONSOLE("<error>Only one player can execute this command."),
     COMMAND_NO_ARG("<error>Impossible to find the command with its arguments."),
+    COMMAND_RESTRICTED("<error>You cannot use this command here."),
     COMMAND_SYNTAXE_HELP("&f%syntax% &7» &7%description%"),
 
     COMMAND_RELOAD("<success>You have just reloaded the configuration files."),

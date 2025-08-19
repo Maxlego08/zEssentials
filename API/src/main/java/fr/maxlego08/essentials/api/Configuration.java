@@ -2,6 +2,7 @@ package fr.maxlego08.essentials.api;
 
 import fr.maxlego08.essentials.api.chat.ChatCooldown;
 import fr.maxlego08.essentials.api.commands.CommandCooldown;
+import fr.maxlego08.essentials.api.commands.CommandRestriction;
 import fr.maxlego08.essentials.api.configuration.ReplacePlaceholder;
 import fr.maxlego08.essentials.api.server.RedisConfiguration;
 import fr.maxlego08.essentials.api.server.ServerType;
@@ -49,6 +50,13 @@ public interface Configuration extends ConfigurationFile {
      * @return The list of CommandCooldown objects representing command cooldown configurations.
      */
     List<CommandCooldown> getCommandCooldown();
+
+    /**
+     * Gets the list of command restrictions from the plugin configuration.
+     *
+     * @return The list of {@link CommandRestriction} objects representing command restrictions.
+     */
+    List<CommandRestriction> getCommandRestrictions();
 
     /**
      * Gets the cooldown duration for a specific command and permissible entity.
