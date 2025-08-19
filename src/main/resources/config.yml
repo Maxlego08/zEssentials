@@ -202,6 +202,9 @@ temp-fly-task: false
 disable-fly-world:
   - world_the_end
 
+# Allows to re-enable fly when returning to a world where it is allowed
+enable-fly-return: false
+
 # Allows to announce the player the time of fly that he has left
 fly-task-announce:
   - 7200 # 2 hours

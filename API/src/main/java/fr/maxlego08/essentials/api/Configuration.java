@@ -203,6 +203,13 @@ public interface Configuration extends ConfigurationFile {
     List<String> getDisableFlyWorld();
 
     /**
+     * Checks if fly should be re-enabled when returning to an allowed world.
+     *
+     * @return true if fly should be re-enabled automatically, false otherwise
+     */
+    boolean isEnableFlyReturn();
+
+    /**
      * Retrieves a list of random words used by the plugin for various tasks.
      *
      * @return a list of random words
