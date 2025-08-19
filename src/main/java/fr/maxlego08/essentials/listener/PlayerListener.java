@@ -37,6 +37,9 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 import java.util.Optional;
 
@@ -44,6 +47,7 @@ public class PlayerListener extends ZUtils implements Listener {
 
     private final EssentialsPlugin plugin;
     private final DynamicCooldown dynamicCooldown = new DynamicCooldown();
+    private final Set<UUID> disabledFly = new HashSet<>();
 
     public PlayerListener(EssentialsPlugin plugin) {
         this.plugin = plugin;
@@ -213,6 +217,7 @@ public class PlayerListener extends ZUtils implements Listener {
         long sessionPlayTime = (System.currentTimeMillis() - user.getCurrentSessionPlayTime()) / 1000;
         long playtime = user.getPlayTime();
         this.plugin.getStorageManager().getStorage().insertPlayTime(user.getUniqueId(), sessionPlayTime, playtime, user.getAddress());
+        this.disabledFly.remove(event.getPlayer().getUniqueId());
     }
 
     @EventHandler
@@ -270,11 +275,17 @@ public class PlayerListener extends ZUtils implements Listener {
     public void onChangeWorld(PlayerChangedWorldEvent event) {
 
         var player = event.getPlayer();
+        var configuration = plugin.getConfiguration();
+        var worldName = player.getWorld().getName();
 
-        if (plugin.getConfiguration().getDisableFlyWorld().contains(player.getWorld().getName()) && player.isFlying() && !hasPermission(player, Permission.ESSENTIALS_FLY_BYPASS_WORLD)) {
+        if (configuration.getDisableFlyWorld().contains(worldName) && player.isFlying() && !hasPermission(player, Permission.ESSENTIALS_FLY_BYPASS_WORLD)) {
             player.setAllowFlight(false);
             player.setFlying(false);
+            this.disabledFly.add(player.getUniqueId());
             message(player, Message.COMMAND_FLY_ERROR_WORLD);
+        } else if (configuration.isEnableFlyReturn() && !configuration.getDisableFlyWorld().contains(worldName) && this.disabledFly.remove(player.getUniqueId())) {
+            player.setAllowFlight(true);
+            player.setFlying(true);
         }
     }
 

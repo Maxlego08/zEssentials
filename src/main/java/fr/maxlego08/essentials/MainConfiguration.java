@@ -66,6 +66,7 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     private List<ReplacePlaceholder> replacePlaceholders = new ArrayList<>();
     private List<String> randomWords;
     private boolean enableOfflinePlayerNames;
+    private boolean enableFlyReturn;
     private long batchAutoSave;
     private List<UUID> blacklistUuids;
     private List<Long> flyTaskAnnounce;
@@ -306,6 +307,11 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     @Override
     public boolean isEnableOfflinePlayersName() {
         return this.enableOfflinePlayerNames;
+    }
+
+    @Override
+    public boolean isEnableFlyReturn() {
+        return this.enableFlyReturn;
     }
 
     @Override
