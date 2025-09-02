@@ -254,8 +254,9 @@ public class ScoreboardModule extends ZModule implements ScoreboardManager {
 
     @Override
     public EssentialsScoreboard getTaskScoreboard(Player player) {
+        var fakeInventory = this.plugin.getInventoryManager().getFakeInventory();
         return this.taskConditions.stream().filter(taskCondition -> {
-            return taskCondition.permissibles().isEmpty() || taskCondition.permissibles().stream().allMatch(permissible -> permissible.hasPermission(player, null, null, new Placeholders()));
+            return taskCondition.permissibles().isEmpty() || taskCondition.permissibles().stream().allMatch(permissible -> permissible.hasPermission(player, null, fakeInventory, new Placeholders()));
         }).map(joinCondition -> getScoreboard(joinCondition.scoreboard())).filter(Optional::isPresent).map(Optional::get).findFirst().orElse(this.defaultScoreboard);
     }
 
