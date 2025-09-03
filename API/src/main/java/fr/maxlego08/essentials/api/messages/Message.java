@@ -177,6 +177,8 @@ public enum Message {
     DESCRIPTION_TOP("Teleporting to top"),
     DESCRIPTION_BOTTOM("Teleporting to top"),
     DESCRIPTION_SPEED("Change player speed"),
+    DESCRIPTION_WALK_SPEED("Change your walk speed"),
+    DESCRIPTION_FLY_SPEED("Change your fly speed"),
     DESCRIPTION_TPA("Teleport to a player"),
     DESCRIPTION_TPA_HERE("Teleport a player to your location"),
     DESCRIPTION_TP("Teleport to a player"),

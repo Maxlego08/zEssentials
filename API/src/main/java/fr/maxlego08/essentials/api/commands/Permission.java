@@ -27,6 +27,8 @@ public enum Permission {
     ESSENTIALS_GOD_OTHER,
     ESSENTIALS_HEAL,
     ESSENTIALS_SPEED,
+    ESSENTIALS_WALK_SPEED,
+    ESSENTIALS_FLY_SPEED,
     ESSENTIALS_TELEPORT_BYPASS("Allows to bypass the waiting time for teleportation"),
     ESSENTIALS_TPA,
     ESSENTIALS_TPA_HERE,

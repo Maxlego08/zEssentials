@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import java.util.Arrays;
 
 public class CommandSpeed extends VCommand {
+
     public CommandSpeed(EssentialsPlugin plugin) {
         super(plugin);
         this.setPermission(Permission.ESSENTIALS_SPEED);
