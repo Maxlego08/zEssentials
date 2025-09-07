@@ -153,6 +153,10 @@ public enum Message {
     COMMAND_PLAYER_TIME_RESET("&7You just changed the time to that of the server."),
     COMMAND_PLAYER_TIME_CHANGE("&7You’re here to change your time."),
 
+    COMMAND_LAG_WORLD_LINE("&a%world%&7: &a%peaceful% peaceful&7, &c%monsters% monsters&7, &e%items% items"),
+    COMMAND_LAG_WORLD_HEADER("&aEntities for world &2%world%&a:"),
+    COMMAND_LAG_WORLD_ENTRY("&7- &a%type%&7: &f%amount%"),
+
     DESCRIPTION_CLEAR_RANDOM_WORD("Clear random words"),
     DESCRIPTION_RELOAD("Reload configuration files"),
     DESCRIPTION_DELETE_WORLD("Removes data being linked to a world"),
@@ -262,6 +266,8 @@ public enum Message {
     DESCRIPTION_PLAY_TIME("Show player's playtime"),
     DESCRIPTION_VERSION("Show plugin version"),
     DESCRIPTION_KILL_ALL("Kill entities"),
+    DESCRIPTION_LAG("Display entity counts per world"),
+    DESCRIPTION_LAG_WORLD("Display detailed entity counts for a world"),
     DESCRIPTION_SEEN("Show player informations"),
     DESCRIPTION_SEEN_IP("Show players who have the same IP"),
     DESCRIPTION_KIT("Get a kit"),

@@ -86,6 +86,9 @@ command-player-weather-reset: '&7您刚刚更改天气为服务器的天气。'
 command-player-weather-downfall: '&7您刚刚为自己开启了下雨。'
 command-player-time-reset: '&7您刚刚更改时间为服务器的时间。'
 command-player-time-change: '&7您正在改变自己的时间。'
+command-lag-world-line: '&a%world%&7: &a%peaceful% 和平实体&7, &c%monsters% 怪物&7, &e%items% 掉落物'
+command-lag-world-header: '&a世界 &2%world%&a 的实体：'
+command-lag-world-entry: '&7- &a%type%&7: &f%amount%'
 command-fly-enable: '&7飞行模式 <success>启用 &7给 &f%player%<success>。'
 command-fly-disable: '&7飞行模式 <error>禁用 &7给 &f%player%<success>。'
 command-fly-error-world: <error>您不能在这个世界飞行。
@@ -341,6 +344,8 @@ description-repair-all: 修复背包中的所有物品
 description-ext: 停止燃烧
 description-near: 显示附近的玩家
 description-play-time: 显示玩家的游戏时间
+description-lag: 显示每个世界的实体数量
+description-lag-world: 显示世界中实体的详细统计
 description-bottom: 传送到底部
 description-compact-all: 压缩库存中的物品
 description-version: 显示插件版本

@@ -159,6 +159,7 @@ public enum Permission {
     ESSENTIALS_NEAR,
     ESSENTIALS_PLAY_TIME,
     ESSENTIALS_KILL_ALL,
+    ESSENTIALS_LAG,
     ESSENTIALS_SEEN,
     ESSENTIALS_SEEN_IP,
     ESSENTIALS_SEEN_SHOW_IP("Allows to see the IP of a player"),

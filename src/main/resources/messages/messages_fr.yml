@@ -86,6 +86,9 @@ command-player-weather-reset: "&7Vous venez de changer la météo pour celle du 
 command-player-weather-downfall: "&7Vous venez de mettre la pluie pour vous-même."
 command-player-time-reset: "&7Vous venez de changer l'heure pour celle du serveur."
 command-player-time-change: "&7Vous êtes ici pour changer votre heure."
+command-lag-world-line: "&a%world%&7 : &a%peaceful% pacifiques&7, &c%monsters% monstres&7, &e%items% items"
+command-lag-world-header: "&aEntités pour le monde &2%world%&a :"
+command-lag-world-entry: "&7- &a%type%&7 : &f%amount%"
 command-fly-enable: "&7Mode vol <success>activé &7pour &f%player%<success>."
 command-fly-disable: "&7Mode vol <error>désactivé &7pour &f%player%<success>."
 command-fly-error-world: "<error>Vous ne pouvez pas voler dans ce monde."
@@ -450,6 +453,8 @@ description-pub: "Envoyer un message mis en avant dans le chat"
 description-step: "Afficher les commandes des étapes"
 description-step-start: "Commencer une étape"
 description-step-finish: "Terminer une étape"
+description-lag: "Affiche le nombre d'entités par monde"
+description-lag-world: "Affiche des détails sur les entités du monde"
 
 # Format de l'heure
 format-second: " seconde"

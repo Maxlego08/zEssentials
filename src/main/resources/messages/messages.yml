@@ -88,6 +88,9 @@ command-player-weather-reset: "&7You just changed the weather to that of the ser
 command-player-weather-downfall: "&7You just put the rain on for yourself."
 command-player-time-reset: "&7You just changed the time to that of the server."
 command-player-time-change: "&7You’re here to change your time."
+command-lag-world-line: "&a%world%&7: &a%peaceful% peaceful&7, &c%monsters% monsters&7, &e%items% items"
+command-lag-world-header: "&aEntities for world &2%world%&a:"
+command-lag-world-entry: "&7- &a%type%&7: &f%amount%"
 command-fly-enable: "&7Flight mode <success>enable &7for &f%player%<success>."
 command-fly-disable: "&7Flight mode <error>disable &7for &f%player%<success>."
 command-fly-error-world: "<error>You can’t fly in this world."
@@ -457,6 +460,8 @@ description-pub: "Send a message highlighted in the chat"
 description-step: "Show steps commands"
 description-step-start: "Start a step"
 description-step-finish: "Finish a step"
+description-lag: "Display entity counts per world"
+description-lag-world: "Display detailed entity counts for a world"
 
 # Time format
 format-second: " second"

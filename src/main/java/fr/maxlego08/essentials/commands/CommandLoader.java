@@ -94,6 +94,7 @@ import fr.maxlego08.essentials.commands.commands.utils.CommandPlayTime;
 import fr.maxlego08.essentials.commands.commands.utils.CommandRepair;
 import fr.maxlego08.essentials.commands.commands.utils.CommandRepairAll;
 import fr.maxlego08.essentials.commands.commands.utils.CommandRules;
+import fr.maxlego08.essentials.commands.commands.utils.lag.CommandLag;
 import fr.maxlego08.essentials.commands.commands.utils.CommandSudo;
 import fr.maxlego08.essentials.commands.commands.utils.CommandSuicide;
 import fr.maxlego08.essentials.commands.commands.utils.CommandTrash;
@@ -255,6 +256,7 @@ public class CommandLoader {
         register("playtime", CommandPlayTime.class);
         register("essversion", CommandVersion.class, "ev");
         register("killall", CommandKillAll.class);
+        register("lag", CommandLag.class);
         register("seen", CommandSeen.class, "whois");
         register("seenip", CommandSeenIp.class, "whoisip");
         register("enchant", CommandEnchant.class, "enchantment");
