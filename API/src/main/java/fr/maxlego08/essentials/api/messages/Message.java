@@ -156,6 +156,8 @@ public enum Message {
     COMMAND_LAG_WORLD_LINE("&a%world%&7: &a%peaceful% peaceful&7, &c%monsters% monsters&7, &e%items% items"),
     COMMAND_LAG_WORLD_HEADER("&aEntities for world &2%world%&a:"),
     COMMAND_LAG_WORLD_ENTRY("&7- &a%type%&7: &f%amount%"),
+    COMMAND_LAG_CLEAR_SUCCESS("&7Removed &a%amount% &7entities in &a%world%&7."),
+    COMMAND_LAG_CLEAR_COUNTDOWN("&cEntity removal in &e%time% &cseconds!"),
 
     DESCRIPTION_CLEAR_RANDOM_WORD("Clear random words"),
     DESCRIPTION_RELOAD("Reload configuration files"),
@@ -268,6 +270,8 @@ public enum Message {
     DESCRIPTION_KILL_ALL("Kill entities"),
     DESCRIPTION_LAG("Display entity counts per world"),
     DESCRIPTION_LAG_WORLD("Display detailed entity counts for a world"),
+    DESCRIPTION_LAG_CLEAR("Clear entities for a world or globally"),
+    DESCRIPTION_LAG_CLEAR_COUNTDOWN("Clear entities after a delay"),
     DESCRIPTION_SEEN("Show player informations"),
     DESCRIPTION_SEEN_IP("Show players who have the same IP"),
     DESCRIPTION_KIT("Get a kit"),

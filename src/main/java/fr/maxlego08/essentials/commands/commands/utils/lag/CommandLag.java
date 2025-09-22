@@ -20,6 +20,8 @@ public class CommandLag extends VCommand {
         this.setPermission(Permission.ESSENTIALS_LAG);
         this.setDescription(Message.DESCRIPTION_LAG);
         this.addSubCommand(new CommandLagWorld(plugin));
+        this.addSubCommand(new CommandLagClear(plugin));
+        this.addSubCommand(new CommandLagClearTimer(plugin));
     }
 
     @Override
