@@ -6,6 +6,21 @@
 
 # Unreleased
 
+# 1.0.2.8
+
+- Update to Sarah 1.20. Added MARIADB support
+- Added command ``/lag``, allow you to see the lag of the server
+- Added command ``/flyspeed <speed>``, change player's fly speed
+- Added command ``/walkspeed <speed>``, change player's walk speed
+- Added command ``/vault info <player>``, display player's vault information
+- Added command ``/vault show <player>``, open player's vault
+- Added `command-restrictions`, Allows disabling commands in specific worlds or areas (cuboids)
+- Fix vault item slot button 
+- Fix fly on world change
+- Fix give command when the player is not specified
+- Fix scoreboard module
+- Improve performance
+
 # 1.0.2.7
 
 - Added support of 1.21.5, 1.21.6, 1.21.7 and 1.21.8 [#182](https://github.com/Maxlego08/zEssentials/issues/182)
