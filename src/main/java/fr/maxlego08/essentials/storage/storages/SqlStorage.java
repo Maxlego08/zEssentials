@@ -57,12 +57,12 @@ import fr.maxlego08.essentials.migrations.create.CreateUserMailBoxMigration;
 import fr.maxlego08.essentials.migrations.create.CreateUserOptionTableMigration;
 import fr.maxlego08.essentials.migrations.create.CreateUserPlayTimeTableMigration;
 import fr.maxlego08.essentials.migrations.create.CreateUserPowerToolsMigration;
+import fr.maxlego08.essentials.migrations.create.CreateUserPowerToolsV2Migration;
 import fr.maxlego08.essentials.migrations.create.CreateUserStepMigration;
 import fr.maxlego08.essentials.migrations.create.CreateUserStepV2Migration;
 import fr.maxlego08.essentials.migrations.create.CreateUserTableMigration;
 import fr.maxlego08.essentials.migrations.create.CreateVoteSiteMigration;
 import fr.maxlego08.essentials.migrations.drop.DropPowerToolsMigration;
-import fr.maxlego08.essentials.migrations.create.CreateUserPowerToolsV2Migration;
 import fr.maxlego08.essentials.migrations.drop.DropStepMigration;
 import fr.maxlego08.essentials.migrations.update.UpdateEconomyTransactionAddColumn;
 import fr.maxlego08.essentials.migrations.update.UpdatePlayerSlots;
@@ -260,7 +260,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
         String database = globalDatabaseConfiguration.getDatabase();
         boolean debug = globalDatabaseConfiguration.isDebug();
 
-        return new DatabaseConfiguration(tablePrefix, user, password, port, host, database, debug, storageType == StorageType.SQLITE ? DatabaseType.SQLITE : DatabaseType.MYSQL);
+        return new DatabaseConfiguration(tablePrefix, user, password, port, host, database, debug, storageType == StorageType.SQLITE ? DatabaseType.SQLITE : storageType == StorageType.MARIADB ? DatabaseType.MARIADB : DatabaseType.MYSQL);
     }
 
     @Override

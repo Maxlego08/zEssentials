@@ -59,7 +59,7 @@ allprojects {
 //        compileOnly("fr.maxlego08.menu:zmenu-api:1.1.0.0")
         compileOnly(files("libs/zMenu-1.1.0.0.jar"))
 
-        compileOnly("fr.maxlego08.sarah:sarah:1.18")
+        compileOnly("fr.maxlego08.sarah:sarah:1.20")
         compileOnly("com.tcoded:FoliaLib:0.5.1")
         compileOnly("fr.mrmicky:fastboard:2.1.5")
     }
