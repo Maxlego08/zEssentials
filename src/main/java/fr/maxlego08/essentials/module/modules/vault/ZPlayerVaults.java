@@ -20,6 +20,7 @@ public class ZPlayerVaults extends ZUtils implements PlayerVaults {
     private final Map<Integer, Vault> vaults = new HashMap<>();
     private int slots;
     private Vault targetVault;
+    private PlayerVaults targetPlayerVaults;
 
     public ZPlayerVaults(VaultManager vaultManager, UUID uniqueId) {
         this.vaultManager = vaultManager;
@@ -59,6 +60,16 @@ public class ZPlayerVaults extends ZUtils implements PlayerVaults {
     @Override
     public void setTargetVault(Vault targetVault) {
         this.targetVault = targetVault;
+    }
+
+    @Override
+    public PlayerVaults getTargetPlayerVaults() {
+        return this.targetPlayerVaults;
+    }
+
+    @Override
+    public void setTargetPlayerVaults(PlayerVaults targetPlayerVaults) {
+        this.targetPlayerVaults = targetPlayerVaults;
     }
 
     @Override

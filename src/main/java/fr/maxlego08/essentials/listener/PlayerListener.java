@@ -35,6 +35,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -118,9 +119,35 @@ public class PlayerListener extends ZUtils implements Listener {
     public void onCommand(PlayerCommandPreprocessEvent event) {
 
         Configuration configuration = this.plugin.getConfiguration();
+        Player player = event.getPlayer();
+
+        String label = event.getMessage().substring(1).split(" ")[0];
+        for (var restriction : configuration.getCommandRestrictions()) {
+            if (restriction.commands().contains(label)) {
+                String bypass = restriction.bypassPermission();
+                if (bypass != null && !bypass.isEmpty() && player.hasPermission(bypass)) {
+                    continue;
+                }
+                if (restriction.worlds() != null && restriction.worlds().contains(player.getWorld().getName())) {
+                    message(player, Message.COMMAND_RESTRICTED);
+                    event.setCancelled(true);
+                    return;
+                }
+                if (restriction.cuboids() != null) {
+                    var location = player.getLocation();
+                    for (var cuboid : restriction.cuboids()) {
+                        if (cuboid.contains(location)) {
+                            message(player, Message.COMMAND_RESTRICTED);
+                            event.setCancelled(true);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
         long[] cooldownsArray = configuration.getCooldownCommands();
         if (cooldownsArray.length == 0) return;
-        Player player = event.getPlayer();
         double cooldown = handleCooldown(player, cooldownsArray);
         if (cooldown != 0 && !hasPermission(player, Permission.ESSENTIALS_COOLDOWN_COMMAND_BYPASS)) {
             message(player, Message.COOLDOWN_COMMANDS, "%cooldown%", TimerBuilder.getStringTime(cooldown));
@@ -240,15 +267,24 @@ public class PlayerListener extends ZUtils implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    @EventHandler
     public void onChangeWorld(PlayerChangedWorldEvent event) {
 
         var player = event.getPlayer();
+        var configuration = plugin.getConfiguration();
+        var worldName = player.getWorld().getName();
 
-        if (plugin.getConfiguration().getDisableFlyWorld().contains(player.getWorld().getName()) && player.isFlying() && !hasPermission(player, Permission.ESSENTIALS_FLY_BYPASS_WORLD)) {
+        if (configuration.getDisableFlyWorld().contains(worldName) && player.isFlying() && !hasPermission(player, Permission.ESSENTIALS_FLY_BYPASS_WORLD)) {
+
             player.setAllowFlight(false);
             player.setFlying(false);
+            player.setMetadata("zessentials-fly", new FixedMetadataValue(this.plugin, true));
             message(player, Message.COMMAND_FLY_ERROR_WORLD);
+        } else if (configuration.isEnableFlyReturn() && !configuration.getDisableFlyWorld().contains(worldName) && player.hasMetadata("zessentials-fly")) {
+
+            player.setAllowFlight(true);
+            player.setFlying(true);
+            player.removeMetadata("zessentials-fly", this.plugin);
         }
     }
 

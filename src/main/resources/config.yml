@@ -74,6 +74,16 @@ command-cooldowns:
         # In this example, whoever has "essentials.cooldown.heal.staff" permission can run "/heal" after 20 seconds
         cooldown: 20
 
+# Allows disabling commands in specific worlds or areas (cuboids)
+command-restrictions:
+  - commands:
+      - "spawn"
+    bypass-permission: "essentials.bypass.commandrestriction.spawn"
+    worlds:
+      - "world_nether"
+    cuboids:
+      - "world,0,0,0,100,255,100"
+
 # Trash can GUI size. Must be 9, 18, 27, 36, 45, 54.
 trash-size: 27
 
@@ -192,6 +202,9 @@ temp-fly-task: false
 # Allows to disable fly in some worlds
 disable-fly-world:
   - world_the_end
+
+# Allows to re-enable fly when returning to a world where it is allowed
+enable-fly-return: false
 
 # Allows to announce the player the time of fly that he has left
 fly-task-announce:

@@ -32,7 +32,7 @@ public class ZStorageManager extends ZUtils implements StorageManager {
         this.plugin = plugin;
         StorageType storageType = plugin.getConfiguration().getStorageType();
         this.iStorage = switch (storageType) {
-            case HIKARICP, SQLITE, MYSQL -> new SqlStorage(plugin, storageType);
+            case HIKARICP, SQLITE, MYSQL, MARIADB -> new SqlStorage(plugin, storageType);
             default -> new JsonStorage(plugin);
         };
     }

@@ -15,3 +15,5 @@ softdepend:
   - SuperiorSkyblock2
   - BentoBox
 api-version: '1.20'
+libraries:
+  - 'org.mariadb.jdbc:mariadb-java-client:3.5.6'

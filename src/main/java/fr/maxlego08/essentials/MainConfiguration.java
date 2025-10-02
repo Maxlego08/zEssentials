@@ -3,6 +3,7 @@ package fr.maxlego08.essentials;
 import fr.maxlego08.essentials.api.Configuration;
 import fr.maxlego08.essentials.api.chat.ChatCooldown;
 import fr.maxlego08.essentials.api.commands.CommandCooldown;
+import fr.maxlego08.essentials.api.commands.CommandRestriction;
 import fr.maxlego08.essentials.api.configuration.NonLoadable;
 import fr.maxlego08.essentials.api.configuration.ReplacePlaceholder;
 import fr.maxlego08.essentials.api.configuration.ReplacePlaceholderElement;
@@ -16,9 +17,12 @@ import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.utils.MessageColor;
 import fr.maxlego08.essentials.api.utils.NearDistance;
 import fr.maxlego08.essentials.api.utils.TransformMaterial;
+import fr.maxlego08.essentials.api.worldedit.Cuboid;
 import fr.maxlego08.essentials.zutils.utils.YamlLoader;
 import fr.maxlego08.sarah.DatabaseConfiguration;
 import fr.maxlego08.sarah.database.DatabaseType;
+import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.permissions.Permissible;
 
@@ -43,6 +47,8 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     private final List<NearDistance> nearPermissions = new ArrayList<>();
     private final List<String> disableFlyWorld = new ArrayList<>();
     private final List<String> disableBackWorld = new ArrayList<>();
+    @NonLoadable
+    private final List<CommandRestriction> commandRestrictions = new ArrayList<>();
     private final Map<Option, Boolean> defaultOptionValues = new HashMap<>();
     private long[] cooldownCommands;
     private boolean enableDebug;
@@ -60,6 +66,7 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     private List<ReplacePlaceholder> replacePlaceholders = new ArrayList<>();
     private List<String> randomWords;
     private boolean enableOfflinePlayerNames;
+    private boolean enableFlyReturn;
     private long batchAutoSave;
     private List<UUID> blacklistUuids;
     private List<Long> flyTaskAnnounce;
@@ -98,6 +105,39 @@ public class MainConfiguration extends YamlLoader implements Configuration {
 
         YamlConfiguration configuration = (YamlConfiguration) this.plugin.getConfig();
         this.loadYamlConfirmation(this.plugin, configuration);
+
+        this.commandRestrictions.clear();
+        for (Map<?, ?> map : configuration.getMapList("command-restrictions")) {
+            List<String> commands = (List<String>) map.get("commands");
+            String bypass = (String) map.get("bypass-permission");
+            List<String> worlds = map.get("worlds") == null ? new ArrayList<>() : (List<String>) map.get("worlds");
+
+            List<Cuboid> cuboids = new ArrayList<>();
+            List<String> cuboidStrings = (List<String>) map.get("cuboids");
+            if (cuboidStrings != null) {
+                for (String cuboidString : cuboidStrings) {
+                    String[] parts = cuboidString.split(",");
+                    if (parts.length == 7) {
+                        try {
+                            String worldName = parts[0];
+                            int x1 = Integer.parseInt(parts[1]);
+                            int y1 = Integer.parseInt(parts[2]);
+                            int z1 = Integer.parseInt(parts[3]);
+                            int x2 = Integer.parseInt(parts[4]);
+                            int y2 = Integer.parseInt(parts[5]);
+                            int z2 = Integer.parseInt(parts[6]);
+                            World world = Bukkit.getWorld(worldName);
+                            if (world != null) {
+                                cuboids.add(new Cuboid(world, x1, y1, z1, x2, y2, z2));
+                            }
+                        } catch (NumberFormatException ignored) {
+                        }
+                    }
+                }
+            }
+
+            this.commandRestrictions.add(new CommandRestriction(commands, bypass, worlds, cuboids));
+        }
 
         this.databaseConfiguration = new DatabaseConfiguration(
                 configuration.getString("database-configuration.tablePrefix", configuration.getString("database-configuration.table-prefix")),
@@ -270,6 +310,11 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     }
 
     @Override
+    public boolean isEnableFlyReturn() {
+        return this.enableFlyReturn;
+    }
+
+    @Override
     public long getBatchAutoSave() {
         return this.batchAutoSave;
     }
@@ -293,4 +338,10 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     public Map<Option, Boolean> getDefaultOptionValues() {
         return defaultOptionValues;
     }
+
+    @Override
+    public List<CommandRestriction> getCommandRestrictions() {
+        return this.commandRestrictions;
+    }
+
 }

@@ -26,33 +26,36 @@ public class VaultItemRepository extends Repository {
     public void updateQuantity(UUID uniqueId, int vaultId, int slot, long quantity) {
 
         var key = new CacheKey(uniqueId, vaultId, slot);
-        if (this.caches.containsKey(key)) {
-            this.caches.get(key).add(quantity);
-            return;
-        }
+        this.caches.compute(key, (k, value) -> {
+            if (value != null) {
+                value.add(quantity);
+                return value;
+            }
 
-        this.caches.put(key, new CacheValue(System.currentTimeMillis(), quantity));
-        this.startTask(key);
+            this.startTask(k);
+            return new CacheValue(System.currentTimeMillis(), quantity);
+        });
     }
 
     private void startTask(CacheKey key) {
         this.plugin.getScheduler().runLaterAsync(() -> {
 
             long currentTime = System.currentTimeMillis();
-            if (this.caches.containsKey(key)) {
-                var value = this.caches.get(key);
-                if (currentTime - value.getCreatedAt() >= 200) {
-                    this.caches.remove(key);
-                    this.update(table -> {
-                        table.bigInt("quantity", value.quantity);
-                        table.where("unique_id", key.uniqueId);
-                        table.where("vault_id", key.vaultId);
-                        table.where("slot", key.slot);
-                    });
-                } else {
+            var value = this.caches.get(key);
+            if (value == null) {
+                return;
+            }
 
-                    this.startTask(key);
-                }
+            if (currentTime - value.getCreatedAt() >= 200) {
+                this.caches.remove(key);
+                this.update(table -> {
+                    table.bigInt("quantity", value.quantity);
+                    table.where("unique_id", key.uniqueId);
+                    table.where("vault_id", key.vaultId);
+                    table.where("slot", key.slot);
+                });
+            } else {
+                this.startTask(key);
             }
         }, 4);
     }

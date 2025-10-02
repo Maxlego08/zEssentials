@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.buttons.vault;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.vault.PlayerVaults;
 import fr.maxlego08.essentials.api.vault.Vault;
 import fr.maxlego08.essentials.api.vault.VaultItem;
@@ -8,6 +9,7 @@ import fr.maxlego08.essentials.api.vault.VaultResult;
 import fr.maxlego08.menu.api.button.Button;
 import fr.maxlego08.menu.api.engine.InventoryEngine;
 import fr.maxlego08.menu.api.utils.Placeholders;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -34,13 +36,15 @@ public class ButtonVaultSlotItems extends Button {
     @Override
     public void onInventoryOpen(Player player, InventoryEngine inventory, Placeholders placeholders) {
 
-        inventory.setDisablePlayerInventoryClick(false);
-
         PlayerVaults playerVaults = this.plugin.getVaultManager().getPlayerVaults(player);
         Vault vault = playerVaults.getTargetVault();
+        boolean editable = vault != null && (vault.getUniqueId().equals(player.getUniqueId()) || player.hasPermission(Permission.ESSENTIALS_VAULT_SHOW_EDIT.asPermission()));
+        inventory.setDisablePlayerInventoryClick(!editable);
         if (vault == null) return;
 
         placeholders.register("vault-name", vault.getName());
+        var owner = Bukkit.getOfflinePlayer(vault.getUniqueId());
+        placeholders.register("player", owner.getName());
     }
 
     @Override
@@ -76,6 +80,10 @@ public class ButtonVaultSlotItems extends Button {
         var manager = this.plugin.getVaultManager();
         InventoryAction action = event.getAction();
         boolean isPickup = action == InventoryAction.PICKUP_ALL || action == InventoryAction.PICKUP_HALF || action == InventoryAction.PICKUP_ONE || action == InventoryAction.PICKUP_SOME;
+
+        if (!vault.getUniqueId().equals(player.getUniqueId()) && !player.hasPermission(Permission.ESSENTIALS_VAULT_SHOW_EDIT.asPermission())) {
+            return;
+        }
 
         if (clickType == ClickType.RIGHT && isPickup) {
 
@@ -120,7 +128,8 @@ public class ButtonVaultSlotItems extends Button {
             return;
         }
 
-        if (!isValidSlot(slot, player)) {
+        boolean editable = vault.getUniqueId().equals(player.getUniqueId()) || player.hasPermission(Permission.ESSENTIALS_VAULT_SHOW_EDIT.asPermission());
+        if (!editable) {
             event.setCancelled(true);
             return;
         }
@@ -144,6 +153,11 @@ public class ButtonVaultSlotItems extends Button {
             }
 
         } else if (topInventory.equals(event.getClickedInventory()) && !cursorItemStack.getType().equals(Material.AIR)) {
+
+            if (!isValidSlot(slot, player)) {
+                event.setCancelled(true);
+                return;
+            }
 
             VaultItem vaultItem = vault.getVaultItems().get(slot);
             if (vaultItem != null && !vaultItem.getItemStack().isSimilar(cursorItemStack)) {

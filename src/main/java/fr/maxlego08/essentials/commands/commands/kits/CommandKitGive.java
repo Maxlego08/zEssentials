@@ -28,6 +28,8 @@ public class CommandKitGive extends VCommand {
         var player = this.argAsPlayer(0);
         String kitName = this.argAsString(1);
 
+        if (player == null) return CommandResultType.SYNTAX_ERROR;
+
         Optional<Kit> optional = kitModule.getKit(kitName);
         if (optional.isEmpty()) {
             message(sender, Message.COMMAND_KIT_NOT_FOUND, "%kit%", kitName);

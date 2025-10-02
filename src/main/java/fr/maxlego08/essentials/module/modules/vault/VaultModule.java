@@ -58,6 +58,7 @@ public class VaultModule extends ZModule implements VaultManager {
 
         this.loadInventory("vault");
         this.loadInventory("vault-configuration");
+        this.loadInventory("vault-admin");
     }
 
     @Override
@@ -104,8 +105,31 @@ public class VaultModule extends ZModule implements VaultManager {
         PlayerVaults playerVaults = getPlayerVaults(player);
         Vault vault = playerVaults.getVault(vaultId);
         playerVaults.setTargetVault(vault);
+        playerVaults.setTargetPlayerVaults(playerVaults);
 
         this.plugin.openInventory(player, "vault");
+    }
+
+    @Override
+    public void openVault(Player player, OfflinePlayer target, int vaultId) {
+
+        if (vaultId < 1 || vaultId > this.maxVaults) {
+            message(player, Message.COMMAND_VAULT_NOT_FOUND, "%vaultId%", vaultId);
+            return;
+        }
+
+        if (!hasPermission(target.getUniqueId(), vaultId)) {
+            message(player, Message.COMMAND_VAULT_NO_PERMISSION);
+            return;
+        }
+
+        PlayerVaults targetVaults = getPlayerVaults(target);
+        Vault vault = targetVaults.getVault(vaultId);
+        PlayerVaults viewerVaults = getPlayerVaults(player);
+        viewerVaults.setTargetVault(vault);
+        viewerVaults.setTargetPlayerVaults(targetVaults);
+
+        this.plugin.openInventory(player, "vault-admin");
     }
 
     @Override
@@ -276,6 +300,8 @@ public class VaultModule extends ZModule implements VaultManager {
         if (hasPermission(player, Permission.ESSENTIALS_VAULT_ADD_SLOT)) strings.add("add");
         if (hasPermission(player, Permission.ESSENTIALS_VAULT_SET_SLOT)) strings.add("set");
         if (hasPermission(player, Permission.ESSENTIALS_VAULT_GIVE)) strings.add("give");
+        if (hasPermission(player, Permission.ESSENTIALS_VAULT_INFO)) strings.add("info");
+        if (hasPermission(player, Permission.ESSENTIALS_VAULT_SHOW)) strings.add("show");
         return strings;
     }
 
@@ -295,6 +321,7 @@ public class VaultModule extends ZModule implements VaultManager {
         PlayerVaults playerVaults = getPlayerVaults(player);
         Vault vault = playerVaults.getVault(vaultId);
         playerVaults.setTargetVault(vault);
+        playerVaults.setTargetPlayerVaults(playerVaults);
 
         this.plugin.openInventory(player, "vault-configuration");
     }
@@ -427,5 +454,9 @@ public class VaultModule extends ZModule implements VaultManager {
     @Override
     public String getDefaultVaultName() {
         return defaultVaultName;
+    }
+
+    public List<PermissionSlotsVault> getVaultPermissions() {
+        return this.vaultPermissions;
     }
 }
