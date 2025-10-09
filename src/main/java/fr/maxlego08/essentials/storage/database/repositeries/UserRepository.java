@@ -144,6 +144,10 @@ public class UserRepository extends Repository {
         return select(UserVoteDTO.class, table -> table.where("unique_id", uniqueId));
     }
 
+    public boolean exists(UUID uniqueId) {
+        return !selectUser(uniqueId).isEmpty();
+    }
+
     /**
      * Returns the total number of users.
      *

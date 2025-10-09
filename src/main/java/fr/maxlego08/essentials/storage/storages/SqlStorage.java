@@ -369,6 +369,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     private void launchUpdateTask(String key, PendingEconomyUpdate pending) {
         async(() -> {
+            ensureUserExists(pending.uniqueId());
             while (true) {
                 BigDecimal valueToUpdate = pending.latestValue().get();
 
@@ -382,6 +383,25 @@ public class SqlStorage extends StorageHelper implements IStorage {
                 }
             }
         });
+    }
+
+    private void ensureUserExists(UUID uniqueId) {
+        if (this.users.containsKey(uniqueId)) {
+            return;
+        }
+
+        UserRepository userRepository = with(UserRepository.class);
+        if (userRepository.exists(uniqueId)) {
+            return;
+        }
+
+        OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(uniqueId);
+        String playerName = offlinePlayer != null ? offlinePlayer.getName() : null;
+        if (playerName == null || playerName.isBlank()) {
+            playerName = uniqueId.toString();
+        }
+
+        userRepository.upsert(uniqueId, playerName);
     }
 
     @Override
@@ -615,7 +635,10 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     @Override
     public void addMailBoxItem(MailBoxItem mailBoxItem) {
-        async(() -> with(UserMailBoxRepository.class).insert(mailBoxItem));
+        async(() -> {
+            ensureUserExists(mailBoxItem.getUuid());
+            with(UserMailBoxRepository.class).insert(mailBoxItem);
+        });
     }
 
     @Override
