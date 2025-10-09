@@ -86,6 +86,16 @@ public abstract class Repository extends ZUtils {
         return new ArrayList<>();
     }
 
+    protected <T> List<T> selectAll(Class<T> clazz) {
+        Schema schema = SchemaBuilder.select(getTableName());
+        try {
+            return schema.executeSelect(clazz, this.connection, JULogger.from(this.plugin.getLogger()));
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return new ArrayList<>();
+    }
+
     protected int delete(Consumer<Schema> consumer) {
         Schema schema = SchemaBuilder.delete(getTableName());
         consumer.accept(schema);

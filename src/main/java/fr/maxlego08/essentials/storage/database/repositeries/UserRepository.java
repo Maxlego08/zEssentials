@@ -13,6 +13,7 @@ import fr.maxlego08.sarah.DatabaseConnection;
 import fr.maxlego08.sarah.conditions.JoinCondition;
 import fr.maxlego08.sarah.database.DatabaseType;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -144,6 +145,10 @@ public class UserRepository extends Repository {
         return select(UserVoteDTO.class, table -> table.where("unique_id", uniqueId));
     }
 
+    public boolean exists(UUID uniqueId) {
+        return !selectUser(uniqueId).isEmpty();
+    }
+
     /**
      * Returns the total number of users.
      *
@@ -266,5 +271,9 @@ public class UserRepository extends Repository {
         // Update SARAH for making a query like that: "select name from users"
         return this.select(UserDTO.class, table -> {
         }).stream().map(UserDTO::name).toList();
+    }
+
+    public Collection<UUID> selectUUIDs() {
+        return this.selectAll(UserDTO.class).stream().map(UserDTO::unique_id).toList();
     }
 }
