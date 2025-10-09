@@ -115,10 +115,12 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
@@ -131,6 +133,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
     private final DatabaseConnection connection;
     private final Repositories repositories;
     private final Map<String, PendingEconomyUpdate> economyUpdateQueue = new HashMap<>();
+    private final Set<UUID> existingUUIDs = new HashSet<>();
 
     public SqlStorage(EssentialsPlugin plugin, StorageType storageType) {
         super(plugin);
@@ -218,9 +221,12 @@ public class SqlStorage extends StorageHelper implements IStorage {
         MigrationManager.execute(this.connection, JULogger.from(this.plugin.getLogger()));
 
         with(UserCooldownsRepository.class).deleteExpiredCooldowns();
+
         with(UserRepository.class).clearExpiredSanctions();
+        this.existingUUIDs.addAll(with(UserRepository.class).selectUUIDs());
+
         with(UserMailBoxRepository.class).deleteExpiredItems();
-        this.setActiveSanctions(with(UserSanctionRepository.class).getActiveBan());
+        setActiveSanctions(with(UserSanctionRepository.class).getActiveBan());
 
         List<ServerStorageDTO> serverStorageDTOS = with(ServerStorageRepository.class).select();
         plugin.getServerStorage().setContents(serverStorageDTOS);
@@ -337,12 +343,12 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     @Override
     public void updateOption(UUID uniqueId, Option option, boolean value) {
-        async(() -> with(UserOptionRepository.class).upsert(uniqueId, option, value));
+        async(uniqueId, () -> with(UserOptionRepository.class).upsert(uniqueId, option, value));
     }
 
     @Override
     public void updateCooldown(UUID uniqueId, String key, long expiredAt) {
-        async(() -> with(UserCooldownsRepository.class).upsert(uniqueId, key, expiredAt));
+        async(uniqueId, () -> with(UserCooldownsRepository.class).upsert(uniqueId, key, expiredAt));
     }
 
     @Override
@@ -386,12 +392,13 @@ public class SqlStorage extends StorageHelper implements IStorage {
     }
 
     private void ensureUserExists(UUID uniqueId) {
-        if (this.users.containsKey(uniqueId)) {
+        if (this.users.containsKey(uniqueId) || this.existingUUIDs.contains(uniqueId)) {
             return;
         }
 
         UserRepository userRepository = with(UserRepository.class);
         if (userRepository.exists(uniqueId)) {
+            this.existingUUIDs.add(uniqueId);
             return;
         }
 
@@ -402,6 +409,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
         }
 
         userRepository.upsert(uniqueId, playerName);
+        this.existingUUIDs.add(uniqueId);
     }
 
     @Override
@@ -491,7 +499,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     @Override
     public void upsertHome(UUID uniqueId, Home home) {
-        async(() -> with(UserHomeRepository.class).upsert(uniqueId, home));
+        async(uniqueId, () -> with(UserHomeRepository.class).upsert(uniqueId, home));
     }
 
     @Override
@@ -517,18 +525,18 @@ public class SqlStorage extends StorageHelper implements IStorage {
             this.banSanctions.remove(sanction.getPlayerUniqueId());
         }
 
-        async(() -> with(UserSanctionRepository.class).insert(sanction, consumer));
+        async(sanction.getPlayerUniqueId(), () -> with(UserSanctionRepository.class).insert(sanction, consumer));
     }
 
     @Override
-    public void updateUserBan(UUID uuid, Integer index) {
-        if (index == null) this.banSanctions.remove(uuid);
-        async(() -> with(UserRepository.class).updateBanId(uuid, index));
+    public void updateUserBan(UUID uniqueId, Integer index) {
+        if (index == null) this.banSanctions.remove(uniqueId);
+        async(uniqueId, () -> with(UserRepository.class).updateBanId(uniqueId, index));
     }
 
     @Override
-    public void updateUserMute(UUID uuid, Integer index) {
-        async(() -> with(UserRepository.class).updateMuteId(uuid, index));
+    public void updateUserMute(UUID uniqueId, Integer index) {
+        async(uniqueId, () -> with(UserRepository.class).updateMuteId(uniqueId, index));
     }
 
     @Override
@@ -576,7 +584,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     @Override
     public void insertPlayTime(UUID uniqueId, long sessionPlayTime, long playtime, String address) {
-        async(() -> {
+        async(uniqueId, () -> {
             if (sessionPlayTime > 0) {
                 with(UserPlayTimeRepository.class).insert(uniqueId, sessionPlayTime, address);
             }
@@ -625,20 +633,17 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     @Override
     public void setPowerTools(UUID uniqueId, Material material, String command) {
-        async(() -> with(UserPowerToolsRepository.class).upsert(uniqueId, material, command));
+        async(uniqueId, () -> with(UserPowerToolsRepository.class).upsert(uniqueId, material, command));
     }
 
     @Override
     public void deletePowerTools(UUID uniqueId, Material material) {
-        async(() -> with(UserPowerToolsRepository.class).delete(uniqueId, material));
+        async(uniqueId, () -> with(UserPowerToolsRepository.class).delete(uniqueId, material));
     }
 
     @Override
     public void addMailBoxItem(MailBoxItem mailBoxItem) {
-        async(() -> {
-            ensureUserExists(mailBoxItem.getUuid());
-            with(UserMailBoxRepository.class).insert(mailBoxItem);
-        });
+        async(mailBoxItem.getUniqueId(), () -> with(UserMailBoxRepository.class).insert(mailBoxItem));
     }
 
     @Override
@@ -668,7 +673,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     @Override
     public void setVote(UUID uniqueId, long vote, long offline) {
-        async(() -> with(UserRepository.class).setVote(uniqueId, vote, offline));
+        async(uniqueId, () -> with(UserRepository.class).setVote(uniqueId, vote, offline));
     }
 
     @Override
@@ -687,7 +692,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     @Override
     public void setLastVote(UUID uniqueId, String site) {
-        async(() -> with(VoteSiteRepository.class).setLastVote(uniqueId, site));
+        async(uniqueId, () -> with(VoteSiteRepository.class).setLastVote(uniqueId, site));
     }
 
     @Override
@@ -697,22 +702,22 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     @Override
     public void updateVaultQuantity(UUID uniqueId, int vaultId, int slot, long quantity) {
-        async(() -> with(VaultItemRepository.class).updateQuantity(uniqueId, vaultId, slot, quantity));
+        async(uniqueId, () -> with(VaultItemRepository.class).updateQuantity(uniqueId, vaultId, slot, quantity));
     }
 
     @Override
     public void removeVaultItem(UUID uniqueId, int vaultId, int slot) {
-        async(() -> with(VaultItemRepository.class).removeItem(uniqueId, vaultId, slot));
+        async(uniqueId, () -> with(VaultItemRepository.class).removeItem(uniqueId, vaultId, slot));
     }
 
     @Override
     public void createVaultItem(UUID uniqueId, int vaultId, int slot, long quantity, String item) {
-        async(() -> with(VaultItemRepository.class).createNewItem(uniqueId, vaultId, slot, quantity, item));
+        async(uniqueId, () -> with(VaultItemRepository.class).createNewItem(uniqueId, vaultId, slot, quantity, item));
     }
 
     @Override
     public void setVaultSlot(UUID uniqueId, int slots) {
-        async(() -> with(PlayerSlotRepository.class).setSlot(uniqueId, slots));
+        async(uniqueId, () -> with(PlayerSlotRepository.class).setSlot(uniqueId, slots));
     }
 
     @Override
@@ -732,12 +737,12 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     @Override
     public void updateVault(UUID uniqueId, Vault vault) {
-        async(() -> with(VaultRepository.class).update(uniqueId, vault.getVaultId(), vault.getName(), vault.getIconItemStack() == null ? null : ItemStackUtils.serializeItemStack(vault.getIconItemStack())));
+        async(uniqueId, () -> with(VaultRepository.class).update(uniqueId, vault.getVaultId(), vault.getName(), vault.getIconItemStack() == null ? null : ItemStackUtils.serializeItemStack(vault.getIconItemStack())));
     }
 
     @Override
-    public void updateUserFrozen(UUID uuid, boolean frozen) {
-        async(() -> with(UserRepository.class).updateFrozen(uuid, frozen));
+    public void updateUserFrozen(UUID uniqueId, boolean frozen) {
+        async(uniqueId, () -> with(UserRepository.class).updateFrozen(uniqueId, frozen));
     }
 
     @Override
@@ -760,7 +765,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     @Override
     public void linkDiscordAccount(UUID uniqueId, String minecraftName, String discordName, long userId) {
-        async(() -> with(LinkAccountRepository.class).insert(uniqueId, minecraftName, discordName, userId));
+        async(uniqueId, () -> with(LinkAccountRepository.class).insert(uniqueId, minecraftName, discordName, userId));
     }
 
     @Override
@@ -780,12 +785,12 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     @Override
     public void insertDiscordLog(DiscordAction action, UUID uniqueId, String minecraftName, String discordName, long userId, String data) {
-        async(() -> with(LinkHistoryRepository.class).insertLog(action, uniqueId, minecraftName, discordName, userId, data));
+        async(uniqueId, () -> with(LinkHistoryRepository.class).insertLog(action, uniqueId, minecraftName, discordName, userId, data));
     }
 
     @Override
     public void unlinkDiscordAccount(UUID uniqueId) {
-        async(() -> with(LinkAccountRepository.class).delete(uniqueId));
+        async(uniqueId, () -> with(LinkAccountRepository.class).delete(uniqueId));
     }
 
     @Override
@@ -795,12 +800,12 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     @Override
     public void createStep(UUID uniqueId, Step step, long playTime) {
-        async(() -> with(UserStepRepository.class).createStep(uniqueId, step, playTime));
+        async(uniqueId, () -> with(UserStepRepository.class).createStep(uniqueId, step, playTime));
     }
 
     @Override
     public void finishStep(UUID uniqueId, Step step, String data, long playTimeEnd, long playTimeBetween) {
-        async(() -> with(UserStepRepository.class).finishStep(uniqueId, step, data, playTimeBetween, playTimeEnd));
+        async(uniqueId, () -> with(UserStepRepository.class).finishStep(uniqueId, step, data, playTimeBetween, playTimeEnd));
     }
 
     @Override
@@ -810,5 +815,12 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     public DatabaseConnection getConnection() {
         return connection;
+    }
+
+    protected void async(UUID uniqueId, Runnable runnable) {
+        this.plugin.getScheduler().runAsync(wrappedTask -> {
+            ensureUserExists(uniqueId);
+            runnable.run();
+        });
     }
 }

@@ -65,7 +65,7 @@ public class MailBoxItem {
      *
      * @return the UUID of the player
      */
-    public UUID getUuid() {
+    public UUID getUniqueId() {
         return uuid;
     }
 
