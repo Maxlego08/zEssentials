@@ -15,6 +15,7 @@ plugins {
 rootProject.name = "zEssentials"
 
 include("API")
+include("DiscordBot")
 include("Hooks:Vault")
 include("Hooks:SuperiorSkyBlock2")
 include("Hooks:Redis")
