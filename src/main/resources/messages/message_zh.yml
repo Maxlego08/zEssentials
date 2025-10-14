@@ -695,6 +695,7 @@ chat-alphanumeric-regex: <error>你使用了一个禁止的字符。
 chat-cooldown: <error>请稍后再发送下一条消息。 &8(&7%cooldown%&8)
 chat-same: <error>你不能重复相同的内容。
 chat-link: <error>你不能在聊天中发送链接。
+chat-item-forbidden-characters: <error>无法显示该物品，因为其名称包含禁止的字符。
 chat-disable: <error>聊天目前不可用。
 chat-caps: <error>你不需要大喊大叫来交谈！
 chat-flood: <error>你不能这样说话。

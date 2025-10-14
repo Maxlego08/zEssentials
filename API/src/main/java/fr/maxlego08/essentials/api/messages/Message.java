@@ -615,6 +615,7 @@ public enum Message {
     CHAT_CAPS("<error>You don’t have to scream to talk !"),
     CHAT_FLOOD("<error>You can’t talk like that."),
     CHAT_LINK("<error>You cannot send a link in the chat."),
+    CHAT_ITEM_FORBIDDEN_CHARACTERS("<error>You cannot display this item because its name contains forbidden characters."),
     CHAT_DISABLE("<error>The chat is currently unavailable."),
 
     CHAT_DEFAULT_FORMAT("<white>%displayName% <#656665>• &7%message%"),

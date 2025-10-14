@@ -187,6 +187,8 @@ item-placeholder:
   regex: "(?i)\\[item\\]|\\[i\\]" # [item] or [i] placeholder
   result: "&bx<amount> &f<item>"
   permission: "zessentials.chat.placeholder.item" # You must define a permission
+  # Regex used to ensure item names do not contain forbidden characters when displayed in chat
+  item-name-regex: "^[a-zA-Z0-9_.?!^¨%ù*&é\"#'{(\\[-|èêë`\\\\çà)\\]=}ûî+<>:²€$/\\-\\,-â@;ô ]+$"
 
 # Allows to replace a text to transform it into clickable text to suggest a command
 # Message: "Please open the auction house with the ./zah" will be transformed into "Please open the auction house with the /zah" with /zah that will be clickable
