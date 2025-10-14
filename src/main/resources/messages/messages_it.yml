@@ -598,6 +598,7 @@ chat-alphanumeric-regex: "<error>Hai usato un caratterre proibito."
 chat-cooldown: "<error>Aspetta prima di mandare il prossimo messaggio. &8(&7%cooldown%&8)"
 chat-same: "<error>Non puoi riscrivere la stessa frase."
 chat-link: "<error>Non puoi mandare link nella chat."
+chat-item-forbidden-characters: "<error>Non puoi mostrare questo oggetto perché il suo nome contiene caratteri proibiti."
 chat-disable: "<error>La chat non è disponibile al momento."
 
 chat-default-format: "<white>%displayName% <#656665>• <gray>%message%"

@@ -4,6 +4,7 @@ import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.cache.ExpiringCache;
 import fr.maxlego08.essentials.api.chat.ChatCooldown;
 import fr.maxlego08.essentials.api.chat.ChatDisplay;
+import fr.maxlego08.essentials.api.chat.ChatDisplayException;
 import fr.maxlego08.essentials.api.chat.ChatFormat;
 import fr.maxlego08.essentials.api.chat.ChatPlaceholder;
 import fr.maxlego08.essentials.api.chat.ChatResult;
@@ -127,7 +128,13 @@ public class ChatModule extends ZModule {
 
         YamlConfiguration configuration = getConfiguration();
         if (configuration.getBoolean("item-placeholder.enable")) {
-            this.chatDisplays.add(new ItemDisplay(this.plugin, configuration.getString("item-placeholder.regex"), configuration.getString("item-placeholder.result"), configuration.getString("item-placeholder.permission")));
+            this.chatDisplays.add(new ItemDisplay(
+                    this.plugin,
+                    configuration.getString("item-placeholder.regex"),
+                    configuration.getString("item-placeholder.result"),
+                    configuration.getString("item-placeholder.permission"),
+                    configuration.getString("item-placeholder.item-name-regex", configuration.getString("alphanumeric-regex"))
+            ));
         }
 
         if (configuration.getBoolean("command-placeholder.enable")) {
@@ -189,8 +196,13 @@ public class ChatModule extends ZModule {
         String chatFormat = papi(getChatFormat(player), player);
 
         TagResolver.Builder builder = TagResolver.builder();
-        for (ChatDisplay chatDisplay : this.chatDisplays) {
-            message = chatDisplay.display(paperComponent, builder, player, null, message);
+        try {
+            for (ChatDisplay chatDisplay : this.chatDisplays) {
+                message = chatDisplay.display(paperComponent, builder, player, null, message);
+            }
+        } catch (ChatDisplayException exception) {
+            cancelEvent(event, exception.getChatMessage(), exception.getArguments());
+            return;
         }
 
         String finalMessage = message;
