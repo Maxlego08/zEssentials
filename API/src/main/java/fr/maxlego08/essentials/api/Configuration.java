@@ -189,6 +189,13 @@ public interface Configuration extends ConfigurationFile {
     Optional<ReplacePlaceholder> getReplacePlaceholder(String placeholder);
 
     /**
+     * Retrieves the default value that should be returned when a placeholder has no data.
+     *
+     * @return the placeholder empty value configured in {@code config.yml}
+     */
+    String getPlaceholderEmpty();
+
+    /**
      * Checks if temporary fly tasks are enabled.
      *
      * @return true if temporary fly tasks are enabled, false otherwise

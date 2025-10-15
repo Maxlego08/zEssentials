@@ -27,11 +27,18 @@ public class ServerPlaceholders extends ZUtils implements PlaceholderRegister {
         placeholder.register("random_player", (player) -> {
             var players = new ArrayList<>(plugin.getServer().getOnlinePlayers());
             Collections.shuffle(players);
-            if (players.isEmpty()) return "Empty";
+            if (players.isEmpty()) {
+                return plugin.getConfiguration().getPlaceholderEmpty();
+            }
             return this.lastRandomName = players.get(0).getName();
         }, "Returns a random player name online");
 
-        placeholder.register("last_random_player", (player) -> this.lastRandomName == null ? "Empty" : this.lastRandomName, "Returns the last random player name online");
+        placeholder.register("last_random_player", (player) -> this.lastRandomName == null ? plugin.getConfiguration().getPlaceholderEmpty() : this.lastRandomName, "Returns the last random player name online");
+
+        placeholder.register("last_first_join_player", (player) -> {
+            String lastFirstJoin = plugin.getLastFirstJoinPlayerName();
+            return lastFirstJoin == null ? plugin.getConfiguration().getPlaceholderEmpty() : lastFirstJoin;
+        }, "Returns the last player name who joined the server for the first time");
 
         placeholder.register("random_number_", (player, arg) -> {
             String[] args = arg.split("_");

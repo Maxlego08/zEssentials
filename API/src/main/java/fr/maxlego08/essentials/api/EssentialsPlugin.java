@@ -171,6 +171,20 @@ public interface EssentialsPlugin extends Plugin {
     void setServerStorage(ServerStorage serverStorage);
 
     /**
+     * Gets the name of the last player who joined the server for the first time.
+     *
+     * @return The last first-join player's name, or {@code null} if no player has joined yet.
+     */
+    String getLastFirstJoinPlayerName();
+
+    /**
+     * Updates the name of the last player who joined the server for the first time.
+     *
+     * @param playerName The name of the player.
+     */
+    void setLastFirstJoinPlayerName(String playerName);
+
+    /**
      * Checks if Folia integration is enabled.
      *
      * @return true if Folia integration is enabled, false otherwise.
