@@ -68,6 +68,10 @@ public class ButtonVaultSlotItems extends Button {
     }
 
     private void setVaultItem(Integer slot, Vault vault, VaultItem vaultItem, InventoryEngine inventory, Player player) {
+        if (!isValidInventorySlot(slot)) {
+            this.plugin.getLogger().warning("Skip rendering invalid vault slot " + slot + " for vault " + vault.getVaultId());
+            return;
+        }
         ItemStack itemStack = vaultItem.getDisplayItemStack(player, this.plugin.getComponentMessage());
         inventory.addItem(slot, itemStack).setClick(event -> {
             event.setCancelled(true);
@@ -101,6 +105,10 @@ public class ButtonVaultSlotItems extends Button {
     }
 
     private void updateInventoryBag(Player player, VaultItem bagItem, int slot, InventoryEngine inventoryDefault, Vault vault) {
+        if (!isValidInventorySlot(slot)) {
+            return;
+        }
+
         if (bagItem.getQuantity() <= 0 || !vault.contains(slot)) {
             releaseSlot(inventoryDefault, slot);
         } else
@@ -108,6 +116,9 @@ public class ButtonVaultSlotItems extends Button {
     }
 
     protected void releaseSlot(InventoryEngine inventory, int slot) {
+        if (!isValidInventorySlot(slot)) {
+            return;
+        }
         inventory.addItem(slot, new ItemStack(Material.AIR)).setClick(event -> event.setCancelled(true));
     }
 
@@ -215,12 +226,20 @@ public class ButtonVaultSlotItems extends Button {
      */
     private boolean isValidSlot(int slot, Player player) {
 
+        if (!isValidInventorySlot(slot)) {
+            return false;
+        }
+
         int startSlot = getStartSlot(player);
 
         if (startSlot > 0 && startSlot < this.slots.size()) {
             return slot < startSlot;
         }
         return true;
+    }
+
+    private boolean isValidInventorySlot(Integer slot) {
+        return slot != null && slot >= 0 && slot < this.slots.size();
     }
 
     /**
