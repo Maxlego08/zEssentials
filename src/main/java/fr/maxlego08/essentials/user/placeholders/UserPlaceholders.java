@@ -22,6 +22,7 @@ public class UserPlaceholders extends ZUtils implements PlaceholderRegister {
 
         IStorage iStorage = plugin.getStorageManager().getStorage();
         EconomyManager economyManager = plugin.getEconomyManager();
+        var afkManager = plugin.getAfkManager();
 
         // Target
 
@@ -151,6 +152,20 @@ public class UserPlaceholders extends ZUtils implements PlaceholderRegister {
             User user = iStorage.getUser(player.getUniqueId());
             return user == null ? "false" : String.valueOf(user.getOption(Option.GOD));
         }, "Returns the true if user is in god mode");
+
+        placeholder.register("user_is_afk", player -> {
+            User user = iStorage.getUser(player.getUniqueId());
+            return user != null && user.isAfk() ? "true" : "false";
+        }, "Returns true if the player is AFK");
+
+        placeholder.register("user_afk_status", player -> {
+            User user = iStorage.getUser(player.getUniqueId());
+            boolean isAfk = user != null && user.isAfk();
+            if (afkManager == null) {
+                return isAfk ? "&aV" : "&cX";
+            }
+            return isAfk ? afkManager.getPlaceholderAfk() : afkManager.getPlaceholderNotAfk();
+        }, "Returns the configured placeholder for the player's AFK status");
 
         // Fly
         placeholder.register("user_fly_seconds", (player) -> {

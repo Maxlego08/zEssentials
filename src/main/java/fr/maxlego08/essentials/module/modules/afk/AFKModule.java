@@ -23,6 +23,7 @@ import org.bukkit.permissions.Permissible;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
@@ -35,6 +36,8 @@ public class AFKModule extends ZModule implements AfkManager {
     private List<AfkPermission> permissions;
     private boolean softKick;
     private String softKickMessage;
+    private String placeholderAfk;
+    private String placeholderNotAfk;
 
     public AFKModule(ZEssentialsPlugin plugin) {
         super(plugin, "afk");
@@ -119,6 +122,14 @@ public class AFKModule extends ZModule implements AfkManager {
         var user = getUser(event.getPlayer());
         if (user == null) return;
 
+        String message = event.getMessage().toLowerCase(Locale.ENGLISH);
+        if (message.startsWith("/")) {
+            message = message.substring(1);
+        }
+        if (message.equals("afk") || message.startsWith("afk ")) {
+            return;
+        }
+
         endAfk(user);
         user.setLastActiveTime();
     }
@@ -142,8 +153,12 @@ public class AFKModule extends ZModule implements AfkManager {
     }
 
     private void endAfk(User user) {
-        
+
         if (!user.isAfk()) return;
+
+        if (user.isManualAfk()) {
+            user.setAfk(false);
+        }
 
         var lastActiveTime = user.getLastActiveTime();
 
@@ -157,5 +172,15 @@ public class AFKModule extends ZModule implements AfkManager {
             placeholders.register("duration", TimerBuilder.getStringTime(System.currentTimeMillis() - lastActiveTime));
             component.sendMessage(user.getPlayer(), papi(placeholders.parse(permission.messageOnEndAfk()), user.getPlayer()));
         }
+    }
+
+    @Override
+    public String getPlaceholderAfk() {
+        return this.placeholderAfk == null ? "&aV" : this.placeholderAfk;
+    }
+
+    @Override
+    public String getPlaceholderNotAfk() {
+        return this.placeholderNotAfk == null ? "&cX" : this.placeholderNotAfk;
     }
 }

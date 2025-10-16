@@ -38,6 +38,7 @@ public class MessageModule extends ZModule {
         }
 
         Map<Option, Boolean> options = iStorage.getOptions(receiverUUID);
+        User targetUser = iStorage.getUser(receiverUUID);
 
         // Vanish check
         if (isVanished(receiverUUID, options)) {
@@ -48,6 +49,10 @@ public class MessageModule extends ZModule {
         if (options.getOrDefault(Option.PRIVATE_MESSAGE_DISABLE, false)) {
             message(user, Message.COMMAND_MESSAGE_DISABLE, "%player%", userName);
             return;
+        }
+
+        if (targetUser != null && targetUser.isAfk()) {
+            message(user, Message.COMMAND_MESSAGE_TARGET_AFK, "%player%", userName);
         }
 
         if (user.isMute()) {
