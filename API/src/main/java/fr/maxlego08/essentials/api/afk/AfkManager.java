@@ -22,4 +22,18 @@ public interface AfkManager {
      */
     Optional<AfkPermission> getPermission(Permissible permissible);
 
+    /**
+     * Returns the configured placeholder that should be displayed when a player is AFK.
+     *
+     * @return the AFK placeholder string.
+     */
+    String getPlaceholderAfk();
+
+    /**
+     * Returns the configured placeholder that should be displayed when a player is not AFK.
+     *
+     * @return the non-AFK placeholder string.
+     */
+    String getPlaceholderNotAfk();
+
 }

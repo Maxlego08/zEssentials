@@ -20,6 +20,10 @@ soft-kick: true
 
 soft-kick-message: "<red>You have been kicked for being AFK"
 
+# Placeholders used by %user_afk_status%
+placeholder-afk: "&aV"
+placeholder-not-afk: "&cX"
+
 kick-actions:
   - type: message
     messages:

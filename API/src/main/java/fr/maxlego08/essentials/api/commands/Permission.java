@@ -274,6 +274,7 @@ public enum Permission {
     ESSENTIALS_PUB,
     ESSENTIALS_STEP,
     ESSENTIALS_HOME_LIST,
+    ESSENTIALS_AFK("Allows toggling the AFK status"),
     ESSENTIALS_AFK_BYPASS("Allows to not be affected by the anti-AFK"),
     ESSENTIALS_SET_FIRST_SPAWN,
     ESSENTIALS_SPAWN_FIRST,

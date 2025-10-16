@@ -1025,6 +1025,20 @@ public interface User {
     boolean isAfk();
 
     /**
+     * Sets whether the user is marked as AFK manually.
+     *
+     * @param afk true if the user should be considered AFK, false otherwise
+     */
+    void setAfk(boolean afk);
+
+    /**
+     * Gets whether the user has manually toggled their AFK status.
+     *
+     * @return true if the user manually toggled AFK, false otherwise
+     */
+    boolean isManualAfk();
+
+    /**
      * Gets the protection duration for the user.
      *
      * @return the protection duration in milliseconds

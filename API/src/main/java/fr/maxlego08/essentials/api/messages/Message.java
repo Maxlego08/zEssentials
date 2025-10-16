@@ -89,6 +89,9 @@ public enum Message {
     COMMAND_FEED_SENDER("&7You just feed the player &f%player%&7."),
     COMMAND_FEED_RECEIVER("<success>You have been feed."),
     COMMAND_FEED_ERROR("<error>You cannot feed someone who is dead !"),
+    COMMAND_AFK_ENABLE("&7You are now marked as <error>AFK&7."),
+    COMMAND_AFK_DISABLE("<success>You are no longer marked as AFK."),
+    COMMAND_MESSAGE_TARGET_AFK("&f%player% &7is currently <error>AFK&7."),
     COMMAND_CLEARINVENTORY_SUCCESS("<success>You have cleared your inventory."),
     COMMAND_CLEARINVENTORY_SUCCESS_OTHER("<success>You have cleared the inventory of &f%player%<success>."),
 
@@ -177,6 +180,7 @@ public enum Message {
     DESCRIPTION_FLY_REMOVE("Removed the fly time"),
     DESCRIPTION_FLY_SET("Set the fly time"),
     DESCRIPTION_HEAL("Heal a player"),
+    DESCRIPTION_AFK("Toggle your AFK status"),
     DESCRIPTION_SUN("Set the sun in your world"),
     DESCRIPTION_ENDERCHEST("Open your enderchest"),
     DESCRIPTION_ENDERSEE("Open a player enderchest"),

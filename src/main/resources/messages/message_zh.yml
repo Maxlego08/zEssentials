@@ -75,6 +75,9 @@ command-more-success: '&7您刚刚把手中的物品数量设为了 &f64&7。'
 command-feed-sender: '&7您刚刚喂饱了玩家 &f%player%&7。'
 command-feed-receiver: <success>您已被喂饱。
 command-feed-error: <error>您不能喂饱一个已经死亡的人！
+command-afk-enable: '&7你现在被标记为 <error>挂机&7。'
+command-afk-disable: <success>你不再被标记为挂机。
+command-message-target-afk: '&f%player% &7当前 <error>处于挂机状态&7。'
 command-compact-type: <error>无法压缩材料 &f%material%<error>。
 command-compact-error: <error>您的背包中没有 &f%item%<error>。
 command-compact-success: '&7您刚刚将 #0EEA93x%amount% #99E0FF%item% &7转换成了 #0EEA93x%toAmount%
@@ -277,6 +280,7 @@ description-more: 获得更多物品
 description-tp-world: 传送到另一个世界
 description-trash: 打开垃圾桶
 description-feed: 喂饱一名玩家
+description-afk: 切换挂机状态
 description-craft: 打开工作台
 description-enchanting: 打开附魔台
 description-invsee: 打开玩家的背包

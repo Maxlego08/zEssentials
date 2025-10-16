@@ -78,6 +78,7 @@ import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportTo;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportToHere;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportWorld;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTop;
+import fr.maxlego08.essentials.commands.commands.utils.CommandAfk;
 import fr.maxlego08.essentials.commands.commands.utils.CommandCompact;
 import fr.maxlego08.essentials.commands.commands.utils.CommandCompactAll;
 import fr.maxlego08.essentials.commands.commands.utils.CommandCraft;
@@ -178,6 +179,7 @@ public class CommandLoader {
         register("enchanting", CommandEnchanting.class);
         register("invsee", CommandInvsee.class);
         register("clearinventory", ClearInventoryCommand.class, "clear", "ci");
+        register("afk", CommandAfk.class);
         register("compact", CommandCompact.class, "blocks", "condense");
         register("compactall", CommandCompactAll.class, "blocksall", "condenseall");
         register("hat", CommandHat.class);
