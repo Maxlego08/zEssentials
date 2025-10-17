@@ -34,13 +34,25 @@ public class CommandSpawn extends VCommand {
         User user = this.plugin.getUser(player.getUniqueId());
         if (user == null) return CommandResultType.SYNTAX_ERROR; // Only if its console
 
+        if (ConfigStorage.spawnLocation == null || !ConfigStorage.spawnLocation.isValid()) {
+            message(sender, Message.COMMAND_SPAWN_NOT_DEFINE);
+            return CommandResultType.DEFAULT;
+        }
+
         Location location = ConfigStorage.spawnLocation.getLocation();
         if (location == null) {
             message(sender, Message.COMMAND_SPAWN_NOT_DEFINE);
             return CommandResultType.DEFAULT;
         }
 
-        user.teleport(location, Message.TELEPORT_MESSAGE_SPAWN, Message.TELEPORT_SUCCESS_SPAWN);
+        boolean teleportingSelf = this.user != null && user == this.user;
+
+        if (teleportingSelf) {
+            user.teleport(location, Message.TELEPORT_MESSAGE_SPAWN, Message.TELEPORT_SUCCESS_SPAWN);
+        } else {
+            user.teleportNow(location);
+            message(user, Message.TELEPORT_SUCCESS_SPAWN);
+        }
         if (this.user == null || user != this.user) {
             message(sender, Message.TELEPORT_MESSAGE_SPAWN_CONSOLE, player);
         }
