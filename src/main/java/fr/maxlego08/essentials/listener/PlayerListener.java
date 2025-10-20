@@ -193,6 +193,23 @@ public class PlayerListener extends ZUtils implements Listener {
             this.plugin.getScheduler().teleportAsync(player, ConfigStorage.spawnLocation.getLocation());
         }
 
+        if (user != null && user.getOption(Option.VANISH)) {
+            updateVanishState(this.plugin, player, true);
+        }
+
+        boolean canSeeVanished = hasPermission(player, Permission.ESSENTIALS_VANISH_SEE) || hasPermission(player, Permission.ESSENTIALS_VANISH);
+        for (Player vanished : getVanishedPlayers(this.plugin)) {
+            if (vanished.equals(player)) {
+                continue;
+            }
+
+            if (canSeeVanished) {
+                player.showPlayer(this.plugin, vanished);
+            } else {
+                player.hidePlayer(this.plugin, vanished);
+            }
+        }
+
         this.plugin.getScheduler().runAtLocationLater(player.getLocation(), () -> {
 
             if (hasPermission(player, Permission.ESSENTIALS_FLY_SAFELOGIN) && shouldFlyBasedOnLocation(player.getLocation())) {

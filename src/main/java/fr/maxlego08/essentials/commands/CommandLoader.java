@@ -111,6 +111,7 @@ import fr.maxlego08.essentials.commands.commands.utils.admins.CommandPowerToolsT
 import fr.maxlego08.essentials.commands.commands.utils.admins.CommandSkull;
 import fr.maxlego08.essentials.commands.commands.utils.admins.CommandSpeed;
 import fr.maxlego08.essentials.commands.commands.utils.admins.CommandWalkSpeed;
+import fr.maxlego08.essentials.commands.commands.utils.admins.CommandVanish;
 import fr.maxlego08.essentials.commands.commands.utils.blocks.CommandAnvil;
 import fr.maxlego08.essentials.commands.commands.utils.blocks.CommandCartographyTable;
 import fr.maxlego08.essentials.commands.commands.utils.blocks.CommandEnchanting;
@@ -170,6 +171,7 @@ public class CommandLoader {
         register("walkspeed", CommandWalkSpeed.class, "wspeed");
         register("flyspeed", CommandFlySpeed.class, "fspeed");
         register("god", CommandGod.class);
+        register("vanish", CommandVanish.class, "v");
         register("heal", CommandHeal.class);
         register("more", CommandMore.class);
         register("worldtp", CommandTeleportWorld.class, "wtp");

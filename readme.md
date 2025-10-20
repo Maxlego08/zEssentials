@@ -18,4 +18,4 @@
 - [ ] Command /ci
 - [ ] Command /itemdb
 - [ ] Command /exp give, set, show
-- [ ] Command /vanish
+- [x] Command /vanish
