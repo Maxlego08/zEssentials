@@ -1,7 +1,9 @@
 package fr.maxlego08.essentials.zutils.utils;
 
 import com.google.common.base.Strings;
+import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.Permission;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -13,6 +15,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.permissions.Permissible;
 
@@ -21,19 +24,25 @@ import java.lang.reflect.Constructor;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
+import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class ZUtils extends MessageUtils {
+
+    private static final Set<UUID> VANISHED_PLAYERS = ConcurrentHashMap.newKeySet();
 
     public boolean shouldFlyBasedOnLocation(final Location location) {
         final World world = location.getWorld();
@@ -68,6 +77,51 @@ public abstract class ZUtils extends MessageUtils {
 
     protected boolean isNotVanished(Player player) {
         return !isVanished(player);
+    }
+
+    protected void updateVanishState(EssentialsPlugin plugin, Player player, boolean vanish) {
+
+        if (vanish) {
+            player.setMetadata("vanished", new FixedMetadataValue(plugin, true));
+            VANISHED_PLAYERS.add(player.getUniqueId());
+        } else {
+            player.removeMetadata("vanished", plugin);
+            VANISHED_PLAYERS.remove(player.getUniqueId());
+        }
+
+        Bukkit.getOnlinePlayers().forEach(onlinePlayer -> {
+            if (onlinePlayer.equals(player)) return;
+
+            boolean canSee = hasPermission(onlinePlayer, Permission.ESSENTIALS_VANISH_SEE) ||
+                    hasPermission(onlinePlayer, Permission.ESSENTIALS_VANISH);
+
+            if (vanish) {
+                if (canSee) {
+                    onlinePlayer.showPlayer(plugin, player);
+                } else {
+                    onlinePlayer.hidePlayer(plugin, player);
+                }
+            } else {
+                onlinePlayer.showPlayer(plugin, player);
+            }
+        });
+    }
+
+    protected Collection<Player> getVanishedPlayers(EssentialsPlugin plugin) {
+
+        List<Player> players = new ArrayList<>();
+        Iterator<UUID> iterator = VANISHED_PLAYERS.iterator();
+        while (iterator.hasNext()) {
+            UUID uuid = iterator.next();
+            Player vanished = plugin.getServer().getPlayer(uuid);
+            if (vanished == null || !isVanished(vanished)) {
+                iterator.remove();
+                continue;
+            }
+            players.add(vanished);
+        }
+
+        return players;
     }
 
     protected boolean hasPermission(Permissible permissible, Permission permission) {

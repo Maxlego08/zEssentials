@@ -65,6 +65,8 @@ command-speed-walk: '&7您刚刚设置了 &n行走速度&r&7 为 &f%speed%&7 给
 command-speed-error: <error>您必须输入介于 &60<error> 和 &610<error> 之间的数字。 &8(&f2 &7默认&8)
 command-god-enable: '&7上帝模式 <success>启用 &7给 &f%player%<success>。'
 command-god-disable: '&7上帝模式 <error>禁用 &7给 &f%player%<success>。'
+command-vanish-enable: '&7隐身模式 <success>启用 &7给 &f%player%<success>。'
+command-vanish-disable: '&7隐身模式 <error>禁用 &7给 &f%player%<success>。'
 command-night-vision-enable: '&7夜视 <success>启用 &7给 &f%player%<success>。'
 command-night-vision-disable: '&7夜视 <error>禁用 &7给 &f%player%<success>。'
 command-heal-sender: '&7您刚刚治愈了玩家 &f%player%&7。'
@@ -275,6 +277,7 @@ description-tpa-deny: 拒绝传送请求
 description-tpa-cancel: 取消传送请求
 description-tp-all: 将所有玩家传送到您的位置
 description-god: 切换上帝模式
+description-vanish: 切换隐身模式
 description-heal: 治愈一名玩家
 description-more: 获得更多物品
 description-tp-world: 传送到另一个世界
