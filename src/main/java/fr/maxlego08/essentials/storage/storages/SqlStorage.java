@@ -716,6 +716,16 @@ public class SqlStorage extends StorageHelper implements IStorage {
     }
 
     @Override
+    public Optional<VaultItemDTO> getVaultItem(UUID uniqueId, int vaultId, int slot) {
+        return with(VaultItemRepository.class).select(uniqueId, vaultId, slot);
+    }
+
+    @Override
+    public boolean forceRemoveVaultItem(UUID uniqueId, int vaultId, int slot) {
+        return with(VaultItemRepository.class).forceRemove(uniqueId, vaultId, slot);
+    }
+
+    @Override
     public void setVaultSlot(UUID uniqueId, int slots) {
         async(uniqueId, () -> with(PlayerSlotRepository.class).setSlot(uniqueId, slots));
     }

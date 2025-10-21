@@ -476,6 +476,26 @@ public interface IStorage {
     void createVaultItem(UUID uniqueId, int vaultId, int slot, long quantity, String item);
 
     /**
+     * Retrieves a vault item directly from the storage backend.
+     *
+     * @param uniqueId the UUID of the user
+     * @param vaultId  the vault identifier
+     * @param slot     the slot inside the vault
+     * @return an optional containing the vault item if it exists
+     */
+    Optional<VaultItemDTO> getVaultItem(UUID uniqueId, int vaultId, int slot);
+
+    /**
+     * Removes a vault item from the storage backend without using caches.
+     *
+     * @param uniqueId the UUID of the user
+     * @param vaultId  the vault identifier
+     * @param slot     the slot inside the vault
+     * @return {@code true} if an entry was removed, {@code false} otherwise
+     */
+    boolean forceRemoveVaultItem(UUID uniqueId, int vaultId, int slot);
+
+    /**
      * Sets the vault slot.
      *
      * @param uniqueId the UUID of the user

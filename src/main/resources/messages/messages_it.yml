@@ -398,6 +398,8 @@ description-worldedit-option-bossbar: "Abilita/Disabilita la barra di progresso 
 description-vault-give: "Aggiungi oggetti nella cassa forte di un giocatore"
 description-vault-add-slot: "Aggiunge slot(s) alla cassaforte di un giocatore giocatore"
 description-vault-set-slot: "Imposta il numero di slot della cassaforte di un giocatore"
+description-vault-get-slot: "Get the content of a vault slot"
+description-vault-delete-slot: "Force delete a vault slot"
 description-show-item: "Mostra l'oggetto che sta tenendo il giocatore"
 
 # Time format
@@ -795,6 +797,11 @@ command-vault-not-found: "<error>Non si riesce a trovare la cassaforte &f%vaultI
 command-vault-no-permission: "<error>Non hai il permesso di vedere la cassaforte."
 command-vault-set-slot: "<success>Hai impostato la quantita di slots per il giocatore &f%player% <success>a &7%slots% <success>slots."
 command-vault-add-slot: "<success>Hai aggiunto &7%amount% <success>slots per &f%player%<success>."
+command-vault-get-slot-empty: "<error>No item was found in vault &f%vault% <error>slot &f%slot% <error>for &f%player%<error>."
+command-vault-get-slot: "<success>Vault slot for &f%player%<success>: vault &7%vault%<success>, slot &7%slot%<success>, amount &7%amount%<success>, item &f%item%<success>."
+command-vault-get-slot-data: "<gray>Serialized data: &f%data%"
+command-vault-delete-slot: "<success>You just deleted slot &7%slot% <success>from vault &7%vault% <success>for &f%player%<success>."
+command-vault-delete-slot-empty: "<error>Cannot find slot &f%slot% <error>in vault &f%vault% <error>for &f%player%<error>."
 command-vault-change-icon-error: "<error>Stai tenendo un oggetto."
 command-vault-change-icon-success: "<success>Hai camviato l'icona della tua cassaforte."
 command-vault-reset-icon: "<success>Hai resettato l'icona della cassaforte."

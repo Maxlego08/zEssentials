@@ -428,6 +428,16 @@ public class JsonStorage extends StorageHelper implements IStorage {
     }
 
     @Override
+    public Optional<VaultItemDTO> getVaultItem(UUID uniqueId, int vaultId, int slot) {
+        throw new NotImplementedException("getVaultItem is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public boolean forceRemoveVaultItem(UUID uniqueId, int vaultId, int slot) {
+        throw new NotImplementedException("forceRemoveVaultItem is not implemented, use MYSQL storage");
+    }
+
+    @Override
     public void setVaultSlot(UUID uniqueId, int slots) {
         throw new NotImplementedException("setVaultSlot is not implemented, use MYSQL storage");
     }

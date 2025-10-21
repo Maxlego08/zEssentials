@@ -402,6 +402,8 @@ description-worldedit-option-bossbar: "Activar o desactivar la barra de progreso
 description-vault-give: "Dar objetos al vault del jugador"
 description-vault-add-slot: "Agregar ranura al vault del jugador"
 description-vault-set-slot: "Establecer ranura al vault del jugador"
+description-vault-get-slot: "Get the content of a vault slot"
+description-vault-delete-slot: "Force delete a vault slot"
 description-show-item: "Mostrar el objeto del jugador"
 
 # Time format
@@ -796,6 +798,11 @@ command-vault-not-found: "<error>No se puede encontrar el vault &f%vaultId%<erro
 command-vault-no-permission: "<error>No tienes permiso para ver el vault."
 command-vault-set-slot: "<success>Acabas de definir la ranura de &f%player% <success>a &7%slots%<success>."
 command-vault-add-slot: "<success>Acabas de agregar &7%amount% <success>ranura a &f%player%<success>."
+command-vault-get-slot-empty: "<error>No item was found in vault &f%vault% <error>slot &f%slot% <error>for &f%player%<error>."
+command-vault-get-slot: "<success>Vault slot for &f%player%<success>: vault &7%vault%<success>, slot &7%slot%<success>, amount &7%amount%<success>, item &f%item%<success>."
+command-vault-get-slot-data: "<gray>Serialized data: &f%data%"
+command-vault-delete-slot: "<success>You just deleted slot &7%slot% <success>from vault &7%vault% <success>for &f%player%<success>."
+command-vault-delete-slot-empty: "<error>Cannot find slot &f%slot% <error>in vault &f%vault% <error>for &f%player%<error>."
 command-vault-change-icon-error: "<error>Tienes un objeto en la mano."
 command-vault-change-icon-success: "<success>Acabas de cambiar el icono de tu vault."
 command-vault-reset-icon: "<success>Acabas de restablecer el icono de tu vault."
