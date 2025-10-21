@@ -195,6 +195,51 @@ public class MailBoxModule extends ZModule {
         message(sender, Message.MAILBOX_GIVE_ALL, "%item%", itemName, "%amount%", amount);
     }
 
+    public void giveItemFromHand(CommandSender sender, UUID uuid, String username, ItemStack itemStack) {
+
+        if (itemStack == null || itemStack.getType().isAir()) {
+            message(sender, Message.COMMAND_ITEM_EMPTY);
+            return;
+        }
+
+        ItemStack clonedItemStack = itemStack.clone();
+        addItemAndFix(uuid, clonedItemStack);
+
+        message(sender, Message.MAILBOX_GIVE_HAND,
+                "%item%", getItemName(clonedItemStack),
+                "%player%", username,
+                "%amount%", clonedItemStack.getAmount());
+    }
+
+    public void giveAllItemFromHand(CommandSender sender, ItemStack itemStack) {
+
+        if (itemStack == null || itemStack.getType().isAir()) {
+            message(sender, Message.COMMAND_ITEM_EMPTY);
+            return;
+        }
+
+        String itemName = getItemName(itemStack);
+        int amount = itemStack.getAmount();
+
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            addItemAndFix(player.getUniqueId(), itemStack.clone());
+        }
+
+        message(sender, Message.MAILBOX_GIVE_ALL_HAND,
+                "%item%", itemName,
+                "%amount%", amount);
+    }
+
+    private String getItemName(ItemStack itemStack) {
+        if (itemStack.hasItemMeta()) {
+            var itemMeta = itemStack.getItemMeta();
+            if (itemMeta != null && itemMeta.hasDisplayName()) {
+                return itemMeta.getDisplayName();
+            }
+        }
+        return name(itemStack.getType().name());
+    }
+
     public void clear(CommandSender sender, UUID uuid, String username) {
         getStorage().clearMailBox(uuid);
         var user = getUser(uuid);

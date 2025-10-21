@@ -412,7 +412,9 @@ description-balance-top: 显示财富排行榜
 description-balance-top-refresh: 刷新财富排行榜
 description-mail-open: 打开玩家的邮箱
 description-mail-give: 给玩家的邮箱赠送一个物品
+description-mail-give-hand: 将你手中的物品发送到玩家的邮箱
 description-mail-giveall: 给所有玩家的邮箱赠送物品
+description-mail-giveall-hand: 将你手中的物品发送到所有在线玩家的邮箱
 description-voteparty-information: 显示投票派对
 description-voteparty-set: 设置投票派对所需的票数
 description-voteparty-add: 向投票派对添加票数
@@ -820,6 +822,8 @@ mailbox-add:
 mailbox-give-error: <error>找不到物品 &f%item%<error>。
 mailbox-give: <success>你刚刚给了 &n&fx%amount% %item%&r <success>给玩家 &f%player%<success>的邮箱。
 mailbox-give-all: <success>你刚刚给了 &n&fx%amount% %item%&r <success>给在线玩家的邮箱。
+mailbox-give-hand: <success>你已将手中的物品发送到 &f%player%<success> 的邮箱 (&fx%amount% %item%<success>)。
+mailbox-give-all-hand: <success>你已将手中的物品 (&fx%amount% %item%<success>) 发送到所有在线玩家的邮箱。
 hologram-create-error: <error>全息图 &f%name% <error>已经存在。
 hologram-create:
   type: WITHOUT_PREFIX
