@@ -324,6 +324,8 @@ public class VaultModule extends ZModule implements VaultManager {
         if (hasPermission(player, Permission.ESSENTIALS_VAULT_GIVE)) strings.add("give");
         if (hasPermission(player, Permission.ESSENTIALS_VAULT_INFO)) strings.add("info");
         if (hasPermission(player, Permission.ESSENTIALS_VAULT_SHOW)) strings.add("show");
+        if (hasPermission(player, Permission.ESSENTIALS_VAULT_GET_SLOT)) strings.add("get");
+        if (hasPermission(player, Permission.ESSENTIALS_VAULT_DELETE_SLOT)) strings.add("delete");
         return strings;
     }
 

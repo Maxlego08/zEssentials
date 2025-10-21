@@ -844,7 +844,6 @@ command-vault-set-slot: "<success>Du hast den Slot für &f%player% <success>auf 
 command-vault-add-slot: "<success>Du hast &7%amount% <success>Slots zu &f%player%<success> hinzugefügt."
 command-vault-get-slot-empty: "<error>No item was found in vault &f%vault% <error>slot &f%slot% <error>for &f%player%<error>."
 command-vault-get-slot: "<success>Vault slot for &f%player%<success>: vault &7%vault%<success>, slot &7%slot%<success>, amount &7%amount%<success>, item &f%item%<success>."
-command-vault-get-slot-data: "<gray>Serialized data: &f%data%"
 command-vault-delete-slot: "<success>You just deleted slot &7%slot% <success>from vault &7%vault% <success>for &f%player%<success>."
 command-vault-delete-slot-empty: "<error>Cannot find slot &f%slot% <error>in vault &f%vault% <error>for &f%player%<error>."
 command-vault-change-icon-error: "<error>Du hast ein Item in der Hand."

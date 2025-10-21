@@ -906,7 +906,6 @@ command-vault-add-slot: "<success>You've just added &7%amount% <success>slot to 
 command-vault-info: "<success>Vault info for &f%player%<success>: max &7%max%<success>, permission &7%permissionSlots%<success>, plugin &7%pluginSlots%<success>, used &7%used%<success>, free &7%available%<success>."
 command-vault-get-slot-empty: "<error>No item was found in vault &f%vault% <error>slot &f%slot% <error>for &f%player%<error>."
 command-vault-get-slot: "<success>Vault slot for &f%player%<success>: vault &7%vault%<success>, slot &7%slot%<success>, amount &7%amount%<success>, item &f%item%<success>."
-command-vault-get-slot-data: "<gray>Serialized data: &f%data%"
 command-vault-delete-slot: "<success>You just deleted slot &7%slot% <success>from vault &7%vault% <success>for &f%player%<success>."
 command-vault-delete-slot-empty: "<error>Cannot find slot &f%slot% <error>in vault &f%vault% <error>for &f%player%<error>."
 command-vault-change-icon-error: "<error>You have an item in your hand."

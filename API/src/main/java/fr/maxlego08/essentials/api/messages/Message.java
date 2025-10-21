@@ -825,7 +825,6 @@ public enum Message {
     COMMAND_VAULT_INFO("<success>Vault info for &f%player%<success>: max &7%max%<success>, permission &7%permissionSlots%<success>, plugin &7%pluginSlots%<success>, used &7%used%<success>, free &7%available%<success>."),
     COMMAND_VAULT_GET_SLOT_EMPTY("<error>No item was found in vault &f%vault% <error>slot &f%slot% <error>for &f%player%<error>."),
     COMMAND_VAULT_GET_SLOT_SUCCESS("<success>Vault slot for &f%player%<success>: vault &7%vault%<success>, slot &7%slot%<success>, amount &7%amount%<success>, item &f%item%<success>."),
-    COMMAND_VAULT_GET_SLOT_DATA("<gray>Serialized data: &f%data%"),
     COMMAND_VAULT_DELETE_SLOT_SUCCESS("<success>You just deleted slot &7%slot% <success>from vault &7%vault% <success>for &f%player%<success>."),
     COMMAND_VAULT_DELETE_SLOT_EMPTY("<error>Cannot find slot &f%slot% <error>in vault &f%vault% <error>for &f%player%<error>."),
     COMMAND_VAULT_CHANGE_ICON_ERROR("<error>You have an item in your hand."),
