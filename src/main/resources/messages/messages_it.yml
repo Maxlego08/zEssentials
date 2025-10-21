@@ -366,7 +366,9 @@ description-balance-top: "Mostra il baltop"
 description-balance-top-refresh: "Aggiorna il baltop"
 description-mail-open: "Apre la mailbox del giocatore"
 description-mail-give: "Da un oggetto nella mailbox del giocatore"
+description-mail-give-hand: "Invia l'oggetto nella tua mano alla mailbox di un giocatore"
 description-mail-giveall: "Dai un oggetto nella mailbox di tutti i giocatori"
+description-mail-giveall-hand: "Invia l'oggetto nella tua mano alle mailbox dei giocatori online"
 description-voteparty-information: "Mostra il vote party"
 description-voteparty-set: "Imposta il numero di voti nel vote party"
 description-voteparty-add: "Aggiungi voti al vote party"
@@ -710,6 +712,8 @@ mailbox-add:
 mailbox-give-error: "<error>Non si riesce a trovare l'oggetto &f%item%<error>."
 mailbox-give: "<success>Hai dato &n&fx%amount% %item%&r <success>alla mailbox di &f%player%<success>."
 mailbox-give-all: "<success>Hai dato &n&fx%amount% %item%&r <success>a tutte le mailbox dei giocatori online."
+mailbox-give-hand: "<success>Hai inviato l'oggetto nella tua mano alla mailbox di &f%player%<success> (&fx%amount% %item%<success>)."
+mailbox-give-all-hand: "<success>Hai inviato l'oggetto nella tua mano (&fx%amount% %item%<success>) alle mailbox di tutti i giocatori online."
 
 
 hologram-create-error: "<error>Ologramma di nome &f%name% <error>esiste già."

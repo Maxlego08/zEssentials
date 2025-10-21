@@ -388,7 +388,9 @@ description-balance-top: "Baltop anzeigen"
 description-balance-top-refresh: "Baltop aktualisieren"
 description-mail-open: "Postfach eines Spielers öffnen"
 description-mail-give: "Einem Spieler einen Gegenstand ins Postfach legen"
+description-mail-give-hand: "Den Gegenstand in deiner Hand in das Postfach eines Spielers senden"
 description-mail-giveall: "Gegenstände in die Postfächer der Spieler legen"
+description-mail-giveall-hand: "Den Gegenstand in deiner Hand in die Postfächer der Spieler senden"
 description-voteparty-information: "Stimmenparty anzeigen"
 description-voteparty-set: "Anzahl der Stimmen in der Stimmenparty festlegen"
 description-voteparty-add: "Zur Stimmenparty hinzufügen"
@@ -753,6 +755,8 @@ mailbox-add:
 mailbox-give-error: "<error>Der Gegenstand &f%item%<error> konnte nicht gefunden werden."
 mailbox-give: "<success>Du hast gerade &n&fx%amount% %item%&r <success>an das Postfach von &f%player%<success> gegeben."
 mailbox-give-all: "<success>Du hast gerade &n&fx%amount% %item%&r <success>an die Postfächer aller Online-Spieler gegeben."
+mailbox-give-hand: "<success>Du hast den Gegenstand in deiner Hand an das Postfach von &f%player%<success> gesendet (&fx%amount% %item%<success>)."
+mailbox-give-all-hand: "<success>Du hast den Gegenstand in deiner Hand (&fx%amount% %item%<success>) an die Postfächer aller Online-Spieler gesendet."
 
 
 

@@ -370,7 +370,9 @@ description-balance-top: "Mostrar el top de balance"
 description-balance-top-refresh: "Actualizar el top de balance"
 description-mail-open: "Abrir el buzón del jugador"
 description-mail-give: "Dar un objeto al buzón del jugador"
+description-mail-give-hand: "Enviar el objeto en tu mano al buzón de un jugador"
 description-mail-giveall: "Dar objetos a los buzones de los jugadores"
+description-mail-giveall-hand: "Enviar el objeto en tu mano a los buzones de los jugadores conectados"
 description-voteparty-information: "Mostrar la fiesta de votación"
 description-voteparty-set: "Establecer el número de votos en la fiesta de votación"
 description-voteparty-add: "Agregar a la fiesta de votación"
@@ -712,6 +714,8 @@ mailbox-add:
 mailbox-give-error: "<error>No se puede encontrar el objeto &f%item%<error>."
 mailbox-give: "<success>Acabas de dar &n&fx%amount% %item%&r <success>al buzón del jugador &f%player%<success>."
 mailbox-give-all: "<success>Acabas de dar &n&fx%amount% %item%&r <success>a los buzones de los jugadores en línea."
+mailbox-give-hand: "<success>Acabas de enviar el objeto en tu mano al buzón de &f%player%<success> (&fx%amount% %item%<success>)."
+mailbox-give-all-hand: "<success>Acabas de enviar el objeto en tu mano (&fx%amount% %item%<success>) a los buzones de todos los jugadores conectados."
 
 hologram-create-error: "<error>El holograma &f%name% <error>ya existe."
 hologram-create:

@@ -412,7 +412,9 @@ description-balance-top: "Toon de baltop"
 description-balance-top-refresh: "Vernieuw de baltop"
 description-mail-open: "Open de mailbox van een speler"
 description-mail-give: "Geef een item aan een speler hun postbus"
+description-mail-give-hand: "Stuur het item in je hand naar de mailbox van een speler"
 description-mail-giveall: "Geef items aan spelers hun postbus"
+description-mail-giveall-hand: "Stuur het item in je hand naar de mailboxes van online spelers"
 description-voteparty-information: "Toon de vote party"
 description-voteparty-set: "Stel het aantal stemmen in de vote party in"
 description-voteparty-add: "Voeg toe aan de vote party"
@@ -791,6 +793,8 @@ mailbox-add:
 mailbox-give-error: "<error>Kan het item &f%item%<error> niet vinden."
 mailbox-give: "<success>Je hebt zojuist &n&fx%amount% %item%&r <success>gegeven aan de mailbox van speler &f%player%<success>."
 mailbox-give-all: "<success>Je hebt zojuist &n&fx%amount% %item%&r <success>gegeven aan de mailboxes van alle online spelers."
+mailbox-give-hand: "<success>Je hebt het item in je hand naar de mailbox van &f%player%<success> gestuurd (&fx%amount% %item%<success>)."
+mailbox-give-all-hand: "<success>Je hebt het item in je hand (&fx%amount% %item%<success>) naar de mailboxes van alle online spelers gestuurd."
 
 
 hologram-create-error: "<error>Hologram &f%name% <error>bestaat al."
