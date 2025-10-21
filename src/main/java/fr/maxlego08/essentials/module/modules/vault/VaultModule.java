@@ -295,6 +295,28 @@ public class VaultModule extends ZModule implements VaultManager {
     }
 
     @Override
+    public Optional<VaultItemDTO> getVaultItem(UUID uniqueId, int vaultId, int slot) {
+        return getStorage().getVaultItem(uniqueId, vaultId, slot);
+    }
+
+    @Override
+    public boolean forceDeleteSlot(UUID uniqueId, int vaultId, int slot) {
+        boolean removed = getStorage().forceRemoveVaultItem(uniqueId, vaultId, slot);
+        if (removed) {
+            this.plugin.getScheduler().runNextTick(wrappedTask -> {
+                PlayerVaults playerVaults = this.vaults.get(uniqueId);
+                if (playerVaults != null) {
+                    Vault vault = playerVaults.getVaults().get(vaultId);
+                    if (vault != null) {
+                        vault.getVaultItems().remove(slot);
+                    }
+                }
+            });
+        }
+        return removed;
+    }
+
+    @Override
     public List<String> getVaultAsTabCompletion(Player player) {
         List<String> strings = IntStream.range(1, this.maxVaults).filter(vaultID -> hasPermission(player.getUniqueId(), vaultID)).mapToObj(String::valueOf).collect(Collectors.toList());
         if (hasPermission(player, Permission.ESSENTIALS_VAULT_ADD_SLOT)) strings.add("add");

@@ -7,6 +7,7 @@ import fr.maxlego08.sarah.DatabaseConnection;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -21,6 +22,14 @@ public class VaultItemRepository extends Repository {
     public List<VaultItemDTO> select() {
         return select(VaultItemDTO.class, table -> {
         });
+    }
+
+    public Optional<VaultItemDTO> select(UUID uniqueId, int vaultId, int slot) {
+        return select(VaultItemDTO.class, table -> {
+            table.where("unique_id", uniqueId);
+            table.where("vault_id", vaultId);
+            table.where("slot", slot);
+        }).stream().findFirst();
     }
 
     public void updateQuantity(UUID uniqueId, int vaultId, int slot, long quantity) {
@@ -77,6 +86,16 @@ public class VaultItemRepository extends Repository {
             table.where("vault_id", vaultId);
             table.where("slot", slot);
         });
+    }
+
+    public boolean forceRemove(UUID uniqueId, int vaultId, int slot) {
+        this.caches.remove(new CacheKey(uniqueId, vaultId, slot));
+        int result = this.delete(table -> {
+            table.where("unique_id", uniqueId);
+            table.where("vault_id", vaultId);
+            table.where("slot", slot);
+        });
+        return result > 0;
     }
 
     public record CacheKey(UUID uniqueId, int vaultId, int slot) {

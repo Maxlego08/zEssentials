@@ -1,5 +1,6 @@
 package fr.maxlego08.essentials.api.vault;
 
+import fr.maxlego08.essentials.api.dto.VaultItemDTO;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
@@ -8,6 +9,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -270,4 +272,8 @@ public interface VaultManager {
     Collection<Material> getMaterials(Player player);
 
     String getDefaultVaultName();
+
+    Optional<VaultItemDTO> getVaultItem(UUID uniqueId, int vaultId, int slot);
+
+    boolean forceDeleteSlot(UUID uniqueId, int vaultId, int slot);
 }
