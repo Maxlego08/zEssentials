@@ -18,9 +18,9 @@ import fr.maxlego08.essentials.api.vote.VoteResetConfiguration;
 import fr.maxlego08.essentials.api.vote.VoteReward;
 import fr.maxlego08.essentials.api.vote.VoteSiteConfiguration;
 import fr.maxlego08.essentials.module.ZModule;
+import fr.maxlego08.menu.api.engine.InventoryEngine;
 import fr.maxlego08.menu.api.utils.Placeholders;
 import fr.maxlego08.menu.api.utils.TypedMapAccessor;
-import fr.maxlego08.menu.api.engine.InventoryEngine;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -241,7 +241,10 @@ public class VoteModule extends ZModule implements VoteManager {
     }
 
     private void giveVotePartyRewards() {
-        this.votePartyRewards.globalCommands().forEach(command -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command));
+        this.votePartyRewards.globalCommands().forEach(command -> {
+            if (command.isEmpty()) return;
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+        });
 
         InventoryEngine inventoryDefault = this.plugin.getInventoryManager().getFakeInventory();
         Bukkit.getOnlinePlayers().forEach(player -> {

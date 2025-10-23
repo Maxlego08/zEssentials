@@ -23,7 +23,7 @@ public class CommandVoteParty extends VCommand {
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
-        // ToDo
+        syntaxMessage();
 
         return CommandResultType.SUCCESS;
     }
