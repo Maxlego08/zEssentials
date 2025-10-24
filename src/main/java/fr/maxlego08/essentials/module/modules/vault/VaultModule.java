@@ -212,12 +212,22 @@ public class VaultModule extends ZModule implements VaultManager {
 
     @Override
     public VaultResult addNewItemToVault(Vault vault, UUID uniqueId, ItemStack currentItem, int quantity, int size, int totalSlots, int slot) {
-        int nextSlot = vault.getNextSlot() + ((vault.getVaultId() - 1) * size);
-        if (nextSlot == -1 || nextSlot >= totalSlots) {
+        int nextSlot = vault.getNextSlot();
+        if (nextSlot == -1) {
             return null;
         }
 
-        if (slot == -1) slot = vault.getNextSlot();
+        int virtualNextSlot = nextSlot + ((vault.getVaultId() - 1) * size);
+        if (virtualNextSlot >= totalSlots) {
+            return null;
+        }
+
+        if (slot == -1) {
+            slot = nextSlot;
+            if (slot == -1) {
+                return null;
+            }
+        }
 
         VaultItem newVaultItem = new ZVaultItem(slot, currentItem, quantity);
         vault.getVaultItems().put(slot, newVaultItem);
