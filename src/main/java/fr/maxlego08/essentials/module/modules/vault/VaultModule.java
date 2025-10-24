@@ -224,9 +224,6 @@ public class VaultModule extends ZModule implements VaultManager {
 
         if (slot == -1) {
             slot = nextSlot;
-            if (slot == -1) {
-                return null;
-            }
         }
 
         VaultItem newVaultItem = new ZVaultItem(slot, currentItem, quantity);
