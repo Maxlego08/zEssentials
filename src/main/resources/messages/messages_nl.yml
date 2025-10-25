@@ -111,6 +111,7 @@ command-fly-info-empty: "<error>Je hebt geen vliegtijd beschikbaar."
 command-fly-info: "<success>Je hebt &f%time%<success>."
 command-fly-remove: "<success>Je hebt zojuist %time% <success>vliegtijd verwijderd van &f%player%<success>."
 command-fly-set: "<success>Je hebt zojuist %time% <success>vliegtijd ingesteld voor &f%player%<success>."
+command-fly-remaining: "<success>Je hebt nog &f%time% <success>vliegtijd over."
 command-furnace-type: "<error>Het is onmogelijk om het materiaal &f%material%<error> te smelten."
 command-furnace-error: "<error>Je hebt geen &f%item%<error> in je inventaris."
 command-furnace-success: "&7Je hebt zojuist #0EEA93x%amount% #34cfe0%item% &7omgezet in #0EEA93x%toAmount% #34cfe0%toItem%&7."
@@ -182,6 +183,7 @@ command-pay-receiver: "&f%player% #99E0FFheeft je zojuist #F8F327%amount%#99E0FF
 command-pay-disable: "<error>Je kunt geen geld sturen naar %name%."
 command-pay-self: "<error>Je kunt geen geld naar jezelf sturen."
 command-pay-not-enough: "<error>Je hebt niet genoeg geld."
+command-pay-disabled: "<error>Je kunt geen geld naar deze speler sturen."
 
 
 # Teleporteer commando's
@@ -230,12 +232,14 @@ command-world-teleport-other: "<success>Je hebt de speler &f%player% <success>ge
 command-random-tp-other: "<success>Je hebt zojuist speler &f%player% <success>willekeurig naar wereld &f%world%<success> geteleporteerd."
 command-tp: "&7Je bent zojuist geteleporteerd naar de speler #34cfe0%player%&f."
 command-tp-location: "&7Je bent zojuist geteleporteerd naar #34cfe0%x%&f, #34cfe0%y%&f, #34cfe0%z%&f."
+command-tp-location-error: "<error>De coördinaten liggen buiten de wereld."
 command-tp-location-other: "&7Je hebt zojuist #34cfe0%player% &fgeteleporteerd naar #34cfe0%x%&f, #34cfe0%y%&f, #34cfe0%z%&f."
 command-tp-all: "&7Je hebt zojuist alle spelers naar jou geteleporteerd."
 command-tp-self: "&7Je hebt zojuist #34cfe0%player%&7 naar jouw positie geteleporteerd."
 command-back: "&7Terugkeren naar de vorige locatie."
 command-back-error: "<error>Je hebt geen vorige locatie. Kan niet terugkeren."
 command-random-tp-error: "<error>Na meerdere pogingen geen veilige locatie gevonden, probeer het opnieuw."
+command-random-tp-configuration-not-found: "<error>Kan de configuratie voor willekeurige teleport voor wereld &f%world%<error> niet vinden."
 
 
 # Eerste join
@@ -252,6 +256,7 @@ first-join-motd:
 
 # Spawn
 command-set-spawn: "&fJe hebt zojuist de spawnlocatie ingesteld."
+command-spawn-first-not-define: "<error>De eerste spawn bestaat niet. Neem contact op met een beheerder."
 command-spawn-not-define: "<error>De spawn bestaat niet. Neem contact op met een beheerder."
 command-spawn-location-invalid: "<error>De spawnlocatie is ongeldig, neem contact op met een beheerder."
 
@@ -317,7 +322,9 @@ description-stonecutter: "Open een steenknipper"
 description-smithingtable: "Open een smidstafel"
 description-back: "Teleporteren naar je vorige locatie"
 description-set-spawn: "Stel de spawn in"
+description-set-first-spawn: "Stel de eerste spawn van de server in"
 description-spawn: "Teleporteren naar de spawn"
+description-spawn-first: "Teleporteer naar de eerste spawn"
 description-warp-set: "Maak een warp aan"
 description-warp-use: "Teleporteren naar een warp"
 description-warp-del: "Verwijder een warp"
@@ -329,6 +336,7 @@ description-del-home: "Verwijder een home"
 description-del-home-confirm: "Bevestig de verwijdering van een home"
 description-set-home-confirm: "Bevesting de aanmaak van een home"
 description-home: "Teleporteer naar een home"
+description-home-list: "Toon de homes van een speler"
 description-kick: "Kick een speler"
 description-kick-all: "Kick alle spelers"
 description-kitty-cannon: "Schiet een kitten af, waarom zou je dat willen? monster"
@@ -345,6 +353,7 @@ description-chat-broadcast: "Stuur een omroepsbericht"
 description-message: "Stuur een privébericht naar een speler"
 description-reply: "Beantwoord een privébericht"
 description-message-toggle: "Schakel privéberichten in of uit"
+description-pub: "Stuur een bericht dat in de chat wordt benadrukt"
 description-socialspy: "Toon privéberichten van spelers"
 description-furnace: "Smelt alle items in je hand"
 description-skull: "Krijg het hoofd van een speler"
@@ -367,7 +376,9 @@ description-kit: "Krijg een kit"
 description-kit-editor: "Bewerk een kit"
 description-kit-create: "Maak een nieuwe kit aan"
 description-kit-delete: "Verwijder een kit"
+description-kit-give: "Geef een kit aan een speler"
 description-cooldown: "Toon de cooldowns van een speler"
+description-cooldown-show: "Toon de cooldowns van een speler"
 description-cooldown-delete: "Verwijder een cooldown"
 description-cooldown-create: "Maak een cooldown aan"
 description-item-name: "Verander de naam van het item"
@@ -415,6 +426,7 @@ description-mail-give: "Geef een item aan een speler hun postbus"
 description-mail-give-hand: "Stuur het item in je hand naar de mailbox van een speler"
 description-mail-giveall: "Geef items aan spelers hun postbus"
 description-mail-giveall-hand: "Stuur het item in je hand naar de mailboxes van online spelers"
+description-mail-clear: "Verwijder items uit de mailbox van de speler"
 description-voteparty-information: "Toon de vote party"
 description-voteparty-set: "Stel het aantal stemmen in de vote party in"
 description-voteparty-add: "Voeg toe aan de vote party"
@@ -435,6 +447,7 @@ description-worldedit-fill: "Vul alle blokken van je selectie"
 description-worldedit-cyl: "Vul alle blokken van je selectie met een cilinder"
 description-worldedit-cut: "Knip alle blokken van je selectie"
 description-worldedit-stop: "Stop de huidige sessie"
+description-worldedit-cancel: "Annuleer de huidige selectie"
 description-worldedit-confirm: "Bevestig worldedit actie"
 description-worldedit-pos1: "Stel de eerste positie van de selectie in"
 description-worldedit-pos2: "Stel de tweede positie van de selectie in"
@@ -446,17 +459,23 @@ description-vault-add-slot: "Voeg een slot toe aan de kluis van de speler"
 description-vault-set-slot: "Stel een slot in voor de kluis van de speler"
 description-vault-get-slot: "Get the content of a vault slot"
 description-vault-delete-slot: "Force delete a vault slot"
+description-vault-info: "Toon informatie over de kluis van een speler"
+description-vault-show: "Toon de kluis van een speler"
 description-freeze: "Bevries een speler"
 description-show-item: "Toon het item van de speler"
 description-experience: "Beheer de experience van de speler"
 description-experience-query: "Vraag spelerervaring op"
 description-experience-set: "Stel spelerervaring in"
 description-experience-grant: "Geef ervaring aan speler"
+description-experience-take: "Neem ervaring weg van speler"
 description-delete-world: "Verwijdert gegevens die aan een wereld zijn gekoppeld"
 description-clearinventory: "Leeg de inventaris van de speler"
 description-suicide: "Maak een einde aan jezelf"
 description-discord-link: "Koppel je Discord-account"
 description-discord-unlink: "Ontkoppel je Discord-account"
+description-step: "Toon step-commando's"
+description-step-start: "Start een stap"
+description-step-finish: "Rond een stap af"
 description-clear-random-word: "Wis willekeurige woorden"
 
 # Tijdindeling
@@ -504,6 +523,7 @@ teleport-success-warp:
 teleport-message-random:
   type: ACTION
   message: "&7Teleporteren in #0EEA93%seconds% &7seconden. Niet bewegen!"
+teleport-random-start: "&7Zoeken naar een bestemming... je mag niet bewegen."
 teleport-success-random:
   type: ACTION
   message: "#99E0FFJe hebt succesvol geteleporteerd!"
@@ -602,9 +622,11 @@ command-home-delete-confirm:
   - "#99E0FFBen je zeker dat je de home &f%name%#99E0FF wil verwijderen?"
   - "<success><hover:show_text:'&fKlik om de home %name% te verwijderen'><click:run_command:'/delhomeconfirm %name%'>ᴄᴏɴғɪʀᴍ</click></hover>"
   - ""
+command-home-error-teleport: "<error>Kan geen positie vinden om te teleporteren, verwijder je home."
 command-home-admin-delete: "#00ff00Je hebt de home &f%name% #00ff00van &b%player% #00ff00verwijderd."
 command-home-admin-set: "#00ff00Je hebt de home &f%name% #00ff00van &b%player% #00ff00aangemaakt."
 command-home-admin-list: "#8cc0cc%player%'s ʜᴏᴍᴇs&8:&f%homes%"
+command-home-admin-list-empty: "<error>De speler heeft geen home."
 command-home-admin-list-info: " <hover:show_text:'&7Klik om te teleporteren naar home &f&n%name%'><click:run_command:'/home %player%:%name%'>&f%name%</click></hover>&7"
 
 
@@ -671,16 +693,16 @@ message-ban-join:
   - "&fMinecraft-Inventory-Builder.com"
   - ""
 
-message_freeze:
-    - ""
-    - "&fJe bent bevroren."
-    - ""
-message_un_freeze:
+message-freeze:
+  - ""
+  - "&fJe bent bevroren."
+  - ""
+message-un-freeze:
   - ""
   - "&fJe bent ontdooid."
   - ""
-command_freeze_success: "&7Je hebt zojuist de speler &f%player%&7 bevroren."
-command_un_freeze_success: "&7Je hebt zojuist de speler &f%player%&7 ontdooid."
+command-freeze-success: "&7Je hebt zojuist de speler &f%player%&7 bevroren."
+command-un-freeze_success: "&7Je hebt zojuist de speler &f%player%&7 ontdooid."
 
 # Chat
 chat-error: "<error>Het is niet mogelijk om je te laten spreken, je gegevens zijn nog niet geladen."
@@ -747,6 +769,8 @@ command-kit-information-multi-line-footer: ""
 command-kit-editor-save: "<success>Je hebt zojuist de kit &f%kit%<success> aangepast."
 command-kit-create: "<success>Je hebt zojuist de kit &f%kit%<success> aangemaakt."
 command-kit-delete: "<success>Je hebt zojuist de kit &f%kit%<success> verwijderd."
+command-kit-delete-error: "<error>Onmogelijk om de kit &f%kit%<error> te verwijderen."
+command-kit-give: "<success>Je hebt zojuist de kit &f%kit%<success> gegeven aan <u>%player%<u><success>."
 
 
 # Cooldown
@@ -797,6 +821,7 @@ mailbox-give: "<success>Je hebt zojuist &n&fx%amount% %item%&r <success>gegeven 
 mailbox-give-all: "<success>Je hebt zojuist &n&fx%amount% %item%&r <success>gegeven aan de mailboxes van alle online spelers."
 mailbox-give-hand: "<success>Je hebt het item in je hand naar de mailbox van &f%player%<success> gestuurd (&fx%amount% %item%<success>)."
 mailbox-give-all-hand: "<success>Je hebt het item in je hand (&fx%amount% %item%<success>) naar de mailboxes van alle online spelers gestuurd."
+mailbox-clear: "<success>Je hebt zojuist de mailbox van &f%player%<success> leeggemaakt."
 
 
 hologram-create-error: "<error>Hologram &f%name% <error>bestaat al."
@@ -880,6 +905,7 @@ command-vault-set-slot: "<success>Je hebt net de slotten van &f%player% <success
 command-vault-add-slot: "<success>Je hebt zojuist &7%amount% <success> sloten toegevoegd aan &f%player%<success>."
 command-vault-get-slot-empty: "<error>No item was found in vault &f%vault% <error>slot &f%slot% <error>for &f%player%<error>."
 command-vault-get-slot: "<success>Vault slot for &f%player%<success>: vault &7%vault%<success>, slot &7%slot%<success>, amount &7%amount%<success>, item &f%item%<success>."
+command-vault-info: "<success>Kluisinformatie voor &f%player%<success>: max &7%max%<success>, permissie &7%permissionSlots%<success>, plug-in &7%pluginSlots%<success>, gebruikt &7%used%<success>, vrij &7%available%<success>."
 command-vault-delete-slot: "<success>You just deleted slot &7%slot% <success>from vault &7%vault% <success>for &f%player%<success>."
 command-vault-delete-slot-empty: "<error>Cannot find slot &f%slot% <error>in vault &f%vault% <error>for &f%player%<error>."
 command-vault-change-icon-error: "<error>Je hebt een item in je hand."
@@ -932,7 +958,9 @@ command-worldedit-option-inventory-enable: "<success>Je hebt worldedit zojuist g
 command-worldedit-option-inventory-disable: "<error>Je hebt worldedit zojuist gedeactiveerd om je inventaris te gebruiken."
 command-worldedit-option-bossbar-enable: "<success>Je hebt zojuist de worldedit voortgangsbalk geactiveerd."
 command-worldedit-option-bossbar-disable: "<error>Je hebt zojuist de worldedit voortgangsbalk gedeactiveerd."
+command-worldedit-cancel: "<success>Je hebt zojuist je huidige selectie geannuleerd."
 
+worldedit-permission-error: "<error>Je mag worldedit hier niet gebruiken."
 worldedit-selection-error: "<error>Je moet twee posities selecteren voordat je dit commando uitvoert."
 worldedit-already-running: "<error>Je hebt al een bewerking in uitvoering, wacht tot deze is voltooid."
 worldedit-not-enough-money: "<error>Je hebt niet genoeg geld om deze sessie te starten."
@@ -958,6 +986,7 @@ worldedit-speed-error: "<error>Je hebt geen toestemming om blokken per seconde i
 experience-granted: "<success>Je hebt zojuist <white>%amount% %type% <success>gegeven aan <white>%player%<success>."
 experience-setted: "<success>Je hebt zojuist <white>%amount% %type% <success>ingesteld voor <white>%player%<success>."
 experience-queried: "<success><white>%player% <success>heeft <white>%amount% <success>%type%."
+experience-taken: "<success>Je hebt zojuist <white>%amount% %type% <success>afgenomen van <white>%player%<success>."
 command-clearinventory-success: "<success>Je hebt je inventaris geleegd."
 command-clearinventory-success-other: "<success>Je hebt de inventaris van &f%player%<success> geleegd."
 
@@ -969,4 +998,11 @@ command-link-account-disabled: "<error>Je kunt je account op dit moment niet kop
 command-link-account-not-linked: "<error>Je bent niet gekoppeld aan een account."
 command-link-account-reset: "<success>Je hebt zojuist je accountkoppeling gereset."
 
+command-pub-pattern-error: "<error>Je bericht bevat verboden tekens."
+command-pub:
+  type: WITHOUT_PREFIX
+  message: "&8[&fPUB&8] <white>%player%<dark_gray>: <red>%message%"
 random-word-clear: "<success>Het willekeurige woord is gewist."
+step-doesnt-exist: "<error>Stap &f%step% <error>bestaat niet."
+step-already-exist: "<error>Stap &f%step% <error>is al gestart."
+step-doesnt-started: "<error>Stap &f%step% <error>is niet gestart."
