@@ -158,6 +158,8 @@ command-seen-first-join:
 
 # Economy
 command-economy-not-found: "<error> Can’t find a economy with the name &f%name%<error>."
+command-economy-reset-all-confirm: "<error>You are about to reset every balance for &f%economy%<error>. Run the command again within &f%seconds% seconds<error> to confirm."
+command-economy-reset-all-success: "#99E0FFYou reset all balances for &f%economy%#99E0FF."
 command-economy-give-all-sender: "#99E0FFYou just gave &f%economyFormat% #99E0FFto the online players."
 command-economy-give-sender: "#99E0FFYou just gave &f%economyFormat% #99E0FFto the player &7%player%#99E0FF."
 command-economy-give-receiver: "#99E0FFYou have just received &f%economyFormat%."
@@ -306,6 +308,7 @@ description-eco-give: "Gives the specified player the specified amount of money"
 description-eco-give-random: "Gives the specified player a random amount of money"
 description-eco-give-all: "Gives for all players the specified amount of money"
 description-eco-reset: "Resets the specified player's balance to the server's starting balance"
+description-eco-reset-all: "Resets every player's balance for the specified economy"
 description-eco-show: "Show player money"
 description-pay: "Pays another player from your balance"
 description-fly: "Toggle flight"

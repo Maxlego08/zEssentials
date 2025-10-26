@@ -99,6 +99,14 @@ public interface IStorage {
     void updateEconomy(UUID uniqueId, Economy economy, BigDecimal bigDecimal);
 
     /**
+     * Resets the specified economy for every stored player to the given amount.
+     *
+     * @param economy the economy to reset
+     * @param amount  the amount to apply to every player
+     */
+    void resetEconomy(Economy economy, BigDecimal amount);
+
+    /**
      * Deletes a user's cooldown.
      *
      * @param uniqueId the unique identifier of the user

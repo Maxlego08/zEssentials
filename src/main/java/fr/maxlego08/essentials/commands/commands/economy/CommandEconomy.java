@@ -21,6 +21,7 @@ public class CommandEconomy extends VCommand {
         this.addSubCommand(new CommandEconomyTake(plugin));
         this.addSubCommand(new CommandEconomySet(plugin));
         this.addSubCommand(new CommandEconomyReset(plugin));
+        this.addSubCommand(new CommandEconomyResetAll(plugin));
         this.addSubCommand(new CommandEconomyShow(plugin));
     }
 

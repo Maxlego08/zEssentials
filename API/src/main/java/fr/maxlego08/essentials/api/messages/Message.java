@@ -229,6 +229,7 @@ public enum Message {
     DESCRIPTION_ECO_GIVE_RANDOM("Gives the specified player a random amount of money"),
     DESCRIPTION_ECO_GIVE_ALL("Gives for all players the specified amount of money"),
     DESCRIPTION_ECO_RESET("Resets the specified player's balance to the server's starting balance"),
+    DESCRIPTION_ECO_RESET_ALL("Resets every player's balance for the specified economy"),
     DESCRIPTION_ECO_SHOW("Show player money"),
     DESCRIPTION_PAY("Pays another player from your balance"),
     DESCRIPTION_PAY_TOGGLE("Activate or not the receipt of money"),
@@ -424,6 +425,8 @@ public enum Message {
     // Economy
 
     COMMAND_ECONOMY_NOT_FOUND("<error> Can’t find a economy with the name &f%name%<error>."),
+    COMMAND_ECONOMY_RESET_ALL_CONFIRM("<error>You are about to reset every balance for &f%economy%<error>. Run the command again within &f%seconds% seconds<error> to confirm."),
+    COMMAND_ECONOMY_RESET_ALL_SUCCESS("#99E0FFYou reset all balances for &f%economy%#99E0FF."),
     COMMAND_ECONOMY_GIVE_ALL_SENDER("#99E0FFYou just gave &f%economyFormat% #99E0FFto the online players."),
     COMMAND_ECONOMY_GIVE_SENDER("#99E0FFYou just gave &f%economyFormat% #99E0FFto the player &7%player%#99E0FF."),
     COMMAND_ECONOMY_GIVE_RECEIVER("#99E0FFYou have just received &f%economyFormat%."),

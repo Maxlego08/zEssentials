@@ -98,6 +98,14 @@ public interface EconomyManager extends Module {
     boolean set(UUID uniqueId, Economy economy, BigDecimal amount, String reason);
 
     /**
+     * Resets every player's balance for the specified economy to zero.
+     *
+     * @param economy the economy to reset.
+     * @param reason  the reason associated with the reset operation.
+     */
+    void resetAll(Economy economy, String reason);
+
+    /**
      * Gets all available economies.
      *
      * @return A collection containing all available economies.

@@ -154,6 +154,8 @@ command-seen-first-join:
 
 # Wirtschaftsbefehle
 command-economy-not-found: "<error> Es konnte keine Wirtschaft mit dem Namen &f%name%<error> gefunden werden."
+command-economy-reset-all-confirm: "<error>Du bist dabei, alle Guthaben für &f%economy%<error> zurückzusetzen. Führe den Befehl innerhalb von &f%seconds% Sekunden<error> erneut aus, um zu bestätigen."
+command-economy-reset-all-success: "#99E0FFDu hast alle Guthaben für &f%economy%#99E0FF zurückgesetzt."
 command-economy-give-all-sender: "#99E0FFDu hast gerade &f%economyFormat% #99E0FFan die online Spieler verteilt."
 command-economy-give-sender: "#99E0FFDu hast gerade &f%economyFormat% #99E0FFan den Spieler &7%player%#99E0FF gegeben."
 command-economy-give-receiver: "#99E0FFDu hast gerade &f%economyFormat% erhalten."
@@ -284,6 +286,7 @@ description-eco-take: "Zieht den angegebenen Geldbetrag vom Konto eines Spielers
 description-eco-give: "Gibt einem Spieler den angegebenen Geldbetrag"
 description-eco-give-all: "Gibt allen Spielern den angegebenen Geldbetrag"
 description-eco-reset: "Setzt das Guthaben eines Spielers auf den Startbetrag des Servers zurück"
+description-eco-reset-all: "Setzt das Guthaben aller Spieler für die angegebene Ökonomie zurück"
 description-eco-show: "Geld eines Spielers anzeigen"
 description-pay: "Einen anderen Spieler von deinem Guthaben bezahlen"
 description-fly: "Flugmodus ein- oder ausschalten"
