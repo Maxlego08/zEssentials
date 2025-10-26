@@ -65,6 +65,8 @@ command-speed-walk: '&7您刚刚设置了 &n行走速度&r&7 为 &f%speed%&7 给
 command-speed-error: <error>您必须输入介于 &60<error> 和 &610<error> 之间的数字。 &8(&f2 &7默认&8)
 command-god-enable: '&7上帝模式 <success>启用 &7给 &f%player%<success>。'
 command-god-disable: '&7上帝模式 <error>禁用 &7给 &f%player%<success>。'
+command-vanish-enable: '&7隐身模式 <success>启用 &7给 &f%player%<success>。'
+command-vanish-disable: '&7隐身模式 <error>禁用 &7给 &f%player%<success>。'
 command-night-vision-enable: '&7夜视 <success>启用 &7给 &f%player%<success>。'
 command-night-vision-disable: '&7夜视 <error>禁用 &7给 &f%player%<success>。'
 command-heal-sender: '&7您刚刚治愈了玩家 &f%player%&7。'
@@ -75,6 +77,9 @@ command-more-success: '&7您刚刚把手中的物品数量设为了 &f64&7。'
 command-feed-sender: '&7您刚刚喂饱了玩家 &f%player%&7。'
 command-feed-receiver: <success>您已被喂饱。
 command-feed-error: <error>您不能喂饱一个已经死亡的人！
+command-afk-enable: '&7你现在被标记为 <error>挂机&7。'
+command-afk-disable: <success>你不再被标记为挂机。
+command-message-target-afk: '&f%player% &7当前 <error>处于挂机状态&7。'
 command-compact-type: <error>无法压缩材料 &f%material%<error>。
 command-compact-error: <error>您的背包中没有 &f%item%<error>。
 command-compact-success: '&7您刚刚将 #0EEA93x%amount% #99E0FF%item% &7转换成了 #0EEA93x%toAmount%
@@ -152,6 +157,8 @@ command-seen-first-join:
 
 # 经济
 command-economy-not-found: <error> 找不到名为 &f%name%<error> 的经济系统。
+command-economy-reset-all-confirm: <error>你即将重置 &f%economy%<error> 的所有余额。请在 &f%seconds% 秒内再次执行该命令以确认。
+command-economy-reset-all-success: '#99E0FF你已重置 &f%economy%#99E0FF 的所有余额。'
 command-economy-give-all-sender: '#99E0FF您刚刚给了 &f%economyFormat% #99E0FF给在线玩家。'
 command-economy-give-sender: '#99E0FF您刚刚给了 &f%economyFormat% #99E0FF给玩家 &7%player%#99E0FF。'
 command-economy-give-receiver: '#99E0FF您刚刚收到了 &f%economyFormat%。'
@@ -272,11 +279,13 @@ description-tpa-deny: 拒绝传送请求
 description-tpa-cancel: 取消传送请求
 description-tp-all: 将所有玩家传送到您的位置
 description-god: 切换上帝模式
+description-vanish: 切换隐身模式
 description-heal: 治愈一名玩家
 description-more: 获得更多物品
 description-tp-world: 传送到另一个世界
 description-trash: 打开垃圾桶
 description-feed: 喂饱一名玩家
+description-afk: 切换挂机状态
 description-craft: 打开工作台
 description-enchanting: 打开附魔台
 description-invsee: 打开玩家的背包
@@ -294,6 +303,7 @@ description-eco-give: 给予指定玩家指定金额
 description-eco-give-all: 给予所有玩家指定金额
 description-eco-give-random: 给予指定玩家随机金额的钱
 description-eco-reset: 将指定玩家的余额重置为服务器的起始余额
+description-eco-reset-all: 将指定经济的所有玩家余额重置
 description-eco-show: 显示玩家的钱
 description-pay: 从您的余额中支付给另一名玩家
 description-fly: 切换飞行模式
@@ -405,7 +415,9 @@ description-balance-top: 显示财富排行榜
 description-balance-top-refresh: 刷新财富排行榜
 description-mail-open: 打开玩家的邮箱
 description-mail-give: 给玩家的邮箱赠送一个物品
+description-mail-give-hand: 将你手中的物品发送到玩家的邮箱
 description-mail-giveall: 给所有玩家的邮箱赠送物品
+description-mail-giveall-hand: 将你手中的物品发送到所有在线玩家的邮箱
 description-voteparty-information: 显示投票派对
 description-voteparty-set: 设置投票派对所需的票数
 description-voteparty-add: 向投票派对添加票数
@@ -695,6 +707,7 @@ chat-alphanumeric-regex: <error>你使用了一个禁止的字符。
 chat-cooldown: <error>请稍后再发送下一条消息。 &8(&7%cooldown%&8)
 chat-same: <error>你不能重复相同的内容。
 chat-link: <error>你不能在聊天中发送链接。
+chat-item-forbidden-characters: <error>无法显示该物品，因为其名称包含禁止的字符。
 chat-disable: <error>聊天目前不可用。
 chat-caps: <error>你不需要大喊大叫来交谈！
 chat-flood: <error>你不能这样说话。
@@ -812,6 +825,8 @@ mailbox-add:
 mailbox-give-error: <error>找不到物品 &f%item%<error>。
 mailbox-give: <success>你刚刚给了 &n&fx%amount% %item%&r <success>给玩家 &f%player%<success>的邮箱。
 mailbox-give-all: <success>你刚刚给了 &n&fx%amount% %item%&r <success>给在线玩家的邮箱。
+mailbox-give-hand: <success>你已将手中的物品发送到 &f%player%<success> 的邮箱 (&fx%amount% %item%<success>)。
+mailbox-give-all-hand: <success>你已将手中的物品 (&fx%amount% %item%<success>) 发送到所有在线玩家的邮箱。
 hologram-create-error: <error>全息图 &f%name% <error>已经存在。
 hologram-create:
   type: WITHOUT_PREFIX
@@ -981,3 +996,51 @@ command-link-account-disabled: <error>您当前无法绑定账号。
 command-link-account-not-linked: <error>您的账号未绑定。
 command-link-account-reset: <success>您刚刚重置了您的账号绑定。
 random-word-clear: <success>随机词汇已被清除。
+
+
+# 补充翻译
+command-fly-remaining: "<success>你还有 &f%time% <success>的飞行时间。"
+command-home-admin-list-empty: "<error>该玩家没有设置家。"
+command-home-error-teleport: "<error>无法找到传送位置，请删除你的家。"
+command-kit-delete-error: "<error>无法删除套装 &f%kit%<error>。"
+command-kit-give: "<success>你刚刚将套装 &f%kit%<success>给予 <u>%player%<u><success>。"
+command-pay-disabled: "<error>你不能向该玩家汇款。"
+command-phantoms-disable: "&7幻翼生成 <error>已为 &f%player%<error>关闭。"
+command-phantoms-enable: "&7幻翼生成 <success>已为 &f%player%<success>开启。"
+command-pub:
+  message: "&8[&fPUB&8] <white>%player%<dark_gray>: <red>%message%"
+  type: WITHOUT_PREFIX
+command-pub-pattern-error: "<error>你的消息包含禁止的字符。"
+command-random-tp-configuration-not-found: "<error>找不到世界 &f%world%<error> 的随机传送配置。"
+command-spawn-first-not-define: "<error>首次出生点不存在，请联系管理员。"
+command-tp-location-error: "<error>坐标超出世界范围。"
+command-vault-delete-slot: "<success>你刚刚从保管箱 &7%vault%<success> 中删除了槽位 &7%slot%<success>（玩家 &f%player%<success>）。"
+command-vault-delete-slot-empty: "<error>在保管箱 &f%vault%<error> 的槽位 &f%slot%<error> 中找不到玩家 &f%player%<error>。"
+command-vault-get-slot: "<success>玩家 &f%player%<success> 的保管箱: 箱子 &7%vault%<success>，槽位 &7%slot%<success>，数量 &7%amount%<success>，物品 &f%item%<success>。"
+command-vault-get-slot-empty: "<error>在保管箱 &f%vault%<error> 的槽位 &f%slot%<error> 中找不到玩家 &f%player%<error> 的物品。"
+command-vault-info: "<success>玩家 &f%player%<success> 的保管箱信息: 最大 &7%max%<success>，权限槽位 &7%permissionSlots%<success>，插件槽位 &7%pluginSlots%<success>，已用 &7%used%<success>，可用 &7%available%<success>。"
+command-worldedit-cancel: "<success>你刚刚取消了当前的选择。"
+description-cooldown-show: 显示玩家的冷却时间
+description-experience-take: 扣除玩家的经验
+description-home-list: 显示玩家的家
+description-kit-give: 给予玩家一个套装
+description-mail-clear: 清除玩家信箱中的物品
+description-phantoms: 开启或关闭幻翼生成
+description-pub: 在聊天中发送高亮消息
+description-set-first-spawn: 设置服务器的首次出生点
+description-spawn-first: 传送到首次出生点
+description-step: 显示步骤相关命令
+description-step-finish: 完成一个步骤
+description-step-start: 开始一个步骤
+description-vault-delete-slot: 强制删除一个保管箱槽位
+description-vault-get-slot: 获取保管箱槽位内容
+description-vault-info: 显示玩家保管箱的信息
+description-vault-show: 显示玩家的保管箱
+description-worldedit-cancel: 取消当前选择
+experience-taken: "<success>你刚刚从 <white>%player%<success> 处扣除了 <white>%amount% %type%<success>。"
+mailbox-clear: "<success>你刚刚清空了 &f%player%<success> 的信箱。"
+step-already-exist: "<error>步骤 &f%step% <error>已经开始。"
+step-doesnt-exist: "<error>步骤 &f%step% <error>不存在。"
+step-doesnt-started: "<error>步骤 &f%step% <error>尚未开始。"
+teleport-random-start: "&7正在寻找目的地……请不要移动。"
+worldedit-permission-error: "<error>你不能在这里使用 WorldEdit。"

@@ -22,7 +22,7 @@ public class UserMailBoxRepository extends Repository {
 
     public void insert(MailBoxItem mailBoxItem) {
         this.insert(table -> {
-            table.uuid("unique_id", mailBoxItem.getUuid());
+            table.uuid("unique_id", mailBoxItem.getUniqueId());
             table.string("itemstack", ItemStackUtils.serializeItemStack(mailBoxItem.getItemStack()));
             table.object("expired_at", mailBoxItem.getExpiredAt());
         }, mailBoxItem::setId);

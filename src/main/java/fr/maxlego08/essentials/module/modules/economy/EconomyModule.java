@@ -254,6 +254,24 @@ public class EconomyModule extends ZModule implements EconomyManager {
     }
 
     @Override
+    public void resetAll(Economy economy, String reason) {
+        BigDecimal amount = BigDecimal.ZERO;
+
+        this.plugin.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
+            User user = this.plugin.getUser(onlinePlayer.getUniqueId());
+            if (user != null) {
+                user.set(economy, amount, reason);
+            }
+        });
+
+        this.offlinePlayers.values().forEach(offlineEconomy -> offlineEconomy.set(economy.getName(), amount));
+
+        this.plugin.getStorageManager().getStorage().resetEconomy(economy, amount);
+
+        refreshBaltop(economy);
+    }
+
+    @Override
     public Collection<Economy> getEconomies() {
         return Collections.unmodifiableCollection(this.economies);
     }

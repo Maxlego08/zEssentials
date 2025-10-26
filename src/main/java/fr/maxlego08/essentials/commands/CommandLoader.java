@@ -78,6 +78,7 @@ import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportTo;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportToHere;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportWorld;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTop;
+import fr.maxlego08.essentials.commands.commands.utils.CommandAfk;
 import fr.maxlego08.essentials.commands.commands.utils.CommandCompact;
 import fr.maxlego08.essentials.commands.commands.utils.CommandCompactAll;
 import fr.maxlego08.essentials.commands.commands.utils.CommandCraft;
@@ -110,6 +111,7 @@ import fr.maxlego08.essentials.commands.commands.utils.admins.CommandPowerToolsT
 import fr.maxlego08.essentials.commands.commands.utils.admins.CommandSkull;
 import fr.maxlego08.essentials.commands.commands.utils.admins.CommandSpeed;
 import fr.maxlego08.essentials.commands.commands.utils.admins.CommandWalkSpeed;
+import fr.maxlego08.essentials.commands.commands.utils.admins.CommandVanish;
 import fr.maxlego08.essentials.commands.commands.utils.blocks.CommandAnvil;
 import fr.maxlego08.essentials.commands.commands.utils.blocks.CommandCartographyTable;
 import fr.maxlego08.essentials.commands.commands.utils.blocks.CommandEnchanting;
@@ -169,6 +171,7 @@ public class CommandLoader {
         register("walkspeed", CommandWalkSpeed.class, "wspeed");
         register("flyspeed", CommandFlySpeed.class, "fspeed");
         register("god", CommandGod.class);
+        register("vanish", CommandVanish.class, "v");
         register("heal", CommandHeal.class);
         register("more", CommandMore.class);
         register("worldtp", CommandTeleportWorld.class, "wtp");
@@ -178,6 +181,7 @@ public class CommandLoader {
         register("enchanting", CommandEnchanting.class);
         register("invsee", CommandInvsee.class);
         register("clearinventory", ClearInventoryCommand.class, "clear", "ci");
+        register("afk", CommandAfk.class);
         register("compact", CommandCompact.class, "blocks", "condense");
         register("compactall", CommandCompactAll.class, "blocksall", "condenseall");
         register("hat", CommandHat.class);

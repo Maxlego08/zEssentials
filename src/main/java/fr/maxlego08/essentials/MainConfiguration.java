@@ -70,6 +70,7 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     private long batchAutoSave;
     private List<UUID> blacklistUuids;
     private List<Long> flyTaskAnnounce;
+    private String placeholderEmpty;
 
     public MainConfiguration(ZEssentialsPlugin plugin) {
         this.plugin = plugin;
@@ -96,6 +97,11 @@ public class MainConfiguration extends YamlLoader implements Configuration {
             List<Map<String, Object>> permissions = commandCooldown.permissions() == null ? new ArrayList<>() : commandCooldown.permissions();
             return permissions.stream().filter(e -> permissible.hasPermission((String) e.get("permission"))).mapToInt(e -> ((Number) e.get("cooldown")).intValue()).min().orElse(commandCooldown.cooldown());
         }).findFirst();
+    }
+
+    @Override
+    public String getPlaceholderEmpty() {
+        return this.placeholderEmpty == null || this.placeholderEmpty.isEmpty() ? "Empty" : this.placeholderEmpty;
     }
 
     @Override

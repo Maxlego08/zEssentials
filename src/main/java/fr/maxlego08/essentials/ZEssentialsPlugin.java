@@ -174,6 +174,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     private long serverStartUptime;
     private BlockTracker blockTracker = new DefaultBlockTracker();
     private WayPointHelper wayPointHelper;
+    private String lastFirstJoinPlayerName;
 
     @Override
     public void onEnable() {
@@ -496,6 +497,16 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     @Override
     public void setServerStorage(ServerStorage serverStorage) {
         this.serverStorage = serverStorage;
+    }
+
+    @Override
+    public String getLastFirstJoinPlayerName() {
+        return this.lastFirstJoinPlayerName;
+    }
+
+    @Override
+    public void setLastFirstJoinPlayerName(String playerName) {
+        this.lastFirstJoinPlayerName = playerName;
     }
 
     @Override

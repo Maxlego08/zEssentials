@@ -49,7 +49,7 @@ public class StorageManager {
     }
 
     public Optional<DiscordAccountDTO> getAccount(long userId) {
-        return this.requestHelper.select(Tables.LINK_ACCOUNTS, DiscordAccountDTO.class, table -> table.bigInt("user_id", userId)).stream().findFirst();
+        return this.requestHelper.select(Tables.LINK_ACCOUNTS, DiscordAccountDTO.class, table -> table.where("user_id", userId)).stream().findFirst();
     }
 
     public void isAccountLinked(long userId, Consumer<Boolean> consumer) {

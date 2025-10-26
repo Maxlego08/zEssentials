@@ -25,6 +25,13 @@ public class UserEconomyRepository extends Repository {
         });
     }
 
+    public void reset(Economy economy, BigDecimal amount) {
+        update(table -> {
+            table.decimal("amount", amount);
+            table.where("economy_name", economy.getName());
+        });
+    }
+
     public List<EconomyDTO> select(UUID uuid) {
         return select(EconomyDTO.class, table -> table.where("unique_id", uuid));
     }

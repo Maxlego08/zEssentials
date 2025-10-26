@@ -93,6 +93,7 @@ public class ZUser extends ZUtils implements User {
     private long flySeconds;
     private DiscordAccount discordAccount;
     private long lastActiveTime = System.currentTimeMillis();
+    private boolean manualAfk;
     private long protectionDuration;
 
     private boolean freeze;
@@ -1013,9 +1014,26 @@ public class ZUser extends ZUtils implements User {
 
     @Override
     public boolean isAfk() {
+        if (this.manualAfk) {
+            return true;
+        }
+        var player = getPlayer();
+        if (player == null) {
+            return false;
+        }
         var difference = (System.currentTimeMillis() - this.lastActiveTime) / 1000;
-        var optional = plugin.getAfkManager().getPermission(getPlayer());
+        var optional = plugin.getAfkManager().getPermission(player);
         return optional.filter(afkPermission -> difference >= afkPermission.startAfkTime()).isPresent();
+    }
+
+    @Override
+    public void setAfk(boolean afk) {
+        this.manualAfk = afk;
+    }
+
+    @Override
+    public boolean isManualAfk() {
+        return this.manualAfk;
     }
 
     @Override

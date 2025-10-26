@@ -77,6 +77,7 @@ public class DiscordBot {
                         this.jda.shutdownNow();
                         System.out.println("Bot stopped by user command.");
                     }
+                    System.exit(0);
                     break;
                 }
             }

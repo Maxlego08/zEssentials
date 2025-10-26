@@ -212,12 +212,19 @@ public class VaultModule extends ZModule implements VaultManager {
 
     @Override
     public VaultResult addNewItemToVault(Vault vault, UUID uniqueId, ItemStack currentItem, int quantity, int size, int totalSlots, int slot) {
-        int nextSlot = vault.getNextSlot() + ((vault.getVaultId() - 1) * size);
-        if (nextSlot == -1 || nextSlot >= totalSlots) {
+        int nextSlot = vault.getNextSlot();
+        if (nextSlot == -1) {
             return null;
         }
 
-        if (slot == -1) slot = vault.getNextSlot();
+        int virtualNextSlot = nextSlot + ((vault.getVaultId() - 1) * size);
+        if (virtualNextSlot >= totalSlots) {
+            return null;
+        }
+
+        if (slot == -1) {
+            slot = nextSlot;
+        }
 
         VaultItem newVaultItem = new ZVaultItem(slot, currentItem, quantity);
         vault.getVaultItems().put(slot, newVaultItem);
@@ -295,6 +302,28 @@ public class VaultModule extends ZModule implements VaultManager {
     }
 
     @Override
+    public Optional<VaultItemDTO> getVaultItem(UUID uniqueId, int vaultId, int slot) {
+        return getStorage().getVaultItem(uniqueId, vaultId, slot);
+    }
+
+    @Override
+    public boolean forceDeleteSlot(UUID uniqueId, int vaultId, int slot) {
+        boolean removed = getStorage().forceRemoveVaultItem(uniqueId, vaultId, slot);
+        if (removed) {
+            this.plugin.getScheduler().runNextTick(wrappedTask -> {
+                PlayerVaults playerVaults = this.vaults.get(uniqueId);
+                if (playerVaults != null) {
+                    Vault vault = playerVaults.getVaults().get(vaultId);
+                    if (vault != null) {
+                        vault.getVaultItems().remove(slot);
+                    }
+                }
+            });
+        }
+        return removed;
+    }
+
+    @Override
     public List<String> getVaultAsTabCompletion(Player player) {
         List<String> strings = IntStream.range(1, this.maxVaults).filter(vaultID -> hasPermission(player.getUniqueId(), vaultID)).mapToObj(String::valueOf).collect(Collectors.toList());
         if (hasPermission(player, Permission.ESSENTIALS_VAULT_ADD_SLOT)) strings.add("add");
@@ -302,6 +331,8 @@ public class VaultModule extends ZModule implements VaultManager {
         if (hasPermission(player, Permission.ESSENTIALS_VAULT_GIVE)) strings.add("give");
         if (hasPermission(player, Permission.ESSENTIALS_VAULT_INFO)) strings.add("info");
         if (hasPermission(player, Permission.ESSENTIALS_VAULT_SHOW)) strings.add("show");
+        if (hasPermission(player, Permission.ESSENTIALS_VAULT_GET_SLOT)) strings.add("get");
+        if (hasPermission(player, Permission.ESSENTIALS_VAULT_DELETE_SLOT)) strings.add("delete");
         return strings;
     }
 
