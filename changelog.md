@@ -6,6 +6,26 @@
 
 # Unreleased
 
+# 1.0.2.9
+
+- Added the `/vanish` command allowing players to become invisible to others.
+- Added the `/eco reset-all <economy>` command allowing a full reset of a specific economy.
+- Added the `/vault get <player> <vault id> <slot id> [<give item>]` command allowing retrieval of an item from a player’s vault.
+- Added the `/vault delete <player> <vault id> <slot id>` command allowing deletion of an item from a player’s vault.
+- Added the `/mail give-hand <player>` command allowing the player to give the item in their hand to another player.
+- Added the `/mail giveall-hand <player>` command allowing the player to give the item in their hand to all players.
+- Added the `/afk` command allowing players to set themselves as AFK.
+- Added a message informing the sender when the recipient is AFK upon receiving a private message.
+- Added the `%zessentials_user_is_afk%` placeholder returning whether a player is AFK (true or false).
+- Added the `%zessentials_user_status%` placeholder returning the player’s status value defined in the configuration.
+- Improved placeholder configuration.
+- Fixed the Discord bot Gradle module.
+- Fixed offline player handling, ensuring players who have never joined are properly created when receiving an action.
+- Fixed the `/spawn <player>` command which now works without a cooldown.
+- Fixed translation files.
+- Fixed the vault system.
+- Fixed vote party behavior.
+
 # 1.0.2.8
 
 - Update to Sarah 1.20. Added MARIADB support
