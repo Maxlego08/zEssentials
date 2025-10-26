@@ -141,6 +141,8 @@ command-seen-first-join:
   type: WITHOUT_PREFIX
   message: "#99E0FFPrimera conexión&8: &f%created_at%"
 command-economy-not-found: "<error> No se puede encontrar una economía con el nombre &f%name%<error>."
+command-economy-reset-all-confirm: "<error>Estás a punto de restablecer todos los saldos de &f%economy%<error>. Ejecuta el comando de nuevo en &f%seconds% segundos<error> para confirmar."
+command-economy-reset-all-success: "#99E0FFHas restablecido todos los saldos de &f%economy%#99E0FF."
 command-economy-give-all-sender: "#99E0FFAcabas de dar &f%economyFormat% #99E0FFa todos los jugadores en línea."
 command-economy-give-sender: "#99E0FFAcabas de dar &f%economyFormat% #99E0FFal jugador &7%player%#99E0FF."
 command-economy-give-receiver: "#99E0FFAcabas de recibir &f%economyFormat%."
@@ -266,6 +268,7 @@ description-eco-take: "Toma la cantidad especificada de dinero del jugador espec
 description-eco-give: "Da la cantidad especificada de dinero al jugador especificado"
 description-eco-give-all: "Da la cantidad especificada de dinero a todos los jugadores"
 description-eco-reset: "Restablece el saldo del jugador especificado al saldo inicial del servidor"
+description-eco-reset-all: "Restablece el saldo de todos los jugadores para la economía especificada"
 description-eco-show: "Mostrar el dinero del jugador"
 description-pay: "Pagar a otro jugador desde tu saldo"
 description-fly: "Activar/Desactivar el vuelo"

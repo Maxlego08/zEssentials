@@ -158,6 +158,8 @@ command-seen-first-join:
 
 # Economie
 command-economy-not-found: "<error>Kan geen economie vinden met de naam &f%name%<error>."
+command-economy-reset-all-confirm: "<error>Je staat op het punt alle saldi voor &f%economy%<error> te resetten. Voer het commando opnieuw uit binnen &f%seconds% seconden<error> om te bevestigen."
+command-economy-reset-all-success: "#99E0FFJe hebt alle saldi voor &f%economy%#99E0FF gereset."
 command-economy-give-all-sender: "#99E0FFJe hebt zojuist &f%economyFormat% #99E0FFgegeven aan de online spelers."
 command-economy-give-sender: "#99E0FFJe hebt zojuist &f%economyFormat% #99E0FFgegeven aan de speler &7%player%#99E0FF."
 command-economy-give-receiver: "#99E0FFJe hebt zojuist &f%economyFormat% ontvangen."
@@ -306,6 +308,7 @@ description-eco-give: "Geef een opgegeven speler een opgegeven bedrag geld"
 description-eco-give-random: "Geef een opgegeven speler een willekeurige hoeveelheid geld"
 description-eco-give-all: "Geef alle spelers een opgegeven bedrag geld"
 description-eco-reset: "Reset het saldo van een opgegeven speler naar het startbedrag van de server"
+description-eco-reset-all: "Reset het saldo van alle spelers voor de opgegeven economie"
 description-eco-show: "Toon het geld van een speler"
 description-pay: "Betaal een andere speler vanuit je saldo"
 description-fly: "Schakel vliegen in of uit"

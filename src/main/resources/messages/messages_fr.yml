@@ -158,6 +158,8 @@ command-seen-first-join:
 
 # Économie
 command-economy-not-found: "<error>Impossible de trouver une économie avec le nom &f%name%<error>."
+command-economy-reset-all-confirm: "<error>Vous êtes sur le point de réinitialiser tous les soldes pour &f%economy%<error>. Exécutez à nouveau la commande dans &f%seconds% secondes<error> pour confirmer."
+command-economy-reset-all-success: "#99E0FFVous avez réinitialisé tous les soldes pour &f%economy%#99E0FF."
 command-economy-give-all-sender: "#99E0FFVous venez de donner &f%economyFormat% #99E0FFaux joueurs en ligne."
 command-economy-give-sender: "#99E0FFVous venez de donner &f%economyFormat% #99E0FFau joueur &7%player%#99E0FF."
 command-economy-give-receiver: "#99E0FFVous venez de recevoir &f%economyFormat%."
@@ -301,6 +303,7 @@ description-eco-give: "Donne au joueur spécifié le montant d'argent spécifié
 description-eco-give-random: "Donne au joueur spécifié un montant aléatoire d'argent"
 description-eco-give-all: "Donne à tous les joueurs le montant d'argent spécifié"
 description-eco-reset: "Réinitialise le solde du joueur spécifié au solde de départ du serveur"
+description-eco-reset-all: "Réinitialise le solde de tous les joueurs pour l'économie spécifiée"
 description-eco-show: "Afficher l'argent du joueur"
 description-pay: "Payer un autre joueur depuis votre solde"
 description-fly: "Activer/désactiver le vol"

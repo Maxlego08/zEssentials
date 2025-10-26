@@ -373,6 +373,17 @@ public class SqlStorage extends StorageHelper implements IStorage {
         }
     }
 
+    @Override
+    public void resetEconomy(Economy economy, BigDecimal amount) {
+        synchronized (economyUpdateQueue) {
+            economyUpdateQueue.values().stream()
+                    .filter(pending -> pending.economy().equals(economy))
+                    .forEach(pending -> pending.latestValue().set(amount));
+        }
+
+        async(() -> with(UserEconomyRepository.class).reset(economy, amount));
+    }
+
     private void launchUpdateTask(String key, PendingEconomyUpdate pending) {
         async(() -> {
             ensureUserExists(pending.uniqueId());

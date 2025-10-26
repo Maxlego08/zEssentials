@@ -157,6 +157,8 @@ command-seen-first-join:
 
 # 经济
 command-economy-not-found: <error> 找不到名为 &f%name%<error> 的经济系统。
+command-economy-reset-all-confirm: <error>你即将重置 &f%economy%<error> 的所有余额。请在 &f%seconds% 秒内再次执行该命令以确认。
+command-economy-reset-all-success: '#99E0FF你已重置 &f%economy%#99E0FF 的所有余额。'
 command-economy-give-all-sender: '#99E0FF您刚刚给了 &f%economyFormat% #99E0FF给在线玩家。'
 command-economy-give-sender: '#99E0FF您刚刚给了 &f%economyFormat% #99E0FF给玩家 &7%player%#99E0FF。'
 command-economy-give-receiver: '#99E0FF您刚刚收到了 &f%economyFormat%。'
@@ -301,6 +303,7 @@ description-eco-give: 给予指定玩家指定金额
 description-eco-give-all: 给予所有玩家指定金额
 description-eco-give-random: 给予指定玩家随机金额的钱
 description-eco-reset: 将指定玩家的余额重置为服务器的起始余额
+description-eco-reset-all: 将指定经济的所有玩家余额重置
 description-eco-show: 显示玩家的钱
 description-pay: 从您的余额中支付给另一名玩家
 description-fly: 切换飞行模式

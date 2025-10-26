@@ -147,6 +147,11 @@ public class JsonStorage extends StorageHelper implements IStorage {
     }
 
     @Override
+    public void resetEconomy(Economy economy, BigDecimal amount) {
+        throw new NotImplementedException("resetEconomy is not implemented, use MYSQL storage");
+    }
+
+    @Override
     public void deleteCooldown(UUID uniqueId, String key) {
         this.saveFileAsync(uniqueId);
     }

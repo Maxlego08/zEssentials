@@ -145,6 +145,8 @@ command-seen-first-join:
 
 # Economy
 command-economy-not-found: "<error> Non riesco a trovare una valuta di nome &f%name%<error>."
+command-economy-reset-all-confirm: "<error>Stai per azzerare tutti i saldi per &f%economy%<error>. Esegui di nuovo il comando entro &f%seconds% secondi<error> per confermare."
+command-economy-reset-all-success: "#99E0FFHai azzerato tutti i saldi per &f%economy%#99E0FF."
 command-economy-give-all-sender: "#99E0FFHai appena dato &f%economyFormat% #99E0FFai giocatori online."
 command-economy-give-sender: "#99E0FFHai appena dato &f%economyFormat% #99E0FFa &7%player%#99E0FF."
 command-economy-give-receiver: "#99E0FFHai appena ricevuto &f%economyFormat%."
@@ -262,6 +264,7 @@ description-eco-take: "Prendi dei soldi da un giocatore"
 description-eco-give: "Dai a un giocatore dei soldi"
 description-eco-give-all: "Dai a tutti i giocatori dei soldi"
 description-eco-reset: "Azzera il saldo del giocatore al saldo iniziale del server"
+description-eco-reset-all: "Azzera il saldo di tutti i giocatori per l'economia specificata"
 description-eco-show: "Mostra il saldo di un giocatore"
 description-pay: "Paga un altro giocatore attraverso l'utilizzo del tuo saldo"
 description-fly: "Abilita/Disabilita il volo"
