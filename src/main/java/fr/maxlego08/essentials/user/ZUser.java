@@ -4,14 +4,7 @@ import com.tcoded.folialib.impl.PlatformScheduler;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.discord.DiscordAccount;
-import fr.maxlego08.essentials.api.dto.CooldownDTO;
-import fr.maxlego08.essentials.api.dto.EconomyDTO;
-import fr.maxlego08.essentials.api.dto.HomeDTO;
-import fr.maxlego08.essentials.api.dto.MailBoxDTO;
-import fr.maxlego08.essentials.api.dto.OptionDTO;
-import fr.maxlego08.essentials.api.dto.SanctionDTO;
-import fr.maxlego08.essentials.api.dto.UserDTO;
-import fr.maxlego08.essentials.api.dto.VoteSiteDTO;
+import fr.maxlego08.essentials.api.dto.*;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.event.events.user.UserEconomyPostUpdateEvent;
 import fr.maxlego08.essentials.api.event.events.user.UserEconomyUpdateEvent;
@@ -41,15 +34,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
@@ -439,7 +424,7 @@ public class ZUser extends ZUtils implements User {
 
     @Override
     public boolean has(Economy economy, BigDecimal bigDecimal) {
-        return getBalance(economy).compareTo(bigDecimal) > 0;
+        return getBalance(economy).compareTo(bigDecimal) >= 0;
     }
 
     @Override
