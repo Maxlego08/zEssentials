@@ -1,0 +1,146 @@
+#  _______                   _   _       _     
+# |  _____|                 | | (_)     | |    
+# | |__ ___ ___  ___ _ __   | |_ _  __ _| |___ 
+# |  __/ __/ __|/ _ \ '_ \  | __| |/ _` | / __|
+# | |__\__ \__ \  __/ | | | | |_| | (_| | \__ \
+# |____|___/___/\___|_| |_|  \__|_|\__,_|_|___/
+#                     
+# zEssentials - Combat Category Menu
+# This menu displays combat kits directly (no subcategories)
+
+name: kits_category_combat # Menu name
+type: CHEST # Menu inventory type
+size: 54 # Inventory size
+# Min permission to open this menu
+open-permission: null
+
+# Menu title with professional styling
+title: "&4&l⚔ &c&lCOMBAT KITS &4&l⚔"
+
+# Fill empty slots
+fillItem:
+  material: BLACK_STAINED_GLASS_PANE
+  name: " "
+
+items:
+  # Top decoration
+  top-border-1:
+    slot: 0
+    material: RED_STAINED_GLASS_PANE
+    name: " "
+  top-border-2:
+    slot: 1
+    material: BLACK_STAINED_GLASS_PANE
+    name: " "
+  top-border-3:
+    slot: 2
+    material: RED_STAINED_GLASS_PANE
+    name: " "
+  top-border-4:
+    slot: 3
+    material: BLACK_STAINED_GLASS_PANE
+    name: " "
+  
+  # Title
+  title-sword:
+    slot: 4
+    material: DIAMOND_SWORD
+    name: "&c&l⚔ COMBAT KITS ⚔"
+    lore:
+      - "&8━━━━━━━━━━━━━━━━━━━"
+      - "&7Browse all combat kits"
+      - "&7Total kits: &f%kit_count%"
+      - "&8━━━━━━━━━━━━━━━━━━━"
+  
+  top-border-5:
+    slot: 5
+    material: BLACK_STAINED_GLASS_PANE
+    name: " "
+  top-border-6:
+    slot: 6
+    material: RED_STAINED_GLASS_PANE
+    name: " "
+  top-border-7:
+    slot: 7
+    material: BLACK_STAINED_GLASS_PANE
+    name: " "
+  top-border-8:
+    slot: 8
+    material: RED_STAINED_GLASS_PANE
+    name: " "
+  
+  # Side borders
+  left-border:
+    slots: [9, 18, 27, 36]
+    material: RED_STAINED_GLASS_PANE
+    name: " "
+  
+  right-border:
+    slots: [17, 26, 35, 44]
+    material: RED_STAINED_GLASS_PANE
+    name: " "
+  
+  # Kit display area (3x7 grid for kits)
+  # Slots 10-16, 19-25, 28-34, 37-43 are for kits
+  combat-kits:
+    slots: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34, 37, 38, 39, 40, 41, 42, 43]
+    type: zessentials_kit_category
+    category: "Combat"
+    material: DIAMOND_SWORD
+    name: "&c&l⚔ %kit_display_name%"
+    lore:
+      - "&8━━━━━━━━━━━━━━━━━━━"
+      - " "
+      - "  &7Kit Name: &f%kit_name%"
+      - "  &7Cooldown: &b%cooldown%"
+      - " "
+      - "  &c⚔ &7Combat equipment kit"
+      - " "
+      - "  &7Status: %available|&a✔ Available|&c✖ On cooldown%"
+      - "  &7Time left: &e%time_remaining%"
+      - " "
+      - "&8━━━━━━━━━━━━━━━━━━━"
+      - "&a▶ &7Left-click to &fget kit"
+      - "&e▶ &7Right-click to &fpreview"
+  
+  # Bottom navigation
+  previous-page:
+    slot: 45
+    material: SPECTRAL_ARROW
+    name: "&e&l« PREVIOUS PAGE"
+    lore:
+      - "&7Go to previous page"
+    actions:
+      - type: previous page
+  
+  back-button:
+    slots: [46, 47, 48]
+    material: DARK_OAK_DOOR
+    name: "&c&l⬅ BACK"
+    lore:
+      - "&7Return to categories"
+    actions:
+      - type: open inventory
+        inventory: 'kits_categories'
+  
+  refresh-button:
+    slots: [49, 50, 51]
+    material: EMERALD
+    name: "&a&l↻ REFRESH"
+    lore:
+      - "&7Refresh available kits"
+    refreshOnClick: true
+  
+  next-page:
+    slot: 53
+    material: SPECTRAL_ARROW
+    name: "&e&lNEXT PAGE »"
+    lore:
+      - "&7Go to next page"
+    actions:
+      - type: next page
+  
+  page-info:
+    slot: 52
+    material: PAPER
+    name: "&7Page &e%page% &7of &e%maxPage%"

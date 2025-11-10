@@ -1,0 +1,30 @@
+name: iron_tools_advanced
+display-name: "&b&lAdvanced Iron Tools"
+category: "Tools"
+subcategory: "Advanced"
+cooldown: 14400
+permission: 'essentials.kits.iron_tools_advanced'
+items:
+  iron_sword:
+    material: IRON_SWORD
+    enchants:
+      - sharpness,2
+      - unbreaking,2
+  iron_pickaxe:
+    material: IRON_PICKAXE
+    enchants:
+      - efficiency,2
+      - unbreaking,2
+  iron_axe:
+    material: IRON_AXE
+    enchants:
+      - efficiency,2
+      - unbreaking,2
+  iron_shovel:
+    material: IRON_SHOVEL
+    enchants:
+      - efficiency,2
+      - unbreaking,2
+  torches:
+    material: TORCH
+    amount: 64

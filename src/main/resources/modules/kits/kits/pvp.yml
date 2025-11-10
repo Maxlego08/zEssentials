@@ -1,0 +1,49 @@
+name: pvp
+display-name: "&4&lPvP Master"
+category: "Combat"
+cooldown: 172800
+permission: 'essentials.kits.pvp'
+items:
+  sword:
+    material: NETHERITE_SWORD
+    enchants:
+      - sharpness,4
+      - unbreaking,3
+      - sweeping,3
+  bow:
+    material: BOW
+    enchants:
+      - power,3
+      - punch,2
+      - unbreaking,3
+  arrows:
+    material: ARROW
+    amount: 128
+  golden_apples:
+    material: GOLDEN_APPLE
+    amount: 8
+  potions:
+    material: SPLASH_POTION
+    amount: 3
+    potionType: INSTANT_HEAL
+helmet:
+  material: NETHERITE_HELMET
+  enchants:
+    - protection,3
+    - unbreaking,3
+chestplate:
+  material: NETHERITE_CHESTPLATE
+  enchants:
+    - protection,3
+    - unbreaking,3
+leggings:
+  material: NETHERITE_LEGGINGS
+  enchants:
+    - protection,3
+    - unbreaking,3
+boots:
+  material: NETHERITE_BOOTS
+  enchants:
+    - protection,3
+    - unbreaking,3
+    - feather_falling,4
