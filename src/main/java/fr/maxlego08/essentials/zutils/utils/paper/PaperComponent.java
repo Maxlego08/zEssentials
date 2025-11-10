@@ -102,16 +102,14 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
     }
 
     private void updateDisplayName(ItemMeta itemMeta, String text) {
-        updateDisplayName(itemMeta, text, null);
+        Component component = this.cache.get(text, () -> {
+            return this.MINI_MESSAGE.deserialize(colorMiniMessage(text)).decoration(TextDecoration.ITALIC, getState(text)); // We will force the italics in false, otherwise it will activate for no reason
+        });
+        itemMeta.displayName(component);
     }
 
     public void updateDisplayName(ItemMeta itemMeta, String text, Player player) {
-        String processedText = papi(text, player);
-        String cacheKey = getCacheKey(processedText, player);
-        Component component = this.cache.get(cacheKey, () -> {
-            return this.MINI_MESSAGE.deserialize(colorMiniMessage(processedText, player)).decoration(TextDecoration.ITALIC, getState(processedText)); // We will force the italics in false, otherwise it will activate for no reason
-        });
-        itemMeta.displayName(component);
+        updateDisplayName(itemMeta, papi(text, player));
     }
 
     public void updateLore(ItemMeta itemMeta, List<String> lore, Player offlinePlayer) {
@@ -121,9 +119,8 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
     public void update(ItemMeta itemMeta, List<String> lore, Player offlinePlayer) {
         List<Component> components = lore.stream().map(text -> {
             String result = papi(text, offlinePlayer);
-            String cacheKey = getCacheKey(result, offlinePlayer);
-            return this.cache.get(cacheKey, () -> {
-                return this.MINI_MESSAGE.deserialize(colorMiniMessage(result, offlinePlayer)).decoration(TextDecoration.ITALIC, getState(result)); // We will force the italics in false, otherwise it will activate for no reason
+            return this.cache.get(result, () -> {
+                return this.MINI_MESSAGE.deserialize(colorMiniMessage(result)).decoration(TextDecoration.ITALIC, getState(result)); // We will force the italics in false, otherwise it will activate for no reason
             });
         }).collect(Collectors.toList());
         itemMeta.lore(components);
@@ -131,30 +128,11 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
 
     @Override
     public Inventory createInventory(String inventoryName, int size, InventoryHolder inventoryHolder) {
-        Component component = this.cache.get(inventoryName, () -> this.MINI_MESSAGE.deserialize(colorMiniMessage(inventoryName, null)));
+        Component component = this.cache.get(inventoryName, () -> this.MINI_MESSAGE.deserialize(colorMiniMessage(inventoryName)));
         return Bukkit.createInventory(inventoryHolder, size, component);
     }
 
-    private String getCacheKey(String text, Player player) {
-        if (player == null) return text;
-        boolean hasColorPerm = player.isOp() || player.hasPermission(Permission.ESSENTIALS_CHAT_COLOR.asPermission());
-        return text + "_" + hasColorPerm;
-    }
-
     private String colorMiniMessage(String message) {
-        return colorMiniMessage(message, null);
-    }
-
-    private String colorMiniMessage(String message, Player player) {
-        // Check if player has permission for color codes
-        boolean hasColorPermission = player == null || player.isOp() || 
-                player.hasPermission(Permission.ESSENTIALS_CHAT_COLOR.asPermission());
-        
-        if (!hasColorPermission) {
-            // Strip color codes if no permission
-            return stripColorCodes(message);
-        }
-        
         StringBuilder stringBuilder = new StringBuilder();
 
         Pattern pattern = Pattern.compile("(?<!<)(?<!:)#([a-fA-F0-9]{6})");
@@ -179,24 +157,14 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
         return newMessage;
     }
 
-    private String stripColorCodes(String message) {
-        // Strip Minecraft color codes
-        String strippedMessage = message.replaceAll("[&§][0-9a-fA-FkKlLmMnNoOrR]", "");
-        // Strip hex color codes
-        strippedMessage = strippedMessage.replaceAll("#[a-fA-F0-9]{6}", "");
-        // Strip MiniMessage tags
-        strippedMessage = strippedMessage.replaceAll("<[^>]+>", "");
-        return strippedMessage;
-    }
-
     @Override
     public Component getComponent(String message) {
-        return this.cache.get(message, () -> this.MINI_MESSAGE.deserialize(colorMiniMessage(message, null)));
+        return this.cache.get(message, () -> this.MINI_MESSAGE.deserialize(colorMiniMessage(message)));
     }
 
     @Override
     public Component getComponent(String message, TagResolver tagResolver) {
-        return this.MINI_MESSAGE.deserialize(colorMiniMessage(message, null), tagResolver);
+        return this.MINI_MESSAGE.deserialize(colorMiniMessage(message), tagResolver);
     }
 
     @Override
@@ -222,22 +190,21 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
 
     public Component translateText(Player player, String message, TagResolver... tagResolvers) {
         var tagResolver = getTagResolver(player, tagResolvers);
-        return MiniMessage.builder().tags(tagResolver).build().deserialize(colorMiniMessage(message, player));
+        return MiniMessage.builder().tags(tagResolver).build().deserialize(colorMiniMessage(message));
     }
 
     @Override
     public void sendActionBar(Player sender, String message) {
-        String cacheKey = getCacheKey(message, sender);
-        Component component = this.cache.get(cacheKey, () -> this.MINI_MESSAGE.deserialize(colorMiniMessage(message, sender)));
+        Component component = this.cache.get(message, () -> this.MINI_MESSAGE.deserialize(colorMiniMessage(message)));
         sender.sendActionBar(component);
     }
 
     @Override
     public void sendMessage(CommandSender sender, String message) {
         if (sender instanceof Player player) {
-            sender.sendMessage(this.MINI_MESSAGE.deserialize(papi(colorMiniMessage(message, player), player)));
+            sender.sendMessage(this.MINI_MESSAGE.deserialize(papi(colorMiniMessage(message), player)));
         } else {
-            Component component = this.cache.get(message, () -> this.MINI_MESSAGE.deserialize(colorMiniMessage(message, null)));
+            Component component = this.cache.get(message, () -> this.MINI_MESSAGE.deserialize(colorMiniMessage(message)));
             sender.sendMessage(component);
         }
     }
@@ -268,7 +235,7 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
         ItemMeta itemMeta = itemStack.getItemMeta();
         List<Component> currentLore = itemMeta.hasLore() ? itemMeta.lore() : new ArrayList<>();
         if (currentLore == null) currentLore = new ArrayList<>();
-        currentLore.addAll(lore.stream().map(placeholders::parse).map(text -> this.MINI_MESSAGE.deserialize(colorMiniMessage(text, null))).map(e -> e.decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE)).toList());
+        currentLore.addAll(lore.stream().map(placeholders::parse).map(this::getComponent).map(e -> e.decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE)).toList());
         itemMeta.lore(currentLore);
         itemStack.setItemMeta(itemMeta);
     }
@@ -276,20 +243,15 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
     @Override
     public void sendTitle(Player player, TitleMessage titleMessage, Object... args) {
 
-        String titleText = papi(getMessage(titleMessage.title(), args), player);
-        String subtitleText = papi(getMessage(titleMessage.subtitle(), args), player);
-
-        Component title = this.MINI_MESSAGE.deserialize(colorMiniMessage(titleText, player));
-        Component subtitle = this.MINI_MESSAGE.deserialize(colorMiniMessage(subtitleText, player));
+        Component title = getComponent(papi(getMessage(titleMessage.title(), args), player));
+        Component subtitle = getComponent(papi(getMessage(titleMessage.subtitle(), args), player));
 
         player.showTitle(Title.title(title, subtitle, Title.Times.times(Duration.ofMillis(titleMessage.start()), Duration.ofMillis(titleMessage.time()), Duration.ofMillis(titleMessage.end()))));
     }
 
     @Override
     public void sendBossBar(EssentialsPlugin plugin, Player player, BossBarMessage bossBarMessage) {
-        String bossBarText = papi(bossBarMessage.text(), player);
-        Component component = this.MINI_MESSAGE.deserialize(colorMiniMessage(bossBarText, player));
-        BossBar bossBar = BossBar.bossBar(component, 1f, bossBarMessage.getColor(), bossBarMessage.getOverlay(), bossBarMessage.getFlags());
+        BossBar bossBar = BossBar.bossBar(getComponent(papi(bossBarMessage.text(), player)), 1f, bossBarMessage.getColor(), bossBarMessage.getOverlay(), bossBarMessage.getFlags());
         player.showBossBar(bossBar);
 
         new BossBarAnimation(plugin, player, bossBar, bossBarMessage.duration());
@@ -297,8 +259,7 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
 
     @Override
     public void kick(Player player, String message) {
-        Component component = this.MINI_MESSAGE.deserialize(colorMiniMessage(message, player));
-        player.kick(component);
+        player.kick(getComponent(message));
     }
 
     @Override
@@ -321,7 +282,7 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
             if (line == null) continue;
 
             var plainText = plainTextSerializer.serialize(line);
-            event.line(i, miniMessage.deserialize(colorMiniMessage(plainText, player)));
+            event.line(i, miniMessage.deserialize(colorMiniMessage(plainText)));
         }
     }
 }

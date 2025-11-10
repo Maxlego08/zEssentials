@@ -33,13 +33,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 public class KitModule extends ZModule {
 
@@ -60,12 +57,6 @@ public class KitModule extends ZModule {
 
         this.loadInventory("kits");
         this.loadInventory("kit_preview");
-        this.loadInventory("kits_categories");
-        this.loadInventory("kits_category_default");
-        this.loadInventory("kits_category_combat");
-        this.loadInventory("kits_category_food");
-        this.loadInventory("kits_subcategory_default_beginner");
-        this.loadInventory("kits_subcategory_default_advanced");
     }
 
     /**
@@ -119,8 +110,6 @@ public class KitModule extends ZModule {
         String name = configuration.getString("name");
         String displayName = configuration.getString("display-name", name);
         String permission = configuration.getString("permission", Permission.ESSENTIALS_KIT_.asPermission(name));
-        String category = configuration.getString("category", null);
-        String subCategory = configuration.getString("subcategory", null);
 
         if (this.exist(name)) {
             this.plugin.getLogger().severe("Kit " + name + " already exist !");
@@ -148,7 +137,7 @@ public class KitModule extends ZModule {
 
         List<Action> actions = this.plugin.getButtonManager().loadActions((List<Map<String, Object>>) configuration.getList("actions", new ArrayList<>()), "actions", file);
 
-        var kit = new ZKit(this.plugin, displayName, name, cooldown, permissionCooldowns, items, actions, permission, file, category, subCategory);
+        var kit = new ZKit(this.plugin, displayName, name, cooldown, permissionCooldowns, items, actions, permission, file);
 
         loadKitEquipment(kit, configuration, this.plugin.getInventoryManager(), "helmet.", EquipmentSlot.HEAD);
         loadKitEquipment(kit, configuration, this.plugin.getInventoryManager(), "chestplate.", EquipmentSlot.CHEST);
@@ -178,72 +167,6 @@ public class KitModule extends ZModule {
      */
     public List<Kit> getKits(Permissible permissible) {
         return this.kits.stream().filter(kit -> kit.hasPermission(permissible)).toList();
-    }
-
-    /**
-     * Gets a list of kits in a specific category that the player has access to.
-     *
-     * @param player The player to check permissions for
-     * @param categoryName The name of the category
-     * @return A list of kits in the category that the player has access to
-     */
-    public List<Kit> getKitsByCategory(Player player, String categoryName) {
-        return this.kits.stream()
-                .filter(kit -> kit.hasPermission(player))
-                .filter(kit -> categoryName.equalsIgnoreCase(kit.getCategory()))
-                .collect(Collectors.toList());
-    }
-
-    /**
-     * Gets a list of kits in a specific subcategory that the player has access to.
-     *
-     * @param player The player to check permissions for
-     * @param categoryName The name of the category
-     * @param subCategoryName The name of the subcategory
-     * @return A list of kits in the subcategory that the player has access to
-     */
-    public List<Kit> getKitsBySubCategory(Player player, String categoryName, String subCategoryName) {
-        return this.kits.stream()
-                .filter(kit -> kit.hasPermission(player))
-                .filter(kit -> categoryName.equalsIgnoreCase(kit.getCategory()))
-                .filter(kit -> subCategoryName.equalsIgnoreCase(kit.getSubCategory()))
-                .collect(Collectors.toList());
-    }
-
-    /**
-     * Gets all unique categories from the available kits.
-     *
-     * @return A set of unique category names
-     */
-    public Set<String> getCategories() {
-        return this.kits.stream()
-                .map(Kit::getCategory)
-                .filter(category -> category != null && !category.isEmpty())
-                .collect(Collectors.toSet());
-    }
-
-    /**
-     * Gets all unique subcategories for a specific category.
-     *
-     * @param categoryName The name of the category
-     * @return A set of unique subcategory names
-     */
-    public Set<String> getSubCategories(String categoryName) {
-        return this.kits.stream()
-                .filter(kit -> categoryName.equalsIgnoreCase(kit.getCategory()))
-                .map(Kit::getSubCategory)
-                .filter(subCategory -> subCategory != null && !subCategory.isEmpty())
-                .collect(Collectors.toSet());
-    }
-
-    /**
-     * Checks if a category has subcategories.
-     *
-     * @param categoryName The name of the category
-     * @return true if the category has subcategories, false otherwise
-     */
-    public boolean hasSubCategories(String categoryName) {
-        return !getSubCategories(categoryName).isEmpty();
     }
 
     public boolean giveKit(User user, Kit kit, boolean bypassCooldown) {
@@ -366,7 +289,7 @@ public class KitModule extends ZModule {
             exception.printStackTrace();
         }
 
-        Kit kit = new ZKit(this.plugin, kitName, kitName, cooldown, new HashMap<>(), new ArrayList<>(), new ArrayList<>(), Permission.ESSENTIALS_KIT_.asPermission(kitName), file, null, null);
+        Kit kit = new ZKit(this.plugin, kitName, kitName, cooldown, new HashMap<>(), new ArrayList<>(), new ArrayList<>(), Permission.ESSENTIALS_KIT_.asPermission(kitName), file);
 
         this.kits.add(kit);
         this.saveKit(kit);
@@ -428,12 +351,6 @@ public class KitModule extends ZModule {
         configuration.set("display-name", kit.getDisplayName());
         configuration.set("permission", kit.getPermission());
         configuration.set("cooldown", kit.getCooldown());
-        if (kit.getCategory() != null) {
-            configuration.set("category", kit.getCategory());
-        }
-        if (kit.getSubCategory() != null) {
-            configuration.set("subcategory", kit.getSubCategory());
-        }
 
         Loader<MenuItemStack> loader = new MenuItemStackLoader(this.plugin.getInventoryManager());
         AtomicInteger atomicInteger = new AtomicInteger(1);
