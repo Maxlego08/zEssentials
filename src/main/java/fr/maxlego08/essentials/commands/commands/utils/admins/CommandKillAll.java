@@ -9,6 +9,7 @@ import fr.maxlego08.essentials.api.utils.mobs.Mob;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
+import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
@@ -20,8 +21,10 @@ import org.bukkit.entity.Tameable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 public class CommandKillAll extends VCommand {
     public CommandKillAll(EssentialsPlugin plugin) {
@@ -53,51 +56,78 @@ public class CommandKillAll extends VCommand {
 
         if (removeTypes.isEmpty()) return CommandResultType.SYNTAX_ERROR;
 
+        Location senderLocation = this.sender instanceof Player ? ((Player) this.sender).getLocation() : null;
+        Set<Entity> processedEntities = new HashSet<>();
         int removed = 0;
+
         for (Chunk chunk : world.getLoadedChunks()) {
             for (Entity entity : chunk.getEntities()) {
                 if (entity instanceof HumanEntity) continue;
+                
+                // Skip if entity already processed
+                if (processedEntities.contains(entity)) continue;
 
+                // Radius check (moved outside type loop)
+                if (radius > 0 && senderLocation != null) {
+                    if (entity.getLocation().distance(senderLocation) > radius) {
+                        continue;
+                    }
+                }
+
+                // Skip checks moved outside the type loop
+                boolean isTamed = entity instanceof Tameable tameable && tameable.isTamed() 
+                    && (tameable.getOwner() instanceof Player || tameable.getOwner() instanceof OfflinePlayer);
+                boolean isNamed = entity instanceof LivingEntity && entity.customName() != null;
+
+                // We should skip any animals tamed by players unless we are specifically targetting them.
+                if (isTamed && !removeTypes.contains(KillAllType.TAMED)) {
+                    continue;
+                }
+
+                // We should skip any NAMED animals unless we are specifically targetting them.
+                if (isNamed && !removeTypes.contains(KillAllType.NAMED)) {
+                    continue;
+                }
+
+                boolean shouldRemove = false;
                 for (KillAllType type : removeTypes) {
-
-                    // We should skip any animals tamed by players unless we are specifically targetting them.
-                    if (entity instanceof Tameable tameable && tameable.isTamed() && (tameable.getOwner() instanceof Player || tameable.getOwner() instanceof OfflinePlayer) && !removeTypes.contains(KillAllType.TAMED)) {
-                        continue;
-                    }
-
-                    // We should skip any NAMED animals unless we are specifically targetting them.
-                    if (entity instanceof LivingEntity && entity.customName() != null && !removeTypes.contains(KillAllType.NAMED)) {
-                        continue;
-                    }
-
                     switch (type) {
                         case TAMED -> {
-                            if (entity instanceof Tameable tameable && tameable.isTamed()) {
-                                entity.remove();
-                                removed++;
+                            if (isTamed) {
+                                shouldRemove = true;
                             }
                         }
                         case NAMED -> {
-                            if (entity instanceof LivingEntity && entity.customName() != null) {
-                                entity.remove();
-                                removed++;
+                            if (isNamed) {
+                                shouldRemove = true;
                             }
                         }
                         case CUSTOM -> {
                             for (Mob mob : customRemoveTypes) {
                                 if (entity.getType() == mob.getType()) {
-                                    entity.remove();
-                                    removed++;
+                                    shouldRemove = true;
+                                    break;
                                 }
                             }
                         }
                         default -> {
                             if (type.checkType(entity)) {
-                                entity.remove();
-                                removed++;
+                                shouldRemove = true;
                             }
                         }
                     }
+                    if (shouldRemove) break;
+                }
+
+                if (shouldRemove) {
+                    processedEntities.add(entity);
+                    // Use setHealth(0) for living entities to properly trigger death events
+                    if (entity instanceof LivingEntity livingEntity) {
+                        livingEntity.setHealth(0);
+                    } else {
+                        entity.remove();
+                    }
+                    removed++;
                 }
             }
         }

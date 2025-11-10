@@ -2,7 +2,7 @@ plugins {
     `java-library`
     id("com.gradleup.shadow") version "9.0.0-beta11"
     id("io.papermc.paperweight.userdev") version "2.0.0-beta.18" apply false
-    id("re.alwyn974.groupez.repository") version "1.0.0"
+//    id("re.alwyn974.groupez.repository") version "1.0.0"
 }
 
 group = "fr.maxlego08.essentials"
@@ -16,7 +16,7 @@ extra.set("sha", System.getProperty("github.sha"))
 allprojects {
     apply(plugin = "java-library")
     apply(plugin = "com.gradleup.shadow")
-    apply(plugin = "re.alwyn974.groupez.repository")
+//    apply(plugin = "re.alwyn974.groupez.repository")
 
     group = "fr.maxlego08.essentials"
     version = rootProject.version
@@ -59,7 +59,8 @@ allprojects {
 //        compileOnly("fr.maxlego08.menu:zmenu-api:1.1.0.0")
         compileOnly(files("libs/zMenu-1.1.0.0.jar"))
 
-        compileOnly("fr.maxlego08.sarah:sarah:1.20")
+//        compileOnly("fr.maxlego08.sarah:sarah:1.20")
+        compileOnly(files("libs/Sarah-1.20.jar"))
         compileOnly("com.tcoded:FoliaLib:0.5.1")
         compileOnly("fr.mrmicky:fastboard:2.1.5")
     }

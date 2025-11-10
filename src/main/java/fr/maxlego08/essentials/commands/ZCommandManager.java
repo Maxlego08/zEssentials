@@ -29,7 +29,9 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -50,6 +52,7 @@ public class ZCommandManager extends ZUtils implements CommandManager {
     }
 
     protected final List<EssentialsCommand> commands = new ArrayList<>();
+    private final Map<String, Boolean> commandCache = new HashMap<>();
     private final ZEssentialsPlugin plugin;
 
     public ZCommandManager(ZEssentialsPlugin plugin) {
@@ -329,7 +332,14 @@ public class ZCommandManager extends ZUtils implements CommandManager {
     }
 
     private boolean isEssentialsCommand(String command) {
-        return this.commands.stream().anyMatch(e -> e.getParent() == null && e.getSubCommands().contains(command));
+        return this.commandCache.computeIfAbsent(command, cmd -> {
+            for (EssentialsCommand essentialsCommand : this.commands) {
+                if (essentialsCommand.getParent() == null && essentialsCommand.getSubCommands().contains(cmd)) {
+                    return true;
+                }
+            }
+            return false;
+        });
     }
 
     @EventHandler

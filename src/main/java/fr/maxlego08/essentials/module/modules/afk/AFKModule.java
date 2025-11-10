@@ -21,7 +21,9 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.permissions.Permissible;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -38,6 +40,9 @@ public class AFKModule extends ZModule implements AfkManager {
     private String softKickMessage;
     private String placeholderAfk;
     private String placeholderNotAfk;
+    // Performance optimization - Process players in batches to prevent server freezes
+    private static final int BATCH_SIZE = 20;
+    private Iterator<? extends Player> playerIterator;
 
     public AFKModule(ZEssentialsPlugin plugin) {
         super(plugin, "afk");
@@ -60,13 +65,27 @@ public class AFKModule extends ZModule implements AfkManager {
     }
 
     private void checkPlayers() {
-        for (Player onlinePlayer : plugin.getServer().getOnlinePlayers()) {
-
+        Collection<? extends Player> onlinePlayers = plugin.getServer().getOnlinePlayers();
+        
+        // Initialize new iterator or continue with existing one
+        if (playerIterator == null || !playerIterator.hasNext()) {
+            playerIterator = onlinePlayers.iterator();
+        }
+        
+        // Process only BATCH_SIZE players per check to avoid performance spikes
+        int processed = 0;
+        while (playerIterator.hasNext() && processed < BATCH_SIZE) {
+            Player onlinePlayer = playerIterator.next();
+            
+            // Skip offline players and those with bypass permission
+            if (!onlinePlayer.isOnline()) continue;
             if (hasPermission(onlinePlayer, Permission.ESSENTIALS_AFK_BYPASS)) continue;
 
             var user = getUser(onlinePlayer);
             if (user == null) continue;
             checkUser(user);
+            
+            processed++;
         }
     }
 
@@ -99,22 +118,34 @@ public class AFKModule extends ZModule implements AfkManager {
 
     @Override
     public Optional<AfkPermission> getPermission(Permissible permissible) {
-        return permissions.stream().filter(permission -> permissible.hasPermission(permission.permission())).max(Comparator.comparingInt(AfkPermission::priority));
+        AfkPermission selected = null;
+        for (AfkPermission permission : permissions) {
+            if (permissible.hasPermission(permission.permission())) {
+                if (selected == null || permission.priority() > selected.priority()) {
+                    selected = permission;
+                }
+            }
+        }
+        return Optional.ofNullable(selected);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onMove(PlayerMoveEvent event) {
 
-        var user = getUser(event.getPlayer());
-        if (user == null) return;
-
         var from = event.getFrom();
         var to = event.getTo();
 
-        if (from.getYaw() != to.getYaw() || from.getPitch() != to.getPitch()) {
-            endAfk(user);
-            user.setLastActiveTime();
+        // Only process if there's actual movement
+        if (from.getX() == to.getX() && from.getY() == to.getY() && from.getZ() == to.getZ() 
+            && from.getYaw() == to.getYaw() && from.getPitch() == to.getPitch()) {
+            return;
         }
+
+        var user = getUser(event.getPlayer());
+        if (user == null) return;
+
+        endAfk(user);
+        user.setLastActiveTime();
     }
 
     @EventHandler(priority = EventPriority.MONITOR)

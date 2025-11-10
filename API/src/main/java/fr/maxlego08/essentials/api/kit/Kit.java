@@ -125,5 +125,19 @@ public interface Kit {
      * @return the menu item stack associated with the player's boots
      */
     MenuItemStack getBoots();
+
+    /**
+     * Gets the category name for this kit.
+     *
+     * @return the category name, or null if no category is set
+     */
+    String getCategory();
+
+    /**
+     * Gets the sub-category name for this kit.
+     *
+     * @return the sub-category name, or null if no sub-category is set
+     */
+    String getSubCategory();
 }
 

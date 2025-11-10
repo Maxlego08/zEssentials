@@ -130,14 +130,19 @@ public class EconomyModule extends ZModule implements EconomyManager {
             IStorage iStorage = this.plugin.getStorageManager().getStorage();
             var rankings = iStorage.getEconomyRanking(economy);
 
-            Map<UUID, Long> userPositions = new HashMap<>();
-            List<UserBaltop> userBaltops = new ArrayList<>();
+            // Pre-size collections for better performance
+            int size = Math.min(rankings.size(), 1000); // Limit to top 1000 to prevent memory issues
+            Map<UUID, Long> userPositions = new HashMap<>(size * 2); // Initialize with proper capacity
+            List<UserBaltop> userBaltops = new ArrayList<>(size);
 
             long position = 1;
             for (UserEconomyRankingDTO ranking : rankings) {
                 long currentPosition = position++;
                 userPositions.put(ranking.unique_id(), currentPosition);
                 userBaltops.add(new ZUserBaltop(ranking.unique_id(), ranking.name(), ranking.amount(), currentPosition));
+                
+                // Limit processing to prevent excessive memory usage on large servers
+                if (position > 1000) break;
             }
 
             Baltop baltop = new ZBaltop(economy, userBaltops, userPositions);

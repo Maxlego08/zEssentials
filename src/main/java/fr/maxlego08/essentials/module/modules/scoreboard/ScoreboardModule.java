@@ -36,13 +36,15 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 public class ScoreboardModule extends ZModule implements ScoreboardManager {
 
 
     private final List<EssentialsScoreboard> essentialsScoreboards = new ArrayList<>();
-    private final Map<UUID, PlayerBoard> boards = new HashMap<>();
+    // Thread-safe map to prevent ConcurrentModificationException in async tasks
+    private final Map<UUID, PlayerBoard> boards = new ConcurrentHashMap<>();
     private final List<JoinCondition> joinConditions = new ArrayList<>();
     private final List<TaskCondition> taskConditions = new ArrayList<>();
     private boolean enableTaskConditions;
