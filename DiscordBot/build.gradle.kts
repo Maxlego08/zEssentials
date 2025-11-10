@@ -23,7 +23,6 @@ dependencies {
     implementation("net.dv8tion:JDA:5.2.0")
     implementation("mysql:mysql-connector-java:8.0.33")
     implementation(project(":API"))
-    implementation(files("../libs/Sarah-1.20.jar"))
 }
 
 tasks {

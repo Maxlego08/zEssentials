@@ -14,8 +14,6 @@ import java.util.concurrent.ConcurrentHashMap;
 public class VaultItemRepository extends Repository {
 
     private final ConcurrentHashMap<CacheKey, CacheValue> caches = new ConcurrentHashMap<>();
-    // Single scheduled task for batch updates instead of creating new tasks for each update
-    private volatile boolean batchTaskScheduled = false;
 
     public VaultItemRepository(EssentialsPlugin plugin, DatabaseConnection connection) {
         super(plugin, connection, "vault_items");
@@ -49,47 +47,26 @@ public class VaultItemRepository extends Repository {
     }
 
     private void startTask(CacheKey key) {
-        // Prevent creating multiple scheduled tasks - performance optimization
-        if (!batchTaskScheduled) {
-            batchTaskScheduled = true;
-            
-            this.plugin.getScheduler().runLaterAsync(() -> {
-                // Process all pending cache updates at once
-                processCacheUpdates();
-                batchTaskScheduled = false;
-            }, 4);
-        }
-    }
-    
-    private void processCacheUpdates() {
-        long currentTime = System.currentTimeMillis();
-        
-        // Process all cached items in a single batch
-        caches.entrySet().removeIf(entry -> {
-            CacheKey key = entry.getKey();
-            CacheValue value = entry.getValue();
-            
+        this.plugin.getScheduler().runLaterAsync(() -> {
+
+            long currentTime = System.currentTimeMillis();
+            var value = this.caches.get(key);
+            if (value == null) {
+                return;
+            }
+
             if (currentTime - value.getCreatedAt() >= 200) {
-                // Update database
+                this.caches.remove(key);
                 this.update(table -> {
                     table.bigInt("quantity", value.quantity);
                     table.where("unique_id", key.uniqueId);
                     table.where("vault_id", key.vaultId);
                     table.where("slot", key.slot);
                 });
-                return true; // Remove from cache
+            } else {
+                this.startTask(key);
             }
-            return false; // Keep in cache
-        });
-        
-        // Schedule next check if there are still items in cache
-        if (!caches.isEmpty() && !batchTaskScheduled) {
-            batchTaskScheduled = true;
-            this.plugin.getScheduler().runLaterAsync(() -> {
-                processCacheUpdates();
-                batchTaskScheduled = false;
-            }, 4);
-        }
+        }, 4);
     }
 
     public void createNewItem(UUID uniqueId, int vaultId, int slot, long quantity, String item) {
