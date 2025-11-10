@@ -418,7 +418,11 @@ public enum Message {
 
     TELEPORT_DAMAGE("<error>You must not take damage during teleportation."),
     TELEPORT_ERROR_LOCATION("<error>Unable to teleport you safely."),
-
+    
+    // RTP Queue System Messages
+    TELEPORT_ALREADY_IN_QUEUE("<error>You are already in the teleportation queue!"),
+    TELEPORT_ADDED_TO_QUEUE("<success>You have been added to the teleportation queue. Position: #0EEA93%position%"),
+    
     COOLDOWN("<error>✘ You must wait for &f%cooldown% <error>before performing this action."),
     COOLDOWN_COMMANDS("<error>✘ You must wait for &f%cooldown% <error>before performing this commands."),
 

@@ -499,6 +499,10 @@ teleport-move: "<error>You must not move!"
 teleport-damage: "<error>You must not take damage during teleportation."
 teleport-error-location: "<error>Unable to teleport you safely."
 
+# RTP Queue System Messages
+teleport-already-in-queue: "<error>You are already in the teleportation queue!"
+teleport-added-to-queue: "<success>You have been added to the teleportation queue. Position: #0EEA93%position%"
+
 teleport-message:
   type: ACTION
   message: "&7Teleporting in #0EEA93%seconds% &7seconds, you must not move."

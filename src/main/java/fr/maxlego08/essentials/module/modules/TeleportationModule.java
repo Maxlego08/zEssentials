@@ -14,10 +14,14 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Random;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class TeleportationModule extends ZModule {
@@ -37,8 +41,22 @@ public class TeleportationModule extends ZModule {
     private boolean openConfirmInventoryForTpaHere;
     private int maxRtpAttempts;
     private boolean enableRandomTeleportSearchLogMessage;
+    
+    // RTP Queue System
+    private boolean enableRtpQueue;
+    private long rtpQueueDelay; // Delay in milliseconds between teleports
+    private boolean enableFirstJoinRtp;
+    private String firstJoinRtpWorld;
+    
+    // World Override System
+    private Map<String, String> rtpWorldOverrides = new HashMap<>(); // fromWorld -> toWorld
+    
     @NonLoadable
     private Map<String, RandomTeleportWorld> rtpWorldMap = new HashMap<>();
+    @NonLoadable
+    private final Queue<UUID> rtpQueue = new LinkedList<>();
+    @NonLoadable
+    private boolean isProcessingQueue = false;
 
 
     public TeleportationModule(ZEssentialsPlugin plugin) {
@@ -104,14 +122,29 @@ public class TeleportationModule extends ZModule {
     }
 
     public void randomTeleport(Player player, World world) {
-
-        RandomTeleportWorld configuration = this.rtpWorldMap.get(world.getName());
+        // Check for world override
+        String worldName = world.getName();
+        if (rtpWorldOverrides.containsKey(worldName)) {
+            String overrideWorld = rtpWorldOverrides.get(worldName);
+            World targetWorld = plugin.getServer().getWorld(overrideWorld);
+            if (targetWorld != null) {
+                world = targetWorld;
+                worldName = overrideWorld;
+            }
+        }
+        
+        RandomTeleportWorld configuration = this.rtpWorldMap.get(worldName);
         if (configuration == null) {
-            message(player, Message.COMMAND_RANDOM_TP_CONFIGURATION_NOT_FOUND, "%world%", world.getName());
+            message(player, Message.COMMAND_RANDOM_TP_CONFIGURATION_NOT_FOUND, "%world%", worldName);
             return;
         }
-
-        this.randomTeleport(player, world, configuration.centerX(), configuration.centerZ(), configuration.radiusX(), configuration.radiusZ());
+        
+        // Add to queue if enabled
+        if (enableRtpQueue) {
+            addToRtpQueue(player, world, configuration);
+        } else {
+            this.randomTeleport(player, world, configuration.centerX(), configuration.centerZ(), configuration.radiusX(), configuration.radiusZ());
+        }
     }
 
 
@@ -200,5 +233,87 @@ public class TeleportationModule extends ZModule {
         if (this.enableRandomTeleportSearchLogMessage) {
             this.plugin.getLogger().info(message);
         }
+    }
+    
+    // Queue System Methods
+    private void addToRtpQueue(Player player, World world, RandomTeleportWorld configuration) {
+        UUID playerUuid = player.getUniqueId();
+        
+        if (rtpQueue.contains(playerUuid)) {
+            message(player, Message.TELEPORT_ALREADY_IN_QUEUE);
+            return;
+        }
+        
+        rtpQueue.offer(playerUuid);
+        int position = rtpQueue.size();
+        
+        message(player, Message.TELEPORT_ADDED_TO_QUEUE, "%position%", position);
+        
+        if (!isProcessingQueue) {
+            processRtpQueue(world, configuration);
+        }
+    }
+    
+    private void processRtpQueue(World defaultWorld, RandomTeleportWorld defaultConfig) {
+        if (rtpQueue.isEmpty()) {
+            isProcessingQueue = false;
+            return;
+        }
+        
+        isProcessingQueue = true;
+        UUID playerUuid = rtpQueue.poll();
+        
+        if (playerUuid != null) {
+            Player player = plugin.getServer().getPlayer(playerUuid);
+            if (player != null && player.isOnline()) {
+                // Re-check world override for this specific player
+                World world = player.getWorld();
+                String worldName = world.getName();
+                
+                if (rtpWorldOverrides.containsKey(worldName)) {
+                    String overrideWorld = rtpWorldOverrides.get(worldName);
+                    World targetWorld = plugin.getServer().getWorld(overrideWorld);
+                    if (targetWorld != null) {
+                        world = targetWorld;
+                        worldName = overrideWorld;
+                    }
+                }
+                
+                RandomTeleportWorld configuration = rtpWorldMap.get(worldName);
+                if (configuration == null) {
+                    configuration = defaultConfig;
+                    world = defaultWorld;
+                }
+                
+                final World finalWorld = world;
+                final RandomTeleportWorld finalConfig = configuration;
+                
+                // Perform the actual teleport
+                this.randomTeleport(player, world, configuration.centerX(), configuration.centerZ(), 
+                                  configuration.radiusX(), configuration.radiusZ());
+                
+                // Schedule next queue processing
+                plugin.getScheduler().runLater(() -> processRtpQueue(finalWorld, finalConfig), 
+                                              rtpQueueDelay, TimeUnit.MILLISECONDS);
+            } else {
+                // Player offline, immediately process next
+                processRtpQueue(defaultWorld, defaultConfig);
+            }
+        }
+    }
+    
+    public void performFirstJoinRtp(Player player) {
+        if (!enableFirstJoinRtp) return;
+        
+        World world = plugin.getServer().getWorld(firstJoinRtpWorld);
+        if (world == null) {
+            world = player.getWorld();
+        }
+        
+        randomTeleport(player, world);
+    }
+    
+    public boolean isEnableFirstJoinRtp() {
+        return enableFirstJoinRtp;
     }
 }
