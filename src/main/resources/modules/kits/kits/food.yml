@@ -1,4 +1,6 @@
 name: food
+display-name: "&6&lFood Kit"
+category: "Food"
 cooldown: 3600
 items:
   beef:

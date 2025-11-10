@@ -1,6 +1,19 @@
 name: "#3f3f3fᴋɪᴛs"
 size: 27
 items:
+  # Categories button
+  categories:
+    slot: 0
+    material: COMPASS
+    name: '&e&lKit Categories'
+    lore:
+      - ''
+      - '&7Browse kits by category'
+      - ''
+      - '&e&lClick to view &7categories'
+    actions:
+      - type: open inventory
+        inventory: 'kits_categories'
   tools:
     slot: 11
     type: ZESSENTIALS_KIT_COOLDOWN

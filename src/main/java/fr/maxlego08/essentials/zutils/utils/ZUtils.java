@@ -89,8 +89,14 @@ public abstract class ZUtils extends MessageUtils {
             VANISHED_PLAYERS.remove(player.getUniqueId());
         }
 
-        Bukkit.getOnlinePlayers().forEach(onlinePlayer -> {
-            if (onlinePlayer.equals(player)) return;
+        // Optimize visibility updates - batch process for better performance
+        Collection<? extends Player> onlinePlayers = Bukkit.getOnlinePlayers();
+        
+        // Skip if server is empty or only the target player is online
+        if (onlinePlayers.size() <= 1) return;
+        
+        for (Player onlinePlayer : onlinePlayers) {
+            if (onlinePlayer.equals(player)) continue;
 
             boolean canSee = hasPermission(onlinePlayer, Permission.ESSENTIALS_VANISH_SEE) ||
                     hasPermission(onlinePlayer, Permission.ESSENTIALS_VANISH);
@@ -104,7 +110,7 @@ public abstract class ZUtils extends MessageUtils {
             } else {
                 onlinePlayer.showPlayer(plugin, player);
             }
-        });
+        }
     }
 
     protected Collection<Player> getVanishedPlayers(EssentialsPlugin plugin) {

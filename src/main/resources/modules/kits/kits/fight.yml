@@ -1,6 +1,6 @@
 name: fight
-display-name: "Fight"
-
+display-name: "&c&lFight Kit"
+category: "Combat"
 cooldown: 86400
 
 permission-cooldowns:

@@ -1,5 +1,8 @@
 name: tools
+display-name: "&eBasic Tools"
 cooldown: 7200
+category: "Tools"
+subcategory: "Beginner"
 items:
   iron_sword:
     material: IRON_SWORD
