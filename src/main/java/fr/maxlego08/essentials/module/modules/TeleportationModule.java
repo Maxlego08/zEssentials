@@ -71,6 +71,11 @@ public class TeleportationModule extends ZModule {
         this.loadInventory("confirm_request_here_inventory");
 
         this.rtpWorldMap = this.rtpWorlds.stream().collect(Collectors.toMap(RandomTeleportWorld::world, r -> r));
+        
+        // Debug: Check if world overrides are loaded
+        this.plugin.getLogger().info("DEBUG: rtpWorldOverrides loaded: " + this.rtpWorldOverrides);
+        this.plugin.getLogger().info("DEBUG: rtpWorlds loaded: " + this.rtpWorlds.size() + " worlds");
+        this.plugin.getLogger().info("DEBUG: enableRtpQueue: " + this.enableRtpQueue);
     }
 
     public boolean isTeleportSafety() {
@@ -124,13 +129,22 @@ public class TeleportationModule extends ZModule {
     public void randomTeleport(Player player, World world) {
         // Check for world override
         String worldName = world.getName();
+        this.debug("Checking world override for world: " + worldName);
+        this.debug("Available overrides: " + rtpWorldOverrides.toString());
+        
         if (rtpWorldOverrides.containsKey(worldName)) {
             String overrideWorld = rtpWorldOverrides.get(worldName);
+            this.debug("Found override: " + worldName + " -> " + overrideWorld);
             World targetWorld = plugin.getServer().getWorld(overrideWorld);
             if (targetWorld != null) {
                 world = targetWorld;
                 worldName = overrideWorld;
+                this.debug("Successfully overridden to world: " + overrideWorld);
+            } else {
+                this.debug("Override world not found: " + overrideWorld);
             }
+        } else {
+            this.debug("No override found for world: " + worldName);
         }
         
         RandomTeleportWorld configuration = this.rtpWorldMap.get(worldName);
@@ -215,23 +229,79 @@ public class TeleportationModule extends ZModule {
             return getNetherYAt(new Location(world, x, 0, z));
         }
         
-        // Start from top and work down to find first solid block
+        int seaLevel = world.getSeaLevel();
         int maxY = world.getMaxHeight() - 1;
         int minY = world.getMinHeight();
         
-        for (int y = maxY; y >= minY; y--) {
+        this.debug("Finding safe Y for coordinates (" + x + ", " + z + ") - SeaLevel: " + seaLevel + ", MinY: " + minY + ", MaxY: " + maxY);
+        
+        // Force chunk generation first
+        try {
+            world.getChunkAt(x >> 4, z >> 4);
+        } catch (Exception e) {
+            this.debug("Could not generate chunk at " + (x >> 4) + ", " + (z >> 4));
+        }
+        
+        // For void/empty worlds, try to find any solid surface
+        if (seaLevel < 0) {
+            this.debug("Detected void world (sea level < 0), using special algorithm");
+            
+            // Try from bedrock level up
+            for (int y = minY + 1; y <= maxY - 2; y++) {
+                Material blockType = world.getBlockAt(x, y, z).getType();
+                Material aboveType = world.getBlockAt(x, y + 1, z).getType();
+                Material above2Type = world.getBlockAt(x, y + 2, z).getType();
+                
+                if (blockType.isSolid() &&
+                    blockType != Material.WATER && blockType != Material.LAVA &&
+                    blockType != Material.BEDROCK &&
+                    aboveType.isAir() && above2Type.isAir()) {
+                    this.debug("Found void world surface at Y=" + (y + 1) + " (solid: " + blockType + ")");
+                    return y + 1;
+                }
+            }
+            
+            // If no surface found in void world, create a safe spot at Y=70
+            this.debug("No surface in void world, using Y=70");
+            return 70;
+        }
+        
+        // Normal world - try from sea level up
+        for (int y = Math.max(seaLevel, 1); y <= maxY - 2; y++) {
             Material blockType = world.getBlockAt(x, y, z).getType();
+            Material aboveType = world.getBlockAt(x, y + 1, z).getType();
+            Material above2Type = world.getBlockAt(x, y + 2, z).getType();
+            
             // Skip water and lava
             if (blockType == Material.WATER || blockType == Material.LAVA) {
                 continue;
             }
-            if (blockType.isSolid()) {
-                return y + 1; // Return the block above the solid block
+            
+            // Found solid ground with air above
+            if (blockType.isSolid() && aboveType.isAir() && above2Type.isAir()) {
+                this.debug("Found surface at Y=" + (y + 1) + " (solid: " + blockType + ", above: " + aboveType + ")");
+                return y + 1;
             }
         }
         
-        // If no solid block found, return sea level
-        return world.getSeaLevel();
+        // Fallback: Work down from max height
+        for (int y = maxY - 2; y >= Math.max(minY + 1, 1); y--) {
+            Material blockType = world.getBlockAt(x, y, z).getType();
+            Material aboveType = world.getBlockAt(x, y + 1, z).getType();
+            Material above2Type = world.getBlockAt(x, y + 2, z).getType();
+            
+            if (blockType.isSolid() &&
+                blockType != Material.WATER && blockType != Material.LAVA &&
+                aboveType.isAir() && above2Type.isAir()) {
+                this.debug("Found fallback surface at Y=" + (y + 1) + " (solid: " + blockType + ")");
+                return y + 1;
+            }
+        }
+        
+        // Ultimate fallback - use a safe Y level
+        int safeY = Math.max(seaLevel + 1, 70);
+        this.debug("No safe Y found, using safe fallback: " + safeY);
+        return safeY;
     }
 
     private boolean isValidLocation(Location location) {
@@ -253,7 +323,18 @@ public class TeleportationModule extends ZModule {
         Material atType = at.getBlock().getType();
         Material aboveType = above.getBlock().getType();
         
-        // Make sure we're not spawning in water or lava
+        // Special handling for void worlds (when all blocks are air)
+        boolean isVoidWorld = location.getWorld().getSeaLevel() < 0;
+        if (isVoidWorld && atType.isAir() && aboveType.isAir()) {
+            // In void worlds, accept locations with air below too, but place a block
+            this.debug("Void world detected - placing safety block at Y=" + (location.getBlockY() - 1));
+            // Place a stone block below the teleport location for safety
+            below.getBlock().setType(Material.STONE);
+            this.debug("Location validation (void world): " + location + " -> true (placed safety block)");
+            return true;
+        }
+        
+        // Normal validation: solid block below, air at player position and above
         boolean isValid = belowType.isSolid()
                 && belowType != Material.WATER && belowType != Material.LAVA
                 && !atType.isSolid()
@@ -322,14 +403,21 @@ public class TeleportationModule extends ZModule {
                 // Re-check world override for this specific player
                 World world = player.getWorld();
                 String worldName = world.getName();
+                this.debug("Queue processing - checking world override for: " + worldName);
                 
                 if (rtpWorldOverrides.containsKey(worldName)) {
                     String overrideWorld = rtpWorldOverrides.get(worldName);
+                    this.debug("Queue processing - found override: " + worldName + " -> " + overrideWorld);
                     World targetWorld = plugin.getServer().getWorld(overrideWorld);
                     if (targetWorld != null) {
                         world = targetWorld;
                         worldName = overrideWorld;
+                        this.debug("Queue processing - successfully overridden to: " + overrideWorld);
+                    } else {
+                        this.debug("Queue processing - override world not found: " + overrideWorld);
                     }
+                } else {
+                    this.debug("Queue processing - no override found for: " + worldName);
                 }
                 
                 RandomTeleportWorld configuration = rtpWorldMap.get(worldName);

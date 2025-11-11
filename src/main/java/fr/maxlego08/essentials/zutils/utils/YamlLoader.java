@@ -62,6 +62,20 @@ public abstract class YamlLoader extends ZUtils {
                     }
 
                     field.set(this, configuration.getStringList(configKey));
+                } else if (field.getType().equals(Map.class) && isStringStringMap(field)) {
+                    // Handle Map<String,String> fields with optimized loading
+                    ConfigurationSection section = configuration.getConfigurationSection(configKey);
+                    if (section != null) {
+                        Map<String, String> map = section.getKeys(false).stream()
+                            .collect(HashMap::new,
+                                (m, key) -> {
+                                    String value = section.getString(key);
+                                    if (value != null) m.put(key, value);
+                                },
+                                HashMap::putAll);
+                        field.set(this, map);
+                    }
+                    continue;
                 } else {
                     ConfigurationSection configurationSection = configuration.getConfigurationSection(configKey);
                     if (configurationSection == null) continue;
@@ -78,5 +92,16 @@ public abstract class YamlLoader extends ZUtils {
     private List<Object> loadObjects(Logger logger, Class<?> fieldArgClass, List<Map<?, ?>> maps) {
         Constructor<?> constructor = fieldArgClass.getConstructors()[0];
         return maps.stream().map(map -> createInstanceFromMap(logger, constructor, map)).collect(Collectors.toList());
+    }
+
+    private boolean isStringStringMap(Field field) {
+        Type genericType = field.getGenericType();
+        if (genericType instanceof ParameterizedType paramType) {
+            Type[] typeArgs = paramType.getActualTypeArguments();
+            return typeArgs.length == 2 &&
+                   typeArgs[0].equals(String.class) &&
+                   typeArgs[1].equals(String.class);
+        }
+        return false;
     }
 }
