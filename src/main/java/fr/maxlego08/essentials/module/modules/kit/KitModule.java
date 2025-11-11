@@ -169,6 +169,35 @@ public class KitModule extends ZModule {
         return this.kits.stream().filter(kit -> kit.hasPermission(permissible)).toList();
     }
 
+    /**
+     * Gets all kits that belong to a specific category and the player has permission to use.
+     * TODO: Implement category functionality - currently returns all kits the player can access
+     * 
+     * @param player The player to check permissions for
+     * @param categoryName The name of the category
+     * @return A list of kits in the specified category
+     */
+    public List<Kit> getKitsByCategory(Player player, String categoryName) {
+        // For now, return all kits the player has access to
+        // Category functionality needs to be implemented in the Kit interface
+        return getKits(player);
+    }
+
+    /**
+     * Gets all kits that belong to a specific subcategory within a category and the player has permission to use.
+     * TODO: Implement subcategory functionality - currently returns all kits the player can access
+     * 
+     * @param player The player to check permissions for
+     * @param categoryName The name of the category
+     * @param subCategoryName The name of the subcategory
+     * @return A list of kits in the specified subcategory
+     */
+    public List<Kit> getKitsBySubCategory(Player player, String categoryName, String subCategoryName) {
+        // For now, return all kits the player has access to
+        // Subcategory functionality needs to be implemented in the Kit interface
+        return getKits(player);
+    }
+
     public boolean giveKit(User user, Kit kit, boolean bypassCooldown) {
 
         long cooldown = kit.getCooldown(user.getPlayer());

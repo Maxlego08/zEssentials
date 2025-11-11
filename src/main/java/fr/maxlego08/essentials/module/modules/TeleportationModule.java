@@ -149,6 +149,10 @@ public class TeleportationModule extends ZModule {
 
 
     public void randomTeleport(Player player, World world, int centerX, int centerZ, int rangeX, int rangeZ) {
+        performRandomTeleport(player, world, centerX, centerZ, rangeX, rangeZ);
+    }
+    
+    private void performRandomTeleport(Player player, World world, int centerX, int centerZ, int rangeX, int rangeZ) {
         this.debug("Starting random teleport for player " + player.getName());
         message(player, Message.TELEPORT_RANDOM_START);
         getRandomSurfaceLocation(world, centerX, centerZ, rangeX, rangeZ, this.maxRtpAttempts).thenAccept(randomLocation -> {
@@ -193,13 +197,11 @@ public class TeleportationModule extends ZModule {
 
         int x = centerX + (int) (Math.random() * (2 * rangeX + 1)) - rangeX;
         int z = centerZ + (int) (Math.random() * (2 * rangeZ + 1)) - rangeZ;
-        int y = 1;
 
-        world.getChunkAtAsync(x, z).thenAccept(chunk -> {
-            Location location = new Location(world, x + 0.5, y, z + 0.5, 360 * random.nextFloat() - 180, 0);
-            this.debug("Generated random location: " + location);
-            this.plugin.getScheduler().runAtLocation(location, wrappedTask -> {
-                location.setY(World.Environment.NETHER == world.getEnvironment() ? getNetherYAt(location) : world.getHighestBlockYAt(location));
+        world.getChunkAtAsync(x >> 4, z >> 4).thenAccept(chunk -> {
+            this.plugin.getScheduler().runAtLocation(new Location(world, x, 0, z), wrappedTask -> {
+                int y = findSafeY(world, x, z);
+                Location location = new Location(world, x + 0.5, y, z + 0.5, 360 * random.nextFloat() - 180, 0);
                 this.debug("Final location determined: " + location);
                 future.complete(location);
             });
@@ -207,12 +209,63 @@ public class TeleportationModule extends ZModule {
 
         return future;
     }
+    
+    private int findSafeY(World world, int x, int z) {
+        if (World.Environment.NETHER == world.getEnvironment()) {
+            return getNetherYAt(new Location(world, x, 0, z));
+        }
+        
+        // Start from top and work down to find first solid block
+        int maxY = world.getMaxHeight() - 1;
+        int minY = world.getMinHeight();
+        
+        for (int y = maxY; y >= minY; y--) {
+            Material blockType = world.getBlockAt(x, y, z).getType();
+            // Skip water and lava
+            if (blockType == Material.WATER || blockType == Material.LAVA) {
+                continue;
+            }
+            if (blockType.isSolid()) {
+                return y + 1; // Return the block above the solid block
+            }
+        }
+        
+        // If no solid block found, return sea level
+        return world.getSeaLevel();
+    }
 
     private boolean isValidLocation(Location location) {
-        return this.blacklistBiomes.stream().noneMatch(b -> b.equalsIgnoreCase(location.getBlock().getBiome().name())) // 
-                && location.getBlock().getType().isSolid() // 
-                && location.add(0, 1, 0).getBlock().getType().isAir() // 
-                && location.add(0, 2, 0).getBlock().getType().isAir();
+        // Clone location to avoid modifying the original
+        Location checkLoc = location.clone();
+        
+        // Check if biome is blacklisted
+        if (this.blacklistBiomes.stream().anyMatch(b -> b.equalsIgnoreCase(checkLoc.getBlock().getBiome().name()))) {
+            return false;
+        }
+        
+        // Get blocks at different Y levels
+        Location below = checkLoc.clone().subtract(0, 1, 0);
+        Location at = checkLoc.clone();
+        Location above = checkLoc.clone().add(0, 1, 0);
+        
+        // Check: solid block below, air at player position and above
+        Material belowType = below.getBlock().getType();
+        Material atType = at.getBlock().getType();
+        Material aboveType = above.getBlock().getType();
+        
+        // Make sure we're not spawning in water or lava
+        boolean isValid = belowType.isSolid()
+                && belowType != Material.WATER && belowType != Material.LAVA
+                && !atType.isSolid()
+                && atType.isAir()
+                && aboveType.isAir();
+        
+        this.debug("Location validation: " + location + " -> " + isValid);
+        this.debug("  Below: " + below.getBlock().getType() + " (solid: " + below.getBlock().getType().isSolid() + ")");
+        this.debug("  At: " + at.getBlock().getType() + " (air: " + at.getBlock().getType().isAir() + ")");
+        this.debug("  Above: " + above.getBlock().getType() + " (air: " + above.getBlock().getType().isAir() + ")");
+        
+        return isValid;
     }
 
     private int getNetherYAt(final Location location) {
@@ -288,8 +341,8 @@ public class TeleportationModule extends ZModule {
                 final World finalWorld = world;
                 final RandomTeleportWorld finalConfig = configuration;
                 
-                // Perform the actual teleport
-                this.randomTeleport(player, world, configuration.centerX(), configuration.centerZ(), 
+                // Perform the actual teleport (bypass queue check)
+                this.performRandomTeleport(player, world, configuration.centerX(), configuration.centerZ(), 
                                   configuration.radiusX(), configuration.radiusZ());
                 
                 // Schedule next queue processing
