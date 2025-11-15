@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.configuration.NonLoadable;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.teleportation.RandomTeleportWorld;
 import fr.maxlego08.essentials.api.teleportation.TeleportPermission;
+import fr.maxlego08.essentials.api.teleportation.WorldOverride;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.ZModule;
 import org.bukkit.Location;
@@ -14,10 +15,14 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Random;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class TeleportationModule extends ZModule {
@@ -27,6 +32,9 @@ public class TeleportationModule extends ZModule {
     private final List<TeleportPermission> teleportProtections = new ArrayList<>();
     private final List<String> blacklistBiomes = new ArrayList<>();
     private final List<RandomTeleportWorld> rtpWorlds = new ArrayList<>();
+    private final List<WorldOverride> rtpWorldOverrides = new ArrayList<>();
+    @NonLoadable
+    private final Queue<UUID> rtpQueue = new LinkedList<>();
     private boolean teleportSafety;
     private boolean teleportToCenter;
     private int teleportDelay;
@@ -37,8 +45,16 @@ public class TeleportationModule extends ZModule {
     private boolean openConfirmInventoryForTpaHere;
     private int maxRtpAttempts;
     private boolean enableRandomTeleportSearchLogMessage;
+    private boolean enableRtpQueue;
+    private long rtpQueueDelay;
+    private boolean enableFirstJoinRtp;
+    private String firstJoinRtpWorld;
+    @NonLoadable
+    private Map<String, String> worldOverrides = new HashMap<>();
     @NonLoadable
     private Map<String, RandomTeleportWorld> rtpWorldMap = new HashMap<>();
+    @NonLoadable
+    private boolean isProcessingQueue = false;
 
 
     public TeleportationModule(ZEssentialsPlugin plugin) {
@@ -53,6 +69,7 @@ public class TeleportationModule extends ZModule {
         this.loadInventory("confirm_request_here_inventory");
 
         this.rtpWorldMap = this.rtpWorlds.stream().collect(Collectors.toMap(RandomTeleportWorld::world, r -> r));
+        this.worldOverrides = this.rtpWorldOverrides.stream().filter(e -> e.to() != null && e.from() != null).collect(Collectors.toMap(WorldOverride::from, WorldOverride::to));
     }
 
     public boolean isTeleportSafety() {
@@ -104,18 +121,37 @@ public class TeleportationModule extends ZModule {
     }
 
     public void randomTeleport(Player player, World world) {
+        // Check for world override
+        String worldName = world.getName();
+        if (worldOverrides.containsKey(worldName)) {
+            String overrideWorld = worldOverrides.get(worldName);
+            World targetWorld = plugin.getServer().getWorld(overrideWorld);
+            if (targetWorld != null) {
+                world = targetWorld;
+                worldName = overrideWorld;
+            }
+        }
 
-        RandomTeleportWorld configuration = this.rtpWorldMap.get(world.getName());
+        RandomTeleportWorld configuration = this.rtpWorldMap.get(worldName);
         if (configuration == null) {
-            message(player, Message.COMMAND_RANDOM_TP_CONFIGURATION_NOT_FOUND, "%world%", world.getName());
+            message(player, Message.COMMAND_RANDOM_TP_CONFIGURATION_NOT_FOUND, "%world%", worldName);
             return;
         }
 
-        this.randomTeleport(player, world, configuration.centerX(), configuration.centerZ(), configuration.radiusX(), configuration.radiusZ());
+        // Add to queue if enabled
+        if (enableRtpQueue) {
+            addToRtpQueue(player, world, configuration);
+        } else {
+            this.randomTeleport(player, world, configuration.centerX(), configuration.centerZ(), configuration.radiusX(), configuration.radiusZ());
+        }
     }
 
 
     public void randomTeleport(Player player, World world, int centerX, int centerZ, int rangeX, int rangeZ) {
+        performRandomTeleport(player, world, centerX, centerZ, rangeX, rangeZ);
+    }
+
+    private void performRandomTeleport(Player player, World world, int centerX, int centerZ, int rangeX, int rangeZ) {
         this.debug("Starting random teleport for player " + player.getName());
         message(player, Message.TELEPORT_RANDOM_START);
         getRandomSurfaceLocation(world, centerX, centerZ, rangeX, rangeZ, this.maxRtpAttempts).thenAccept(randomLocation -> {
@@ -160,13 +196,11 @@ public class TeleportationModule extends ZModule {
 
         int x = centerX + (int) (Math.random() * (2 * rangeX + 1)) - rangeX;
         int z = centerZ + (int) (Math.random() * (2 * rangeZ + 1)) - rangeZ;
-        int y = 1;
 
-        world.getChunkAtAsync(x, z).thenAccept(chunk -> {
-            Location location = new Location(world, x + 0.5, y, z + 0.5, 360 * random.nextFloat() - 180, 0);
-            this.debug("Generated random location: " + location);
-            this.plugin.getScheduler().runAtLocation(location, wrappedTask -> {
-                location.setY(World.Environment.NETHER == world.getEnvironment() ? getNetherYAt(location) : world.getHighestBlockYAt(location));
+        world.getChunkAtAsync(x >> 4, z >> 4).thenAccept(chunk -> {
+            this.plugin.getScheduler().runAtLocation(new Location(world, x, 0, z), wrappedTask -> {
+                int y = findSafeY(world, x, z);
+                Location location = new Location(world, x + 0.5, y, z + 0.5, 360 * random.nextFloat() - 180, 0);
                 this.debug("Final location determined: " + location);
                 future.complete(location);
             });
@@ -175,11 +209,62 @@ public class TeleportationModule extends ZModule {
         return future;
     }
 
+    private int findSafeY(World world, int x, int z) {
+        if (World.Environment.NETHER == world.getEnvironment()) {
+            return getNetherYAt(new Location(world, x, 0, z));
+        }
+
+        // Start from top and work down to find first solid block
+        int maxY = world.getMaxHeight() - 1;
+        int minY = world.getMinHeight();
+
+        for (int y = maxY; y >= minY; y--) {
+            Material blockType = world.getBlockAt(x, y, z).getType();
+            // Skip water and lava
+            if (blockType == Material.WATER || blockType == Material.LAVA) {
+                continue;
+            }
+            if (blockType.isSolid()) {
+                return y + 1; // Return the block above the solid block
+            }
+        }
+
+        // If no solid block found, return sea level
+        return world.getSeaLevel();
+    }
+
     private boolean isValidLocation(Location location) {
-        return this.blacklistBiomes.stream().noneMatch(b -> b.equalsIgnoreCase(location.getBlock().getBiome().name())) // 
-                && location.getBlock().getType().isSolid() // 
-                && location.add(0, 1, 0).getBlock().getType().isAir() // 
-                && location.add(0, 2, 0).getBlock().getType().isAir();
+        // Clone location to avoid modifying the original
+        Location checkLoc = location.clone();
+
+        // Check if biome is blacklisted
+        if (this.blacklistBiomes.stream().anyMatch(b -> b.equalsIgnoreCase(checkLoc.getBlock().getBiome().name()))) {
+            return false;
+        }
+
+        // Get blocks at different Y levels
+        Location below = checkLoc.clone().subtract(0, 1, 0);
+        Location at = checkLoc.clone();
+        Location above = checkLoc.clone().add(0, 1, 0);
+
+        // Check: solid block below, air at player position and above
+        Material belowType = below.getBlock().getType();
+        Material atType = at.getBlock().getType();
+        Material aboveType = above.getBlock().getType();
+
+        // Make sure we're not spawning in water or lava
+        boolean isValid = belowType.isSolid()
+                && belowType != Material.WATER && belowType != Material.LAVA
+                && !atType.isSolid()
+                && atType.isAir()
+                && aboveType.isAir();
+
+        this.debug("Location validation: " + location + " -> " + isValid);
+        this.debug("  Below: " + below.getBlock().getType() + " (solid: " + below.getBlock().getType().isSolid() + ")");
+        this.debug("  At: " + at.getBlock().getType() + " (air: " + at.getBlock().getType().isAir() + ")");
+        this.debug("  Above: " + above.getBlock().getType() + " (air: " + above.getBlock().getType().isAir() + ")");
+
+        return isValid;
     }
 
     private int getNetherYAt(final Location location) {
@@ -200,5 +285,87 @@ public class TeleportationModule extends ZModule {
         if (this.enableRandomTeleportSearchLogMessage) {
             this.plugin.getLogger().info(message);
         }
+    }
+
+    // Queue System Methods
+    private void addToRtpQueue(Player player, World world, RandomTeleportWorld configuration) {
+        UUID playerUuid = player.getUniqueId();
+
+        if (rtpQueue.contains(playerUuid)) {
+            message(player, Message.TELEPORT_ALREADY_IN_QUEUE);
+            return;
+        }
+
+        rtpQueue.offer(playerUuid);
+        int position = rtpQueue.size();
+
+        message(player, Message.TELEPORT_ADDED_TO_QUEUE, "%position%", position);
+
+        if (!isProcessingQueue) {
+            processRtpQueue(world, configuration);
+        }
+    }
+
+    private void processRtpQueue(World defaultWorld, RandomTeleportWorld defaultConfig) {
+        if (rtpQueue.isEmpty()) {
+            isProcessingQueue = false;
+            return;
+        }
+
+        isProcessingQueue = true;
+        UUID playerUuid = rtpQueue.poll();
+
+        if (playerUuid != null) {
+            Player player = plugin.getServer().getPlayer(playerUuid);
+            if (player != null && player.isOnline()) {
+                // Re-check world override for this specific player
+                World world = player.getWorld();
+                String worldName = world.getName();
+
+                if (this.worldOverrides.containsKey(worldName)) {
+                    String overrideWorld = this.worldOverrides.get(worldName);
+                    World targetWorld = plugin.getServer().getWorld(overrideWorld);
+                    if (targetWorld != null) {
+                        world = targetWorld;
+                        worldName = overrideWorld;
+                    }
+                }
+
+                RandomTeleportWorld configuration = rtpWorldMap.get(worldName);
+                if (configuration == null) {
+                    configuration = defaultConfig;
+                    world = defaultWorld;
+                }
+
+                final World finalWorld = world;
+                final RandomTeleportWorld finalConfig = configuration;
+
+                // Perform the actual teleport (bypass queue check)
+                this.performRandomTeleport(player, world, configuration.centerX(), configuration.centerZ(),
+                        configuration.radiusX(), configuration.radiusZ());
+
+                // Schedule next queue processing
+                plugin.getScheduler().runLater(() -> processRtpQueue(finalWorld, finalConfig),
+                        rtpQueueDelay, TimeUnit.MILLISECONDS);
+            } else {
+                // Player offline, immediately process next
+                processRtpQueue(defaultWorld, defaultConfig);
+            }
+        }
+    }
+
+    public void performFirstJoinRtp(Player player) {
+        if (!enableFirstJoinRtp) return;
+
+        World world = plugin.getServer().getWorld(firstJoinRtpWorld);
+        if (world == null) {
+            world = player.getWorld();
+        }
+
+        randomTeleport(player, world);
+    }
+
+    public boolean isEnableFirstJoinRtp() {
+        return enableFirstJoinRtp;
     }
 }

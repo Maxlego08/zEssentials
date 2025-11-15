@@ -70,6 +70,8 @@ public abstract class MessageUtils extends PlaceholderUtils {
 
     protected void message(CommandSender sender, Message message, Object... args) {
 
+        if (sender == null) return;
+
         if (sender instanceof Player player) {
             message.getMessages().forEach(essentialsMessage -> {
 

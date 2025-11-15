@@ -4,7 +4,11 @@
 - Ajouter une option pour désactiver la tabulation des joueurs hors ligne
 - Ajouter un placeholder pour transformet les caractères en lettre spécial
 
-# Unreleased
+# 1.0.3.0
+
+- Fix some errors (npe and economy check)
+- Added option for kits
+- Added new default kits
 
 # 1.0.2.9
 
