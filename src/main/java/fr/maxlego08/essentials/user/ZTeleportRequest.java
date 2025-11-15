@@ -66,7 +66,7 @@ public class ZTeleportRequest extends ZUtils implements TeleportRequest {
         PlatformScheduler serverImplementation = this.plugin.getScheduler();
         serverImplementation.runAtLocationTimer(this.toUser.getPlayer().getLocation(), wrappedTask -> {
 
-            if (!same(playerLocation, fromUser.getPlayer().getLocation())) {
+            if (!fromUser.isOnline() || !same(playerLocation, fromUser.getPlayer().getLocation())) {
 
                 message(this.fromUser, Message.TELEPORT_MOVE);
                 wrappedTask.cancel();
