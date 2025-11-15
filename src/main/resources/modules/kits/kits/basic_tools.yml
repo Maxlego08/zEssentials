@@ -1,0 +1,17 @@
+name: basic_tools
+display-name: "&aStarter Tools"
+category: "Tools"
+subcategory: "Beginner"
+cooldown: 3600
+items:
+  wood_sword:
+    material: WOODEN_SWORD
+  wood_pickaxe:
+    material: WOODEN_PICKAXE
+  wood_axe:
+    material: WOODEN_AXE
+  wood_shovel:
+    material: WOODEN_SHOVEL
+  torches:
+    material: TORCH
+    amount: 32

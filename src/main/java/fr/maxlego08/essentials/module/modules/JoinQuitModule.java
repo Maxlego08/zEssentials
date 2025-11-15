@@ -36,14 +36,23 @@ public class JoinQuitModule extends ZModule {
         if (!isEnable()) return;
 
         User user = event.getUser();
+        Player player = user.getPlayer();
+        
+        // Check for first join random teleport
+        TeleportationModule teleportModule = plugin.getModuleManager().getModule(TeleportationModule.class);
+        if (teleportModule != null && teleportModule.isEnable() && teleportModule.isEnableFirstJoinRtp()) {
+            this.plugin.getScheduler().runAtLocationLater(player.getLocation(), () -> {
+                teleportModule.performFirstJoinRtp(player);
+            }, 20); // Delay 1 second after join
+        }
 
         if (!this.allowFirstJoinBroadcast) return;
 
         long totalUsers = this.plugin.getStorageManager().getStorage().totalUsers();
         EconomyManager economyManager = this.plugin.getEconomyManager();
 
-        Bukkit.getOnlinePlayers().forEach(player -> {
-            message(player, Message.FIRST_JOIN_MESSAGE, "%player%", user.getName(), "%totalUser%", totalUsers, "%totalUserFormat%", economyManager.format(totalUsers));
+        Bukkit.getOnlinePlayers().forEach(onlinePlayer -> {
+            message(onlinePlayer, Message.FIRST_JOIN_MESSAGE, "%player%", user.getName(), "%totalUser%", totalUsers, "%totalUserFormat%", economyManager.format(totalUsers));
         });
         message(Bukkit.getConsoleSender(), Message.FIRST_JOIN_MESSAGE, "%player%", user.getName(), "%totalUser%", totalUsers, "%totalUserFormat%", economyManager.format(totalUsers));
     }

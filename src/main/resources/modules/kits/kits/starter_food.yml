@@ -1,0 +1,17 @@
+name: starter_food
+display-name: "&e&lStarter Food"
+category: "Food"
+cooldown: 1800
+items:
+  bread:
+    material: BREAD
+    amount: 32
+  apples:
+    material: APPLE
+    amount: 16
+  carrots:
+    material: CARROT
+    amount: 16
+  potatoes:
+    material: BAKED_POTATO
+    amount: 16

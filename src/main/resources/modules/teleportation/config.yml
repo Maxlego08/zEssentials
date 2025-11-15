@@ -49,6 +49,11 @@ rtp-worlds:
     center-z: 0
     radius-x: 5000
     radius-z: 5000
+  - world: "survivalspawn"
+    center-x: 0
+    center-z: 0
+    radius-x: 5000
+    radius-z: 5000
 
 max-rtp-attempts: 10
 
@@ -75,4 +80,36 @@ teleport-protections:
     delay: 3000
 
 # Allows you to obtain information on the search for random teleportation
-enable-random-teleport-search-log-message: false
+enable-random-teleport-search-log-message: true
+
+# ========================
+# RTP Queue System Settings
+# ========================
+
+# Enable queue system for random teleport
+# When enabled, players will be added to a queue and teleported one by one
+enable-rtp-queue: false
+
+# Delay in milliseconds between each teleport in queue (2000 = 2 seconds)
+rtp-queue-delay: 2000
+
+# Enable automatic RTP on first join
+enable-first-join-rtp: false
+
+# World to teleport first join players to
+# Leave empty to use player's spawn world
+first-join-rtp-world: "world"
+
+# ========================
+# RTP World Override System
+# ========================
+
+# World override mappings
+# When a player uses /rtp in fromWorld, they will be teleported to toWorld instead
+# Format: fromWorld: toWorld
+rtp-world-overrides:
+  world_nether: "world"
+  world_the_end: "world"
+  # Add more mappings as needed:
+  # skyblock: "resource_world"
+  # creative: "survival"

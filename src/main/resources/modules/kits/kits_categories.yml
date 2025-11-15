@@ -1,0 +1,270 @@
+#  _______                   _   _       _     
+# |  _____|                 | | (_)     | |    
+# | |__ ___ ___  ___ _ __   | |_ _  __ _| |___ 
+# |  __/ __/ __|/ _ \ '_ \  | __| |/ _` | / __|
+# | |__\__ \__ \  __/ | | | | |_| | (_| | \__ \
+# |____|___/___/\___|_| |_|  \__|_|\__,_|_|___/
+#                     
+# zEssentials - Kit Categories Menu
+# This menu displays available kit categories
+
+name: kits_categories # Menu name
+type: CHEST # Menu inventory type
+size: 54 # Inventory size
+# Min permission to open this menu
+open-permission: null
+
+# Menu title with gradient effect
+title: "&8&l« &e&lKit Categories &8&l»"
+
+# Fill all empty slots with black glass
+fillItem:
+  material: BLACK_STAINED_GLASS_PANE
+  name: " "
+
+items:
+  # Top decoration line
+  top-deco-1:
+    slot: 0
+    material: YELLOW_STAINED_GLASS_PANE
+    name: " "
+  top-deco-2:
+    slot: 1
+    material: ORANGE_STAINED_GLASS_PANE
+    name: " "
+  top-deco-3:
+    slot: 2
+    material: YELLOW_STAINED_GLASS_PANE
+    name: " "
+  top-deco-4:
+    slot: 3
+    material: ORANGE_STAINED_GLASS_PANE
+    name: " "
+  
+  # Title/Info
+  title-star:
+    slot: 4
+    material: NETHER_STAR
+    name: "&e&l✦ &6&lKIT SYSTEM &e&l✦"
+    lore:
+      - "&8━━━━━━━━━━━━━━━━━━━"
+      - "&7Welcome to the kit selection menu!"
+      - "&7Choose a category to browse available kits."
+      - "&8━━━━━━━━━━━━━━━━━━━"
+  
+  top-deco-5:
+    slot: 5
+    material: ORANGE_STAINED_GLASS_PANE
+    name: " "
+  top-deco-6:
+    slot: 6
+    material: YELLOW_STAINED_GLASS_PANE
+    name: " "
+  top-deco-7:
+    slot: 7
+    material: ORANGE_STAINED_GLASS_PANE
+    name: " "
+  top-deco-8:
+    slot: 8
+    material: YELLOW_STAINED_GLASS_PANE
+    name: " "
+  
+  # Side decorations
+  left-deco-1:
+    slot: 9
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+  right-deco-1:
+    slot: 17
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+  left-deco-2:
+    slot: 18
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+  right-deco-2:
+    slot: 26
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+  left-deco-3:
+    slot: 27
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+  right-deco-3:
+    slot: 35
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+  left-deco-4:
+    slot: 36
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+  right-deco-4:
+    slot: 44
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+  
+  # Category: Tools
+  tools-category:
+    slot: 20
+    type: zessentials_kit_category_selector
+    category: "Tools"
+    material: IRON_PICKAXE
+    name: "&e&l⛏ TOOLS"
+    lore:
+      - "&8━━━━━━━━━━━━━━━━━━━"
+      - " "
+      - "  &7Category: &e&lTools"
+      - "  &7Available Kits: &f%kit_count%"
+      - " "
+      - "  &8▪ &7Basic mining tools"
+      - "  &8▪ &7Advanced equipment"
+      - "  &8▪ &7Building materials"
+      - " "
+      - "&8━━━━━━━━━━━━━━━━━━━"
+      - "&a▶ &7Click to browse tools"
+    actions:
+      - type: open inventory
+        inventory: 'kits_category_default'
+    enchants:
+      - efficiency,1
+    flags:
+      - HIDE_ENCHANTS
+      - HIDE_ATTRIBUTES
+  
+  # Category: Combat
+  combat-category:
+    slot: 22
+    type: zessentials_kit_category_selector
+    category: "Combat"
+    material: DIAMOND_SWORD
+    name: "&c&l⚔ COMBAT"
+    lore:
+      - "&8━━━━━━━━━━━━━━━━━━━"
+      - " "
+      - "  &7Category: &c&lCombat"
+      - "  &7Available Kits: &f%kit_count%"
+      - " "
+      - "  &8▪ &7Weapons & armor"
+      - "  &8▪ &7PvP equipment"
+      - "  &8▪ &7Combat potions"
+      - " "
+      - "&8━━━━━━━━━━━━━━━━━━━"
+      - "&a▶ &7Click to browse combat kits"
+    actions:
+      - type: open inventory
+        inventory: 'kits_category_combat'
+    enchants:
+      - sharpness,1
+    flags:
+      - HIDE_ENCHANTS
+      - HIDE_ATTRIBUTES
+  
+  # Category: Food
+  food-category:
+    slot: 24
+    type: zessentials_kit_category_selector
+    category: "Food"
+    material: GOLDEN_APPLE
+    name: "&6&l🍖 FOOD"
+    lore:
+      - "&8━━━━━━━━━━━━━━━━━━━"
+      - " "
+      - "  &7Category: &6&lFood"
+      - "  &7Available Kits: &f%kit_count%"
+      - " "
+      - "  &8▪ &7Food supplies"
+      - "  &8▪ &7Golden foods"
+      - "  &8▪ &7Consumables"
+      - " "
+      - "&8━━━━━━━━━━━━━━━━━━━"
+      - "&a▶ &7Click to browse food kits"
+    actions:
+      - type: open inventory
+        inventory: 'kits_category_food'
+    enchants:
+      - unbreaking,1
+    flags:
+      - HIDE_ENCHANTS
+      - HIDE_ATTRIBUTES
+  
+  # Info panels
+  info-book:
+    slot: 11
+    material: BOOK
+    name: "&e&lInformation"
+    lore:
+      - "&8━━━━━━━━━━━━━━━━━━━"
+      - "&e&l► &7Left Click: &fOpen category"
+      - "&e&l► &7Categories: &f3 available"
+      - "&e&l► &7Permission: &fBased on kit"
+      - "&8━━━━━━━━━━━━━━━━━━━"
+  
+  cooldown-info:
+    slot: 15
+    material: CLOCK
+    name: "&b&lKit Cooldowns"
+    lore:
+      - "&8━━━━━━━━━━━━━━━━━━━"
+      - "&7Each kit has its own cooldown"
+      - "&7Check kit info for details"
+      - "&8━━━━━━━━━━━━━━━━━━━"
+  
+  # Bottom navigation
+  close-button:
+    slot: 45
+    material: BARRIER
+    name: "&c&l✖ CLOSE"
+    lore:
+      - "&7Close this menu"
+    closeInventory: true
+  
+  back-button:
+    slot: 46
+    material: DARK_OAK_DOOR
+    name: "&c&l← BACK"
+    lore:
+      - "&7Return to kits menu"
+    actions:
+      - type: open inventory
+        inventory: 'kits'
+  
+  bottom-deco-1:
+    slot: 47
+    material: RED_STAINED_GLASS_PANE
+    name: " "
+  bottom-deco-2:
+    slot: 48
+    material: RED_STAINED_GLASS_PANE
+    name: " "
+  
+  refresh-button:
+    slot: 49
+    material: EMERALD
+    name: "&a&l↻ REFRESH"
+    lore:
+      - "&7Refresh kit categories"
+    refreshOnClick: true
+  
+  bottom-deco-3:
+    slot: 50
+    material: RED_STAINED_GLASS_PANE
+    name: " "
+  bottom-deco-4:
+    slot: 51
+    material: RED_STAINED_GLASS_PANE
+    name: " "
+  bottom-deco-5:
+    slot: 52
+    material: RED_STAINED_GLASS_PANE
+    name: " "
+  
+  all-kits-button:
+    slot: 53
+    material: CHEST
+    name: "&6&l📦 ALL KITS"
+    lore:
+      - "&7View all kits without"
+      - "&7category filtering"
+    actions:
+      - type: open inventory
+        inventory: 'kits'
