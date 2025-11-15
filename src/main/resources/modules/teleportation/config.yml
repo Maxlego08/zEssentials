@@ -82,10 +82,6 @@ teleport-protections:
 # Allows you to obtain information on the search for random teleportation
 enable-random-teleport-search-log-message: true
 
-# ========================
-# RTP Queue System Settings
-# ========================
-
 # Enable queue system for random teleport
 # When enabled, players will be added to a queue and teleported one by one
 enable-rtp-queue: false
@@ -100,16 +96,11 @@ enable-first-join-rtp: false
 # Leave empty to use player's spawn world
 first-join-rtp-world: "world"
 
-# ========================
-# RTP World Override System
-# ========================
-
 # World override mappings
 # When a player uses /rtp in fromWorld, they will be teleported to toWorld instead
 # Format: fromWorld: toWorld
 rtp-world-overrides:
-  world_nether: "world"
-  world_the_end: "world"
-  # Add more mappings as needed:
-  # skyblock: "resource_world"
-  # creative: "survival"
+  - from: "world_nether"
+    to: "world"
+  - from: "world_the_end"
+    to: "world"

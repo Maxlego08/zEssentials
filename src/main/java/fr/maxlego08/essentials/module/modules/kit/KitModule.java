@@ -57,6 +57,9 @@ public class KitModule extends ZModule {
 
         this.loadInventory("kits");
         this.loadInventory("kit_preview");
+        // this.loadInventory("kits_categories");
+        // this.loadInventory("kits_category_combat");
+        // this.loadInventory("kits_category_default");
     }
 
     /**
@@ -93,6 +96,10 @@ public class KitModule extends ZModule {
             this.plugin.saveResource("modules/kits/kits/food.yml", true);
             this.plugin.saveResource("modules/kits/kits/tools.yml", true);
             this.plugin.saveResource("modules/kits/kits/fight.yml", true);
+            this.plugin.saveResource("modules/kits/kits/basic_tools.yml", true);
+            this.plugin.saveResource("modules/kits/kits/iron_tools_advanced.yml", true);
+            this.plugin.saveResource("modules/kits/kits/pvp.yml", true);
+            this.plugin.saveResource("modules/kits/kits/starter_food.yml", true);
         }
 
         files(folder, this::loadKit);
@@ -110,6 +117,8 @@ public class KitModule extends ZModule {
         String name = configuration.getString("name");
         String displayName = configuration.getString("display-name", name);
         String permission = configuration.getString("permission", Permission.ESSENTIALS_KIT_.asPermission(name));
+        String category = configuration.getString("category", null);
+        String subCategory = configuration.getString("sub-category", null);
 
         if (this.exist(name)) {
             this.plugin.getLogger().severe("Kit " + name + " already exist !");
@@ -137,7 +146,7 @@ public class KitModule extends ZModule {
 
         List<Action> actions = this.plugin.getButtonManager().loadActions((List<Map<String, Object>>) configuration.getList("actions", new ArrayList<>()), "actions", file);
 
-        var kit = new ZKit(this.plugin, displayName, name, cooldown, permissionCooldowns, items, actions, permission, file);
+        var kit = new ZKit(this.plugin, displayName, name, category, subCategory, cooldown, permissionCooldowns, items, actions, permission, file);
 
         loadKitEquipment(kit, configuration, this.plugin.getInventoryManager(), "helmet.", EquipmentSlot.HEAD);
         loadKitEquipment(kit, configuration, this.plugin.getInventoryManager(), "chestplate.", EquipmentSlot.CHEST);
@@ -171,31 +180,25 @@ public class KitModule extends ZModule {
 
     /**
      * Gets all kits that belong to a specific category and the player has permission to use.
-     * TODO: Implement category functionality - currently returns all kits the player can access
-     * 
-     * @param player The player to check permissions for
+     *
+     * @param player       The player to check permissions for
      * @param categoryName The name of the category
      * @return A list of kits in the specified category
      */
     public List<Kit> getKitsByCategory(Player player, String categoryName) {
-        // For now, return all kits the player has access to
-        // Category functionality needs to be implemented in the Kit interface
-        return getKits(player);
+        return getKits(player).stream().filter(e -> e.hasCategory() &&  e.getCategory().equalsIgnoreCase(categoryName)).toList();
     }
 
     /**
      * Gets all kits that belong to a specific subcategory within a category and the player has permission to use.
-     * TODO: Implement subcategory functionality - currently returns all kits the player can access
-     * 
-     * @param player The player to check permissions for
-     * @param categoryName The name of the category
+     *
+     * @param player          The player to check permissions for
+     * @param categoryName    The name of the category
      * @param subCategoryName The name of the subcategory
      * @return A list of kits in the specified subcategory
      */
     public List<Kit> getKitsBySubCategory(Player player, String categoryName, String subCategoryName) {
-        // For now, return all kits the player has access to
-        // Subcategory functionality needs to be implemented in the Kit interface
-        return getKits(player);
+        return getKits(player).stream().filter(e -> e.getCategory().equalsIgnoreCase(categoryName) && e.getSubCategory().equalsIgnoreCase(subCategoryName)).toList();
     }
 
     public boolean giveKit(User user, Kit kit, boolean bypassCooldown) {
@@ -318,7 +321,7 @@ public class KitModule extends ZModule {
             exception.printStackTrace();
         }
 
-        Kit kit = new ZKit(this.plugin, kitName, kitName, cooldown, new HashMap<>(), new ArrayList<>(), new ArrayList<>(), Permission.ESSENTIALS_KIT_.asPermission(kitName), file);
+        Kit kit = new ZKit(this.plugin, kitName, kitName, null, null, cooldown, new HashMap<>(), new ArrayList<>(), new ArrayList<>(), Permission.ESSENTIALS_KIT_.asPermission(kitName), file);
 
         this.kits.add(kit);
         this.saveKit(kit);

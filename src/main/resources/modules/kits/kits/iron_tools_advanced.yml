@@ -1,7 +1,7 @@
 name: iron_tools_advanced
 display-name: "&b&lAdvanced Iron Tools"
 category: "Tools"
-subcategory: "Advanced"
+sub-category: "Advanced"
 cooldown: 14400
 permission: 'essentials.kits.iron_tools_advanced'
 items:

@@ -1,7 +1,7 @@
 name: basic_tools
 display-name: "&aStarter Tools"
 category: "Tools"
-subcategory: "Beginner"
+sub-category: "Beginner"
 cooldown: 3600
 items:
   wood_sword:
