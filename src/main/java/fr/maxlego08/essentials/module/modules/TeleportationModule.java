@@ -215,7 +215,7 @@ public class TeleportationModule extends ZModule {
         try {
             world.getChunkAt(x >> 4, z >> 4);
         } catch (Exception e) {
-            this.debug("Could not generate chunk at " + (x >> 4) + ", " + (z >> 4));
+            this.plugin.getLogger().warning("Failed to load chunk at " + (x >> 4) + ", " + (z >> 4) + ": " + e.getMessage());
         }
         
         // For void/empty worlds, try to find any solid surface

@@ -122,6 +122,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
@@ -132,8 +133,9 @@ public class SqlStorage extends StorageHelper implements IStorage {
     private final TypeSafeCache cache = new TypeSafeCache();
     private final DatabaseConnection connection;
     private final Repositories repositories;
-    private final Map<String, PendingEconomyUpdate> economyUpdateQueue = new HashMap<>();
-    private final Set<UUID> existingUUIDs = new HashSet<>();
+    // Thread-safe maps for async operations
+    private final Map<String, PendingEconomyUpdate> economyUpdateQueue = new ConcurrentHashMap<>();
+    private final Set<UUID> existingUUIDs = ConcurrentHashMap.newKeySet();
 
     public SqlStorage(EssentialsPlugin plugin, StorageType storageType) {
         super(plugin);

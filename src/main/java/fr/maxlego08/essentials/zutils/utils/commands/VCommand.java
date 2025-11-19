@@ -27,7 +27,8 @@ import java.util.function.Consumer;
 
 public abstract class VCommand extends Arguments implements EssentialsCommand {
 
-    private static final Map<String, List<Consumer<UUID>>> uuidRequestQueue = new HashMap<>();
+    // Thread-safe queue for UUID requests
+    private static final Map<String, List<Consumer<UUID>>> uuidRequestQueue = new java.util.concurrent.ConcurrentHashMap<>();
     protected final EssentialsPlugin plugin;
     protected final List<String> cooldowns = Arrays.asList(
             "1m",    // 60 seconds

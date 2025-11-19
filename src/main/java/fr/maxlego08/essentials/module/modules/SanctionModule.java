@@ -418,7 +418,10 @@ public class SanctionModule extends ZModule implements SanctionManager {
             player.setAllowFlight(true);
             player.setFlying(true);
             player.setFlySpeed(0f);
-            this.plugin.getScheduler().teleportAsync(user.getPlayer(), user.getPlayer().getLocation().add(0, 0.1, 0));
+            // Null check for player safety
+            if (user.getPlayer() != null) {
+                this.plugin.getScheduler().teleportAsync(user.getPlayer(), user.getPlayer().getLocation().add(0, 0.1, 0));
+            }
         } else {
             player.setAllowFlight(false);
             player.setFlying(false);

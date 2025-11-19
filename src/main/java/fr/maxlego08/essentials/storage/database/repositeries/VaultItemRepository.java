@@ -48,23 +48,26 @@ public class VaultItemRepository extends Repository {
 
     private void startTask(CacheKey key) {
         this.plugin.getScheduler().runLaterAsync(() -> {
+            try {
+                long currentTime = System.currentTimeMillis();
+                var value = this.caches.get(key);
+                if (value == null) {
+                    return;
+                }
 
-            long currentTime = System.currentTimeMillis();
-            var value = this.caches.get(key);
-            if (value == null) {
-                return;
-            }
-
-            if (currentTime - value.getCreatedAt() >= 200) {
-                this.caches.remove(key);
-                this.update(table -> {
-                    table.bigInt("quantity", value.quantity);
-                    table.where("unique_id", key.uniqueId);
-                    table.where("vault_id", key.vaultId);
-                    table.where("slot", key.slot);
-                });
-            } else {
-                this.startTask(key);
+                if (currentTime - value.getCreatedAt() >= 200) {
+                    this.caches.remove(key);
+                    this.update(table -> {
+                        table.bigInt("quantity", value.quantity);
+                        table.where("unique_id", key.uniqueId);
+                        table.where("vault_id", key.vaultId);
+                        table.where("slot", key.slot);
+                    });
+                } else {
+                    this.startTask(key);
+                }
+            } catch (Exception e) {
+                this.plugin.getLogger().warning("Error in vault item cache task: " + e.getMessage());
             }
         }, 4);
     }

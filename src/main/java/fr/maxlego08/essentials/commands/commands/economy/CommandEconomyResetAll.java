@@ -19,7 +19,8 @@ import java.util.concurrent.TimeUnit;
 public class CommandEconomyResetAll extends VCommand {
 
     private static final long CONFIRMATION_DURATION = TimeUnit.SECONDS.toMillis(30);
-    private static final Map<String, Confirmation> CONFIRMATIONS = new HashMap<>();
+    // Thread-safe confirmation map
+    private static final Map<String, Confirmation> CONFIRMATIONS = new java.util.concurrent.ConcurrentHashMap<>();
 
     public CommandEconomyResetAll(EssentialsPlugin plugin) {
         super(plugin);

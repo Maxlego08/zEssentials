@@ -121,7 +121,14 @@ public class PlayerListener extends ZUtils implements Listener {
         Configuration configuration = this.plugin.getConfiguration();
         Player player = event.getPlayer();
 
-        String label = event.getMessage().substring(1).split(" ")[0];
+        // Safe command extraction with bounds checking
+        String message = event.getMessage();
+        if (message.length() <= 1) return; // Empty command, skip
+        
+        String[] parts = message.substring(1).split(" ");
+        if (parts.length == 0) return; // No command parts, skip
+        
+        String label = parts[0];
         for (var restriction : configuration.getCommandRestrictions()) {
             if (restriction.commands().contains(label)) {
                 String bypass = restriction.bypassPermission();
