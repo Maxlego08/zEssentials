@@ -71,11 +71,6 @@ public class TeleportationModule extends ZModule {
         this.loadInventory("confirm_request_here_inventory");
 
         this.rtpWorldMap = this.rtpWorlds.stream().collect(Collectors.toMap(RandomTeleportWorld::world, r -> r));
-        
-        // Debug: Check if world overrides are loaded
-        this.plugin.getLogger().info("DEBUG: rtpWorldOverrides loaded: " + this.rtpWorldOverrides);
-        this.plugin.getLogger().info("DEBUG: rtpWorlds loaded: " + this.rtpWorlds.size() + " worlds");
-        this.plugin.getLogger().info("DEBUG: enableRtpQueue: " + this.enableRtpQueue);
     }
 
     public boolean isTeleportSafety() {
@@ -129,22 +124,14 @@ public class TeleportationModule extends ZModule {
     public void randomTeleport(Player player, World world) {
         // Check for world override
         String worldName = world.getName();
-        this.debug("Checking world override for world: " + worldName);
-        this.debug("Available overrides: " + rtpWorldOverrides.toString());
         
         if (rtpWorldOverrides.containsKey(worldName)) {
             String overrideWorld = rtpWorldOverrides.get(worldName);
-            this.debug("Found override: " + worldName + " -> " + overrideWorld);
             World targetWorld = plugin.getServer().getWorld(overrideWorld);
             if (targetWorld != null) {
                 world = targetWorld;
                 worldName = overrideWorld;
-                this.debug("Successfully overridden to world: " + overrideWorld);
-            } else {
-                this.debug("Override world not found: " + overrideWorld);
             }
-        } else {
-            this.debug("No override found for world: " + worldName);
         }
         
         RandomTeleportWorld configuration = this.rtpWorldMap.get(worldName);
@@ -167,38 +154,29 @@ public class TeleportationModule extends ZModule {
     }
     
     private void performRandomTeleport(Player player, World world, int centerX, int centerZ, int rangeX, int rangeZ) {
-        this.debug("Starting random teleport for player " + player.getName());
         message(player, Message.TELEPORT_RANDOM_START);
         getRandomSurfaceLocation(world, centerX, centerZ, rangeX, rangeZ, this.maxRtpAttempts).thenAccept(randomLocation -> {
-            this.debug("Random location found: " + randomLocation);
             if (randomLocation != null) {
                 User user = this.getUser(player);
                 user.teleport(randomLocation, Message.TELEPORT_MESSAGE_RANDOM, Message.TELEPORT_SUCCESS_RANDOM);
             } else {
-                this.debug("Failed to find random location");
                 message(player, Message.COMMAND_RANDOM_TP_ERROR);
             }
         });
     }
 
     private CompletableFuture<Location> getRandomSurfaceLocation(World world, int centerX, int centerZ, int rangeX, int rangeZ, int attempts) {
-        this.debug("Starting random surface location search for world " + world.getName());
         CompletableFuture<Location> future = new CompletableFuture<>();
 
         if (attempts > 0) {
-
             randomLocation(world, centerX, centerZ, rangeX, rangeZ).thenAccept(location -> {
-                this.debug("Random location generated: " + location);
                 if (isValidLocation(location)) {
                     future.complete(location);
                 } else {
-                    this.debug("Random location not valid");
                     getRandomSurfaceLocation(world, centerX, centerZ, rangeX, rangeZ, attempts - 1).thenAccept(future::complete);
                 }
             });
-
         } else {
-            this.debug("Failed to find random surface location, using default location");
             future.complete(null);
         }
 
@@ -206,7 +184,6 @@ public class TeleportationModule extends ZModule {
     }
 
     private CompletableFuture<Location> randomLocation(World world, int centerX, int centerZ, int rangeX, int rangeZ) {
-        this.debug("Generating random location for world " + world.getName());
         CompletableFuture<Location> future = new CompletableFuture<>();
 
         int x = centerX + (int) (Math.random() * (2 * rangeX + 1)) - rangeX;
@@ -216,7 +193,6 @@ public class TeleportationModule extends ZModule {
             this.plugin.getScheduler().runAtLocation(new Location(world, x, 0, z), wrappedTask -> {
                 int y = findSafeY(world, x, z);
                 Location location = new Location(world, x + 0.5, y, z + 0.5, 360 * random.nextFloat() - 180, 0);
-                this.debug("Final location determined: " + location);
                 future.complete(location);
             });
         });
@@ -327,26 +303,17 @@ public class TeleportationModule extends ZModule {
         boolean isVoidWorld = location.getWorld().getSeaLevel() < 0;
         if (isVoidWorld && atType.isAir() && aboveType.isAir()) {
             // In void worlds, accept locations with air below too, but place a block
-            this.debug("Void world detected - placing safety block at Y=" + (location.getBlockY() - 1));
             // Place a stone block below the teleport location for safety
             below.getBlock().setType(Material.STONE);
-            this.debug("Location validation (void world): " + location + " -> true (placed safety block)");
             return true;
         }
         
         // Normal validation: solid block below, air at player position and above
-        boolean isValid = belowType.isSolid()
+        return belowType.isSolid()
                 && belowType != Material.WATER && belowType != Material.LAVA
                 && !atType.isSolid()
                 && atType.isAir()
                 && aboveType.isAir();
-        
-        this.debug("Location validation: " + location + " -> " + isValid);
-        this.debug("  Below: " + below.getBlock().getType() + " (solid: " + below.getBlock().getType().isSolid() + ")");
-        this.debug("  At: " + at.getBlock().getType() + " (air: " + at.getBlock().getType().isAir() + ")");
-        this.debug("  Above: " + above.getBlock().getType() + " (air: " + above.getBlock().getType().isAir() + ")");
-        
-        return isValid;
     }
 
     private int getNetherYAt(final Location location) {
@@ -364,9 +331,8 @@ public class TeleportationModule extends ZModule {
     }
 
     private void debug(String message) {
-        if (this.enableRandomTeleportSearchLogMessage) {
-            this.plugin.getLogger().info(message);
-        }
+        // Debug logging disabled for performance
+        // Enable "enable-random-teleport-search-log-message: true" in config for debugging
     }
     
     // Queue System Methods
@@ -403,21 +369,14 @@ public class TeleportationModule extends ZModule {
                 // Re-check world override for this specific player
                 World world = player.getWorld();
                 String worldName = world.getName();
-                this.debug("Queue processing - checking world override for: " + worldName);
                 
                 if (rtpWorldOverrides.containsKey(worldName)) {
                     String overrideWorld = rtpWorldOverrides.get(worldName);
-                    this.debug("Queue processing - found override: " + worldName + " -> " + overrideWorld);
                     World targetWorld = plugin.getServer().getWorld(overrideWorld);
                     if (targetWorld != null) {
                         world = targetWorld;
                         worldName = overrideWorld;
-                        this.debug("Queue processing - successfully overridden to: " + overrideWorld);
-                    } else {
-                        this.debug("Queue processing - override world not found: " + overrideWorld);
                     }
-                } else {
-                    this.debug("Queue processing - no override found for: " + worldName);
                 }
                 
                 RandomTeleportWorld configuration = rtpWorldMap.get(worldName);
