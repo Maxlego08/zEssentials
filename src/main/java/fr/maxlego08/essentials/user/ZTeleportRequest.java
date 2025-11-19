@@ -50,8 +50,20 @@ public class ZTeleportRequest extends ZUtils implements TeleportRequest {
     @Override
     public void accept() {
 
+        // Check if both players are online
+        if (!this.fromUser.isOnline() || !this.toUser.isOnline()) {
+            this.isTeleport = true;
+            return;
+        }
+
         message(this.fromUser, Message.COMMAND_TPA_ACCEPT_SENDER, this.toUser);
         message(this.toUser, Message.COMMAND_TPA_ACCEPT_RECEIVER, this.fromUser);
+
+        // Validate player objects
+        if (this.fromUser.getPlayer() == null || this.toUser.getPlayer() == null) {
+            this.isTeleport = true;
+            return;
+        }
 
         TeleportationModule teleportationModule = this.plugin.getModuleManager().getModule(TeleportationModule.class);
         AtomicInteger atomicInteger = new AtomicInteger(teleportationModule.getTeleportDelay(fromUser.getPlayer()));
@@ -66,8 +78,21 @@ public class ZTeleportRequest extends ZUtils implements TeleportRequest {
         PlatformScheduler serverImplementation = this.plugin.getScheduler();
         serverImplementation.runAtLocationTimer(this.toUser.getPlayer().getLocation(), wrappedTask -> {
 
-            if (!same(playerLocation, fromUser.getPlayer().getLocation())) {
+            // Check if players are still online
+            if (!this.toUser.isOnline() || !this.fromUser.isOnline()) {
+                wrappedTask.cancel();
+                this.fromUser.removeTeleportRequest(this.toUser);
+                return;
+            }
 
+            // Validate player objects
+            if (this.fromUser.getPlayer() == null || this.toUser.getPlayer() == null) {
+                wrappedTask.cancel();
+                this.fromUser.removeTeleportRequest(this.toUser);
+                return;
+            }
+
+            if (!same(playerLocation, fromUser.getPlayer().getLocation())) {
                 message(this.fromUser, Message.TELEPORT_MOVE);
                 wrappedTask.cancel();
                 this.fromUser.removeTeleportRequest(this.toUser);
@@ -76,17 +101,10 @@ public class ZTeleportRequest extends ZUtils implements TeleportRequest {
 
             int currentSecond = atomicInteger.getAndDecrement();
 
-            if (!this.toUser.isOnline() || !this.fromUser.isOnline()) {
-                wrappedTask.cancel();
-                return;
-            }
-
             if (currentSecond <= 0) {
-
                 wrappedTask.cancel();
                 this.teleport(teleportationModule);
             } else {
-
                 message(this.fromUser, Message.TELEPORT_MESSAGE, "%seconds%", currentSecond);
             }
 
@@ -94,6 +112,17 @@ public class ZTeleportRequest extends ZUtils implements TeleportRequest {
     }
 
     private void teleport(TeleportationModule teleportationModule) {
+        // Validate both players are still online and have valid player objects
+        if (!this.toUser.isOnline() || !this.fromUser.isOnline()) {
+            this.isTeleport = true;
+            return;
+        }
+
+        if (this.fromUser.getPlayer() == null || this.toUser.getPlayer() == null) {
+            this.isTeleport = true;
+            return;
+        }
+
         Location playerLocation = toUser.getPlayer().getLocation();
         Location location = fromUser.getPlayer().isFlying() ? playerLocation : teleportationModule.isTeleportSafety() ? toSafeLocation(playerLocation) : playerLocation;
 
