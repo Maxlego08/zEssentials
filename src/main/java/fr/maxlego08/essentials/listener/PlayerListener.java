@@ -40,6 +40,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.Optional;
+import java.util.UUID;
 
 public class PlayerListener extends ZUtils implements Listener {
 
@@ -54,7 +55,7 @@ public class PlayerListener extends ZUtils implements Listener {
         return this.plugin.getStorageManager().getStorage().getUser(player.getUniqueId());
     }
 
-    private void cancelGoldEvent(Player player, Cancellable event) {
+    private void cancelGodEvent(Player player, Cancellable event) {
         User user = getUser(player);
         if (user != null && user.getOption(Option.GOD)) {
             event.setCancelled(true);
@@ -64,7 +65,7 @@ public class PlayerListener extends ZUtils implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onDamage(EntityDamageEvent event) {
         if (event.getEntity() instanceof Player player) {
-            cancelGoldEvent(player, event);
+            cancelGodEvent(player, event);
 
             var user = getUser(player);
             if (user == null) return;
@@ -78,7 +79,7 @@ public class PlayerListener extends ZUtils implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onFood(FoodLevelChangeEvent event) {
         if (event.getEntity() instanceof Player player) {
-            cancelGoldEvent(player, event);
+            cancelGodEvent(player, event);
         }
     }
 
@@ -224,6 +225,8 @@ public class PlayerListener extends ZUtils implements Listener {
 
         this.plugin.getScheduler().runAtLocationLater(player.getLocation(), () -> {
 
+            if (!player.isOnline()) return;
+
             if (hasPermission(player, Permission.ESSENTIALS_FLY_SAFELOGIN) && shouldFlyBasedOnLocation(player.getLocation())) {
                 player.setAllowFlight(true);
                 player.setFlying(true);
@@ -242,7 +245,12 @@ public class PlayerListener extends ZUtils implements Listener {
         if (user == null) return;
         long sessionPlayTime = (System.currentTimeMillis() - user.getCurrentSessionPlayTime()) / 1000;
         long playtime = user.getPlayTime();
-        this.plugin.getStorageManager().getStorage().insertPlayTime(user.getUniqueId(), sessionPlayTime, playtime, user.getAddress());
+        String address = user.getAddress();
+        UUID uuid = user.getUniqueId();
+        
+        this.plugin.getScheduler().runAsync(wrappedTask -> {
+            this.plugin.getStorageManager().getStorage().insertPlayTime(uuid, sessionPlayTime, playtime, address);
+        });
     }
 
     @EventHandler

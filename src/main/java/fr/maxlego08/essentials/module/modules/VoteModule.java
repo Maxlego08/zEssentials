@@ -96,6 +96,30 @@ public class VoteModule extends ZModule implements VoteManager {
             var rewardActions = typedMapAccessor.getStringList("commands");
             this.rewardsOnVote.add(new VoteReward(min, max, rewardActions));
         }
+        
+        this.placeholderAvailable = configuration.getString("placeholders.available", "&aAvailable");
+        this.placeholderCooldown = configuration.getString("placeholders.cooldown", "&cCooldown");
+        
+        this.enableVoteParty = configuration.getBoolean("vote-party.enable");
+        this.votePartyObjective = configuration.getLong("vote-party.objective");
+        this.enableVotePartyOpenVoteInventory = configuration.getBoolean("vote-party.open-inventory");
+        this.enableOfflineVoteMessage = configuration.getBoolean("enable-offline-vote-message");
+        
+        this.sites = new ArrayList<>();
+        for (Map<?, ?> map : configuration.getMapList("vote-sites")) {
+            TypedMapAccessor typedMapAccessor = new TypedMapAccessor((Map<String, Object>) map);
+            String name = typedMapAccessor.getString("name");
+            String url = typedMapAccessor.getString("url");
+            long delay = typedMapAccessor.getLong("delay");
+            this.sites.add(new VoteSiteConfiguration(name, url, delay));
+        }
+
+        this.resetConfiguration = new VoteResetConfiguration(
+                configuration.getInt("reset-votes.day"),
+                configuration.getInt("reset-votes.hour"),
+                configuration.getInt("reset-votes.minute"),
+                configuration.getInt("reset-votes.second")
+        );
     }
 
     @Override
@@ -188,13 +212,17 @@ public class VoteModule extends ZModule implements VoteManager {
 
         if (voteDTO != null) {
             this.plugin.getScheduler().runAsync(wrappedTask -> {
-                var dto = storage.getVote(uniqueId);
-                long vote = voteDTO.vote() + dto.vote();
-                User user = this.plugin.getUser(uniqueId);
-                if (user != null) {
-                    user.setVote(vote);
-                } else {
-                    storage.setVote(uniqueId, vote, this.enableOfflineVoteMessage ? voteDTO.vote_offline() + dto.vote_offline() : 0);
+                try {
+                    var dto = storage.getVote(uniqueId);
+                    long vote = voteDTO.vote() + dto.vote();
+                    User user = this.plugin.getUser(uniqueId);
+                    if (user != null) {
+                        user.setVote(vote);
+                    } else {
+                        storage.setVote(uniqueId, vote, this.enableOfflineVoteMessage ? voteDTO.vote_offline() + dto.vote_offline() : 0);
+                    }
+                } catch (Exception exception) {
+                    exception.printStackTrace();
                 }
             });
         }
@@ -312,21 +340,59 @@ public class VoteModule extends ZModule implements VoteManager {
         return placeholderAvailable;
     }
 
+    @NonLoadable
+    private ScheduledExecutorService resetScheduler;
+
+    @Override
+    public void onDisable() {
+        if (this.resetScheduler != null && !this.resetScheduler.isShutdown()) {
+            this.resetScheduler.shutdown();
+        }
+        super.onDisable();
+    }
+    
     @Override
     public void startResetTask() {
 
         if (!isEnable()) return;
+        
+        if (this.resetScheduler != null && !this.resetScheduler.isShutdown()) {
+            this.resetScheduler.shutdown();
+        }
 
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime nextRun = now.withDayOfMonth(range(this.resetConfiguration.day(), 1, 31)).withHour(range(this.resetConfiguration.hour(), 0, 23)).withMinute(range(this.resetConfiguration.minute(), 0, 59)).withSecond(range(this.resetConfiguration.second(), 0, 59));
+        LocalDateTime nextRun = now.withHour(range(this.resetConfiguration.hour(), 0, 23))
+                .withMinute(range(this.resetConfiguration.minute(), 0, 59))
+                .withSecond(range(this.resetConfiguration.second(), 0, 59));
+        
+        // Handle month day adjustment safely
+        int targetDay = range(this.resetConfiguration.day(), 1, 31);
+        try {
+            nextRun = nextRun.withDayOfMonth(Math.min(targetDay, nextRun.toLocalDate().lengthOfMonth()));
+        } catch (Exception e) {
+             nextRun = nextRun.withDayOfMonth(nextRun.toLocalDate().lengthOfMonth());
+        }
 
         if (!now.isBefore(nextRun)) {
             nextRun = nextRun.plusMonths(1);
+            // Adjust day again for the next month
+            try {
+                nextRun = nextRun.withDayOfMonth(Math.min(targetDay, nextRun.toLocalDate().lengthOfMonth()));
+            } catch (Exception e) {
+                 nextRun = nextRun.withDayOfMonth(nextRun.toLocalDate().lengthOfMonth());
+            }
         }
+        
         long initialDelay = ChronoUnit.MILLIS.between(now, nextRun);
 
-        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-        scheduler.scheduleAtFixedRate(this::resetVotes, initialDelay, TimeUnit.DAYS.toMillis(30), TimeUnit.MILLISECONDS);
+        this.resetScheduler = Executors.newScheduledThreadPool(1);
+        // Schedule only once, then reschedule inside the task for correct monthly calculation
+        this.resetScheduler.schedule(this::resetVotesAndReschedule, initialDelay, TimeUnit.MILLISECONDS);
+    }
+    
+    private void resetVotesAndReschedule() {
+        this.resetVotes();
+        this.startResetTask(); // Reschedule for next month
     }
 
     @Override
