@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import fr.maxlego08.essentials.api.cache.SimpleCache;
 
 public class TradeModule extends ZModule {
 
@@ -18,6 +19,7 @@ public class TradeModule extends ZModule {
     private List<String> worlds;
     private List<Integer> ownSlots = new ArrayList<>();
     private List<Integer> partnerSlots = new ArrayList<>();
+    private final SimpleCache<String, ItemStack> itemCache = new SimpleCache<>();
 
     public TradeModule(ZEssentialsPlugin plugin) {
         super(plugin, "trade");
@@ -35,6 +37,7 @@ public class TradeModule extends ZModule {
         
         this.ownSlots = parseSlots(config.getStringList("own-slots"));
         this.partnerSlots = parseSlots(config.getStringList("partner-slots"));
+        this.itemCache.clear();
     }
     
     private List<Integer> parseSlots(List<String> slotStrings) {
@@ -76,6 +79,21 @@ public class TradeModule extends ZModule {
     }
     
     public ItemStack getItem(String path, Player player, String... replacements) {
+        if (replacements.length == 0) {
+             ItemStack cached = itemCache.get(path, () -> loadRawItem(path));
+             if (cached != null) {
+                 ItemStack clone = cached.clone();
+                 updateItemMeta(clone, player);
+                 return clone;
+             }
+        }
+        
+        ItemStack item = loadRawItem(path);
+        updateItemMeta(item, player, replacements);
+        return item;
+    }
+    
+    private ItemStack loadRawItem(String path) {
         var config = getConfiguration();
         var section = config.getConfigurationSection(path);
         if (section == null) return new ItemStack(org.bukkit.Material.AIR);
@@ -86,20 +104,43 @@ public class TradeModule extends ZModule {
         
         ItemStack item = new ItemStack(material);
         var meta = item.getItemMeta();
-        
         if (meta != null) {
+            if (section.contains("custom-model-data")) {
+                meta.setCustomModelData(section.getInt("custom-model-data"));
+            }
+            
             String name = section.getString("name");
             if (name != null) {
-                for (int i = 0; i < replacements.length; i += 2) {
-                    if (i + 1 < replacements.length) name = name.replace(replacements[i], replacements[i + 1]);
-                }
-                if (this.plugin.getComponentMessage() instanceof fr.maxlego08.essentials.zutils.utils.paper.PaperComponent paperComponent) {
-                    paperComponent.updateDisplayName(meta, name, player);
-                }
+                meta.setDisplayName(name);
             }
             
             List<String> lore = section.getStringList("lore");
             if (!lore.isEmpty()) {
+                meta.setLore(lore);
+            }
+            
+            item.setItemMeta(meta);
+        }
+        return item;
+    }
+    
+    private void updateItemMeta(ItemStack item, Player player, String... replacements) {
+        var meta = item.getItemMeta();
+        if (meta == null) return;
+        
+        if (meta.hasDisplayName()) {
+            String name = meta.getDisplayName();
+            for (int i = 0; i < replacements.length; i += 2) {
+                if (i + 1 < replacements.length) name = name.replace(replacements[i], replacements[i + 1]);
+            }
+            if (this.plugin.getComponentMessage() instanceof fr.maxlego08.essentials.zutils.utils.paper.PaperComponent paperComponent) {
+                paperComponent.updateDisplayName(meta, name, player);
+            }
+        }
+        
+        if (meta.hasLore()) {
+            List<String> lore = meta.getLore();
+            if (lore != null && !lore.isEmpty()) {
                 List<String> newLore = new ArrayList<>();
                 for (String line : lore) {
                     for (int i = 0; i < replacements.length; i += 2) {
@@ -107,19 +148,12 @@ public class TradeModule extends ZModule {
                     }
                     newLore.add(line);
                 }
-                
                 if (this.plugin.getComponentMessage() instanceof fr.maxlego08.essentials.zutils.utils.paper.PaperComponent paperComponent) {
                     paperComponent.updateLore(meta, newLore, player);
                 }
             }
-            
-            if (section.contains("custom-model-data")) {
-                meta.setCustomModelData(section.getInt("custom-model-data"));
-            }
-            
-            item.setItemMeta(meta);
         }
-        return item;
+        item.setItemMeta(meta);
     }
     
     public int getOwnConfirmSlot() {
