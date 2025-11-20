@@ -113,6 +113,10 @@ public class TradeModule extends ZModule {
                 }
             }
             
+            if (section.contains("custom-model-data")) {
+                meta.setCustomModelData(section.getInt("custom-model-data"));
+            }
+            
             item.setItemMeta(meta);
         }
         return item;
