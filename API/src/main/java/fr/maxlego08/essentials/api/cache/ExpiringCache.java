@@ -28,6 +28,9 @@ public class ExpiringCache<K, V> {
      * Retrieves the value associated with the specified key from the cache. If the key is not found,
      * or the entry has expired, the provided Loader is used to load the value, store it in the cache,
      * and then return it.
+     * <p>
+     * Supports soft expiration: if the entry is soft-expired but not hard-expired, it returns the old value
+     * and refreshes the cache asynchronously.
      *
      * @param key    the key whose associated value is to be returned
      * @param loader the loader used to generate the value if it is not present or expired in the cache
@@ -35,14 +38,42 @@ public class ExpiringCache<K, V> {
      * was not found in the cache or if the entry expired
      */
     public V get(K key, Loader<V> loader) {
-        return cache.compute(key, (k, v) -> {
-            long currentTime = System.currentTimeMillis();
-            if (v == null || v.expiryTime < currentTime) {
-                V newValue = loader.load();
-                return new CacheEntry<>(newValue, currentTime + expiryDurationMillis);
-            }
-            return v;
-        }).value;
+        CacheEntry<V> entry = cache.get(key);
+        long currentTime = System.currentTimeMillis();
+
+        // 1. Hard Expiration or Not Present -> Synchronous Load
+        if (entry == null || entry.expiryTime < currentTime) {
+            return cache.compute(key, (k, v) -> {
+                // Double-check inside lock
+                long now = System.currentTimeMillis();
+                if (v == null || v.expiryTime < now) {
+                    V newValue = loader.load();
+                    long expiry = now + expiryDurationMillis;
+                    long softExpiry = now + (long) (expiryDurationMillis * 0.8); // Refresh at 80% of ttl
+                    return new CacheEntry<>(newValue, expiry, softExpiry);
+                }
+                return v;
+            }).value;
+        }
+
+        // 2. Soft Expiration -> Return Old Value & Asynchronous Refresh
+        if (entry.softExpiryTime < currentTime && entry.isUpdating.compareAndSet(false, true)) {
+            java.util.concurrent.CompletableFuture.runAsync(() -> {
+                try {
+                    V newValue = loader.load();
+                    long now = System.currentTimeMillis();
+                    long expiry = now + expiryDurationMillis;
+                    long softExpiry = now + (long) (expiryDurationMillis * 0.8);
+                    cache.put(key, new CacheEntry<>(newValue, expiry, softExpiry));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    // Reset flag on failure so we can try again later
+                    entry.isUpdating.set(false);
+                }
+            });
+        }
+
+        return entry.value;
     }
 
     /**
@@ -75,6 +106,16 @@ public class ExpiringCache<K, V> {
     /**
      * A simple cache entry that holds the value and its expiry time.
      */
-    private record CacheEntry<V>(V value, long expiryTime) {
+    private static class CacheEntry<V> {
+        final V value;
+        final long expiryTime;
+        final long softExpiryTime;
+        final java.util.concurrent.atomic.AtomicBoolean isUpdating = new java.util.concurrent.atomic.AtomicBoolean(false);
+
+        CacheEntry(V value, long expiryTime, long softExpiryTime) {
+            this.value = value;
+            this.expiryTime = expiryTime;
+            this.softExpiryTime = softExpiryTime;
+        }
     }
 }
