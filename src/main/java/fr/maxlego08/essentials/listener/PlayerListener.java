@@ -197,7 +197,12 @@ public class PlayerListener extends ZUtils implements Listener {
         if (user != null) user.startCurrentSessionPlayTime();
 
         if (user != null && user.isFirstJoin() && ConfigStorage.spawnLocation != null && ConfigStorage.spawnLocation.isValid()) {
-            this.plugin.getScheduler().teleportAsync(player, ConfigStorage.spawnLocation.getLocation());
+            // Wait for the player to be fully loaded in the chunk loader for Folia
+            this.plugin.getScheduler().runAtLocationLater(player.getLocation(), () -> {
+                if (player.isOnline()) {
+                    this.plugin.getScheduler().teleportAsync(player, ConfigStorage.spawnLocation.getLocation());
+                }
+            }, 2);
         }
 
         if (user != null && user.getOption(Option.VANISH)) {
