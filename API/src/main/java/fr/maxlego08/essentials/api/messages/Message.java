@@ -44,6 +44,7 @@ public enum Message {
     COMMAND_NO_ARG("<error>Impossible to find the command with its arguments."),
     COMMAND_RESTRICTED("<error>You cannot use this command here."),
     COMMAND_SYNTAXE_HELP("&f%syntax% &7» &7%description%"),
+    DESCRIPTION_TRADE("Manage trade requests"),
 
     COMMAND_RELOAD("<success>You have just reloaded the configuration files."),
     COMMAND_RELOAD_MODULE("<success>You have just reloaded the configuration files of the module &f%module%<success>."),

@@ -1,0 +1,170 @@
+enable: true
+request-timeout: 60
+max-distance: 10.0
+worlds:
+  - world
+  - world_nether
+  - world_the_end
+
+# DOCUMENTATION: https://docs.artillex-studios.com/axtrade.html
+# ITEM BUILDER: https://docs.artillex-studios.com/item-builder.html
+
+# ----- SETTINGS -----
+title: "&0Trading with: %player%"
+# a gui can have 1-6 rows
+rows: 6
+
+# ----- SLOTS -----
+# the slots where the items can be placed
+# make sure to not put decorative items or currency items in the these slots
+# the own-slots and partner-slots must have an equal amount of slots
+own-slots:
+  - 9-12
+  - 18-21
+  - 27-30
+  - 36-39
+  - 45-48
+
+partner-slots:
+  - 14-17
+  - 23-26
+  - 32-35
+  - 41-44
+  - 50-53
+
+# ----- ITEMS -----
+# items on your side
+own:
+  confirm-item:
+    slot: 0
+    # you can use these placeholders:
+    # %own-name%"
+    # %partner-name%
+    accept:
+      material: "RED_CONCRETE"
+      # if you want, you can add head textures, like this:
+      #material: "PLAYER_HEAD"
+      #texture: "%own-head%"
+      name: "&#00ffdd&lACCEPT TRADE"
+      lore:
+        - ""
+        - " &7- &fAre you happy with the trade?"
+        - ""
+        - "&#00ffdd&l> &#00ffddClick &8- &#00ffddConfirm Trade"
+    cancel:
+      material: "LIME_CONCRETE"
+      name: "&#00ffdd&lCANCEL CONFIRMATION"
+      lore:
+        - ""
+        - " &7- &fDo you want to change something?"
+        - ""
+        - "&#00ffdd&l> &#00ffddClick &8- &#00ffddCancel Confirmation"
+
+  # you can define as many currencies as you want, but make sure to copy them to the 'partner' section too!
+  currency1:
+    slot: 2
+    # you need Vault installed for this
+    currency: "Vault"
+    material: "GOLD_NUGGET"
+    name: "&#00ffdd&lMONEY"
+    # you can use these placeholders:
+    #  %amount% (the amount the player set)
+    #  %tax-amount% (amount after tax)
+    #  %tax-percent% (the % of tax on the currency)
+    #  %tax-fee% (amount taken because of tax)
+    lore:
+      - "&7Your offer"
+      - ""
+      - " &7- &fAmount: &#00ffdd%amount%$"
+      - ""
+      - "&#00ffdd&l> &#00ffddClick &8- &#00ffddChange Amount"
+
+  currency2:
+    slot: 3
+    currency: "Experience"
+    material: "EXPERIENCE_BOTTLE"
+    name: "&#00ffdd&lEXPERIENCE"
+    lore:
+      - "&7Your offer"
+      - ""
+      - " &7- &fAmount: &#00ffdd%amount% EXP"
+      - ""
+      - "&#00ffdd&l> &#00ffddClick &8- &#00ffddChange Amount"
+
+# items on your trade partner's side
+partner:
+  confirm-item:
+    slot: 8
+    # you can also use these placeholders:
+    # %own-name%"
+    # %partner-name%
+    accept:
+      material: "RED_CONCRETE"
+      # if you want, you can add head textures, like this:
+      #material: "PLAYER_HEAD"
+      #texture: "%partner-head%"
+      name: "&#00ffdd&lWAITING FOR OTHER PLAYER"
+      lore:
+        - ""
+        - " &7- &f%partner-name% has not yet confirmed the trade!"
+        - ""
+    cancel:
+      material: "LIME_CONCRETE"
+      name: "&#00ffdd&lWAITING"
+      lore:
+        - ""
+        - " &7- &f%partner-name% has confirmed the trade!"
+
+  currency1:
+    slot: 6
+    currency: "Vault"
+    material: "GOLD_NUGGET"
+    name: "&#00ffdd&lMONEY"
+    # you can use these placeholders:
+    #  %amount% (the amount the player set)
+    #  %tax-amount% (amount after tax)
+    #  %tax-percent% (the % of tax on the currency)
+    #  %tax-fee% (amount taken because of tax)
+    lore:
+      - "&7%partner-name%'s offer"
+      - ""
+      - " &7- &fAmount: &#00ffdd%amount%$"
+      - ""
+      - "&#00ffdd&l> &#00ffddClick &8- &#00ffddChange Amount"
+
+  currency2:
+    slot: 5
+    currency: "Experience"
+    material: "EXPERIENCE_BOTTLE"
+    name: "&#00ffdd&lEXPERIENCE"
+    lore:
+      - "&7%partner-name%'s offer"
+      - ""
+      - " &7- &fAmount: &#00ffdd%amount% EXP"
+      - ""
+      - "&#00ffdd&l> &#00ffddClick &8- &#00ffddChange Amount"
+
+decorations:
+  separator:
+    slot: [4, 13, 22, 31, 40, 49]
+    material: "LIGHT_BLUE_STAINED_GLASS_PANE"
+    name: " "
+
+# Messages
+messages:
+  request-sent: "&aTrade request sent to %player%."
+  request-received: "&a%player% sent you a trade request. Type /trade accept %player% to accept."
+  request-accepted: "&aTrade request accepted."
+  request-denied: "&cTrade request denied."
+  trade-cancelled: "&cTrade cancelled."
+  trade-completed: "&aTrade completed successfully."
+  player-not-found: "&cPlayer not found."
+  player-too-far: "&cPlayer is too far away."
+  inventory-full: "&cYour inventory is full. Items dropped on ground."
+  already-trading: "&cYou are already trading."
+  target-already-trading: "&c%player% is already trading."
+  no-request: "&cYou don't have a trade request from %player%."
+  yourself: "&cYou cannot trade with yourself."
+  trade-ready: "&aYou marked yourself as ready."
+  trade-not-ready: "&cYou are no longer ready."
+  command-no-arg: "&cYou must specify a player."

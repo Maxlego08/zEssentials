@@ -120,6 +120,7 @@ import fr.maxlego08.essentials.commands.commands.utils.blocks.CommandLoom;
 import fr.maxlego08.essentials.commands.commands.utils.blocks.CommandSmithingTable;
 import fr.maxlego08.essentials.commands.commands.utils.blocks.CommandStoneCutter;
 import fr.maxlego08.essentials.commands.commands.utils.experience.CommandExperience;
+import fr.maxlego08.essentials.commands.commands.trade.CommandTrade;
 import fr.maxlego08.essentials.commands.commands.vault.CommandVault;
 import fr.maxlego08.essentials.commands.commands.vote.CommandVote;
 import fr.maxlego08.essentials.commands.commands.vote.CommandVoteParty;
@@ -291,6 +292,7 @@ public class CommandLoader {
 
         register("voteparty", CommandVoteParty.class, "vp");
         register("vote", CommandVote.class);
+        register("trade", CommandTrade.class, "exchange");
         register("vault", CommandVault.class, "sac", "bag", "b", "coffre", "chest");
         register("player-worldedit", CommandWorldEdit.class, "pwe", "ess-worldedit", "eworldedit", "ew");
 
