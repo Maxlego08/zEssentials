@@ -106,11 +106,25 @@ public class TeleportationModule extends ZModule {
     }
 
     public int getTeleportDelay(Player player) {
-        return this.teleportDelayPermissions.stream().filter(teleportPermission -> player.hasPermission(teleportPermission.permission())).mapToInt(TeleportPermission::delay).min().orElse(this.teleportDelay);
+        int minDelay = this.teleportDelay;
+        for (int i = 0, size = this.teleportDelayPermissions.size(); i < size; i++) {
+            TeleportPermission perm = this.teleportDelayPermissions.get(i);
+            if (player.hasPermission(perm.permission()) && perm.delay() < minDelay) {
+                minDelay = perm.delay();
+            }
+        }
+        return minDelay;
     }
 
     public int getTeleportProtectionDelay(Player player) {
-        return this.teleportProtections.stream().filter(teleportPermission -> player.hasPermission(teleportPermission.permission())).mapToInt(TeleportPermission::delay).min().orElse(this.teleportProtection);
+        int minDelay = this.teleportProtection;
+        for (int i = 0, size = this.teleportProtections.size(); i < size; i++) {
+            TeleportPermission perm = this.teleportProtections.get(i);
+            if (player.hasPermission(perm.permission()) && perm.delay() < minDelay) {
+                minDelay = perm.delay();
+            }
+        }
+        return minDelay;
     }
 
     public void openConfirmInventory(Player player) {

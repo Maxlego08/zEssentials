@@ -10,11 +10,14 @@ import fr.maxlego08.essentials.api.server.ServerMessageType;
 import fr.maxlego08.essentials.api.server.messages.ChatClear;
 import fr.maxlego08.essentials.api.server.messages.ChatToggle;
 import fr.maxlego08.essentials.api.server.messages.ClearCooldown;
+import fr.maxlego08.essentials.api.server.messages.CrossServerTeleport;
 import fr.maxlego08.essentials.api.server.messages.KickMessage;
 import fr.maxlego08.essentials.api.server.messages.ServerMessage;
 import fr.maxlego08.essentials.api.server.messages.ServerPrivateMessage;
 import fr.maxlego08.essentials.api.server.messages.UpdateCooldown;
 import fr.maxlego08.essentials.api.storage.IStorage;
+import fr.maxlego08.essentials.api.teleport.CrossServerLocation;
+import fr.maxlego08.essentials.api.teleport.TeleportType;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.PrivateMessage;
 import fr.maxlego08.essentials.api.user.User;
@@ -23,6 +26,7 @@ import fr.maxlego08.essentials.api.utils.PlayerCache;
 import fr.maxlego08.essentials.hooks.redis.listener.ChatClearListener;
 import fr.maxlego08.essentials.hooks.redis.listener.ChatToggleListener;
 import fr.maxlego08.essentials.hooks.redis.listener.ClearCooldownListener;
+import fr.maxlego08.essentials.hooks.redis.listener.CrossServerTeleportListener;
 import fr.maxlego08.essentials.hooks.redis.listener.KickListener;
 import fr.maxlego08.essentials.hooks.redis.listener.MessageListener;
 import fr.maxlego08.essentials.hooks.redis.listener.PrivateMessageListener;
@@ -41,10 +45,15 @@ import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.Protocol;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
@@ -56,7 +65,9 @@ public class RedisServer implements EssentialsServer, Listener {
     private final EssentialsPlugin plugin;
     private final EssentialsUtils utils;
     private final String playersKey = "essentials:playerlist";
+    private final String playerServerKey = "essentials:playerserver:";
     private final ExpiringCache<String, Boolean> onlineCache = new ExpiringCache<>(1000 * 30);
+    private final ExpiringCache<String, String> playerServerCache = new ExpiringCache<>(1000 * 10);
     private JedisPool jedisPool;
 
     public RedisServer(EssentialsPlugin plugin) {
@@ -100,6 +111,7 @@ public class RedisServer implements EssentialsServer, Listener {
         this.redisSubscriberRunnable.registerListener(ServerPrivateMessage.class, new PrivateMessageListener(this.plugin));
         this.redisSubscriberRunnable.registerListener(ClearCooldown.class, new ClearCooldownListener(this.utils));
         this.redisSubscriberRunnable.registerListener(UpdateCooldown.class, new UpdateCooldownListener(this.utils));
+        this.redisSubscriberRunnable.registerListener(CrossServerTeleport.class, new CrossServerTeleportListener(this.plugin));
     }
 
     @Override
@@ -252,16 +264,28 @@ public class RedisServer implements EssentialsServer, Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        String playerName = event.getPlayer().getName();
+        Player player = event.getPlayer();
+        String playerName = player.getName();
+        String serverName = getServerName();
+        
         this.playerCache.addPlayer(playerName);
-        execute(jedis -> jedis.sadd(this.playersKey, playerName));
+        execute(jedis -> {
+            jedis.sadd(this.playersKey, playerName);
+            jedis.setex(this.playerServerKey + playerName.toLowerCase(), 300, serverName);
+        });
+        
+        // Handle pending cross-server teleports
+        CrossServerTeleportListener.onPlayerJoin(this.plugin, player);
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         String playerName = event.getPlayer().getName();
         this.playerCache.removePlayer(playerName);
-        execute(jedis -> jedis.srem(this.playersKey, playerName));
+        execute(jedis -> {
+            jedis.srem(this.playersKey, playerName);
+            jedis.del(this.playerServerKey + playerName.toLowerCase());
+        });
     }
 
     private void execute(Consumer<Jedis> consumer) {
@@ -280,5 +304,111 @@ public class RedisServer implements EssentialsServer, Listener {
         };
         if (async) this.plugin.getScheduler().runAsync(wrappedTask -> runnable.run());
         else runnable.run();
+    }
+
+    @Override
+    public void sendToServer(Player player, String serverName) {
+        try {
+            ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
+            DataOutputStream out = new DataOutputStream(byteArray);
+            out.writeUTF("Connect");
+            out.writeUTF(serverName);
+            player.sendPluginMessage(this.plugin, "BungeeCord", byteArray.toByteArray());
+        } catch (IOException exception) {
+            this.plugin.getLogger().severe("Failed to send player to server: " + exception.getMessage());
+        }
+    }
+
+    @Override
+    public void crossServerTeleport(Player player, TeleportType teleportType, CrossServerLocation destination) {
+        String currentServer = getServerName();
+        
+        if (destination.isSameServer(currentServer)) {
+            // Same server, teleport locally
+            User user = this.plugin.getUser(player.getUniqueId());
+            if (user != null) {
+                user.teleport(destination.toSafeLocation().getLocation());
+            }
+            return;
+        }
+        
+        // Different server - send teleport request via Redis then transfer player
+        CrossServerTeleport teleportRequest = new CrossServerTeleport(
+                player.getUniqueId(),
+                player.getName(),
+                teleportType,
+                destination
+        );
+        
+        sendMessage(teleportRequest);
+        
+        // Send player to target server
+        this.utils.message(player, Message.TELEPORT_CROSS_SERVER_CONNECTING, "%server%", destination.getServerName());
+        
+        plugin.getScheduler().runLater(() -> sendToServer(player, destination.getServerName()), 10L);
+    }
+
+    @Override
+    public void crossServerTeleportToPlayer(Player player, TeleportType teleportType, String targetPlayerName, String targetServer) {
+        if (targetServer == null) {
+            targetServer = findPlayerServer(targetPlayerName);
+        }
+        
+        if (targetServer == null) {
+            this.utils.message(player, Message.TELEPORT_CROSS_SERVER_PLAYER_NOT_FOUND, "%player%", targetPlayerName);
+            return;
+        }
+        
+        String currentServer = getServerName();
+        if (targetServer.equalsIgnoreCase(currentServer)) {
+            // Player is on same server, handle locally
+            Player targetPlayer = Bukkit.getPlayer(targetPlayerName);
+            if (targetPlayer != null) {
+                User user = this.plugin.getUser(player.getUniqueId());
+                if (user != null) {
+                    user.teleport(targetPlayer.getLocation());
+                }
+            }
+            return;
+        }
+        
+        // Cross-server TPA - send request and transfer
+        CrossServerTeleport teleportRequest = new CrossServerTeleport(
+                player.getUniqueId(),
+                player.getName(),
+                teleportType,
+                null,
+                targetPlayerName
+        );
+        
+        sendMessage(teleportRequest);
+        
+        this.utils.message(player, Message.TELEPORT_CROSS_SERVER_CONNECTING, "%server%", targetServer);
+        
+        String finalTargetServer = targetServer;
+        plugin.getScheduler().runLater(() -> sendToServer(player, finalTargetServer), 10L);
+    }
+
+    @Override
+    public String getServerName() {
+        return this.plugin.getConfiguration().getServerName();
+    }
+
+    @Override
+    public String findPlayerServer(String playerName) {
+        // First check local
+        Player player = Bukkit.getPlayer(playerName);
+        if (player != null) {
+            return getServerName();
+        }
+        
+        // Check Redis cache
+        return this.playerServerCache.get(playerName.toLowerCase(), () -> {
+            try (Jedis jedis = jedisPool.getResource()) {
+                return jedis.get(this.playerServerKey + playerName.toLowerCase());
+            } catch (Exception e) {
+                return null;
+            }
+        });
     }
 }

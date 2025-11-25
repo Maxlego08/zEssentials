@@ -9,10 +9,8 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public class LocalPlaceholder implements Placeholder {
 
@@ -20,23 +18,22 @@ public class LocalPlaceholder implements Placeholder {
     private final List<AutoPlaceholder> autoPlaceholders = new ArrayList<>();
     private final EssentialsPlugin plugin;
     private final String prefix = "zessentials";
+    private final String realPrefix;
 
     public LocalPlaceholder(EssentialsPlugin plugin) {
         this.plugin = plugin;
+        this.realPrefix = this.prefix + "_";
     }
 
     public String setPlaceholders(Player player, String placeholder) {
-
         if (placeholder == null || !placeholder.contains("%")) {
             return placeholder;
         }
 
-        final String realPrefix = this.prefix + "_";
-
         Matcher matcher = this.pattern.matcher(placeholder);
         while (matcher.find()) {
             String stringPlaceholder = matcher.group(0);
-            String regex = matcher.group(1).replace(realPrefix, "");
+            String regex = matcher.group(1).replace(this.realPrefix, "");
             String replace = this.onRequest(player, regex);
             if (replace != null) {
                 placeholder = placeholder.replace(stringPlaceholder, replace);
@@ -47,20 +44,27 @@ public class LocalPlaceholder implements Placeholder {
     }
 
     public List<String> setPlaceholders(Player player, List<String> lore) {
-        return lore == null ? null : lore.stream().map(e -> e = setPlaceholders(player, e)).collect(Collectors.toList());
+        if (lore == null) return null;
+        
+        List<String> result = new ArrayList<>(lore.size());
+        for (int i = 0, size = lore.size(); i < size; i++) {
+            result.add(setPlaceholders(player, lore.get(i)));
+        }
+        return result;
     }
 
     @Override
     public String onRequest(Player player, String string) {
-
         if (string == null || player == null) return null;
 
-        Optional<AutoPlaceholder> optional = this.autoPlaceholders.stream().filter(autoPlaceholder -> autoPlaceholder.startsWith(string)).findFirst();
-        if (optional.isPresent()) {
-
-            AutoPlaceholder autoPlaceholder = optional.get();
-            String value = string.replace(autoPlaceholder.getStartWith(), "");
-            return autoPlaceholder.accept(player, value);
+        // Optimized: Use for-loop instead of stream for hot path
+        int size = this.autoPlaceholders.size();
+        for (int i = 0; i < size; i++) {
+            AutoPlaceholder autoPlaceholder = this.autoPlaceholders.get(i);
+            if (autoPlaceholder.startsWith(string)) {
+                String value = string.replace(autoPlaceholder.getStartWith(), "");
+                return autoPlaceholder.accept(player, value);
+            }
         }
 
         return null;

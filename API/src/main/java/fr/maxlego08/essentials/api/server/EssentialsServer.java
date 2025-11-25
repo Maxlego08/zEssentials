@@ -2,6 +2,8 @@ package fr.maxlego08.essentials.api.server;
 
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.teleport.CrossServerLocation;
+import fr.maxlego08.essentials.api.teleport.TeleportType;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.PrivateMessage;
 import fr.maxlego08.essentials.api.user.User;
@@ -142,4 +144,47 @@ public interface EssentialsServer {
      * @param message The message to send.
      */
     void pub(Player player, String message);
+
+    /**
+     * Sends a player to another server via BungeeCord/Velocity.
+     *
+     * @param player The player to send.
+     * @param serverName The target server name.
+     */
+    void sendToServer(Player player, String serverName);
+
+    /**
+     * Requests a cross-server teleport. The player will be sent to the target server
+     * and then teleported to the destination location.
+     *
+     * @param player The player to teleport.
+     * @param teleportType The type of teleportation.
+     * @param destination The destination location including server name.
+     */
+    void crossServerTeleport(Player player, TeleportType teleportType, CrossServerLocation destination);
+
+    /**
+     * Requests a cross-server teleport to another player.
+     *
+     * @param player The player requesting the teleport.
+     * @param teleportType The type of teleportation (TPA or TPA_HERE).
+     * @param targetPlayerName The name of the target player.
+     * @param targetServer The server where the target player is.
+     */
+    void crossServerTeleportToPlayer(Player player, TeleportType teleportType, String targetPlayerName, String targetServer);
+
+    /**
+     * Gets the current server name from BungeeCord configuration.
+     *
+     * @return The server name or null if not configured.
+     */
+    String getServerName();
+
+    /**
+     * Finds which server a player is on.
+     *
+     * @param playerName The player name to find.
+     * @return The server name or null if not found.
+     */
+    String findPlayerServer(String playerName);
 }

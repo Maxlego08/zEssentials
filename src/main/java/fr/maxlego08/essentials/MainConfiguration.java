@@ -71,6 +71,8 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     private List<UUID> blacklistUuids;
     private List<Long> flyTaskAnnounce;
     private String placeholderEmpty;
+    private String serverName = "default";
+    private boolean crossServerTeleportEnabled;
 
     public MainConfiguration(ZEssentialsPlugin plugin) {
         this.plugin = plugin;
@@ -93,10 +95,30 @@ public class MainConfiguration extends YamlLoader implements Configuration {
 
     @Override
     public Optional<Integer> getCooldown(Permissible permissible, String command) {
-        return this.commandCooldowns.stream().filter(commandCooldown -> commandCooldown.command().equalsIgnoreCase(command)).map(commandCooldown -> {
-            List<Map<String, Object>> permissions = commandCooldown.permissions() == null ? new ArrayList<>() : commandCooldown.permissions();
-            return permissions.stream().filter(e -> permissible.hasPermission((String) e.get("permission"))).mapToInt(e -> ((Number) e.get("cooldown")).intValue()).min().orElse(commandCooldown.cooldown());
-        }).findFirst();
+        // Optimized: Replace nested streams with for-loops
+        for (int i = 0, size = this.commandCooldowns.size(); i < size; i++) {
+            CommandCooldown commandCooldown = this.commandCooldowns.get(i);
+            if (commandCooldown.command().equalsIgnoreCase(command)) {
+                List<Map<String, Object>> permissions = commandCooldown.permissions();
+                if (permissions == null || permissions.isEmpty()) {
+                    return Optional.of(commandCooldown.cooldown());
+                }
+                
+                int minCooldown = commandCooldown.cooldown();
+                for (int j = 0, permSize = permissions.size(); j < permSize; j++) {
+                    Map<String, Object> perm = permissions.get(j);
+                    String permission = (String) perm.get("permission");
+                    if (permissible.hasPermission(permission)) {
+                        int cooldown = ((Number) perm.get("cooldown")).intValue();
+                        if (cooldown < minCooldown) {
+                            minCooldown = cooldown;
+                        }
+                    }
+                }
+                return Optional.of(minCooldown);
+            }
+        }
+        return Optional.empty();
     }
 
     @Override
@@ -350,4 +372,13 @@ public class MainConfiguration extends YamlLoader implements Configuration {
         return this.commandRestrictions;
     }
 
+    @Override
+    public String getServerName() {
+        return this.serverName;
+    }
+
+    @Override
+    public boolean isCrossServerTeleportEnabled() {
+        return this.crossServerTeleportEnabled;
+    }
 }

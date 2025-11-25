@@ -30,6 +30,13 @@ storage-type: SQLITE
 # REDIS - Allows connecting several servers (currently in development)
 server-type: PAPER
 
+# The name of this server, used for cross-server teleportation with BungeeCord/Velocity
+# This should match your BungeeCord/Velocity server name
+server-name: "default"
+
+# Enable cross-server teleportation features (requires Redis and BungeeCord/Velocity)
+cross-server-teleport-enabled: false
+
 # Configuration of your database, it is recommended to use the database to store your data.
 # JSON does not support everything
 database-configuration:

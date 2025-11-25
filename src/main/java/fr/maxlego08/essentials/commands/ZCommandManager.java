@@ -166,7 +166,9 @@ public class ZCommandManager extends ZUtils implements CommandManager {
 
         } else if (type.equals(CommandResultType.SUCCESS)) {
             var list = command.toTab(this.plugin, sender, args);
-            return list == null ? List.of() : list.stream().limit(100).toList();
+            if (list == null || list.isEmpty()) return List.of();
+            // Limit to 100 without stream
+            return list.size() <= 100 ? list : list.subList(0, 100);
         }
 
         return List.of();

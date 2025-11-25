@@ -38,3 +38,8 @@ respawn-at-bed: true
 
 # Allows teleporting the player to spawn when logged in
 teleport-at-spawn-on-join: false
+
+# Allows teleporting the player to their last location when they log in
+# This will teleport the player to where they were when they last logged out
+# Note: This takes priority over teleport-at-spawn-on-join when enabled
+teleport-to-last-location-on-join: false

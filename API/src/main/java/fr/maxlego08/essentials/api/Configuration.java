@@ -266,4 +266,19 @@ public interface Configuration extends ConfigurationFile {
      * @return a map of options and their default values
      */
     Map<Option, Boolean> getDefaultOptionValues();
+
+    /**
+     * Retrieves the server name used for cross-server communication.
+     * This is used with BungeeCord/Velocity for cross-server teleportation.
+     *
+     * @return the server name, or "default" if not configured
+     */
+    String getServerName();
+
+    /**
+     * Checks if cross-server teleportation is enabled.
+     *
+     * @return true if cross-server teleportation is enabled
+     */
+    boolean isCrossServerTeleportEnabled();
 }

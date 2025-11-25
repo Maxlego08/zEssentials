@@ -180,7 +180,6 @@ public class TradeModule extends ZModule {
         return tradeManager;
     }
     
-    @Override
     public void onDisable() {
         if (this.tradeManager != null) {
             this.tradeManager.cancelAllTrades();

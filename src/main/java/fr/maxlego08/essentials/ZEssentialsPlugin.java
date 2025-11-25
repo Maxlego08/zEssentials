@@ -26,6 +26,7 @@ import fr.maxlego08.essentials.api.placeholders.PlaceholderRegister;
 import fr.maxlego08.essentials.api.sanction.SanctionManager;
 import fr.maxlego08.essentials.api.scoreboard.ScoreboardManager;
 import fr.maxlego08.essentials.api.server.EssentialsServer;
+import fr.maxlego08.essentials.api.server.ServerType;
 import fr.maxlego08.essentials.api.steps.StepManager;
 import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.essentials.api.storage.ServerStorage;
@@ -228,13 +229,18 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
 
         this.getLogger().info("Create " + this.commandManager.countCommands() + " commands.");
 
-        // Essentials Server
-        /*if (this.configuration.getServerType() == ServerType.REDIS) {
-            this.essentialsServer = new RedisServer(this);
-            this.getLogger().info("Using Redis server.");
-        }*/
+        // Essentials Server - Load Redis server if configured
+        if (this.configuration.getServerType() == ServerType.REDIS) {
+            this.createRedisServer().ifPresent(server -> {
+                this.essentialsServer = server;
+                this.getLogger().info("Using Redis server for cross-server communication.");
+            });
+        }
 
         this.essentialsServer.onEnable();
+
+        // Register BungeeCord messaging channel for cross-server teleportation
+        this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 
         // Storage
         this.storageManager = new ZStorageManager(this);
@@ -698,6 +704,25 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         } catch (Exception exception) {
             this.getLogger().severe("Cannot create a new instance for the class " + className);
             this.getLogger().severe(exception.getMessage());
+        }
+        return Optional.empty();
+    }
+
+    /**
+     * Creates a Redis server instance using reflection.
+     * This allows loading the Redis module without a direct dependency.
+     */
+    private Optional<EssentialsServer> createRedisServer() {
+        try {
+            Class<?> clazz = Class.forName("fr.maxlego08.essentials.hooks.redis.RedisServer");
+            Constructor<?> constructor = clazz.getConstructor(EssentialsPlugin.class);
+            return Optional.of((EssentialsServer) constructor.newInstance(this));
+        } catch (ClassNotFoundException exception) {
+            this.getLogger().severe("Redis module not found! Make sure the Redis hook is included.");
+            this.getLogger().severe("Falling back to Paper/Spigot server.");
+        } catch (Exception exception) {
+            this.getLogger().severe("Failed to create Redis server instance: " + exception.getMessage());
+            exception.printStackTrace();
         }
         return Optional.empty();
     }
