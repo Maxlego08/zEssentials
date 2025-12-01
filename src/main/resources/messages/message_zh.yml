@@ -251,6 +251,14 @@ first-join-motd:
 - '&7网站&8: #99E0FF<hover:show_text:''&f打开网站 &f！''><click:open_url:''https://minecraft-inventory-builder.com/''>https://minecraft-inventory-builder.com/</click></hover>'
 - ''
 
+join-motd:
+- ''
+- '#99E0FF欢迎回来 %player%#99E0FF！'
+- ''
+- '#858ef8Discord&8: #99E0FF<hover:show_text:''&f加入服务器 #858ef8Discord &f！''><click:open_url:''https://discord.groupez.dev/''>https://discord.groupez.dev/</click></hover>'
+- '&7网站&8: #99E0FF<hover:show_text:''&f打开网站 &f！''><click:open_url:''https://minecraft-inventory-builder.com/''>https://minecraft-inventory-builder.com/</click></hover>'
+- ''
+
 # 出生点
 command-set-spawn: '&f您刚刚设置了出生点位置。'
 command-spawn-not-define: <error>出生点不存在。请联系管理员。
