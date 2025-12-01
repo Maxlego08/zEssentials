@@ -942,7 +942,8 @@ public enum Message {
     COMMAND_PUB(MessageType.WITHOUT_PREFIX, "&8[&fPUB&8] <white>%player%<dark_gray>: <red>%message%"),
     STEP_DOESNT_EXIST("<error>Step &f%step% <error>does not exist."),
     STEP_ALREADY_EXIST("<error>Step &f%step% <error>already started."),
-    STEP_DOESNT_STARTED("<error>Step &f%step% <error>doesn't started."),;
+    STEP_DOESNT_STARTED("<error>Step &f%step% <error>doesn't started."),
+    ;
 
     private EssentialsPlugin plugin;
     private List<EssentialsMessage> messages = new ArrayList<>();

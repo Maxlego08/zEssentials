@@ -14,7 +14,7 @@ public record ClassicMessage(MessageType messageType, List<String> messages) imp
     }
 
     public static EssentialsMessage action(String strings) {
-        return new ClassicMessage(MessageType.TCHAT, Collections.singletonList(strings));
+        return new ClassicMessage(MessageType.ACTION, Collections.singletonList(strings));
     }
 
 }
