@@ -33,7 +33,7 @@ tasks {
         } ?: run {
             archiveClassifier.set(rootProject.extra.properties["classifier"] as String?)
         }
-        destinationDirectory.set(rootProject.extra["targetFolder"] as File)
+        destinationDirectory.set(rootProject.extra["targetFolderDiscord"] as File)
     }
 
     build {

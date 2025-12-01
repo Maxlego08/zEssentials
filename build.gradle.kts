@@ -9,6 +9,7 @@ group = "fr.maxlego08.essentials"
 version = "1.0.3.0"
 
 extra.set("targetFolder", file("target/"))
+extra.set("targetFolderDiscord", file("target-discord/"))
 extra.set("apiFolder", file("target-api/"))
 extra.set("classifier", System.getProperty("archive.classifier"))
 extra.set("sha", System.getProperty("github.sha"))
