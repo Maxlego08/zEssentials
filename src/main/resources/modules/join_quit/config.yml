@@ -46,3 +46,13 @@ allow-first-join-motd: true
 
 # The number of ticks before sending the message
 first-join-motd-ticks: 20 # 1 second = 20 ticks
+
+# Send a welcome message to the player on each login
+#
+# Available placeholders:
+# %player% - The player's name.
+# %displayName% - The player's display name.
+allow-join-motd: false
+
+# The number of ticks before sending the message after login
+join-motd-ticks: 20 # 1 second = 20 ticks

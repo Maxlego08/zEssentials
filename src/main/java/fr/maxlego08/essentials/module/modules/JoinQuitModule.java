@@ -25,6 +25,8 @@ public class JoinQuitModule extends ZModule {
     private boolean allowFirstJoinBroadcast;
     private boolean allowFirstJoinMotd;
     private int firstJoinMotdTicks;
+    private boolean allowJoinMotd;
+    private int joinMotdTicks;
 
     public JoinQuitModule(ZEssentialsPlugin plugin) {
         super(plugin, "join_quit");
@@ -79,6 +81,12 @@ public class JoinQuitModule extends ZModule {
             this.plugin.getScheduler().runAtLocationLater(player.getLocation(), () -> {
                 message(player, Message.FIRST_JOIN_MOTD, "%player%", player.getName(), "%displayName%", player.getDisplayName());
             }, this.firstJoinMotdTicks);
+        }
+
+        if (this.allowJoinMotd) {
+            this.plugin.getScheduler().runAtLocationLater(player.getLocation(), () -> {
+                message(player, Message.JOIN_MOTD, "%player%", player.getName(), "%displayName%", player.getDisplayName());
+            }, this.joinMotdTicks);
         }
     }
 

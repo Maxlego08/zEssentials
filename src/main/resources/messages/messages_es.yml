@@ -221,6 +221,14 @@ first-join-motd:
   - "&7Sitio web&8: #99E0FF<hover:show_text:'&f¡Abre el sitio web #858ef8!&f'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>"
   - ""
 
+join-motd:
+  - ""
+  - "#99E0FF¡Bienvenido de nuevo %player%#99E0FF!"
+  - ""
+  - "#858ef8Discord&8: #99E0FF<hover:show_text:'&f¡Únete al servidor de Discord #858ef8!&f'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>"
+  - "&7Sitio web&8: #99E0FF<hover:show_text:'&f¡Abre el sitio web #858ef8!&f'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>"
+  - ""
+
 # Spawn
 command-set-spawn: "&fAcabas de establecer la ubicación del spawn."
 command-spawn-not-define: "<error>El spawn no existe. Por favor, contacta a un administrador."
