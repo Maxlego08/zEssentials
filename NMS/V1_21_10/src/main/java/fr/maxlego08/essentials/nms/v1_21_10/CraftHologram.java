@@ -49,9 +49,7 @@ public class CraftHologram extends Hologram {
     @Override
     public void create(Player player) {
         ServerPlayer serverPlayer = ((CraftPlayer) player).getHandle();
-        ServerEntity serverEntity = new ServerEntity(serverPlayer.level(), display, 0, false, packet -> {
-        }, (a, b) -> {
-        }, Set.of());
+        ServerEntity serverEntity = new ServerEntity(serverPlayer.level(), display, 0, false, null, Set.of());
         send(player, new ClientboundAddEntityPacket(display, serverEntity));
 
         this.update(player);
