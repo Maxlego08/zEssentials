@@ -47,6 +47,12 @@ enable-chat-dynamic-cooldown: true
 # Check player tries to put the same message multiple times
 enable-same-message-cancel: true
 
+# Enables local chat where messages are only visible to nearby players unless prefixed with '!'
+enable-local-chat: false
+
+# Maximum distance in blocks for local chat messages
+local-chat-distance: 100
+
 # Apply a format to the chat, disabled on if you want another plugin to handle this
 enable-chat-format: true
 
