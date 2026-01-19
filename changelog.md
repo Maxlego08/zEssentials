@@ -4,6 +4,10 @@
 - Ajouter une option pour désactiver la tabulation des joueurs hors ligne
 - Ajouter un placeholder pour transformet les caractères en lettre spécial
 
+# 1.0.3.1
+
+- Added NMS support for Minecraft 1.21.9, 1.21.10 and 1.21.11
+
 # 1.0.3.0
 
 - Fix some errors (npe and economy check)
