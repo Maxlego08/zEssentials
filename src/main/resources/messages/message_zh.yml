@@ -38,6 +38,7 @@ command-syntax-error: '<error>您必须这样执行命令#656665: &f%syntax%'
 command-no-permission: <error>您没有权限运行此命令。
 command-no-console: <error>只有玩家可以执行此命令。
 command-no-arg: <error>无法找到带有参数的命令。
+command-restricted: "<error>你不能在这里使用此命令。"
 command-syntaxe-help: '&f%syntax% #656665» &7%description%'
 command-reload: <success>您刚刚重新加载了配置文件。
 command-reload-module: <success>您刚刚重新加载了&f%module%<success>模块的配置文件。
@@ -278,6 +279,8 @@ description-night: 设置您的世界为夜晚
 description-sun: 设置您的世界为晴天
 description-top: 传送到顶部
 description-speed: 更改玩家的速度
+description-walk-speed: 更改你的行走速度
+description-fly-speed: 更改你的飞行速度
 description-enderchest: 打开末影箱
 description-endersee: 打开玩家的末影箱
 description-tpa: 传送到一名玩家
@@ -1022,10 +1025,10 @@ command-pub-pattern-error: "<error>你的消息包含禁止的字符。"
 command-random-tp-configuration-not-found: "<error>找不到世界 &f%world%<error> 的随机传送配置。"
 command-spawn-first-not-define: "<error>首次出生点不存在，请联系管理员。"
 command-tp-location-error: "<error>坐标超出世界范围。"
-command-vault-delete-slot: "<success>你刚刚从保管箱 &7%vault%<success> 中删除了槽位 &7%slot%<success>（玩家 &f%player%<success>）。"
 command-vault-delete-slot-empty: "<error>在保管箱 &f%vault%<error> 的槽位 &f%slot%<error> 中找不到玩家 &f%player%<error>。"
-command-vault-get-slot: "<success>玩家 &f%player%<success> 的保管箱: 箱子 &7%vault%<success>，槽位 &7%slot%<success>，数量 &7%amount%<success>，物品 &f%item%<success>。"
 command-vault-get-slot-empty: "<error>在保管箱 &f%vault%<error> 的槽位 &f%slot%<error> 中找不到玩家 &f%player%<error> 的物品。"
+command-vault-get-slot-success: "<success>&f%player% <success>的保险库槽位：保险库 &7%vault%<success>，槽位 &7%slot%<success>，数量 &7%amount%<success>，物品 &f%item%<success>。"
+command-vault-delete-slot-success: "<success>你已为 &f%player% <success>从保险库 &7%vault% <success>中删除了槽位 &7%slot%<success>。"
 command-vault-info: "<success>玩家 &f%player%<success> 的保管箱信息: 最大 &7%max%<success>，权限槽位 &7%permissionSlots%<success>，插件槽位 &7%pluginSlots%<success>，已用 &7%used%<success>，可用 &7%available%<success>。"
 command-worldedit-cancel: "<success>你刚刚取消了当前的选择。"
 description-cooldown-show: 显示玩家的冷却时间
