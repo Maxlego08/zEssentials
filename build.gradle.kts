@@ -82,7 +82,9 @@ dependencies {
     api(project(":NMS:V1_21_6", configuration = "reobf"))
     api(project(":NMS:V1_21_7", configuration = "reobf"))
     api(project(":NMS:V1_21_8", configuration = "reobf"))
+    api(project(":NMS:V1_21_9", configuration = "reobf"))
     api(project(":NMS:V1_21_10", configuration = "reobf"))
+    api(project(":NMS:V1_21_11", configuration = "reobf"))
 
     rootProject.subprojects.filter { it.path.startsWith(":Hooks:") }.forEach { subproject ->
         api(project(subproject.path))
