@@ -72,6 +72,12 @@ public class DiscordModule extends ZModule implements DiscordManager {
         if (configurationSection == null) return;
 
         boolean isEnable = configurationSection.getBoolean("enable");
+
+        if (!isEnable) {
+            consumer.accept(DiscordConfiguration.disabled());
+            return;
+        }
+
         String webhookUrl = configurationSection.getString("webhook");
         String avatarUrl = configurationSection.getString("avatar");
         String message = configurationSection.getString("message");
@@ -82,11 +88,8 @@ public class DiscordModule extends ZModule implements DiscordManager {
             var config = new DiscordConfiguration(isEnable, webhookUrl, avatarUrl, message, username, DiscordEmbedConfiguration.convertToEmbedObjects(values));
             consumer.accept(config);
         } else {
-            var config = DiscordConfiguration.disabled();
-            if (isEnable) {
-                plugin.getLogger().severe("URL " + webhookUrl + " is invalid ! Disable your discord configuration.");
-            }
-            consumer.accept(config);
+            plugin.getLogger().severe("URL " + webhookUrl + " is invalid! Disable your discord configuration.");
+            consumer.accept(DiscordConfiguration.disabled());
         }
     }
 

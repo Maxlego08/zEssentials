@@ -93,6 +93,8 @@ public class ChatModule extends ZModule {
     private String playerPingColorOther;
     private float playerPingSoundVolume;
     private float playerPingSoundPitch;
+    private boolean enableLocalChat;
+    private double localChatDistance;
 
 
     public ChatModule(ZEssentialsPlugin plugin) {
@@ -169,6 +171,12 @@ public class ChatModule extends ZModule {
         }
 
         String message = PlainTextComponentSerializer.plainText().serialize(event.originalMessage());
+        boolean isGlobalChat = false;
+
+        if (this.enableLocalChat && message.startsWith("!")) {
+            isGlobalChat = true;
+            message = message.substring(1).stripLeading();
+        }
         final String minecraftMessage = message;
 
         Optional<CustomRules> optional = this.customRules.stream().filter(rule -> rule.match(player, minecraftMessage)).findFirst();
@@ -206,6 +214,10 @@ public class ChatModule extends ZModule {
         }
 
         String finalMessage = message;
+        double maxDistanceSquared = this.localChatDistance * this.localChatDistance;
+        if (this.enableLocalChat && !isGlobalChat) {
+            event.viewers().removeIf(viewer -> viewer instanceof Player playerViewer && (!playerViewer.getWorld().equals(player.getWorld()) || playerViewer.getLocation().distanceSquared(player.getLocation()) > maxDistanceSquared));
+        }
         event.renderer((source, sourceDisplayName, ignoredMessage, viewer) -> {
 
             String localMessage = finalMessage;

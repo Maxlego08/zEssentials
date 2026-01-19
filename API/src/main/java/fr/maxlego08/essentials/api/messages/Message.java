@@ -473,6 +473,14 @@ public enum Message {
             "&7Website&8: #99E0FF<hover:show_text:'&fOpen the Website &f!'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>",
             ""
     ),
+    JOIN_MOTD(
+            "",
+            "#99E0FFWelcome back %player%#99E0FF !",
+            "",
+            "#858ef8Discord&8: #99E0FF<hover:show_text:'&fJoin the server #858ef8Discord &f!'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>",
+            "&7Website&8: #99E0FF<hover:show_text:'&fOpen the Website &f!'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>",
+            ""
+    ),
 
     COMMAND_SET_SPAWN("&fYou just set the spawn location."),
     COMMAND_SPAWN_NOT_DEFINE("<error>The spawn does not exist. Please contact an administrator."),
@@ -934,7 +942,8 @@ public enum Message {
     COMMAND_PUB(MessageType.WITHOUT_PREFIX, "&8[&fPUB&8] <white>%player%<dark_gray>: <red>%message%"),
     STEP_DOESNT_EXIST("<error>Step &f%step% <error>does not exist."),
     STEP_ALREADY_EXIST("<error>Step &f%step% <error>already started."),
-    STEP_DOESNT_STARTED("<error>Step &f%step% <error>doesn't started."),;
+    STEP_DOESNT_STARTED("<error>Step &f%step% <error>doesn't started."),
+    ;
 
     private EssentialsPlugin plugin;
     private List<EssentialsMessage> messages = new ArrayList<>();

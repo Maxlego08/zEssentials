@@ -1,14 +1,15 @@
 plugins {
     `java-library`
     id("com.gradleup.shadow") version "9.0.0-beta11"
-    id("io.papermc.paperweight.userdev") version "2.0.0-beta.18" apply false
+    id("io.papermc.paperweight.userdev") version "2.0.0-beta.19" apply false
     id("re.alwyn974.groupez.repository") version "1.0.0"
 }
 
 group = "fr.maxlego08.essentials"
-version = "1.0.3.0"
+version = "1.0.3.1"
 
 extra.set("targetFolder", file("target/"))
+extra.set("targetFolderDiscord", file("target-discord/"))
 extra.set("apiFolder", file("target-api/"))
 extra.set("classifier", System.getProperty("archive.classifier"))
 extra.set("sha", System.getProperty("github.sha"))
@@ -81,6 +82,9 @@ dependencies {
     api(project(":NMS:V1_21_6", configuration = "reobf"))
     api(project(":NMS:V1_21_7", configuration = "reobf"))
     api(project(":NMS:V1_21_8", configuration = "reobf"))
+    api(project(":NMS:V1_21_9", configuration = "reobf"))
+    api(project(":NMS:V1_21_10", configuration = "reobf"))
+    api(project(":NMS:V1_21_11", configuration = "reobf"))
 
     rootProject.subprojects.filter { it.path.startsWith(":Hooks:") }.forEach { subproject ->
         api(project(subproject.path))

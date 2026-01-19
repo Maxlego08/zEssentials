@@ -38,6 +38,7 @@ command-syntax-error: "<error>Devi eseguire il comando segunedo questo formato#6
 command-no-permission: "<error>Non puoi eseguire questo comando."
 command-no-console: "<error>Solo i giocatori possono eseguire questo comando."
 command-no-arg: "<error>Non è stato possible trovare il comando con questi argomenti."
+command-restricted: "<error>Non puoi usare questo comando qui."
 command-syntaxe-help: "&f%syntax% #656665» &7%description%"
 
 command-reload: "<success>Hai appena aggiornato la configurazione."
@@ -218,6 +219,14 @@ first-join-motd:
   - "&7Sito&8: #99E0FF<hover:show_text:'&fApri il sito &f!'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>"
   - ""
 
+join-motd:
+  - ""
+  - "#99E0FFBentornato %player%#99E0FF !"
+  - ""
+  - "#858ef8Discord&8: #99E0FF<hover:show_text:'&fEntra nel server #858ef8Discord &f!'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>"
+  - "&7Sito&8: #99E0FF<hover:show_text:'&fApri il sito &f!'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>"
+  - ""
+
 # Spawn
 command-set-spawn: "&fHai appena impostato lo spawn."
 command-spawn-not-define: "<error>Lo spawn non esiste. Contatta gli amministratori."  
@@ -234,6 +243,8 @@ description-night: "Imposta notte nel tuo mondo"
 description-sun: "Imposta il sole nel tuo mondo"
 description-top: "Teletrasportati in cima"
 description-speed: "Cambia la velocità di movimento"
+description-walk-speed: "Modifica la tua velocità di camminata"
+description-fly-speed: "Modifica la tua velocità di volo"
 description-enderchest: "Apri il tuo baule di ender"
 description-endersee: "Apri il baule di ender di un altro giocatore"
 description-tpa: "Teletrasportati a un giocatore"
@@ -801,8 +812,8 @@ command-vault-no-permission: "<error>Non hai il permesso di vedere la cassaforte
 command-vault-set-slot: "<success>Hai impostato la quantita di slots per il giocatore &f%player% <success>a &7%slots% <success>slots."
 command-vault-add-slot: "<success>Hai aggiunto &7%amount% <success>slots per &f%player%<success>."
 command-vault-get-slot-empty: "<error>No item was found in vault &f%vault% <error>slot &f%slot% <error>for &f%player%<error>."
-command-vault-get-slot: "<success>Vault slot for &f%player%<success>: vault &7%vault%<success>, slot &7%slot%<success>, amount &7%amount%<success>, item &f%item%<success>."
-command-vault-delete-slot: "<success>You just deleted slot &7%slot% <success>from vault &7%vault% <success>for &f%player%<success>."
+command-vault-get-slot-success: "<success>Slot Vault per &f%player%<success>: Vault &7%vault%<success>, slot &7%slot%<success>, quantità &7%amount%<success>, oggetto &f%item%<success>."
+command-vault-delete-slot-success: "<success>Hai eliminato lo slot &7%slot% <success>da Vault &7%vault% <success>per &f%player%<success>."
 command-vault-delete-slot-empty: "<error>Cannot find slot &f%slot% <error>in vault &f%vault% <error>for &f%player%<error>."
 command-vault-change-icon-error: "<error>Stai tenendo un oggetto."
 command-vault-change-icon-success: "<success>Hai camviato l'icona della tua cassaforte."
