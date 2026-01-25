@@ -46,6 +46,7 @@ public enum Permission {
     ESSENTIALS_FEED,
     ESSENTIALS_INVSEE,
     ESSENTIALS_INVSEE_OFFLINE("Allows to listen to the inventory of an offline player"),
+    ESSENTIALS_EXT_OTHER("Allows to feed another player"),
     ESSENTIALS_FEED_OTHER("Allows to feed another player"),
     ESSENTIALS_HEAL_OTHER("Allows to heal another player"),
     ESSENTIALS_CRAFT,

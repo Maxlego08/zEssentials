@@ -85,6 +85,9 @@ public enum Message {
     COMMAND_NIGHT_VISION_DISABLE("&7Night vision <error>disable &7for &f%player%<success>."),
     COMMAND_PHANTOMS_ENABLE("&7Phantom spawning <success>enable &7for &f%player%<success>."),
     COMMAND_PHANTOMS_DISABLE("&7Phantom spawning <error>disable &7for &f%player%<error>."),
+    COMMAND_EXT_SENDER("&7You just extinguished the player &f%player%&7."),
+    COMMAND_EXT_RECEIVER("<success>You are no longer burning."),
+    COMMAND_EXT_ERROR("<error>You cannot extinguish someone who is dead!"),
     COMMAND_HEAL_SENDER("&7You just healed the player &f%player%&7."),
     COMMAND_HEAL_RECEIVER("<success>You have been healed."),
     COMMAND_HEAL_ERROR("<error>You cannot heal someone who is dead !"),
@@ -680,7 +683,6 @@ public enum Message {
     COMMAND_REPAIR_SUCCESS("<success>You just fixed the item in your hand."),
     COMMAND_REPAIR_ALL_ERROR("<error>You have no items to repair."),
     COMMAND_REPAIR_ALL_SUCCESS("<success>You have just repaired all the items in your inventory"),
-    COMMAND_EXT("&fBy the will of Maxlego08, you no longer burn."),
 
     COMMAND_NEAR_EMPTY("<error>No player near to you."),
     COMMAND_NEAR_PLAYER("&fPlayers near to you&7:%players%"),
