@@ -12,7 +12,7 @@ public class CommandFeed extends VCommand {
         super(plugin);
         this.setPermission(Permission.ESSENTIALS_FEED);
         this.setDescription(Message.DESCRIPTION_FEED);
-        this.addOptionalArg("player");
+        this.addOptionalArg("player", getOnlinePlayers());
     }
 
     @Override
