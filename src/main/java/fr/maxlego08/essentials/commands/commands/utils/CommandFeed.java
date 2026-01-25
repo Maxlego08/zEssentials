@@ -32,6 +32,7 @@ public class CommandFeed extends VCommand {
         }
 
         player.setFoodLevel(20);
+        player.setSaturation(20);
 
         if (player == sender) {
 
