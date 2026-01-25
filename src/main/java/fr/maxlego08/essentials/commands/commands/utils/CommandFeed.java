@@ -26,6 +26,11 @@ public class CommandFeed extends VCommand {
             player = this.player;
         }
 
+        if (!player.isValid()) {
+            message(sender, Message.COMMAND_FEED_ERROR);
+            return CommandResultType.DEFAULT;
+        }
+
         player.setFoodLevel(20);
 
         if (player == sender) {
