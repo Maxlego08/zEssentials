@@ -70,11 +70,16 @@ command-vanish-enable: '&7隐身模式 <success>启用 &7给 &f%player%<success>
 command-vanish-disable: '&7隐身模式 <error>禁用 &7给 &f%player%<success>。'
 command-night-vision-enable: '&7夜视 <success>启用 &7给 &f%player%<success>。'
 command-night-vision-disable: '&7夜视 <error>禁用 &7给 &f%player%<success>。'
+command-ext-sender: "&7你已为玩家 &f%player%&7 扑灭了火焰。"
+command-ext-receiver: "<success>你已不再着火。"
+command-ext-error: "<error>你无法为已死亡的玩家灭火！"
 command-heal-sender: '&7您刚刚治愈了玩家 &f%player%&7。'
 command-heal-receiver: <success>您已被治愈。
 command-heal-error: <error>您不能治愈一个已经死亡的人！
+command-heal-all: "&7你已治疗服务器中的所有玩家。"
 command-more-error: <error>您不能对手中的物品执行此操作。
 command-more-success: '&7您刚刚把手中的物品数量设为了 &f64&7。'
+command-feed-all: "&7你已为服务器中的所有玩家补充了饱食度。"
 command-feed-sender: '&7您刚刚喂饱了玩家 &f%player%&7。'
 command-feed-receiver: <success>您已被喂饱。
 command-feed-error: <error>您不能喂饱一个已经死亡的人！
@@ -120,7 +125,6 @@ command-repair-error: <error>您手上的物品无法修复。
 command-repair-success: <success>您刚刚修复了手上的物品。
 command-repair-all-error: <error>您没有可修复的物品。
 command-repair-all-success: <success>您刚刚修复了背包中的所有物品。
-command-ext: '&f由Maxlego08的意志，您不再燃烧。'
 command-near-empty: <error>附近没有其他玩家。
 command-near-player: '&f附近的玩家&7:%players%'
 command-near-info: ' &7%player% &8(&e%distance%m&8)'
