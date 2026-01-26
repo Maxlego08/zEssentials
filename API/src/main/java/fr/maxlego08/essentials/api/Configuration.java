@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.api;
 import fr.maxlego08.essentials.api.chat.ChatCooldown;
 import fr.maxlego08.essentials.api.commands.CommandCooldown;
 import fr.maxlego08.essentials.api.commands.CommandRestriction;
+import fr.maxlego08.essentials.api.config.models.NearDirectionReplacements;
 import fr.maxlego08.essentials.api.configuration.ReplacePlaceholder;
 import fr.maxlego08.essentials.api.server.RedisConfiguration;
 import fr.maxlego08.essentials.api.server.ServerType;
@@ -150,6 +151,15 @@ public interface Configuration extends ConfigurationFile {
      * @return a list of {@link NearDistance} objects representing near permissions
      */
     List<NearDistance> getNearPermissions();
+
+    /**
+     * Returns the set of directional replacements (arrows or labels) used to display
+     * the relative position of nearby players.
+     *
+     * @return a {@link NearDirectionReplacements} instance containing direction symbols
+     * @since 1.0.3.2
+     */
+    NearDirectionReplacements getNearDirectionReplacements();
 
     /**
      * Retrieves the near distance allowed for a specific permissible entity.

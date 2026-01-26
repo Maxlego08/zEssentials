@@ -132,7 +132,7 @@ command-repair-all-error: <error>您没有可修复的物品。
 command-repair-all-success: <success>您刚刚修复了背包中的所有物品。
 command-near-empty: <error>附近没有其他玩家。
 command-near-player: '&f附近的玩家&7:%players%'
-command-near-info: ' &7%player% &8(&e%distance%m&8)'
+command-near-info: "<newline>&6%direction% &7%player% &8(&e%distance%m&8)"
 command-play-time:
 - '&7您玩了&8: <primary>%playtime%'
 - '&7当前会话&8: <primary>%playtime_session%'

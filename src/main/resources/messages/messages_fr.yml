@@ -131,7 +131,7 @@ command-repair-all-error: "<error>Vous n'avez aucun objet à réparer."
 command-repair-all-success: "<success>Vous venez de réparer tous les objets dans votre inventaire."
 command-near-empty: "<error>Aucun joueur à proximité de vous."
 command-near-player: "&fJoueurs à proximité de vous&7:%players%"
-command-near-info: " &7%player% &8(&e%distance%m&8)"
+command-near-info: "<newline>&6%direction% &7%player% &8(&e%distance%m&8)"
 command-play-time:
   - "&7Vous avez joué&8: <primary>%playtime%"
   - "&7Session en cours&8: <primary>%playtime_session%"

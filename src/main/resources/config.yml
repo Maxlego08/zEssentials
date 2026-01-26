@@ -157,11 +157,21 @@ smeltable-materials:
   - from: KELP
     to: DRIED_KELP
 
+# Default value returned by placeholders when no data is available
+placeholder-empty: "Empty"
+
 # Default distance for /near
 near-distance: 50.0
 
-# Default value returned by placeholders when no data is available
-placeholder-empty: "Empty"
+near-direction-replacements:
+  forward: "↑"
+  forward-right: "↗"
+  right: "→"
+  back-right: "↘"
+  back: "↓"
+  back-left: "↙"
+  left: "←"
+  forward-left: "↖"
 
 # Set a distance by permission for /near
 near-permissions:

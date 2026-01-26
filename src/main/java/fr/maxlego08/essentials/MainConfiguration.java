@@ -4,6 +4,7 @@ import fr.maxlego08.essentials.api.Configuration;
 import fr.maxlego08.essentials.api.chat.ChatCooldown;
 import fr.maxlego08.essentials.api.commands.CommandCooldown;
 import fr.maxlego08.essentials.api.commands.CommandRestriction;
+import fr.maxlego08.essentials.api.config.models.NearDirectionReplacements;
 import fr.maxlego08.essentials.api.configuration.NonLoadable;
 import fr.maxlego08.essentials.api.configuration.ReplacePlaceholder;
 import fr.maxlego08.essentials.api.configuration.ReplacePlaceholderElement;
@@ -23,16 +24,12 @@ import fr.maxlego08.sarah.DatabaseConfiguration;
 import fr.maxlego08.sarah.database.DatabaseType;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.permissions.Permissible;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.LongStream;
 
 public class MainConfiguration extends YamlLoader implements Configuration {
@@ -45,6 +42,8 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     private final List<MessageColor> messageColors = new ArrayList<>();
     private final List<ChatCooldown> cooldowns = new ArrayList<>();
     private final List<NearDistance> nearPermissions = new ArrayList<>();
+    @NonLoadable
+    private NearDirectionReplacements nearDirectionReplacements = NearDirectionReplacements.DEFAULT;
     private final List<String> disableFlyWorld = new ArrayList<>();
     private final List<String> disableBackWorld = new ArrayList<>();
     @NonLoadable
@@ -155,6 +154,21 @@ public class MainConfiguration extends YamlLoader implements Configuration {
                 configuration.getBoolean("database-configuration.debug"),
                 DatabaseType.MYSQL
         );
+
+        final ConfigurationSection nearDirSection = configuration.getConfigurationSection("near-direction-replacements");
+        if (nearDirSection != null) {
+            this.nearDirectionReplacements = new NearDirectionReplacements(
+                    configuration.getString("forward", "↑"),
+                    configuration.getString("forward-right", "↗"),
+                    configuration.getString("right", "→"),
+                    configuration.getString("back-right", "↘"),
+                    configuration.getString("back", "↓"),
+                    configuration.getString("back-left", "↙"),
+                    configuration.getString("left", "←"),
+                    configuration.getString("forward-left", "↖")
+            );
+        }
+
         this.cooldownCommands = this.cooldowns.stream().flatMapToLong(cooldown -> LongStream.of(cooldown.cooldown(), cooldown.messages())).toArray();
         this.simpleDateFormat = this.globalDateFormat == null ? new SimpleDateFormat("yyyy-MM-dd HH:mm:ss") : new SimpleDateFormat(this.globalDateFormat);
         this.flyTaskAnnounce = configuration.getLongList("fly-task-announce");
@@ -268,6 +282,11 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     @Override
     public double getDefaultNearDistance() {
         return nearDistance;
+    }
+
+    @Override
+    public NearDirectionReplacements getNearDirectionReplacements() {
+        return this.nearDirectionReplacements;
     }
 
     @Override

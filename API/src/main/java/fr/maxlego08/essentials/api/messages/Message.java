@@ -694,7 +694,7 @@ public enum Message {
 
     COMMAND_NEAR_EMPTY("<error>No player near to you."),
     COMMAND_NEAR_PLAYER("&fPlayers near to you&7:%players%"),
-    COMMAND_NEAR_INFO(" &7%player% &8(&e%distance%m&8)"),
+    COMMAND_NEAR_INFO("<newline>&6%direction% &7%player% &8(&e%distance%m&8)"),
     COMMAND_PLAY_TIME(
             "&7You played&8: <primary>%playtime%",
             "&7Current session&8: <primary>%playtime_session%"

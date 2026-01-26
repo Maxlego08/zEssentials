@@ -133,7 +133,7 @@ command-repair-all-error: "<error>Je hebt geen items om te repareren."
 command-repair-all-success: "<success>Je hebt zojuist alle items in je inventaris gerepareerd."
 command-near-empty: "<error>Er is geen speler in de buurt van jou."
 command-near-player: "&fSpelers in de buurt van jou&7:%players%"
-command-near-info: " &7%player% &8(&e%distance%m&8)"
+command-near-info: "<newline>&6%direction% &7%player% &8(&e%distance%m&8)"
 command-play-time:
   - "&7Totale Speeltijd&8: <primary>%playtime%"
   - "&7Huidige Sessie&8: <primary>%playtime_session%"
