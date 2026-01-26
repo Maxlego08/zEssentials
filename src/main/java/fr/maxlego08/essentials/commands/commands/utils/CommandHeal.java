@@ -34,7 +34,7 @@ public class CommandHeal extends VCommand {
     }
 
     private CommandResultType healAllPlayers(EssentialsPlugin plugin) {
-        if (!hasPermission(sender, Permission.ESSENTIALS_HEAL_OTHER)) {
+        if (!hasPermission(sender, Permission.ESSENTIALS_HEAL_ALL)) {
             return CommandResultType.NO_PERMISSION;
         }
 

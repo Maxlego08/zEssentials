@@ -38,7 +38,7 @@ public final class CommandLightning extends VCommand {
     }
 
     private CommandResultType strikeAllPlayers(EssentialsPlugin plugin) {
-        if (!hasPermission(sender, Permission.ESSENTIALS_LIGHTING_OTHER)) {
+        if (!hasPermission(sender, Permission.ESSENTIALS_LIGHTING_ALL)) {
             return CommandResultType.NO_PERMISSION;
         }
 

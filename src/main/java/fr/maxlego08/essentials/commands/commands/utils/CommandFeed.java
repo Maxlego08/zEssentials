@@ -32,7 +32,7 @@ public class CommandFeed extends VCommand {
     }
 
     private CommandResultType feedAllPlayers(EssentialsPlugin plugin) {
-        if (!hasPermission(sender, Permission.ESSENTIALS_FEED_OTHER)) {
+        if (!hasPermission(sender, Permission.ESSENTIALS_FEED_ALL)) {
             return CommandResultType.NO_PERMISSION;
         }
 
