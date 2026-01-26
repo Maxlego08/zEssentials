@@ -73,10 +73,15 @@ command-night-vision-disable: '&7夜视 <error>禁用 &7给 &f%player%<success>�
 command-ext-sender: "&7你已为玩家 &f%player%&7 扑灭了火焰。"
 command-ext-receiver: "<success>你已不再着火。"
 command-ext-error: "<error>你无法为已死亡的玩家灭火！"
+command-heal-all: "&7你已治疗服务器中的所有玩家。"
 command-heal-sender: '&7您刚刚治愈了玩家 &f%player%&7。'
 command-heal-receiver: <success>您已被治愈。
 command-heal-error: <error>您不能治愈一个已经死亡的人！
-command-heal-all: "&7你已治疗服务器中的所有玩家。"
+command-lighting-all: "&7你刚刚用闪电击中了所有玩家。"
+command-lighting: "&7你刚在目标位置召唤了闪电。"
+command-lighting-sender: "&7你刚在玩家 &f%player%&7 的位置召唤了闪电。"
+command-lighting-receiver: "&c你被闪电击中了！"
+command-lighting-error: "<error>你不能用闪电击中已死亡的玩家！"
 command-more-error: <error>您不能对手中的物品执行此操作。
 command-more-success: '&7您刚刚把手中的物品数量设为了 &f64&7。'
 command-feed-all: "&7你已为服务器中的所有玩家补充了饱食度。"
@@ -296,6 +301,7 @@ description-tp-all: 将所有玩家传送到您的位置
 description-god: 切换上帝模式
 description-vanish: 切换隐身模式
 description-heal: 治愈一名玩家
+description-lighting: 用闪电击中玩家
 description-more: 获得更多物品
 description-tp-world: 传送到另一个世界
 description-trash: 打开垃圾桶
