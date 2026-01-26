@@ -53,6 +53,8 @@ command-gamemode-invalid: "<error>Je moet een geldige speler specificeren."
 
 
 # Weer commando's
+command-time-error: "<error>Je moet een wereld opgeven."
+command-time-already-changing: "<error>De tijd verandert al in &f%world%<error>."
 command-day: "&fJe hebt zojuist &edaglicht&f gebracht in de wereld <success>%world%&f."
 command-night: "&fJe hebt zojuist &enacht&f gebracht in de wereld <success>%world%&f."
 command-sun: "&fJe hebt zojuist de &ezon&f gebracht in de wereld <success>%world%&f."

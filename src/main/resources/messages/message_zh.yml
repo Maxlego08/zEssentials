@@ -52,6 +52,8 @@ command-gamemode-invalid: <error>您需要指定一个有效的玩家。
 
 
 # 天气命令
+command-time-error: "<error>你需要指定一个世界"
+command-time-already-changing: "<error>&f%world%<error> 的时间已经在改变中。"
 command-day: '&f您刚刚带来了 &edaylight&f 到世界 <success>%world%&f。'
 command-night: '&f您刚刚带来了 &enightfall&f 到世界 <success>%world%&f。'
 command-sun: '&f您刚刚带来了 &esun&f 到世界 <success>%world%&f。'

@@ -163,6 +163,7 @@ placeholder-empty: "Empty"
 # Default distance for /near
 near-distance: 50.0
 
+# Displays target's direction in /near
 near-direction-replacements:
   forward: "↑"
   forward-right: "↗"
@@ -172,6 +173,14 @@ near-direction-replacements:
   back-left: "↙"
   left: "←"
   forward-left: "↖"
+
+# World time set by the /day command
+day-time: 1000
+# World time set by the /night command
+night-time: 13000
+
+# Animate world time change (/day, /night)
+time-smooth-change: false
 
 # Set a distance by permission for /near
 near-permissions:

@@ -52,6 +52,8 @@ command-gamemode: "&fMode de jeu&e %gamemode%&f défini pour &b%player%&f."
 command-gamemode-invalid: "<error>Vous devez spécifier un joueur valide."
 
 # Commandes de météo
+command-time-error: "<error>Tu dois indiquer un monde."
+command-time-already-changing: "<error>Le temps est déjà en train de changer dans &f%world%<error>."
 command-day: "&fVous venez d'apporter la &elumière du jour&f dans le monde <success>%world%&f."
 command-night: "&fVous venez d'apporter la &enuit&f dans le monde <success>%world%&f."
 command-sun: "&fVous venez d'apporter le &esoleil&f dans le monde <success>%world%&f."

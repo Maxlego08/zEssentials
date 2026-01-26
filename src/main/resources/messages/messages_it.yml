@@ -53,6 +53,8 @@ command-gamemode-invalid: "<error>Giocatore non valido."
 
 
 # Weather commands
+command-time-error: "<error>Devi specificare un mondo."
+command-time-already-changing: "<error>Il tempo sta già cambiando in &f%world%<error>."
 command-day: "&fHai fatto diventare &egiorno&f nel mondo <success>%world%&f."
 command-night: "&ffHai fatto diventare &enightfall&f nel mondo <success>%world%&f."
 command-sun: "&ffHai fatto diventare &esun&f nel mondo <success>%world%&f."

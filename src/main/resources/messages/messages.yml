@@ -53,6 +53,8 @@ command-gamemode-invalid: "<error>You need to specify a valid player."
 
 
 # Weather commands
+command-time-error: "<error>You need to specify a world."
+command-time-already-changing: "<error>Time is already changing in &f%world%<error>."
 command-day: "&fYou have just brought &edaylight&f into the world <success>%world%&f."
 command-night: "&fYou have just brought &enightfall&f into the world <success>%world%&f."
 command-sun: "&fYou have just brought the &esun&f into the world <success>%world%&f."

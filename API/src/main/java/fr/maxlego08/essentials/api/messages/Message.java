@@ -51,6 +51,8 @@ public enum Message {
     COMMAND_ESSENTIALS("zEssentials, version %version%"),
     COMMAND_GAMEMODE("&fSet game mode&e %gamemode% &ffor &b%player%&f."),
     COMMAND_GAMEMODE_INVALID("<error>You need to specify a valid player."),
+    COMMAND_TIME_ERROR("<error>You need to specify a world."),
+    COMMAND_TIME_ALREADY_CHANGING("<error>Time is already changing in &f%world%<error>."),
     COMMAND_DAY("&fYou have just brought &edaylight&f into the world <success>%world%&f."),
     COMMAND_NIGHT("&fYou have just brought &enightfall&f into the world <success>%world%&f."),
     COMMAND_SUN("&fYou have just brought the &esun&f into the world <success>%world%&f."),

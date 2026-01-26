@@ -41,9 +41,13 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     private final StorageType storageType = StorageType.JSON;
     private final List<MessageColor> messageColors = new ArrayList<>();
     private final List<ChatCooldown> cooldowns = new ArrayList<>();
-    private final List<NearDistance> nearPermissions = new ArrayList<>();
+    private double nearDistance;
     @NonLoadable
     private NearDirectionReplacements nearDirectionReplacements = NearDirectionReplacements.DEFAULT;
+    private final List<NearDistance> nearPermissions = new ArrayList<>();
+    private long dayTime = 1000;
+    private long nightTime = 13000;
+    private boolean timeSmoothChange = false;
     private final List<String> disableFlyWorld = new ArrayList<>();
     private final List<String> disableBackWorld = new ArrayList<>();
     @NonLoadable
@@ -60,7 +64,6 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     private DatabaseConfiguration databaseConfiguration;
     private ServerType serverType;
     private RedisConfiguration redisConfiguration;
-    private double nearDistance;
     private SimpleDateFormat simpleDateFormat;
     private List<ReplacePlaceholder> replacePlaceholders = new ArrayList<>();
     private List<String> randomWords;
@@ -275,11 +278,6 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     }
 
     @Override
-    public List<NearDistance> getNearPermissions() {
-        return nearPermissions;
-    }
-
-    @Override
     public double getDefaultNearDistance() {
         return nearDistance;
     }
@@ -292,6 +290,26 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     @Override
     public double getNearDistance(Permissible permissible) {
         return this.nearPermissions.stream().filter(nearDistance -> permissible.hasPermission(nearDistance.permission())).map(NearDistance::distance).findFirst().orElse(this.nearDistance);
+    }
+
+    @Override
+    public List<NearDistance> getNearPermissions() {
+        return nearPermissions;
+    }
+
+    @Override
+    public long getDayTime() {
+        return this.dayTime;
+    }
+
+    @Override
+    public long getNightTime() {
+        return this.nightTime;
+    }
+
+    @Override
+    public boolean isTimeSmoothChangeEnabled() {
+        return this.timeSmoothChange;
     }
 
     @Override

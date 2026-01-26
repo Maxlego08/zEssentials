@@ -170,6 +170,28 @@ public interface Configuration extends ConfigurationFile {
     double getNearDistance(Permissible permissible);
 
     /**
+     * Returns the world time value used by the /day command.
+     *
+     * @return the configured day time value
+     */
+    long getDayTime();
+
+    /**
+     * Returns the world time value used by the /night command.
+     *
+     * @return the configured night time value
+     */
+    long getNightTime();
+
+    /**
+     * Indicates whether world time changes should be animated
+     * (e.g. /day, /night commands).
+     *
+     * @return {@code true} if smooth world time changes are enabled
+     */
+    boolean isTimeSmoothChangeEnabled();
+
+    /**
      * Checks if command logging is enabled.
      *
      * @return true if command logging is enabled, false otherwise
