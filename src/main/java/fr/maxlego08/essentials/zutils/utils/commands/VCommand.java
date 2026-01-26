@@ -2,11 +2,7 @@ package fr.maxlego08.essentials.zutils.utils.commands;
 
 import fr.maxlego08.essentials.api.Configuration;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
-import fr.maxlego08.essentials.api.commands.CommandResultType;
-import fr.maxlego08.essentials.api.commands.EssentialsCommand;
-import fr.maxlego08.essentials.api.commands.Permission;
-import fr.maxlego08.essentials.api.commands.Tab;
-import fr.maxlego08.essentials.api.commands.TabCompletion;
+import fr.maxlego08.essentials.api.commands.*;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.modules.Module;
 import fr.maxlego08.essentials.api.user.Option;
@@ -15,14 +11,7 @@ import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Consumer;
 
 public abstract class VCommand extends Arguments implements EssentialsCommand {
@@ -259,7 +248,7 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
     }
 
     protected void addRequirePlayerNameArg() {
-        this.addRequireArg("player", getOnlinePlayers());
+        this.addRequireArg("player", getVisiblePlayerNames());
     }
 
     protected void addRequireOfflinePlayerNameArg() {
@@ -276,8 +265,12 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
         this.addCompletion(index - 1, runnable);
     }
 
-    protected TabCompletion getOnlinePlayers() {
+    protected TabCompletion getOnlinePlayerNames() {
         return (a, b) -> this.plugin.getEssentialsServer().getPlayersNames();
+    }
+
+    protected TabCompletion getVisiblePlayerNames() {
+        return (a, b) -> this.plugin.getEssentialsServer().getVisiblePlayerNames(this.sender);
     }
 
     protected TabCompletion getOfflinePlayers() {

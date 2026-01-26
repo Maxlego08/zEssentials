@@ -12,7 +12,7 @@ public class CommandExt extends VCommand {
         super(plugin);
         this.setPermission(Permission.ESSENTIALS_EXT);
         this.setDescription(Message.DESCRIPTION_EXT);
-        this.addOptionalArg("player", getOnlinePlayers());
+        this.addOptionalArg("player", getVisiblePlayerNames());
     }
 
     @Override

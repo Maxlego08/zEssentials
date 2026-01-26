@@ -15,7 +15,7 @@ public class CommandVanish extends VCommand {
         super(plugin);
         this.setPermission(Permission.ESSENTIALS_VANISH);
         this.setDescription(Message.DESCRIPTION_VANISH);
-        this.addOptionalArg("player", getOnlinePlayers());
+        this.addOptionalArg("player", getVisiblePlayerNames());
     }
 
     @Override

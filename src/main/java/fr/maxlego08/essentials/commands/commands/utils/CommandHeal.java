@@ -15,7 +15,7 @@ public class CommandHeal extends VCommand {
         super(plugin);
         this.setPermission(Permission.ESSENTIALS_HEAL);
         this.setDescription(Message.DESCRIPTION_HEAL);
-        this.addOptionalArg("player", getOnlinePlayers());
+        this.addOptionalArg("player", getVisiblePlayerNames());
     }
 
     @Override

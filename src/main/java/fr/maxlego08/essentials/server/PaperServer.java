@@ -16,6 +16,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,7 +45,13 @@ public class PaperServer extends ZUtils implements EssentialsServer {
 
     @Override
     public List<String> getPlayersNames() {
-        return Bukkit.getOnlinePlayers().stream().filter(this::isNotVanished).map(Player::getName).toList();
+        return Bukkit.getOnlinePlayers().stream().map(Player::getName).toList();
+    }
+
+    @Override
+    public List<String> getVisiblePlayerNames(@NotNull CommandSender sender) {
+        if (!(sender instanceof Player player)) return getPlayersNames();
+        return Bukkit.getOnlinePlayers().stream().filter(target -> !isVanishedFor(target, player)).map(Player::getName).toList();
     }
 
     @Override
