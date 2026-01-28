@@ -308,7 +308,7 @@ description-tp-all: "Teleport alle spelers naar je positie"
 description-god: "Schakel godmodus in of uit"
 description-vanish: "Schakel vanishmodus in of uit"
 description-heal: "Genees een speler"
-description-lighting: "Colpisci un giocatore con un fulmine"
+description-lighting: "Sla een speler met bliksem"
 description-more: "Krijg meer items"
 description-tp-world: "Teleporteer naar een andere wereld"
 description-trash: "Open een prullenbak"
@@ -521,6 +521,10 @@ cooldown-commands: "<error>✘ Je moet &f%cooldown% <error> wachten voordat je d
 teleport-move: "<error>Je mag niet bewegen!"
 teleport-damage: "<error>Je mag geen schade oplopen tijdens de teleportatie."
 teleport-error-location: "<error>Niet mogelijk om je veilig te teleporteren."
+
+# RTP-wachtrijsysteem
+teleport-already-in-queue: "<error>Je staat al in de teleportatiewachtrij!"
+teleport-added-to-queue: "<success>Je bent toegevoegd aan de teleportatiewachtrij. Positie: #0EEA93%position%"
 
 teleport-message:
   type: ACTION

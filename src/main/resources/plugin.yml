@@ -5,7 +5,7 @@ folia-supported: true
 description: Provides an essential, core set of commands for Bukkit.
 website: https://groupez.dev/
 author: [ Maxlego08 ]
-contributors: [ Louis_Dew, Traqueur, JavaToastDev, Melon-Oof, alwyn974, Mapacheee, NeiiZun ]
+contributors: [ Louis_Dew, Traqueur, JavaToastDev, Melon-Oof, alwyn974, Mapacheee, NeiiZun, groundbreakingmc ]
 depend:
   - zMenu
   - PlaceholderAPI
