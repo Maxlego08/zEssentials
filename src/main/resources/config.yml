@@ -59,7 +59,7 @@ redis-configuration:
   password: "123456a"
 
 # If you have enabled this option, players with the essentials.bypass.cooldown permission you can execute commands in command-cooldowns without being assigned
-enable-cooldown-bypass: false
+enable-cooldown-bypass: true
 
 # Create command cooldowns (can run a command after X number of seconds)
 command-cooldowns:
