@@ -1,14 +1,9 @@
 package fr.maxlego08.essentials.commands.commands.weather;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
-import fr.maxlego08.essentials.api.nms.PlayerUtil;
-import fr.maxlego08.menu.zcore.utils.nms.NmsVersion;
-import org.bukkit.Bukkit;
 import org.bukkit.World;
-import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.lang.reflect.Constructor;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -18,9 +13,8 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 class TimeTransition {
 
-    private static final long WORLD_TIME_STEP = 150;
-
     static final Set<UUID> TIME_CHANGING_WORLDS = ConcurrentHashMap.newKeySet();
+    private static final long WORLD_TIME_STEP = 150;
 
     /**
      * Smoothly transitions world time to target time
