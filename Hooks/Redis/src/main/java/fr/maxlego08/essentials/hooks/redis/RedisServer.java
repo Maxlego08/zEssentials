@@ -36,6 +36,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.jetbrains.annotations.NotNull;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -113,6 +114,11 @@ public class RedisServer implements EssentialsServer, Listener {
     @Override
     public List<String> getPlayersNames() {
         return new ArrayList<>(this.playerCache.getPlayers());
+    }
+
+    @Override
+    public List<String> getVisiblePlayerNames(@NotNull CommandSender sender) {
+        return getPlayersNames(); // ToDO: think about the way to implement visible players filtering
     }
 
     @Override

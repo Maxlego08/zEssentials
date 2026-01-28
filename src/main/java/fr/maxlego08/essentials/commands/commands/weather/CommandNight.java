@@ -9,25 +9,43 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.generator.WorldInfo;
 
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class CommandNight extends VCommand {
 
     public CommandNight(EssentialsPlugin plugin) {
         super(plugin);
-        this.setPermission(Permission.ESSENTIALS_NIGHT);
-        this.setDescription(Message.DESCRIPTION_NIGHT);
-        this.addOptionalArg("world", (a, b) -> Bukkit.getWorlds().stream().map(WorldInfo::getName).collect(Collectors.toList()));
+        super.setPermission(Permission.ESSENTIALS_NIGHT);
+        super.setDescription(Message.DESCRIPTION_NIGHT);
+        super.addOptionalArg("world", (a, b) -> Bukkit.getWorlds().stream().map(WorldInfo::getName).collect(Collectors.toList()));
     }
 
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
+        World world = super.argAsWorld(0, isPlayer() ? this.player.getWorld() : null);
+        if (world == null) {
+            message(sender, Message.COMMAND_TIME_ERROR);
+            return CommandResultType.SYNTAX_ERROR;
+        }
 
-        World world = this.argAsWorld(0, isPlayer() ? this.player.getWorld() : null);
-        world.setFullTime(13000);
+        UUID worldId = world.getUID();
 
-        message(this.sender, Message.COMMAND_NIGHT, "%world%", world.getName());
+        if (TimeTransition.isWorldTimeChanging(worldId)) {
+            message(sender, Message.COMMAND_TIME_ALREADY_CHANGING, "%world%", world.getName());
+            return CommandResultType.DEFAULT;
+        }
 
+        long nightTime = plugin.getConfiguration().getNightTime();
+        boolean smooth = plugin.getConfiguration().isTimeSmoothChangeEnabled();
+
+        if (smooth) {
+            TimeTransition.transitionWorldTime(plugin, world, nightTime);
+        } else {
+            world.setFullTime(nightTime);
+        }
+
+        message(sender, Message.COMMAND_NIGHT, "%world%", world.getName());
         return CommandResultType.SUCCESS;
     }
 }

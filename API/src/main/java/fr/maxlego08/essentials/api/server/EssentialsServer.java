@@ -7,6 +7,7 @@ import fr.maxlego08.essentials.api.user.PrivateMessage;
 import fr.maxlego08.essentials.api.user.User;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.UUID;
@@ -36,6 +37,18 @@ public interface EssentialsServer {
      * @return The list of all online players names.
      */
     List<String> getPlayersNames();
+
+    /**
+     * Gets the list of names of all online players
+     * that are visible to the given command sender.
+     *
+     * <p>Player visibility may depend on permissions,
+     * vanish state, or other server-side rules.</p>
+     *
+     * @param sender the command sender for whom player visibility is evaluated
+     * @return a list of visible online player names
+     */
+    List<String> getVisiblePlayerNames(@NotNull CommandSender sender);
 
     /**
      * Sends a message to a player with the given UUID.

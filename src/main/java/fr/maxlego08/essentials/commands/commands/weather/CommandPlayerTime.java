@@ -12,10 +12,10 @@ public class CommandPlayerTime extends VCommand {
 
     public CommandPlayerTime(EssentialsPlugin plugin) {
         super(plugin);
-        this.setPermission(Permission.ESSENTIALS_PLAYER_TIME);
-        this.setDescription(Message.DESCRIPTION_PLAYER_TIME);
-        this.addOptionalArg("time", (a, b) -> Arrays.asList("0", "500", "1000", "1500", "2000"));
-        this.onlyPlayers();
+        super.setPermission(Permission.ESSENTIALS_PLAYER_TIME);
+        super.setDescription(Message.DESCRIPTION_PLAYER_TIME);
+        super.addOptionalArg("time", (a, b) -> Arrays.asList("0", "500", "1000", "1500", "2000"));
+        super.onlyPlayers();
     }
 
     @Override
@@ -34,7 +34,7 @@ public class CommandPlayerTime extends VCommand {
             time -= time % 24000L;
             time += 24000L + ticks;
 
-            player.setPlayerTime(time, true);
+            player.setPlayerTime(time, false);
             message(player, Message.COMMAND_PLAYER_TIME_CHANGE);
         }
 
