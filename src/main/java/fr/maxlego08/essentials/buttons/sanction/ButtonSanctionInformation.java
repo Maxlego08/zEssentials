@@ -14,6 +14,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.Plugin;
+import org.jspecify.annotations.NonNull;
 
 public class ButtonSanctionInformation extends Button {
 
@@ -24,16 +25,15 @@ public class ButtonSanctionInformation extends Button {
     }
 
     @Override
-    public ItemStack getCustomItemStack(Player player) {
+    public ItemStack getCustomItemStack(Player player, @NonNull Placeholders placeholders) {
 
         User user = this.plugin.getUser(player.getUniqueId());
-        if (user == null) return super.getCustomItemStack(player);
+        if (user == null) return super.getCustomItemStack(player, placeholders);
 
         User targetuser = user.getTargetUser();
-        if (targetuser == null) return super.getCustomItemStack(player);
+        if (targetuser == null) return super.getCustomItemStack(player, placeholders);
 
         MenuItemStack menuItemStack = this.getItemStack();
-        Placeholders placeholders = new Placeholders();
 
         placeholders.register("target", targetuser.getName());
         placeholders.register("is_ban", String.valueOf(targetuser.getOption(Option.BAN)));

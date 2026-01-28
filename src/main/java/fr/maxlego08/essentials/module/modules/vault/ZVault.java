@@ -4,7 +4,7 @@ import fr.maxlego08.essentials.api.dto.VaultItemDTO;
 import fr.maxlego08.essentials.api.vault.Vault;
 import fr.maxlego08.essentials.api.vault.VaultItem;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
-import fr.maxlego08.menu.zcore.utils.nms.ItemStackUtils;
+import fr.maxlego08.menu.common.utils.nms.ItemStackUtils;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 

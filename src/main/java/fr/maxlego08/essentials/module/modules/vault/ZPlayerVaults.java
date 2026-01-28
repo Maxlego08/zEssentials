@@ -5,7 +5,7 @@ import fr.maxlego08.essentials.api.vault.PlayerVaults;
 import fr.maxlego08.essentials.api.vault.Vault;
 import fr.maxlego08.essentials.api.vault.VaultManager;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
-import fr.maxlego08.menu.zcore.utils.nms.ItemStackUtils;
+import fr.maxlego08.menu.common.utils.nms.ItemStackUtils;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;

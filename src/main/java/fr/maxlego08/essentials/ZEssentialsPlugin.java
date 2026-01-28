@@ -126,7 +126,7 @@ import fr.maxlego08.menu.api.ButtonManager;
 import fr.maxlego08.menu.api.InventoryManager;
 import fr.maxlego08.menu.api.loader.NoneLoader;
 import fr.maxlego08.menu.api.pattern.PatternManager;
-import fr.maxlego08.menu.zcore.utils.nms.NmsVersion;
+import fr.maxlego08.menu.common.utils.nms.NmsVersion;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;

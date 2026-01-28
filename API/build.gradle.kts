@@ -8,7 +8,7 @@ rootProject.extra.properties["sha"]?.let { sha ->
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21.5-R0.1-SNAPSHOT")
-    compileOnly(files("../libs/zMenu-1.1.0.0.jar"))
+    compileOnly(files("../libs/zMenu-1.1.0.8.jar"))
 
     implementation("fr.maxlego08.sarah:sarah:1.20")
     implementation("com.tcoded:FoliaLib:0.5.1")

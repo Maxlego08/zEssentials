@@ -14,7 +14,7 @@ import fr.maxlego08.essentials.api.vault.VaultManager;
 import fr.maxlego08.essentials.api.vault.VaultResult;
 import fr.maxlego08.essentials.api.vault.VaultSlotType;
 import fr.maxlego08.essentials.module.ZModule;
-import fr.maxlego08.menu.zcore.utils.nms.ItemStackUtils;
+import fr.maxlego08.menu.common.utils.nms.ItemStackUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;

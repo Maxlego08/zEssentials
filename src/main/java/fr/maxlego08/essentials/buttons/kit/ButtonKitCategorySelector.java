@@ -10,6 +10,7 @@ import fr.maxlego08.menu.api.utils.Placeholders;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
+import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 
@@ -47,8 +48,7 @@ public class ButtonKitCategorySelector extends Button {
     }
 
     @Override
-    public ItemStack getCustomItemStack(Player player) {
-        Placeholders placeholders = new Placeholders();
+    public ItemStack getCustomItemStack(@NonNull Player player, Placeholders placeholders) {
         
         KitModule kitModule = this.plugin.getModuleManager().getModule(KitModule.class);
         List<Kit> kits = kitModule.getKitsByCategory(player, this.categoryName);
