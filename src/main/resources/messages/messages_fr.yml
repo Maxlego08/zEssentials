@@ -209,7 +209,7 @@ command-tpa-error-to-late-empty: "<error>Vous n'avez pas de demande de télépor
 command-tpa-error-to-late-expire: "<error>La demande de téléportation a expiré."
 command-tpa-sender:
   - "<success>✔ #99E0FFVous avez envoyé à &f%displayName% #99E0FFune demande de téléportation."
-  - "  <hover:show_text:'<error>✘ Annuler la téléportation'><click:run_command:/tpacancel %player%>#99E0FFTapez <success>/tpacencel %player%#99E0FF pour annuler votre demande.</click></hover>"
+  - "  <hover:show_text:'<error>✘ Annuler la téléportation'><click:run_command:/tpacancel %player%>#99E0FFTapez <success>/tpacancel %player%#99E0FF pour annuler votre demande.</click></hover>"
 command-tpa-receiver:
   - ""
   - "#F8F327⚠ &f%displayName% #99E0FFa demandé à se téléporter vers vous !"
@@ -219,7 +219,7 @@ command-tpa-receiver:
   - "&7&oVous avez 60 secondes pour accepter la demande de téléportation."
 command-tpa-here-sender:
   - "<success>✔ #99E0FFVous avez envoyé à &f%displayName% #99E0FFune demande de téléportation."
-  - "  <hover:show_text:'<error>✘ Annuler la téléportation'><click:run_command:/tpacancel %player%>#99E0FFTapez <success>/tpacencel %player%#99E0FF pour annuler votre demande.</click></hover>"
+  - "  <hover:show_text:'<error>✘ Annuler la téléportation'><click:run_command:/tpacancel %player%>#99E0FFTapez <success>/tpacancel %player%#99E0FF pour annuler votre demande.</click></hover>"
 command-tpa-here-receiver:
   - ""
   - "#F8F327⚠ &f%displayName% #99E0FFa demandé à vous téléporter vers lui !"
@@ -516,6 +516,10 @@ cooldown-commands: "<error>✘ Vous devez attendre &f%cooldown% <error>avant de 
 teleport-move: "<error>Vous ne devez pas bouger !"
 teleport-damage: "<error>Vous ne devez pas subir de dégâts pendant la téléportation."
 teleport-error-location: "<error>Impossible de vous téléporter en toute sécurité."
+
+# Système de file d'attente RTP
+teleport-already-in-queue: "<error>Vous êtes déjà dans la file d'attente de téléportation !"
+teleport-added-to-queue: "<success>Vous avez été ajouté à la file d'attente de téléportation. Position : #0EEA93%position%"
 
 teleport-message:
   type: ACTION

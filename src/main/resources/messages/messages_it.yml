@@ -56,16 +56,16 @@ command-gamemode-invalid: "<error>Giocatore non valido."
 command-time-error: "<error>Devi specificare un mondo."
 command-time-already-changing: "<error>Il tempo sta già cambiando in &f%world%<error>."
 command-day: "&fHai fatto diventare &egiorno&f nel mondo <success>%world%&f."
-command-night: "&ffHai fatto diventare &enightfall&f nel mondo <success>%world%&f."
-command-sun: "&ffHai fatto diventare &esun&f nel mondo <success>%world%&f."
+command-night: "&fHai fatto diventare &enotte&f nel mondo <success>%world%&f."
+command-sun: "&fHai fatto diventare &esole&f nel mondo <success>%world%&f."
 
 
 # Admins commands
 command-top: "&7Sei stato teletrasportato in &ecima&7."
 command-top-error: "<error>Non è stato possibile trovare un posizione sicura."
 command-speed-invalid: "<error>Giocatore non valido."
-command-speed-fly: "&7Hai impostato la velocità di &nvolo&r&7 a &f%speed%&7 per il giocatore &f%player%&7. &8(&f2 &7di default8)"
-command-speed-walk: "&Hai impostato la velocità di &ncammino&r&7 a &f%speed%&7 per il giocatore &f%player%&7. &8(&f2 &7di default&8)"
+command-speed-fly: "&7Hai impostato la velocità di &nvolo&r&7 a &f%speed%&7 per il giocatore &f%player%&7. &8(&f2 &7di default&8)"
+command-speed-walk: "&7Hai impostato la velocità di &ncammino&r&7 a &f%speed%&7 per il giocatore &f%player%&7. &8(&f2 &7di default&8)"
 command-speed-error: "<error>Devi immettere un numero tra &60<error> e &610<error>. &8(&f2 &7by default&8)"
 command-god-enable: "&7Modalità God <success>abilitata &7per &f%player%<success>."
 command-god-disable: "&7Modalità God <error>disabilitata &7per &f%player%<success>."
@@ -445,6 +445,9 @@ teleport-move: "<error>Non devi muoverti!"
 teleport-damage: "<error>Teletrasporto annullato. Hai ricevuto danno."
 teleport-error-location: "<error>Non è stato possibile teletrasportarti in modo sicuro."
 
+# Sistema di coda RTP
+teleport-already-in-queue: "<error>Sei già nella coda di teletrasporto!"
+teleport-added-to-queue: "<success>Sei stato aggiunto alla coda di teletrasporto. Posizione: #0EEA93%position%"
 
 teleport-message:
   type: ACTION
@@ -584,7 +587,7 @@ command-unban-notify:
   message: "<hover:show_text:'<gray>Da parte di: <white>%sender%<newline><gray>Durata: <white>%duration%<newline><gray>Motivo: <white>%reason%<newline><gray>Data: <white>%created_at%'><click:run_command:'/sc %target%'>&8(#f59e07Sanzione&8) #8aebeb%player% #e33414just ha appena unbannato #e0d12d%target%#e33414.</click></hover>"
 command-ban-error-duration: "<error>La durata del ban deve essere almeno di 1 secondo."
 command-mute-error-duration: "<error>La durata del mute deve essere almeno di 1 secondo."
-command-un-mute-error: "&f%player% <error>mom è mutato."
+command-un-mute-error: "&f%player% <error>non è mutato."
 command-un-ban-error: "&f%player% <error>non è bannato."
 command-sanction-error: "<error>Non puoi sanzionare questo giocatore. È protetto."
 message-kick:

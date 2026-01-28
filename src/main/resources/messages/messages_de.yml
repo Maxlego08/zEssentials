@@ -204,7 +204,7 @@ command-tpa-error-to-late-empty: "<error>Du hast keine Teleport-Anfrage."
 command-tpa-error-to-late-expire: "<error>Die Teleport-Anfrage ist abgelaufen."
 command-tpa-sender:
   - "#00FF00✔ #99E0FFTeleport-Anfrage an &f%displayName% #99E0FFgesendet."
-  - "  <hover:show_text:'<error>✘ Teleportation abbrechen'><click:run_command:/tpacancel %player%>#99E0FFGebe #00FF00/tpacencel %player%#99E0FF ein, um deine Anfrage abzubrechen.</click></hover>"
+  - "  <hover:show_text:'<error>✘ Teleportation abbrechen'><click:run_command:/tpacancel %player%>#99E0FFGebe #00FF00/tpacancel %player%#99E0FF ein, um deine Anfrage abzubrechen.</click></hover>"
 command-tpa-receiver:
   - ""
   - "#F8F327⚠ &f%displayName% #99E0FFhat angefragt, sich zu dir zu teleportieren!"
@@ -467,7 +467,11 @@ cooldown-commands: "<error>✘ Du musst &f%cooldown% <error>warten, bevor du die
 # Teleportation
 teleport-move: "<error>Du darfst dich nicht bewegen!<error>"
 teleport-damage: "<error>Du darfst während der Teleportation keinen Schaden nehmen.<error>"
-teleport-error-location: "<error>Du kannst nicht sicher teleportiert werden.<error>"
+teleport-error-location: "<error>Du kannst nicht sicher teleportiert werden."
+
+# RTP-Warteschlangensystem
+teleport-already-in-queue: "<error>Du bist bereits in der Teleportations-Warteschlange!"
+teleport-added-to-queue: "<success>Du wurdest zur Teleportations-Warteschlange hinzugefügt. Position: #0EEA93%position%"
 
 teleport-message:
   type: ACTION
