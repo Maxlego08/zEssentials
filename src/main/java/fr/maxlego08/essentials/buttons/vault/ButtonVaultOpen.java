@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
+import org.jspecify.annotations.NonNull;
 
 public class ButtonVaultOpen extends Button {
 
@@ -22,7 +23,7 @@ public class ButtonVaultOpen extends Button {
     }
 
     @Override
-    public ItemStack getCustomItemStack(Player player) {
+    public ItemStack getCustomItemStack(@NonNull Player player, @NonNull Placeholders placeholders) {
 
         PlayerVaults playerVaults = plugin.getVaultManager().getPlayerVaults(player);
         Vault targetVault = playerVaults.getTargetVault();
@@ -30,7 +31,6 @@ public class ButtonVaultOpen extends Button {
         Vault vault = playerVaults.getVault(this.vaultId);
 
         var itemstack = this.getItemStack();
-        Placeholders placeholders = new Placeholders();
         var vaultManager = plugin.getVaultManager();
 
         var vaultItemStack = vault.getIconItemStack();

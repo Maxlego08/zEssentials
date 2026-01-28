@@ -1,7 +1,7 @@
 package fr.maxlego08.essentials.api.mailbox;
 
 import fr.maxlego08.essentials.api.dto.MailBoxDTO;
-import fr.maxlego08.menu.zcore.utils.nms.ItemStackUtils;
+import fr.maxlego08.menu.common.utils.nms.ItemStackUtils;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Date;

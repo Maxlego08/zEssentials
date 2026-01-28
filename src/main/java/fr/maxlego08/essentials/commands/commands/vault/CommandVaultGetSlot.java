@@ -7,7 +7,7 @@ import fr.maxlego08.essentials.api.dto.VaultItemDTO;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.module.modules.vault.VaultModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
-import fr.maxlego08.menu.zcore.utils.nms.ItemStackUtils;
+import fr.maxlego08.menu.common.utils.nms.ItemStackUtils;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

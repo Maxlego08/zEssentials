@@ -33,7 +33,7 @@ import fr.maxlego08.essentials.module.modules.worldedit.taks.WallsTask;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.menu.api.MenuItemStack;
 import fr.maxlego08.menu.api.utils.TypedMapAccessor;
-import fr.maxlego08.menu.zcore.utils.itemstack.MenuItemStackFormMap;
+import fr.maxlego08.menu.common.utils.itemstack.MenuItemStackFormMap;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;

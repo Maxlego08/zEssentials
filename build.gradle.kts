@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "fr.maxlego08.essentials"
-version = "1.0.3.1"
+version = "1.0.3.2"
 
 extra.set("targetFolder", file("target/"))
 extra.set("targetFolderDiscord", file("target-discord/"))
@@ -58,7 +58,7 @@ allprojects {
 
     dependencies {
 //        compileOnly("fr.maxlego08.menu:zmenu-api:1.1.0.0")
-        compileOnly(files("libs/zMenu-1.1.0.0.jar"))
+        compileOnly(files("libs/zMenu-1.1.0.8.jar"))
 
         compileOnly("fr.maxlego08.sarah:sarah:1.20")
         compileOnly("com.tcoded:FoliaLib:0.5.1")

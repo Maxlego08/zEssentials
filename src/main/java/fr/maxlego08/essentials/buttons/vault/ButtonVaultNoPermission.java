@@ -19,13 +19,12 @@ public class ButtonVaultNoPermission extends Button {
     }
 
     @Override
-    public ItemStack getCustomItemStack(Player player) {
+    public ItemStack getCustomItemStack(Player player, Placeholders placeholders) {
 
         PlayerVaults playerVaults = plugin.getVaultManager().getPlayerVaults(player);
         Vault vault = playerVaults.getVault(this.vaultId);
 
         var itemstack = this.getItemStack();
-        Placeholders placeholders = new Placeholders();
 
         placeholders.register("vault-name", vault.getName());
 

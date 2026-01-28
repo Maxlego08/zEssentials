@@ -24,7 +24,7 @@ public class CommandGod extends VCommand {
         super(plugin);
         this.setPermission(Permission.ESSENTIALS_GOD);
         this.setDescription(Message.DESCRIPTION_GOD);
-        this.addOptionalArg("player", getOnlinePlayers());
+        this.addOptionalArg("player", getVisiblePlayerNames());
     }
 
     @Override

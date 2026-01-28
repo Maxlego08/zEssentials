@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.api;
 import fr.maxlego08.essentials.api.chat.ChatCooldown;
 import fr.maxlego08.essentials.api.commands.CommandCooldown;
 import fr.maxlego08.essentials.api.commands.CommandRestriction;
+import fr.maxlego08.essentials.api.config.models.NearDirectionReplacements;
 import fr.maxlego08.essentials.api.configuration.ReplacePlaceholder;
 import fr.maxlego08.essentials.api.server.RedisConfiguration;
 import fr.maxlego08.essentials.api.server.ServerType;
@@ -152,12 +153,43 @@ public interface Configuration extends ConfigurationFile {
     List<NearDistance> getNearPermissions();
 
     /**
+     * Returns the set of directional replacements (arrows or labels) used to display
+     * the relative position of nearby players.
+     *
+     * @return a {@link NearDirectionReplacements} instance containing direction symbols
+     * @since 1.0.3.2
+     */
+    NearDirectionReplacements getNearDirectionReplacements();
+
+    /**
      * Retrieves the near distance allowed for a specific permissible entity.
      *
      * @param permissible the entity to check permissions for
      * @return the near distance as a double
      */
     double getNearDistance(Permissible permissible);
+
+    /**
+     * Returns the world time value used by the /day command.
+     *
+     * @return the configured day time value
+     */
+    long getDayTime();
+
+    /**
+     * Returns the world time value used by the /night command.
+     *
+     * @return the configured night time value
+     */
+    long getNightTime();
+
+    /**
+     * Indicates whether world time changes should be animated
+     * (e.g. /day, /night commands).
+     *
+     * @return {@code true} if smooth world time changes are enabled
+     */
+    boolean isTimeSmoothChangeEnabled();
 
     /**
      * Checks if command logging is enabled.

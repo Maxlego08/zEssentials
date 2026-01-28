@@ -10,6 +10,7 @@ import fr.maxlego08.menu.api.engine.InventoryEngine;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
+import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 import java.util.Optional;
@@ -44,14 +45,13 @@ public class ButtonKitCooldown extends Button {
 
 
     @Override
-    public ItemStack getCustomItemStack(Player player) {
-        Placeholders placeholders = new Placeholders();
+    public ItemStack getCustomItemStack(@NonNull Player player, @NonNull Placeholders placeholders) {
 
         User user = this.plugin.getUser(player.getUniqueId());
-        if (user == null) return super.getCustomItemStack(player);
+        if (user == null) return super.getCustomItemStack(player, placeholders);
 
         Optional<Kit> optional = this.plugin.getKit(this.kitName);
-        if (optional.isEmpty()) return super.getCustomItemStack(player);
+        if (optional.isEmpty()) return super.getCustomItemStack(player, placeholders);
         Kit kit = optional.get();
 
         placeholders.register("cooldown", TimerBuilder.getStringTime(user.getKitCooldown(kit) - System.currentTimeMillis()));

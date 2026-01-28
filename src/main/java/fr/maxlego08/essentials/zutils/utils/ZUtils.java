@@ -68,6 +68,13 @@ public abstract class ZUtils extends MessageUtils {
         return block.isEmpty() || block.isLiquid();
     }
 
+    protected boolean isVanishedFor(Player target, Player viewer) {
+        if (target == viewer) return false;
+        if (!isVanished(target)) return false;
+        return !hasPermission(viewer, Permission.ESSENTIALS_VANISH_SEE) &&
+                !hasPermission(viewer, Permission.ESSENTIALS_VANISH);
+    }
+
     protected boolean isVanished(Player player) {
         for (MetadataValue metadataValue : player.getMetadata("vanished")) {
             if (metadataValue.asBoolean()) return true;

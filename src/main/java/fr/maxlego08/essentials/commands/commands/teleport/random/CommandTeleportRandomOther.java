@@ -15,12 +15,12 @@ public class CommandTeleportRandomOther extends VCommand {
 
     public CommandTeleportRandomOther(EssentialsPlugin plugin) {
         super(plugin);
-        this.setModule(TeleportationModule.class);
-        this.setPermission(Permission.ESSENTIALS_TP_RANDOM_OTHER);
-        this.setDescription(Message.DESCRIPTION_TP_RANDOM_OTHER);
-        this.addSubCommand("other");
-        this.addRequireArg("player", getOnlinePlayers());
-        this.addRequireArg("world", (a, b) -> Bukkit.getWorlds().stream().map(WorldInfo::getName).toList());
+        super.setModule(TeleportationModule.class);
+        super.setPermission(Permission.ESSENTIALS_TP_RANDOM_OTHER);
+        super.setDescription(Message.DESCRIPTION_TP_RANDOM_OTHER);
+        super.addSubCommand("other");
+        super.addRequirePlayerNameArg();
+        super.addRequireArg("world", (a, b) -> Bukkit.getWorlds().stream().map(WorldInfo::getName).toList());
     }
 
     @Override

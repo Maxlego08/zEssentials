@@ -52,6 +52,8 @@ command-gamemode: "&fMode de jeu&e %gamemode%&f défini pour &b%player%&f."
 command-gamemode-invalid: "<error>Vous devez spécifier un joueur valide."
 
 # Commandes de météo
+command-time-error: "<error>Tu dois indiquer un monde."
+command-time-already-changing: "<error>Le temps est déjà en train de changer dans &f%world%<error>."
 command-day: "&fVous venez d'apporter la &elumière du jour&f dans le monde <success>%world%&f."
 command-night: "&fVous venez d'apporter la &enuit&f dans le monde <success>%world%&f."
 command-sun: "&fVous venez d'apporter le &esoleil&f dans le monde <success>%world%&f."
@@ -71,11 +73,21 @@ command-night-vision-enable: "&7Vision nocturne <success>activé &7pour &f%playe
 command-night-vision-disable: "&7Vision nocturne <error>désactivé &7pour &f%player%<success>."
 command-phantoms-enable: "&7Apparition des fantômes <success>activée &7pour &f%player%<success>."
 command-phantoms-disable: "&7Apparition des fantômes <error>désactivée &7pour &f%player%<error>."
+command-ext-sender: "&7Tu as éteint le joueur &f%player%&7."
+command-ext-receiver: "<success>Tu ne brûles plus."
+command-ext-error: "<error>Impossible d’éteindre un joueur mort !"
+command-heal-all: "&7Tu as soigné tous les joueurs du serveur."
 command-heal-sender: "&7Vous venez de soigner le joueur &f%player%&7."
 command-heal-receiver: "<success>Vous avez été soigné."
 command-heal-error: "<error>Vous ne pouvez pas soigner quelqu'un qui est mort !"
+command-lighting-all: "&7Tu viens de frapper tous les joueurs avec la foudre."
+command-lighting: "&7Tu as invoqué la foudre à l’emplacement ciblé."
+command-lighting-sender: "&7Tu as invoqué la foudre à l’emplacement de &f%player%&7."
+command-lighting-receiver: "&cTu as été frappé par la foudre !"
+command-lighting-error: "<error>Impossible de frapper un joueur mort avec la foudre !"
 command-more-error: "<error>Vous ne pouvez pas effectuer cette commande sur l'objet en main."
 command-more-success: "&7Vous venez de mettre votre objet à &f64&7."
+command-feed-all: "&7Tu as nourri tous les joueurs du serveur."
 command-feed-sender: "&7Vous venez de nourrir le joueur &f%player%&7."
 command-feed-receiver: "<success>Vous avez été nourri."
 command-feed-error: "<error>Vous ne pouvez pas nourrir quelqu'un qui est mort !"
@@ -119,10 +131,9 @@ command-repair-error: "<error>L'objet dans votre main ne peut pas être réparé
 command-repair-success: "<success>Vous venez de réparer l'objet dans votre main."
 command-repair-all-error: "<error>Vous n'avez aucun objet à réparer."
 command-repair-all-success: "<success>Vous venez de réparer tous les objets dans votre inventaire."
-command-ext: "&fPar la volonté de Maxlego08, vous ne brûlez plus."
 command-near-empty: "<error>Aucun joueur à proximité de vous."
 command-near-player: "&fJoueurs à proximité de vous&7:%players%"
-command-near-info: " &7%player% &8(&e%distance%m&8)"
+command-near-info: "<newline>&6%direction% &7%player% &8(&e%distance%m&8)"
 command-play-time:
   - "&7Vous avez joué&8: <primary>%playtime%"
   - "&7Session en cours&8: <primary>%playtime_session%"
@@ -198,7 +209,7 @@ command-tpa-error-to-late-empty: "<error>Vous n'avez pas de demande de télépor
 command-tpa-error-to-late-expire: "<error>La demande de téléportation a expiré."
 command-tpa-sender:
   - "<success>✔ #99E0FFVous avez envoyé à &f%displayName% #99E0FFune demande de téléportation."
-  - "  <hover:show_text:'<error>✘ Annuler la téléportation'><click:run_command:/tpacancel %player%>#99E0FFTapez <success>/tpacencel %player%#99E0FF pour annuler votre demande.</click></hover>"
+  - "  <hover:show_text:'<error>✘ Annuler la téléportation'><click:run_command:/tpacancel %player%>#99E0FFTapez <success>/tpacancel %player%#99E0FF pour annuler votre demande.</click></hover>"
 command-tpa-receiver:
   - ""
   - "#F8F327⚠ &f%displayName% #99E0FFa demandé à se téléporter vers vous !"
@@ -208,7 +219,7 @@ command-tpa-receiver:
   - "&7&oVous avez 60 secondes pour accepter la demande de téléportation."
 command-tpa-here-sender:
   - "<success>✔ #99E0FFVous avez envoyé à &f%displayName% #99E0FFune demande de téléportation."
-  - "  <hover:show_text:'<error>✘ Annuler la téléportation'><click:run_command:/tpacancel %player%>#99E0FFTapez <success>/tpacencel %player%#99E0FF pour annuler votre demande.</click></hover>"
+  - "  <hover:show_text:'<error>✘ Annuler la téléportation'><click:run_command:/tpacancel %player%>#99E0FFTapez <success>/tpacancel %player%#99E0FF pour annuler votre demande.</click></hover>"
 command-tpa-here-receiver:
   - ""
   - "#F8F327⚠ &f%displayName% #99E0FFa demandé à vous téléporter vers lui !"
@@ -292,6 +303,7 @@ description-tp-all: "Téléporter tous les joueurs à votre position"
 description-god: "Activer/désactiver le mode divin"
 description-vanish: "Activer/désactiver le mode vanish"
 description-heal: "Soigner un joueur"
+description-lighting: "Frapper un joueur avec la foudre"
 description-more: "Obtenir plus d'objets"
 description-tp-world: "Se téléporter vers un autre monde"
 description-trash: "Ouvrir une poubelle"
@@ -504,6 +516,10 @@ cooldown-commands: "<error>✘ Vous devez attendre &f%cooldown% <error>avant de 
 teleport-move: "<error>Vous ne devez pas bouger !"
 teleport-damage: "<error>Vous ne devez pas subir de dégâts pendant la téléportation."
 teleport-error-location: "<error>Impossible de vous téléporter en toute sécurité."
+
+# Système de file d'attente RTP
+teleport-already-in-queue: "<error>Vous êtes déjà dans la file d'attente de téléportation !"
+teleport-added-to-queue: "<success>Vous avez été ajouté à la file d'attente de téléportation. Position : #0EEA93%position%"
 
 teleport-message:
   type: ACTION

@@ -7,7 +7,7 @@ import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.nms.PlayerUtil;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
-import fr.maxlego08.menu.zcore.utils.nms.NmsVersion;
+import fr.maxlego08.menu.common.utils.nms.NmsVersion;
 import org.bukkit.OfflinePlayer;
 
 import java.lang.reflect.Constructor;

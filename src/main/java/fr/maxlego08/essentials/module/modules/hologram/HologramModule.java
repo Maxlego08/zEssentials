@@ -19,7 +19,7 @@ import fr.maxlego08.essentials.api.utils.SafeLocation;
 import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.menu.api.exceptions.InventoryException;
 import fr.maxlego08.menu.api.utils.Loader;
-import fr.maxlego08.menu.zcore.utils.nms.NmsVersion;
+import fr.maxlego08.menu.common.utils.nms.NmsVersion;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Animals;

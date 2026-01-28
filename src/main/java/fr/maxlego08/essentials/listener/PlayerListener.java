@@ -291,10 +291,10 @@ public class PlayerListener extends ZUtils implements Listener {
         var configuration = plugin.getConfiguration();
         var worldName = player.getWorld().getName();
 
-        if (configuration.getDisableFlyWorld().contains(worldName) && player.isFlying() && !hasPermission(player, Permission.ESSENTIALS_FLY_BYPASS_WORLD)) {
+        if (configuration.getDisableFlyWorld().contains(worldName) && player.getAllowFlight() && !hasPermission(player, Permission.ESSENTIALS_FLY_BYPASS_WORLD)) {
 
-            player.setAllowFlight(false);
             player.setFlying(false);
+            player.setAllowFlight(false);
             player.setMetadata("zessentials-fly", new FixedMetadataValue(this.plugin, true));
             message(player, Message.COMMAND_FLY_ERROR_WORLD);
         } else if (configuration.isEnableFlyReturn() && !configuration.getDisableFlyWorld().contains(worldName) && player.hasMetadata("zessentials-fly")) {

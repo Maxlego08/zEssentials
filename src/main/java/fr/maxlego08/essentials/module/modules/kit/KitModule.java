@@ -14,7 +14,7 @@ import fr.maxlego08.menu.api.requirement.Action;
 import fr.maxlego08.menu.api.utils.Loader;
 import fr.maxlego08.menu.api.utils.TypedMapAccessor;
 import fr.maxlego08.menu.loader.MenuItemStackLoader;
-import fr.maxlego08.menu.zcore.utils.itemstack.MenuItemStackFromItemStack;
+import fr.maxlego08.menu.common.utils.itemstack.MenuItemStackFromItemStack;
 import org.apache.logging.log4j.util.Strings;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
@@ -186,7 +186,7 @@ public class KitModule extends ZModule {
      * @return A list of kits in the specified category
      */
     public List<Kit> getKitsByCategory(Player player, String categoryName) {
-        return getKits(player).stream().filter(e -> e.hasCategory() &&  e.getCategory().equalsIgnoreCase(categoryName)).toList();
+        return getKits(player).stream().filter(e -> e.hasCategory() && e.getCategory().equalsIgnoreCase(categoryName)).toList();
     }
 
     /**
@@ -399,7 +399,7 @@ public class KitModule extends ZModule {
     public void onJoin(PlayerJoinEvent event) {
 
         var user = getUser(event.getPlayer());
-        if (this.kitsOnFirstJoin.isEmpty() || !user.isFirstJoin()) return;
+        if (user == null || this.kitsOnFirstJoin.isEmpty() || !user.isFirstJoin()) return;
 
         for (String kitName : this.kitsOnFirstJoin) {
             var optional = getKit(kitName);

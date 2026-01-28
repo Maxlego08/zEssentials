@@ -2,7 +2,20 @@
 
 - Ajouter un broadcast de message centré avec le support des \n pour ajouter plusieurs lignes
 - Ajouter une option pour désactiver la tabulation des joueurs hors ligne
-- Ajouter un placeholder pour transformet les caractères en lettre spécial
+- Ajouter un placeholder pour transformed les caractères en lettre spécial
+
+# 1.0.3.2
+
+- Updated zMenu to version 1.1.0.8
+- Added `/lightning` command to strike players with lightning
+- Added `*` argument for `/heal` and `/feed` commands to target all players
+- Added player name tab completion for `/heal` and `/feed` commands
+- Added relative directions (north, south, etc.) to `/near` command
+- Added smooth time transition for `/day` and `/night` commands
+- `/feed` command now restores saturation
+- `/ext` command can now target other players
+- Fixed temporary fly when changing world through portals
+- Fixed personal time from progressing
 
 # 1.0.3.1
 
