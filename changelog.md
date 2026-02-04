@@ -4,6 +4,112 @@
 - Ajouter une option pour désactiver la tabulation des joueurs hors ligne
 - Ajouter un placeholder pour transformed les caractères en lettre spécial
 
+# 1.0.3.3
+
+- Updated zMenu to version 1.1.0.9
+- Added `force-commands` option in `config.yml`, allows commands to work even if their module is disabled
+- Added automatic messages module (`modules/automessage/config.yml`), broadcasts configurable announcements at intervals with sequential or random order
+- Added RTP cooldown configuration with permission-based overrides in `command-cooldowns`
+- Fixed duplicated users in database when a player changes their name
+- Fixed `/endersee` error handling with proper error message (`COMMAND_ENDERSEE_ERROR`)
+- Fixed `/endersee` offline permission check returning wrong result type
+- Fixed `/home-list` admin command displaying wrong message when the player has no homes
+- Fixed user lookup query to sort by `updated_at` for correct results with duplicate names
+- Fixed build compatibility with Java 25 by applying `options.release = 21` to all subprojects
+- Added 66 new placeholders across 3 categories:
+
+### Nearest Player Placeholders
+- `%zessentials_nearest_player_name%` Returns the name of the nearest visible player
+- `%zessentials_nearest_player_distance%` Returns the distance to the nearest player
+- `%zessentials_nearest_player_direction%` Returns the direction arrow (↑↗→↘↓↙←↖) to the nearest player
+
+### Player Placeholders
+- `%zessentials_player_health%` Returns the player's current health
+- `%zessentials_player_max_health%` Returns the player's max health
+- `%zessentials_player_health_rounded%` Returns the player's health rounded to nearest integer
+- `%zessentials_player_absorption%` Returns the player's absorption hearts
+- `%zessentials_player_food_level%` Returns the player's food level
+- `%zessentials_player_saturation%` Returns the player's saturation level
+- `%zessentials_player_exhaustion%` Returns the player's exhaustion level
+- `%zessentials_player_level%` Returns the player's experience level
+- `%zessentials_player_exp%` Returns the player's experience progress (0.0 to 1.0)
+- `%zessentials_player_exp_percentage%` Returns the player's experience progress as percentage
+- `%zessentials_player_total_exp%` Returns the player's total experience points
+- `%zessentials_player_exp_to_level%` Returns the experience required for the next level
+- `%zessentials_player_displayname%` Returns the player's display name
+- `%zessentials_player_uuid%` Returns the player's UUID
+- `%zessentials_player_locale%` Returns the player's client locale
+- `%zessentials_player_client_brand%` Returns the player's client brand name
+- `%zessentials_player_gamemode%` Returns the player's game mode
+- `%zessentials_player_is_flying%` Returns true if the player is currently flying
+- `%zessentials_player_allow_flight%` Returns true if the player is allowed to fly
+- `%zessentials_player_is_sneaking%` Returns true if the player is sneaking
+- `%zessentials_player_is_sprinting%` Returns true if the player is sprinting
+- `%zessentials_player_is_sleeping%` Returns true if the player is sleeping
+- `%zessentials_player_is_op%` Returns true if the player is operator
+- `%zessentials_player_is_dead%` Returns true if the player is dead
+- `%zessentials_player_is_swimming%` Returns true if the player is in water
+- `%zessentials_player_is_blocking%` Returns true if the player is blocking with a shield
+- `%zessentials_player_is_gliding%` Returns true if the player is gliding with elytra
+- `%zessentials_player_ping%` Returns the player's ping in milliseconds
+- `%zessentials_player_colored_ping%` Returns the player's ping with color based on quality
+- `%zessentials_player_fly_speed%` Returns the player's fly speed
+- `%zessentials_player_walk_speed%` Returns the player's walk speed
+- `%zessentials_player_remaining_air%` Returns the player's remaining air in ticks
+- `%zessentials_player_max_air%` Returns the player's maximum air in ticks
+- `%zessentials_player_compass%` Returns the player's compass direction (N, NE, E, SE, S, SW, W, NW)
+- `%zessentials_player_yaw%` Returns the player's yaw rotation
+- `%zessentials_player_pitch%` Returns the player's pitch rotation
+- `%zessentials_player_first_played%` Returns the date when the player first joined
+- `%zessentials_player_last_played%` Returns the date when the player last joined
+- `%zessentials_player_ticks_lived%` Returns the number of ticks the player has lived
+- `%zessentials_player_empty_slots%` Returns the number of empty inventory slots
+- `%zessentials_player_item_in_hand%` Returns the material type of the item in main hand
+- `%zessentials_player_item_in_offhand%` Returns the material type of the item in off hand
+- `%zessentials_player_world_time%` Returns the time of the player's world in ticks
+- `%zessentials_player_world_time_12%` Returns the world time in 12-hour format
+- `%zessentials_player_world_time_24%` Returns the world time in 24-hour format
+- `%zessentials_player_world_weather%` Returns the weather of the player's world
+- `%zessentials_player_has_bed%` Returns true if the player has a respawn location set
+- `%zessentials_player_bed_world%` Returns the world name of the player's respawn location
+- `%zessentials_player_bed_x%` Returns the X coordinate of the player's respawn location
+- `%zessentials_player_bed_y%` Returns the Y coordinate of the player's respawn location
+- `%zessentials_player_bed_z%` Returns the Z coordinate of the player's respawn location
+
+### Server Placeholders
+- `%zessentials_server_online%` Returns the number of online players
+- `%zessentials_server_max_players%` Returns the maximum number of players
+- `%zessentials_server_safe_online%` Returns the number of non-vanished online players
+- `%zessentials_server_unique_joins%` Returns the total number of unique players
+- `%zessentials_server_tps%` Returns the server TPS (1 minute average)
+- `%zessentials_server_tps_5%` Returns the server TPS (5 minute average)
+- `%zessentials_server_tps_15%` Returns the server TPS (15 minute average)
+- `%zessentials_server_tps_colored%` Returns the server TPS with color indicator
+- `%zessentials_server_free_memory%` Returns the free memory in MB
+- `%zessentials_server_max_memory%` Returns the max memory in MB
+- `%zessentials_server_used_memory%` Returns the used memory in MB
+- `%zessentials_server_total_memory%` Returns the total allocated memory in MB
+- `%zessentials_server_world_players_<world>%` Returns the number of players in a specific world
+- `%zessentials_server_world_time_<world>%` Returns the time of a specific world in ticks
+- `%zessentials_server_world_weather_<world>%` Returns the weather of a specific world
+
+### User Placeholders
+- `%zessentials_user_is_vanished%` Returns true if the player is vanished
+- `%zessentials_user_is_frozen%` Returns true if the player is frozen
+- `%zessentials_user_is_ban%` Returns true if the player is banned
+- `%zessentials_user_ban_reason%` Returns the ban reason
+- `%zessentials_user_ban_duration%` Returns the remaining ban duration in seconds
+- `%zessentials_user_ban_duration_formatted%` Returns the remaining ban duration formatted
+- `%zessentials_user_mute_reason%` Returns the mute reason
+- `%zessentials_user_fly_formatted%` Returns the remaining fly time formatted
+- `%zessentials_user_afk_duration%` Returns the AFK duration in seconds
+- `%zessentials_user_afk_duration_formatted%` Returns the AFK duration formatted
+- `%zessentials_user_home_list%` Returns a comma-separated list of home names
+- `%zessentials_user_home_<index>%` Returns the home name by index (1-based)
+- `%zessentials_user_home_<index>_<w/x/y/z>%` Returns the home location info by index
+- `%zessentials_user_vote_offline%` Returns the number of offline votes
+- `%zessentials_user_pm_recipient%` Returns the name of the last private message recipient
+
 # 1.0.3.2
 
 - Updated zMenu to version 1.1.0.8
