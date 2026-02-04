@@ -73,6 +73,7 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     private List<UUID> blacklistUuids;
     private List<Long> flyTaskAnnounce;
     private String placeholderEmpty;
+    private final List<String> forceCommands = new ArrayList<>();
 
     public MainConfiguration(ZEssentialsPlugin plugin) {
         this.plugin = plugin;
@@ -385,6 +386,11 @@ public class MainConfiguration extends YamlLoader implements Configuration {
     @Override
     public List<CommandRestriction> getCommandRestrictions() {
         return this.commandRestrictions;
+    }
+
+    @Override
+    public List<String> getForceCommands() {
+        return this.forceCommands;
     }
 
 }

@@ -298,4 +298,11 @@ public interface Configuration extends ConfigurationFile {
      * @return a map of options and their default values
      */
     Map<Option, Boolean> getDefaultOptionValues();
+
+    /**
+     * Retrieves the list of commands that should work even if their module is disabled.
+     *
+     * @return a list of command names that bypass the module disable check
+     */
+    List<String> getForceCommands();
 }

@@ -446,7 +446,7 @@ public abstract class VCommand extends Arguments implements EssentialsCommand {
             if (this.module != null) {
 
                 Module module = this.plugin.getModuleManager().getModule(this.module);
-                if (!module.isEnable()) {
+                if (!module.isEnable() && !configuration.getForceCommands().contains(key)) {
                     message(sender, Message.MODULE_DISABLE, "%name%", module.getName());
                     return CommandResultType.MODULE_DISABLE;
                 }
