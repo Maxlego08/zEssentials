@@ -193,7 +193,7 @@ public class HomeModule extends ZModule implements HomeManager {
             if (homeName == null) {
                 iStorage.getHomes(uuid, homes -> {
                     List<String> homesAsString = homes.stream().map(home -> getMessage(Message.COMMAND_HOME_ADMIN_LIST_INFO, "%name%", home.getName(), "%player%", username)).toList();
-                    message(user, Message.COMMAND_HOME_ADMIN_LIST, "%homes%", homesAsString.isEmpty() ? Message.COMMAND_HOME_ADMIN_LIST_INFO.getMessageAsString() : Strings.join(homesAsString, ','), "%player%", username);
+                    message(user, Message.COMMAND_HOME_ADMIN_LIST, "%homes%", homesAsString.isEmpty() ? getMessage(Message.COMMAND_HOME_ADMIN_LIST_EMPTY) : Strings.join(homesAsString, ','), "%player%", username);
                 });
                 return;
             }

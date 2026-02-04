@@ -121,3 +121,4 @@ run/
 !**/libs/*.jar
 CLAUDE.md
 .claude
+updates.md

@@ -122,7 +122,10 @@ public class UserRepository extends Repository {
      * @return A list of UserDTO objects corresponding to the found users.
      */
     public List<UserDTO> selectUsers(String userName) {
-        return select(UserDTO.class, table -> table.where("name", userName));
+        return select(UserDTO.class, table -> {
+            table.where("name", userName);
+            table.orderByDesc("updated_at");
+        });
     }
 
     /**

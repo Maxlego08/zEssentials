@@ -56,6 +56,7 @@ public enum Message {
     COMMAND_DAY("&fYou have just brought &edaylight&f into the world <success>%world%&f."),
     COMMAND_NIGHT("&fYou have just brought &enightfall&f into the world <success>%world%&f."),
     COMMAND_SUN("&fYou have just brought the &esun&f into the world <success>%world%&f."),
+    COMMAND_ENDERSEE_ERROR("<error>Unable to load the ender chest of &f%player%<error>."),
     COMMAND_TOP("&7You've just been teleported to &etop&7."),
     COMMAND_BOTTOM("&7You've just been teleported to &ebottom&7."),
     COMMAND_BOTTOM_ERROR("<error>Unable to find a position to transport you safely."),

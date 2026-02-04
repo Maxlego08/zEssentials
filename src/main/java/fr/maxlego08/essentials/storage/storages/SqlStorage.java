@@ -299,6 +299,11 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
             with(UserRepository.class).upsert(uniqueId, playerName); // Create the player or update his name
 
+            // Remove stale name-to-UUID cache entries for this UUID under a different name
+            this.localUUIDS.entrySet().removeIf(entry ->
+                    entry.getValue().equals(uniqueId) && !entry.getKey().equals(playerName));
+            this.localUUIDS.put(playerName, uniqueId);
+
             if (optional.isPresent()) {
                 UserDTO userDTO = optional.get();
 
@@ -483,6 +488,10 @@ public class SqlStorage extends StorageHelper implements IStorage {
                 if (userDTOS.isEmpty()) {
                     consumer.accept(null);
                     return;
+                }
+
+                if (userDTOS.size() > 1) {
+                    this.plugin.getLogger().warning("Found " + userDTOS.size() + " users with the name '" + userName + "'. This may cause economy inconsistencies. Consider cleaning up duplicate entries in the users table.");
                 }
 
                 UserDTO userDTO = userDTOS.getFirst();
