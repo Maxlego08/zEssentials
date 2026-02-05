@@ -33,7 +33,7 @@ public class CommandEnderSee extends VCommand {
 
         } else {
 
-            if (!hasPermission(sender, Permission.ESSENTIALS_ENDERSEE_OFFLINE)) return CommandResultType.SYNTAX_ERROR;
+            if (!hasPermission(sender, Permission.ESSENTIALS_ENDERSEE_OFFLINE)) return CommandResultType.NO_PERMISSION;
 
             String version = NmsVersion.getCurrentVersion().name().replace("V_", "v");
             String className = String.format("fr.maxlego08.essentials.nms.%s.PlayerUtils", version);
@@ -44,12 +44,15 @@ public class CommandEnderSee extends VCommand {
                 Constructor<?> constructor = clazz.getConstructor(EssentialsPlugin.class);
                 PlayerUtil playerUtil = (PlayerUtil) constructor.newInstance(this.plugin);
                 if (!playerUtil.openEnderChest(player, offlinePlayer)) {
-                    return CommandResultType.SYNTAX_ERROR;
+                    message(sender, Message.COMMAND_ENDERSEE_ERROR, "%player%", offlinePlayer.getName());
+                    return CommandResultType.DEFAULT;
                 }
 
             } catch (Exception exception) {
                 this.plugin.getLogger().severe("Cannot create a new instance for the class " + className);
                 this.plugin.getLogger().severe(exception.getMessage());
+                message(sender, Message.COMMAND_ENDERSEE_ERROR, "%player%", offlinePlayer.getName());
+                return CommandResultType.DEFAULT;
             }
 
         }

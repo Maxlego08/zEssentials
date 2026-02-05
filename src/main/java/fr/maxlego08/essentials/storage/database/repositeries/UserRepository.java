@@ -116,13 +116,29 @@ public class UserRepository extends Repository {
     }
 
     /**
+     * Updates the name for a specific user by UUID.
+     *
+     * @param uuid The UUID of the user.
+     * @param name The new name to set.
+     */
+    public void updateName(UUID uuid, String name) {
+        update(table -> {
+            table.string("name", name);
+            table.where("unique_id", uuid);
+        });
+    }
+
+    /**
      * Selects a list of users based on their username.
      *
      * @param userName The username to search for.
      * @return A list of UserDTO objects corresponding to the found users.
      */
     public List<UserDTO> selectUsers(String userName) {
-        return select(UserDTO.class, table -> table.where("name", userName));
+        return select(UserDTO.class, table -> {
+            table.where("name", userName);
+            table.orderByDesc("updated_at");
+        });
     }
 
     /**

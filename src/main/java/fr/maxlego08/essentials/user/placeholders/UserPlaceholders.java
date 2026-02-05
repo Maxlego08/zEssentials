@@ -4,8 +4,10 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.economy.EconomyManager;
 import fr.maxlego08.essentials.api.economy.PriceFormat;
+import fr.maxlego08.essentials.api.home.Home;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.placeholders.PlaceholderRegister;
+import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
@@ -14,6 +16,7 @@ import fr.maxlego08.essentials.zutils.utils.ZUtils;
 
 import java.math.BigDecimal;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class UserPlaceholders extends ZUtils implements PlaceholderRegister {
 
@@ -187,5 +190,125 @@ public class UserPlaceholders extends ZUtils implements PlaceholderRegister {
         placeholder.register("user_biome", (player) -> player.getWorld().getBiome(player.getLocation()).name(), "Returns the biome of the player");
 
         placeholder.register("user_has_discord_linked", (player) -> iStorage.getUser(player.getUniqueId()).isDiscordLinked() ? "true" : "false", "Returns true if the player has a discord linked");
+
+        // Vanish
+        placeholder.register("user_is_vanished", (player) -> {
+            User user = iStorage.getUser(player.getUniqueId());
+            return user != null ? String.valueOf(user.getOption(Option.VANISH)) : "false";
+        }, "Returns true if the player is vanished");
+
+        // Frozen
+        placeholder.register("user_is_frozen", (player) -> {
+            User user = iStorage.getUser(player.getUniqueId());
+            return user != null ? String.valueOf(user.isFrozen()) : "false";
+        }, "Returns true if the player is frozen");
+
+        // Ban
+        placeholder.register("user_is_ban", (player) -> {
+            User user = iStorage.getUser(player.getUniqueId());
+            return user != null ? String.valueOf(user.getOption(Option.BAN)) : "false";
+        }, "Returns true if the player is banned");
+
+        placeholder.register("user_ban_reason", (player) -> {
+            User user = iStorage.getUser(player.getUniqueId());
+            if (user == null) return plugin.getConfiguration().getPlaceholderEmpty();
+            Sanction ban = user.getBanSanction();
+            return ban != null ? ban.getReason() : plugin.getConfiguration().getPlaceholderEmpty();
+        }, "Returns the ban reason");
+
+        placeholder.register("user_ban_duration", (player) -> {
+            User user = iStorage.getUser(player.getUniqueId());
+            if (user == null) return "0";
+            Sanction ban = user.getBanSanction();
+            return ban != null && ban.isActive() ? String.valueOf(ban.getDurationRemaining().toSeconds()) : "0";
+        }, "Returns the remaining ban duration in seconds");
+
+        placeholder.register("user_ban_duration_formatted", (player) -> {
+            User user = iStorage.getUser(player.getUniqueId());
+            if (user == null) return "0";
+            Sanction ban = user.getBanSanction();
+            return ban != null && ban.isActive() ? TimerBuilder.getStringTime(ban.getDurationRemaining().toMillis()) : "0";
+        }, "Returns the remaining ban duration formatted");
+
+        // Mute reason
+        placeholder.register("user_mute_reason", (player) -> {
+            User user = iStorage.getUser(player.getUniqueId());
+            if (user == null) return plugin.getConfiguration().getPlaceholderEmpty();
+            Sanction mute = user.getMuteSanction();
+            return mute != null ? mute.getReason() : plugin.getConfiguration().getPlaceholderEmpty();
+        }, "Returns the mute reason");
+
+        // Fly formatted
+        placeholder.register("user_fly_formatted", (player) -> {
+            User user = iStorage.getUser(player.getUniqueId());
+            if (user == null) return "0";
+            long seconds = user.getFlySeconds();
+            return seconds > 0 ? TimerBuilder.getStringTime(seconds * 1000) : "0";
+        }, "Returns the remaining fly time formatted");
+
+        // AFK duration
+        placeholder.register("user_afk_duration", (player) -> {
+            User user = iStorage.getUser(player.getUniqueId());
+            if (user == null || !user.isAfk()) return "0";
+            long duration = (System.currentTimeMillis() - user.getLastActiveTime()) / 1000;
+            return String.valueOf(duration);
+        }, "Returns the AFK duration in seconds");
+
+        placeholder.register("user_afk_duration_formatted", (player) -> {
+            User user = iStorage.getUser(player.getUniqueId());
+            if (user == null || !user.isAfk()) return "0";
+            long duration = System.currentTimeMillis() - user.getLastActiveTime();
+            return TimerBuilder.getStringTime(duration);
+        }, "Returns the AFK duration formatted");
+
+        // Homes
+        placeholder.register("user_home_list", (player) -> {
+            User user = iStorage.getUser(player.getUniqueId());
+            if (user == null || user.getHomes().isEmpty()) return plugin.getConfiguration().getPlaceholderEmpty();
+            return user.getHomes().stream().map(Home::getName).collect(Collectors.joining(", "));
+        }, "Returns a comma-separated list of home names");
+
+        placeholder.register("user_home_", (player, args) -> {
+            User user = iStorage.getUser(player.getUniqueId());
+            if (user == null) return plugin.getConfiguration().getPlaceholderEmpty();
+            String[] split = args.split("_", 2);
+            if (split.length < 1) return plugin.getConfiguration().getPlaceholderEmpty();
+
+            int index;
+            try {
+                index = Integer.parseInt(split[0]) - 1;
+            } catch (NumberFormatException e) {
+                return plugin.getConfiguration().getPlaceholderEmpty();
+            }
+
+            var homes = user.getHomes();
+            if (index < 0 || index >= homes.size()) return plugin.getConfiguration().getPlaceholderEmpty();
+            Home home = homes.get(index);
+
+            if (split.length == 1) return home.getName();
+
+            var loc = home.getLocation();
+            if (loc == null) return plugin.getConfiguration().getPlaceholderEmpty();
+            return switch (split[1]) {
+                case "w", "world" -> loc.getWorld() != null ? loc.getWorld().getName() : plugin.getConfiguration().getPlaceholderEmpty();
+                case "x" -> String.valueOf(loc.getBlockX());
+                case "y" -> String.valueOf(loc.getBlockY());
+                case "z" -> String.valueOf(loc.getBlockZ());
+                default -> home.getName();
+            };
+        }, "Returns info about a home by index (1-based)", "index", "property (w/x/y/z)");
+
+        // Vote offline
+        placeholder.register("user_vote_offline", (player) -> {
+            User user = iStorage.getUser(player.getUniqueId());
+            return user != null ? String.valueOf(user.getOfflineVotes()) : "0";
+        }, "Returns the number of offline votes");
+
+        // Private messages
+        placeholder.register("user_pm_recipient", (player) -> {
+            User user = iStorage.getUser(player.getUniqueId());
+            if (user == null || !user.hasPrivateMessage()) return plugin.getConfiguration().getPlaceholderEmpty();
+            return user.getPrivateMessage().username();
+        }, "Returns the name of the last private message recipient");
     }
 }

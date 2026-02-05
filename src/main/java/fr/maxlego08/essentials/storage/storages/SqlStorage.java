@@ -2,29 +2,7 @@ package fr.maxlego08.essentials.storage.storages;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.discord.DiscordAction;
-import fr.maxlego08.essentials.api.dto.ChatMessageDTO;
-import fr.maxlego08.essentials.api.dto.CommandDTO;
-import fr.maxlego08.essentials.api.dto.CooldownDTO;
-import fr.maxlego08.essentials.api.dto.DiscordAccountDTO;
-import fr.maxlego08.essentials.api.dto.DiscordCodeDTO;
-import fr.maxlego08.essentials.api.dto.EconomyDTO;
-import fr.maxlego08.essentials.api.dto.EconomyTransactionDTO;
-import fr.maxlego08.essentials.api.dto.FlyDTO;
-import fr.maxlego08.essentials.api.dto.MailBoxDTO;
-import fr.maxlego08.essentials.api.dto.OptionDTO;
-import fr.maxlego08.essentials.api.dto.PlayTimeDTO;
-import fr.maxlego08.essentials.api.dto.PlayerSlotDTO;
-import fr.maxlego08.essentials.api.dto.PowerToolsDTO;
-import fr.maxlego08.essentials.api.dto.PrivateMessageDTO;
-import fr.maxlego08.essentials.api.dto.SanctionDTO;
-import fr.maxlego08.essentials.api.dto.ServerStorageDTO;
-import fr.maxlego08.essentials.api.dto.StepDTO;
-import fr.maxlego08.essentials.api.dto.UserDTO;
-import fr.maxlego08.essentials.api.dto.UserEconomyDTO;
-import fr.maxlego08.essentials.api.dto.UserEconomyRankingDTO;
-import fr.maxlego08.essentials.api.dto.UserVoteDTO;
-import fr.maxlego08.essentials.api.dto.VaultDTO;
-import fr.maxlego08.essentials.api.dto.VaultItemDTO;
+import fr.maxlego08.essentials.api.dto.*;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.economy.PendingEconomyUpdate;
 import fr.maxlego08.essentials.api.home.Home;
@@ -38,72 +16,19 @@ import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.user.UserRecord;
 import fr.maxlego08.essentials.api.vault.Vault;
-import fr.maxlego08.essentials.migrations.create.CreateChatMessageMigration;
-import fr.maxlego08.essentials.migrations.create.CreateCommandsMigration;
-import fr.maxlego08.essentials.migrations.create.CreateEconomyTransactionMigration;
-import fr.maxlego08.essentials.migrations.create.CreateLinkAccountMigration;
-import fr.maxlego08.essentials.migrations.create.CreateLinkCodeMigrations;
-import fr.maxlego08.essentials.migrations.create.CreateLinkHistoryMigration;
-import fr.maxlego08.essentials.migrations.create.CreatePlayerSlots;
-import fr.maxlego08.essentials.migrations.create.CreatePlayerVault;
-import fr.maxlego08.essentials.migrations.create.CreatePlayerVaultItem;
-import fr.maxlego08.essentials.migrations.create.CreatePrivateMessagesMigration;
-import fr.maxlego08.essentials.migrations.create.CreateSanctionsTableMigration;
-import fr.maxlego08.essentials.migrations.create.CreateServerStorageTableMigration;
-import fr.maxlego08.essentials.migrations.create.CreateUserCooldownTableMigration;
-import fr.maxlego08.essentials.migrations.create.CreateUserEconomyMigration;
-import fr.maxlego08.essentials.migrations.create.CreateUserHomeTableMigration;
-import fr.maxlego08.essentials.migrations.create.CreateUserMailBoxMigration;
-import fr.maxlego08.essentials.migrations.create.CreateUserOptionTableMigration;
-import fr.maxlego08.essentials.migrations.create.CreateUserPlayTimeTableMigration;
-import fr.maxlego08.essentials.migrations.create.CreateUserPowerToolsMigration;
-import fr.maxlego08.essentials.migrations.create.CreateUserPowerToolsV2Migration;
-import fr.maxlego08.essentials.migrations.create.CreateUserStepMigration;
-import fr.maxlego08.essentials.migrations.create.CreateUserStepV2Migration;
-import fr.maxlego08.essentials.migrations.create.CreateUserTableMigration;
-import fr.maxlego08.essentials.migrations.create.CreateVoteSiteMigration;
+import fr.maxlego08.essentials.migrations.create.*;
 import fr.maxlego08.essentials.migrations.drop.DropPowerToolsMigration;
 import fr.maxlego08.essentials.migrations.drop.DropStepMigration;
-import fr.maxlego08.essentials.migrations.update.UpdateEconomyTransactionAddColumn;
-import fr.maxlego08.essentials.migrations.update.UpdatePlayerSlots;
-import fr.maxlego08.essentials.migrations.update.UpdateUserTableAddFlyColumn;
-import fr.maxlego08.essentials.migrations.update.UpdateUserTableAddFreezeColumn;
-import fr.maxlego08.essentials.migrations.update.UpdateUserTableAddSanctionColumns;
-import fr.maxlego08.essentials.migrations.update.UpdateUserTableAddVoteColumn;
+import fr.maxlego08.essentials.migrations.update.*;
 import fr.maxlego08.essentials.storage.GlobalDatabaseConfiguration;
 import fr.maxlego08.essentials.storage.database.Repositories;
 import fr.maxlego08.essentials.storage.database.Repository;
-import fr.maxlego08.essentials.storage.database.repositeries.ChatMessagesRepository;
-import fr.maxlego08.essentials.storage.database.repositeries.CommandsRepository;
-import fr.maxlego08.essentials.storage.database.repositeries.EconomyTransactionsRepository;
-import fr.maxlego08.essentials.storage.database.repositeries.LinkAccountRepository;
-import fr.maxlego08.essentials.storage.database.repositeries.LinkCodeRepository;
-import fr.maxlego08.essentials.storage.database.repositeries.LinkHistoryRepository;
-import fr.maxlego08.essentials.storage.database.repositeries.PlayerSlotRepository;
-import fr.maxlego08.essentials.storage.database.repositeries.PrivateMessagesRepository;
-import fr.maxlego08.essentials.storage.database.repositeries.ServerStorageRepository;
-import fr.maxlego08.essentials.storage.database.repositeries.UserCooldownsRepository;
-import fr.maxlego08.essentials.storage.database.repositeries.UserEconomyRepository;
-import fr.maxlego08.essentials.storage.database.repositeries.UserHomeRepository;
-import fr.maxlego08.essentials.storage.database.repositeries.UserMailBoxRepository;
-import fr.maxlego08.essentials.storage.database.repositeries.UserOptionRepository;
-import fr.maxlego08.essentials.storage.database.repositeries.UserPlayTimeRepository;
-import fr.maxlego08.essentials.storage.database.repositeries.UserPowerToolsRepository;
-import fr.maxlego08.essentials.storage.database.repositeries.UserRepository;
-import fr.maxlego08.essentials.storage.database.repositeries.UserSanctionRepository;
-import fr.maxlego08.essentials.storage.database.repositeries.UserStepRepository;
-import fr.maxlego08.essentials.storage.database.repositeries.VaultItemRepository;
-import fr.maxlego08.essentials.storage.database.repositeries.VaultRepository;
-import fr.maxlego08.essentials.storage.database.repositeries.VoteSiteRepository;
+import fr.maxlego08.essentials.storage.database.repositeries.*;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.utils.StorageHelper;
 import fr.maxlego08.essentials.zutils.utils.TypeSafeCache;
 import fr.maxlego08.menu.common.utils.nms.ItemStackUtils;
-import fr.maxlego08.sarah.DatabaseConfiguration;
-import fr.maxlego08.sarah.DatabaseConnection;
-import fr.maxlego08.sarah.HikariDatabaseConnection;
-import fr.maxlego08.sarah.MigrationManager;
-import fr.maxlego08.sarah.SqliteConnection;
+import fr.maxlego08.sarah.*;
 import fr.maxlego08.sarah.database.DatabaseType;
 import fr.maxlego08.sarah.logger.JULogger;
 import org.bukkit.Bukkit;
@@ -112,16 +37,7 @@ import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
@@ -299,6 +215,26 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
             with(UserRepository.class).upsert(uniqueId, playerName); // Create the player or update his name
 
+            // Remove stale name-to-UUID cache entries for this UUID under a different name
+            this.localUUIDS.entrySet().removeIf(entry -> entry.getValue().equals(uniqueId) && !entry.getKey().equals(playerName));
+            this.localUUIDS.put(playerName, uniqueId);
+
+            // Fix duplicate names: if other UUIDs still have this name, update them via Mojang API
+            List<UserDTO> duplicates = with(UserRepository.class).selectUsers(playerName);
+            for (UserDTO duplicate : duplicates) {
+                if (duplicate.unique_id().equals(uniqueId)) continue;
+
+                String currentName = fetchNameFromMojang(duplicate.unique_id());
+                if (currentName != null && !currentName.equals(playerName)) {
+                    with(UserRepository.class).updateName(duplicate.unique_id(), currentName);
+                    this.localUUIDS.remove(playerName);
+                    this.localUUIDS.put(currentName, duplicate.unique_id());
+                    this.plugin.getLogger().info("Updated player name for UUID " + duplicate.unique_id() + " from '" + playerName + "' to '" + currentName + "' (detected duplicate name).");
+                } else if (currentName == null) {
+                    this.plugin.getLogger().warning("Could not fetch current name from Mojang for UUID " + duplicate.unique_id() + " (duplicate name '" + playerName + "'). The player may have plugin inconsistencies.");
+                }
+            }
+
             if (optional.isPresent()) {
                 UserDTO userDTO = optional.get();
 
@@ -329,6 +265,33 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     public <T extends Repository> T with(Class<T> module) {
         return this.repositories.getTable(module);
+    }
+
+    /**
+     * Fetches the current player name from the Mojang API for a given UUID.
+     *
+     * @param uuid The UUID of the player.
+     * @return The current name, or null if the request fails.
+     */
+    private String fetchNameFromMojang(UUID uuid) {
+        String uuidString = uuid.toString().replace("-", "");
+        String url = "https://sessionserver.mojang.com/session/minecraft/profile/" + uuidString;
+        try {
+            java.net.HttpURLConnection connection = (java.net.HttpURLConnection) new java.net.URL(url).openConnection();
+            connection.setRequestMethod("GET");
+            connection.setConnectTimeout(5000);
+            connection.setReadTimeout(5000);
+
+            if (connection.getResponseCode() == 200) {
+                try (java.io.InputStreamReader reader = new java.io.InputStreamReader(connection.getInputStream())) {
+                    com.google.gson.JsonObject jsonObject = com.google.gson.JsonParser.parseReader(reader).getAsJsonObject();
+                    return jsonObject.get("name").getAsString();
+                }
+            }
+        } catch (Exception exception) {
+            this.plugin.getLogger().warning("Failed to fetch player name from Mojang API for UUID " + uuid + ": " + exception.getMessage());
+        }
+        return null;
     }
 
     @Override
@@ -376,9 +339,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
     @Override
     public void resetEconomy(Economy economy, BigDecimal amount) {
         synchronized (economyUpdateQueue) {
-            economyUpdateQueue.values().stream()
-                    .filter(pending -> pending.economy().equals(economy))
-                    .forEach(pending -> pending.latestValue().set(amount));
+            economyUpdateQueue.values().stream().filter(pending -> pending.economy().equals(economy)).forEach(pending -> pending.latestValue().set(amount));
         }
 
         async(() -> with(UserEconomyRepository.class).reset(economy, amount));
@@ -483,6 +444,10 @@ public class SqlStorage extends StorageHelper implements IStorage {
                 if (userDTOS.isEmpty()) {
                     consumer.accept(null);
                     return;
+                }
+
+                if (userDTOS.size() > 1) {
+                    this.plugin.getLogger().warning("Found " + userDTOS.size() + " users with the name '" + userName + "'. This may cause economy inconsistencies. Consider cleaning up duplicate entries in the users table.");
                 }
 
                 UserDTO userDTO = userDTOS.getFirst();

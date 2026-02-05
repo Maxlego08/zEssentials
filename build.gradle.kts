@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "fr.maxlego08.essentials"
-version = "1.0.3.2"
+version = "1.0.3.3"
 
 extra.set("targetFolder", file("target/"))
 extra.set("targetFolderDiscord", file("target-discord/"))
@@ -48,6 +48,7 @@ allprojects {
 
     tasks.compileJava {
         options.encoding = "UTF-8"
+        options.release = 21
     }
 
     tasks.javadoc {
@@ -58,7 +59,7 @@ allprojects {
 
     dependencies {
 //        compileOnly("fr.maxlego08.menu:zmenu-api:1.1.0.0")
-        compileOnly(files("libs/zMenu-1.1.0.8.jar"))
+        compileOnly(files("libs/zMenu-1.1.0.9.jar"))
 
         compileOnly("fr.maxlego08.sarah:sarah:1.20")
         compileOnly("com.tcoded:FoliaLib:0.5.1")
@@ -111,10 +112,6 @@ tasks {
 
     build {
         dependsOn(shadowJar)
-    }
-
-    compileJava {
-        options.release = 21
     }
 
     processResources {

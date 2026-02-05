@@ -58,6 +58,11 @@ redis-configuration:
   port: 6379
   password: "123456a"
 
+# Commands that will work even if their module is disabled
+force-commands:
+  # - rtp
+  # - home
+
 # If you have enabled this option, players with the essentials.bypass.cooldown permission you can execute commands in command-cooldowns without being assigned
 enable-cooldown-bypass: false
 
@@ -73,6 +78,13 @@ command-cooldowns:
       - permission: "essentials.cooldown.heal.staff"
         # In this example, whoever has "essentials.cooldown.heal.staff" permission can run "/heal" after 20 seconds
         cooldown: 20
+  - command: tpr
+    cooldown: 300
+    permissions:
+      - permission: "essentials.cooldown.rtp.vip"
+        cooldown: 120
+      - permission: "essentials.cooldown.rtp.staff"
+        cooldown: 0
 
 # Allows disabling commands in specific worlds or areas (cuboids)
 command-restrictions:
