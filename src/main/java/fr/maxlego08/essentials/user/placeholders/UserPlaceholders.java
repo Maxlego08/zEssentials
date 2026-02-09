@@ -191,6 +191,18 @@ public class UserPlaceholders extends ZUtils implements PlaceholderRegister {
 
         placeholder.register("user_has_discord_linked", (player) -> iStorage.getUser(player.getUniqueId()).isDiscordLinked() ? "true" : "false", "Returns true if the player has a discord linked");
 
+        // PayToggle
+        placeholder.register("user_is_pay_disabled", (player) -> {
+            User user = iStorage.getUser(player.getUniqueId());
+            return user != null ? String.valueOf(user.getOption(Option.PAY_DISABLE)) : "false";
+        }, "Returns true if the player has disabled pay (paytoggle)");
+
+        placeholder.register("user_pay_status", (player) -> {
+            User user = iStorage.getUser(player.getUniqueId());
+            boolean isPayDisabled = user != null && user.getOption(Option.PAY_DISABLE);
+            return isPayDisabled ? economyManager.getPayTogglePlaceholderDisabled() : economyManager.getPayTogglePlaceholderEnabled();
+        }, "Returns the configured placeholder for the player's pay status");
+
         // Vanish
         placeholder.register("user_is_vanished", (player) -> {
             User user = iStorage.getUser(player.getUniqueId());

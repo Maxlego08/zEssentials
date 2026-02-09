@@ -305,4 +305,18 @@ public interface EconomyManager extends Module {
      * @return a string representing the reason for the /set command
      */
     String getCommandSetReason();
+
+    /**
+     * Retrieves the placeholder text to display when pay is enabled (paytoggle off).
+     *
+     * @return a string representing the enabled status for paytoggle placeholder
+     */
+    String getPayTogglePlaceholderEnabled();
+
+    /**
+     * Retrieves the placeholder text to display when pay is disabled (paytoggle on).
+     *
+     * @return a string representing the disabled status for paytoggle placeholder
+     */
+    String getPayTogglePlaceholderDisabled();
 }
