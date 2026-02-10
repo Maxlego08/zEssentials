@@ -4,6 +4,18 @@
 - Ajouter une option pour désactiver la tabulation des joueurs hors ligne
 - Ajouter un placeholder pour transformed les caractères en lettre spécial
 
+# 1.0.3.4
+
+- Changed `enable-cooldown-bypass` default value to `true` in `config.yml`
+- Added PayToggle placeholders:
+  - `%zessentials_user_is_pay_disabled%` Returns true if the player has disabled payments (paytoggle)
+  - `%zessentials_user_pay_status%` Returns the configured placeholder text for pay status
+- Added PayToggle placeholder configuration in `modules/economy/config.yml`:
+  - `paytoggle-placeholder-enabled` - Text shown when pay is enabled
+  - `paytoggle-placeholder-disabled` - Text shown when pay is disabled
+- Fixed permission registration conflict when reloading - now removes existing permission before re-registering
+- Fixed duplicate player name detection - Mojang API lookup now only runs in online mode to prevent issues on offline servers
+
 # 1.0.3.3
 
 - Updated zMenu to version 1.1.0.9
