@@ -176,3 +176,9 @@ command-give-random-reason: "Give by %sender% (Random)"
 command-take-reason: "Taken by %sender%"
 command-reset-reason: "Reset by %sender%"
 command-set-reason: "Set by %sender%"
+
+# Placeholders for /paytoggle status
+# %zessentials_user_is_pay_disabled% returns true/false
+# %zessentials_user_pay_status% returns the configured value below
+paytoggle-placeholder-enabled: "&aEnabled"
+paytoggle-placeholder-disabled: "&cDisabled"

@@ -14,13 +14,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class StorageHelper extends ZUtils {
 
     protected final EssentialsPlugin plugin;
-    protected final Map<UUID, User> users = new HashMap<>();
-    protected final Map<String, UUID> localUUIDS = new HashMap<>();
-    protected final Map<UUID, Sanction> banSanctions = new HashMap<>();
+    protected final Map<UUID, User> users = new ConcurrentHashMap<>();
+    protected final Map<String, UUID> localUUIDS = new ConcurrentHashMap<>();
+    protected final Map<UUID, Sanction> banSanctions = new ConcurrentHashMap<>();
     protected long totalUser = 0;
 
     public StorageHelper(EssentialsPlugin plugin) {

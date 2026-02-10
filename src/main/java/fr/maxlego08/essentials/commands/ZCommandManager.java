@@ -300,6 +300,10 @@ public class ZCommandManager extends ZUtils implements CommandManager {
             }
 
             if (essentialsCommand.getPermission() != null) {
+                Permission existingPermission = Bukkit.getPluginManager().getPermission(essentialsCommand.getPermission());
+                if (existingPermission != null) {
+                    Bukkit.getPluginManager().removePermission(existingPermission);
+                }
                 Bukkit.getPluginManager().addPermission(new Permission(essentialsCommand.getPermission(), essentialsCommand.getDescription() == null ? "No description" : essentialsCommand.getDescription()));
             }
         } catch (Exception exception) {

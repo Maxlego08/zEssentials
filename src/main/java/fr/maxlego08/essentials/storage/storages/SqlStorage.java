@@ -219,19 +219,21 @@ public class SqlStorage extends StorageHelper implements IStorage {
             this.localUUIDS.entrySet().removeIf(entry -> entry.getValue().equals(uniqueId) && !entry.getKey().equals(playerName));
             this.localUUIDS.put(playerName, uniqueId);
 
-            // Fix duplicate names: if other UUIDs still have this name, update them via Mojang API
-            List<UserDTO> duplicates = with(UserRepository.class).selectUsers(playerName);
-            for (UserDTO duplicate : duplicates) {
-                if (duplicate.unique_id().equals(uniqueId)) continue;
+            // Fix duplicate names: if other UUIDs still have this name, update them via Mojang API (only in online mode)
+            if (Bukkit.getOnlineMode()) {
+                List<UserDTO> duplicates = with(UserRepository.class).selectUsers(playerName);
+                for (UserDTO duplicate : duplicates) {
+                    if (duplicate.unique_id().equals(uniqueId)) continue;
 
-                String currentName = fetchNameFromMojang(duplicate.unique_id());
-                if (currentName != null && !currentName.equals(playerName)) {
-                    with(UserRepository.class).updateName(duplicate.unique_id(), currentName);
-                    this.localUUIDS.remove(playerName);
-                    this.localUUIDS.put(currentName, duplicate.unique_id());
-                    this.plugin.getLogger().info("Updated player name for UUID " + duplicate.unique_id() + " from '" + playerName + "' to '" + currentName + "' (detected duplicate name).");
-                } else if (currentName == null) {
-                    this.plugin.getLogger().warning("Could not fetch current name from Mojang for UUID " + duplicate.unique_id() + " (duplicate name '" + playerName + "'). The player may have plugin inconsistencies.");
+                    String currentName = fetchNameFromMojang(duplicate.unique_id());
+                    if (currentName != null && !currentName.equals(playerName)) {
+                        with(UserRepository.class).updateName(duplicate.unique_id(), currentName);
+                        this.localUUIDS.remove(playerName);
+                        this.localUUIDS.put(currentName, duplicate.unique_id());
+                        this.plugin.getLogger().info("Updated player name for UUID " + duplicate.unique_id() + " from '" + playerName + "' to '" + currentName + "' (detected duplicate name).");
+                    } else if (currentName == null) {
+                        this.plugin.getLogger().warning("Could not fetch current name from Mojang for UUID " + duplicate.unique_id() + " (duplicate name '" + playerName + "'). The player may have plugin inconsistencies.");
+                    }
                 }
             }
 

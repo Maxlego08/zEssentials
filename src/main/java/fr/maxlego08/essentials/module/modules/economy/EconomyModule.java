@@ -74,6 +74,8 @@ public class EconomyModule extends ZModule implements EconomyManager {
     private String commandTakeReason;
     private String commandResetReason;
     private String commandSetReason;
+    private String paytogglePlaceholderEnabled;
+    private String paytogglePlaceholderDisabled;
     private int baltopMessageAmount;
     private BaltopDisplay baltopDisplay;
     private WrappedTask baltopTask;
@@ -509,5 +511,15 @@ public class EconomyModule extends ZModule implements EconomyManager {
     @Override
     public String getCommandSetReason() {
         return commandSetReason;
+    }
+
+    @Override
+    public String getPayTogglePlaceholderEnabled() {
+        return paytogglePlaceholderEnabled;
+    }
+
+    @Override
+    public String getPayTogglePlaceholderDisabled() {
+        return paytogglePlaceholderDisabled;
     }
 }
