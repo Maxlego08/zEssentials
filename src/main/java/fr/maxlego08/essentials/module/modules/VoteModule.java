@@ -233,7 +233,7 @@ public class VoteModule extends ZModule implements VoteManager {
             var startEvent = new VotePartyStartEvent();
             startEvent.callEvent();
 
-            if (event.isCancelled()) return;
+            if (startEvent.isCancelled()) return;
 
             setCurrentVotePartyAmount(0);
             this.giveVotePartyRewards();

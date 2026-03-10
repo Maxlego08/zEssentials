@@ -38,6 +38,7 @@ public class MessageModule extends ZModule {
         }
 
         Map<Option, Boolean> options = iStorage.getOptions(receiverUUID);
+        if (options == null) options = new java.util.HashMap<>();
         User targetUser = iStorage.getUser(receiverUUID);
 
         // Vanish check

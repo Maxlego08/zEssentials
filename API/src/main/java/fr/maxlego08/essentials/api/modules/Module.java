@@ -57,5 +57,11 @@ public interface Module extends Listener {
      */
     boolean isRegisterEvent();
 
+    /**
+     * Called when the module is being disabled.
+     */
+    default void onDisable() {
+    }
+
 }
 

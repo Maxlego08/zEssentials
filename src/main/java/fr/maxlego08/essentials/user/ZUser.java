@@ -312,14 +312,17 @@ public class ZUser extends ZUtils implements User {
 
     @Override
     public void teleportNow(Location location) {
+        Player player = this.getPlayer();
+        if (player == null || location == null || location.getWorld() == null) return;
+
         // ToDo, https://github.com/PaperMC/Folia/?tab=readme-ov-file#current-broken-api
         // When folia API is update, remove this
         if (this.plugin.isFolia()) {
             this.setLastLocation();
         }
-        this.plugin.getScheduler().teleportAsync(this.getPlayer(), location);
+        this.plugin.getScheduler().teleportAsync(player, location);
 
-        int duration = this.plugin.getModuleManager().getModule(TeleportationModule.class).getTeleportProtectionDelay(this.getPlayer());
+        int duration = this.plugin.getModuleManager().getModule(TeleportationModule.class).getTeleportProtectionDelay(player);
         if (duration == 0) return;
 
         this.protectionDuration = System.currentTimeMillis() + duration;
@@ -333,9 +336,12 @@ public class ZUser extends ZUtils implements User {
     @Override
     public void teleport(Location location, Message message, Message successMessage, Object... args) {
 
+        Player player = this.getPlayer();
+        if (player == null || location == null || location.getWorld() == null) return;
+
         TeleportationModule teleportationModule = this.plugin.getModuleManager().getModule(TeleportationModule.class);
-        Location playerLocation = getPlayer().getLocation();
-        AtomicInteger atomicInteger = new AtomicInteger(teleportationModule.getTeleportDelay(getPlayer()));
+        Location playerLocation = player.getLocation();
+        AtomicInteger atomicInteger = new AtomicInteger(teleportationModule.getTeleportDelay(player));
 
         if (teleportationModule.isTeleportDelayBypass() && this.hasPermission(Permission.ESSENTIALS_TELEPORT_BYPASS) || atomicInteger.get() <= 0) {
             this.teleport(teleportationModule, location, successMessage, args);
@@ -375,7 +381,10 @@ public class ZUser extends ZUtils implements User {
     }
 
     private void teleport(TeleportationModule teleportationModule, Location toLocation, Message message, Object... args) {
-        Location location = getPlayer().isFlying() ? toLocation : teleportationModule.isTeleportSafety() ? toSafeLocation(toLocation) : toLocation;
+        Player player = this.getPlayer();
+        if (player == null) return;
+
+        Location location = player.isFlying() ? toLocation : teleportationModule.isTeleportSafety() ? toSafeLocation(toLocation) : toLocation;
 
         if (teleportationModule.isTeleportToCenter()) {
             location = location.getBlock().getLocation().add(0.5, 0, 0.5);
@@ -391,7 +400,8 @@ public class ZUser extends ZUtils implements User {
 
     @Override
     public boolean hasPermission(Permission permission) {
-        return getPlayer().hasPermission(permission.asPermission());
+        Player player = getPlayer();
+        return player != null && player.hasPermission(permission.asPermission());
     }
 
     @Override
@@ -619,6 +629,7 @@ public class ZUser extends ZUtils implements User {
 
     @Override
     public Location getLastLocation() {
+        if (this.lastLocation == null) return null;
         return this.lastLocation.getLocation();
     }
 
@@ -822,8 +833,10 @@ public class ZUser extends ZUtils implements User {
 
     @Override
     public void openKitPreview(Kit kit) {
+        Player player = getPlayer();
+        if (player == null) return;
         this.previewKit = kit;
-        this.plugin.openInventory(getPlayer(), "kit_preview");
+        this.plugin.openInventory(player, "kit_preview");
     }
 
     @Override
@@ -968,17 +981,22 @@ public class ZUser extends ZUtils implements User {
 
     @Override
     public ItemStack getItemInMainHand() {
-        return getPlayer().getInventory().getItemInMainHand();
+        Player player = getPlayer();
+        if (player == null) return null;
+        return player.getInventory().getItemInMainHand();
     }
 
     @Override
     public void setItemInMainHand(ItemStack itemStack) {
-        getPlayer().getInventory().setItemInMainHand(itemStack);
+        Player player = getPlayer();
+        if (player == null) return;
+        player.getInventory().setItemInMainHand(itemStack);
     }
 
     @Override
     public void playSound(Sound sound, float volume, float pitch) {
         var player = getPlayer();
+        if (player == null) return;
         player.playSound(player.getLocation(), sound, volume, pitch);
     }
 

@@ -152,7 +152,7 @@ public class EconomyModule extends ZModule implements EconomyManager {
     @Override
     public boolean hasMoney(OfflinePlayer offlinePlayer, Economy economy, BigDecimal decimal) {
         BigDecimal bigDecimal = getBalance(offlinePlayer, economy);
-        return bigDecimal.compareTo(decimal) > 0;
+        return bigDecimal.compareTo(decimal) >= 0;
     }
 
     @Override
@@ -436,6 +436,10 @@ public class EconomyModule extends ZModule implements EconomyManager {
 
         Economy economy = optional.get();
         Baltop baltop = getBaltop(economy);
+        if (baltop == null) {
+            message(player, Message.COMMAND_BALTOP_ERROR, "%name%", this.baltopMessageEconomy);
+            return;
+        }
         List<UserBaltop> userBaltops = baltop.getUsers();
 
         Pagination<UserBaltop> pagination = new Pagination<>();

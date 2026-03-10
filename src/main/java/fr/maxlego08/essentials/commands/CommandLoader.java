@@ -12,6 +12,7 @@ import fr.maxlego08.essentials.commands.commands.chat.CommandPub;
 import fr.maxlego08.essentials.commands.commands.chat.CommandShowItem;
 import fr.maxlego08.essentials.commands.commands.clearinventory.ClearInventoryCommand;
 import fr.maxlego08.essentials.commands.commands.cooldown.CommandCooldown;
+import fr.maxlego08.essentials.commands.commands.deathmessage.CommandDeathMessageToggle;
 import fr.maxlego08.essentials.commands.commands.discord.CommandLink;
 import fr.maxlego08.essentials.commands.commands.discord.CommandUnLink;
 import fr.maxlego08.essentials.commands.commands.economy.CommandBalanceTop;
@@ -285,6 +286,7 @@ public class CommandLoader {
         register("pub", CommandPub.class);
         register("step", CommandStep.class);
         register("itemframe", CommandItemFrame.class, "iframe");
+        register("deathmessage", CommandDeathMessageToggle.class, "dm", "deathmsg");
 
         for (RegisterCommand registerCommand : this.commands) {
             try {

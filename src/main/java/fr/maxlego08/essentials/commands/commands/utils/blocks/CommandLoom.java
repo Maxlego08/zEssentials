@@ -17,7 +17,7 @@ public class CommandLoom extends VCommand {
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
-        this.player.getPlayer().openLoom(this.player.getLocation(), true);
+        this.player.openLoom(this.player.getLocation(), true);
 
         return CommandResultType.SUCCESS;
     }

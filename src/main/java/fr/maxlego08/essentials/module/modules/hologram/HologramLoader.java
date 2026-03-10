@@ -53,6 +53,11 @@ public class HologramLoader extends ZUtils implements Loader<Hologram> {
         HologramManager hologramManager = this.plugin.getHologramManager();
         Hologram hologram = hologramManager.createHologram(hologramType, hologramConfiguration, (String) objects[0], name, location);
 
+        if (hologram == null) {
+            this.plugin.getLogger().warning("Failed to create hologram '" + name + "', NMS class not available for this server version.");
+            return null;
+        }
+
         loadConfiguration(configuration, hologramConfiguration);
 
         switch (hologramType) {

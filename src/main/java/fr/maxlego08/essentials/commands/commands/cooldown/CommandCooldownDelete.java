@@ -31,6 +31,7 @@ public class CommandCooldownDelete extends VCommand {
                 if (offlinePlayer == null) return new ArrayList<>();
 
                 User user = plugin.getUser(offlinePlayer.getUniqueId());
+                if (user == null) return new ArrayList<>();
                 return new ArrayList<>(user.getCooldowns().keySet());
 
             } catch (Exception ignored) {

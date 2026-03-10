@@ -76,8 +76,12 @@ public class ZStorageManager extends ZUtils implements StorageManager {
 
         if (this.iStorage.isBan(playerUuid)) {
             Sanction sanction = this.iStorage.getBan(playerUuid);
-            Duration duration = sanction.getDurationRemaining();
-            this.plugin.getUtils().disallow(event, PlayerLoginEvent.Result.KICK_BANNED, Message.MESSAGE_BAN_JOIN, "%reason%", sanction.getReason(), "%remaining%", TimerBuilder.getStringTime(duration.toMillis()));
+            if (sanction != null) {
+                Duration duration = sanction.getDurationRemaining();
+                this.plugin.getUtils().disallow(event, PlayerLoginEvent.Result.KICK_BANNED, Message.MESSAGE_BAN_JOIN, "%reason%", sanction.getReason(), "%remaining%", TimerBuilder.getStringTime(duration.toMillis()));
+            } else {
+                this.plugin.getUtils().disallow(event, PlayerLoginEvent.Result.KICK_BANNED, Message.MESSAGE_BAN_JOIN, "%reason%", "", "%remaining%", "");
+            }
             return;
         }
 

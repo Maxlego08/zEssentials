@@ -45,7 +45,9 @@ public class ZCommandManager extends ZUtils implements CommandManager {
             commandMap = (CommandMap) bukkitCommandMap.get(Bukkit.getServer());
             constructor = PluginCommand.class.getDeclaredConstructor(String.class, Plugin.class);
             constructor.setAccessible(true);
-        } catch (Exception ignored) {
+        } catch (Exception exception) {
+            Bukkit.getLogger().severe("[zEssentials] Failed to initialize command map or PluginCommand constructor: " + exception.getMessage());
+            exception.printStackTrace();
         }
     }
 
@@ -283,6 +285,11 @@ public class ZCommandManager extends ZUtils implements CommandManager {
         }
 
         try {
+            if (constructor == null || commandMap == null) {
+                this.plugin.getLogger().severe("Cannot register command '" + mainCommand + "': CommandMap or PluginCommand constructor is not initialized!");
+                return;
+            }
+
             PluginCommand command = constructor.newInstance(mainCommand, plugin);
             command.setExecutor(this);
             command.setTabCompleter(this);
@@ -296,7 +303,7 @@ public class ZCommandManager extends ZUtils implements CommandManager {
             commands.add(essentialsCommand);
 
             if (!commandMap.register(command.getName(), plugin.getDescription().getName(), command)) {
-                plugin.getLogger().info("Unable to add the command " + essentialsCommand.getSyntax());
+                plugin.getLogger().warning("Unable to add the command /" + mainCommand + " (already registered by another plugin). Use /zessentials:" + mainCommand + " instead.");
             }
 
             if (essentialsCommand.getPermission() != null) {
@@ -307,6 +314,7 @@ public class ZCommandManager extends ZUtils implements CommandManager {
                 Bukkit.getPluginManager().addPermission(new Permission(essentialsCommand.getPermission(), essentialsCommand.getDescription() == null ? "No description" : essentialsCommand.getDescription()));
             }
         } catch (Exception exception) {
+            this.plugin.getLogger().severe("Failed to register command '" + mainCommand + "': " + exception.getMessage());
             exception.printStackTrace();
         }
     }

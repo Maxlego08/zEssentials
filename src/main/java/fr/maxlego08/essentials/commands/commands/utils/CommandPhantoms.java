@@ -31,10 +31,11 @@ public class CommandPhantoms extends VCommand {
             return CommandResultType.SYNTAX_ERROR;
         }
 
-        if (player == this.player || !hasPermission(sender, Permission.ESSENTIALS_PHANTOMS_OTHER)) {
+        if (player.equals(this.player) || !hasPermission(sender, Permission.ESSENTIALS_PHANTOMS_OTHER)) {
             togglePhantoms(player, this.user, sender);
         } else {
             User otherUser = getUser(player);
+            if (otherUser == null) return CommandResultType.SYNTAX_ERROR;
             togglePhantoms(player, otherUser, sender);
         }
 

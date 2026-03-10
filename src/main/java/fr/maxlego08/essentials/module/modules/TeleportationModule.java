@@ -337,6 +337,11 @@ public class TeleportationModule extends ZModule {
                     world = defaultWorld;
                 }
 
+                if (configuration == null || world == null) {
+                    processRtpQueue(defaultWorld, defaultConfig);
+                    return;
+                }
+
                 final World finalWorld = world;
                 final RandomTeleportWorld finalConfig = configuration;
 
@@ -355,7 +360,7 @@ public class TeleportationModule extends ZModule {
     }
 
     public void performFirstJoinRtp(Player player) {
-        if (!enableFirstJoinRtp) return;
+        if (!enableFirstJoinRtp || player == null || !player.isOnline()) return;
 
         World world = plugin.getServer().getWorld(firstJoinRtpWorld);
         if (world == null) {

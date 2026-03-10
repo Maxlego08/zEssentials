@@ -17,7 +17,7 @@ public class CommandEnchanting extends VCommand {
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
-        this.player.getPlayer().openEnchanting(this.player.getLocation(), true);
+        this.player.openEnchanting(this.player.getLocation(), true);
 
         return CommandResultType.SUCCESS;
     }

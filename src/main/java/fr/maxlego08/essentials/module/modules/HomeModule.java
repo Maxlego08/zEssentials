@@ -28,8 +28,8 @@ public class HomeModule extends ZModule implements HomeManager {
 
     private final List<HomePermission> permissions = new ArrayList<>();
     private final List<String> disableWorlds = new ArrayList<>();
-    private final HomeDisplay homeDisplay = HomeDisplay.MULTI_LINE;
-    private final String homeRegex = "[a-zA-Z0-9]+";
+    private HomeDisplay homeDisplay = HomeDisplay.MULTI_LINE;
+    private String homeRegex = "[a-zA-Z0-9]+";
     private int homeNameMax;
     private int homeNameMin;
     private boolean homeOverwriteConfirm;
@@ -114,23 +114,28 @@ public class HomeModule extends ZModule implements HomeManager {
 
     private Object[] formatHomeInformation(Home home, int homeAmount, int maxHome) {
         Location location = home.getLocation();
-        World world = location.getWorld();
-        return new Object[]{"%count%", homeAmount, "%max%", maxHome, "%name%", home.getName(), "%world%", name(world.getName()), "%environment%", name(world.getEnvironment().name()), "%x%", location.getBlockX(), "%y%", location.getBlockY(), "%z%", location.getBlockZ()};
+        World world = location != null ? location.getWorld() : null;
+        String worldName = world != null ? name(world.getName()) : "unknown";
+        String environment = world != null ? name(world.getEnvironment().name()) : "unknown";
+        int x = location != null ? location.getBlockX() : 0;
+        int y = location != null ? location.getBlockY() : 0;
+        int z = location != null ? location.getBlockZ() : 0;
+        return new Object[]{"%count%", homeAmount, "%max%", maxHome, "%name%", home.getName(), "%world%", worldName, "%environment%", environment, "%x%", x, "%y%", y, "%z%", z};
     }
 
     @Override
     public Placeholders getHomePlaceholders(Home home, int homeAmount, int maxHome) {
         Placeholders placeholders = new Placeholders();
         Location location = home.getLocation();
-        World world = location.getWorld();
+        World world = location != null ? location.getWorld() : null;
         placeholders.register("count", String.valueOf(homeAmount));
         placeholders.register("max", String.valueOf(maxHome));
         placeholders.register("name", home.getName());
-        placeholders.register("world", name(world.getName()));
-        placeholders.register("environment", name(world.getEnvironment().name()));
-        placeholders.register("x", String.valueOf(location.getBlockX()));
-        placeholders.register("y", String.valueOf(location.getBlockY()));
-        placeholders.register("z", String.valueOf(location.getBlockZ()));
+        placeholders.register("world", world != null ? name(world.getName()) : "unknown");
+        placeholders.register("environment", world != null ? name(world.getEnvironment().name()) : "unknown");
+        placeholders.register("x", String.valueOf(location != null ? location.getBlockX() : 0));
+        placeholders.register("y", String.valueOf(location != null ? location.getBlockY() : 0));
+        placeholders.register("z", String.valueOf(location != null ? location.getBlockZ() : 0));
         return placeholders;
     }
 

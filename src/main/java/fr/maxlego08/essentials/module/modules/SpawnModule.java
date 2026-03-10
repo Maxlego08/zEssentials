@@ -68,7 +68,8 @@ public class SpawnModule extends ZModule {
                 if (listener instanceof SpawnModule spawnModule && event instanceof PlayerJoinEvent playerJoinEvent) {
                     var player = playerJoinEvent.getPlayer();
                     if (ConfigStorage.spawnLocation != null && ConfigStorage.spawnLocation.isValid()) {
-                        player.teleport(ConfigStorage.spawnLocation.getLocation());
+                        Location spawnLoc = ConfigStorage.spawnLocation.getLocation();
+                        if (spawnLoc != null) player.teleport(spawnLoc);
                     }
                 }
             }, this.plugin);

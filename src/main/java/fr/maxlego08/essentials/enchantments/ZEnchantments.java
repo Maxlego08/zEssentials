@@ -60,16 +60,17 @@ public class ZEnchantments implements Enchantments {
         this.register(Enchantment.SOUL_SPEED, "soulspeed", "soilspeed", "sandspeed");
         this.register(Enchantment.SWIFT_SNEAK, "swiftsneak");
 
-        // 1.21
-        try {
-            this.register(Enchantment.getByName("BREACH"), "breach");
-            this.register(Enchantment.getByName("DENSITY"), "density");
-            this.register(Enchantment.getByName("WIND_BURST"), "windburst", "wind", "burst");
-        } catch (Exception ignored) {
-        }
+        // 1.21+
+        this.register(valueOf("BREACH"), "breach");
+        this.register(valueOf("DENSITY"), "density");
+        this.register(valueOf("WIND_BURST"), "windburst", "wind", "burst");
+
+        // 1.21.11+
+        this.register(valueOf("LUNGE"), "lunge");
     }
 
     private void register(Enchantment enchantment, String... strings) {
+        if (enchantment == null) return;
         this.essentialsEnchantments.add(new ZEssentialsEnchantment(enchantment, Arrays.asList(strings)));
     }
 

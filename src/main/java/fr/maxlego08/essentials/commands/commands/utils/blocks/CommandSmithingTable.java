@@ -17,7 +17,7 @@ public class CommandSmithingTable extends VCommand {
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
-        this.player.getPlayer().openSmithingTable(this.player.getLocation(), true);
+        this.player.openSmithingTable(this.player.getLocation(), true);
 
         return CommandResultType.SUCCESS;
     }

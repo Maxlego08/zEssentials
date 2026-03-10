@@ -261,7 +261,9 @@ public class PlayerListener extends ZUtils implements Listener {
         User user = this.plugin.getUser(player.getUniqueId());
 
         if (user != null && user.getOption(Option.NIGHT_VISION) && event.getItem().getType() == Material.MILK_BUCKET) {
-            this.plugin.getScheduler().runAtLocationLater(player.getLocation(), wrappedTask -> player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1, false, false, false), true), 2);
+            this.plugin.getScheduler().runAtLocationLater(player.getLocation(), wrappedTask -> {
+                if (player.isOnline()) player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1, false, false, false), true);
+            }, 2);
         }
     }
 
@@ -272,7 +274,9 @@ public class PlayerListener extends ZUtils implements Listener {
         User user = this.plugin.getUser(player.getUniqueId());
 
         if (user != null && user.getOption(Option.NIGHT_VISION)) {
-            this.plugin.getScheduler().runAtLocationLater(player.getLocation(), wrappedTask -> player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1, false, false, false), true), 2);
+            this.plugin.getScheduler().runAtLocationLater(player.getLocation(), wrappedTask -> {
+                if (player.isOnline()) player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, -1, 1, false, false, false), true);
+            }, 2);
         }
     }
 

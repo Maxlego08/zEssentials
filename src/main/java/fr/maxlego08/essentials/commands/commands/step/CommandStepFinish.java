@@ -23,6 +23,7 @@ public class CommandStepFinish extends VCommand {
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
         Player player = this.argAsPlayer(0);
+        if (player == null) return CommandResultType.SYNTAX_ERROR;
         String stepName = this.argAsString(1);
         var manager = this.plugin.getStepManager();
 

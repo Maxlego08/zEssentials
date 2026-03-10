@@ -13,6 +13,7 @@ public class InvseeListener implements Listener {
     public void onClose(InventoryCloseEvent event) {
         if (event.getInventory().getHolder() instanceof EnderChestHolder enderChestHolder) {
             var targetPlayer = enderChestHolder.player();
+            if (targetPlayer == null || !targetPlayer.isOnline()) return;
             int slot = 0;
             for (ItemStack content : event.getInventory().getContents()) {
                 targetPlayer.getEnderChest().setItem(slot++, content);
@@ -20,8 +21,9 @@ public class InvseeListener implements Listener {
             targetPlayer.saveData();
         } else if (event.getInventory().getHolder() instanceof PlayerInventoryHolder playerInventoryHolder) {
             var targetPlayer = playerInventoryHolder.player();
-            for (int slot = 0; slot != 36; slot++) {
-                targetPlayer.getInventory().setItem(slot++, event.getInventory().getItem(slot));
+            if (targetPlayer == null || !targetPlayer.isOnline()) return;
+            for (int slot = 0; slot < 36; slot++) {
+                targetPlayer.getInventory().setItem(slot, event.getInventory().getItem(slot));
             }
             targetPlayer.saveData();
         }

@@ -126,6 +126,10 @@ public class MailBoxModule extends ZModule {
     public void giveItem(CommandSender sender, UUID uuid, String username, String itemName, int amount) {
 
         var itemModule = plugin.getModuleManager().getModule(ItemModule.class);
+        if (itemModule == null) {
+            message(sender, Message.MAILBOX_GIVE_ERROR, "%item%", itemName);
+            return;
+        }
         var itemStack = itemModule.getItemStack(itemName, Bukkit.getPlayer(uuid));
 
         if (itemStack == null) {
@@ -162,7 +166,7 @@ public class MailBoxModule extends ZModule {
     public void giveAllItem(CommandSender sender, String itemName, int amount) {
 
         var itemModule = plugin.getModuleManager().getModule(ItemModule.class);
-        if (!itemModule.isItem(itemName)) {
+        if (itemModule == null || !itemModule.isItem(itemName)) {
             message(sender, Message.MAILBOX_GIVE_ERROR, "%item%", itemName);
             return;
         }

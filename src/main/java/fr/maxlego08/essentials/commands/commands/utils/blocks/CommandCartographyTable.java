@@ -17,7 +17,7 @@ public class CommandCartographyTable extends VCommand {
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
-        this.player.getPlayer().openCartographyTable(this.player.getLocation(), true);
+        this.player.openCartographyTable(this.player.getLocation(), true);
 
         return CommandResultType.SUCCESS;
     }

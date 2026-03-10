@@ -308,7 +308,10 @@ public enum Permission {
     ESSENTIALS_STEP_START,
     ESSENTIALS_STEP_FINISH,
     ESSENTIALS_ITEMFRAME,
-    ESSENTIALS_SILENT_DEATH("Allows you to die silently without a death message");
+    ESSENTIALS_SILENT_DEATH("Allows you to die silently without a death message"),
+    ESSENTIALS_DEATH_MESSAGE_TELEPORT("Allows clicking death messages to teleport to death location"),
+    ESSENTIALS_DEATH_MESSAGE_TOGGLE("Allows toggling death messages visibility"),
+    ESSENTIALS_DEATH_MESSAGE_TOGGLE_OTHER("Allows toggling death messages for other players");
 
     private final String description;
     private final String[] args;

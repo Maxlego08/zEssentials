@@ -23,6 +23,7 @@ public class CommandDelHomeConfirm extends VCommand {
         this.addRequireArg("name", (sender, args) -> {
             if (sender instanceof Player player) {
                 User user = plugin.getUser(player.getUniqueId());
+                if (user == null) return new ArrayList<>();
                 return user.getHomes().stream().map(Home::getName).toList();
             }
             return new ArrayList<>();

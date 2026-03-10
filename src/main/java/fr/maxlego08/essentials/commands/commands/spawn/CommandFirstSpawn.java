@@ -34,8 +34,13 @@ public class CommandFirstSpawn extends VCommand {
         User user = this.plugin.getUser(player.getUniqueId());
         if (user == null) return CommandResultType.SYNTAX_ERROR; // Only if its console
 
+        if (ConfigStorage.firstSpawnLocation == null || !ConfigStorage.firstSpawnLocation.isValid()) {
+            message(sender, Message.COMMAND_SPAWN_FIRST_NOT_DEFINE);
+            return CommandResultType.DEFAULT;
+        }
+
         Location location = ConfigStorage.firstSpawnLocation.getLocation();
-        if (location == null) {
+        if (location == null || location.getWorld() == null) {
             message(sender, Message.COMMAND_SPAWN_FIRST_NOT_DEFINE);
             return CommandResultType.DEFAULT;
         }

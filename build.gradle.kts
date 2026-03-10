@@ -32,6 +32,14 @@ allprojects {
         maven(url = "https://repo.tcoded.com/releases")
     }
 
+    configurations.all {
+        resolutionStrategy.eachDependency {
+            if (requested.group == "net.kyori" && requested.name == "adventure-text-serializer-ansi" && (requested.version.isNullOrBlank() || requested.version == ".")) {
+                useVersion("4.20.0")
+            }
+        }
+    }
+
     java {
         withSourcesJar()
 

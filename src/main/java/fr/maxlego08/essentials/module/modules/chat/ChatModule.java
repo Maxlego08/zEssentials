@@ -230,7 +230,8 @@ public class ChatModule extends ZModule {
             }
 
             Tag tag = Tag.inserting(paperComponent.translateText(player, localMessage, builder.build()));
-            return paperComponent.getComponentMessage(chatFormat, TagResolver.resolver("message", tag), "%displayName%", player.getDisplayName(), "%player%", player.getName(), "%moderator_action%", isModerator ? papi(getMessage(this.moderatorAction, "%player%", player.getName()), (Player) viewer) : "");
+            String moderatorAction = (isModerator && viewer instanceof Player playerMod) ? papi(getMessage(this.moderatorAction, "%player%", player.getName()), playerMod) : "";
+            return paperComponent.getComponentMessage(chatFormat, TagResolver.resolver("message", tag), "%displayName%", player.getDisplayName(), "%player%", player.getName(), "%moderator_action%", moderatorAction);
         });
 
         if (this.enableChatMessages) {

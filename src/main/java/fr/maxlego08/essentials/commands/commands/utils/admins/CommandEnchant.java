@@ -52,7 +52,12 @@ public class CommandEnchant extends VCommand {
         }
 
         enchant(itemStack, enchantment, level);
-        String translatedEnchantments = "<lang:" + enchantment.translationKey() + ">";
+        String translatedEnchantments;
+        try {
+            translatedEnchantments = "<lang:" + enchantment.translationKey() + ">";
+        } catch (Exception e) {
+            translatedEnchantments = "<lang:enchantment.minecraft." + enchantment.getKey().getKey() + ">";
+        }
 
         if (level == 0) {
             message(sender, player, Message.COMMAND_ENCHANT_REMOVE_SELF, Message.COMMAND_ENCHANT_REMOVE_PLAYER, "%enchant%", translatedEnchantments);

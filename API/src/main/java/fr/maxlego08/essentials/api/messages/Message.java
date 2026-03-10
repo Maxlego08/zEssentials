@@ -436,6 +436,9 @@ public enum Message {
 
     TELEPORT_DAMAGE("<error>You must not take damage during teleportation."),
     TELEPORT_ERROR_LOCATION("<error>Unable to teleport you safely."),
+    TELEPORT_CROSS_SERVER_NOT_SUPPORTED("<error>Cross-server teleportation is not supported on this server."),
+    TELEPORT_CROSS_SERVER_CONNECTING("<success>Connecting to server &f%server%<success>..."),
+    TELEPORT_CROSS_SERVER_PLAYER_NOT_FOUND("<error>Player &f%player% <error>was not found on any server."),
     
     // RTP Queue System Messages
     TELEPORT_ALREADY_IN_QUEUE("<error>You are already in the teleportation queue!"),
@@ -970,12 +973,41 @@ public enum Message {
     COMMAND_ITEMFRAME_VISIBLE("<success>Item frame is now <white>visible<success>."),
     COMMAND_ITEMFRAME_NOT_FOUND("<error>No item frame found. Look at an item frame and try again."),
 
-    // Death Messages
-    DEATH_MESSAGE_GENERIC("#99E0FF%player% &7died."),
-    DEATH_MESSAGE_PLAYER("#99E0FF%player% &7was slain by #34cfe0%killer% &7using %weapon%&7."),
-    DEATH_MESSAGE_FISTS("&7fists"),
-    DEATH_MESSAGE_MOB("#99E0FF%player% &7was killed by &c%mob%&7."),
-    DEATH_MESSAGE_MYTHIC_MOB("#99E0FF%player% &7was slain by <gradient:#ff6600:#ff0000>%mob%</gradient>&7!"),
+    // Death Message Module
+    DESCRIPTION_DEATH_MESSAGE("Custom death messages"),
+
+    DEATH_GENERIC("#C084FC☠ #E9D5FF%player% #B794F4died."),
+    DEATH_BY_PLAYER("#C084FC⚔ #E9D5FF%player% #B794F4was slain by #E9D5FF%killer%#B794F4."),
+    DEATH_BY_MOB("#C084FC☠ #E9D5FF%player% #B794F4was killed by #E9D5FF%killer%#B794F4."),
+    DEATH_BY_PROJECTILE("#C084FC🏹 #E9D5FF%player% #B794F4was shot by #E9D5FF%killer%#B794F4."),
+    DEATH_BY_MOB_EXPLOSION("#C084FC💥 #E9D5FF%player% #B794F4was blown up by #E9D5FF%killer%#B794F4."),
+    DEATH_BY_FALL("#C084FC⬇ #E9D5FF%player% #B794F4fell from a high place."),
+    DEATH_BY_FIRE("#C084FC🔥 #E9D5FF%player% #B794F4burned to death."),
+    DEATH_BY_LAVA("#C084FC🌋 #E9D5FF%player% #B794F4tried to swim in lava."),
+    DEATH_BY_DROWNING("#C084FC💧 #E9D5FF%player% #B794F4drowned."),
+    DEATH_BY_EXPLOSION("#C084FC💥 #E9D5FF%player% #B794F4was blown up."),
+    DEATH_BY_LIGHTNING("#C084FC⚡ #E9D5FF%player% #B794F4was struck by lightning."),
+    DEATH_BY_SUFFOCATION("#C084FC▓ #E9D5FF%player% #B794F4suffocated in a wall."),
+    DEATH_BY_STARVATION("#C084FC🍖 #E9D5FF%player% #B794F4starved to death."),
+    DEATH_BY_POISON("#C084FC☣ #E9D5FF%player% #B794F4was poisoned."),
+    DEATH_BY_MAGIC("#C084FC✦ #E9D5FF%player% #B794F4was killed by magic."),
+    DEATH_BY_WITHER("#C084FC💀 #E9D5FF%player% #B794F4withered away."),
+    DEATH_BY_FALLING_BLOCK("#C084FC▼ #E9D5FF%player% #B794F4was squashed by a falling block."),
+    DEATH_BY_FLY_INTO_WALL("#C084FC💨 #E9D5FF%player% #B794F4experienced kinetic energy."),
+    DEATH_BY_VOID("#C084FC✧ #E9D5FF%player% #B794F4fell out of the world."),
+    DEATH_BY_CACTUS("#C084FC🌵 #E9D5FF%player% #B794F4was pricked to death."),
+    DEATH_BY_CRAMMING("#C084FC⊞ #E9D5FF%player% #B794F4was squished too much."),
+    DEATH_BY_FREEZE("#C084FC❄ #E9D5FF%player% #B794F4froze to death."),
+    DEATH_BY_SONIC_BOOM("#C084FC◈ #E9D5FF%player% #B794F4was obliterated by a sonic boom."),
+    DEATH_BY_MAGMA("#C084FC♨ #E9D5FF%player% #B794F4discovered that the floor was lava."),
+    DEATH_BY_THORNS("#C084FC✵ #E9D5FF%player% #B794F4was killed trying to hurt someone."),
+    DEATH_BY_CAMPFIRE("#C084FC🔥 #E9D5FF%player% #B794F4walked into a campfire."),
+
+    DEATH_HOVER_DETAILS("#D8B4FE☠ Death Location#B794F4:\n#E9D5FF▸ World: #D8B4FE%world%\n#E9D5FF▸ Position: #D8B4FE%x%#E9D5FF, #D8B4FE%y%#E9D5FF, #D8B4FE%z%\n\n#9F7AEA&oClick to teleport"),
+
+    COMMAND_DEATH_MESSAGE_TOGGLE_DISABLE("#C084FC☠ #B794F4Death messages are now #E9D5FFhidden #B794F4for %player%#B794F4."),
+    COMMAND_DEATH_MESSAGE_TOGGLE_ENABLE("#C084FC☠ #B794F4Death messages are now #E9D5FFvisible #B794F4for %player%#B794F4."),
+    DESCRIPTION_DEATH_MESSAGE_TOGGLE("Toggle death messages visibility"),
     ;
 
     private EssentialsPlugin plugin;

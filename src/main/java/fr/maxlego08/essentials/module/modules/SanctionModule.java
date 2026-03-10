@@ -364,6 +364,10 @@ public class SanctionModule extends ZModule implements SanctionManager {
 
     private void sendOnline(CommandSender sender, UserRecord record) {
         User user = this.plugin.getUser(record.userDTO().unique_id());
+        if (user == null) {
+            sendOffline(sender, record);
+            return;
+        }
         message(sender, Message.COMMAND_SEEN_ONLINE, "%player%", record.userDTO().name(), "%date%", TimerBuilder.getStringTime(System.currentTimeMillis() - user.getCurrentSessionPlayTime()));
         message(sender, Message.COMMAND_SEEN_PLAYTIME, "%playtime%", TimerBuilder.getStringTime(user.getPlayTime() * 1000));
     }
@@ -415,14 +419,18 @@ public class SanctionModule extends ZModule implements SanctionManager {
             message(sender, Message.COMMAND_FREEZE_SUCCESS, "%player%", userName);
             this.plugin.getEssentialsServer().sendMessage(uuid, Message.MESSAGE_FREEZE);
 
-            player.setAllowFlight(true);
-            player.setFlying(true);
-            player.setFlySpeed(0f);
-            this.plugin.getScheduler().teleportAsync(user.getPlayer(), user.getPlayer().getLocation().add(0, 0.1, 0));
+            if (player != null) {
+                player.setAllowFlight(true);
+                player.setFlying(true);
+                player.setFlySpeed(0f);
+                this.plugin.getScheduler().teleportAsync(player, player.getLocation().add(0, 0.1, 0));
+            }
         } else {
-            player.setAllowFlight(false);
-            player.setFlying(false);
-            player.setFlySpeed(0.1f);
+            if (player != null) {
+                player.setAllowFlight(false);
+                player.setFlying(false);
+                player.setFlySpeed(0.1f);
+            }
 
             message(sender, Message.COMMAND_UN_FREEZE_SUCCESS, "%player%", userName);
             this.plugin.getEssentialsServer().sendMessage(uuid, Message.MESSAGE_UN_FREEZE);
@@ -433,10 +441,13 @@ public class SanctionModule extends ZModule implements SanctionManager {
     public void onJoin(PlayerJoinEvent event) {
         User user = this.getUser(event.getPlayer());
         if (user != null && user.isFrozen()) {
-            user.getPlayer().setAllowFlight(true);
-            user.getPlayer().setFlying(true);
-            user.getPlayer().setFlySpeed(0f);
-            this.plugin.getScheduler().teleportAsync(user.getPlayer(), user.getPlayer().getLocation().add(0, 0.1, 0));
+            Player player = user.getPlayer();
+            if (player != null) {
+                player.setAllowFlight(true);
+                player.setFlying(true);
+                player.setFlySpeed(0f);
+                this.plugin.getScheduler().teleportAsync(player, player.getLocation().add(0, 0.1, 0));
+            }
             this.plugin.getEssentialsServer().sendMessage(user.getUniqueId(), Message.MESSAGE_FREEZE);
         }
     }
@@ -456,8 +467,12 @@ public class SanctionModule extends ZModule implements SanctionManager {
         if (user != null && user.isMute()) {
             event.setCancelled(true);
             Sanction sanction = user.getMuteSanction();
-            Duration duration = sanction.getDurationRemaining();
-            message(player, Message.MESSAGE_MUTE_TALK, "%reason%", sanction.getReason(), "%duration%", TimerBuilder.getStringTime(duration.toMillis()));
+            if (sanction != null) {
+                Duration duration = sanction.getDurationRemaining();
+                message(player, Message.MESSAGE_MUTE_TALK, "%reason%", sanction.getReason(), "%duration%", TimerBuilder.getStringTime(duration.toMillis()));
+            } else {
+                message(player, Message.MESSAGE_MUTE_TALK, "%reason%", "", "%duration%", "");
+            }
         }
     }
 }

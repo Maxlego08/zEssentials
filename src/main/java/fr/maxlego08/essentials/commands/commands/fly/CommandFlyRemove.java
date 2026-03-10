@@ -30,7 +30,8 @@ public class CommandFlyRemove extends VCommand {
             var user = plugin.getUser(uniqueId);
             long flySeconds = user == null ? storage.getFlySeconds(uniqueId) : user.getFlySeconds();
             if (user == null) {
-                flySeconds *= seconds;
+                flySeconds -= seconds;
+                if (flySeconds < 0) flySeconds = 0;
                 storage.upsertFlySeconds(uniqueId, flySeconds);
             } else user.removeFlySeconds(seconds);
 

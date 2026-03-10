@@ -8,7 +8,7 @@ import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 public class CommandVersion extends VCommand {
     public CommandVersion(EssentialsPlugin plugin) {
         super(plugin);
-        this.setDescription(Message.DESCRIPTION_TRASH);
+        this.setDescription(Message.DESCRIPTION_VERSION);
     }
 
     @Override

@@ -17,7 +17,7 @@ public class CommandAnvil extends VCommand {
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
-        this.player.getPlayer().openAnvil(this.player.getLocation(), true);
+        this.player.openAnvil(this.player.getLocation(), true);
 
         return CommandResultType.SUCCESS;
     }

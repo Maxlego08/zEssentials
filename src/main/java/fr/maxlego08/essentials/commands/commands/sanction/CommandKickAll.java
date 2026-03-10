@@ -28,7 +28,7 @@ public class CommandKickAll extends VCommand {
                 plugin.getEssentialsServer().kickPlayer(player.getUniqueId(), Message.MESSAGE_KICK, "%reason%", reason);
             }
         });
-        broadcast(Permission.ESSENTIALS_KICK_NOTIFY, Message.COMMAND_KICK_NOTIFY, "%player%", sender.getName(), "%target%", player.getName(), "%reason%", reason);
+        broadcast(Permission.ESSENTIALS_KICK_NOTIFY, Message.COMMAND_KICK_NOTIFY, "%player%", sender.getName(), "%target%", "all", "%reason%", reason);
 
         return CommandResultType.SUCCESS;
     }

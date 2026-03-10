@@ -6,6 +6,7 @@ import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.module.modules.TeleportationModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
+import org.bukkit.Location;
 
 public class CommandTeleportBack extends VCommand {
 
@@ -20,17 +21,18 @@ public class CommandTeleportBack extends VCommand {
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
-        if (this.user.getLastLocation() == null) {
+        Location lastLocation = this.user.getLastLocation();
+        if (lastLocation == null || lastLocation.getWorld() == null) {
             message(this.sender, Message.COMMAND_BACK_ERROR);
             return CommandResultType.DEFAULT;
         }
 
-        if (this.plugin.getConfiguration().getDisableBackWorld().contains(user.getLastLocation().getWorld().getName())) {
+        if (this.plugin.getConfiguration().getDisableBackWorld().contains(lastLocation.getWorld().getName())) {
             message(this.sender, Message.COMMAND_BACK_ERROR);
             return CommandResultType.DEFAULT;
         }
 
-        this.user.teleport(user.getLastLocation());
+        this.user.teleport(lastLocation);
         message(this.sender, Message.COMMAND_BACK);
 
         return CommandResultType.SUCCESS;

@@ -60,8 +60,8 @@ public class ButtonSanctions extends PaginateButton {
         placeholders.register("reason", sanction.getReason());
         placeholders.register("duration", TimerBuilder.getStringTime(sanction.getDuration()));
         placeholders.register("remaining", sanction.isActive() ? TimerBuilder.getStringTime(sanction.getDurationRemaining().toMillis()) : Message.EXPIRED.getMessageAsString());
-        placeholders.register("created_at", simpleDateFormat.format(sanction.getCreatedAt()));
-        placeholders.register("expired_at", simpleDateFormat.format(sanction.getExpiredAt()));
+        placeholders.register("created_at", sanction.getCreatedAt() != null ? simpleDateFormat.format(sanction.getCreatedAt()) : "N/A");
+        placeholders.register("expired_at", sanction.getExpiredAt() != null ? simpleDateFormat.format(sanction.getExpiredAt()) : "N/A");
         placeholders.register("sender", sanctionModule.getSanctionBy(sanction.getSenderUniqueId()));
 
         inventory.addItem(slot, menuItemStack.build(player, false, placeholders));

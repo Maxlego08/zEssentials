@@ -24,6 +24,8 @@ public class CommandSun extends VCommand {
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
         World world = this.argAsWorld(0, isPlayer() ? this.player.getWorld() : null);
+        if (world == null) return CommandResultType.SYNTAX_ERROR;
+
         world.setStorm(false);
         world.setThunderDuration(0);
         world.setThundering(false);
