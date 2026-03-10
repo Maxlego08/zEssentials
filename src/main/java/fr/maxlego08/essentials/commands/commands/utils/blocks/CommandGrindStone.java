@@ -17,7 +17,7 @@ public class CommandGrindStone extends VCommand {
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
-        this.player.getPlayer().openGrindstone(this.player.getLocation(), true);
+        this.player.openGrindstone(this.player.getLocation(), true);
 
         return CommandResultType.SUCCESS;
     }

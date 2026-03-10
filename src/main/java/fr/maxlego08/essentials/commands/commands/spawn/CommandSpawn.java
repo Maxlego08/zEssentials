@@ -40,7 +40,7 @@ public class CommandSpawn extends VCommand {
         }
 
         Location location = ConfigStorage.spawnLocation.getLocation();
-        if (location == null) {
+        if (location == null || location.getWorld() == null) {
             message(sender, Message.COMMAND_SPAWN_NOT_DEFINE);
             return CommandResultType.DEFAULT;
         }

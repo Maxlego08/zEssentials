@@ -17,7 +17,7 @@ public class CommandCraft extends VCommand {
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
-        this.player.getPlayer().openWorkbench(this.player.getLocation(), true);
+        this.player.openWorkbench(this.player.getLocation(), true);
 
         return CommandResultType.SUCCESS;
     }

@@ -17,7 +17,7 @@ public class CommandStoneCutter extends VCommand {
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
-        this.player.getPlayer().openStonecutter(this.player.getLocation(), true);
+        this.player.openStonecutter(this.player.getLocation(), true);
 
         return CommandResultType.SUCCESS;
     }

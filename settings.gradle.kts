@@ -25,6 +25,7 @@ include("Hooks:AxVault")
 include("Hooks:NuVotifier")
 include("Hooks:NChat")
 include("Hooks:WorldGuard")
+include("Hooks:MythicMobs")
 
 include("NMS:V1_20_4")
 include("NMS:V1_20_6")

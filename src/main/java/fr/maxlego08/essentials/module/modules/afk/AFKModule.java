@@ -73,14 +73,16 @@ public class AFKModule extends ZModule implements AfkManager {
     @Override
     public void checkUser(User user) {
 
-        var optional = getPermission(user.getPlayer());
+        var player = user.getPlayer();
+        if (player == null) return;
+
+        var optional = getPermission(player);
         if (optional.isEmpty()) return;
 
         var permission = optional.get();
         var difference = (System.currentTimeMillis() - user.getLastActiveTime()) / 1000;
 
         var component = this.plugin.getComponentMessage();
-        var player = user.getPlayer();
 
         if (difference >= permission.maxAfkTime()) {
 

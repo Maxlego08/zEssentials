@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "fr.maxlego08.essentials"
-version = "1.0.3.4"
+version = "1.0.3.5"
 
 extra.set("targetFolder", file("target/"))
 extra.set("targetFolderDiscord", file("target-discord/"))
@@ -30,6 +30,14 @@ allprojects {
         maven(url = "https://repo.papermc.io/repository/maven-public/")
         maven(url = "https://repo.extendedclip.com/content/repositories/placeholderapi/")
         maven(url = "https://repo.tcoded.com/releases")
+    }
+
+    configurations.all {
+        resolutionStrategy.eachDependency {
+            if (requested.group == "net.kyori" && requested.name == "adventure-text-serializer-ansi" && (requested.version.isNullOrBlank() || requested.version == ".")) {
+                useVersion("4.20.0")
+            }
+        }
     }
 
     java {
@@ -59,7 +67,7 @@ allprojects {
 
     dependencies {
 //        compileOnly("fr.maxlego08.menu:zmenu-api:1.1.0.0")
-        compileOnly(files("libs/zMenu-1.1.0.9.jar"))
+        compileOnly(files("libs/zMenu-1.1.1.0.jar"))
 
         compileOnly("fr.maxlego08.sarah:sarah:1.20")
         compileOnly("com.tcoded:FoliaLib:0.5.1")

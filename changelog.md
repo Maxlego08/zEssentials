@@ -4,23 +4,46 @@
 - Ajouter une option pour désactiver la tabulation des joueurs hors ligne
 - Ajouter un placeholder pour transformed les caractères en lettre spécial
 
+# Unreleased
+
+# 1.0.3.5
+
+- Added `/itemframe` command (`/iframe` alias), toggles visibility of the item frame you're looking at
+- Added Death Message module (`modules/death_message/config.yml`):
+    - Three modes: DISABLE (no messages), DEFAULT (vanilla), CUSTOM (configurable)
+    - Support for player kills, vanilla mobs, and MythicMobs creatures
+    - Custom messages per death cause (FALL, DROWNING, FIRE, LAVA, etc.)
+    - Random message selection when multiple messages are configured
+    - Placeholders: `%player%`, `%displayName%`, `%killer%`, `%mob%`, `%cause%`, `%weapon%`
+    - Permission `essentials.silent.death` for silent deaths
+    - `/deathmessage` command to toggle death message visibility (`/dm`, `/deathmsg` aliases)
+- Added MythicMobs hook for custom mob death messages
+- Added `/tptoggle` command to toggle receiving teleport requests [#226](https://github.com/Maxlego08/zEssentials/pull/226)
+- Added TPA queue system - accept/deny all requests at once [#228](https://github.com/Maxlego08/zEssentials/pull/228)
+- Added weapon display in death messages with hover event [#229](https://github.com/Maxlego08/zEssentials/pull/229)
+- Fixed Discord pings from Minecraft chat - prevents @everyone and @here mentions [#227](https://github.com/Maxlego08/zEssentials/pull/227)
+- Fixed first spawn not working reliably - now uses `hasPlayedBefore()` for accurate detection
+- Added all missing messages in all language files (EN, FR, DE, ES, IT, NL)
+
 # 1.0.3.4
 
 - Changed `enable-cooldown-bypass` default value to `true` in `config.yml`
 - Added PayToggle placeholders:
-  - `%zessentials_user_is_pay_disabled%` Returns true if the player has disabled payments (paytoggle)
-  - `%zessentials_user_pay_status%` Returns the configured placeholder text for pay status
+    - `%zessentials_user_is_pay_disabled%` Returns true if the player has disabled payments (paytoggle)
+    - `%zessentials_user_pay_status%` Returns the configured placeholder text for pay status
 - Added PayToggle placeholder configuration in `modules/economy/config.yml`:
-  - `paytoggle-placeholder-enabled` - Text shown when pay is enabled
-  - `paytoggle-placeholder-disabled` - Text shown when pay is disabled
+    - `paytoggle-placeholder-enabled` - Text shown when pay is enabled
+    - `paytoggle-placeholder-disabled` - Text shown when pay is disabled
 - Fixed permission registration conflict when reloading - now removes existing permission before re-registering
-- Fixed duplicate player name detection - Mojang API lookup now only runs in online mode to prevent issues on offline servers
+- Fixed duplicate player name detection - Mojang API lookup now only runs in online mode to prevent issues on offline
+  servers
 
 # 1.0.3.3
 
 - Updated zMenu to version 1.1.0.9
 - Added `force-commands` option in `config.yml`, allows commands to work even if their module is disabled
-- Added automatic messages module (`modules/automessage/config.yml`), broadcasts configurable announcements at intervals with sequential or random order
+- Added automatic messages module (`modules/automessage/config.yml`), broadcasts configurable announcements at intervals
+  with sequential or random order
 - Added RTP cooldown configuration with permission-based overrides in `command-cooldowns`
 - Fixed duplicated users in database when a player changes their name
 - Fixed `/endersee` error handling with proper error message (`COMMAND_ENDERSEE_ERROR`)
@@ -31,11 +54,13 @@
 - Added 66 new placeholders across 3 categories:
 
 ### Nearest Player Placeholders
+
 - `%zessentials_nearest_player_name%` Returns the name of the nearest visible player
 - `%zessentials_nearest_player_distance%` Returns the distance to the nearest player
 - `%zessentials_nearest_player_direction%` Returns the direction arrow (↑↗→↘↓↙←↖) to the nearest player
 
 ### Player Placeholders
+
 - `%zessentials_player_health%` Returns the player's current health
 - `%zessentials_player_max_health%` Returns the player's max health
 - `%zessentials_player_health_rounded%` Returns the player's health rounded to nearest integer
@@ -89,6 +114,7 @@
 - `%zessentials_player_bed_z%` Returns the Z coordinate of the player's respawn location
 
 ### Server Placeholders
+
 - `%zessentials_server_online%` Returns the number of online players
 - `%zessentials_server_max_players%` Returns the maximum number of players
 - `%zessentials_server_safe_online%` Returns the number of non-vanished online players
@@ -106,6 +132,7 @@
 - `%zessentials_server_world_weather_<world>%` Returns the weather of a specific world
 
 ### User Placeholders
+
 - `%zessentials_user_is_vanished%` Returns true if the player is vanished
 - `%zessentials_user_is_frozen%` Returns true if the player is frozen
 - `%zessentials_user_is_ban%` Returns true if the player is banned
@@ -149,7 +176,8 @@
 
 - Added the `/vanish` command allowing players to become invisible to others.
 - Added the `/eco reset-all <economy>` command allowing a full reset of a specific economy.
-- Added the `/vault get <player> <vault id> <slot id> [<give item>]` command allowing retrieval of an item from a player’s vault.
+- Added the `/vault get <player> <vault id> <slot id> [<give item>]` command allowing retrieval of an item from a
+  player’s vault.
 - Added the `/vault delete <player> <vault id> <slot id>` command allowing deletion of an item from a player’s vault.
 - Added the `/mail give-hand <player>` command allowing the player to give the item in their hand to another player.
 - Added the `/mail giveall-hand <player>` command allowing the player to give the item in their hand to all players.
@@ -174,7 +202,7 @@
 - Added command ``/vault info <player>``, display player's vault information
 - Added command ``/vault show <player>``, open player's vault
 - Added `command-restrictions`, Allows disabling commands in specific worlds or areas (cuboids)
-- Fix vault item slot button 
+- Fix vault item slot button
 - Fix fly on world change
 - Fix give command when the player is not specified
 - Fix scoreboard module

@@ -45,13 +45,13 @@ public class ButtonKitCooldown extends Button {
 
 
     @Override
-    public ItemStack getCustomItemStack(@NonNull Player player, @NonNull Placeholders placeholders) {
+    public @NonNull ItemStack getCustomItemStack(@NonNull Player player, boolean useCache, @NonNull Placeholders placeholders) {
 
         User user = this.plugin.getUser(player.getUniqueId());
-        if (user == null) return super.getCustomItemStack(player, placeholders);
+        if (user == null) return super.getCustomItemStack(player, useCache, placeholders);
 
         Optional<Kit> optional = this.plugin.getKit(this.kitName);
-        if (optional.isEmpty()) return super.getCustomItemStack(player, placeholders);
+        if (optional.isEmpty()) return super.getCustomItemStack(player, useCache, placeholders);
         Kit kit = optional.get();
 
         placeholders.register("cooldown", TimerBuilder.getStringTime(user.getKitCooldown(kit) - System.currentTimeMillis()));

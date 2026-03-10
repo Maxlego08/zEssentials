@@ -254,6 +254,9 @@ command-back: "&7Returning to previous location."
 command-back-error: "<error>You have no last location. Impossible to go back."
 command-random-tp-error: "<error>No safe location found after multiple attempts, please try again."
 command-random-tp-configuration-not-found: "<error>Impossible to find the random tp configuration for the world &f%world%<error>."
+command-teleport-request-disabled: "<error>The player &f%player%<error> has disabled teleport requests."
+command-tp-toggle-enable: "&7Teleport requests <success>enabled &7for &f%player%<success>."
+command-tp-toggle-disable: "&7Teleport requests <error>disabled &7for &f%player%<error>."
 
 
 # First join
@@ -379,6 +382,7 @@ description-chat-broadcast: "Broadcast a message"
 description-message: "Send a private message to a player"
 description-reply: "Reply to a private message"
 description-message-toggle: "Toggle private message"
+description-tp-toggle: "Toggle receiving teleport requests"
 description-socialspy: "Display private messages of players"
 description-furnace: "Smelt all the items in your hand"
 description-skull: "Gets the head of a player"
@@ -1036,3 +1040,68 @@ command-pub:
 step-doesnt-exist: "<error>Step &f%step% <error>does not exist."
 step-already-exist: "<error>Step &f%step% <error>already started."
 step-doesnt-started: "<error>Step &f%step% <error>is not started."
+
+# Enderchest
+command-endersee-error: "<error>Unable to load the ender chest of &f%player%<error>."
+
+# TPA
+command-tpa-error-no-request-from-player: "<error>You do not have a teleport request from &f%player%<error>."
+command-tpa-accept-all-success: "<success>You have accepted &f%count% <success>teleport request(s)."
+command-tpa-deny-all-success: "<success>You have denied &f%count% <success>teleport request(s)."
+description-tp-toggle: "Toggle receiving teleport requests"
+command-teleport-request-disabled: "<error>The player &f%player%<error> has disabled teleport requests."
+command-tp-toggle-enable: "&7Teleport requests <success>enabled &7for &f%player%<success>."
+command-tp-toggle-disable: "&7Teleport requests <error>disabled &7for &f%player%<error>."
+
+# Cross-server teleportation
+teleport-cross-server-not-supported: "<error>Cross-server teleportation is not supported on this server."
+teleport-cross-server-connecting: "<success>Connecting to server &f%server%<success>..."
+teleport-cross-server-player-not-found: "<error>Player &f%player% <error>was not found on any server."
+
+# ItemFrame
+description-itemframe: "Toggle item frame visibility"
+command-itemframe-invisible: "<success>Item frame is now <white>invisible<success>."
+command-itemframe-visible: "<success>Item frame is now <white>visible<success>."
+command-itemframe-not-found: "<error>No item frame found. Look at an item frame and try again."
+
+# Death Message Module
+description-death-message: "Custom death messages"
+description-death-message-toggle: "Toggle death messages visibility"
+command-death-message-toggle-disable: "#C084FC☠ #B794F4Death messages are now #E9D5FFhidden #B794F4for %player%#B794F4."
+command-death-message-toggle-enable: "#C084FC☠ #B794F4Death messages are now #E9D5FFvisible #B794F4for %player%#B794F4."
+
+# Death messages (detailed)
+death-generic: "#C084FC☠ #E9D5FF%player% #B794F4died."
+death-by-player: "#C084FC⚔ #E9D5FF%player% #B794F4was slain by #E9D5FF%killer%#B794F4."
+death-by-mob: "#C084FC☠ #E9D5FF%player% #B794F4was killed by #E9D5FF%killer%#B794F4."
+death-by-projectile: "#C084FC🏹 #E9D5FF%player% #B794F4was shot by #E9D5FF%killer%#B794F4."
+death-by-mob-explosion: "#C084FC💥 #E9D5FF%player% #B794F4was blown up by #E9D5FF%killer%#B794F4."
+death-by-fall: "#C084FC⬇ #E9D5FF%player% #B794F4fell from a high place."
+death-by-fire: "#C084FC🔥 #E9D5FF%player% #B794F4burned to death."
+death-by-lava: "#C084FC🌋 #E9D5FF%player% #B794F4tried to swim in lava."
+death-by-drowning: "#C084FC💧 #E9D5FF%player% #B794F4drowned."
+death-by-explosion: "#C084FC💥 #E9D5FF%player% #B794F4was blown up."
+death-by-lightning: "#C084FC⚡ #E9D5FF%player% #B794F4was struck by lightning."
+death-by-suffocation: "#C084FC▓ #E9D5FF%player% #B794F4suffocated in a wall."
+death-by-starvation: "#C084FC🍖 #E9D5FF%player% #B794F4starved to death."
+death-by-poison: "#C084FC☣ #E9D5FF%player% #B794F4was poisoned."
+death-by-magic: "#C084FC✦ #E9D5FF%player% #B794F4was killed by magic."
+death-by-wither: "#C084FC💀 #E9D5FF%player% #B794F4withered away."
+death-by-falling-block: "#C084FC▼ #E9D5FF%player% #B794F4was squashed by a falling block."
+death-by-fly-into-wall: "#C084FC💨 #E9D5FF%player% #B794F4experienced kinetic energy."
+death-by-void: "#C084FC✧ #E9D5FF%player% #B794F4fell out of the world."
+death-by-cactus: "#C084FC🌵 #E9D5FF%player% #B794F4was pricked to death."
+death-by-cramming: "#C084FC⊞ #E9D5FF%player% #B794F4was squished too much."
+death-by-freeze: "#C084FC❄ #E9D5FF%player% #B794F4froze to death."
+death-by-sonic-boom: "#C084FC◈ #E9D5FF%player% #B794F4was obliterated by a sonic boom."
+death-by-magma: "#C084FC♨ #E9D5FF%player% #B794F4discovered that the floor was lava."
+death-by-thorns: "#C084FC✵ #E9D5FF%player% #B794F4was killed trying to hurt someone."
+death-by-campfire: "#C084FC🔥 #E9D5FF%player% #B794F4walked into a campfire."
+death-hover-details: "#D8B4FE☠ Death Location#B794F4:\n#E9D5FF▸ World: #D8B4FE%world%\n#E9D5FF▸ Position: #D8B4FE%x%#E9D5FF, #D8B4FE%y%#E9D5FF, #D8B4FE%z%\n\n#9F7AEA&oClick to teleport"
+
+# Death Messages (fallback when no custom config is set)
+death-message-generic: "#99E0FF%player% &7died."
+death-message-player: "#99E0FF%player% &7was slain by #34cfe0%killer% &7using %weapon%&7."
+death-message-mob: "#99E0FF%player% &7was killed by &c%mob%&7."
+death-message-mythic-mob: "#99E0FF%player% &7was slain by <gradient:#ff6600:#ff0000>%mob%</gradient>&7!"
+death-message-fists: "&7fists"

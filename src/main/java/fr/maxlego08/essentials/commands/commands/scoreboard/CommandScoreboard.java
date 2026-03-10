@@ -14,6 +14,7 @@ public class CommandScoreboard extends VCommand {
         this.setModule(ScoreboardModule.class);
         this.setPermission(Permission.ESSENTIALS_SCOREBOARD);
         this.setDescription(Message.DESCRIPTION_SCOREBOARD);
+        this.onlyPlayers();
     }
 
     @Override

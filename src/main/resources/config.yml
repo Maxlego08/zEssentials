@@ -296,6 +296,7 @@ blacklist-uuids:
 # - PHANTOMS_DISABLE: Disables phantom spawning
 # - WORLDEDIT_INVENTORY: Allows to use the player's inventory for WorldEdit
 # - WORLDEDIT_BOSSBAR_DISABLE: Disables the WorldEdit bossbar
+# - TELEPORT_REQUEST_DISABLE: Disables receiving teleport requests from other players
 default-options:
   - option: WORLDEDIT_INVENTORY
     value: true

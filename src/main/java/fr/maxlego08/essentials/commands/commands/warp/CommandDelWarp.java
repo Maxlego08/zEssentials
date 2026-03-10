@@ -36,7 +36,7 @@ public class CommandDelWarp extends VCommand {
         ConfigStorage.warps.removeIf(warp -> warp.name().equalsIgnoreCase(warpName));
         ConfigStorage.getInstance().save(plugin.getPersist());
 
-        message(sender, Message.COMMAND_WARP_CREATE, "%name%", warpName);
+        message(sender, Message.COMMAND_WARP_DELETE, "%name%", warpName);
 
         return CommandResultType.SUCCESS;
     }

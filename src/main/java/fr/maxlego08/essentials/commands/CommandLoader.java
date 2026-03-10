@@ -12,6 +12,7 @@ import fr.maxlego08.essentials.commands.commands.chat.CommandPub;
 import fr.maxlego08.essentials.commands.commands.chat.CommandShowItem;
 import fr.maxlego08.essentials.commands.commands.clearinventory.ClearInventoryCommand;
 import fr.maxlego08.essentials.commands.commands.cooldown.CommandCooldown;
+import fr.maxlego08.essentials.commands.commands.deathmessage.CommandDeathMessageToggle;
 import fr.maxlego08.essentials.commands.commands.discord.CommandLink;
 import fr.maxlego08.essentials.commands.commands.discord.CommandUnLink;
 import fr.maxlego08.essentials.commands.commands.economy.CommandBalanceTop;
@@ -49,6 +50,7 @@ import fr.maxlego08.essentials.commands.commands.messages.CommandMessage;
 import fr.maxlego08.essentials.commands.commands.messages.CommandMessageToggle;
 import fr.maxlego08.essentials.commands.commands.messages.CommandReply;
 import fr.maxlego08.essentials.commands.commands.messages.CommandSocialSpy;
+import fr.maxlego08.essentials.commands.commands.teleport.CommandTpToggle;
 import fr.maxlego08.essentials.commands.commands.sanction.CommandBan;
 import fr.maxlego08.essentials.commands.commands.sanction.CommandFreeze;
 import fr.maxlego08.essentials.commands.commands.sanction.CommandKick;
@@ -78,6 +80,7 @@ import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportTo;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportToHere;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTeleportWorld;
 import fr.maxlego08.essentials.commands.commands.teleport.CommandTop;
+import fr.maxlego08.essentials.commands.commands.utils.CommandItemFrame;
 import fr.maxlego08.essentials.commands.commands.utils.*;
 import fr.maxlego08.essentials.commands.commands.utils.lag.CommandLag;
 import fr.maxlego08.essentials.commands.commands.utils.admins.CommandEnchant;
@@ -232,6 +235,7 @@ public class CommandLoader {
         register("message", CommandMessage.class, "msg", "tell", "whisper", "m", "w");
         register("reply", CommandReply.class, "r");
         register("messagetoggle", CommandMessageToggle.class, "msgtoggle", "mtg");
+        register("tptoggle", CommandTpToggle.class);
         register("socialspy", CommandSocialSpy.class);
 
         register("repair", CommandRepair.class, "fix");
@@ -281,6 +285,8 @@ public class CommandLoader {
 
         register("pub", CommandPub.class);
         register("step", CommandStep.class);
+        register("itemframe", CommandItemFrame.class, "iframe");
+        register("deathmessage", CommandDeathMessageToggle.class, "dm", "deathmsg");
 
         for (RegisterCommand registerCommand : this.commands) {
             try {

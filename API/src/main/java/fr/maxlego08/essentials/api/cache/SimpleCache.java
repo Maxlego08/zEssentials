@@ -43,6 +43,13 @@ public class SimpleCache<K, V> {
 
 
     /**
+     * Clears all entries from the cache.
+     */
+    public void clear() {
+        this.cache.clear();
+    }
+
+    /**
      * Functional interface for loading values into the cache. Implementations of this interface
      * provide a method to load a value, typically involving an operation such as fetching data
      * from a database or a remote service.

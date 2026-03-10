@@ -28,7 +28,7 @@ public class CommandMoney extends VCommand {
 
         EconomyManager economyManager = plugin.getEconomyManager();
         String userName = this.argAsString(0, null);
-        if (userName == null || userName.equalsIgnoreCase(user.getName()) && hasPermission(sender, Permission.ESSENTIALS_MONEY_OTHER)) {
+        if (userName == null || (userName.equalsIgnoreCase(user.getName()) && !hasPermission(sender, Permission.ESSENTIALS_MONEY_OTHER))) {
 
             List<String> arguments = new ArrayList<>();
             economyManager.getEconomies().forEach(economy -> {

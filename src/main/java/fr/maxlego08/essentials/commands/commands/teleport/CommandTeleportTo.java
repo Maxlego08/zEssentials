@@ -27,6 +27,7 @@ public class CommandTeleportTo extends VCommand {
         if (targetPlayer == null) return CommandResultType.SYNTAX_ERROR;
 
         User targetUser = plugin.getStorageManager().getStorage().getUser(targetPlayer.getUniqueId());
+        if (targetUser == null) return CommandResultType.SYNTAX_ERROR;
 
         if (targetUser.getUniqueId().equals(this.player.getUniqueId())) {
             message(this.sender, Message.COMMAND_TPA_ERROR_SAME);

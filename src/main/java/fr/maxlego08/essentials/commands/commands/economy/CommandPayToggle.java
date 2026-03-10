@@ -17,6 +17,7 @@ public class CommandPayToggle extends VCommand {
         this.setModule(MessageModule.class);
         this.setPermission(Permission.ESSENTIALS_PAY_TOGGLE);
         this.setDescription(Message.DESCRIPTION_PAY_TOGGLE);
+        this.onlyPlayers();
         this.addOptionalArg("player");
     }
 
@@ -29,10 +30,11 @@ public class CommandPayToggle extends VCommand {
             return CommandResultType.SYNTAX_ERROR;
         }
 
-        if (player == this.player || !hasPermission(sender, Permission.ESSENTIALS_PAY_TOGGLE_OTHER)) {
+        if (player.equals(this.player) || !hasPermission(sender, Permission.ESSENTIALS_PAY_TOGGLE_OTHER)) {
             togglePay(player, this.user, sender);
         } else {
             User otherUser = getUser(player);
+            if (otherUser == null) return CommandResultType.SYNTAX_ERROR;
             togglePay(player, otherUser, sender);
         }
 

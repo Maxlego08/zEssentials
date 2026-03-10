@@ -139,6 +139,7 @@ public class DiscordModule extends ZModule implements DiscordManager {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onTalk(AsyncChatEvent event) {
         String message = PlainTextComponentSerializer.plainText().serialize(event.message());
+        message = message.replace("@", "@\u200B");
         var player = event.getPlayer();
         sendDiscordMessage(player, player.getName(), player.getUniqueId(), message, this.chatConfiguration);
     }

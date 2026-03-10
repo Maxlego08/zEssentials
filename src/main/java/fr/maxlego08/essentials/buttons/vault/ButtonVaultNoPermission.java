@@ -7,6 +7,7 @@ import fr.maxlego08.menu.api.utils.Placeholders;
 import fr.maxlego08.menu.api.button.Button;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.jspecify.annotations.NonNull;
 
 public class ButtonVaultNoPermission extends Button {
 
@@ -19,7 +20,7 @@ public class ButtonVaultNoPermission extends Button {
     }
 
     @Override
-    public ItemStack getCustomItemStack(Player player, Placeholders placeholders) {
+    public @NonNull ItemStack getCustomItemStack(@NonNull Player player, boolean useCache, Placeholders placeholders) {
 
         PlayerVaults playerVaults = plugin.getVaultManager().getPlayerVaults(player);
         Vault vault = playerVaults.getVault(this.vaultId);

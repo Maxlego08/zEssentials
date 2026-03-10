@@ -91,11 +91,6 @@ public class CommandItemLoreSet extends VCommand {
         List<Component> components = itemMeta.hasLore() ? itemMeta.lore() : new ArrayList<>();
         if (components == null) components = new ArrayList<>();
 
-        if (components.size() < index) {
-            message(sender, Message.COMMAND_ITEM_LORE_SET_ERROR, "%line%", index);
-            return CommandResultType.DEFAULT;
-        }
-
         PaperComponent paperComponent = (PaperComponent) this.componentMessage;
         if (components.size() < index) {
             for (int i = components.size(); i < index; i++) {

@@ -25,6 +25,7 @@ public class CommandSetExperience extends VCommand {
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
         Player player = this.argAsPlayer(0);
+        if (player == null) return CommandResultType.SYNTAX_ERROR;
         int amount = this.argAsInteger(1);
         String type = this.argAsString(2);
 

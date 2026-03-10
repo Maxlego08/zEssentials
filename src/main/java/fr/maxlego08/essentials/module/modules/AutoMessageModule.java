@@ -4,6 +4,8 @@ import com.tcoded.folialib.wrapper.task.WrappedTask;
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.configuration.NonLoadable;
 import fr.maxlego08.essentials.module.ZModule;
+import fr.maxlego08.menu.api.requirement.Action;
+import fr.maxlego08.menu.api.utils.Placeholders;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.util.ArrayList;
@@ -40,11 +42,17 @@ public class AutoMessageModule extends ZModule {
 
         YamlConfiguration configuration = getConfiguration();
         List<Map<?, ?>> messagesList = configuration.getMapList("messages");
+        int index = 0;
         for (Map<?, ?> map : messagesList) {
             List<String> lines = (List<String>) map.get("lines");
             if (lines != null) {
-                this.autoMessages.add(new AutoMessage(lines));
+                List<Map<String, Object>> actionElements = (List<Map<String, Object>>) map.get("actions");
+                List<Action> actions = actionElements != null
+                        ? this.plugin.getButtonManager().loadActions(actionElements, "messages[" + index + "].actions", getConfigurationFile())
+                        : new ArrayList<>();
+                this.autoMessages.add(new AutoMessage(lines, actions));
             }
+            index++;
         }
 
         if (this.isEnable && !this.autoMessages.isEmpty() && this.interval > 0) {
@@ -63,13 +71,17 @@ public class AutoMessageModule extends ZModule {
             this.currentIndex = (this.currentIndex + 1) % this.autoMessages.size();
         }
 
+        var fakeInventory = this.plugin.getInventoryManager().getFakeInventory();
         for (var player : this.plugin.getServer().getOnlinePlayers()) {
             for (String line : message.lines()) {
                 this.componentMessage.sendMessage(player, line);
             }
+            for (Action action : message.actions()) {
+                action.preExecute(player, null, fakeInventory, new Placeholders());
+            }
         }
     }
 
-    private record AutoMessage(List<String> lines) {
+    private record AutoMessage(List<String> lines, List<Action> actions) {
     }
 }

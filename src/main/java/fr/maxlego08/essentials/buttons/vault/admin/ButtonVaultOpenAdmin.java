@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
+import org.jspecify.annotations.NonNull;
 
 public class ButtonVaultOpenAdmin extends Button {
 
@@ -23,7 +24,7 @@ public class ButtonVaultOpenAdmin extends Button {
     }
 
     @Override
-    public ItemStack getCustomItemStack(Player player, Placeholders placeholders) {
+    public @NonNull ItemStack getCustomItemStack(@NonNull Player player, boolean useCache, Placeholders placeholders) {
         PlayerVaults viewerVaults = this.plugin.getVaultManager().getPlayerVaults(player);
         PlayerVaults targetVaults = viewerVaults.getTargetPlayerVaults();
         if (targetVaults == null) return this.getItemStack().build(player, false, new Placeholders());

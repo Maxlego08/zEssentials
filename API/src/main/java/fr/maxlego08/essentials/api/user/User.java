@@ -136,6 +136,35 @@ public interface User {
     void removeTeleportRequest(User user);
 
     /**
+     * Gets teleport request from specific player.
+     *
+     * @param fromUser The player who sent the request
+     * @return The request from specified player, or null if none exists
+     */
+    TeleportRequest getTeleportRequestFrom(User fromUser);
+
+    /**
+     * Gets all incoming teleport requests.
+     *
+     * @return Collection of all valid incoming requests
+     */
+    Collection<TeleportRequest> getIncomingTeleportRequests();
+
+    /**
+     * Adds or updates incoming teleport request.
+     *
+     * @param teleportRequest The request to add/update
+     */
+    void setIncomingTeleportRequest(TeleportRequest teleportRequest);
+
+    /**
+     * Removes incoming request from specific player.
+     *
+     * @param fromUser The player whose request should be removed
+     */
+    void removeIncomingTeleportRequest(User fromUser);
+
+    /**
      * Teleports the user to the specified location immediately.
      *
      * @param location The location to teleport the user to.

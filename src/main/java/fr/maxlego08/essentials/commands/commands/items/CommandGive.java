@@ -22,7 +22,8 @@ public class CommandGive extends VCommand {
         this.addRequirePlayerNameArg();
         this.addRequireArg("item", (sender, args) -> {
             List<String> materials = new ArrayList<>(plugin.getMaterials().stream().map(Material::name).map(String::toLowerCase).toList());
-            materials.addAll(plugin.getModuleManager().getModule(ItemModule.class).getItemsName());
+            var itemModule = plugin.getModuleManager().getModule(ItemModule.class);
+            if (itemModule != null) materials.addAll(itemModule.getItemsName());
             return materials;
         });
         this.addOptionalArg("amount", (sender, args) -> Arrays.asList("1", "64", "full"));
@@ -32,10 +33,12 @@ public class CommandGive extends VCommand {
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
         Player player = this.argAsPlayer(0);
+        if (player == null) return CommandResultType.SYNTAX_ERROR;
         String itemName = this.argAsString(1);
         String amount = this.argAsString(2, "1");
 
         var module = plugin.getModuleManager().getModule(ItemModule.class);
+        if (module == null) return CommandResultType.DEFAULT;
         if (amount.equalsIgnoreCase("full")) {
 
             module.giveFullInventory(sender, player, itemName);

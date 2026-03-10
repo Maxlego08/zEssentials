@@ -1039,6 +1039,72 @@ random-word-clear: "<success>Das Zufallswort wurde gelöscht."
 step-already-exist: "<error>Schritt &f%step% <error>hat bereits begonnen."
 step-doesnt-exist: "<error>Schritt &f%step% <error>existiert nicht."
 step-doesnt-started: "<error>Schritt &f%step% <error>wurde nicht gestartet."
+
+# Enderchest
+command-endersee-error: "<error>Die Endertruhe von &f%player%<error> konnte nicht geladen werden."
+
+# TPA
+command-tpa-error-no-request-from-player: "<error>Du hast keine Teleportanfrage von &f%player%<error>."
+command-tpa-accept-all-success: "<success>Du hast &f%count% <success>Teleportanfrage(n) akzeptiert."
+command-tpa-deny-all-success: "<success>Du hast &f%count% <success>Teleportanfrage(n) abgelehnt."
+description-tp-toggle: "Teleportanfragen ein-/ausschalten"
+command-teleport-request-disabled: "<error>Der Spieler &f%player%<error> hat Teleportanfragen deaktiviert."
+command-tp-toggle-enable: "&7Teleportanfragen <success>aktiviert &7für &f%player%<success>."
+command-tp-toggle-disable: "&7Teleportanfragen <error>deaktiviert &7für &f%player%<error>."
+
+# Cross-Server Teleportation
+teleport-cross-server-not-supported: "<error>Cross-Server Teleportation wird auf diesem Server nicht unterstützt."
+teleport-cross-server-connecting: "<success>Verbinde mit Server &f%server%<success>..."
+teleport-cross-server-player-not-found: "<error>Spieler &f%player% <error>wurde auf keinem Server gefunden."
+
+# ItemFrame
+description-itemframe: "Rahmen Sichtbarkeit umschalten"
+command-itemframe-invisible: "<success>Der Rahmen ist jetzt <white>unsichtbar<success>."
+command-itemframe-visible: "<success>Der Rahmen ist jetzt <white>sichtbar<success>."
+command-itemframe-not-found: "<error>Kein Rahmen gefunden. Schaue auf einen Rahmen und versuche es erneut."
+
+# Todesnachrichten Modul
+description-death-message: "Benutzerdefinierte Todesnachrichten"
+description-death-message-toggle: "Todesnachrichten Sichtbarkeit umschalten"
+command-death-message-toggle-disable: "#C084FC☠ #B794F4Todesnachrichten sind jetzt #E9D5FFversteckt #B794F4für %player%#B794F4."
+command-death-message-toggle-enable: "#C084FC☠ #B794F4Todesnachrichten sind jetzt #E9D5FFsichtbar #B794F4für %player%#B794F4."
+
+# Todesnachrichten (detailliert)
+death-generic: "#C084FC☠ #E9D5FF%player% #B794F4ist gestorben."
+death-by-player: "#C084FC⚔ #E9D5FF%player% #B794F4wurde von #E9D5FF%killer%#B794F4 getötet."
+death-by-mob: "#C084FC☠ #E9D5FF%player% #B794F4wurde von #E9D5FF%killer%#B794F4 getötet."
+death-by-projectile: "#C084FC🏹 #E9D5FF%player% #B794F4wurde von #E9D5FF%killer%#B794F4 erschossen."
+death-by-mob-explosion: "#C084FC💥 #E9D5FF%player% #B794F4wurde von #E9D5FF%killer%#B794F4 gesprengt."
+death-by-fall: "#C084FC⬇ #E9D5FF%player% #B794F4ist aus großer Höhe gefallen."
+death-by-fire: "#C084FC🔥 #E9D5FF%player% #B794F4ist verbrannt."
+death-by-lava: "#C084FC🌋 #E9D5FF%player% #B794F4versuchte in Lava zu schwimmen."
+death-by-drowning: "#C084FC💧 #E9D5FF%player% #B794F4ist ertrunken."
+death-by-explosion: "#C084FC💥 #E9D5FF%player% #B794F4wurde gesprengt."
+death-by-lightning: "#C084FC⚡ #E9D5FF%player% #B794F4wurde vom Blitz getroffen."
+death-by-suffocation: "#C084FC▓ #E9D5FF%player% #B794F4ist in einer Wand erstickt."
+death-by-starvation: "#C084FC🍖 #E9D5FF%player% #B794F4ist verhungert."
+death-by-poison: "#C084FC☣ #E9D5FF%player% #B794F4wurde vergiftet."
+death-by-magic: "#C084FC✦ #E9D5FF%player% #B794F4wurde durch Magie getötet."
+death-by-wither: "#C084FC💀 #E9D5FF%player% #B794F4ist verwelkt."
+death-by-falling-block: "#C084FC▼ #E9D5FF%player% #B794F4wurde von einem fallenden Block zerquetscht."
+death-by-fly-into-wall: "#C084FC💨 #E9D5FF%player% #B794F4hat kinetische Energie erfahren."
+death-by-void: "#C084FC✧ #E9D5FF%player% #B794F4ist aus der Welt gefallen."
+death-by-cactus: "#C084FC🌵 #E9D5FF%player% #B794F4wurde zu Tode gestochen."
+death-by-cramming: "#C084FC⊞ #E9D5FF%player% #B794F4wurde zu sehr gequetscht."
+death-by-freeze: "#C084FC❄ #E9D5FF%player% #B794F4ist erfroren."
+death-by-sonic-boom: "#C084FC◈ #E9D5FF%player% #B794F4wurde von einem Schallknall ausgelöscht."
+death-by-magma: "#C084FC♨ #E9D5FF%player% #B794F4entdeckte, dass der Boden Lava war."
+death-by-thorns: "#C084FC✵ #E9D5FF%player% #B794F4wurde beim Versuch jemanden zu verletzen getötet."
+death-by-campfire: "#C084FC🔥 #E9D5FF%player% #B794F4lief in ein Lagerfeuer."
+death-hover-details: "#D8B4FE☠ Todesort#B794F4:\n#E9D5FF▸ Welt: #D8B4FE%world%\n#E9D5FF▸ Position: #D8B4FE%x%#E9D5FF, #D8B4FE%y%#E9D5FF, #D8B4FE%z%\n\n#9F7AEA&oKlicke zum Teleportieren"
+
+# Todesnachrichten (Fallback wenn keine benutzerdefinierte Konfiguration gesetzt ist)
+death-message-generic: "#99E0FF%player% &7ist gestorben."
+death-message-player: "#99E0FF%player% &7wurde von #34cfe0%killer% &7mit %weapon% &7getötet."
+death-message-mob: "#99E0FF%player% &7wurde von &c%mob% &7getötet."
+death-message-mythic-mob: "#99E0FF%player% &7wurde von <gradient:#ff6600:#ff0000>%mob%</gradient> &7getötet!"
+death-message-fists: "&7Fäusten"
+
 teleport-message-spawn-console: "<success>Du hast den Spieler <white>%player% <success>zum Spawn teleportiert."
 teleport-random-start: "&7Suche nach einem Ziel... du darfst dich nicht bewegen."
 worldedit-permission-error: "<error>Du kannst WorldEdit hier nicht verwenden."

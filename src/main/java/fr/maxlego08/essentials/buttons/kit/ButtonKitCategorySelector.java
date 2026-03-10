@@ -48,7 +48,7 @@ public class ButtonKitCategorySelector extends Button {
     }
 
     @Override
-    public ItemStack getCustomItemStack(@NonNull Player player, Placeholders placeholders) {
+    public @NonNull ItemStack getCustomItemStack(@NonNull Player player, boolean useCache, Placeholders placeholders) {
         
         KitModule kitModule = this.plugin.getModuleManager().getModule(KitModule.class);
         List<Kit> kits = kitModule.getKitsByCategory(player, this.categoryName);

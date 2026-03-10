@@ -1,0 +1,69 @@
+# Death Message Module Configuration
+# This module allows you to customize death messages displayed in chat.
+
+# Enable or disable this module
+enable: true
+
+# Allow players with essentials.silent.death permission to die without a death message
+allow-silent-death: false
+
+# Death message type:
+# - DISABLE: No death messages will be shown
+# - DEFAULT: Use vanilla Minecraft death messages
+# - CUSTOM: Use custom death messages defined below
+death-message-type: CUSTOM
+
+# Custom death messages
+# You can define multiple messages for each cause, one will be picked randomly
+# Available placeholders:
+# - %player% - The player who died
+# - %displayName% - The display name of the player who died
+# - %killer% - The player who killed (only for PLAYER cause)
+# - %mob% - The mob that killed the player (only for MOB and MYTHIC_MOB causes)
+# - %cause% - The cause of death (formatted)
+#
+# Supported causes:
+# - GENERIC: Default death message when no specific cause matches
+# - PLAYER: Death by another player
+# - MOB: Death by vanilla mob
+# - MYTHIC_MOB: Death by MythicMobs creature
+# - And all vanilla damage causes: FALL, DROWNING, FIRE, LAVA, VOID, etc.
+custom-messages:
+  GENERIC:
+    - "#99E0FF%player% &7died."
+  PLAYER:
+    - "#99E0FF%player% &7was slain by #34cfe0%killer%&7."
+    - "#34cfe0%killer% &7killed #99E0FF%player%&7."
+  MOB:
+    - "#99E0FF%player% &7was killed by &c%mob%&7."
+  MYTHIC_MOB:
+    - "#99E0FF%player% &7was slain by <gradient:#ff6600:#ff0000>%mob%</gradient>&7!"
+  FALL:
+    - "#99E0FF%player% &7fell from a high place."
+    - "#99E0FF%player% &7hit the ground too hard."
+  DROWNING:
+    - "#99E0FF%player% &7drowned."
+  FIRE:
+    - "#99E0FF%player% &7burned to death."
+  LAVA:
+    - "#99E0FF%player% &7tried to swim in lava."
+  VOID:
+    - "#99E0FF%player% &7fell out of the world."
+  LIGHTNING:
+    - "#99E0FF%player% &7was struck by lightning."
+  STARVATION:
+    - "#99E0FF%player% &7starved to death."
+  SUFFOCATION:
+    - "#99E0FF%player% &7suffocated in a wall."
+  EXPLOSION:
+    - "#99E0FF%player% &7blew up."
+  POISON:
+    - "#99E0FF%player% &7died of poisoning."
+  WITHER:
+    - "#99E0FF%player% &7withered away."
+  CRAMMING:
+    - "#99E0FF%player% &7was squished too much."
+  FLY_INTO_WALL:
+    - "#99E0FF%player% &7experienced kinetic energy."
+  FREEZE:
+    - "#99E0FF%player% &7froze to death."

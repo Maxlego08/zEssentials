@@ -24,6 +24,10 @@ public class CommandFurnace extends VCommand {
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
         ItemStack itemStack = this.player.getInventory().getItemInMainHand();
+        if (itemStack.getType().isAir()) {
+            message(sender, Message.COMMAND_FURNACE_TYPE, "%material%", "AIR");
+            return CommandResultType.DEFAULT;
+        }
         Material material = itemStack.getType();
         Optional<TransformMaterial> optional = this.configuration.getSmeltableMaterials().stream().filter(e -> e.from().equals(material)).findFirst();
         if (optional.isEmpty()) {
@@ -38,7 +42,7 @@ public class CommandFurnace extends VCommand {
         Inventory inventory = this.player.getInventory();
         int realAmount = count(inventory, material);
 
-        if (realAmount < 0) {
+        if (realAmount <= 0) {
             message(getPlayer(), Message.COMMAND_FURNACE_ERROR, "%item%", name(material.name()));
             return CommandResultType.DEFAULT;
         }

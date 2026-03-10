@@ -9,6 +9,7 @@ import fr.maxlego08.essentials.api.utils.mobs.Mob;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
+import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
@@ -53,10 +54,20 @@ public class CommandKillAll extends VCommand {
 
         if (removeTypes.isEmpty()) return CommandResultType.SYNTAX_ERROR;
 
+        Location center = this.sender instanceof Player ? this.player.getLocation() : null;
+        double radiusSquared = radius > 0 ? (double) radius * radius : 0;
+
         int removed = 0;
         for (Chunk chunk : world.getLoadedChunks()) {
             for (Entity entity : chunk.getEntities()) {
                 if (entity instanceof HumanEntity) continue;
+
+                // Radius filtering: skip entities outside the specified radius
+                if (radius > 0 && center != null && entity.getWorld().equals(center.getWorld())) {
+                    if (entity.getLocation().distanceSquared(center) > radiusSquared) {
+                        continue;
+                    }
+                }
 
                 for (KillAllType type : removeTypes) {
 

@@ -29,10 +29,11 @@ public class CommandPowerToolsToggle extends VCommand {
             return CommandResultType.SYNTAX_ERROR;
         }
 
-        if (player == this.player || !hasPermission(sender, Permission.ESSENTIALS_POWER_TOOLS_TOGGLE_OTHER)) {
+        if (player.equals(this.player) || !hasPermission(sender, Permission.ESSENTIALS_POWER_TOOLS_TOGGLE_OTHER)) {
             togglePowerTools(player, this.user, sender);
         } else {
             User otherUser = getUser(player);
+            if (otherUser == null) return CommandResultType.SYNTAX_ERROR;
             togglePowerTools(player, otherUser, sender);
         }
 

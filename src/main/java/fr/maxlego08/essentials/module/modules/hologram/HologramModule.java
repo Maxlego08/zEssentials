@@ -36,6 +36,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.world.WorldLoadEvent;
 import org.bukkit.plugin.PluginManager;
 
@@ -241,6 +242,7 @@ public class HologramModule extends ZModule implements HologramManager {
 
         try {
             Hologram hologram = loader.load(configuration, "", file.getName().replace(".yml", ""));
+            if (hologram == null) return;
             if (hologram.canLoad()) {
                 hologram.create();
                 hologram.createForAllPlayers();
@@ -349,11 +351,35 @@ public class HologramModule extends ZModule implements HologramManager {
 
     @EventHandler
     public void onWorldChange(PlayerChangedWorldEvent event) {
-        displayHologram(event.getPlayer());
+        // Remove holograms from old world and show holograms in new world
+        Player player = event.getPlayer();
+        this.holograms.stream()
+                .filter(hologram -> hologram.getLocation().getWorld().equals(event.getFrom().getName()))
+                .forEach(hologram -> {
+                    hologram.delete(player);
+                    hologram.removePlayer(player);
+                });
+        displayHologram(player);
+    }
+
+    @EventHandler
+    public void onTeleport(PlayerTeleportEvent event) {
+        if (event.isCancelled()) return;
+        Player player = event.getPlayer();
+        // Re-display holograms after teleport (spawn, warp, tp, etc.)
+        this.plugin.getScheduler().runNextTick(wrappedTask -> {
+            if (player.isOnline()) {
+                displayHologram(player);
+            }
+        });
     }
 
     private void displayHologram(Player player) {
-        this.holograms.stream().filter(hologram -> hologram.getLocation().getWorld().equals(player.getWorld().getName())).forEach(hologram -> hologram.create(player));
+        String worldName = player.getWorld().getName();
+        this.holograms.stream()
+                .filter(Hologram::isLoaded)
+                .filter(hologram -> hologram.getLocation().getWorld().equals(worldName))
+                .forEach(hologram -> hologram.create(player));
     }
 
     private void updateHolograms() {

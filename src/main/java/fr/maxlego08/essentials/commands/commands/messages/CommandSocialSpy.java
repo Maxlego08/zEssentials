@@ -29,10 +29,11 @@ public class CommandSocialSpy extends VCommand {
             return CommandResultType.SYNTAX_ERROR;
         }
 
-        if (player == this.player) {
+        if (player.equals(this.player)) {
             toggleSocialspy(player, this.user, sender);
         } else {
             User otherUser = getUser(player);
+            if (otherUser == null) return CommandResultType.SYNTAX_ERROR;
             toggleSocialspy(player, otherUser, sender);
         }
 

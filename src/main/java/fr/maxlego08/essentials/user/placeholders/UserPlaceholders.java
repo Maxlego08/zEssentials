@@ -135,12 +135,14 @@ public class UserPlaceholders extends ZUtils implements PlaceholderRegister {
 
         placeholder.register("user_mute_seconds", (player) -> {
             User user = iStorage.getUser(player.getUniqueId());
-            return user != null ? String.valueOf((user.getMuteSanction().getDurationRemaining().toSeconds())) : "0";
+            if (user == null || user.getMuteSanction() == null) return "0";
+            return String.valueOf(user.getMuteSanction().getDurationRemaining().toSeconds());
         }, "Returns the remaining time in seconds for the mute");
 
         placeholder.register("user_mute_formatted", (player) -> {
             User user = iStorage.getUser(player.getUniqueId());
-            return TimerBuilder.getStringTime(user != null ? user.getMuteSanction().getDurationRemaining().toMillis() : 0);
+            if (user == null || user.getMuteSanction() == null) return TimerBuilder.getStringTime(0);
+            return TimerBuilder.getStringTime(user.getMuteSanction().getDurationRemaining().toMillis());
         }, "Returns the remaining formatted time for the mute");
 
         // Mailbox
@@ -189,7 +191,10 @@ public class UserPlaceholders extends ZUtils implements PlaceholderRegister {
         placeholder.register("user_block_z", (player) -> String.valueOf(player.getLocation().getBlockZ()), "Returns the block z coordinate of the player");
         placeholder.register("user_biome", (player) -> player.getWorld().getBiome(player.getLocation()).name(), "Returns the biome of the player");
 
-        placeholder.register("user_has_discord_linked", (player) -> iStorage.getUser(player.getUniqueId()).isDiscordLinked() ? "true" : "false", "Returns true if the player has a discord linked");
+        placeholder.register("user_has_discord_linked", (player) -> {
+            User user = iStorage.getUser(player.getUniqueId());
+            return user != null && user.isDiscordLinked() ? "true" : "false";
+        }, "Returns true if the player has a discord linked");
 
         // PayToggle
         placeholder.register("user_is_pay_disabled", (player) -> {
@@ -202,6 +207,12 @@ public class UserPlaceholders extends ZUtils implements PlaceholderRegister {
             boolean isPayDisabled = user != null && user.getOption(Option.PAY_DISABLE);
             return isPayDisabled ? economyManager.getPayTogglePlaceholderDisabled() : economyManager.getPayTogglePlaceholderEnabled();
         }, "Returns the configured placeholder for the player's pay status");
+
+        // TpToggle
+        placeholder.register("user_is_tptoggle_disabled", (player) -> {
+            User user = iStorage.getUser(player.getUniqueId());
+            return user != null ? String.valueOf(user.getOption(Option.TELEPORT_REQUEST_DISABLE)) : "false";
+        }, "Returns true if the player has disabled teleport requests (tptoggle)");
 
         // Vanish
         placeholder.register("user_is_vanished", (player) -> {

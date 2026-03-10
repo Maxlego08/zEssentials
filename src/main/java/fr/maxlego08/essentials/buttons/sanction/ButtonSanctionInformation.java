@@ -25,13 +25,13 @@ public class ButtonSanctionInformation extends Button {
     }
 
     @Override
-    public ItemStack getCustomItemStack(Player player, @NonNull Placeholders placeholders) {
+    public @NonNull ItemStack getCustomItemStack(Player player, boolean useCache, @NonNull Placeholders placeholders) {
 
         User user = this.plugin.getUser(player.getUniqueId());
-        if (user == null) return super.getCustomItemStack(player, placeholders);
+        if (user == null) return super.getCustomItemStack(player, useCache, placeholders);
 
         User targetuser = user.getTargetUser();
-        if (targetuser == null) return super.getCustomItemStack(player, placeholders);
+        if (targetuser == null) return super.getCustomItemStack(player, useCache, placeholders);
 
         MenuItemStack menuItemStack = this.getItemStack();
 

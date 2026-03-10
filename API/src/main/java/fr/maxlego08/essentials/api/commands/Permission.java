@@ -193,6 +193,8 @@ public enum Permission {
     ESSENTIALS_PAY_TOGGLE,
     ESSENTIALS_PAY_TOGGLE_OTHER,
     ESSENTIALS_MESSAGE_TOGGLE_OTHER,
+    ESSENTIALS_TP_TOGGLE("Toggle receiving teleport requests"),
+    ESSENTIALS_TP_TOGGLE_OTHER("Toggle receiving teleport requests for other players"),
     ESSENTIALS_GIVE,
     ESSENTIALS_GIVE_ALL,
     ESSENTIALS_ITEM_LORE_CLEAR,
@@ -303,7 +305,13 @@ public enum Permission {
     ESSENTIALS_SIGN_RESET("Allows you to use the <reset> mini message format"),
     ESSENTIALS_SIGN_FONT("Allows you to use the <font> mini message format"),
     ESSENTIALS_SIGN_KEYBIND("Allows you to use the <key> mini message format"),
-    ESSENTIALS_STEP_START, ESSENTIALS_STEP_FINISH;
+    ESSENTIALS_STEP_START,
+    ESSENTIALS_STEP_FINISH,
+    ESSENTIALS_ITEMFRAME,
+    ESSENTIALS_SILENT_DEATH("Allows you to die silently without a death message"),
+    ESSENTIALS_DEATH_MESSAGE_TELEPORT("Allows clicking death messages to teleport to death location"),
+    ESSENTIALS_DEATH_MESSAGE_TOGGLE("Allows toggling death messages visibility"),
+    ESSENTIALS_DEATH_MESSAGE_TOGGLE_OTHER("Allows toggling death messages for other players");
 
     private final String description;
     private final String[] args;

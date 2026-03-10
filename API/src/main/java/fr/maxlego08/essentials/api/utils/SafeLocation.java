@@ -78,7 +78,9 @@ public class SafeLocation {
 
     public Location getLocation() {
         if (this.location == null) {
-            this.location = new Location(Bukkit.getWorld(this.world), this.x, this.y, this.z, this.yaw, this.pitch);
+            var bukkitWorld = Bukkit.getWorld(this.world);
+            if (bukkitWorld == null) return null;
+            this.location = new Location(bukkitWorld, this.x, this.y, this.z, this.yaw, this.pitch);
         }
         return location;
     }

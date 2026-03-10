@@ -7,6 +7,7 @@ import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.module.modules.TeleportationModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 
 public class CommandTeleportAll extends VCommand {
 
@@ -21,7 +22,12 @@ public class CommandTeleportAll extends VCommand {
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
-        Bukkit.getOnlinePlayers().forEach(player -> player.teleportAsync(this.player.getLocation()));
+        Location targetLocation = this.player.getLocation();
+        if (targetLocation.getWorld() == null) return CommandResultType.SYNTAX_ERROR;
+
+        Bukkit.getOnlinePlayers().stream()
+                .filter(p -> !p.equals(this.player))
+                .forEach(p -> p.teleportAsync(targetLocation));
         message(this.sender, Message.COMMAND_TP_ALL);
 
         return CommandResultType.SUCCESS;

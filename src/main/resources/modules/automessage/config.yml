@@ -20,14 +20,31 @@ interval: 300
 random-order: false
 
 # List of messages to broadcast
+# Each message can have optional 'actions' that will be executed for each player when the message is sent.
+# Actions use the zMenu action system. Available action types:
+#   - type: message          # Send additional messages
+#   - type: console command  # Execute console commands (%player% placeholder available)
+#   - type: player command   # Execute commands as player
+#   - type: sound            # Play a sound
+#   - type: actionbar        # Send an action bar message
+#   - type: title            # Send a title
+# See zMenu documentation for more action types: https://docs.zmenu.dev/
 messages:
   - lines:
       - ""
       - "#ffd353ℹ ᴀɴɴᴏᴜɴᴄᴇᴍᴇɴᴛ"
       - "&7Welcome to our server! Type &f/rules &7for server rules."
       - ""
+    # actions:
+    #   - type: sound
+    #     sound: BLOCK_NOTE_BLOCK_PLING
+    #     pitch: 1.0
+    #     volume: 1.0
   - lines:
       - ""
       - "#ffd353ℹ ᴀɴɴᴏᴜɴᴄᴇᴍᴇɴᴛ"
       - "&7Join our Discord: &f/discord"
       - ""
+    # actions:
+    #   - type: actionbar
+    #     message: "&eClick here to join our Discord!"

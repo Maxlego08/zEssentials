@@ -36,7 +36,9 @@ public class CommandPay extends VCommand {
         EconomyManager economyManager = plugin.getEconomyManager();
         String userName = this.argAsString(0);
         String amountAsString = this.argAsString(1);
-        String economyName = this.argAsString(2, economyManager.getDefaultEconomy().getName());
+        Economy defaultEconomy = economyManager.getDefaultEconomy();
+        if (defaultEconomy == null) return CommandResultType.DEFAULT;
+        String economyName = this.argAsString(2, defaultEconomy.getName());
 
         if (amountAsString.contains("-")) {
             message(sender, Message.COMMAND_PAY_NEGATIVE);
@@ -46,7 +48,7 @@ public class CommandPay extends VCommand {
         final String sanitizedString = amountAsString.replaceAll("[^0-9.]", "");
         if (sanitizedString.isEmpty()) return CommandResultType.SYNTAX_ERROR;
 
-        BigDecimal amount = new BigDecimal(amountAsString.replaceAll("[^0-9.]", ""));
+        BigDecimal amount = new BigDecimal(sanitizedString);
         String format = amountAsString.replace(sanitizedString, "");
         Optional<NumberMultiplicationFormat> optional = economyManager.getMultiplication(format);
         if (optional.isPresent()) {

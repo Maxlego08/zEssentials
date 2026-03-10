@@ -23,13 +23,12 @@ public class CommandRepairAll extends VCommand {
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
         Player player = this.argAsPlayer(0, this.player);
-
-        if (!hasPermission(sender, Permission.ESSENTIALS_REPAIR_ALL_OTHER)) {
-            player = this.player;
-        }
-
         if (player == null) {
             return CommandResultType.SYNTAX_ERROR;
+        }
+
+        if (player != this.player && !hasPermission(sender, Permission.ESSENTIALS_REPAIR_ALL_OTHER)) {
+            player = this.player;
         }
 
         int amount = 0;

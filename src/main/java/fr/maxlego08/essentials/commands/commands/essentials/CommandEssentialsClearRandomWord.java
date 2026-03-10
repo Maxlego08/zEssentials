@@ -12,7 +12,7 @@ public class CommandEssentialsClearRandomWord extends VCommand {
         super(plugin);
         this.addSubCommand("clear-random-word");
         this.setPermission(Permission.ESSENTIALS_CLEAR_RANDOM_WORD);
-        this.setDescription(Message.DESCRIPTION_RELOAD);
+        this.setDescription(Message.DESCRIPTION_CLEAR_RANDOM_WORD);
     }
 
     @Override

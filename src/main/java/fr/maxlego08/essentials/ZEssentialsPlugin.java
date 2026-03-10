@@ -834,5 +834,15 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         if (getServer().getPluginManager().isPluginEnabled("NChat")) {
             createInstance("NChatHook").ifPresent(object -> this.getLogger().info("Register NChatHook."));
         }
+
+        if (getServer().getPluginManager().isPluginEnabled("MythicMobs")) {
+            createInstance("MythicMobsHookImpl").ifPresent(object -> {
+                var deathModule = this.moduleManager.getModule(fr.maxlego08.essentials.module.modules.DeathMessageModule.class);
+                if (deathModule != null) {
+                    deathModule.setMythicMobsHook((fr.maxlego08.essentials.api.modules.death.MythicMobsHook) object);
+                }
+                this.getLogger().info("Register MythicMobsHook.");
+            });
+        }
     }
 }
