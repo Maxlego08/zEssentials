@@ -1010,6 +1010,64 @@ step-doesnt-exist: "<error>L'étape &f%step% <error>n'existe pas."
 step-already-exist: "<error>L'étape &f%step% <error>a déjà commencé."
 step-doesnt-started: "<error>L'étape &f%step% <error>n'a pas commencé."
 
+# Enderchest
+command-endersee-error: "<error>Impossible de charger l'ender chest de &f%player%<error>."
+
+# TPA
+command-tpa-error-no-request-from-player: "<error>Vous n'avez pas de demande de téléportation de &f%player%<error>."
+command-tpa-accept-all-success: "<success>Vous avez accepté &f%count% <success>demande(s) de téléportation."
+command-tpa-deny-all-success: "<success>Vous avez refusé &f%count% <success>demande(s) de téléportation."
+description-tp-toggle: "Activer/désactiver les demandes de téléportation"
+command-teleport-request-disabled: "<error>Le joueur &f%player%<error> a désactivé les demandes de téléportation."
+command-tp-toggle-enable: "&7Les demandes de téléportation sont <success>activées &7pour &f%player%<success>."
+command-tp-toggle-disable: "&7Les demandes de téléportation sont <error>désactivées &7pour &f%player%<error>."
+
+# Téléportation cross-serveur
+teleport-cross-server-not-supported: "<error>La téléportation cross-serveur n'est pas supportée sur ce serveur."
+teleport-cross-server-connecting: "<success>Connexion au serveur &f%server%<success>..."
+teleport-cross-server-player-not-found: "<error>Le joueur &f%player% <error>n'a été trouvé sur aucun serveur."
+
+# ItemFrame
+description-itemframe: "Basculer la visibilité du cadre"
+command-itemframe-invisible: "<success>Le cadre est maintenant <white>invisible<success>."
+command-itemframe-visible: "<success>Le cadre est maintenant <white>visible<success>."
+command-itemframe-not-found: "<error>Aucun cadre trouvé. Regardez un cadre et réessayez."
+
+# Module de messages de mort
+description-death-message: "Messages de mort personnalisés"
+description-death-message-toggle: "Activer/désactiver la visibilité des messages de mort"
+command-death-message-toggle-disable: "#C084FC☠ #B794F4Les messages de mort sont maintenant #E9D5FFcachés #B794F4pour %player%#B794F4."
+command-death-message-toggle-enable: "#C084FC☠ #B794F4Les messages de mort sont maintenant #E9D5FFvisibles #B794F4pour %player%#B794F4."
+
+# Messages de mort (détaillés)
+death-generic: "#C084FC☠ #E9D5FF%player% #B794F4est mort."
+death-by-player: "#C084FC⚔ #E9D5FF%player% #B794F4a été tué par #E9D5FF%killer%#B794F4."
+death-by-mob: "#C084FC☠ #E9D5FF%player% #B794F4a été tué par #E9D5FF%killer%#B794F4."
+death-by-projectile: "#C084FC🏹 #E9D5FF%player% #B794F4a été abattu par #E9D5FF%killer%#B794F4."
+death-by-mob-explosion: "#C084FC💥 #E9D5FF%player% #B794F4a été explosé par #E9D5FF%killer%#B794F4."
+death-by-fall: "#C084FC⬇ #E9D5FF%player% #B794F4est tombé de haut."
+death-by-fire: "#C084FC🔥 #E9D5FF%player% #B794F4a brûlé vif."
+death-by-lava: "#C084FC🌋 #E9D5FF%player% #B794F4a essayé de nager dans la lave."
+death-by-drowning: "#C084FC💧 #E9D5FF%player% #B794F4s'est noyé."
+death-by-explosion: "#C084FC💥 #E9D5FF%player% #B794F4a explosé."
+death-by-lightning: "#C084FC⚡ #E9D5FF%player% #B794F4a été frappé par la foudre."
+death-by-suffocation: "#C084FC▓ #E9D5FF%player% #B794F4a suffoqué dans un mur."
+death-by-starvation: "#C084FC🍖 #E9D5FF%player% #B794F4est mort de faim."
+death-by-poison: "#C084FC☣ #E9D5FF%player% #B794F4a été empoisonné."
+death-by-magic: "#C084FC✦ #E9D5FF%player% #B794F4a été tué par magie."
+death-by-wither: "#C084FC💀 #E9D5FF%player% #B794F4s'est flétri."
+death-by-falling-block: "#C084FC▼ #E9D5FF%player% #B794F4a été écrasé par un bloc."
+death-by-fly-into-wall: "#C084FC💨 #E9D5FF%player% #B794F4a expérimenté l'énergie cinétique."
+death-by-void: "#C084FC✧ #E9D5FF%player% #B794F4est tombé dans le vide."
+death-by-cactus: "#C084FC🌵 #E9D5FF%player% #B794F4s'est piqué à mort."
+death-by-cramming: "#C084FC⊞ #E9D5FF%player% #B794F4a été écrasé."
+death-by-freeze: "#C084FC❄ #E9D5FF%player% #B794F4est mort de froid."
+death-by-sonic-boom: "#C084FC◈ #E9D5FF%player% #B794F4a été oblitéré par une onde sonique."
+death-by-magma: "#C084FC♨ #E9D5FF%player% #B794F4a découvert que le sol était de la lave."
+death-by-thorns: "#C084FC✵ #E9D5FF%player% #B794F4a été tué en essayant de blesser quelqu'un."
+death-by-campfire: "#C084FC🔥 #E9D5FF%player% #B794F4a marché dans un feu de camp."
+death-hover-details: "#D8B4FE☠ Lieu de mort#B794F4:\n#E9D5FF▸ Monde: #D8B4FE%world%\n#E9D5FF▸ Position: #D8B4FE%x%#E9D5FF, #D8B4FE%y%#E9D5FF, #D8B4FE%z%\n\n#9F7AEA&oCliquez pour vous téléporter"
+
 # Messages de mort (fallback quand aucune config personnalisée n'est définie)
 death-message-generic: "#99E0FF%player% &7est mort."
 death-message-player: "#99E0FF%player% &7a été tué par #34cfe0%killer% &7avec %weapon%&7."

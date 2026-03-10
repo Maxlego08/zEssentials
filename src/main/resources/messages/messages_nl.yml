@@ -1037,6 +1037,64 @@ step-doesnt-exist: "<error>Stap &f%step% <error>bestaat niet."
 step-already-exist: "<error>Stap &f%step% <error>is al gestart."
 step-doesnt-started: "<error>Stap &f%step% <error>is niet gestart."
 
+# Enderchest
+command-endersee-error: "<error>Kan de ender chest van &f%player%<error> niet laden."
+
+# TPA
+command-tpa-error-no-request-from-player: "<error>Je hebt geen teleportverzoek van &f%player%<error>."
+command-tpa-accept-all-success: "<success>Je hebt &f%count% <success>teleportverzoek(en) geaccepteerd."
+command-tpa-deny-all-success: "<success>Je hebt &f%count% <success>teleportverzoek(en) geweigerd."
+description-tp-toggle: "Teleportverzoeken aan/uitzetten"
+command-teleport-request-disabled: "<error>De speler &f%player%<error> heeft teleportverzoeken uitgeschakeld."
+command-tp-toggle-enable: "&7Teleportverzoeken <success>ingeschakeld &7voor &f%player%<success>."
+command-tp-toggle-disable: "&7Teleportverzoeken <error>uitgeschakeld &7voor &f%player%<error>."
+
+# Cross-server teleportatie
+teleport-cross-server-not-supported: "<error>Cross-server teleportatie wordt niet ondersteund op deze server."
+teleport-cross-server-connecting: "<success>Verbinden met server &f%server%<success>..."
+teleport-cross-server-player-not-found: "<error>Speler &f%player% <error>werd niet gevonden op enige server."
+
+# ItemFrame
+description-itemframe: "Itemframe zichtbaarheid wisselen"
+command-itemframe-invisible: "<success>Het itemframe is nu <white>onzichtbaar<success>."
+command-itemframe-visible: "<success>Het itemframe is nu <white>zichtbaar<success>."
+command-itemframe-not-found: "<error>Geen itemframe gevonden. Kijk naar een itemframe en probeer opnieuw."
+
+# Doodsberichten module
+description-death-message: "Aangepaste doodsberichten"
+description-death-message-toggle: "Doodsberichten zichtbaarheid wisselen"
+command-death-message-toggle-disable: "#C084FC☠ #B794F4Doodsberichten zijn nu #E9D5FFverborgen #B794F4voor %player%#B794F4."
+command-death-message-toggle-enable: "#C084FC☠ #B794F4Doodsberichten zijn nu #E9D5FFzichtbaar #B794F4voor %player%#B794F4."
+
+# Doodsberichten (gedetailleerd)
+death-generic: "#C084FC☠ #E9D5FF%player% #B794F4is gestorven."
+death-by-player: "#C084FC⚔ #E9D5FF%player% #B794F4werd gedood door #E9D5FF%killer%#B794F4."
+death-by-mob: "#C084FC☠ #E9D5FF%player% #B794F4werd gedood door #E9D5FF%killer%#B794F4."
+death-by-projectile: "#C084FC🏹 #E9D5FF%player% #B794F4werd neergeschoten door #E9D5FF%killer%#B794F4."
+death-by-mob-explosion: "#C084FC💥 #E9D5FF%player% #B794F4werd opgeblazen door #E9D5FF%killer%#B794F4."
+death-by-fall: "#C084FC⬇ #E9D5FF%player% #B794F4viel van grote hoogte."
+death-by-fire: "#C084FC🔥 #E9D5FF%player% #B794F4verbrandde."
+death-by-lava: "#C084FC🌋 #E9D5FF%player% #B794F4probeerde in lava te zwemmen."
+death-by-drowning: "#C084FC💧 #E9D5FF%player% #B794F4is verdronken."
+death-by-explosion: "#C084FC💥 #E9D5FF%player% #B794F4is ontploft."
+death-by-lightning: "#C084FC⚡ #E9D5FF%player% #B794F4werd getroffen door bliksem."
+death-by-suffocation: "#C084FC▓ #E9D5FF%player% #B794F4stikte in een muur."
+death-by-starvation: "#C084FC🍖 #E9D5FF%player% #B794F4is verhongerd."
+death-by-poison: "#C084FC☣ #E9D5FF%player% #B794F4werd vergiftigd."
+death-by-magic: "#C084FC✦ #E9D5FF%player% #B794F4werd gedood door magie."
+death-by-wither: "#C084FC💀 #E9D5FF%player% #B794F4is verwelkt."
+death-by-falling-block: "#C084FC▼ #E9D5FF%player% #B794F4werd verpletterd door een blok."
+death-by-fly-into-wall: "#C084FC💨 #E9D5FF%player% #B794F4ervoer kinetische energie."
+death-by-void: "#C084FC✧ #E9D5FF%player% #B794F4viel uit de wereld."
+death-by-cactus: "#C084FC🌵 #E9D5FF%player% #B794F4werd doodgeprikt."
+death-by-cramming: "#C084FC⊞ #E9D5FF%player% #B794F4werd te veel samengedrukt."
+death-by-freeze: "#C084FC❄ #E9D5FF%player% #B794F4is doodgevroren."
+death-by-sonic-boom: "#C084FC◈ #E9D5FF%player% #B794F4werd vernietigd door een sonic boom."
+death-by-magma: "#C084FC♨ #E9D5FF%player% #B794F4ontdekte dat de vloer lava was."
+death-by-thorns: "#C084FC✵ #E9D5FF%player% #B794F4werd gedood bij het proberen iemand te verwonden."
+death-by-campfire: "#C084FC🔥 #E9D5FF%player% #B794F4liep in een kampvuur."
+death-hover-details: "#D8B4FE☠ Sterflocatie#B794F4:\n#E9D5FF▸ Wereld: #D8B4FE%world%\n#E9D5FF▸ Positie: #D8B4FE%x%#E9D5FF, #D8B4FE%y%#E9D5FF, #D8B4FE%z%\n\n#9F7AEA&oKlik om te teleporteren"
+
 # Doodsberichten (fallback wanneer geen aangepaste configuratie is ingesteld)
 death-message-generic: "#99E0FF%player% &7is gestorven."
 death-message-player: "#99E0FF%player% &7werd gedood door #34cfe0%killer% &7met %weapon%&7."
