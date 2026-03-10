@@ -6,17 +6,24 @@
 
 # Unreleased
 
+# 1.0.3.5
+
 - Added `/itemframe` command (`/iframe` alias), toggles visibility of the item frame you're looking at
 - Added Death Message module (`modules/death_message/config.yml`):
     - Three modes: DISABLE (no messages), DEFAULT (vanilla), CUSTOM (configurable)
     - Support for player kills, vanilla mobs, and MythicMobs creatures
     - Custom messages per death cause (FALL, DROWNING, FIRE, LAVA, etc.)
     - Random message selection when multiple messages are configured
-    - Placeholders: `%player%`, `%displayName%`, `%killer%`, `%mob%`, `%cause%`
+    - Placeholders: `%player%`, `%displayName%`, `%killer%`, `%mob%`, `%cause%`, `%weapon%`
     - Permission `essentials.silent.death` for silent deaths
+    - `/deathmessage` command to toggle death message visibility (`/dm`, `/deathmsg` aliases)
 - Added MythicMobs hook for custom mob death messages
 - Added `/tptoggle` command to toggle receiving teleport requests [#226](https://github.com/Maxlego08/zEssentials/pull/226)
+- Added TPA queue system - accept/deny all requests at once [#228](https://github.com/Maxlego08/zEssentials/pull/228)
+- Added weapon display in death messages with hover event [#229](https://github.com/Maxlego08/zEssentials/pull/229)
 - Fixed Discord pings from Minecraft chat - prevents @everyone and @here mentions [#227](https://github.com/Maxlego08/zEssentials/pull/227)
+- Fixed first spawn not working reliably - now uses `hasPlayedBefore()` for accurate detection
+- Added all missing messages in all language files (EN, FR, DE, ES, IT, NL)
 
 # 1.0.3.4
 
