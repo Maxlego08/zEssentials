@@ -1009,3 +1009,10 @@ command-pub:
 step-doesnt-exist: "<error>L'étape &f%step% <error>n'existe pas."
 step-already-exist: "<error>L'étape &f%step% <error>a déjà commencé."
 step-doesnt-started: "<error>L'étape &f%step% <error>n'a pas commencé."
+
+# Messages de mort (fallback quand aucune config personnalisée n'est définie)
+death-message-generic: "#99E0FF%player% &7est mort."
+death-message-player: "#99E0FF%player% &7a été tué par #34cfe0%killer% &7avec %weapon%&7."
+death-message-mob: "#99E0FF%player% &7a été tué par &c%mob%&7."
+death-message-mythic-mob: "#99E0FF%player% &7a été tué par <gradient:#ff6600:#ff0000>%mob%</gradient>&7!"
+death-message-fists: "&7ses poings"

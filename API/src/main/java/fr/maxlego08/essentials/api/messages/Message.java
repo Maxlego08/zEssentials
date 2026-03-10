@@ -1008,6 +1008,13 @@ public enum Message {
     COMMAND_DEATH_MESSAGE_TOGGLE_DISABLE("#C084FC☠ #B794F4Death messages are now #E9D5FFhidden #B794F4for %player%#B794F4."),
     COMMAND_DEATH_MESSAGE_TOGGLE_ENABLE("#C084FC☠ #B794F4Death messages are now #E9D5FFvisible #B794F4for %player%#B794F4."),
     DESCRIPTION_DEATH_MESSAGE_TOGGLE("Toggle death messages visibility"),
+
+    // Death messages used by DeathMessageModule (fallback messages when no custom config is set)
+    DEATH_MESSAGE_GENERIC("#99E0FF%player% &7died."),
+    DEATH_MESSAGE_PLAYER("#99E0FF%player% &7was slain by #34cfe0%killer% &7using %weapon%&7."),
+    DEATH_MESSAGE_MOB("#99E0FF%player% &7was killed by &c%mob%&7."),
+    DEATH_MESSAGE_MYTHIC_MOB("#99E0FF%player% &7was slain by <gradient:#ff6600:#ff0000>%mob%</gradient>&7!"),
+    DEATH_MESSAGE_FISTS("&7fists"),
     ;
 
     private EssentialsPlugin plugin;

@@ -1036,3 +1036,10 @@ random-word-clear: "<success>Het willekeurige woord is gewist."
 step-doesnt-exist: "<error>Stap &f%step% <error>bestaat niet."
 step-already-exist: "<error>Stap &f%step% <error>is al gestart."
 step-doesnt-started: "<error>Stap &f%step% <error>is niet gestart."
+
+# Doodsberichten (fallback wanneer geen aangepaste configuratie is ingesteld)
+death-message-generic: "#99E0FF%player% &7is gestorven."
+death-message-player: "#99E0FF%player% &7werd gedood door #34cfe0%killer% &7met %weapon%&7."
+death-message-mob: "#99E0FF%player% &7werd gedood door &c%mob%&7."
+death-message-mythic-mob: "#99E0FF%player% &7werd gedood door <gradient:#ff6600:#ff0000>%mob%</gradient>&7!"
+death-message-fists: "&7vuisten"

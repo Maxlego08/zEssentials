@@ -1039,6 +1039,14 @@ random-word-clear: "<success>Das Zufallswort wurde gelöscht."
 step-already-exist: "<error>Schritt &f%step% <error>hat bereits begonnen."
 step-doesnt-exist: "<error>Schritt &f%step% <error>existiert nicht."
 step-doesnt-started: "<error>Schritt &f%step% <error>wurde nicht gestartet."
+
+# Todesnachrichten (Fallback wenn keine benutzerdefinierte Konfiguration gesetzt ist)
+death-message-generic: "#99E0FF%player% &7ist gestorben."
+death-message-player: "#99E0FF%player% &7wurde von #34cfe0%killer% &7mit %weapon% &7getötet."
+death-message-mob: "#99E0FF%player% &7wurde von &c%mob% &7getötet."
+death-message-mythic-mob: "#99E0FF%player% &7wurde von <gradient:#ff6600:#ff0000>%mob%</gradient> &7getötet!"
+death-message-fists: "&7Fäusten"
+
 teleport-message-spawn-console: "<success>Du hast den Spieler <white>%player% <success>zum Spawn teleportiert."
 teleport-random-start: "&7Suche nach einem Ziel... du darfst dich nicht bewegen."
 worldedit-permission-error: "<error>Du kannst WorldEdit hier nicht verwenden."

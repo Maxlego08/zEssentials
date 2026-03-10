@@ -1002,6 +1002,14 @@ random-word-clear: "<success>La parola casuale è stata cancellata."
 step-already-exist: "<error>Lo step &f%step% <error>è già iniziato."
 step-doesnt-exist: "<error>Lo step &f%step% <error>non esiste."
 step-doesnt-started: "<error>Lo step &f%step% <error>non è stato avviato."
+
+# Messaggi di morte (fallback quando non c'è configurazione personalizzata)
+death-message-generic: "#99E0FF%player% &7è morto."
+death-message-player: "#99E0FF%player% &7è stato ucciso da #34cfe0%killer% &7con %weapon%&7."
+death-message-mob: "#99E0FF%player% &7è stato ucciso da &c%mob%&7."
+death-message-mythic-mob: "#99E0FF%player% &7è stato ucciso da <gradient:#ff6600:#ff0000>%mob%</gradient>&7!"
+death-message-fists: "&7pugni"
+
 teleport-message-spawn-console: "<success>Hai appena teletrasportato il giocatore <white>%player% <success>allo spawn."
 teleport-random-start: "&7Ricerca di una destinazione... non devi muoverti."
 worldedit-permission-error: "<error>Non puoi usare worldedit qui."

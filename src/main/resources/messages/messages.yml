@@ -1040,3 +1040,10 @@ command-pub:
 step-doesnt-exist: "<error>Step &f%step% <error>does not exist."
 step-already-exist: "<error>Step &f%step% <error>already started."
 step-doesnt-started: "<error>Step &f%step% <error>is not started."
+
+# Death Messages (fallback when no custom config is set)
+death-message-generic: "#99E0FF%player% &7died."
+death-message-player: "#99E0FF%player% &7was slain by #34cfe0%killer% &7using %weapon%&7."
+death-message-mob: "#99E0FF%player% &7was killed by &c%mob%&7."
+death-message-mythic-mob: "#99E0FF%player% &7was slain by <gradient:#ff6600:#ff0000>%mob%</gradient>&7!"
+death-message-fists: "&7fists"
