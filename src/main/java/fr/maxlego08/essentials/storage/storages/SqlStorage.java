@@ -55,9 +55,8 @@ public class SqlStorage extends StorageHelper implements IStorage {
         super(plugin);
         DatabaseConfiguration databaseConfiguration = getDatabaseConfiguration(plugin, storageType);
         this.connection = switch (storageType) {
-            // case HIKARICP -> new HikariDatabaseConnection(databaseConfiguration);
-            case SQLITE -> new SqliteConnection(databaseConfiguration, plugin.getDataFolder());
-            default -> new HikariDatabaseConnection(databaseConfiguration);
+            case SQLITE -> new SqliteConnection(databaseConfiguration, plugin.getDataFolder(), JULogger.from(plugin.getLogger()));
+            default -> new HikariDatabaseConnection(databaseConfiguration, JULogger.from(plugin.getLogger()));
         };
 
         if (!this.connection.isValid()) {

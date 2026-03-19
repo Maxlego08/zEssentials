@@ -12,6 +12,7 @@ import fr.maxlego08.sarah.DatabaseConfiguration;
 import fr.maxlego08.sarah.DatabaseConnection;
 import fr.maxlego08.sarah.RequestHelper;
 import fr.maxlego08.sarah.SqliteConnection;
+import fr.maxlego08.sarah.logger.JULogger;
 import org.bukkit.command.CommandSender;
 
 import java.io.File;
@@ -48,7 +49,7 @@ public class HuskHomesConvert extends ZUtils implements Convert {
         DatabaseConnection databaseConnection = sqlStorage.getConnection();
         File file = new File(this.plugin.getDataFolder(), "HuskHomesData.db");
         if (file.exists()) {
-            var sqliteConnection = new SqliteConnection(DatabaseConfiguration.sqlite(sqlStorage.getConnection().getDatabaseConfiguration().isDebug()), this.plugin.getDataFolder());
+            var sqliteConnection = new SqliteConnection(DatabaseConfiguration.sqlite(sqlStorage.getConnection().getDatabaseConfiguration().isDebug()), this.plugin.getDataFolder(), JULogger.from(plugin.getLogger()));
             sqliteConnection.setFileName("HuskHomesData.db");
             databaseConnection = sqliteConnection;
 

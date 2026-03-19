@@ -11,6 +11,7 @@ import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import fr.maxlego08.sarah.DatabaseConfiguration;
 import fr.maxlego08.sarah.RequestHelper;
 import fr.maxlego08.sarah.SqliteConnection;
+import fr.maxlego08.sarah.logger.JULogger;
 import org.bukkit.command.CommandSender;
 
 import java.io.File;
@@ -44,7 +45,7 @@ public class SunlightConvert extends ZUtils implements Convert {
     }
 
     private void startConvertDatabase(CommandSender sender, SqlStorage sqlStorage) {
-        var databaseConnection = new SqliteConnection(DatabaseConfiguration.sqlite(sqlStorage.getConnection().getDatabaseConfiguration().isDebug()), plugin.getDataFolder());
+        var databaseConnection = new SqliteConnection(DatabaseConfiguration.sqlite(sqlStorage.getConnection().getDatabaseConfiguration().isDebug()), plugin.getDataFolder(), JULogger.from(plugin.getLogger()));
         databaseConnection.setFileName("data.db");
 
         if (!databaseConnection.isValid()) {

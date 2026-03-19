@@ -13,8 +13,7 @@ import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import fr.maxlego08.sarah.DatabaseConfiguration;
 import fr.maxlego08.sarah.RequestHelper;
 import fr.maxlego08.sarah.SqliteConnection;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
+import fr.maxlego08.sarah.logger.Logger;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 
@@ -50,14 +49,15 @@ public class CMIConvert extends ZUtils implements Convert {
     }
 
     private void startConvertDatabase(CommandSender sender, SqlStorage sqlStorage) {
-        var databaseConnection = new SqliteConnection(DatabaseConfiguration.sqlite(sqlStorage.getConnection().getDatabaseConfiguration().isDebug()), plugin.getDataFolder());
+        Logger logger = message -> this.plugin.getLogger().info(message);
+        var databaseConnection = new SqliteConnection(DatabaseConfiguration.sqlite(sqlStorage.getConnection().getDatabaseConfiguration().isDebug()), this.plugin.getDataFolder(), logger);
         databaseConnection.setFileName("cmi.sqlite.db");
 
         if (!databaseConnection.isValid()) {
             message(sender, "&cUnable to connect to database.");
         }
 
-        RequestHelper requestHelper = new RequestHelper(databaseConnection, message -> plugin.getLogger().info(message));
+        RequestHelper requestHelper = new RequestHelper(databaseConnection, logger);
         List<CMIUser> cmiUsers = requestHelper.select("users", CMIUser.class, table -> {
         });
 
