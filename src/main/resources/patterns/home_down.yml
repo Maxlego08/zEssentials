@@ -34,14 +34,9 @@ button:
 
     else:
 
-      actions:
-        - type: data
-          action: SET
-          key: 'home_to_delete'
-          value: 'home_%remove_one_home%'
-        - type: inventory
-          inventory: 'home_delete'
-          plugin: 'zEssentials'
+      commands:
+        - 'delhome home_%remove_one_home%'
+      closeInventory: true
 
       item:
         material: BLUE_DYE

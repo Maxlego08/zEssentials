@@ -45,7 +45,12 @@ public class CommandDelHome extends VCommand {
         }
 
         if (homeManager.isHomeDeleteConfirm()) {
-            message(user, Message.COMMAND_HOME_DELETE_CONFIRM, "%name%", homeName);
+            Home home = user.getHome(homeName).orElse(null);
+            if (home == null) {
+                message(user, Message.COMMAND_HOME_DOESNT_EXIST, "%name%", homeName);
+                return CommandResultType.DEFAULT;
+            }
+            homeManager.openInventoryConfirmHome(user, home);
             return CommandResultType.SUCCESS;
         }
 

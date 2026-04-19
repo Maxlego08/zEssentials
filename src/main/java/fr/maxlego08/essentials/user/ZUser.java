@@ -233,7 +233,7 @@ public class ZUser extends ZUtils implements User {
 
         if (request.getFromUser() == this) {
 
-            targetUser.setTeleportRequest(null);
+            targetUser.removeIncomingTeleportRequest(this);
             this.teleports.remove(targetUser.getUniqueId());
 
             message(this, Message.COMMAND_TP_CANCEL_SENDER, targetUser);

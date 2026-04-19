@@ -6,6 +6,9 @@
 
 # Unreleased
 
+- Fixed home deletion from donut GUI showing "The home ? does not exist." — `/delhome` now opens the confirmation GUI when `homeDeleteConfirm` is enabled
+- Fixed cancelled TPA requests still being accepted — `/tpacancel` now properly removes the request from the target player's incoming requests
+
 # 1.0.3.5
 
 - Added `/itemframe` command (`/iframe` alias), toggles visibility of the item frame you're looking at
