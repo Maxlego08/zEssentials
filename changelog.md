@@ -8,6 +8,7 @@
 
 - Fixed home deletion from donut GUI showing "The home ? does not exist." — `/delhome` now opens the confirmation GUI when `homeDeleteConfirm` is enabled
 - Fixed cancelled TPA requests still being accepted — `/tpacancel` now properly removes the request from the target player's incoming requests
+- Added configurable sounds for teleportation countdown and completion (`countdown-sound` and `complete-sound` in `modules/teleportation/config.yml`), supports custom sounds via the zMenu XSound API
 
 # 1.0.3.5
 

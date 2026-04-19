@@ -34,6 +34,20 @@ teleport-delay-permissions:
 # Enable bypass of teleport delay on player to essentials.teleport.bypass permission
 teleport-delay-bypass: false
 
+# Sound played every second during the teleport countdown
+countdown-sound:
+  enabled: false
+  sound: BLOCK_NOTE_BLOCK_HAT
+  volume: 1.0
+  pitch: 1.0
+
+# Sound played when the teleportation is completed
+complete-sound:
+  enabled: false
+  sound: ENTITY_ENDERMAN_TELEPORT
+  volume: 1.0
+  pitch: 1.0
+
 # The delay, in seconds, for the teleport request to expire.
 teleport-tpa-expire: 60
 

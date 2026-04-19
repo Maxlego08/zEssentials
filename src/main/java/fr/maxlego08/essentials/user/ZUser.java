@@ -25,6 +25,7 @@ import fr.maxlego08.essentials.api.worldedit.WorldEditTask;
 import fr.maxlego08.essentials.module.modules.TeleportationModule;
 import fr.maxlego08.essentials.module.modules.economy.EconomyModule;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
+import fr.maxlego08.menu.api.sound.SoundOption;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -367,8 +368,17 @@ public class ZUser extends ZUtils implements User {
             if (currentSecond == 0) {
 
                 wrappedTask.cancel();
+                SoundOption completeSound = teleportationModule.getCompleteSound();
+                if (completeSound != null) {
+                    completeSound.play(getPlayer());
+                }
                 this.teleport(teleportationModule, location, successMessage, args);
             } else {
+                SoundOption countdownSound = teleportationModule.getCountdownSound();
+                if (countdownSound != null) {
+                    countdownSound.play(getPlayer());
+                }
+
                 List<Object> objects = new ArrayList<>(Arrays.asList(args));
                 objects.add("%seconds%");
                 objects.add(currentSecond);
