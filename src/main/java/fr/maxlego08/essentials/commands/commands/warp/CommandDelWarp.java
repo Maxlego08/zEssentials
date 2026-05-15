@@ -1,5 +1,6 @@
 package fr.maxlego08.essentials.commands.commands.warp;
 
+import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
@@ -35,6 +36,7 @@ public class CommandDelWarp extends VCommand {
 
         ConfigStorage.warps.removeIf(warp -> warp.name().equalsIgnoreCase(warpName));
         ConfigStorage.getInstance().save(plugin.getPersist());
+        ((ZEssentialsPlugin) plugin).rebuildWarpCache();
 
         message(sender, Message.COMMAND_WARP_DELETE, "%name%", warpName);
 
