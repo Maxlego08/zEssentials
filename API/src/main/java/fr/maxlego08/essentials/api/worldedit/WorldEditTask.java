@@ -72,14 +72,18 @@ public abstract class WorldEditTask {
             this.loadBlocks();
 
             // Process the blocks in batches and calculate the total price
-            processNextBatch(blocks.stream().filter(b -> worldeditManager.hasPermission(user.getPlayer(), b)).map(b -> new BlockInfo(b, null, BigDecimal.ZERO)).collect(Collectors.toList()), 0, this.worldeditManager.getBatchSize(), () -> {
+            processNextBatch(blocks.stream().map(b -> new BlockInfo(b, null, BigDecimal.ZERO)).collect(Collectors.toList()), 0, this.worldeditManager.getBatchSize(), () -> {
 
                 this.totalPrice = this.blockInfos.stream().map(BlockInfo::price).reduce(BigDecimal.ZERO, BigDecimal::add);
                 this.materials = this.blockInfos.stream().collect(Collectors.groupingBy(BlockInfo::newMaterial, Collectors.counting()));
                 this.worldeditStatus = WorldeditStatus.WAITING_RESPONSE_PRICE;
 
                 consumer.accept(totalPrice);
-            }, blocks -> blocks.forEach(block -> this.processBlock(block.block())));
+            }, batchBlocks -> batchBlocks.forEach(block -> {
+                if (worldeditManager.hasPermission(user.getPlayer(), block.block())) {
+                    this.processBlock(block.block());
+                }
+            }));
         });
     }
 

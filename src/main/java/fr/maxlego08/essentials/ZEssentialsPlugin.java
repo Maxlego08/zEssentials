@@ -862,5 +862,8 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
                 this.getLogger().info("Register MythicMobsHook.");
             });
         }
+
+        this.permissionCheckers.add(new fr.maxlego08.essentials.hooks.BukkitEventPermissionChecker());
+        this.getLogger().info("Register Bukkit Event Permission Checker.");
     }
 }

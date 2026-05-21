@@ -51,7 +51,7 @@ public class ChatModule extends ZModule {
     private final List<ShowItem> showItems = new ArrayList<>();
     private final List<ChatDisplay> chatDisplays = new ArrayList<>();
     private final ExpiringCache<UUID, List<ChatMessageDTO>> chatMessagesCache = new ExpiringCache<>(1000 * 60);
-    private final Pattern urlPattern = Pattern.compile("(https?://[\\w-\\.]+(\\:[0-9]+)?(/[\\w- ./?%&=]*)?)", Pattern.CASE_INSENSITIVE);
+    private final Pattern urlPattern = Pattern.compile("(https?://[\\w-\\.]+(\\:[0-9]+)?(/[\\w-./?%&=~+#]*)?)", Pattern.CASE_INSENSITIVE);
     private final List<ChatCooldown> chatCooldowns = new ArrayList<>();
     private final List<ChatFormat> chatFormats = new ArrayList<>();
     private final List<ChatPlaceholder> chatPlaceholders = new ArrayList<>();
@@ -299,7 +299,7 @@ public class ChatModule extends ZModule {
         StringBuilder result = new StringBuilder();
         while (matcher.find()) {
             String url = matcher.group(1);
-            matcher.appendReplacement(result, getMessage(this.linkTransform, "%url%", url));
+            matcher.appendReplacement(result, Matcher.quoteReplacement(getMessage(this.linkTransform, "%url%", url)));
         }
         matcher.appendTail(result);
 
