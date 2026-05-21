@@ -9,6 +9,7 @@ import fr.maxlego08.sarah.DatabaseConfiguration;
 import fr.maxlego08.sarah.DatabaseConnection;
 import fr.maxlego08.sarah.HikariDatabaseConnection;
 import fr.maxlego08.sarah.RequestHelper;
+import fr.maxlego08.sarah.logger.JULogger;
 import fr.maxlego08.sarah.logger.Logger;
 
 import java.util.Optional;
@@ -25,14 +26,14 @@ public class StorageManager {
     public void connect(Configuration configuration) {
 
         DatabaseConfiguration databaseConfiguration = configuration.getDatabaseConfiguration().toDatabaseConfiguration();
-        DatabaseConnection databaseConnection = new HikariDatabaseConnection(databaseConfiguration);
+        Logger logger = System.out::println;
+        DatabaseConnection databaseConnection = new HikariDatabaseConnection(databaseConfiguration, logger);
 
         if (!databaseConnection.isValid()) {
             System.err.println("Database connection failed.");
             return;
         }
 
-        Logger logger = System.out::println;
         this.requestHelper = new RequestHelper(databaseConnection, logger);
     }
 

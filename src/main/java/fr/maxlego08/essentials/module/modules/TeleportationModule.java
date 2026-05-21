@@ -8,9 +8,14 @@ import fr.maxlego08.essentials.api.teleportation.TeleportPermission;
 import fr.maxlego08.essentials.api.teleportation.WorldOverride;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.ZModule;
+import fr.maxlego08.menu.api.sound.SoundOption;
+import fr.maxlego08.menu.hooks.xseries.XSound;
+import fr.maxlego08.menu.sound.ZSoundOption;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -18,6 +23,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Queue;
 import java.util.Random;
 import java.util.UUID;
@@ -55,6 +61,10 @@ public class TeleportationModule extends ZModule {
     private Map<String, RandomTeleportWorld> rtpWorldMap = new HashMap<>();
     @NonLoadable
     private boolean isProcessingQueue = false;
+    @NonLoadable
+    private SoundOption countdownSound;
+    @NonLoadable
+    private SoundOption completeSound;
 
 
     public TeleportationModule(ZEssentialsPlugin plugin) {
@@ -70,6 +80,32 @@ public class TeleportationModule extends ZModule {
 
         this.rtpWorldMap = this.rtpWorlds.stream().collect(Collectors.toMap(RandomTeleportWorld::world, r -> r));
         this.worldOverrides = this.rtpWorldOverrides.stream().filter(e -> e.to() != null && e.from() != null).collect(Collectors.toMap(WorldOverride::from, WorldOverride::to));
+
+        YamlConfiguration configuration = getConfiguration();
+        this.countdownSound = loadSoundOption(configuration, "countdown-sound");
+        this.completeSound = loadSoundOption(configuration, "complete-sound");
+    }
+
+    private SoundOption loadSoundOption(YamlConfiguration configuration, String path) {
+        ConfigurationSection section = configuration.getConfigurationSection(path);
+        if (section == null || !section.getBoolean("enabled", false)) return null;
+
+        String soundName = section.getString("sound", "");
+        if (soundName == null || soundName.isEmpty()) return null;
+
+        float volume = (float) section.getDouble("volume", 1.0);
+        float pitch = (float) section.getDouble("pitch", 1.0);
+        Optional<XSound> xSound = XSound.of(soundName);
+
+        return new ZSoundOption(xSound.orElse(null), "MASTER", soundName, pitch, volume, xSound.isEmpty());
+    }
+
+    public SoundOption getCountdownSound() {
+        return countdownSound;
+    }
+
+    public SoundOption getCompleteSound() {
+        return completeSound;
     }
 
     public boolean isTeleportSafety() {

@@ -149,6 +149,8 @@ import java.lang.reflect.Modifier;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -163,6 +165,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     private final List<Material> materials = Arrays.stream(Material.values()).filter(e -> !e.name().startsWith("LEGACY_")).toList();
     private final Enchantments enchantments = new ZEnchantments();
     private final List<PermissionChecker> permissionCheckers = new ArrayList<>();
+    private volatile Map<String, Warp> warpsByName = Collections.emptyMap();
     private EssentialsUtils essentialsUtils;
     private ServerStorage serverStorage = new ZServerStorage(this);
     private InventoryManager inventoryManager;
@@ -220,6 +223,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         // Load configuration files
         this.configurationFiles.forEach(ConfigurationFile::load);
         ConfigStorage.getInstance().load(getPersist());
+        rebuildWarpCache();
 
         // Commands
         this.registerListener(this.commandManager = new ZCommandManager(this));
@@ -523,9 +527,23 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         return ConfigStorage.warps;
     }
 
+    public void rebuildWarpCache() {
+        Map<String, Warp> map = new HashMap<>();
+        for (Warp warp : ConfigStorage.warps) {
+            map.put(warp.name().toLowerCase(), warp);
+        }
+        this.warpsByName = Collections.unmodifiableMap(map);
+    }
+
     @Override
     public Optional<Warp> getWarp(String name) {
-        return getWarps().stream().filter(warp -> warp.name().equalsIgnoreCase(name)).findFirst();
+        Warp warp = this.warpsByName.get(name.toLowerCase());
+        if (warp != null) return Optional.of(warp);
+        if (this.warpsByName.size() != ConfigStorage.warps.size()) {
+            rebuildWarpCache();
+            return Optional.ofNullable(this.warpsByName.get(name.toLowerCase()));
+        }
+        return Optional.empty();
     }
 
     @Override
@@ -844,5 +862,8 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
                 this.getLogger().info("Register MythicMobsHook.");
             });
         }
+
+        this.permissionCheckers.add(new fr.maxlego08.essentials.hooks.BukkitEventPermissionChecker());
+        this.getLogger().info("Register Bukkit Event Permission Checker.");
     }
 }

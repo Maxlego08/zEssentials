@@ -118,10 +118,10 @@ public class VaultModule extends ZModule implements VaultManager {
             return;
         }
 
-        if (!hasPermission(target.getUniqueId(), vaultId)) {
+        /*if (!hasPermission(target.getUniqueId(), vaultId)) {
             message(player, Message.COMMAND_VAULT_NO_PERMISSION);
             return;
-        }
+        }*/
 
         PlayerVaults targetVaults = getPlayerVaults(target);
         Vault vault = targetVaults.getVault(vaultId);

@@ -57,7 +57,7 @@ public class CoinsEngineConvert extends ZUtils implements Convert {
     }
 
     private void startConvertDatabase(CommandSender sender, SqlStorage sqlStorage, File folder) throws SQLException {
-        var databaseConnection = new SqliteConnection(DatabaseConfiguration.sqlite(sqlStorage.getConnection().getDatabaseConfiguration().isDebug()), folder);
+        var databaseConnection = new SqliteConnection(DatabaseConfiguration.sqlite(sqlStorage.getConnection().getDatabaseConfiguration().isDebug()), folder, JULogger.from(plugin.getLogger()));
         databaseConnection.setFileName("data.db");
 
         if (!databaseConnection.isValid()) {
