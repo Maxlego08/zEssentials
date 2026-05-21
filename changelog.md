@@ -6,9 +6,18 @@
 
 # Unreleased
 
+# 1.0.3.6
+
+- Updated zMenu to version 1.1.1.2
+- Updated Sarah to version 1.23
+- Added generic Bukkit event-based permission checker for WorldEdit module — blocks in protected claims (HuskClaims, GriefPrevention, Lands, Towny, etc.) are now automatically skipped without needing a specific hook [#237](https://github.com/Maxlego08/zEssentials/issues/237)
+- Added configurable sounds for teleportation countdown and completion (`countdown-sound` and `complete-sound` in `modules/teleportation/config.yml`), supports custom sounds via the zMenu XSound API
+- Added warp lookup cache with O(1) HashMap for improved performance [#239](https://github.com/Maxlego08/zEssentials/pull/239)
 - Fixed home deletion from donut GUI showing "The home ? does not exist." — `/delhome` now opens the confirmation GUI when `homeDeleteConfirm` is enabled
 - Fixed cancelled TPA requests still being accepted — `/tpacancel` now properly removes the request from the target player's incoming requests
-- Added configurable sounds for teleportation countdown and completion (`countdown-sound` and `complete-sound` in `modules/teleportation/config.yml`), supports custom sounds via the zMenu XSound API
+- Fixed vault admin command permission check bypassed for admin access
+- Fixed chat URL pattern not matching URLs with special characters (`~`, `+`, `#`)
+- Fixed chat link transform regex replacement error with special characters
 
 # 1.0.3.5
 
