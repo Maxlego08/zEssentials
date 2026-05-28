@@ -6,6 +6,8 @@
 
 # Unreleased
 
+# 1.0.3.7
+
 - Added player list placeholders for retrieving online player information by index (1-based, sorted alphabetically, excludes vanished players):
     - `%zessentials_playerlist_count%` Returns the number of visible online players (excludes vanished)
     - `%zessentials_playerlist_<index>_name%` Returns the player's name at the given index
