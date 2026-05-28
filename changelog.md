@@ -6,6 +6,27 @@
 
 # Unreleased
 
+- Added player list placeholders for retrieving online player information by index (1-based, sorted alphabetically, excludes vanished players):
+    - `%zessentials_playerlist_count%` Returns the number of visible online players (excludes vanished)
+    - `%zessentials_playerlist_<index>_name%` Returns the player's name at the given index
+    - `%zessentials_playerlist_<index>_uuid%` Returns the player's UUID at the given index
+    - `%zessentials_playerlist_<index>_ping%` Returns the player's ping in milliseconds
+    - `%zessentials_playerlist_<index>_colored_ping%` Returns the player's ping with color based on quality
+    - `%zessentials_playerlist_<index>_level%` Returns the player's experience level
+    - `%zessentials_playerlist_<index>_health%` Returns the player's current health
+    - `%zessentials_playerlist_<index>_max_health%` Returns the player's max health
+    - `%zessentials_playerlist_<index>_food_level%` Returns the player's food level
+    - `%zessentials_playerlist_<index>_gamemode%` Returns the player's game mode
+    - `%zessentials_playerlist_<index>_world%` Returns the player's world name
+    - `%zessentials_playerlist_<index>_x%` Returns the player's X coordinate
+    - `%zessentials_playerlist_<index>_y%` Returns the player's Y coordinate
+    - `%zessentials_playerlist_<index>_z%` Returns the player's Z coordinate
+    - `%zessentials_playerlist_<index>_displayname%` Returns the player's display name
+    - `%zessentials_playerlist_<index>_is_flying%` Returns true if the player is flying
+    - `%zessentials_playerlist_<index>_is_op%` Returns true if the player is operator
+    - `%zessentials_playerlist_<index>_is_sneaking%` Returns true if the player is sneaking
+    - `%zessentials_playerlist_<index>_is_afk%` Returns true if the player is AFK
+
 # 1.0.3.6
 
 - Updated zMenu to version 1.1.1.2
