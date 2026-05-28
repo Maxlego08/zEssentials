@@ -99,6 +99,7 @@ import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.user.placeholders.ArmorPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.EconomyBaltopPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.NearPlaceholders;
+import fr.maxlego08.essentials.user.placeholders.PlayerListPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.PlayerPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.RandomWordPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.ReplacePlaceholders;
@@ -268,6 +269,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.registerPlaceholder(ArmorPlaceholders.class);
         this.registerPlaceholder(NearPlaceholders.class);
         this.registerPlaceholder(PlayerPlaceholders.class);
+        this.registerPlaceholder(PlayerListPlaceholders.class);
         this.randomWord = this.registerPlaceholder(RandomWordPlaceholders.class);
 
         new Metrics(this, 21703);
