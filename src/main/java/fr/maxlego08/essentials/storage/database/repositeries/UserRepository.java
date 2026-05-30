@@ -12,7 +12,11 @@ import fr.maxlego08.essentials.storage.database.Repository;
 import fr.maxlego08.sarah.DatabaseConnection;
 import fr.maxlego08.sarah.conditions.JoinCondition;
 import fr.maxlego08.sarah.database.DatabaseType;
+import fr.maxlego08.sarah.dialect.SqlDialect;
+import fr.maxlego08.sarah.dialect.SqlDialects;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -55,7 +59,8 @@ public class UserRepository extends Repository {
      * We will execute an UPDATE query with a LEFT JOIN
      */
     public void clearExpiredSanctions() {
-        if (this.connection.getDatabaseConfiguration().getDatabaseType() == DatabaseType.SQLITE) {
+        DatabaseType databaseType = this.connection.getDatabaseConfiguration().getDatabaseType();
+        if (databaseType == DatabaseType.SQLITE) {
 
             // TODO - Update Sarah SQLITE for left join
             plugin.getLogger().warning("Attention, SQLITE does not allow to execute all sql queries, the query that allows to delete inactive sanctions is currently not working.");
@@ -73,6 +78,9 @@ public class UserRepository extends Repository {
                 });
             });*/
 
+        } else if (databaseType == DatabaseType.POSTGRESQL) {
+            clearExpiredSanctionsWithSubQuery("ban_sanction_id");
+            clearExpiredSanctionsWithSubQuery("mute_sanction_id");
         } else {
             // Removes ban sanctions
             update(table -> {
@@ -86,6 +94,28 @@ public class UserRepository extends Repository {
                 table.string("mute_sanction_id", null);
                 table.where("zs", "expired_at", "<", new Date());
             });
+        }
+    }
+
+    private void clearExpiredSanctionsWithSubQuery(String sanctionColumn) {
+        SqlDialect dialect = SqlDialects.from(this.connection.getDatabaseConfiguration().getDatabaseType());
+        String usersTable = dialect.quoteTableReference(getTableName());
+        String sanctionsTable = dialect.quoteTableReference(this.connection.getDatabaseConfiguration().getTablePrefix() + "sanctions");
+        String column = dialect.quoteIdentifier(sanctionColumn);
+        String idColumn = dialect.quoteIdentifier("id");
+        String expiredAtColumn = dialect.quoteIdentifier("expired_at");
+
+        String sql = "UPDATE " + usersTable +
+                " SET " + column + " = NULL" +
+                " WHERE " + column + " IN (" +
+                "SELECT " + idColumn + " FROM " + sanctionsTable + " WHERE " + expiredAtColumn + " < ?" +
+                ")";
+
+        try (var connection = getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setTimestamp(1, new java.sql.Timestamp(System.currentTimeMillis()));
+            statement.executeUpdate();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
         }
     }
 
