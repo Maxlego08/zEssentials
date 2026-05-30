@@ -181,7 +181,14 @@ public class SqlStorage extends StorageHelper implements IStorage {
         String database = globalDatabaseConfiguration.getDatabase();
         boolean debug = globalDatabaseConfiguration.isDebug();
 
-        return new DatabaseConfiguration(tablePrefix, user, password, port, host, database, debug, storageType == StorageType.SQLITE ? DatabaseType.SQLITE : storageType == StorageType.MARIADB ? DatabaseType.MARIADB : DatabaseType.MYSQL);
+        DatabaseType databaseType = switch (storageType) {
+            case SQLITE -> DatabaseType.SQLITE;
+            case MARIADB -> DatabaseType.MARIADB;
+            case POSTGRESQL -> DatabaseType.POSTGRESQL;
+            default -> DatabaseType.MYSQL;
+        };
+
+        return new DatabaseConfiguration(tablePrefix, user, password, port, host, database, debug, databaseType);
     }
 
     @Override

@@ -152,11 +152,11 @@ public class MainConfiguration extends YamlLoader implements Configuration {
                 configuration.getString("database-configuration.tablePrefix", configuration.getString("database-configuration.table-prefix")),
                 configuration.getString("database-configuration.user"),
                 configuration.getString("database-configuration.password"),
-                configuration.getInt("database-configuration.port", 3306),
+                configuration.getInt("database-configuration.port", this.storageType == StorageType.POSTGRESQL ? 5432 : 3306),
                 configuration.getString("database-configuration.host"),
                 configuration.getString("database-configuration.database"),
                 configuration.getBoolean("database-configuration.debug"),
-                DatabaseType.MYSQL
+                getDatabaseType()
         );
 
         final ConfigurationSection nearDirSection = configuration.getConfigurationSection("near-direction-replacements");
@@ -182,6 +182,15 @@ public class MainConfiguration extends YamlLoader implements Configuration {
         for (Map<?, ?> map : configuration.getMapList("default-options")) {
             this.defaultOptionValues.put(Option.valueOf((String) map.get("option")), (Boolean) map.get("value"));
         }
+    }
+
+    private DatabaseType getDatabaseType() {
+        return switch (this.storageType) {
+            case SQLITE -> DatabaseType.SQLITE;
+            case MARIADB -> DatabaseType.MARIADB;
+            case POSTGRESQL -> DatabaseType.POSTGRESQL;
+            default -> DatabaseType.MYSQL;
+        };
     }
 
     private void loadReplacePlaceholders() {

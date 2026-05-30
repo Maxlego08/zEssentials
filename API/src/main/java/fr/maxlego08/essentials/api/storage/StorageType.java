@@ -5,6 +5,7 @@ public enum StorageType {
     JSON,
     MYSQL,
     MARIADB,
+    POSTGRESQL,
     SQLITE,
     HIKARICP,
 
