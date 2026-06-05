@@ -66,6 +66,9 @@ public class ButtonKitGet extends Button {
         User user = this.plugin.getUser(player.getUniqueId());
         if (user == null) return false;
         Optional<Kit> optional = this.plugin.getKit(this.kitName);
-        return optional.filter(kit -> super.checkPermission(player, inventory, placeholders) && kit.hasPermission(player)).isPresent();
+        if (optional.isEmpty() || !optional.get().hasPermission(player)) {
+            return false;
+        }
+        return super.checkPermission(player, inventory, placeholders);
     }
 }

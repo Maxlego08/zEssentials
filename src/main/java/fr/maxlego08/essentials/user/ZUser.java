@@ -395,6 +395,9 @@ public class ZUser extends ZUtils implements User {
         if (player == null) return;
 
         Location location = player.isFlying() ? toLocation : teleportationModule.isTeleportSafety() ? toSafeLocation(toLocation) : toLocation;
+        if (location == null) {
+            location = toLocation;
+        }
 
         if (teleportationModule.isTeleportToCenter()) {
             location = location.getBlock().getLocation().add(0.5, 0, 0.5);

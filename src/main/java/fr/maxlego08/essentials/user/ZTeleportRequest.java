@@ -96,6 +96,9 @@ public class ZTeleportRequest extends ZUtils implements TeleportRequest {
     private void teleport(TeleportationModule teleportationModule) {
         Location playerLocation = toUser.getPlayer().getLocation();
         Location location = fromUser.getPlayer().isFlying() ? playerLocation : teleportationModule.isTeleportSafety() ? toSafeLocation(playerLocation) : playerLocation;
+        if (location == null) {
+            location = playerLocation;
+        }
 
         if (teleportationModule.isTeleportToCenter()) {
             location = location.getBlock().getLocation().add(0.5, 0, 0.5);

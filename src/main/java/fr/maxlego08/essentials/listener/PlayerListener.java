@@ -221,7 +221,7 @@ public class PlayerListener extends ZUtils implements Listener {
                 player.setFlySpeed(0.1f);
                 player.setWalkSpeed(0.2f);
             }
-        }, 1);
+        }, FoliaJoinHelper.SAFE_LOGIN_DELAY_TICKS);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)

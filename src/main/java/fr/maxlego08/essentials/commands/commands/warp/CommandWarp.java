@@ -2,12 +2,12 @@ package fr.maxlego08.essentials.commands.commands.warp;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.CommandResultType;
-import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.utils.Warp;
 import fr.maxlego08.essentials.module.modules.WarpModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 import org.apache.logging.log4j.util.Strings;
+import org.bukkit.command.CommandSender;
 
 import java.util.List;
 
@@ -16,13 +16,20 @@ public class CommandWarp extends VCommand {
     public CommandWarp(EssentialsPlugin plugin) {
         super(plugin);
         this.setModule(WarpModule.class);
-        this.setPermission(Permission.ESSENTIALS_WARP);
         this.setDescription(Message.DESCRIPTION_WARP_USE);
         this.addOptionalArg("name", (sender, args) -> {
             List<Warp> warps = plugin.getWarps();
             return warps.stream().filter(warp -> warp.hasPermission(sender)).map(Warp::name).toList();
         });
         this.onlyPlayers();
+    }
+
+    @Override
+    public CommandResultType prePerform(EssentialsPlugin plugin, CommandSender commandSender, String[] args) {
+        if (!Warp.canAccessAnyWarp(commandSender, plugin.getWarps())) {
+            return CommandResultType.NO_PERMISSION;
+        }
+        return super.prePerform(plugin, commandSender, args);
     }
 
     @Override

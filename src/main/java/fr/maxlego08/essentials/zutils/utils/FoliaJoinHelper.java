@@ -15,6 +15,7 @@ public final class FoliaJoinHelper {
 
     private static final double SPAWN_TOLERANCE_SQUARED = 1.0;
     private static final long JOIN_TELEPORT_DELAY_TICKS = 1L;
+    public static final long SAFE_LOGIN_DELAY_TICKS = 5L;
 
     private FoliaJoinHelper() {
     }

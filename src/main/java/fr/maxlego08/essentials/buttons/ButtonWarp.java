@@ -46,6 +46,9 @@ public class ButtonWarp extends Button {
     @Override
     public boolean checkPermission(Player player, InventoryEngine inventory, Placeholders placeholders) {
         Optional<Warp> optional = plugin.getWarp(this.warpName);
-        return super.checkPermission(player, inventory, placeholders) && optional.map(warp -> warp.hasPermission(player)).orElse(false);
+        if (optional.isEmpty() || !optional.get().hasPermission(player)) {
+            return false;
+        }
+        return super.checkPermission(player, inventory, placeholders);
     }
 }

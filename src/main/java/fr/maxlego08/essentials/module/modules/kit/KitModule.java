@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -116,7 +117,7 @@ public class KitModule extends ZModule {
 
         String name = configuration.getString("name");
         String displayName = configuration.getString("display-name", name);
-        String permission = configuration.getString("permission", Permission.ESSENTIALS_KIT_.asPermission(name));
+        String permission = configuration.getString("permission", Permission.ESSENTIALS_KIT_.asPermission(name.toLowerCase(Locale.ROOT)));
         String category = configuration.getString("category", null);
         String subCategory = configuration.getString("sub-category", null);
 

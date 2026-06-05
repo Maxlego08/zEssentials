@@ -1,6 +1,7 @@
 package fr.maxlego08.essentials.module.modules.kit;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
+import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import fr.maxlego08.menu.api.MenuItemStack;
@@ -12,6 +13,7 @@ import org.bukkit.permissions.Permissible;
 
 import java.io.File;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class ZKit extends ZUtils implements Kit {
@@ -125,7 +127,16 @@ public class ZKit extends ZUtils implements Kit {
 
     @Override
     public boolean hasPermission(Permissible permissible) {
-        return permissible.hasPermission(this.permission);
+        if (this.permission == null || this.permission.isEmpty()) {
+            return true;
+        }
+        if (permissible.hasPermission(Permission.ESSENTIALS_KIT.asPermission())) {
+            return true;
+        }
+        if (permissible.hasPermission(this.permission)) {
+            return true;
+        }
+        return permissible.hasPermission(Permission.ESSENTIALS_KIT_.asPermission(this.name.toLowerCase(Locale.ROOT)));
     }
 
     @Override

@@ -173,36 +173,56 @@ public abstract class ZUtils extends MessageUtils {
     }
 
     protected Location toSafeLocation(Location location) {
-
-        Location defaultLocation = location.clone();
-
-        if (isValid(defaultLocation)) {
-            return defaultLocation;
+        if (location == null || location.getWorld() == null) {
+            return location;
         }
 
-        location = findMeSafeLocation(defaultLocation, BlockFace.UP, 1);
-
-        return location;
-    }
-
-    protected Location findMeSafeLocation(Location location, BlockFace blockFace, int distance) {
-
-        if (distance > location.getWorld().getMaxHeight() * 2) {
-            return null;
+        Location base = location.clone();
+        if (isValid(base)) {
+            return base;
         }
 
-        Location location2 = relative(location, blockFace, distance);
-        if (isValid(location2)) {
-            return location2;
+        World world = base.getWorld();
+        int x = base.getBlockX();
+        int z = base.getBlockZ();
+        float yaw = base.getYaw();
+        float pitch = base.getPitch();
+        int startY = base.getBlockY();
+        int maxY = world.getMaxHeight() - 2;
+        int minY = world.getMinHeight() + 1;
+
+        for (int y = startY; y <= maxY; y++) {
+            Location candidate = new Location(world, x + 0.5, y, z + 0.5, yaw, pitch);
+            if (isValid(candidate)) {
+                return candidate;
+            }
         }
 
-        return findMeSafeLocation(location2, blockFace.equals(BlockFace.UP) ? BlockFace.DOWN : BlockFace.UP, distance + 1);
+        for (int y = startY - 1; y >= minY; y--) {
+            Location candidate = new Location(world, x + 0.5, y, z + 0.5, yaw, pitch);
+            if (isValid(candidate)) {
+                return candidate;
+            }
+        }
+
+        return base;
     }
 
     protected boolean isValid(Location location) {
-        if (location == null) return false;
-        if (location.getWorld() == null) return false;
-        return !location.getBlock().getType().isSolid() && !relative(location, BlockFace.UP).getBlock().getType().isSolid() && relative(location, BlockFace.DOWN).getBlock().getType().isSolid();
+        if (location == null || location.getWorld() == null) {
+            return false;
+        }
+
+        Material below = relative(location, BlockFace.DOWN).getBlock().getType();
+        Material at = location.getBlock().getType();
+        Material above = relative(location, BlockFace.UP).getBlock().getType();
+
+        return below.isSolid()
+                && below != Material.WATER && below != Material.LAVA
+                && !at.isSolid()
+                && at != Material.WATER && at != Material.LAVA
+                && !above.isSolid()
+                && above != Material.WATER && above != Material.LAVA;
     }
 
     protected Location relative(Location location, BlockFace face) {
