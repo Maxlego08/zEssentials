@@ -17,6 +17,7 @@ import fr.maxlego08.essentials.api.utils.SafeLocation;
 import fr.maxlego08.essentials.listener.paper.ChatListener;
 import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.essentials.user.ZUser;
+import fr.maxlego08.essentials.zutils.utils.FoliaJoinHelper;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -446,7 +447,7 @@ public class SanctionModule extends ZModule implements SanctionManager {
                 player.setAllowFlight(true);
                 player.setFlying(true);
                 player.setFlySpeed(0f);
-                this.plugin.getScheduler().teleportAsync(player, player.getLocation().add(0, 0.1, 0));
+                FoliaJoinHelper.teleportAfterJoin(this.plugin, player, player.getLocation().add(0, 0.1, 0));
             }
             this.plugin.getEssentialsServer().sendMessage(user.getUniqueId(), Message.MESSAGE_FREEZE);
         }

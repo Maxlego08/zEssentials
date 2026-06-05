@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.essentials.storage.ConfigStorage;
+import fr.maxlego08.essentials.zutils.utils.FoliaJoinHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -69,7 +70,9 @@ public class SpawnModule extends ZModule {
                     var player = playerJoinEvent.getPlayer();
                     if (ConfigStorage.spawnLocation != null && ConfigStorage.spawnLocation.isValid()) {
                         Location spawnLoc = ConfigStorage.spawnLocation.getLocation();
-                        if (spawnLoc != null) player.teleport(spawnLoc);
+                        if (spawnLoc != null) {
+                            FoliaJoinHelper.teleportAfterJoin(spawnModule.plugin, player, spawnLoc, true);
+                        }
                     }
                 }
             }, this.plugin);
@@ -135,14 +138,4 @@ public class SpawnModule extends ZModule {
         event.setRespawnLocation(ConfigStorage.spawnLocation.getLocation());
     }
 
-    public void onPlayerFirstJoin(Player player) {
-
-        if (!this.isEnable) return;
-
-        if (ConfigStorage.firstSpawnLocation != null && ConfigStorage.firstSpawnLocation.isValid()) {
-            player.teleport(ConfigStorage.firstSpawnLocation.getLocation());
-        } else if (ConfigStorage.spawnLocation != null && ConfigStorage.spawnLocation.isValid()) {
-            player.teleport(ConfigStorage.spawnLocation.getLocation());
-        }
-    }
 }

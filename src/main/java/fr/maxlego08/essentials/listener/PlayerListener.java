@@ -8,7 +8,7 @@ import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.DynamicCooldown;
-import fr.maxlego08.essentials.storage.ConfigStorage;
+import fr.maxlego08.essentials.zutils.utils.FoliaJoinHelper;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import org.bukkit.Material;
@@ -190,11 +190,7 @@ public class PlayerListener extends ZUtils implements Listener {
         if (user != null) user.startCurrentSessionPlayTime();
 
         if (user != null && user.isFirstJoin()) {
-            if (ConfigStorage.firstSpawnLocation != null && ConfigStorage.firstSpawnLocation.isValid()) {
-                this.plugin.getScheduler().teleportAsync(player, ConfigStorage.firstSpawnLocation.getLocation());
-            } else if (ConfigStorage.spawnLocation != null && ConfigStorage.spawnLocation.isValid()) {
-                this.plugin.getScheduler().teleportAsync(player, ConfigStorage.spawnLocation.getLocation());
-            }
+            FoliaJoinHelper.teleportFirstSpawnAfterJoin(this.plugin, player);
         }
 
         if (user != null && user.getOption(Option.VANISH)) {
