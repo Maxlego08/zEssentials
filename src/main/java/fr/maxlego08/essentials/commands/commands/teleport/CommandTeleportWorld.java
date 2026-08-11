@@ -30,17 +30,15 @@ public class CommandTeleportWorld extends VCommand {
 
         if (player == null || world == null) return CommandResultType.SYNTAX_ERROR;
 
+        if (player != this.player && !hasPermission(sender, Permission.ESSENTIALS_TP_WORLD_OTHER)) {
+            return CommandResultType.NO_PERMISSION;
+        }
+
         player.teleportAsync(world.getSpawnLocation());
 
         if (player == this.player) {
-
             message(sender, Message.COMMAND_WORLD_TELEPORT_SELF, "%world%", world.getName());
         } else {
-
-            if (!hasPermission(sender, Permission.ESSENTIALS_TP_WORLD_OTHER)) {
-                return CommandResultType.NO_PERMISSION;
-            }
-
             message(player, Message.COMMAND_WORLD_TELEPORT_SELF, "%world%", world.getName());
             message(sender, Message.COMMAND_WORLD_TELEPORT_OTHER, "%world%", world.getName(), player);
         }
