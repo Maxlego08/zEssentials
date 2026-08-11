@@ -22,6 +22,8 @@ dependencies {
     implementation("org.yaml:snakeyaml:2.3")
     implementation("net.dv8tion:JDA:5.2.0")
     implementation("mysql:mysql-connector-java:8.0.33")
+    implementation("org.mariadb.jdbc:mariadb-java-client:3.5.6")
+    implementation("org.postgresql:postgresql:42.7.3")
     implementation(project(":API"))
 }
 

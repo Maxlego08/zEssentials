@@ -7,12 +7,14 @@ bot-token: "DISCORD-TOKEN"
 guild-id: 511516467615760405
 
 database-configuration:
+  # Database type. Valid values: MYSQL, MARIADB, POSTGRESQL
+  type: MYSQL
   # The prefix that will be applied to all tables, if you have several plugins with the same database you must have one.
   # It is advisable not to change this value
   tablePrefix: "zessentials_"
   # IP Address of the machine the database is hosted on
   host: 192.168.10.10
-  # Port of the database, by default, MYSQL's port is 3306
+  # Port of the database, by default, MYSQL and MARIADB use 3306, POSTGRESQL uses 5432
   port: 3306
   # Database username
   user: homestead
