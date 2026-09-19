@@ -79,13 +79,14 @@ public class ZCommandManager extends ZUtils implements CommandManager {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
+        final String commandName = cmd.getName().toLowerCase(java.util.Locale.ROOT);
         for (EssentialsCommand command : this.commands) {
-            if (command.getSubCommands().contains(cmd.getName().toLowerCase())) {
+            if (command.getSubCommands().contains(commandName)) {
                 if ((args.length == 0 || command.isIgnoreParent()) && command.getParent() == null) {
                     CommandResultType type = processRequirements(command, sender, args);
                     if (!type.equals(CommandResultType.CONTINUE)) return true;
                 }
-            } else if (args.length >= 1 && command.getParent() != null && canExecute(args, cmd.getName().toLowerCase(), command)) {
+            } else if (args.length >= 1 && command.getParent() != null && canExecute(args, commandName, command)) {
                 CommandResultType type = processRequirements(command, sender, args);
                 if (!type.equals(CommandResultType.CONTINUE)) return true;
             }

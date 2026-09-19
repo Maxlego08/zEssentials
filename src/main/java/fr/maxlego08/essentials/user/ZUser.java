@@ -511,7 +511,8 @@ public class ZUser extends ZUtils implements User {
 
     @Override
     public boolean isCooldown(String key) {
-        return this.cooldowns.containsKey(key) && this.cooldowns.get(key) >= System.currentTimeMillis();
+        Long cooldown = this.cooldowns.get(key);
+        return cooldown != null && cooldown >= System.currentTimeMillis();
     }
 
     @Override
