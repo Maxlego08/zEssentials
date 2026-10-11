@@ -1,0 +1,66 @@
+name: zEssentials
+version: ${version}
+main: fr.maxlego08.essentials.ZEssentialsPlugin
+loader: fr.maxlego08.essentials.ZEssentialsPluginLoader
+folia-supported: true
+description: Provides an essential, core set of commands. Requires Paper.
+website: https://groupez.dev/
+authors: [ Maxlego08 ]
+contributors: [ Louis_Dew, Traqueur, JavaToastDev, Melon-Oof, alwyn974, Mapacheee, NeiiZun, groundbreakingmc ]
+api-version: '1.20'
+
+dependencies:
+  server:
+    zMenu:
+      load: BEFORE
+      required: true
+      join-classpath: true
+    PlaceholderAPI:
+      load: BEFORE
+      required: true
+      join-classpath: true
+    Vault:
+      load: BEFORE
+      required: false
+      join-classpath: true
+    ProtocolLib:
+      load: BEFORE
+      required: false
+      join-classpath: true
+    SuperiorSkyblock2:
+      load: BEFORE
+      required: false
+      join-classpath: true
+    BentoBox:
+      load: BEFORE
+      required: false
+      join-classpath: false
+    # Hooks/converters used through their APIs also need explicit classpath access.
+    BlockTracker:
+      load: BEFORE
+      required: false
+      join-classpath: true
+    WorldGuard:
+      load: BEFORE
+      required: false
+      join-classpath: true
+    Votifier:
+      load: BEFORE
+      required: false
+      join-classpath: true
+    NChat:
+      load: BEFORE
+      required: false
+      join-classpath: true
+    MythicMobs:
+      load: BEFORE
+      required: false
+      join-classpath: true
+    AxVaults:
+      load: BEFORE
+      required: false
+      join-classpath: true
+    PlayerVaults:
+      load: BEFORE
+      required: false
+      join-classpath: true

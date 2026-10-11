@@ -139,7 +139,7 @@ tasks {
 
     processResources {
         from("resources")
-        filesMatching("plugin.yml") {
+        filesMatching(listOf("plugin.yml", "paper-plugin.yml")) {
             expand("version" to project.version)
         }
     }
