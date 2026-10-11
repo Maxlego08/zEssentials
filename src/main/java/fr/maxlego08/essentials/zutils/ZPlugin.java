@@ -103,6 +103,16 @@ public class ZPlugin extends JavaPlugin {
         return provider.getProvider();
     }
 
+    protected <T> T requireProvider(Class<T> service, String owner) {
+        T provider = this.getProvider(service);
+        if (provider == null) {
+            throw new IllegalStateException("Cannot initialize zEssentials: " + owner + " "
+                    + service.getSimpleName() + " service is unavailable. Check that " + owner
+                    + " enabled successfully and its API is shared with zEssentials.");
+        }
+        return provider;
+    }
+
     public boolean isPaperVersion() {
         try {
             Class.forName("net.kyori.adventure.text.Component");
