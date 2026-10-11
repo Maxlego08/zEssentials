@@ -48,6 +48,11 @@ public class ComponentBoard extends FastBoard implements PlayerBoard {
     }
 
     @Override
+    public boolean customScoresSupported() {
+        return VersionType.V1_20_3.isCurrentAtLeast();
+    }
+
+    @Override
     public EssentialsScoreboard getScoreboard() {
         return this.essentialsScoreboard;
     }
