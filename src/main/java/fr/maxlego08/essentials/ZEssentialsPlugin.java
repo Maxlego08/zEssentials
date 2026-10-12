@@ -140,6 +140,11 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
     @Override
     public void onEnable() {
 
+        // Paper's server dependencies must be enabled and share their API before we initialize.
+        this.inventoryManager = this.requireProvider(InventoryManager.class, "zMenu");
+        this.buttonManager = this.requireProvider(ButtonManager.class, "zMenu");
+        this.patternManager = this.requireProvider(PatternManager.class, "zMenu");
+
         this.serverStartUptime = System.currentTimeMillis();
         this.saveDefaultConfig();
         this.saveOrUpdateConfiguration("config.yml", true);
@@ -162,9 +167,6 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.scoreboardManager = new ScoreboardModule(this);
         this.hologramManager = new HologramModule(this);
 
-        this.inventoryManager = this.getProvider(InventoryManager.class);
-        this.buttonManager = this.getProvider(ButtonManager.class);
-        this.patternManager = this.getProvider(PatternManager.class);
         this.registerButtons();
 
         this.moduleManager = new ZModuleManager(this);
@@ -279,7 +281,10 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         if (this.storageManager != null) this.storageManager.onDisable();
         if (this.persist != null) ConfigStorage.getInstance().save(this.persist);
 
-        this.essentialsServer.onDisable();
+        if (this.essentialsServer != null) this.essentialsServer.onDisable();
+
+        if (this.buttonManager != null) this.buttonManager.unregisters(this);
+        this.getServer().getServicesManager().unregisterAll(this);
 
         context.shutdown();
     }
