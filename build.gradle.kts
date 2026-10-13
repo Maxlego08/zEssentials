@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "fr.maxlego08.essentials"
-version = "1.0.3.9"
+version = "1.0.4.0"
 
 extra.set("targetFolder", file("target/"))
 extra.set("targetFolderDiscord", file("target-discord/"))
@@ -78,7 +78,7 @@ allprojects {
 
         compileOnly("fr.maxlego08.sarah:sarah:1.23")
         compileOnly("com.tcoded:FoliaLib:0.5.1")
-        compileOnly("fr.mrmicky:fastboard:2.1.5")
+        compileOnly("fr.mrmicky:fastboard:2.2.2")
     }
 }
 
@@ -139,7 +139,7 @@ tasks {
 
     processResources {
         from("resources")
-        filesMatching("plugin.yml") {
+        filesMatching(listOf("plugin.yml", "paper-plugin.yml")) {
             expand("version" to project.version)
         }
     }

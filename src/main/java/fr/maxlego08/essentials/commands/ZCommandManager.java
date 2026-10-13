@@ -26,7 +26,6 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -43,9 +42,7 @@ public class ZCommandManager extends ZUtils implements CommandManager {
 
     static {
         try {
-            Field bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
-            bukkitCommandMap.setAccessible(true);
-            commandMap = (CommandMap) bukkitCommandMap.get(Bukkit.getServer());
+            commandMap = Bukkit.getServer().getCommandMap();
             constructor = PluginCommand.class.getDeclaredConstructor(String.class, Plugin.class);
             constructor.setAccessible(true);
         } catch (Exception exception) {
@@ -71,21 +68,30 @@ public class ZCommandManager extends ZUtils implements CommandManager {
 
     @Override
     public void registerCommand(String string, EssentialsCommand command) {
+        // JavaPlugin#getCommand is unsupported for native Paper plugins. Our commands are dynamic.
+        Command registered = commandMap.getCommand(string);
+        if (!(registered instanceof PluginCommand pluginCommand) || pluginCommand.getPlugin() != this.plugin) {
+            registered = commandMap.getCommand(this.plugin.getName().toLowerCase(java.util.Locale.ROOT) + ":" + string);
+        }
+        if (!(registered instanceof PluginCommand pluginCommand) || pluginCommand.getPlugin() != this.plugin) {
+            throw new IllegalStateException("Cannot attach zEssentials command handler: /" + string + " is not registered by zEssentials.");
+        }
         command.addSubCommand(string);
         this.commands.add(command);
-        this.plugin.getCommand(string).setExecutor(this);
-        this.plugin.getCommand(string).setTabCompleter(this);
+        pluginCommand.setExecutor(this);
+        pluginCommand.setTabCompleter(this);
     }
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
+        final String commandName = cmd.getName().toLowerCase(java.util.Locale.ROOT);
         for (EssentialsCommand command : this.commands) {
-            if (command.getSubCommands().contains(cmd.getName().toLowerCase())) {
+            if (command.getSubCommands().contains(commandName)) {
                 if ((args.length == 0 || command.isIgnoreParent()) && command.getParent() == null) {
                     CommandResultType type = processRequirements(command, sender, args);
                     if (!type.equals(CommandResultType.CONTINUE)) return true;
                 }
-            } else if (args.length >= 1 && command.getParent() != null && canExecute(args, cmd.getName().toLowerCase(), command)) {
+            } else if (args.length >= 1 && command.getParent() != null && canExecute(args, commandName, command)) {
                 CommandResultType type = processRequirements(command, sender, args);
                 if (!type.equals(CommandResultType.CONTINUE)) return true;
             }
