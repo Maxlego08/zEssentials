@@ -6,6 +6,17 @@
 
 # Unreleased
 
+- **zEssentials now loads as a Paper plugin** (`paper-plugin.yml`):
+    - Dependencies are declared through Paper's `dependencies.server` system (zMenu and PlaceholderAPI required, every hook optional) with explicit classpath access
+    - The MariaDB JDBC driver is now downloaded by a Paper plugin loader (`ZEssentialsPluginLoader`) instead of the `libraries` section; the `PAPER_DEFAULT_CENTRAL_REPOSITORY` mirror is honored
+- **Spigot fallback**: on Spigot the plugin stays inactive (no commands, modules or API) and logs a warning; players with `zessentials.paper.warning` (default op) are told on join that Paper is required
+- zEssentials now fails fast with an explicit error when a zMenu service (`InventoryManager`, `ButtonManager`, `PatternManager`) is unavailable, and handles a partial shutdown cleanly (buttons and services are unregistered)
+- Updated FastBoard to `2.2.2` — fixes the scoreboard on recent versions (final scoreboard packet field mutation) while preserving the scoreboard API
+- Removed duplicate teleport translation keys in `messages.yml`
+- Optimized command lowercasing in the command manager and the cooldown lookup
+- Updated the Gradle wrapper to `9.8.1` and the foojay resolver to `1.0.0` (builds with Java 25)
+- Updated the plugin website and contributors
+
 # 1.0.3.9
 
 - **New configuration option**: enable the "First join teleport" in the `config.yml` file; it is now disabled by default.
@@ -30,7 +41,7 @@
     - `type` selects how the content is displayed: `TCHAT`, `CENTER`, `ACTION`, `TITLE`, `BOSSBAR` or `NONE`
     - MiniMessage, legacy colors and PlaceholderAPI placeholders are supported, so `<click:open_url:'...'>` can be used to display clickable links
     - zMenu `actions` can be run after the messages (sound, command, inventory, ...)
-    - Commands are registered at runtime and `/ezreload` updates them without duplicating anything; a custom command that would override an existing zEssentials command is refused with a message in the console
+    - Commands are registered at runtime and `/zessentials reload` updates them without duplicating anything; a custom command that would override an existing zEssentials command is refused with a message in the console
 - Added display options for `/seen` in `modules/sanction/config.yml` — `seen-show-uuid`, `seen-show-ip`, `seen-show-last-location`, `seen-show-created-at` and `seen-show-playtime`. The IP address can now be hidden globally, even from operators: until now it was only protected by the `essentials.seen.show.ip` permission, which an operator always has
 - Fixed several configuration options being silently ignored: they were declared as `private final` fields with a constant initializer, so javac inlined them at compile time and the value read from the configuration file was never used
     - Sanction module: `date-format`, `kick-default-reason`, `ban-default-reason`, `mute-default-reason`, `unmute-default-reason`, `unban-default-reason`
