@@ -6,6 +6,8 @@
 
 # Unreleased
 
+# 1.0.4.0
+
 - **zEssentials now loads as a Paper plugin** (`paper-plugin.yml`):
     - Dependencies are declared through Paper's `dependencies.server` system (zMenu and PlaceholderAPI required, every hook optional) with explicit classpath access
     - The MariaDB JDBC driver is now downloaded by a Paper plugin loader (`ZEssentialsPluginLoader`) instead of the `libraries` section; the `PAPER_DEFAULT_CENTRAL_REPOSITORY` mirror is honored
