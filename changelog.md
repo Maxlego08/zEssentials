@@ -22,6 +22,10 @@
 - Ajouter deux nouvelles permissions distinctes pour désactiver la perte d'inventaire et la perte d'expérience à la mort du joueur
 - Ajouter un module de fly temporaire avec une commande pour give/take du temps
 - Dans le module du chat, rajouter deux nouveaux placeholders pour montrer le contenu de son inventaire et le contenu de son coffre de l'ender (**ISSUE:** https://github.com/Maxlego08/zEssentials/issues/127)
+- Dans les informations au démarrage, indiquer la liste des modules qui sont activés/désactivés
+- Ajouter la commande `/zessentials modules` pour connaître la liste des modules qui sont activés/désactivés
+- Ajouter pleinement le support de "VaultUnlocked: https://github.com/TheNewEconomy/VaultUnlocked"
+- Lorsqu'un module est désactivé, faire en sorte qu'il soit complètement désactiver sur le serveur (commandes, status, checks...)
 
 # Unreleased
 
