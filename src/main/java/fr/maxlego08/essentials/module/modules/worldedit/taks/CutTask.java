@@ -9,7 +9,6 @@ import fr.maxlego08.essentials.api.worldedit.WorldeditAction;
 import fr.maxlego08.essentials.api.worldedit.WorldeditManager;
 import org.bukkit.Material;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class CutTask extends WorldEditTask {

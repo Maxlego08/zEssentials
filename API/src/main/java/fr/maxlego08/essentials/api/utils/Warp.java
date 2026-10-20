@@ -1,7 +1,6 @@
 package fr.maxlego08.essentials.api.utils;
 
 import fr.maxlego08.essentials.api.commands.Permission;
-import org.bukkit.Location;
 import org.bukkit.permissions.Permissible;
 
 /**

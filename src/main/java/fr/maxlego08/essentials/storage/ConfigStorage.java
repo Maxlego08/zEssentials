@@ -4,7 +4,6 @@ package fr.maxlego08.essentials.storage;
 import fr.maxlego08.essentials.api.storage.Persist;
 import fr.maxlego08.essentials.api.utils.SafeLocation;
 import fr.maxlego08.essentials.api.utils.Warp;
-import org.bukkit.Location;
 
 import java.util.ArrayList;
 import java.util.List;

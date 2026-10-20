@@ -4,7 +4,6 @@ import fr.maxlego08.essentials.api.commands.TabCompletion;
 import fr.maxlego08.essentials.api.hologram.configuration.HologramConfiguration;
 import fr.maxlego08.essentials.api.modules.Module;
 import fr.maxlego08.essentials.api.utils.SafeLocation;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import java.io.File;

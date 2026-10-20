@@ -2,8 +2,6 @@ package fr.maxlego08.essentials.api.hologram.configuration;
 
 import org.bukkit.Material;
 
-import org.bukkit.Material;
-
 /**
  * This class represents the configuration settings for a block hologram.
  * It extends the {@link HologramConfiguration} class to include properties

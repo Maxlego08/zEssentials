@@ -6,10 +6,6 @@ import java.time.Duration;
 import java.util.Date;
 import java.util.UUID;
 
-import java.time.Duration;
-import java.util.Date;
-import java.util.UUID;
-
 /**
  * Represents a sanction imposed on a player, such as a ban, mute, or kick.
  */

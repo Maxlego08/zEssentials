@@ -3,10 +3,8 @@ package fr.maxlego08.essentials.module.modules.economy;
 import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.economy.PriceFormat;
 import fr.maxlego08.menu.api.utils.TypedMapAccessor;
-import org.bukkit.configuration.ConfigurationSection;
 
 import java.math.BigDecimal;
-import java.util.Map;
 
 public class ZEconomy implements Economy {
 

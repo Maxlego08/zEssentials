@@ -8,7 +8,6 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class PlayerPlaceholders extends ZUtils implements PlaceholderRegister {
