@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
@@ -52,12 +53,7 @@ public class CommandEnchant extends VCommand {
         }
 
         enchant(itemStack, enchantment, level);
-        String translatedEnchantments;
-        try {
-            translatedEnchantments = "<lang:" + enchantment.translationKey() + ">";
-        } catch (Exception e) {
-            translatedEnchantments = "<lang:enchantment.minecraft." + enchantment.getKey().getKey() + ">";
-        }
+        String translatedEnchantments = MiniMessage.miniMessage().serialize(enchantment.description());
 
         if (level == 0) {
             message(sender, player, Message.COMMAND_ENCHANT_REMOVE_SELF, Message.COMMAND_ENCHANT_REMOVE_PLAYER, "%enchant%", translatedEnchantments);

@@ -33,17 +33,6 @@ import java.util.logging.Logger;
  */
 public class CraftPlayerManager implements fr.maxlego08.essentials.api.nms.PlayerManager {
 
-    private static boolean paper;
-
-    static {
-        try {
-            Class.forName("io.papermc.paper.configuration.Configuration");
-            paper = true;
-        } catch (ClassNotFoundException ignored) {
-            paper = false;
-        }
-    }
-
     private final @NotNull Logger logger;
     private @Nullable Field bukkitEntity;
 
@@ -140,10 +129,8 @@ public class CraftPlayerManager implements fr.maxlego08.essentials.api.nms.Playe
         // Game type settings are also loaded separately.
         player.loadGameTypes(loadedData);
 
-        if (paper) {
-            // Paper: world is not loaded by ServerPlayer#load(CompoundTag).
-            parseWorld(player, loadedData);
-        }
+        // Paper: world is not loaded by ServerPlayer#load(CompoundTag).
+        parseWorld(player, loadedData);
 
         return true;
     }

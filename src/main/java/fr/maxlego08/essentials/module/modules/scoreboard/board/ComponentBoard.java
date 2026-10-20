@@ -49,7 +49,7 @@ public class ComponentBoard extends FastBoard implements PlayerBoard {
 
     @Override
     public boolean customScoresSupported() {
-        return VersionType.V1_20_3.isCurrentAtLeast();
+        return true;
     }
 
     @Override

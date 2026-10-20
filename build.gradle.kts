@@ -84,7 +84,7 @@ allprojects {
 
 dependencies {
     compileOnly("me.clip:placeholderapi:2.11.6")
-    compileOnly("io.papermc.paper:paper-api:1.21.5-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
 
     implementation("dev.faststats.metrics:bukkit:0.29.4") {
         exclude(group = "com.google.code.gson", module = "gson")
@@ -95,10 +95,6 @@ dependencies {
     // Since Minecraft 1.20.5 Paper ships a Mojang-mapped runtime, and since 26.1 Spigot
     // reobfuscation is gone entirely. Every NMS module is therefore Mojang-mapped
     // (MOJANG_PRODUCTION) and consumed as a plain project dependency (no "reobf" variant).
-    api(project(":NMS:V1_20_6"))
-    api(project(":NMS:V1_21"))
-    api(project(":NMS:V1_21_1"))
-    api(project(":NMS:V1_21_3"))
     api(project(":NMS:V1_21_4"))
     api(project(":NMS:V1_21_5"))
     api(project(":NMS:V1_21_6"))

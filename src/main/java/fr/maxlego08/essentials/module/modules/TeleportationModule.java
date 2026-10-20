@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Queue;
@@ -274,7 +275,7 @@ public class TeleportationModule extends ZModule {
         Location checkLoc = location.clone();
 
         // Check if biome is blacklisted
-        if (this.blacklistBiomes.stream().anyMatch(b -> b.equalsIgnoreCase(checkLoc.getBlock().getBiome().name()))) {
+        if (this.blacklistBiomes.stream().anyMatch(b -> b.equalsIgnoreCase(checkLoc.getBlock().getBiome().getKey().getKey().toUpperCase(Locale.ROOT)))) {
             return false;
         }
 

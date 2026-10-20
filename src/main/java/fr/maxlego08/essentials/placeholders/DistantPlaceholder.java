@@ -17,7 +17,7 @@ public class DistantPlaceholder extends PlaceholderExpansion {
 
     @Override
     public String getAuthor() {
-        return this.plugin.getDescription().getAuthors().get(0);
+        return this.plugin.getPluginMeta().getAuthors().get(0);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class DistantPlaceholder extends PlaceholderExpansion {
 
     @Override
     public String getVersion() {
-        return this.plugin.getDescription().getVersion();
+        return this.plugin.getPluginMeta().getVersion();
     }
 
     @Override

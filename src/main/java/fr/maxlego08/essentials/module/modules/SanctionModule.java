@@ -66,7 +66,7 @@ public class SanctionModule extends ZModule implements SanctionManager {
 
     public SanctionModule(ZEssentialsPlugin plugin) {
         super(plugin, "sanction");
-        Bukkit.getPluginManager().registerEvents(isPaperVersion() ? new ChatListener(plugin) : new fr.maxlego08.essentials.listener.spigot.ChatListener(plugin), plugin);
+        Bukkit.getPluginManager().registerEvents(new ChatListener(plugin), plugin);
     }
 
     @Override

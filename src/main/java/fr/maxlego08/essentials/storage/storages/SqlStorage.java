@@ -290,7 +290,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
         String uuidString = uuid.toString().replace("-", "");
         String url = "https://sessionserver.mojang.com/session/minecraft/profile/" + uuidString;
         try {
-            java.net.HttpURLConnection connection = (java.net.HttpURLConnection) new java.net.URL(url).openConnection();
+            java.net.HttpURLConnection connection = (java.net.HttpURLConnection) java.net.URI.create(url).toURL().openConnection();
             connection.setRequestMethod("GET");
             connection.setConnectTimeout(5000);
             connection.setReadTimeout(5000);

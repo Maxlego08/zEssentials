@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
+import org.bukkit.inventory.MenuType;
 
 public class CommandLoom extends VCommand {
     public CommandLoom(EssentialsPlugin plugin) {
@@ -17,7 +18,7 @@ public class CommandLoom extends VCommand {
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
-        this.player.openLoom(this.player.getLocation(), true);
+        this.player.openInventory(MenuType.LOOM.builder().location(this.player.getLocation()).checkReachable(false).build(this.player));
 
         return CommandResultType.SUCCESS;
     }

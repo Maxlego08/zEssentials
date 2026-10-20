@@ -65,7 +65,7 @@ public class ItemDisplay extends ZUtils implements ChatDisplay {
 
         component = component.hoverEvent(itemStack.asHoverEvent());
         String code = plugin.getModuleManager().getModule(ChatModule.class).createHoverItemStack(sender, itemStack);
-        component = component.clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/showitem " + code));
+        component = component.clickEvent(ClickEvent.runCommand("/showitem " + code));
         builder.resolver(Placeholder.component(name, component));
 
         matcher.appendTail(formattedMessage);

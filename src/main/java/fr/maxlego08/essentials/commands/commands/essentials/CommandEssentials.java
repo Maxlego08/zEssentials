@@ -22,7 +22,7 @@ public class CommandEssentials extends VCommand {
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
-        message(sender, Message.COMMAND_ESSENTIALS, "%version%", plugin.getDescription().getVersion());
+        message(sender, Message.COMMAND_ESSENTIALS, "%version%", plugin.getPluginMeta().getVersion());
 
         return CommandResultType.SUCCESS;
     }

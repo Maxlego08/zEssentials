@@ -15,6 +15,7 @@ import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 
 import java.math.BigDecimal;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -189,7 +190,7 @@ public class UserPlaceholders extends ZUtils implements PlaceholderRegister {
         placeholder.register("user_block_x", (player) -> String.valueOf(player.getLocation().getBlockX()), "Returns the block x coordinate of the player");
         placeholder.register("user_block_y", (player) -> String.valueOf(player.getLocation().getBlockY()), "Returns the block y coordinate of the player");
         placeholder.register("user_block_z", (player) -> String.valueOf(player.getLocation().getBlockZ()), "Returns the block z coordinate of the player");
-        placeholder.register("user_biome", (player) -> player.getWorld().getBiome(player.getLocation()).name(), "Returns the biome of the player");
+        placeholder.register("user_biome", (player) -> player.getWorld().getBiome(player.getLocation()).getKey().getKey().toUpperCase(Locale.ROOT), "Returns the biome of the player");
 
         placeholder.register("user_has_discord_linked", (player) -> {
             User user = iStorage.getUser(player.getUniqueId());

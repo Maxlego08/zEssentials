@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
+import org.bukkit.inventory.MenuType;
 
 public class CommandCraft extends VCommand {
     public CommandCraft(EssentialsPlugin plugin) {
@@ -17,7 +18,7 @@ public class CommandCraft extends VCommand {
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
-        this.player.openWorkbench(this.player.getLocation(), true);
+        this.player.openInventory(MenuType.CRAFTING.builder().location(this.player.getLocation()).checkReachable(false).build(this.player));
 
         return CommandResultType.SUCCESS;
     }

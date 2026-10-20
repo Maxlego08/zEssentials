@@ -19,7 +19,7 @@ public final class ZEssentialsPluginLoader implements PluginLoader {
     }
 
     // Same precedence and default as Paper's MAVEN_CENTRAL_DEFAULT_MIRROR. Resolve it here because
-    // the minimum supported compile API (1.21.5) predates that field. No reflection is needed.
+    // the minimum supported compile API (1.21.4) predates that field. No reflection is needed.
     static String centralMirror() {
         String mirror = System.getenv("PAPER_DEFAULT_CENTRAL_REPOSITORY");
         if (mirror == null) mirror = System.getProperty("org.bukkit.plugin.java.LibraryLoader.centralURL");

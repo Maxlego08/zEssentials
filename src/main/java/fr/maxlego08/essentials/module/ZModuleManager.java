@@ -3,7 +3,6 @@ package fr.maxlego08.essentials.module;
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.modules.Module;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
-import fr.maxlego08.essentials.module.modules.DeathMessageModule;
 import fr.maxlego08.essentials.module.modules.afk.AFKModule;
 import fr.maxlego08.essentials.module.modules.discord.DiscordModule;
 import fr.maxlego08.essentials.module.modules.economy.EconomyModule;
@@ -63,12 +62,10 @@ public class ZModuleManager implements ModuleManager {
         this.modules.put(EconomyModule.class, this.plugin.getEconomyManager());
         this.modules.put(HomeModule.class, new HomeModule(this.plugin));
         this.modules.put(SanctionModule.class, new SanctionModule(this.plugin));
-        if (plugin.isPaperVersion()) {
-            this.modules.put(JoinQuitModule.class, new JoinQuitModule(this.plugin));
-            this.modules.put(ChatModule.class, new ChatModule(this.plugin));
-            this.modules.put(DiscordModule.class, new DiscordModule(this.plugin));
-            this.modules.put(DeathMessageModule.class, new DeathMessageModule(this.plugin));
-        }
+        this.modules.put(JoinQuitModule.class, new JoinQuitModule(this.plugin));
+        this.modules.put(ChatModule.class, new ChatModule(this.plugin));
+        this.modules.put(DiscordModule.class, new DiscordModule(this.plugin));
+        this.modules.put(DeathMessageModule.class, new DeathMessageModule(this.plugin));
         this.modules.put(MessageModule.class, new MessageModule(this.plugin));
         this.modules.put(KitModule.class, new KitModule(this.plugin));
         this.modules.put(ItemModule.class, new ItemModule(this.plugin));
@@ -83,9 +80,6 @@ public class ZModuleManager implements ModuleManager {
         this.modules.put(AFKModule.class, new AFKModule(this.plugin));
         this.modules.put(AutoMessageModule.class, new AutoMessageModule(this.plugin));
         this.modules.put(CustomCommandModule.class, new CustomCommandModule(this.plugin));
-        if (plugin.isPaperVersion()) {
-            this.modules.put(DeathMessageModule.class, new DeathMessageModule(this.plugin));
-        }
 
         this.loadConfigurations();
 

@@ -64,7 +64,7 @@ public interface PlayerBoard {
     boolean isDeleted();
 
     /**
-     * Get if the server supports custom scoreboard scores (1.20.3+ servers only).
+     * Get if the server supports custom scoreboard scores.
      *
      * @return true if the server supports custom scores
      */

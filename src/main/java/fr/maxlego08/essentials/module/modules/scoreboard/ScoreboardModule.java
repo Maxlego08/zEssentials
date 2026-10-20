@@ -12,7 +12,6 @@ import fr.maxlego08.essentials.api.scoreboard.TaskCondition;
 import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.ZModule;
-import fr.maxlego08.essentials.module.modules.scoreboard.board.ClassicBoard;
 import fr.maxlego08.essentials.module.modules.scoreboard.board.ComponentBoard;
 import fr.maxlego08.menu.api.ButtonManager;
 import fr.maxlego08.menu.api.requirement.Permissible;
@@ -190,7 +189,7 @@ public class ScoreboardModule extends ZModule implements ScoreboardManager {
     @Override
     public PlayerBoard createScoreboard(Player player, EssentialsScoreboard essentialsScoreboard) {
 
-        PlayerBoard playerBoard = this.plugin.isPaperVersion() ? new ComponentBoard(player, essentialsScoreboard) : new ClassicBoard(player, essentialsScoreboard);
+        PlayerBoard playerBoard = new ComponentBoard(player, essentialsScoreboard);
         this.boards.put(player.getUniqueId(), playerBoard);
 
         essentialsScoreboard.create(playerBoard);

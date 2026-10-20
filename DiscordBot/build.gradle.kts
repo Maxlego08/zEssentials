@@ -16,9 +16,6 @@ repositories {
 }
 
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-
     implementation("org.yaml:snakeyaml:2.3")
     implementation("net.dv8tion:JDA:5.2.0")
     implementation("mysql:mysql-connector-java:8.0.33")

@@ -15,7 +15,7 @@ public class CommandVersion extends VCommand {
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
 
-        message(this.sender, "§aVersion du plugin§7: §2" + plugin.getDescription().getVersion());
+        message(this.sender, "§aVersion du plugin§7: §2" + plugin.getPluginMeta().getVersion());
         message(this.sender, "§aAuteur§7: §2Maxlego08");
         message(this.sender, "§aDiscord§7: §2http://discord.groupez.dev/");
         message(this.sender, "§aBuy it for §d20€§7: §2https://www.spigotmc.org/resources/116293/");

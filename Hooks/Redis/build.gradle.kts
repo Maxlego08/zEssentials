@@ -8,5 +8,5 @@ dependencies {
         exclude(group = "com.google.code.gson", module = "gson")
         exclude(group = "org.slf4j", module = "slf4j-api")
     }
-    compileOnly("io.papermc.paper:paper-api:1.21.5-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
 }

@@ -264,7 +264,7 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
 
     @Override
     public String getItemStackName(ItemStack itemStack) {
-        if (itemStack.hasItemMeta()) return "";
+        if (!itemStack.hasItemMeta()) return "";
         var meta = itemStack.getItemMeta();
         if (!meta.hasDisplayName()) return "";
         return PlainTextComponentSerializer.plainText().serialize(Objects.requireNonNull(meta.displayName()));

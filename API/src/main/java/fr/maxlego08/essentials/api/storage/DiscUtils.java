@@ -1,15 +1,14 @@
 package fr.maxlego08.essentials.api.storage;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URL;
-import java.nio.channels.Channels;
-import java.nio.channels.ReadableByteChannel;
+import java.net.URI;
+import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 
 public class DiscUtils {
 
@@ -17,28 +16,16 @@ public class DiscUtils {
 	// CONSTANTS
 	// -------------------------------------------- //
 
-	private final static String UTF8 = "UTF-8";
-
 	// -------------------------------------------- //
 	// BYTE
 	// -------------------------------------------- //
 
 	public static byte[] readBytes(File file) throws IOException {
-		int length = (int) file.length();
-		byte[] output = new byte[length];
-		InputStream in = new FileInputStream(file);
-		int offset = 0;
-		while (offset < length) {
-			offset += in.read(output, offset, (length - offset));
-		}
-		in.close();
-		return output;
+		return Files.readAllBytes(file.toPath());
 	}
 
 	public static void writeBytes(File file, byte[] bytes) throws IOException {
-		FileOutputStream out = new FileOutputStream(file);
-		out.write(bytes);
-		out.close();
+		Files.write(file.toPath(), bytes);
 	}
 
 	// -------------------------------------------- //
@@ -80,11 +67,12 @@ public class DiscUtils {
 
 	public static boolean downloadUrl(String urlstring, File file) {
 		try {
-			URL url = new URL(urlstring);
-			ReadableByteChannel rbc = Channels.newChannel(url.openStream());
-			@SuppressWarnings("resource")
-			FileOutputStream fos = new FileOutputStream(file);
-			fos.getChannel().transferFrom(rbc, 0, 1 << 24);
+			URLConnection connection = URI.create(urlstring).toURL().openConnection();
+			connection.setConnectTimeout(5000);
+			connection.setReadTimeout(5000);
+			try (InputStream in = connection.getInputStream(); FileOutputStream out = new FileOutputStream(file)) {
+				in.transferTo(out);
+			}
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -117,21 +105,11 @@ public class DiscUtils {
 	// -------------------------------------------- //
 
 	public static byte[] utf8(String string) {
-		try {
-			return string.getBytes(UTF8);
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-			return null;
-		}
+		return string.getBytes(StandardCharsets.UTF_8);
 	}
 
 	public static String utf8(byte[] bytes) {
-		try {
-			return new String(bytes, UTF8);
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-			return null;
-		}
+		return new String(bytes, StandardCharsets.UTF_8);
 	}
 
 }
