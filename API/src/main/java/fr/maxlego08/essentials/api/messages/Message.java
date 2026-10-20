@@ -952,7 +952,7 @@ public enum Message {
     COMMAND_VAULT_RENAME_RESET("<success>You just reset the name of your vault."),
 
     COMMAND_ENCHANT_INVALID("<error>You need to specify a valid player."),
-    COMMAND_ENCHANT_ERROR_ENCHANT("<error>Impossible to find the enchantment &f%name%<error>."),
+    COMMAND_ENCHANT_ERROR_ENCHANT("<error>Impossible to find the enchantment &f%enchant%<error>."),
     COMMAND_ENCHANT_ERROR_ITEM_SELF("<error>You must have an item in your hand."),
     COMMAND_ENCHANT_ERROR_ITEM_PLAYER("<error>%player% has no item in his hand."),
     COMMAND_ENCHANT_REMOVE_SELF("<success>The enchantment &f%enchant% <success>has been removed from your item in hand."),

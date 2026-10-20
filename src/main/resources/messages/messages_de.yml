@@ -894,7 +894,7 @@ command-vault-rename-reset: "<success>Du hast den Namen deines Vaults zurückges
 
 
 command-enchant-invalid: "<error>Du musst einen gültigen Spieler angeben."
-command-enchant-error-enchant: "<error>Verzauberung &f%name%<error> konnte nicht gefunden werden."
+command-enchant-error-enchant: "<error>Verzauberung &f%enchant%<error> konnte nicht gefunden werden."
 command-enchant-error-item-self: "<error>Du musst einen Gegenstand in der Hand haben."
 command-enchant-error-item-player: "<error>%player% hat keinen Gegenstand in der Hand."
 command-enchant-remove-self: "<success>Die Verzauberung &f%enchant% <success>wurde von deinem gehaltenen Gegenstand entfernt."

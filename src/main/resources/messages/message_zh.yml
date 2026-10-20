@@ -941,7 +941,7 @@ command-vault-rename-success: <success>你刚刚将金库名称设置为 &f%name
 command-vault-rename-error: <error>你不能使用这个名字作为金库名称。
 command-vault-rename-reset: <success>你刚刚重置了金库名称。
 command-enchant-invalid: <error>你需要指定一个有效的玩家。
-command-enchant-error-enchant: <error>无法找到附魔 &f%name%<error>。
+command-enchant-error-enchant: <error>无法找到附魔 &f%enchant%<error>。
 command-enchant-error-item-self: <error>你必须手持一个物品。
 command-enchant-error-item-player: <error>%player% 手中没有物品。
 command-enchant-remove-self: <success>附魔 &f%enchant% <success>已经从你手中的物品上移除。

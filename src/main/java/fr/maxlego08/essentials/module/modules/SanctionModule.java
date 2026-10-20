@@ -141,7 +141,7 @@ public class SanctionModule extends ZModule implements SanctionManager {
         server.kickPlayer(uuid, Message.MESSAGE_KICK, "%reason%", reason);
 
         // Broadcast a notification message to players with the kick notify permission
-        server.broadcastMessage(Permission.ESSENTIALS_KICK_NOTIFY, Message.COMMAND_KICK_NOTIFY, "%player%", sender.getName(), "%target%", playerName, "%reason%", reason, "%sender%", getSanctionBy(sender), "%created_at%", this.simpleDateFormat.format(new Date()));
+        server.broadcastMessage(Permission.ESSENTIALS_KICK_NOTIFY, Message.COMMAND_KICK_NOTIFY, "%player%", sender.getName(), "%target%", playerName, "%reason%", reason, "%sender%", getSanctionBy(sender), "%created_at%", this.simpleDateFormat.format(new Date()), "%duration%", "0");
     }
 
     @Override

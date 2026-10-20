@@ -982,7 +982,7 @@ command-vault-rename-reset: "<success>Je hebt de naam van je kluis gereset."
 
 
 command-enchant-invalid: "<error>Je moet een geldige speler opgeven."
-command-enchant-error-enchant: "<error>Kan de betovering &f%name%<error> niet vinden."
+command-enchant-error-enchant: "<error>Kan de betovering &f%enchant%<error> niet vinden."
 command-enchant-error-item-self: "<error>Je moet een item in je hand hebben."
 command-enchant-error-item-player: "<error>%player% heeft geen item in zijn hand."
 command-enchant-remove-self: "<success>De betovering &f%enchant% <success>is verwijderd van je item in de hand."

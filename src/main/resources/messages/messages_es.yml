@@ -849,7 +849,7 @@ command-vault-rename-reset: "<success>Acabas de restablecer el nombre de tu vaul
 
 
 command-enchant-invalid: "<error>Debes especificar un jugador válido."
-command-enchant-error-enchant: "<error>Imposible encontrar el encantamiento &f%name%<error>."
+command-enchant-error-enchant: "<error>Imposible encontrar el encantamiento &f%enchant%<error>."
 command-enchant-error-item-self: "<error>Debes tener un objeto en la mano."
 command-enchant-error-item-player: "<error>%player% no tiene ningún objeto en la mano."
 command-enchant-remove-self: "<success>El encantamiento &f%enchant% <success>ha sido eliminado de tu objeto en la mano."

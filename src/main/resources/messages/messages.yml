@@ -1023,7 +1023,7 @@ command-vault-rename-reset: "<success>You just reset the name of your vault."
 
 
 command-enchant-invalid: "<error>You need to specify a valid player."
-command-enchant-error-enchant: "<error>Impossible to find the enchantment &f%name%<error>."
+command-enchant-error-enchant: "<error>Impossible to find the enchantment &f%enchant%<error>."
 command-enchant-error-item-self: "<error>You must have an item in your hand."
 command-enchant-error-item-player: "<error>%player% has no item in his hand."
 command-enchant-remove-self: "<success>The enchantment &f%enchant% <success>has been removed from your item in hand."

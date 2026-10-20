@@ -847,7 +847,7 @@ command-vault-rename-reset: "<success>Hai resettato il nome della cassaforte."
 
 
 command-enchant-invalid: "<error>Devi specificare un giocatore valido."
-command-enchant-error-enchant: "<error>Impossibile trovare l'incantesimo &f%name%<error>."
+command-enchant-error-enchant: "<error>Impossibile trovare l'incantesimo &f%enchant%<error>."
 command-enchant-error-item-self: "<error>Devi tenere un oggetto in mano."
 command-enchant-error-item-player: "<error>%player% non sta tenendo nessun oggetto."
 command-enchant-remove-self: "<success>L'incantesimo &f%enchant% <success>è stato rimosso dall'oggetto che stai tenendo."
