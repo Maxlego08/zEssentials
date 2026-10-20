@@ -1,10 +1,38 @@
-# Idée:
+# Idées :
 
-- Ajouter un broadcast de message centré avec le support des \n pour ajouter plusieurs lignes
+- Ajouter un broadcast de message centré avec le support des `\n` pour ajouter plusieurs lignes
 - Ajouter une option pour désactiver la tabulation des joueurs hors ligne
-- Ajouter un placeholder pour transformed les caractères en lettre spécial
+- Ajouter un placeholder pour transformer les caractères en lettre spécial
+- Ajouter une commande type `/oplist` pour afficher la liste des opérateurs du serveur (**__Issue :__** https://github.com/Maxlego08/zEssentials/issues/4)
+- Améliorer la commande `/nightvision` pour qu'elle soit persistente lors d'un kill et de déconnexion/reconnexion du joueur (**__Issue :__** https://github.com/Maxlego08/zEssentials/issues/4)
+- Ajouter la possibilité d'utiliser la commande `/invsee` sur les joueurs hors ligne
+- Ajouter la commande `/nick` pour changer le pseudo d'un joueur (**__Issue :__** https://github.com/Maxlego08/zEssentials/issues/161)
+  - Rajouter une permission pour limiter l'utilisation des couleurs
+  - Rajouter une permission pour que le pseudo à l'output du /nick (raw) soit le même (sans prendre en compte les couleurs) que le pseudo initial
+- Grosse refonte des hologrammes :
+  - Rajouter les hologrammes à double face (**__Issue :** https://github.com/Maxlego08/zEssentials/issues/27)
+  - Rajouter les hologrammes "cliquables" avec une hitbox pour créer des interactions
+  - Rajouter les hologrammes avec de la pagination (**__Issue :__** https://github.com/Maxlego08/zEssentials/issues/40)
+- Rajouter la commande `/signedit` pour éditer une pancarte juste en la regardant
+- Utiliser les dialogs là où c'est possible dans les versions récentes (entrer du texte...)
+- Faire en sorte que si le NMS d'une version n'est pas encore ajouté, ça fallback vers la version précédente disponible
+- Ajouter un module de TAB (**__Issue :** https://github.com/Maxlego08/zEssentials/issues/147)
+- Ajouter un module pour pour désactiver l'apparition des phantoms pour un joueur (**__Issue :** https://github.com/Maxlego08/zEssentials/issues/147)
+- Ajouter deux nouvelles permissions distinctes pour désactiver la perte d'inventaire et la perte d'expérience à la mort du joueur
+- Ajouter un module de fly temporaire avec une commande pour give/take du temps
+- Dans le module du chat, rajouter deux nouveaux placeholders pour montrer le contenu de son inventaire et le contenu de son coffre de l'ender (**__Issue :__** https://github.com/Maxlego08/zEssentials/issues/127)
 
 # Unreleased
+
+- Added support for Minecraft/Paper **26.3**; **Paper 1.21.4 is now the minimum supported version**
+- Removed unused Spigot code and simplified Paper integration
+- `/enchant` now uses the server registry, including customs datapack and customs enchants plugin enchantments
+- Improved `/give` and `/giveall` item suggestions
+- Item feedback now follows the player's Minecraft language and preserves custom names
+- Fixed feedback messages for enchantments, hologram text shadows and kick notifications — existing `command-enchant-error-enchant` messages must replace `%name%` with `%enchant%`
+- Fixed duplicate Death Message module registration, version comparisons and incomplete downloads
+- Cleaned up Gradle metadata, imports and ignore rules
+- **API change**: `Enchantments#getEnchantments(String)` now returns `Optional<Enchantment>`; removed `EssentialsEnchantment` and `Enchantments#register()`
 
 # 1.0.4.0
 
