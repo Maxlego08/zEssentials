@@ -47,7 +47,7 @@ public class CommandVaultGive extends VCommand {
         }
 
         plugin.getVaultManager().addItem(offlinePlayer.getUniqueId(), itemStack, amount);
-        message(sender, Message.COMMAND_GIVE_VAULT, "%item%", itemName, "%player%", offlinePlayer.getName(), "%amount%", amount);
+        message(sender, Message.COMMAND_GIVE_VAULT, "%item%", getItemName(itemStack), "%player%", offlinePlayer.getName(), "%amount%", amount);
 
         return CommandResultType.SUCCESS;
     }

@@ -3,6 +3,8 @@ package fr.maxlego08.essentials.zutils.utils;
 import com.google.common.base.Strings;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.Permission;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -137,6 +139,14 @@ public abstract class ZUtils extends MessageUtils {
 
     protected boolean hasPermission(Permissible permissible, Permission permission) {
         return permissible.hasPermission(permission.asPermission());
+    }
+
+    protected String getItemName(ItemStack itemStack) {
+        return MiniMessage.miniMessage().serialize(itemStack.effectiveName());
+    }
+
+    protected String getMaterialName(Material material) {
+        return MiniMessage.miniMessage().serialize(Component.translatable(material.translationKey()));
     }
 
     protected String name(String string) {

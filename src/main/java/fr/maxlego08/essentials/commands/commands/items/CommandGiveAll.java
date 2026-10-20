@@ -7,6 +7,7 @@ import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.module.modules.ItemModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,7 +20,9 @@ public class CommandGiveAll extends VCommand {
         this.setPermission(Permission.ESSENTIALS_GIVE_ALL);
         this.setDescription(Message.DESCRIPTION_GIVE_ALL);
         this.addRequireArg("item", (sender, args) -> {
-            List<String> materials = new ArrayList<>(plugin.getMaterials().stream().map(Material::name).map(String::toLowerCase).toList());
+            List<String> materials = new ArrayList<>(plugin.getMaterials().stream()
+                    .filter(material -> material.isItem() && !material.isAir())
+                    .map(Material::getKey).map(NamespacedKey::getKey).toList());
             materials.addAll(plugin.getModuleManager().getModule(ItemModule.class).getItemsName());
             return materials;
         });

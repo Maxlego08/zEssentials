@@ -33,6 +33,6 @@ public class CommandHologramBlock extends VCommandHologram {
         hologram.updateForAllPlayers();
         manager.saveHologram(hologram);
 
-        message(sender, Message.HOLOGRAM_BLOCK, "%name%", hologram.getName(), "%material%", material.name());
+        message(sender, Message.HOLOGRAM_BLOCK, "%name%", hologram.getName(), "%material%", getMaterialName(material));
     }
 }

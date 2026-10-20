@@ -28,7 +28,7 @@ public class CommandHat extends VCommand {
 
         this.player.getInventory().setHelmet(inHand);
         this.player.getInventory().setItemInMainHand(itemStack);
-        message(this.sender, Message.COMMAND_HAT_SUCCESS, "%item%", name(inHand.getType().name()));
+        message(this.sender, Message.COMMAND_HAT_SUCCESS, "%item%", getItemName(inHand));
         
         return CommandResultType.SUCCESS;
     }
