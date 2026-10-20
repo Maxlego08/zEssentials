@@ -33,6 +33,7 @@ public class ItemModule extends ZModule {
     public void loadConfiguration() {
         super.loadConfiguration();
 
+        this.items.clear();
         YamlConfiguration configuration = getConfiguration();
         ConfigurationSection configurationSection = configuration.getConfigurationSection("custom-items");
         if (configurationSection == null) return;

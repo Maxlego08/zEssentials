@@ -8,6 +8,7 @@ import fr.maxlego08.essentials.module.modules.ItemModule;
 import fr.maxlego08.essentials.module.modules.MailBoxModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,8 +24,11 @@ public class CommandMailGive extends VCommand {
         this.addSubCommand("give");
         this.addRequireOfflinePlayerNameArg();
         this.addRequireArg("item", (sender, args) -> {
-            List<String> materials = new ArrayList<>(plugin.getMaterials().stream().map(Material::name).map(String::toLowerCase).toList());
-            materials.addAll(plugin.getModuleManager().getModule(ItemModule.class).getItemsName());
+            List<String> materials = new ArrayList<>(plugin.getMaterials().stream()
+                    .filter(material -> material.isItem() && !material.isAir())
+                    .map(Material::getKey).map(NamespacedKey::getKey).toList());
+            var itemModule = plugin.getModuleManager().getModule(ItemModule.class);
+            if (itemModule != null) materials.addAll(itemModule.getItemsName());
             return materials;
         });
         this.addOptionalArg("amount", (sender, args) -> Arrays.asList("1", "64"));

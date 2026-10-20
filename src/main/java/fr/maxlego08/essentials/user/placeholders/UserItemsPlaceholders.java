@@ -4,6 +4,7 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.placeholders.PlaceholderRegister;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
+import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -66,7 +67,9 @@ public class UserItemsPlaceholders extends ZUtils implements PlaceholderRegister
             if (itemStack.hasItemMeta() && itemStack.getItemMeta().hasEnchants()) {
                 List<String> enchantments = new ArrayList<>();
                 for (Map.Entry<Enchantment, Integer> entry : itemStack.getItemMeta().getEnchants().entrySet()) {
-                    enchantments.add(entry.getKey().getKey().getKey() + ":" + entry.getValue());
+                    NamespacedKey key = entry.getKey().getKey();
+                    String name = key.getNamespace().equals(NamespacedKey.MINECRAFT) ? key.getKey() : key.toString();
+                    enchantments.add(name + ":" + entry.getValue());
                 }
                 return String.join(", ", enchantments);
             }

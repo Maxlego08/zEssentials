@@ -336,7 +336,7 @@ public class MailBoxModule extends ZModule {
             message(sender, Message.MAILBOX_GIVE_ERROR, "%item%", itemName);
             return;
         }
-        var itemStack = itemModule.getItemStack(itemName, Bukkit.getPlayer(uuid));
+        var itemStack = itemModule.getItemStack(itemName, Bukkit.getOfflinePlayer(uuid));
 
         if (itemStack == null) {
             message(sender, Message.MAILBOX_GIVE_ERROR, "%item%", itemName);
