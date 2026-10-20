@@ -1,53 +1,52 @@
 name: Feature request
-description: Suggest an idea for this project
+description: Suggest an improvement to zEssentials
 labels: enhancement
 assignees: Maxlego08
 body:
   - type: markdown
     attributes:
       value: |
-        ## READ AND FOLLOW THE DESCRIPTIONS OF THIS ISSUE TEMPLATE!
-        Not doing so may result in your issue being closed without warning. Take your time and properly fill out everything as requested.
-        We advise you to put a maximum of image and video to better understand your problem.
+        Thanks for suggesting an improvement to zEssentials. Describe the use case and how the feature would fit the plugin.
+        zEssentials targets Paper and compatible forks, starting at Minecraft 1.21.4. Mention any version-specific requirements.
+        For configuration help, use [Discord](https://discord.groupez.dev/).
   - type: checkboxes
     id: searched
     attributes:
-      label: Terms
+      label: Before suggesting
       options:
-        - label: "I'm using the very latest version of zEssentials and its dependencies (zMenu and PlaceholdersAPI)."
+        - label: "I have searched the [existing issues](https://github.com/Maxlego08/zEssentials/issues?q=is%3Aissue) and found no matching suggestion."
           required: true
-        - label: "I already searched on this [Github page](https://github.com/Maxlego08/zEssentials/issues) to check if the same suggestion was already reported."
-          required: true
-        - label: "I already searched on the [plugin wiki](https://zessentials.groupez.dev/) to know if a solution is already known."
-          required: true
-        - label: "I already searched on the [discord](https://discord.groupez.dev/) to check if anyone already has a solution for this or if the feature was already suggested."
+        - label: "I have checked the [documentation](https://zessentials.groupez.dev/) and this feature is not already available."
           required: true
   - type: input
     id: discord_tag
     attributes:
-      label: Discord Username (optional)
-      description: So I can contact you quickly.
-      placeholder: ex. mydiscord123
+      label: Discord username (optional)
+      description: Your username if you would like us to contact you on Discord.
+  - type: textarea
+    id: use_case
+    attributes:
+      label: What problem would this solve?
+      description: Describe a concrete use case and who would benefit from the feature.
     validations:
-      required: false
+      required: true
   - type: textarea
     id: description
     attributes:
-      label: "Describe your suggestions"
-      placeholder: "A clear and concise description of what you want to happen."
+      label: Describe your suggestion
+      description: Explain the expected behavior, affected module or commands, and any relevant permissions or configuration. Include an example of how it would be used.
     validations:
-      required: true      
+      required: true
   - type: textarea
     id: alternatives
     attributes:
-      label: "Describe alternatives you've considered (Optional)"
-      placeholder: "A clear and concise description of any alternative solutions or features you've considered. (others plugins/configurations)"
+      label: Alternatives considered (optional)
+      description: Describe any existing settings, workarounds or other plugins you have considered, and why they do not cover the use case.
   - type: textarea
     id: additional_context
     attributes:
-      label: "Additional context (Optional)"
-      placeholder: "Add any other context or screenshots about the feature request here."
+      label: Additional context (optional)
+      description: Add screenshots, examples or links that help explain the suggestion. Include Minecraft versions or third-party plugin details if the feature depends on them.
   - type: markdown
     attributes:
-      value: |
-        ## Thanks for taking the time to fill out this suggestion page!      
+      value: Thanks for taking the time to describe your suggestion!
