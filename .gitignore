@@ -9,6 +9,8 @@ target-api/
 
 # IntelliJ
 out/
+!**/src/main/**/out/
+!**/src/test/**/out/
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 
@@ -112,15 +114,49 @@ gradle-app.setting
 .gradletasknamecache
 
 **/build/
+!**/src/main/**/build/
+!**/src/test/**/build/
 
 # Common working directory
 run/
 
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
-!gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.jar
 !**/libs/*.jar
 CLAUDE.md
 .claude
 updates.md
 AGENTS.md
 prompt-cmi-parity.md
+
+# Kotlin
+.kotlin/
+
+# Eclipse
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# VS Code
+.vscode/
+
+# Local development tools and notes
+opencode.json
+build-and-deploy.sh
+GEMINI.md
+TODO.md
+docs/triage-issues.md

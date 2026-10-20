@@ -104,6 +104,7 @@ dependencies {
     api(project(":NMS:V1_21_10"))
     api(project(":NMS:V1_21_11"))
     api(project(":NMS:V26_2"))
+    api(project(":NMS:V26_3"))
 
     rootProject.subprojects.filter { it.path.startsWith(":Hooks:") }.forEach { subproject ->
         api(project(subproject.path))
