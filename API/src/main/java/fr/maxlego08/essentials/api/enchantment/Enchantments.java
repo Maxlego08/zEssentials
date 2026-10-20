@@ -17,7 +17,27 @@ public interface Enchantments {
      * @param enchantment the key of the enchantment
      * @return an {@link Optional} containing the enchantment if found, otherwise empty
      */
-    Optional<Enchantment> getEnchantments(String enchantment);
+    default Optional<Enchantment> getEnchantment(String enchantment) {
+        return getEnchantments(enchantment).map(EssentialsEnchantment::enchantment);
+    }
+
+    /**
+     * Retrieves an enchantment using the legacy wrapper.
+     *
+     * @param enchantment the key of the enchantment
+     * @return an {@link Optional} containing the wrapper if found, otherwise empty
+     * @deprecated Use {@link #getEnchantment(String)} to retrieve the Bukkit enchantment directly.
+     */
+    @Deprecated
+    Optional<EssentialsEnchantment> getEnchantments(String enchantment);
+
+    /**
+     * Retained for compatibility; zEssentials reads enchantments directly from the server registry.
+     *
+     * @deprecated Registration is no longer required. This method has no effect in zEssentials.
+     */
+    @Deprecated
+    void register();
 
     /**
      * Retrieves the identifiers of all enchantments registered on the server.

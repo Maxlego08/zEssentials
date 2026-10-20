@@ -39,7 +39,7 @@ public class CommandEnchant extends VCommand {
             return CommandResultType.DEFAULT;
         }
 
-        var optional = plugin.getEnchantments().getEnchantments(enchantAsString);
+        var optional = plugin.getEnchantments().getEnchantment(enchantAsString);
         if (optional.isEmpty()) {
             message(sender, Message.COMMAND_ENCHANT_ERROR_ENCHANT, "%enchant%", enchantAsString);
             return CommandResultType.DEFAULT;

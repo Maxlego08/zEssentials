@@ -79,7 +79,7 @@ public class UserItemsPlaceholders extends ZUtils implements PlaceholderRegister
         placeholder.register("iteminhand_hasenchantment_", (player, enchantmentName) -> {
             ItemStack itemStack = player.getInventory().getItemInMainHand();
             if (itemStack.hasItemMeta() && itemStack.getItemMeta().hasEnchants()) {
-                var optional = plugin.getEnchantments().getEnchantments(enchantmentName);
+                var optional = plugin.getEnchantments().getEnchantment(enchantmentName);
                 if (optional.isPresent()) {
                     return itemStack.containsEnchantment(optional.get()) ? "true" : "false";
                 }
@@ -90,7 +90,7 @@ public class UserItemsPlaceholders extends ZUtils implements PlaceholderRegister
         placeholder.register("iteminhand_enchantmentlevel_", (player, enchantmentName) -> {
             ItemStack itemStack = player.getInventory().getItemInMainHand();
             if (itemStack.hasItemMeta() && itemStack.getItemMeta().hasEnchants()) {
-                var optional = plugin.getEnchantments().getEnchantments(enchantmentName);
+                var optional = plugin.getEnchantments().getEnchantment(enchantmentName);
                 if (optional.isPresent()) {
                     return String.valueOf(itemStack.getEnchantmentLevel(optional.get()));
                 }

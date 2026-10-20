@@ -33,7 +33,7 @@
 - Fixed feedback messages for enchantments, hologram text shadows and kick notifications — existing `command-enchant-error-enchant` messages must replace `%name%` with `%enchant%`
 - Fixed duplicate Death Message module registration, version comparisons and incomplete downloads
 - Cleaned up Gradle metadata, imports and ignore rules
-- **API change**: `Enchantments#getEnchantments(String)` now returns `Optional<Enchantment>`; removed `EssentialsEnchantment` and `Enchantments#register()`
+- Added `Enchantments#getEnchantment(String)` to retrieve Bukkit enchantments directly; the legacy wrapper, `getEnchantments(String)` and `register()` are retained and deprecated for compatibility
 
 # 1.0.4.0
 
