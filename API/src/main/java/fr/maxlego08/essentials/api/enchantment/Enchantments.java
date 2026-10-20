@@ -1,31 +1,29 @@
 package fr.maxlego08.essentials.api.enchantment;
 
+import org.bukkit.enchantments.Enchantment;
+
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Interface for managing custom enchantments in the plugin.
- * Provides methods to retrieve, register, and list available enchantments.
+ * Provides access to enchantments registered on the server, including datapack and plugin enchantments.
  */
 public interface Enchantments {
 
     /**
-     * Retrieves an enchantment by its name.
+     * Retrieves an enchantment by its namespaced key.
+     * Keys without a namespace use the Minecraft namespace.
      *
-     * @param enchantment the name of the enchantment
+     * @param enchantment the key of the enchantment
      * @return an {@link Optional} containing the enchantment if found, otherwise empty
      */
-    Optional<EssentialsEnchantment> getEnchantments(String enchantment);
+    Optional<Enchantment> getEnchantments(String enchantment);
 
     /**
-     * Registers all custom enchantments within the plugin.
-     */
-    void register();
-
-    /**
-     * Retrieves a list of all registered enchantments' names.
+     * Retrieves the identifiers of all enchantments registered on the server.
+     * The Minecraft namespace is omitted; custom namespaces are preserved.
      *
-     * @return a list of enchantment names
+     * @return a sorted list of enchantment identifiers
      */
     List<String> getEnchantments();
 }

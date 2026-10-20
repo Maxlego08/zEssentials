@@ -144,7 +144,6 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.serverStartUptime = System.currentTimeMillis();
         this.saveDefaultConfig();
         this.saveOrUpdateConfiguration("config.yml", true);
-        this.enchantments.register();
 
         FoliaLib foliaLib = new FoliaLib(this);
         this.platformScheduler = foliaLib.getScheduler();

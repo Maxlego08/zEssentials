@@ -45,7 +45,7 @@ public class CommandEnchant extends VCommand {
             return CommandResultType.DEFAULT;
         }
 
-        Enchantment enchantment = optional.get().enchantment();
+        Enchantment enchantment = optional.get();
         ItemStack itemStack = player.getInventory().getItemInMainHand();
         if (itemStack.getType().isAir()) {
             message(sender, player, Message.COMMAND_ENCHANT_ERROR_ITEM_SELF, Message.COMMAND_ENCHANT_ERROR_ITEM_PLAYER);
