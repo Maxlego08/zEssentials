@@ -4,9 +4,9 @@ group = "Hooks:Redis"
 
 dependencies {
     compileOnly(project(":API"))
-    implementation("redis.clients:jedis:4.3.1") {
+    implementation(libs.jedis) {
         exclude(group = "com.google.code.gson", module = "gson")
         exclude(group = "org.slf4j", module = "slf4j-api")
     }
-    compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
+    compileOnly(libs.paper.api)
 }

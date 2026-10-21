@@ -1,8 +1,8 @@
 plugins {
     `java-library`
-    id("com.gradleup.shadow") version "9.0.0-beta11"
-    id("io.papermc.paperweight.userdev") version "2.0.0-beta.21" apply false
-    id("re.alwyn974.groupez.repository") version "1.0.0"
+    alias(libs.plugins.shadow)
+    alias(libs.plugins.paperweight) apply false
+    alias(libs.plugins.groupez.repository)
 }
 
 group = "fr.maxlego08.essentials"
@@ -14,6 +14,7 @@ extra.set("apiFolder", file("target-api/"))
 extra.set("classifier", System.getProperty("archive.classifier"))
 extra.set("sha", System.getProperty("github.sha"))
 
+val rootLibs = libs
 allprojects {
     apply(plugin = "java-library")
     apply(plugin = "com.gradleup.shadow")
@@ -39,7 +40,7 @@ allprojects {
     configurations.all {
         resolutionStrategy.eachDependency {
             if (requested.group == "net.kyori" && requested.name == "adventure-text-serializer-ansi" && (requested.version.isNullOrBlank() || requested.version == ".")) {
-                useVersion("4.20.0")
+                useVersion(rootLibs.versions.adventure.text.serializer.ansi.get())
             }
         }
     }
@@ -73,20 +74,19 @@ allprojects {
     }
 
     dependencies {
-//        compileOnly("fr.maxlego08.menu:zmenu-api:1.1.0.0")
         compileOnly(files("libs/zMenu-1.1.1.6.jar"))
 
-        compileOnly("fr.maxlego08.sarah:sarah:1.23")
-        compileOnly("com.tcoded:FoliaLib:0.5.1")
-        compileOnly("fr.mrmicky:fastboard:2.2.2")
+        compileOnly(rootLibs.sarah)
+        compileOnly(rootLibs.folialib)
+        compileOnly(rootLibs.fastboard)
     }
 }
 
 dependencies {
-    compileOnly("me.clip:placeholderapi:2.11.6")
-    compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
+    compileOnly(libs.placeholderapi)
+    compileOnly(libs.paper.api)
 
-    implementation("dev.faststats.metrics:bukkit:0.29.4") {
+    implementation(libs.fastStatsBukkit) {
         exclude(group = "com.google.code.gson", module = "gson")
     }
 

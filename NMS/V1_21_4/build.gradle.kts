@@ -1,12 +1,12 @@
 plugins {
-    id("io.papermc.paperweight.userdev")
+    alias(libs.plugins.paperweight)
 }
 
 group "NMS:V1_21_4"
 
 dependencies {
     compileOnly(project(":API"))
-    paperweight.paperDevBundle("1.21.4-R0.1-SNAPSHOT")
+    paperweight.devBundle(libs.paperDevBundle1214)
 }
 
 paperweight.reobfArtifactConfiguration = io.papermc.paperweight.userdev.ReobfArtifactConfiguration.MOJANG_PRODUCTION

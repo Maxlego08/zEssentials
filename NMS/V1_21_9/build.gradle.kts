@@ -1,13 +1,13 @@
 plugins {
-    id("io.papermc.paperweight.userdev")
+    alias(libs.plugins.paperweight)
 }
 
 group "NMS:V1_21_9"
 
 dependencies {
     compileOnly(project(":API"))
-    compileOnly("net.kyori:adventure-api:4.26.1")
-    paperweight.paperDevBundle("1.21.9-R0.1-SNAPSHOT")
+    compileOnly(libs.adventure.api)
+    paperweight.devBundle(libs.paperDevBundle1219)
 }
 
 paperweight.reobfArtifactConfiguration = io.papermc.paperweight.userdev.ReobfArtifactConfiguration.MOJANG_PRODUCTION

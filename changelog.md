@@ -37,6 +37,8 @@
 - Fixed feedback messages for enchantments, hologram text shadows and kick notifications — existing `command-enchant-error-enchant` messages must replace `%name%` with `%enchant%`
 - Fixed duplicate Death Message module registration, version comparisons and incomplete downloads
 - Cleaned up Gradle metadata, imports and ignore rules
+- Centralized dependency and build plugin versions in `gradle/libs.versions.toml`
+- Updated Gradle to `9.8.2`, Shadow to `9.6.1` and paperweight-userdev to `2.0.0-beta.24`; the 26.x NMS modules now target Java 25
 - Added `Enchantments#getEnchantment(String)` to retrieve Bukkit enchantments directly; the legacy wrapper, `getEnchantments(String)` and `register()` are retained and deprecated for compatibility
 
 # 1.0.4.0
