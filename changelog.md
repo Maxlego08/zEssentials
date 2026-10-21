@@ -29,29 +29,21 @@
 
 # Unreleased
 
-- Use the published zMenu API for skull creation and kit conversion/saving; zMenu `1.1.2.0` is now required, while the local JAR remains necessary for item persistence and sound helpers
-
-- Fixed remaining raw hex colors in messages and menus, and MiniMessage colors in scoreboard animations
-
-- Migrated bundled messages and configuration examples to MiniMessage custom hex colors; legacy `&` and `§` color codes are no longer parsed
-- Fixed click event conversion with Adventure `5.x` while preserving compatibility with Paper `1.21.4`
-- Updated PlaceholderAPI to `2.12.3` and aligned Adventure dependencies for recent NMS modules while preserving the Paper `1.21.4` baseline
-- Updated the Discord bot to MySQL Connector/J `26.10.0`, added explicit MariaDB driver selection and startup warnings for MySQL versions older than `8.4`
-- Updated Jedis to `8.0.2` (official Redis support: `7.2+`), preserved RESP2 behavior and fixed Redis pool resource leaks and subscription shutdown
-- Updated the Discord bot to JDA `6.7.0` and adapted buttons, link messages and permission checks for interaction channel snapshots
-- Updated SnakeYAML to `2.7` for the Discord bot and replaced the removed Base64 utility in the PlayerVaultX converter
-- Updated Sarah to `1.26`, added `database-configuration.max-lifetime` and simplified SQLite column migrations
-- Added support for Minecraft/Paper **26.3**; **Paper 1.21.4 is now the minimum supported version**
-- Removed unused Spigot code and simplified Paper integration
-- `/enchant` now uses the server registry, including customs datapack and customs enchants plugin enchantments
-- Improved `/give` and `/giveall` item suggestions
-- Item feedback now follows the player's Minecraft language and preserves custom names
-- Fixed feedback messages for enchantments, hologram text shadows and kick notifications — existing `command-enchant-error-enchant` messages must replace `%name%` with `%enchant%`
-- Fixed duplicate Death Message module registration, version comparisons and incomplete downloads
-- Aligned module versions and cleaned up Gradle metadata, imports and ignore rules
-- Centralized dependency and build plugin versions in `gradle/libs.versions.toml`
-- Updated Gradle to `9.8.2`, Shadow to `9.6.1` and paperweight-userdev to `2.0.0-beta.24`; the 26.x NMS modules now target Java 25
-- Added `Enchantments#getEnchantment(String)` to retrieve Bukkit enchantments directly; the legacy wrapper, `getEnchantments(String)` and `register()` are retained and deprecated for compatibility
+- Added Minecraft/Paper **26.3** support; **Paper 1.21.4 is now the minimum supported version**
+- Removed unused Spigot implementations and simplified Paper integration
+- `/enchant` now uses server registry identifiers, including datapack and plugin enchantments; legacy API methods remain available and deprecated
+- Unified item lookup and suggestions for give, mailbox and vault commands; feedback uses translated item names and preserves custom names
+- Fixed custom item delivery to offline mail recipients and stale custom items after reloads
+- Use the published zMenu **1.1.2.0** API for skulls and kit conversion/saving; the local JAR remains required for item persistence and sound helpers
+- Migrated messages and configuration examples to native MiniMessage hex colors, including scoreboard animations; existing files must replace legacy `&`, `§` and bare hex color codes
+- Fixed MiniMessage text serialization, italic formatting and bold text alignment, and preserved click events with Adventure `5.x`
+- Fixed feedback placeholders, duplicate Death Message registration, version comparisons and incomplete downloads; existing `command-enchant-error-enchant` messages must use `%enchant%`
+- Updated Gradle to `9.8.2`, Shadow to `9.6.1` and paperweight to `2.0.0-beta.24`; centralized dependency versions and retained Java 21 for common code and Java 25 for 26.x NMS
+- Updated PlaceholderAPI to `2.12.3` and aligned Adventure dependencies with recent NMS versions
+- Updated Sarah to `1.26`, added connection `max-lifetime` configuration and simplified SQLite migrations
+- Updated Jedis to `8.0.2` (Redis `7.2+`), fixed pooled connection leaks and cleaned up subscription shutdown
+- Updated the Discord bot to SnakeYAML `2.7`, JDA `6.7.0` and MySQL Connector/J `26.10.0`; added MariaDB selection and MySQL version warnings
+- Aligned module versions and updated issue templates
 
 # 1.0.4.0
 

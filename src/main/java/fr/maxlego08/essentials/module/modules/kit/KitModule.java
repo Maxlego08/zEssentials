@@ -299,7 +299,10 @@ public class KitModule extends ZModule {
             List<MenuItemStack> menuItemStacks = new ArrayList<>();
             for (ItemStack itemStack : event.getInventory().getContents()) {
                 if (itemStack != null) {
-                    menuItemStacks.add(this.plugin.getInventoryManager().toMenuItemStack(itemStack).menuItemStack());
+                    MenuItemStack menuItemStack = this.plugin.getInventoryManager().toMenuItemStack(itemStack).menuItemStack();
+                    // The Base64 fallback defaults to one item; preserve the edited stack size.
+                    menuItemStack.setAmount(String.valueOf(itemStack.getAmount()));
+                    menuItemStacks.add(menuItemStack);
                 }
             }
             kit.setItems(menuItemStacks);

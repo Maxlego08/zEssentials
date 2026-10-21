@@ -33,12 +33,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class PaperComponent extends PlaceholderUtils implements AdventureComponent {
 
@@ -68,59 +65,14 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
     );
 
     private static final MiniMessage MINI_MESSAGE = MiniMessage.builder().tags(TagResolver.builder().resolver(StandardTags.defaults()).build()).build();
-    private static final Map<String, String> NAMED_COLORS = Map.ofEntries(
-            Map.entry("black", "#000000"),
-            Map.entry("dark_blue", "#0000AA"),
-            Map.entry("dark_green", "#00AA00"),
-            Map.entry("dark_aqua", "#00AAAA"),
-            Map.entry("dark_red", "#AA0000"),
-            Map.entry("dark_purple", "#AA00AA"),
-            Map.entry("gold", "#FFAA00"),
-            Map.entry("gray", "#AAAAAA"),
-            Map.entry("dark_gray", "#555555"),
-            Map.entry("blue", "#5555FF"),
-            Map.entry("green", "#55FF55"),
-            Map.entry("aqua", "#55FFFF"),
-            Map.entry("red", "#FF5555"),
-            Map.entry("light_purple", "#FF55FF"),
-            Map.entry("yellow", "#FFFF55"),
-            Map.entry("white", "#FFFFFF")
-    );
-    private static final Pattern COLOR_TAG = Pattern.compile("</?([a-z_]+)>");
-    private static final Pattern HEX_COLOR_TAG = Pattern.compile("</?#([a-fA-F0-9]{6})>");
     private final SimpleCache<String, Component> cache = new SimpleCache<>();
 
     public static String serializeMiniMessage(Component component) {
-        Matcher matcher = COLOR_TAG.matcher(MINI_MESSAGE.serialize(component));
-        StringBuilder result = new StringBuilder();
-        while (matcher.find()) {
-            String color = matcher.group(1);
-            String hex = NAMED_COLORS.get(color);
-            if (hex == null) continue;
-            matcher.appendReplacement(result, Matcher.quoteReplacement(matcher.group().startsWith("</") ? "</c>" : "<c:" + hex + ">"));
-        }
-        matcher.appendTail(result);
-
-        matcher = HEX_COLOR_TAG.matcher(result.toString());
-        result.setLength(0);
-        while (matcher.find()) {
-            matcher.appendReplacement(result, Matcher.quoteReplacement(matcher.group().startsWith("</") ? "</c>" : "<c:#" + matcher.group(1).toUpperCase() + ">"));
-        }
-        matcher.appendTail(result);
-        return result.toString();
-    }
-
-    public PaperComponent() {
-    }
-
-    private TextDecoration.State getState(String text) {
-        return text.contains("<italic>") || text.contains("<i>") || text.contains("<em>") ? TextDecoration.State.TRUE : TextDecoration.State.FALSE;
+        return MINI_MESSAGE.serialize(component);
     }
 
     private void updateDisplayName(ItemMeta itemMeta, String text) {
-        Component component = this.cache.get(text, () -> {
-            return this.MINI_MESSAGE.deserialize(text).decoration(TextDecoration.ITALIC, getState(text)); // We will force the italics in false, otherwise it will activate for no reason
-        });
+        Component component = getComponent(text).decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE);
         itemMeta.displayName(component);
     }
 
@@ -135,9 +87,7 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
     public void update(ItemMeta itemMeta, List<String> lore, Player offlinePlayer) {
         List<Component> components = lore.stream().map(text -> {
             String result = papi(text, offlinePlayer);
-            return this.cache.get(result, () -> {
-                return this.MINI_MESSAGE.deserialize(result).decoration(TextDecoration.ITALIC, getState(result)); // We will force the italics in false, otherwise it will activate for no reason
-            });
+            return getComponent(result).decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE);
         }).collect(Collectors.toList());
         itemMeta.lore(components);
     }

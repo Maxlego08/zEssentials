@@ -4,6 +4,7 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.DefaultFontInfo;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.messages.MessageHelper;
 import fr.maxlego08.essentials.api.messages.MessageType;
 import fr.maxlego08.essentials.api.messages.messages.BossBarMessage;
 import fr.maxlego08.essentials.api.messages.messages.ClassicMessage;
@@ -13,8 +14,6 @@ import fr.maxlego08.essentials.api.utils.component.ComponentMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import net.kyori.adventure.text.minimessage.MiniMessage;
-import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -154,13 +153,7 @@ public abstract class MessageUtils extends PlaceholderUtils {
 
         int CENTER_PX = 154;
 
-        String plainMessage = PlainTextComponentSerializer.plainText().serialize(MiniMessage.miniMessage().deserialize(message));
-
-        int messagePxSize = 0;
-        for (char character : plainMessage.toCharArray()) {
-            DefaultFontInfo fontInfo = DefaultFontInfo.getDefaultFontInfo(character);
-            messagePxSize += fontInfo.getLength() + 1;
-        }
+        int messagePxSize = MessageHelper.getStringLength(message);
 
         int halvedMessageSize = messagePxSize / 2;
         int toCompensate = CENTER_PX - halvedMessageSize;

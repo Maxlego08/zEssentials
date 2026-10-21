@@ -72,7 +72,7 @@ public class ClickEvent {
      * @return The ClickEvent as a MiniMessage formatted string.
      */
     public String toMiniMessage() {
-        return String.format("<click:%s:\"%s\">", this.action, this.value);
+        return String.format("<click:%s:\"%s\">", this.action, this.value.replace("\\", "\\\\").replace("\"", "\\\""));
     }
 
 }

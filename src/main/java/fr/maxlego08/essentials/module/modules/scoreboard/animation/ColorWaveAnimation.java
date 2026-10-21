@@ -54,10 +54,6 @@ public class ColorWaveAnimation extends ScoreboardAnimation {
 
             String colorHex = blendColors(baseColorHex, highlightColorHex, i, highlightIndex, this.configuration.length());
 
-            if (colorHex.length() > 7) {
-                colorHex = this.configuration.fromColor();
-            }
-
             animatedText.append("<c:").append(colorHex).append(">").append(text.charAt(i));
         }
         return animatedText.toString();
