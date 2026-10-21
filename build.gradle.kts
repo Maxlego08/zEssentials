@@ -74,7 +74,9 @@ allprojects {
     }
 
     dependencies {
-        compileOnly(files("libs/zMenu-1.1.1.6.jar"))
+        compileOnly(rootLibs.zmenu.api)
+        // Still needed for item persistence and sound helpers not exposed by the zMenu API.
+        compileOnly(files("libs/zMenu-1.1.2.0.jar"))
 
         compileOnly(rootLibs.sarah)
         compileOnly(rootLibs.folialib)

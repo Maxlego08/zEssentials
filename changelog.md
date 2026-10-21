@@ -29,6 +29,8 @@
 
 # Unreleased
 
+- Use the published zMenu API for skull creation and kit conversion/saving; zMenu `1.1.2.0` is now required, while the local JAR remains necessary for item persistence and sound helpers
+
 - Fixed remaining raw hex colors in messages and menus, and MiniMessage colors in scoreboard animations
 
 - Migrated bundled messages and configuration examples to MiniMessage custom hex colors; legacy `&` and `§` color codes are no longer parsed

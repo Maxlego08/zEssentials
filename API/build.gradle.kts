@@ -8,7 +8,7 @@ rootProject.extra.properties["sha"]?.let { sha ->
 
 dependencies {
     compileOnly(libs.paper.api)
-    compileOnly(files("../libs/zMenu-1.1.1.6.jar"))
+    compileOnly(files("../libs/zMenu-1.1.2.0.jar"))
 
     implementation(libs.sarah)
     implementation(libs.folialib)

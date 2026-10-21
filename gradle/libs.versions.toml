@@ -31,6 +31,7 @@ mysql-connector = "26.10.0"
 mariadb-connector = "3.5.6"
 
 # Integration Hooks
+zmenu-api = "1.1.2.0"
 placeholderapi = "2.12.3"
 blocktracker = "1.0.6"
 mythicmobs = "5.7.2"
@@ -69,6 +70,7 @@ mysql-connector = { group = "com.mysql", name = "mysql-connector-j", version.ref
 mariadb-connector = { group = "org.mariadb.jdbc", name = "mariadb-java-client", version.ref = "mariadb-connector" }
 
 # Integration Hooks
+zmenu-api = { group = "fr.maxlego08.menu", name = "zmenu-api", version.ref = "zmenu-api" }
 placeholderapi = { group = "me.clip", name = "placeholderapi", version.ref = "placeholderapi" }
 blocktracker = { group = "dev.krakenied", name = "blocktracker", version.ref = "blocktracker" }
 mythicmobs = { group = "io.lumine", name = "Mythic-Dist", version.ref = "mythicmobs" }
