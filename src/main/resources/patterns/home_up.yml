@@ -40,4 +40,4 @@ button:
         material: LIGHT_BLUE_BED
         name: "<c:#00A4FC>ʜᴏᴍᴇ %home%"
         lore:
-          - '#fcfcfcClick to teleport to your home'
+          - '<c:#FCFCFC>Click to teleport to your home'

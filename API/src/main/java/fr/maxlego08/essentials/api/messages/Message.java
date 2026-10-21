@@ -510,7 +510,7 @@ public enum Message {
             "",
             "<success>✔ <c:#99E0FF>Welcome %player%<c:#99E0FF> !",
             "",
-            "#858ef8Discord<c:#555555>: <c:#99E0FF><hover:show_text:'<c:#FFFFFF>Join the server #858ef8Discord <c:#FFFFFF>!'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>",
+            "<c:#858EF8>Discord<c:#555555>: <c:#99E0FF><hover:show_text:'<c:#FFFFFF>Join the server <c:#858EF8>Discord <c:#FFFFFF>!'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>",
             "<c:#AAAAAA>Website<c:#555555>: <c:#99E0FF><hover:show_text:'<c:#FFFFFF>Open the Website <c:#FFFFFF>!'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>",
             ""
     ),
@@ -518,7 +518,7 @@ public enum Message {
             "",
             "<c:#99E0FF>Welcome back %player%<c:#99E0FF> !",
             "",
-            "#858ef8Discord<c:#555555>: <c:#99E0FF><hover:show_text:'<c:#FFFFFF>Join the server #858ef8Discord <c:#FFFFFF>!'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>",
+            "<c:#858EF8>Discord<c:#555555>: <c:#99E0FF><hover:show_text:'<c:#FFFFFF>Join the server <c:#858EF8>Discord <c:#FFFFFF>!'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>",
             "<c:#AAAAAA>Website<c:#555555>: <c:#99E0FF><hover:show_text:'<c:#FFFFFF>Open the Website <c:#FFFFFF>!'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>",
             ""
     ),
@@ -784,7 +784,7 @@ public enum Message {
     COMMAND_SEEN_UUID(MessageType.WITHOUT_PREFIX, "<c:#99E0FF>UUID<c:#555555>: <c:#FFFFFF>%uuid%"),
     COMMAND_SEEN_IP(MessageType.WITHOUT_PREFIX, "<c:#99E0FF>IP Address<c:#555555>:<c:#FFFFFF>%ips%"),
     COMMAND_SEEN_LAST_LOCATION(MessageType.WITHOUT_PREFIX, "<c:#99E0FF>Last Location<c:#555555>: <c:#FFFFFF>%world%, %x%, %y%, %z%"),
-    COMMAND_SEEN_FIRST_JOIN(MessageType.WITHOUT_PREFIX, "#99E0FFFirst Join<c:#555555>:<c:#FFFFFF>%created_at%"),
+    COMMAND_SEEN_FIRST_JOIN(MessageType.WITHOUT_PREFIX, "<c:#99E0FF>First Join<c:#555555>:<c:#FFFFFF>%created_at%"),
 
     COMMAND_SEEN_ADDRESS(MessageType.WITHOUT_PREFIX, " <click:run_command:'/seenip %ip%'><hover:show_text:'<c:#FFFFFF>Show players who have the same address'>%ip%</hover></click>"),
 
@@ -1054,15 +1054,15 @@ public enum Message {
     // Death Message Module
     DESCRIPTION_DEATH_MESSAGE("Custom death messages"),
 
-    DEATH_GENERIC("<c:#C084FC>☠ <c:#E9D5FF>%player% #B794F4died."),
+    DEATH_GENERIC("<c:#C084FC>☠ <c:#E9D5FF>%player% <c:#B794F4>died."),
     DEATH_BY_PLAYER("<c:#C084FC>⚔ <c:#E9D5FF>%player% <c:#B794F4>was slain by <c:#E9D5FF>%killer%<c:#B794F4>."),
     DEATH_BY_MOB("<c:#C084FC>☠ <c:#E9D5FF>%player% <c:#B794F4>was killed by <c:#E9D5FF>%killer%<c:#B794F4>."),
     DEATH_BY_PROJECTILE("<c:#C084FC>🏹 <c:#E9D5FF>%player% <c:#B794F4>was shot by <c:#E9D5FF>%killer%<c:#B794F4>."),
     DEATH_BY_MOB_EXPLOSION("<c:#C084FC>💥 <c:#E9D5FF>%player% <c:#B794F4>was blown up by <c:#E9D5FF>%killer%<c:#B794F4>."),
-    DEATH_BY_FALL("<c:#C084FC>⬇ <c:#E9D5FF>%player% #B794F4fell from a high place."),
-    DEATH_BY_FIRE("<c:#C084FC>🔥 <c:#E9D5FF>%player% #B794F4burned to death."),
+    DEATH_BY_FALL("<c:#C084FC>⬇ <c:#E9D5FF>%player% <c:#B794F4>fell from a high place."),
+    DEATH_BY_FIRE("<c:#C084FC>🔥 <c:#E9D5FF>%player% <c:#B794F4>burned to death."),
     DEATH_BY_LAVA("<c:#C084FC>🌋 <c:#E9D5FF>%player% <c:#B794F4>tried to swim in lava."),
-    DEATH_BY_DROWNING("<c:#C084FC>💧 <c:#E9D5FF>%player% #B794F4drowned."),
+    DEATH_BY_DROWNING("<c:#C084FC>💧 <c:#E9D5FF>%player% <c:#B794F4>drowned."),
     DEATH_BY_EXPLOSION("<c:#C084FC>💥 <c:#E9D5FF>%player% <c:#B794F4>was blown up."),
     DEATH_BY_LIGHTNING("<c:#C084FC>⚡ <c:#E9D5FF>%player% <c:#B794F4>was struck by lightning."),
     DEATH_BY_SUFFOCATION("<c:#C084FC>▓ <c:#E9D5FF>%player% <c:#B794F4>suffocated in a wall."),
@@ -1071,20 +1071,20 @@ public enum Message {
     DEATH_BY_MAGIC("<c:#C084FC>✦ <c:#E9D5FF>%player% <c:#B794F4>was killed by magic."),
     DEATH_BY_WITHER("<c:#C084FC>💀 <c:#E9D5FF>%player% <c:#B794F4>withered away."),
     DEATH_BY_FALLING_BLOCK("<c:#C084FC>▼ <c:#E9D5FF>%player% <c:#B794F4>was squashed by a falling block."),
-    DEATH_BY_FLY_INTO_WALL("<c:#C084FC>💨 <c:#E9D5FF>%player% #B794F4experienced kinetic energy."),
-    DEATH_BY_VOID("<c:#C084FC>✧ <c:#E9D5FF>%player% #B794F4fell out of the world."),
+    DEATH_BY_FLY_INTO_WALL("<c:#C084FC>💨 <c:#E9D5FF>%player% <c:#B794F4>experienced kinetic energy."),
+    DEATH_BY_VOID("<c:#C084FC>✧ <c:#E9D5FF>%player% <c:#B794F4>fell out of the world."),
     DEATH_BY_CACTUS("<c:#C084FC>🌵 <c:#E9D5FF>%player% <c:#B794F4>was pricked to death."),
     DEATH_BY_CRAMMING("<c:#C084FC>⊞ <c:#E9D5FF>%player% <c:#B794F4>was squished too much."),
-    DEATH_BY_FREEZE("<c:#C084FC>❄ <c:#E9D5FF>%player% #B794F4froze to death."),
+    DEATH_BY_FREEZE("<c:#C084FC>❄ <c:#E9D5FF>%player% <c:#B794F4>froze to death."),
     DEATH_BY_SONIC_BOOM("<c:#C084FC>◈ <c:#E9D5FF>%player% <c:#B794F4>was obliterated by a sonic boom."),
-    DEATH_BY_MAGMA("<c:#C084FC>♨ <c:#E9D5FF>%player% #B794F4discovered that the floor was lava."),
+    DEATH_BY_MAGMA("<c:#C084FC>♨ <c:#E9D5FF>%player% <c:#B794F4>discovered that the floor was lava."),
     DEATH_BY_THORNS("<c:#C084FC>✵ <c:#E9D5FF>%player% <c:#B794F4>was killed trying to hurt someone."),
     DEATH_BY_CAMPFIRE("<c:#C084FC>🔥 <c:#E9D5FF>%player% <c:#B794F4>walked into a campfire."),
 
     DEATH_HOVER_DETAILS("<c:#D8B4FE>☠ Death Location<c:#B794F4>:\n<c:#E9D5FF>▸ World: <c:#D8B4FE>%world%\n<c:#E9D5FF>▸ Position: <c:#D8B4FE>%x%<c:#E9D5FF>, <c:#D8B4FE>%y%<c:#E9D5FF>, <c:#D8B4FE>%z%\n\n<c:#9F7AEA><italic>Click to teleport"),
 
-    COMMAND_DEATH_MESSAGE_TOGGLE_DISABLE("<c:#C084FC>☠ #B794F4Death messages are now <c:#E9D5FF>hidden #B794F4for %player%<c:#B794F4>."),
-    COMMAND_DEATH_MESSAGE_TOGGLE_ENABLE("<c:#C084FC>☠ #B794F4Death messages are now <c:#E9D5FF>visible #B794F4for %player%<c:#B794F4>."),
+    COMMAND_DEATH_MESSAGE_TOGGLE_DISABLE("<c:#C084FC>☠ <c:#B794F4>Death messages are now <c:#E9D5FF>hidden <c:#B794F4>for %player%<c:#B794F4>."),
+    COMMAND_DEATH_MESSAGE_TOGGLE_ENABLE("<c:#C084FC>☠ <c:#B794F4>Death messages are now <c:#E9D5FF>visible <c:#B794F4>for %player%<c:#B794F4>."),
     DESCRIPTION_DEATH_MESSAGE_TOGGLE("Toggle death messages visibility"),
 
     // Death messages used by DeathMessageModule (fallback messages when no custom config is set)

@@ -253,7 +253,7 @@ first-join-motd:
 - ''
 - "<c:#00FF00>✔ <c:#99E0FF>欢迎 %player%<c:#99E0FF> ！"
 - ''
-- "#858ef8Discord<c:#555555>: <c:#99E0FF><hover:show_text:'<c:#FFFFFF>加入服务器 #858ef8Discord <c:#FFFFFF>！'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>"
+- "<c:#858EF8>Discord<c:#555555>: <c:#99E0FF><hover:show_text:'<c:#FFFFFF>加入服务器 <c:#858EF8>Discord <c:#FFFFFF>！'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>"
 - "<c:#AAAAAA>网站<c:#555555>: <c:#99E0FF><hover:show_text:'<c:#FFFFFF>打开网站 <c:#FFFFFF>！'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>"
 - ''
 
@@ -261,7 +261,7 @@ join-motd:
 - ''
 - "<c:#99E0FF>欢迎回来 %player%<c:#99E0FF>！"
 - ''
-- "#858ef8Discord<c:#555555>: <c:#99E0FF><hover:show_text:'<c:#FFFFFF>加入服务器 #858ef8Discord <c:#FFFFFF>！'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>"
+- "<c:#858EF8>Discord<c:#555555>: <c:#99E0FF><hover:show_text:'<c:#FFFFFF>加入服务器 <c:#858EF8>Discord <c:#FFFFFF>！'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>"
 - "<c:#AAAAAA>网站<c:#555555>: <c:#99E0FF><hover:show_text:'<c:#FFFFFF>打开网站 <c:#FFFFFF>！'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>"
 - ''
 

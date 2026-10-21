@@ -27,9 +27,9 @@ items:
         - "<c:#3F3F3F>• <c:#AAAAAA>Select two positions for"
         - "<c:#3F3F3F>• <c:#AAAAAA>place or destroy blocks"
         - ''
-        - "<c:#3F3F3F>• <c:#AAAAAA>Max Blocks<c:#3F3F3F>: #4cd5ff500"
-        - "<c:#3F3F3F>• <c:#AAAAAA>Max Distance<c:#3F3F3F>: #4cd5ff20"
-        - "<c:#3F3F3F>• <c:#AAAAAA>Use<c:#3F3F3F>: <c:#4CD5FF>%use%<c:#3F3F3F>/#4cf8ff50"
+        - "<c:#3F3F3F>• <c:#AAAAAA>Max Blocks<c:#3F3F3F>: <c:#4CD5FF>500"
+        - "<c:#3F3F3F>• <c:#AAAAAA>Max Distance<c:#3F3F3F>: <c:#4CD5FF>20"
+        - "<c:#3F3F3F>• <c:#AAAAAA>Use<c:#3F3F3F>: <c:#4CD5FF>%use%<c:#3F3F3F>/<c:#4CF8FF>50"
         - ''
   - name: admin-Wand
     display-name: "Admin Wand"

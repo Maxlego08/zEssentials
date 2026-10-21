@@ -143,10 +143,10 @@ command-bottom-error: "<error>Impossible de trouver une position pour vous tél�
 command-remove: "<c:#AAAAAA>Supprimé <success>%amount% <c:#AAAAAA>entités."
 command-seen-offline:
   type: WITHOUT_PREFIX
-  message: "<c:#99E0FF>Le joueur <c:#FFFFFF>%player% #99E0FFa été <error>hors ligne #99E0FFdepuis <c:#AAAAAA>%date%<c:#99E0FF>."
+  message: "<c:#99E0FF>Le joueur <c:#FFFFFF>%player% <c:#99E0FF>a été <error>hors ligne <c:#99E0FF>depuis <c:#AAAAAA>%date%<c:#99E0FF>."
 command-seen-online:
   type: WITHOUT_PREFIX
-  message: "<c:#99E0FF>Le joueur <c:#FFFFFF>%player% #99E0FFest <success>en ligne #99E0FFdepuis %date%<c:#99E0FF>."
+  message: "<c:#99E0FF>Le joueur <c:#FFFFFF>%player% <c:#99E0FF>est <success>en ligne <c:#99E0FF>depuis %date%<c:#99E0FF>."
 command-seen-playtime:
   type: WITHOUT_PREFIX
   message: "<c:#99E0FF>Temps de jeu<c:#555555>: <c:#FFFFFF>%playtime%"
@@ -155,14 +155,14 @@ command-seen-uuid:
   message: "<c:#99E0FF>UUID<c:#555555>: <c:#FFFFFF>%uuid%"
 command-seen-ip:
   type: WITHOUT_PREFIX
-  message: "#99E0FFAdresse IP<c:#555555>:<c:#FFFFFF>%ips%"
+  message: "<c:#99E0FF>Adresse IP<c:#555555>:<c:#FFFFFF>%ips%"
 command-seen-address: " <click:run_command:'/seenip %ip%'><hover:show_text:'<c:#FFFFFF>Afficher les joueurs qui ont la même adresse'>%ip%</hover></click>"
 command-seen-ip-empty: "<error>Impossible de trouver des joueurs avec l'adresse IP <c:#FFFFFF>%ip%<error>."
 command-seen-ip-line: "<c:#99E0FF>Joueurs avec l'adresse IP <c:#FFFFFF>%ip%<c:#555555>:%players%"
 command-seen-ip-info: " <c:#FFFFFF><click:run_command:'/seen %name%'><hover:show_text:'<c:#FFFFFF>Afficher les informations du joueur'>%name%</hover></click><c:#555555>"
 command-seen-last-location:
   type: WITHOUT_PREFIX
-  message: "#99E0FFDernière position<c:#555555>: <c:#FFFFFF>%world%, %x%, %y%, %z%"
+  message: "<c:#99E0FF>Dernière position<c:#555555>: <c:#FFFFFF>%world%, %x%, %y%, %z%"
 command-seen-first-join:
   type: WITHOUT_PREFIX
   message: "<c:#99E0FF>Première connexion<c:#555555>:<c:#FFFFFF>%created_at%"
@@ -172,12 +172,12 @@ command-seen-first-join:
 command-economy-not-found: "<error>Impossible de trouver une économie avec le nom <c:#FFFFFF>%name%<error>."
 command-economy-reset-all-confirm: "<error>Vous êtes sur le point de réinitialiser tous les soldes pour <c:#FFFFFF>%economy%<error>. Exécutez à nouveau la commande dans <c:#FFFFFF>%seconds% secondes<error> pour confirmer."
 command-economy-reset-all-success: "<c:#99E0FF>Vous avez réinitialisé tous les soldes pour <c:#FFFFFF>%economy%<c:#99E0FF>."
-command-economy-give-all-sender: "<c:#99E0FF>Vous venez de donner <c:#FFFFFF>%economyFormat% #99E0FFaux joueurs en ligne."
-command-economy-give-sender: "<c:#99E0FF>Vous venez de donner <c:#FFFFFF>%economyFormat% #99E0FFau joueur <c:#AAAAAA>%player%<c:#99E0FF>."
+command-economy-give-all-sender: "<c:#99E0FF>Vous venez de donner <c:#FFFFFF>%economyFormat% <c:#99E0FF>aux joueurs en ligne."
+command-economy-give-sender: "<c:#99E0FF>Vous venez de donner <c:#FFFFFF>%economyFormat% <c:#99E0FF>au joueur <c:#AAAAAA>%player%<c:#99E0FF>."
 command-economy-give-receiver: "<c:#99E0FF>Vous venez de recevoir <c:#FFFFFF>%economyFormat%."
-command-economy-set-sender: "<c:#99E0FF>Vous venez de définir <c:#FFFFFF>%economyFormat% #99E0FFau joueur <c:#AAAAAA>%player%<c:#99E0FF>."
+command-economy-set-sender: "<c:#99E0FF>Vous venez de définir <c:#FFFFFF>%economyFormat% <c:#99E0FF>au joueur <c:#AAAAAA>%player%<c:#99E0FF>."
 command-economy-set-receiver: "<c:#99E0FF>Votre solde a été modifié en <c:#FFFFFF>%economyFormat%."
-command-economy-take-sender: "<c:#99E0FF>Vous venez de prendre <c:#FFFFFF>%economyFormat% #99E0FFau joueur <c:#AAAAAA>%player%<c:#99E0FF>."
+command-economy-take-sender: "<c:#99E0FF>Vous venez de prendre <c:#FFFFFF>%economyFormat% <c:#99E0FF>au joueur <c:#AAAAAA>%player%<c:#99E0FF>."
 command-economy-take-receiver: "<c:#99E0FF>Vous venez de perdre <c:#FFFFFF>%economyFormat%."
 command-economy-show-empty: "<c:#FFFFFF>%player% <error>n'a pas d'argent."
 command-economy-show-info: "<c:#AAAAAA>- <c:#99E0FF>%economy% <c:#FFFFFF>%amount%."
@@ -212,7 +212,7 @@ command-tpa-sender:
   - "  <hover:show_text:'<error>✘ Annuler la téléportation'><click:run_command:/tpacancel %player%><c:#99E0FF>Tapez <success>/tpacancel %player%<c:#99E0FF> pour annuler votre demande.</click></hover>"
 command-tpa-receiver:
   - ""
-  - "<c:#F8F327>⚠ <c:#FFFFFF>%displayName% #99E0FFa demandé à se téléporter vers vous !"
+  - "<c:#F8F327>⚠ <c:#FFFFFF>%displayName% <c:#99E0FF>a demandé à se téléporter vers vous !"
   - "  <hover:show_text:'<success>✔ Accepter la téléportation'><click:run_command:/tpaccept><c:#99E0FF>Tapez <success>/tpaccept <c:#99E0FF>pour <success><u>accepter</u><c:#99E0FF>.</click></hover>"
   - "  <hover:show_text:'<error>✘ Refuser la téléportation'><click:run_command:/tpdeny><c:#99E0FF>Tapez <error>/tpdeny <c:#99E0FF>pour <error><u>refuser</u><c:#99E0FF>.</click></hover>"
   - ""
@@ -222,7 +222,7 @@ command-tpa-here-sender:
   - "  <hover:show_text:'<error>✘ Annuler la téléportation'><click:run_command:/tpacancel %player%><c:#99E0FF>Tapez <success>/tpacancel %player%<c:#99E0FF> pour annuler votre demande.</click></hover>"
 command-tpa-here-receiver:
   - ""
-  - "<c:#F8F327>⚠ <c:#FFFFFF>%displayName% #99E0FFa demandé à vous téléporter vers lui !"
+  - "<c:#F8F327>⚠ <c:#FFFFFF>%displayName% <c:#99E0FF>a demandé à vous téléporter vers lui !"
   - "  <hover:show_text:'<success>✔ Accepter la téléportation'><click:run_command:/tpaccept><c:#99E0FF>Tapez <success>/tpaccept <c:#99E0FF>pour <success><u>accepter</u><c:#99E0FF>.</click></hover>"
   - "  <hover:show_text:'<error>✘ Refuser la téléportation'><click:run_command:/tpdeny><c:#99E0FF>Tapez <error>/tpdeny <c:#99E0FF>pour <error><u>refuser</u><c:#99E0FF>.</click></hover>"
   - ""
@@ -264,17 +264,17 @@ quit-message: "<c:#99E0FF>%player% <c:#AAAAAA>a quitté la partie."
 first-join-message: "<c:#AAAAAA>Bienvenue <c:#99E0FF>%player% <c:#AAAAAA>sur <nom de votre serveur>! <c:#555555>(<c:#FFFFFF>%totalUserFormat% <c:#AAAAAA>joueurs enregistrés<c:#555555>)"
 first-join-motd:
   - ""
-  - "<success>✔ #99E0FFBienvenue %player%<c:#99E0FF> !"
+  - "<success>✔ <c:#99E0FF>Bienvenue %player%<c:#99E0FF> !"
   - ""
-  - "#858ef8Discord<c:#555555>: <c:#99E0FF><hover:show_text:'<c:#FFFFFF>Rejoignez le serveur #858ef8Discord <c:#FFFFFF>!'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>"
+  - "<c:#858EF8>Discord<c:#555555>: <c:#99E0FF><hover:show_text:'<c:#FFFFFF>Rejoignez le serveur <c:#858EF8>Discord <c:#FFFFFF>!'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>"
   - "<c:#AAAAAA>Site Web<c:#555555>: <c:#99E0FF><hover:show_text:'<c:#FFFFFF>Ouvrez le site Web <c:#FFFFFF>!'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>"
   - ""
 
 join-motd:
   - ""
-  - "#99E0FFBon retour parmi nous %player%<c:#99E0FF> !"
+  - "<c:#99E0FF>Bon retour parmi nous %player%<c:#99E0FF> !"
   - ""
-  - "#858ef8Discord<c:#555555>: <c:#99E0FF><hover:show_text:'<c:#FFFFFF>Rejoignez le serveur #858ef8Discord <c:#FFFFFF>!'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>"
+  - "<c:#858EF8>Discord<c:#555555>: <c:#99E0FF><hover:show_text:'<c:#FFFFFF>Rejoignez le serveur <c:#858EF8>Discord <c:#FFFFFF>!'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>"
   - "<c:#AAAAAA>Site Web<c:#555555>: <c:#99E0FF><hover:show_text:'<c:#FFFFFF>Ouvrez le site Web <c:#FFFFFF>!'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>"
   - ""
 
@@ -648,19 +648,19 @@ command-home-error-teleport: "<error>Impossible de trouver la position pour le t
 # Sanctions
 command-kick-notify:
   type: WITHOUT_PREFIX
-  message: "<hover:show_text:'<c:#AAAAAA>Par : <c:#FFFFFF>%sender%<newline><c:#AAAAAA>Durée : <c:#FFFFFF>%duration%<newline><c:#AAAAAA>Raison : <c:#FFFFFF>%reason%<newline><c:#AAAAAA>Date : <c:#FFFFFF>%created_at%'><click:run_command:'/sc %target%'><c:#555555>(<c:#F59E07>Sanction<c:#555555>) <c:#8AEBEB>%player% #e33414a kické le joueur <c:#E0D12D>%target%<c:#E33414>.</click></hover>"
+  message: "<hover:show_text:'<c:#AAAAAA>Par : <c:#FFFFFF>%sender%<newline><c:#AAAAAA>Durée : <c:#FFFFFF>%duration%<newline><c:#AAAAAA>Raison : <c:#FFFFFF>%reason%<newline><c:#AAAAAA>Date : <c:#FFFFFF>%created_at%'><click:run_command:'/sc %target%'><c:#555555>(<c:#F59E07>Sanction<c:#555555>) <c:#8AEBEB>%player% <c:#E33414>a kické le joueur <c:#E0D12D>%target%<c:#E33414>.</click></hover>"
 command-ban-notify:
   type: WITHOUT_PREFIX
-  message: "<hover:show_text:'<c:#AAAAAA>Par : <c:#FFFFFF>%sender%<newline><c:#AAAAAA>Durée : <c:#FFFFFF>%duration%<newline><c:#AAAAAA>Raison : <c:#FFFFFF>%reason%<newline><c:#AAAAAA>Date : <c:#FFFFFF>%created_at%<newline><c:#AAAAAA>Expire : <c:#FFFFFF>%expired_at%'><click:run_command:'/sc %target%'><c:#555555>(<c:#F59E07>Sanction<c:#555555>) <c:#8AEBEB>%player% #e33414a banni le joueur <c:#E0D12D>%target%<c:#E33414>.</click></hover>"
+  message: "<hover:show_text:'<c:#AAAAAA>Par : <c:#FFFFFF>%sender%<newline><c:#AAAAAA>Durée : <c:#FFFFFF>%duration%<newline><c:#AAAAAA>Raison : <c:#FFFFFF>%reason%<newline><c:#AAAAAA>Date : <c:#FFFFFF>%created_at%<newline><c:#AAAAAA>Expire : <c:#FFFFFF>%expired_at%'><click:run_command:'/sc %target%'><c:#555555>(<c:#F59E07>Sanction<c:#555555>) <c:#8AEBEB>%player% <c:#E33414>a banni le joueur <c:#E0D12D>%target%<c:#E33414>.</click></hover>"
 command-mute-notify:
   type: WITHOUT_PREFIX
-  message: "<hover:show_text:'<c:#AAAAAA>Par : <c:#FFFFFF>%sender%<newline><c:#AAAAAA>Durée : <c:#FFFFFF>%duration%<newline><c:#AAAAAA>Raison : <c:#FFFFFF>%reason%<newline><c:#AAAAAA>Date : <c:#FFFFFF>%created_at%<newline><c:#AAAAAA>Expire : <c:#FFFFFF>%expired_at%'><click:run_command:'/sc %target%'><c:#555555>(<c:#F59E07>Sanction<c:#555555>) <c:#8AEBEB>%player% #e33414a rendu muet le joueur <c:#E0D12D>%target%<c:#E33414>.</click></hover>"
+  message: "<hover:show_text:'<c:#AAAAAA>Par : <c:#FFFFFF>%sender%<newline><c:#AAAAAA>Durée : <c:#FFFFFF>%duration%<newline><c:#AAAAAA>Raison : <c:#FFFFFF>%reason%<newline><c:#AAAAAA>Date : <c:#FFFFFF>%created_at%<newline><c:#AAAAAA>Expire : <c:#FFFFFF>%expired_at%'><click:run_command:'/sc %target%'><c:#555555>(<c:#F59E07>Sanction<c:#555555>) <c:#8AEBEB>%player% <c:#E33414>a rendu muet le joueur <c:#E0D12D>%target%<c:#E33414>.</click></hover>"
 command-unmute-notify:
   type: WITHOUT_PREFIX
-  message: "<hover:show_text:'<c:#AAAAAA>Par : <c:#FFFFFF>%sender%<newline><c:#AAAAAA>Durée : <c:#FFFFFF>%duration%<newline><c:#AAAAAA>Raison : <c:#FFFFFF>%reason%<newline><c:#AAAAAA>Date : <c:#FFFFFF>%created_at%'><click:run_command:'/sc %target%'><c:#555555>(<c:#F59E07>Sanction<c:#555555>) <c:#8AEBEB>%player% #e33414a rendu la parole au joueur <c:#E0D12D>%target%<c:#E33414>.</click></hover>"
+  message: "<hover:show_text:'<c:#AAAAAA>Par : <c:#FFFFFF>%sender%<newline><c:#AAAAAA>Durée : <c:#FFFFFF>%duration%<newline><c:#AAAAAA>Raison : <c:#FFFFFF>%reason%<newline><c:#AAAAAA>Date : <c:#FFFFFF>%created_at%'><click:run_command:'/sc %target%'><c:#555555>(<c:#F59E07>Sanction<c:#555555>) <c:#8AEBEB>%player% <c:#E33414>a rendu la parole au joueur <c:#E0D12D>%target%<c:#E33414>.</click></hover>"
 command-unban-notify:
   type: WITHOUT_PREFIX
-  message: "<hover:show_text:'<c:#AAAAAA>Par : <c:#FFFFFF>%sender%<newline><c:#AAAAAA>Durée : <c:#FFFFFF>%duration%<newline><c:#AAAAAA>Raison : <c:#FFFFFF>%reason%<newline><c:#AAAAAA>Date : <c:#FFFFFF>%created_at%'><click:run_command:'/sc %target%'><c:#555555>(<c:#F59E07>Sanction<c:#555555>) <c:#8AEBEB>%player% #e33414a débanni le joueur <c:#E0D12D>%target%<c:#E33414>.</click></hover>"
+  message: "<hover:show_text:'<c:#AAAAAA>Par : <c:#FFFFFF>%sender%<newline><c:#AAAAAA>Durée : <c:#FFFFFF>%duration%<newline><c:#AAAAAA>Raison : <c:#FFFFFF>%reason%<newline><c:#AAAAAA>Date : <c:#FFFFFF>%created_at%'><click:run_command:'/sc %target%'><c:#555555>(<c:#F59E07>Sanction<c:#555555>) <c:#8AEBEB>%player% <c:#E33414>a débanni le joueur <c:#E0D12D>%target%<c:#E33414>.</click></hover>"
 command-ban-error-duration: "<error>La durée d'un bannissement doit être d'au moins 1 seconde."
 command-mute-error-duration: "<error>La durée d'un mute doit être d'au moins 1 seconde."
 command-un-mute-error: "<c:#FFFFFF>%player% <error>n'est pas muet."
@@ -924,9 +924,9 @@ vault-lore:
   - "<c:#FFFFFF>ɪɴғᴏʀᴍᴀᴛɪᴏɴs"
   - " <c:#F8B175>• <c:#AAAAAA>Quantité<c:#555555>: <c:#FFFF55>%quantity%"
   - ""
-  - "<c:#FFFFFF><b>➥</b> #fc99f8Clic gauche <c:#AAAAAA>pour prendre 1"
-  - "<c:#FFFFFF><b>➥</b> #fc99f8Clic droit <c:#AAAAAA>pour prendre 64"
-  - "<c:#FFFFFF><b>➥</b> #fc99f8Clic droit + sneaky <c:#AAAAAA>pour tout prendre"
+  - "<c:#FFFFFF><b>➥</b> <c:#FC99F8>Clic gauche <c:#AAAAAA>pour prendre 1"
+  - "<c:#FFFFFF><b>➥</b> <c:#FC99F8>Clic droit <c:#AAAAAA>pour prendre 64"
+  - "<c:#FFFFFF><b>➥</b> <c:#FC99F8>Clic droit + sneaky <c:#AAAAAA>pour tout prendre"
 command-vault-not-found: "<error>Impossible de trouver le coffre <c:#FFFFFF>%vaultId%<error>."
 command-vault-no-permission: "<error>Vous n'avez pas la permission de voir ce coffre."
 command-vault-set-slot: "<success>Vous venez de définir le slot de <c:#FFFFFF>%player% <success>à <c:#AAAAAA>%slots%<success>."
@@ -1074,36 +1074,36 @@ command-itemframe-not-found: "<error>Aucun cadre trouvé. Regardez un cadre et r
 # Module de messages de mort
 description-death-message: "Messages de mort personnalisés"
 description-death-message-toggle: "Activer/désactiver la visibilité des messages de mort"
-command-death-message-toggle-disable: "<c:#C084FC>☠ <c:#B794F4>Les messages de mort sont maintenant #E9D5FFcachés <c:#B794F4>pour %player%<c:#B794F4>."
+command-death-message-toggle-disable: "<c:#C084FC>☠ <c:#B794F4>Les messages de mort sont maintenant <c:#E9D5FF>cachés <c:#B794F4>pour %player%<c:#B794F4>."
 command-death-message-toggle-enable: "<c:#C084FC>☠ <c:#B794F4>Les messages de mort sont maintenant <c:#E9D5FF>visibles <c:#B794F4>pour %player%<c:#B794F4>."
 
 # Messages de mort (détaillés)
-death-generic: "<c:#C084FC>☠ <c:#E9D5FF>%player% #B794F4est mort."
-death-by-player: "<c:#C084FC>⚔ <c:#E9D5FF>%player% #B794F4a été tué par <c:#E9D5FF>%killer%<c:#B794F4>."
-death-by-mob: "<c:#C084FC>☠ <c:#E9D5FF>%player% #B794F4a été tué par <c:#E9D5FF>%killer%<c:#B794F4>."
-death-by-projectile: "<c:#C084FC>🏹 <c:#E9D5FF>%player% #B794F4a été abattu par <c:#E9D5FF>%killer%<c:#B794F4>."
-death-by-mob-explosion: "<c:#C084FC>💥 <c:#E9D5FF>%player% #B794F4a été explosé par <c:#E9D5FF>%killer%<c:#B794F4>."
-death-by-fall: "<c:#C084FC>⬇ <c:#E9D5FF>%player% #B794F4est tombé de haut."
-death-by-fire: "<c:#C084FC>🔥 <c:#E9D5FF>%player% #B794F4a brûlé vif."
-death-by-lava: "<c:#C084FC>🌋 <c:#E9D5FF>%player% #B794F4a essayé de nager dans la lave."
+death-generic: "<c:#C084FC>☠ <c:#E9D5FF>%player% <c:#B794F4>est mort."
+death-by-player: "<c:#C084FC>⚔ <c:#E9D5FF>%player% <c:#B794F4>a été tué par <c:#E9D5FF>%killer%<c:#B794F4>."
+death-by-mob: "<c:#C084FC>☠ <c:#E9D5FF>%player% <c:#B794F4>a été tué par <c:#E9D5FF>%killer%<c:#B794F4>."
+death-by-projectile: "<c:#C084FC>🏹 <c:#E9D5FF>%player% <c:#B794F4>a été abattu par <c:#E9D5FF>%killer%<c:#B794F4>."
+death-by-mob-explosion: "<c:#C084FC>💥 <c:#E9D5FF>%player% <c:#B794F4>a été explosé par <c:#E9D5FF>%killer%<c:#B794F4>."
+death-by-fall: "<c:#C084FC>⬇ <c:#E9D5FF>%player% <c:#B794F4>est tombé de haut."
+death-by-fire: "<c:#C084FC>🔥 <c:#E9D5FF>%player% <c:#B794F4>a brûlé vif."
+death-by-lava: "<c:#C084FC>🌋 <c:#E9D5FF>%player% <c:#B794F4>a essayé de nager dans la lave."
 death-by-drowning: "<c:#C084FC>💧 <c:#E9D5FF>%player% <c:#B794F4>s'est noyé."
-death-by-explosion: "<c:#C084FC>💥 <c:#E9D5FF>%player% #B794F4a explosé."
-death-by-lightning: "<c:#C084FC>⚡ <c:#E9D5FF>%player% #B794F4a été frappé par la foudre."
-death-by-suffocation: "<c:#C084FC>▓ <c:#E9D5FF>%player% #B794F4a suffoqué dans un mur."
-death-by-starvation: "<c:#C084FC>🍖 <c:#E9D5FF>%player% #B794F4est mort de faim."
-death-by-poison: "<c:#C084FC>☣ <c:#E9D5FF>%player% #B794F4a été empoisonné."
-death-by-magic: "<c:#C084FC>✦ <c:#E9D5FF>%player% #B794F4a été tué par magie."
+death-by-explosion: "<c:#C084FC>💥 <c:#E9D5FF>%player% <c:#B794F4>a explosé."
+death-by-lightning: "<c:#C084FC>⚡ <c:#E9D5FF>%player% <c:#B794F4>a été frappé par la foudre."
+death-by-suffocation: "<c:#C084FC>▓ <c:#E9D5FF>%player% <c:#B794F4>a suffoqué dans un mur."
+death-by-starvation: "<c:#C084FC>🍖 <c:#E9D5FF>%player% <c:#B794F4>est mort de faim."
+death-by-poison: "<c:#C084FC>☣ <c:#E9D5FF>%player% <c:#B794F4>a été empoisonné."
+death-by-magic: "<c:#C084FC>✦ <c:#E9D5FF>%player% <c:#B794F4>a été tué par magie."
 death-by-wither: "<c:#C084FC>💀 <c:#E9D5FF>%player% <c:#B794F4>s'est flétri."
-death-by-falling-block: "<c:#C084FC>▼ <c:#E9D5FF>%player% #B794F4a été écrasé par un bloc."
-death-by-fly-into-wall: "<c:#C084FC>💨 <c:#E9D5FF>%player% #B794F4a expérimenté l'énergie cinétique."
-death-by-void: "<c:#C084FC>✧ <c:#E9D5FF>%player% #B794F4est tombé dans le vide."
+death-by-falling-block: "<c:#C084FC>▼ <c:#E9D5FF>%player% <c:#B794F4>a été écrasé par un bloc."
+death-by-fly-into-wall: "<c:#C084FC>💨 <c:#E9D5FF>%player% <c:#B794F4>a expérimenté l'énergie cinétique."
+death-by-void: "<c:#C084FC>✧ <c:#E9D5FF>%player% <c:#B794F4>est tombé dans le vide."
 death-by-cactus: "<c:#C084FC>🌵 <c:#E9D5FF>%player% <c:#B794F4>s'est piqué à mort."
-death-by-cramming: "<c:#C084FC>⊞ <c:#E9D5FF>%player% #B794F4a été écrasé."
-death-by-freeze: "<c:#C084FC>❄ <c:#E9D5FF>%player% #B794F4est mort de froid."
-death-by-sonic-boom: "<c:#C084FC>◈ <c:#E9D5FF>%player% #B794F4a été oblitéré par une onde sonique."
-death-by-magma: "<c:#C084FC>♨ <c:#E9D5FF>%player% #B794F4a découvert que le sol était de la lave."
-death-by-thorns: "<c:#C084FC>✵ <c:#E9D5FF>%player% #B794F4a été tué en essayant de blesser quelqu'un."
-death-by-campfire: "<c:#C084FC>🔥 <c:#E9D5FF>%player% #B794F4a marché dans un feu de camp."
+death-by-cramming: "<c:#C084FC>⊞ <c:#E9D5FF>%player% <c:#B794F4>a été écrasé."
+death-by-freeze: "<c:#C084FC>❄ <c:#E9D5FF>%player% <c:#B794F4>est mort de froid."
+death-by-sonic-boom: "<c:#C084FC>◈ <c:#E9D5FF>%player% <c:#B794F4>a été oblitéré par une onde sonique."
+death-by-magma: "<c:#C084FC>♨ <c:#E9D5FF>%player% <c:#B794F4>a découvert que le sol était de la lave."
+death-by-thorns: "<c:#C084FC>✵ <c:#E9D5FF>%player% <c:#B794F4>a été tué en essayant de blesser quelqu'un."
+death-by-campfire: "<c:#C084FC>🔥 <c:#E9D5FF>%player% <c:#B794F4>a marché dans un feu de camp."
 death-hover-details: "<c:#D8B4FE>☠ Lieu de mort<c:#B794F4>:\n<c:#E9D5FF>▸ Monde: <c:#D8B4FE>%world%\n<c:#E9D5FF>▸ Position: <c:#D8B4FE>%x%<c:#E9D5FF>, <c:#D8B4FE>%y%<c:#E9D5FF>, <c:#D8B4FE>%z%\n\n<c:#9F7AEA><italic>Cliquez pour vous téléporter"
 
 # Messages de mort (fallback quand aucune config personnalisée n'est définie)

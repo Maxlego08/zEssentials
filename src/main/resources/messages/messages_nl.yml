@@ -166,7 +166,7 @@ command-seen-last-location:
   message: "<c:#99E0FF>Laatste locatie<c:#555555>: <c:#FFFFFF>%world%, %x%, %y%, %z%"
 command-seen-first-join:
   type: WITHOUT_PREFIX
-  message: "#99E0FFEerste join<c:#555555>:<c:#FFFFFF>%created_at%"
+  message: "<c:#99E0FF>Eerste join<c:#555555>:<c:#FFFFFF>%created_at%"
 
 # Economie
 command-economy-not-found: "<error>Kan geen economie vinden met de naam <c:#FFFFFF>%name%<error>."
@@ -264,7 +264,7 @@ first-join-motd:
   - ""
   - "<c:#00FF00>✔ <c:#99E0FF>Welkom %player%<c:#99E0FF> !"
   - ""
-  - "#858ef8Discord<c:#555555>: <c:#99E0FF><hover:show_text:'<c:#FFFFFF>Word lid van de Discord <c:#858EF8> <c:#FFFFFF>!'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>"
+  - "<c:#858EF8>Discord<c:#555555>: <c:#99E0FF><hover:show_text:'<c:#FFFFFF>Word lid van de Discord <c:#858EF8> <c:#FFFFFF>!'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>"
   - "<c:#AAAAAA>Website<c:#555555>: <c:#99E0FF><hover:show_text:'<c:#FFFFFF>Bezoek de Website <c:#FFFFFF>!'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>"
   - ""
 
@@ -272,7 +272,7 @@ join-motd:
   - ""
   - "<c:#99E0FF>Welkom terug %player%<c:#99E0FF> !"
   - ""
-  - "#858ef8Discord<c:#555555>: <c:#99E0FF><hover:show_text:'<c:#FFFFFF>Word lid van de Discord <c:#858EF8> <c:#FFFFFF>!'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>"
+  - "<c:#858EF8>Discord<c:#555555>: <c:#99E0FF><hover:show_text:'<c:#FFFFFF>Word lid van de Discord <c:#858EF8> <c:#FFFFFF>!'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>"
   - "<c:#AAAAAA>Website<c:#555555>: <c:#99E0FF><hover:show_text:'<c:#FFFFFF>Bezoek de Website <c:#FFFFFF>!'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>"
   - ""
 
@@ -654,12 +654,12 @@ command-home-icon-reset: "<c:#00FF00>Je hebt het home-pictogram <c:#FFFFFF>%name
 command-home-delete: "<c:#99E0FF>Je hebt de home <c:#FFFFFF>%name% <c:#99E0FF>verwijderd."
 command-home-delete-confirm:
   - ""
-  - "#99E0FFBen je zeker dat je de home <c:#FFFFFF>%name%<c:#99E0FF> wil verwijderen?"
+  - "<c:#99E0FF>Ben je zeker dat je de home <c:#FFFFFF>%name%<c:#99E0FF> wil verwijderen?"
   - "<success><hover:show_text:'<c:#FFFFFF>Klik om de home %name% te verwijderen'><click:run_command:'/delhomeconfirm %name%'>ᴄᴏɴғɪʀᴍ</click></hover>"
   - ""
 command-home-error-teleport: "<error>Kan geen positie vinden om te teleporteren, verwijder je home."
 command-home-admin-delete: "<c:#00FF00>Je hebt de home <c:#FFFFFF>%name% <c:#00FF00>van <c:#55FFFF>%player% <c:#00FF00>verwijderd."
-command-home-admin-set: "<c:#00FF00>Je hebt de home <c:#FFFFFF>%name% <c:#00FF00>van <c:#55FFFF>%player% #00ff00aangemaakt."
+command-home-admin-set: "<c:#00FF00>Je hebt de home <c:#FFFFFF>%name% <c:#00FF00>van <c:#55FFFF>%player% <c:#00FF00>aangemaakt."
 command-home-admin-list: "<c:#8CC0CC>%player%'s ʜᴏᴍᴇs<c:#555555>:<c:#FFFFFF>%homes%"
 command-home-admin-list-empty: "<error>De speler heeft geen home."
 command-home-admin-list-info: " <hover:show_text:'<c:#AAAAAA>Klik om te teleporteren naar home <c:#FFFFFF><underlined>%name%'><click:run_command:'/home %player%:%name%'><c:#FFFFFF>%name%</click></hover><c:#AAAAAA>"
@@ -1101,8 +1101,8 @@ command-itemframe-not-found: "<error>Geen itemframe gevonden. Kijk naar een item
 # Doodsberichten module
 description-death-message: "Aangepaste doodsberichten"
 description-death-message-toggle: "Doodsberichten zichtbaarheid wisselen"
-command-death-message-toggle-disable: "<c:#C084FC>☠ #B794F4Doodsberichten zijn nu <c:#E9D5FF>verborgen <c:#B794F4>voor %player%<c:#B794F4>."
-command-death-message-toggle-enable: "<c:#C084FC>☠ #B794F4Doodsberichten zijn nu <c:#E9D5FF>zichtbaar <c:#B794F4>voor %player%<c:#B794F4>."
+command-death-message-toggle-disable: "<c:#C084FC>☠ <c:#B794F4>Doodsberichten zijn nu <c:#E9D5FF>verborgen <c:#B794F4>voor %player%<c:#B794F4>."
+command-death-message-toggle-enable: "<c:#C084FC>☠ <c:#B794F4>Doodsberichten zijn nu <c:#E9D5FF>zichtbaar <c:#B794F4>voor %player%<c:#B794F4>."
 
 # Doodsberichten (gedetailleerd)
 death-generic: "<c:#C084FC>☠ <c:#E9D5FF>%player% <c:#B794F4>is gestorven."
@@ -1122,7 +1122,7 @@ death-by-poison: "<c:#C084FC>☣ <c:#E9D5FF>%player% <c:#B794F4>werd vergiftigd.
 death-by-magic: "<c:#C084FC>✦ <c:#E9D5FF>%player% <c:#B794F4>werd gedood door magie."
 death-by-wither: "<c:#C084FC>💀 <c:#E9D5FF>%player% <c:#B794F4>is verwelkt."
 death-by-falling-block: "<c:#C084FC>▼ <c:#E9D5FF>%player% <c:#B794F4>werd verpletterd door een blok."
-death-by-fly-into-wall: "<c:#C084FC>💨 <c:#E9D5FF>%player% #B794F4ervoer kinetische energie."
+death-by-fly-into-wall: "<c:#C084FC>💨 <c:#E9D5FF>%player% <c:#B794F4>ervoer kinetische energie."
 death-by-void: "<c:#C084FC>✧ <c:#E9D5FF>%player% <c:#B794F4>viel uit de wereld."
 death-by-cactus: "<c:#C084FC>🌵 <c:#E9D5FF>%player% <c:#B794F4>werd doodgeprikt."
 death-by-cramming: "<c:#C084FC>⊞ <c:#E9D5FF>%player% <c:#B794F4>werd te veel samengedrukt."

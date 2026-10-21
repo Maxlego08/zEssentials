@@ -72,7 +72,7 @@ items:
       material: GREEN_STAINED_GLASS_PANE
       name: "<c:#FFFFFF>Provocations"
       lore:
-        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: #4cd5ff1 hour"
+        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: <c:#4CD5FF>1 hour"
         - ''
         - "<c:#FFFFFF>➥ <underlined>Click<reset><c:#AAAAAA> to mute the player"
   btn-18:
@@ -85,7 +85,7 @@ items:
       material: YELLOW_STAINED_GLASS_PANE
       name: "<c:#FFFFFF>Provocations"
       lore:
-        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: #4cd5ff2 hours"
+        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: <c:#4CD5FF>2 hours"
         - ''
         - "<c:#FFFFFF>➥ <underlined>Click<reset><c:#AAAAAA> to mute the player"
   btn-27:
@@ -98,7 +98,7 @@ items:
       material: ORANGE_STAINED_GLASS_PANE
       name: "<c:#FFFFFF>Provocations"
       lore:
-        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: #4cd5ff4 hours"
+        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: <c:#4CD5FF>4 hours"
         - ''
         - "<c:#FFFFFF>➥ <underlined>Click<reset><c:#AAAAAA> to mute the player"
   btn-36:
@@ -111,7 +111,7 @@ items:
       material: RED_STAINED_GLASS_PANE
       name: "<c:#FFFFFF>Provocations"
       lore:
-        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: #4cd5ff24 hours"
+        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: <c:#4CD5FF>24 hours"
         - ''
         - "<c:#FFFFFF>➥ <underlined>Click<reset><c:#AAAAAA> to mute the player"
 
@@ -125,7 +125,7 @@ items:
       material: GREEN_STAINED_GLASS_PANE
       name: "<c:#FFFFFF>Mute 1h"
       lore:
-        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: #4cd5ff1 hour"
+        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: <c:#4CD5FF>1 hour"
         - ''
         - "<c:#FFFFFF>➥ <underlined>Click<reset><c:#AAAAAA> to mute the player"
 
@@ -139,7 +139,7 @@ items:
       material: YELLOW_STAINED_GLASS_PANE
       name: "<c:#FFFFFF>Mute 2h"
       lore:
-        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: #4cd5ff2 hours"
+        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: <c:#4CD5FF>2 hours"
         - ''
         - "<c:#FFFFFF>➥ <underlined>Click<reset><c:#AAAAAA> to mute the player"
 
@@ -153,7 +153,7 @@ items:
       material: ORANGE_STAINED_GLASS_PANE
       name: "<c:#FFFFFF>Mute 4h"
       lore:
-        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: #4cd5ff4 hours"
+        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: <c:#4CD5FF>4 hours"
         - ''
         - "<c:#FFFFFF>➥ <underlined>Click<reset><c:#AAAAAA> to mute the player"
 
@@ -167,7 +167,7 @@ items:
       material: RED_STAINED_GLASS_PANE
       name: "<c:#FFFFFF>Mute 24h"
       lore:
-        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: #4cd5ff24 hours"
+        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: <c:#4CD5FF>24 hours"
         - ''
         - "<c:#FFFFFF>➥ <underlined>Click<reset><c:#AAAAAA> to mute the player"
 
@@ -181,7 +181,7 @@ items:
       material: GREEN_STAINED_GLASS_PANE
       name: "<c:#FFFFFF>Mute 24h"
       lore:
-        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: #4cd5ff24 hours"
+        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: <c:#4CD5FF>24 hours"
         - ''
         - "<c:#FFFFFF>➥ <underlined>Click<reset><c:#AAAAAA> to mute the player"
 
@@ -195,7 +195,7 @@ items:
       material: YELLOW_STAINED_GLASS_PANE
       name: "<c:#FFFFFF>Ban 7d"
       lore:
-        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: #4cd5ff7 days"
+        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: <c:#4CD5FF>7 days"
         - ''
         - "<c:#FFFFFF>➥ <underlined>Click<reset><c:#AAAAAA> to ban the player"
 
@@ -209,7 +209,7 @@ items:
       material: ORANGE_STAINED_GLASS_PANE
       name: "<c:#FFFFFF>Ban 15d"
       lore:
-        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: #4cd5ff15 days"
+        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: <c:#4CD5FF>15 days"
         - ''
         - "<c:#FFFFFF>➥ <underlined>Click<reset><c:#AAAAAA> to ban the player"
 
@@ -223,7 +223,7 @@ items:
       material: RED_STAINED_GLASS_PANE
       name: "<c:#FFFFFF>Ban 30d"
       lore:
-        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: #4cd5ff30 days"
+        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: <c:#4CD5FF>30 days"
         - ''
         - "<c:#FFFFFF>➥ <underlined>Click<reset><c:#AAAAAA> to ban the player"
 
@@ -237,7 +237,7 @@ items:
       material: GREEN_STAINED_GLASS_PANE
       name: "<c:#FFFFFF>Mute 1h"
       lore:
-        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: #4cd5ff1 hour"
+        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: <c:#4CD5FF>1 hour"
         - ''
         - "<c:#FFFFFF>➥ <underlined>Click<reset><c:#AAAAAA> to mute the player"
 
@@ -251,7 +251,7 @@ items:
       material: YELLOW_STAINED_GLASS_PANE
       name: "<c:#FFFFFF>Mute 2h"
       lore:
-        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: #4cd5ff2 hour"
+        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: <c:#4CD5FF>2 hour"
         - ''
         - "<c:#FFFFFF>➥ <underlined>Click<reset><c:#AAAAAA> to mute the player"
 
@@ -265,7 +265,7 @@ items:
       material: ORANGE_STAINED_GLASS_PANE
       name: "<c:#FFFFFF>Mute 4h"
       lore:
-        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: #4cd5ff4 hour"
+        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: <c:#4CD5FF>4 hour"
         - ''
         - "<c:#FFFFFF>➥ <underlined>Click<reset><c:#AAAAAA> to mute the player"
 
@@ -279,6 +279,6 @@ items:
       material: RED_STAINED_GLASS_PANE
       name: "<c:#FFFFFF>Mute 24h"
       lore:
-        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: #4cd5ff24 hour"
+        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: <c:#4CD5FF>24 hour"
         - ''
         - "<c:#FFFFFF>➥ <underlined>Click<reset><c:#AAAAAA> to mute the player"

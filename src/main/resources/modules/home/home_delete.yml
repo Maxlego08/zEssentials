@@ -17,7 +17,7 @@ items:
       material: RED_STAINED_GLASS_PANE
       name: "<c:#FF0000>ᴄᴀɴᴄᴇʟ"
       lore:
-        - '#fcfcfcClick to cancel'
+        - '<c:#FCFCFC>Click to cancel'
 
   confirm:
     slot: 15
@@ -28,4 +28,4 @@ items:
       material: GREEN_STAINED_GLASS_PANE
       name: "<c:#00FC00>ᴄᴏɴғɪʀᴍ"
       lore:
-        - '#fcfcfcClick to delete'
+        - '<c:#FCFCFC>Click to delete'

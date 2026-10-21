@@ -5,11 +5,11 @@ items:
     slot: 11
     item:
       material: PAPER
-      name: "#8cc0ccCommand"
+      name: "<c:#8CC0CC>Command"
       lore:
         - "<c:#AAAAAA>● <c:#FFFFFF>/pw set <material>"
         - ""
-        - "#8cc0ccDescription"
+        - "<c:#8CC0CC>Description"
         - "<c:#AAAAAA>● <c:#FFFFFF>Allows you to place blocks in your selection"
         - ""
         - "<c:#EDACFE>xample"
@@ -18,11 +18,11 @@ items:
     slot: 12
     item:
       material: PAPER
-      name: "#8cc0ccCommand"
+      name: "<c:#8CC0CC>Command"
       lore:
         - "<c:#AAAAAA>● <c:#FFFFFF>/pw fill <material>"
         - ""
-        - "#8cc0ccDescription"
+        - "<c:#8CC0CC>Description"
         - "<c:#AAAAAA>● <c:#FFFFFF>Allows you to fill your selection with blocks"
         - "<c:#AAAAAA>● <c:#AAAAAA>This command will only take into account"
         - "<c:#AAAAAA>● <c:#AAAAAA>the air blocks"
@@ -33,11 +33,11 @@ items:
     slot: 13
     item:
       material: PAPER
-      name: "#8cc0ccCommand"
+      name: "<c:#8CC0CC>Command"
       lore:
         - "<c:#AAAAAA>● <c:#FFFFFF>/pw walls <material>"
         - ""
-        - "#8cc0ccDescription"
+        - "<c:#8CC0CC>Description"
         - "<c:#AAAAAA>● <c:#FFFFFF>Allows you to create walls around your selection"
         - ""
         - "<c:#EDACFE>xample"
@@ -46,11 +46,11 @@ items:
     slot: 14
     item:
       material: PAPER
-      name: "#8cc0ccCommand"
+      name: "<c:#8CC0CC>Command"
       lore:
         - "<c:#AAAAAA>● <c:#FFFFFF>/pw cyl <material> <radius> <height> [<filled or not>]"
         - ""
-        - "#8cc0ccDescription"
+        - "<c:#8CC0CC>Description"
         - "<c:#AAAAAA>● <c:#FFFFFF>Allows you to create a cylinder from the first position"
         - "<c:#AAAAAA>● <c:#FFFFFF>selected (pos1 or left click)"
         - "<c:#AAAAAA>● <c:#AAAAAA>To define if the cylinder is filled or not,"
@@ -62,11 +62,11 @@ items:
     slot: 15
     item:
       material: PAPER
-      name: "#8cc0ccCommand"
+      name: "<c:#8CC0CC>Command"
       lore:
         - "<c:#AAAAAA>● <c:#FFFFFF>/pw cut"
         - ""
-        - "#8cc0ccDescription"
+        - "<c:#8CC0CC>Description"
         - "<c:#AAAAAA>● <c:#FFFFFF>Allows you to remove the blocks in your selection"
         - ""
         - "<c:#EDACFE>xample"
@@ -75,11 +75,11 @@ items:
     slot: 20
     item:
       material: PAPER
-      name: "#8cc0ccCommand"
+      name: "<c:#8CC0CC>Command"
       lore:
         - "<c:#AAAAAA>● <c:#FFFFFF>/pw confirm"
         - ""
-        - "#8cc0ccDescription"
+        - "<c:#8CC0CC>Description"
         - "<c:#AAAAAA>● <c:#FFFFFF>Allows you to confirm the action"
         - "<c:#AAAAAA>● <c:#AAAAAA>You must execute this command"
         - "<c:#AAAAAA>● <c:#AAAAAA>after defining your action <c:#555555>(/pw set, /pw fill etc)"
@@ -90,11 +90,11 @@ items:
     slot: 21
     item:
       material: PAPER
-      name: "#8cc0ccCommand"
+      name: "<c:#8CC0CC>Command"
       lore:
         - "<c:#AAAAAA>● <c:#FFFFFF>/pw pos1"
         - ""
-        - "#8cc0ccDescription"
+        - "<c:#8CC0CC>Description"
         - "<c:#AAAAAA>● <c:#FFFFFF>Allows you to define the first position"
         - "<c:#AAAAAA>● <c:#FFFFFF> of your selection"
         - ""
@@ -104,11 +104,11 @@ items:
     slot: 22
     item:
       material: PAPER
-      name: "#8cc0ccCommand"
+      name: "<c:#8CC0CC>Command"
       lore:
         - "<c:#AAAAAA>● <c:#FFFFFF>/pw pos2"
         - ""
-        - "#8cc0ccDescription"
+        - "<c:#8CC0CC>Description"
         - "<c:#AAAAAA>● <c:#FFFFFF>Allows you to define the second position"
         - "<c:#AAAAAA>● <c:#FFFFFF> of your selection"
         - ""
@@ -118,11 +118,11 @@ items:
     slot: 23
     item:
       material: PAPER
-      name: "#8cc0ccCommand"
+      name: "<c:#8CC0CC>Command"
       lore:
         - "<c:#AAAAAA>● <c:#FFFFFF>/pw cancel"
         - ""
-        - "#8cc0ccDescription"
+        - "<c:#8CC0CC>Description"
         - "<c:#AAAAAA>● <c:#FFFFFF>Allows you to cancel the current selection"
         - ""
         - "<c:#EDACFE>xample"
@@ -131,11 +131,11 @@ items:
     slot: 24
     item:
       material: PAPER
-      name: "#8cc0ccCommand"
+      name: "<c:#8CC0CC>Command"
       lore:
         - "<c:#AAAAAA>● <c:#FFFFFF>/pw stop"
         - ""
-        - "#8cc0ccDescription"
+        - "<c:#8CC0CC>Description"
         - "<c:#AAAAAA>● <c:#FFFFFF>Allows you to stop the current editing"
         - "<c:#AAAAAA>● <c:#AAAAAA>Only the blocks not placed will be refunded"
         - ""
@@ -146,14 +146,14 @@ items:
     slot: 42
     item:
       material: PAPER
-      name: "#8cc0ccAdd multiple materials"
+      name: "<c:#8CC0CC>Add multiple materials"
       lore:
         - "<c:#AAAAAA>● <c:#FFFFFF>You can define multiple materials"
         - "<c:#AAAAAA>● <c:#FFFFFF>In the same command, you must add a <u>comma</u>"
         - "<c:#AAAAAA>● <c:#FFFFFF>between each material"
         - ""
         - "<c:#EDACFE>xample"
-        - "<c:#AAAAAA>● <c:#FFFFFF>/pw set <c:#FF94D7>stone<c:#77FF77>,#ff94d7dirt<c:#77FF77>,<c:#FF94D7>grass_block"
+        - "<c:#AAAAAA>● <c:#FFFFFF>/pw set <c:#FF94D7>stone<c:#77FF77>,<c:#FF94D7>dirt<c:#77FF77>,<c:#FF94D7>grass_block"
   info2:
     slot: 43
     item:
@@ -173,7 +173,7 @@ items:
       name: "<c:#8CC0CC>Get a baguette"
       lore:
         - ""
-        - "<c:#AAAAAA>● <c:#FFFFFF>You can get a #ff94d7baguette"
+        - "<c:#AAAAAA>● <c:#FFFFFF>You can get a <c:#FF94D7>baguette"
         - "<c:#AAAAAA>● <c:#FFFFFF>In voting <c:#555555>(/vote)<c:#FFFFFF>, in the store <c:#555555>(/store<c:#555555>)"
         - "<c:#AAAAAA>● <c:#FFFFFF>Or in the island store <c:#555555>(/isq<c:#555555>)"
         - ""
@@ -194,9 +194,9 @@ items:
       name: "<c:#8CC0CC>Option<c:#555555>: <c:#FF94D7>Inventory"
       lore:
         - ""
-        - "<c:#AAAAAA>● <c:#8CC0CC>State<c:#555555>: #77ff77Active"
+        - "<c:#AAAAAA>● <c:#8CC0CC>State<c:#555555>: <c:#77FF77>Active"
         - ""
-        - "#8cc0ccDescription"
+        - "<c:#8CC0CC>Description"
         - "<c:#AAAAAA>● <c:#FFFFFF>Uses the blocks in your inventory"
         - "<c:#AAAAAA>● <c:#FFFFFF>in addition to those in your /sac"
     else:
@@ -213,7 +213,7 @@ items:
           - ""
           - "<c:#AAAAAA>● <c:#8CC0CC>State<c:#555555>: <c:#FF3535>Inactive"
           - ""
-          - "#8cc0ccDescription"
+          - "<c:#8CC0CC>Description"
           - "<c:#AAAAAA>● <c:#FFFFFF>Uses the blocks in your inventory"
           - "<c:#AAAAAA>● <c:#FFFFFF>in addition to those in your /sac"
 
@@ -233,9 +233,9 @@ items:
       name: "<c:#8CC0CC>Option<c:#555555>: <c:#FF94D7>Progress bar"
       lore:
         - ""
-        - "<c:#AAAAAA>● <c:#8CC0CC>State<c:#555555>: #77ff77Active"
+        - "<c:#AAAAAA>● <c:#8CC0CC>State<c:#555555>: <c:#77FF77>Active"
         - ""
-        - "#8cc0ccDescription"
+        - "<c:#8CC0CC>Description"
         - "<c:#AAAAAA>● <c:#FFFFFF>Allows you to display a progress bar"
         - "<c:#AAAAAA>● <c:#FFFFFF>at the top of your screen"
     else:
@@ -252,6 +252,6 @@ items:
           - ""
           - "<c:#AAAAAA>● <c:#8CC0CC>State<c:#555555>: <c:#FF3535>Inactive"
           - ""
-          - "#8cc0ccDescription"
+          - "<c:#8CC0CC>Description"
           - "<c:#AAAAAA>● <c:#FFFFFF>Allows you to display a progress bar"
           - "<c:#AAAAAA>● <c:#FFFFFF>at the top of your screen"

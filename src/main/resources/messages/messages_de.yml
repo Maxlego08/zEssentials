@@ -161,24 +161,24 @@ command-seen-last-location:
   message: "<c:#99E0FF>Letzte Position<c:#555555>: <c:#FFFFFF>%world%, %x%, %y%, %z%"
 command-seen-first-join:
   type: WITHOUT_PREFIX
-  message: "#99E0FFErster Beitritt<c:#555555>:<c:#FFFFFF>%created_at%"
+  message: "<c:#99E0FF>Erster Beitritt<c:#555555>:<c:#FFFFFF>%created_at%"
 
 
 # Wirtschaftsbefehle
 command-economy-not-found: "<error> Es konnte keine Wirtschaft mit dem Namen <c:#FFFFFF>%name%<error> gefunden werden."
 command-economy-reset-all-confirm: "<error>Du bist dabei, alle Guthaben für <c:#FFFFFF>%economy%<error> zurückzusetzen. Führe den Befehl innerhalb von <c:#FFFFFF>%seconds% Sekunden<error> erneut aus, um zu bestätigen."
-command-economy-reset-all-success: "#99E0FFDu hast alle Guthaben für <c:#FFFFFF>%economy%<c:#99E0FF> zurückgesetzt."
-command-economy-give-all-sender: "#99E0FFDu hast gerade <c:#FFFFFF>%economyFormat% #99E0FFan die online Spieler verteilt."
-command-economy-give-sender: "#99E0FFDu hast gerade <c:#FFFFFF>%economyFormat% #99E0FFan den Spieler <c:#AAAAAA>%player%<c:#99E0FF> gegeben."
-command-economy-give-receiver: "#99E0FFDu hast gerade <c:#FFFFFF>%economyFormat% erhalten."
-command-economy-set-sender: "#99E0FFDu hast gerade <c:#FFFFFF>%economyFormat% #99E0FFfür den Spieler <c:#AAAAAA>%player%<c:#99E0FF> festgelegt."
-command-economy-set-receiver: "#99E0FFDein <c:#FFFFFF>%economyFormat% wurde gerade geändert."
-command-economy-take-sender: "#99E0FFDu hast gerade <c:#FFFFFF>%economyFormat% <c:#99E0FF>vom Spieler <c:#AAAAAA>%player%<c:#99E0FF> abgezogen."
-command-economy-take-receiver: "#99E0FFDu hast gerade <c:#FFFFFF>%economyFormat% verloren."
+command-economy-reset-all-success: "<c:#99E0FF>Du hast alle Guthaben für <c:#FFFFFF>%economy%<c:#99E0FF> zurückgesetzt."
+command-economy-give-all-sender: "<c:#99E0FF>Du hast gerade <c:#FFFFFF>%economyFormat% <c:#99E0FF>an die online Spieler verteilt."
+command-economy-give-sender: "<c:#99E0FF>Du hast gerade <c:#FFFFFF>%economyFormat% <c:#99E0FF>an den Spieler <c:#AAAAAA>%player%<c:#99E0FF> gegeben."
+command-economy-give-receiver: "<c:#99E0FF>Du hast gerade <c:#FFFFFF>%economyFormat% erhalten."
+command-economy-set-sender: "<c:#99E0FF>Du hast gerade <c:#FFFFFF>%economyFormat% <c:#99E0FF>für den Spieler <c:#AAAAAA>%player%<c:#99E0FF> festgelegt."
+command-economy-set-receiver: "<c:#99E0FF>Dein <c:#FFFFFF>%economyFormat% wurde gerade geändert."
+command-economy-take-sender: "<c:#99E0FF>Du hast gerade <c:#FFFFFF>%economyFormat% <c:#99E0FF>vom Spieler <c:#AAAAAA>%player%<c:#99E0FF> abgezogen."
+command-economy-take-receiver: "<c:#99E0FF>Du hast gerade <c:#FFFFFF>%economyFormat% verloren."
 command-economy-show-empty: "<c:#FFFFFF>%player% <error>hat kein Geld."
 command-economy-show-info: "<c:#AAAAAA>- <c:#99E0FF>%economy% <c:#FFFFFF>%amount%."
 command-money:
-  - "#99E0FFDu hast<c:#555555>:"
+  - "<c:#99E0FF>Du hast<c:#555555>:"
   - " <c:#AAAAAA>- <c:#99E0FF>%economy-name-money% <c:#FFFFFF>%economy-money%."
   - " <c:#AAAAAA>- <c:#99E0FF>%economy-name-coins% <c:#FFFFFF>%economy-coins%."
 command-money-other:
@@ -188,7 +188,7 @@ command-money-other:
 command-pay-negative: "<error>Der zu zahlende Betrag muss positiv sein."
 command-pay-min: "<error>Der Mindestbetrag, den du zahlen kannst, beträgt <c:#FFFFFF>%amount%<error>."
 command-pay-max: "<error>Der Höchstbetrag, den du zahlen kannst, beträgt <c:#FFFFFF>%amount%<error>."
-command-pay-sender: "#99E0FFDu hast gerade <c:#F8F327>%amount%<c:#99E0FF> an den Spieler <c:#FFFFFF>%player%<c:#99E0FF> gesendet."
+command-pay-sender: "<c:#99E0FF>Du hast gerade <c:#F8F327>%amount%<c:#99E0FF> an den Spieler <c:#FFFFFF>%player%<c:#99E0FF> gesendet."
 command-pay-receiver: "<c:#FFFFFF>%player% <c:#99E0FF>hat dir gerade <c:#F8F327>%amount%<c:#99E0FF> gesendet."
 command-pay-disable: "<error>Du kannst kein %name% senden."
 command-pay-self: "<error>Du kannst dir selbst kein Geld senden."
@@ -208,17 +208,17 @@ command-tpa-sender:
 command-tpa-receiver:
   - ""
   - "<c:#F8F327>⚠ <c:#FFFFFF>%displayName% <c:#99E0FF>hat angefragt, sich zu dir zu teleportieren!"
-  - "  <hover:show_text:'<c:#00FF00>✔ Teleportation annehmen'><click:run_command:/tpaccept><c:#99E0FF>Gebe <c:#00FF00>/tpaccept #99E0FFein, um die Anfrage <c:#00FF00><u>anzunehmen</u><c:#99E0FF>.</click></hover>"
-  - "  <hover:show_text:'<error>✘ Teleportation ablehnen'><click:run_command:/tpdeny><c:#99E0FF>Gebe <error>/tpdeny #99E0FFein, um die Anfrage <error><u>abzulehnen</u><c:#99E0FF>.</click></hover>"
+  - "  <hover:show_text:'<c:#00FF00>✔ Teleportation annehmen'><click:run_command:/tpaccept><c:#99E0FF>Gebe <c:#00FF00>/tpaccept <c:#99E0FF>ein, um die Anfrage <c:#00FF00><u>anzunehmen</u><c:#99E0FF>.</click></hover>"
+  - "  <hover:show_text:'<error>✘ Teleportation ablehnen'><click:run_command:/tpdeny><c:#99E0FF>Gebe <error>/tpdeny <c:#99E0FF>ein, um die Anfrage <error><u>abzulehnen</u><c:#99E0FF>.</click></hover>"
   - ""
   - "<c:#AAAAAA><italic>Du hast 60 Sekunden Zeit, die Teleport-Anfrage anzunehmen."
-command-tpa-accept-receiver: "#99E0FFDu hast gerade die Teleport-Anfrage von <c:#99E0FF>%player%<success> #00FF00angenommen."
+command-tpa-accept-receiver: "<c:#99E0FF>Du hast gerade die Teleport-Anfrage von <c:#99E0FF>%player%<success> <c:#00FF00>angenommen."
 command-tpa-accept-sender: "<c:#99E0FF>%player%<success> hat gerade deine Teleport-Anfrage akzeptiert."
 command-teleport-ignore-player: "<error>Du kannst keine Teleport-Anfrage an <c:#99E0FF>%player%<error> senden, da er dich ignoriert."
 command-teleport-world: "<error>Ihr müsst euch im selben Welt befinden, um zu teleportieren."
 command-tpa-error-to-late: "<error>Du hast keine Teleport-Anfrage."
 command-tpa-error-to-late-2: "<error>Die Anfrage ist abgelaufen."
-command-tp-deny-sender: "<c:#00FF00>✔ Du hast die Teleport-Anfrage von <c:#FFFFFF>%player% #00FF00abgelehnt."
+command-tp-deny-sender: "<c:#00FF00>✔ Du hast die Teleport-Anfrage von <c:#FFFFFF>%player% <c:#00FF00>abgelehnt."
 command-tp-deny-receiver: "<error>✘ <c:#FFFFFF>%player% <error>hat deine Teleport-Anfrage abgelehnt."
 command-tp-cancel-error: "<error>Du hast keine Teleport-Anfrage an <c:#FFFFFF>%player%<error> gesendet."
 command-tp-cancel-sender: "<error>Teleport-Anfrage an <c:#99E0FF>%player% abgebrochen."
@@ -245,7 +245,7 @@ first-join-motd:
   - ""
   - "<c:#00FF00>✔ <c:#99E0FF>Willkommen %player%<c:#99E0FF> !"
   - ""
-  - "#858ef8Discord<c:#555555>: <c:#99E0FF><hover:show_text:'<c:#FFFFFF>Tritt dem Server-Discord bei #858ef8Discord <c:#FFFFFF>!'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>"
+  - "<c:#858EF8>Discord<c:#555555>: <c:#99E0FF><hover:show_text:'<c:#FFFFFF>Tritt dem Server-Discord bei <c:#858EF8>Discord <c:#FFFFFF>!'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>"
   - "<c:#AAAAAA>Website<c:#555555>: <c:#99E0FF><hover:show_text:'<c:#FFFFFF>Öffne die Website <c:#FFFFFF>!'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>"
   - ""
 
@@ -253,7 +253,7 @@ join-motd:
   - ""
   - "<c:#99E0FF>Willkommen zurück %player%<c:#99E0FF> !"
   - ""
-  - "#858ef8Discord<c:#555555>: <c:#99E0FF><hover:show_text:'<c:#FFFFFF>Tritt dem Server-Discord bei #858ef8Discord <c:#FFFFFF>!'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>"
+  - "<c:#858EF8>Discord<c:#555555>: <c:#99E0FF><hover:show_text:'<c:#FFFFFF>Tritt dem Server-Discord bei <c:#858EF8>Discord <c:#FFFFFF>!'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>"
   - "<c:#AAAAAA>Website<c:#555555>: <c:#99E0FF><hover:show_text:'<c:#FFFFFF>Öffne die Website <c:#FFFFFF>!'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>"
   - ""
 
@@ -484,7 +484,7 @@ teleport-message:
 
 teleport-success:
   type: ACTION
-  message: "#99E0FFDu wurdest erfolgreich teleportiert!"
+  message: "<c:#99E0FF>Du wurdest erfolgreich teleportiert!"
 
 teleport-message-spawn:
   - message: "<c:#AAAAAA>Teleportation in <c:#0EEA93>%seconds% <c:#AAAAAA>Sekunden, du darfst dich nicht bewegen."
@@ -512,7 +512,7 @@ teleport-message-random:
 
 teleport-success-random:
   type: ACTION
-  message: "#99E0FFDu wurdest erfolgreich teleportiert!"
+  message: "<c:#99E0FF>Du wurdest erfolgreich teleportiert!"
 
 teleport-message-home:
   - message: "<c:#AAAAAA>Teleportation in <c:#0EEA93>%seconds% <c:#AAAAAA>Sekunden, du darfst dich nicht bewegen."
@@ -531,7 +531,7 @@ command-warp-already-exist: "<error>Warp <c:#FFFFFF>%name% <error>existiert bere
 command-warp-doesnt-exist: "<error>Warp <c:#FFFFFF>%name% <error> existiert nicht.<error>"
 command-warp-no-permission: "<error>Du hast keine Berechtigung, den Warp <c:#FFFFFF>%name% <error>zu nutzen.<error>"
 command-warp-create:
-  - "#00ff00Du hast den Warp <c:#FFFFFF>%name% #00ff00an deiner Position erstellt."
+  - "<c:#00FF00>Du hast den Warp <c:#FFFFFF>%name% <c:#00FF00>an deiner Position erstellt."
   - "<c:#AAAAAA>Warp-Berechtigung ist: <hover:show_text:'<c:#FFFFFF>Befehl kopieren, um Berechtigung für einen Spieler hinzuzufügen'><click:SUGGEST_COMMAND:'/lp user <username> permission set essentials.warp.%name%'><c:#FFFFFF><underlined>essentials.warp.%name%</click></hover>"
 
 command-warp-use:
@@ -541,7 +541,7 @@ command-warp-use:
 command-warp-destination: " <hover:show_text:'<c:#FFFFFF>Klicke, um zu Warp <underlined>%name% zu teleportieren'><click:run_command:'/warp %name%'><c:#FFFFFF>%name%</click></hover><c:#AAAAAA>"
 command-warp-list: "<c:#AAAAAA>Warps<c:#555555>:<c:#FFFFFF>%destinations%"
 command-warp-list-info: " <hover:show_text:'<c:#FFFFFF>Klicke, um zu Warp <underlined>%name% zu teleportieren'><click:run_command:'/warp %name%'><c:#FFFFFF>%name%</click></hover><c:#AAAAAA>"
-command-warp-delete: "#00ff00Du hast den Warp <c:#FFFFFF>%name% #00ff00entfernt."
+command-warp-delete: "<c:#00FF00>Du hast den Warp <c:#FFFFFF>%name% <c:#00FF00>entfernt."
 
 
 
@@ -553,7 +553,7 @@ command-set-home-max: "<error>Du kannst nicht mehr als <c:#FFFFFF>%max%<error> H
 command-set-home-world: "<error>Du kannst hier kein Home erstellen.<error>"
 command-set-home-create:
   - ""
-  - "#99E0FFDu hast das Home <c:#FFFFFF>%name% #99E0FFerstellt. <c:#555555>(<c:#AAAAAA>%current%<c:#555555>/<c:#AAAAAA>%max%<c:#555555>)"
+  - "<c:#99E0FF>Du hast das Home <c:#FFFFFF>%name% <c:#99E0FF>erstellt. <c:#555555>(<c:#AAAAAA>%current%<c:#555555>/<c:#AAAAAA>%max%<c:#555555>)"
   - "<c:#FFFFFF>Verwende den Befehl <underlined><hover:show_text:'<c:#FFFFFF>Klicke, um zum Home zu teleportieren'><click:suggest_command:'/home %name%'>/home %name%</click></hover><reset>, um dorthin zu teleportieren."
   - ""
 command-home-doesnt-exist: "<error>Das Home <c:#FFFFFF>%name% <error>existiert nicht.<error>"
@@ -602,11 +602,11 @@ command-home-information-in-line:
 command-home-information-in-line-info: " <hover:show_text:'<c:#AAAAAA>Klicke hier, um zum Heim <c:#FFFFFF><underlined>%name% zu teleportieren'><click:run_command:'/home %name%'><c:#FFFFFF>%name%</click></hover><c:#AAAAAA>"
 
 command-home-icon-error: "<error>Du musst einen Gegenstand in der Hand halten, um das Symbol deines Heims zu ändern."
-command-home-icon-success: "#00ff00Du hast gerade das Heim-Symbol <c:#FFFFFF>%name%<c:#00FF00> geändert."
-command-home-icon-reset: "#00ff00Du hast gerade das Heim-Symbol <c:#FFFFFF>%name%<c:#00FF00> zurückgesetzt."
-command-home-delete: "#99E0FFDu hast gerade das Heim <c:#FFFFFF>%name%<c:#99E0FF> gelöscht."
-command-home-admin-delete: "#00ff00Du hast gerade das Heim <c:#FFFFFF>%name%<c:#00FF00> von <c:#55FFFF>%player%<c:#00FF00> gelöscht."
-command-home-admin-set: "#00ff00Du hast gerade das Heim <c:#FFFFFF>%name%<c:#00FF00> von <c:#55FFFF>%player%<c:#00FF00> erstellt."
+command-home-icon-success: "<c:#00FF00>Du hast gerade das Heim-Symbol <c:#FFFFFF>%name%<c:#00FF00> geändert."
+command-home-icon-reset: "<c:#00FF00>Du hast gerade das Heim-Symbol <c:#FFFFFF>%name%<c:#00FF00> zurückgesetzt."
+command-home-delete: "<c:#99E0FF>Du hast gerade das Heim <c:#FFFFFF>%name%<c:#99E0FF> gelöscht."
+command-home-admin-delete: "<c:#00FF00>Du hast gerade das Heim <c:#FFFFFF>%name%<c:#00FF00> von <c:#55FFFF>%player%<c:#00FF00> gelöscht."
+command-home-admin-set: "<c:#00FF00>Du hast gerade das Heim <c:#FFFFFF>%name%<c:#00FF00> von <c:#55FFFF>%player%<c:#00FF00> erstellt."
 command-home-admin-list: "<c:#8CC0CC>%player% ʜᴏᴍᴇs<c:#555555>:<c:#FFFFFF>%homes%"
 command-home-admin-list-info: " <hover:show_text:'<c:#AAAAAA>Klicke hier, um zum Heim <c:#FFFFFF><underlined>%name% zu teleportieren'><click:run_command:'/home %player%:%name%'><c:#FFFFFF>%name%</click></hover><c:#AAAAAA>"
 
@@ -995,7 +995,7 @@ command-random-tp-configuration-not-found: "<error>Die Konfiguration für die zu
 command-spawn-first-not-define: "<error>Der erste Spawn existiert nicht. Bitte kontaktiere einen Administrator."
 command-spawn-location-invalid: "<error>Der Spawn ist ungültig, bitte kontaktiere einen Administrator."
 command-tp-location-error: "<error>Die Koordinaten liegen außerhalb der Welt."
-command-tpa-here-accept-receiver: "#99E0FFDu hast soeben #00FF00die Teleportationsanfrage von <c:#99E0FF>%player%<success> akzeptiert."
+command-tpa-here-accept-receiver: "<c:#99E0FF>Du hast soeben <c:#00FF00>die Teleportationsanfrage von <c:#99E0FF>%player%<success> akzeptiert."
 command-tpa-here-accept-sender: "<c:#99E0FF>%player%<success> hat deine Teleportationsanfrage gerade akzeptiert."
 command-tpa-here-error: "<error>Du hast bereits eine Anfrage an <c:#99E0FF>%player%<error> gesendet."
 command-tpa-here-error-same: "<error>Du kannst dich nicht zu dir selbst teleportieren."
@@ -1104,8 +1104,8 @@ command-itemframe-not-found: "<error>Kein Rahmen gefunden. Schaue auf einen Rahm
 # Todesnachrichten Modul
 description-death-message: "Benutzerdefinierte Todesnachrichten"
 description-death-message-toggle: "Todesnachrichten Sichtbarkeit umschalten"
-command-death-message-toggle-disable: "<c:#C084FC>☠ <c:#B794F4>Todesnachrichten sind jetzt <c:#E9D5FF>versteckt #B794F4für %player%<c:#B794F4>."
-command-death-message-toggle-enable: "<c:#C084FC>☠ <c:#B794F4>Todesnachrichten sind jetzt <c:#E9D5FF>sichtbar #B794F4für %player%<c:#B794F4>."
+command-death-message-toggle-disable: "<c:#C084FC>☠ <c:#B794F4>Todesnachrichten sind jetzt <c:#E9D5FF>versteckt <c:#B794F4>für %player%<c:#B794F4>."
+command-death-message-toggle-enable: "<c:#C084FC>☠ <c:#B794F4>Todesnachrichten sind jetzt <c:#E9D5FF>sichtbar <c:#B794F4>für %player%<c:#B794F4>."
 
 # Todesnachrichten (detailliert)
 death-generic: "<c:#C084FC>☠ <c:#E9D5FF>%player% <c:#B794F4>ist gestorben."
@@ -1131,7 +1131,7 @@ death-by-cactus: "<c:#C084FC>🌵 <c:#E9D5FF>%player% <c:#B794F4>wurde zu Tode g
 death-by-cramming: "<c:#C084FC>⊞ <c:#E9D5FF>%player% <c:#B794F4>wurde zu sehr gequetscht."
 death-by-freeze: "<c:#C084FC>❄ <c:#E9D5FF>%player% <c:#B794F4>ist erfroren."
 death-by-sonic-boom: "<c:#C084FC>◈ <c:#E9D5FF>%player% <c:#B794F4>wurde von einem Schallknall ausgelöscht."
-death-by-magma: "<c:#C084FC>♨ <c:#E9D5FF>%player% #B794F4entdeckte, dass der Boden Lava war."
+death-by-magma: "<c:#C084FC>♨ <c:#E9D5FF>%player% <c:#B794F4>entdeckte, dass der Boden Lava war."
 death-by-thorns: "<c:#C084FC>✵ <c:#E9D5FF>%player% <c:#B794F4>wurde beim Versuch jemanden zu verletzen getötet."
 death-by-campfire: "<c:#C084FC>🔥 <c:#E9D5FF>%player% <c:#B794F4>lief in ein Lagerfeuer."
 death-hover-details: "<c:#D8B4FE>☠ Todesort<c:#B794F4>:\n<c:#E9D5FF>▸ Welt: <c:#D8B4FE>%world%\n<c:#E9D5FF>▸ Position: <c:#D8B4FE>%x%<c:#E9D5FF>, <c:#D8B4FE>%y%<c:#E9D5FF>, <c:#D8B4FE>%z%\n\n<c:#9F7AEA><italic>Klicke zum Teleportieren"

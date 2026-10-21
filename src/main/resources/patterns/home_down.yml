@@ -30,7 +30,7 @@ button:
       material: GRAY_DYE
       name: "<c:#CFCFCF>ɴᴏ ʜᴏᴍᴇ sᴇᴛ"
       lore:
-        - '#fcfcfcClick to create a home'
+        - '<c:#FCFCFC>Click to create a home'
 
     else:
 
@@ -42,4 +42,4 @@ button:
         material: BLUE_DYE
         name: "<c:#00A4FC>ʜᴏᴍᴇ %home%"
         lore:
-          - '#fcfcfcClick to delete this home'
+          - '<c:#FCFCFC>Click to delete this home'

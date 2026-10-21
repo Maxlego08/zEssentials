@@ -18,7 +18,7 @@ items:
         - "<c:#555555>[<c:#FC99F8>%zessentials_voteparty_amount% %zessentials_progressbar_{zessentials_voteparty_amount}_{zessentials_voteparty_objective}_20_|_<c:#FC99F8>_<c:#AAAAAA>% <c:#FC99F8>%zessentials_voteparty_objective%<c:#555555>]"
         - ""
         - "<c:#FFFFFF><bold>ʀᴇᴡᴀʀᴅs"
-        - " <c:#F8B175>• #e5c2625.000$ <c:#555555>(Double if VIP <c:#FCD955>✭<c:#555555>)"
+        - " <c:#F8B175>• <c:#E5C262>5.000$ <c:#555555>(Double if VIP <c:#FCD955>✭<c:#555555>)"
   information:
     update: true
     slot: 31

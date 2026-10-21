@@ -29,6 +29,8 @@
 
 # Unreleased
 
+- Fixed remaining raw hex colors in messages and menus, and MiniMessage colors in scoreboard animations
+
 - Migrated bundled messages and configuration examples to MiniMessage custom hex colors; legacy `&` and `§` color codes are no longer parsed
 - Fixed click event conversion with Adventure `5.x` while preserving compatibility with Paper `1.21.4`
 - Updated PlaceholderAPI to `2.12.3` and aligned Adventure dependencies for recent NMS modules while preserving the Paper `1.21.4` baseline
