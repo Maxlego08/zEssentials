@@ -29,6 +29,7 @@
 
 # Unreleased
 
+- Fixed click event conversion with Adventure `5.x` while preserving compatibility with Paper `1.21.4`
 - Updated PlaceholderAPI to `2.12.3` and aligned Adventure dependencies for recent NMS modules while preserving the Paper `1.21.4` baseline
 - Updated the Discord bot to MySQL Connector/J `26.10.0`, added explicit MariaDB driver selection and startup warnings for MySQL versions older than `8.4`
 - Updated Jedis to `8.0.2` (official Redis support: `7.2+`), preserved RESP2 behavior and fixed Redis pool resource leaks and subscription shutdown
