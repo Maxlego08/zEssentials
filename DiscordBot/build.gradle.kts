@@ -9,7 +9,6 @@ application {
 }
 
 group = "zEssentialsDiscord"
-version = "1.0.0"
 
 repositories {
     mavenCentral()
@@ -19,6 +18,7 @@ dependencies {
     implementation(libs.snakeyaml)
     implementation(libs.jda)
     implementation(libs.mysql.connector)
+    implementation(libs.mariadb.connector)
     implementation(project(":API"))
 }
 

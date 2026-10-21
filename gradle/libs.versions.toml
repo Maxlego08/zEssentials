@@ -26,7 +26,8 @@ fastboard = "2.2.2"
 faststats = "0.29.4"
 snakeyaml = "2.7"
 jda = "6.7.0"
-mysql-connector = "8.0.33"
+mysql-connector = "26.10.0"
+mariadb-connector = "3.5.6"
 
 # Integration Hooks
 placeholderapi = "2.11.6"
@@ -62,7 +63,8 @@ fastboard = { group = "fr.mrmicky", name = "fastboard", version.ref = "fastboard
 fastStatsBukkit = { group = "dev.faststats.metrics", name = "bukkit", version.ref = "faststats" }
 snakeyaml = { group = "org.yaml", name = "snakeyaml", version.ref = "snakeyaml" }
 jda = { group = "net.dv8tion", name = "JDA", version.ref = "jda" }
-mysql-connector = { group = "mysql", name = "mysql-connector-java", version.ref = "mysql-connector" }
+mysql-connector = { group = "com.mysql", name = "mysql-connector-j", version.ref = "mysql-connector" }
+mariadb-connector = { group = "org.mariadb.jdbc", name = "mariadb-java-client", version.ref = "mariadb-connector" }
 
 # Integration Hooks
 placeholderapi = { group = "me.clip", name = "placeholderapi", version.ref = "placeholderapi" }

@@ -29,6 +29,7 @@
 
 # Unreleased
 
+- Updated the Discord bot to MySQL Connector/J `26.10.0`, added explicit MariaDB driver selection and startup warnings for MySQL versions older than `8.4`
 - Updated Jedis to `8.0.2` (official Redis support: `7.2+`), preserved RESP2 behavior and fixed Redis pool resource leaks and subscription shutdown
 - Updated the Discord bot to JDA `6.7.0` and adapted buttons, link messages and permission checks for interaction channel snapshots
 - Updated SnakeYAML to `2.7` for the Discord bot and replaced the removed Base64 utility in the PlayerVaultX converter
@@ -40,7 +41,7 @@
 - Item feedback now follows the player's Minecraft language and preserves custom names
 - Fixed feedback messages for enchantments, hologram text shadows and kick notifications — existing `command-enchant-error-enchant` messages must replace `%name%` with `%enchant%`
 - Fixed duplicate Death Message module registration, version comparisons and incomplete downloads
-- Cleaned up Gradle metadata, imports and ignore rules
+- Aligned module versions and cleaned up Gradle metadata, imports and ignore rules
 - Centralized dependency and build plugin versions in `gradle/libs.versions.toml`
 - Updated Gradle to `9.8.2`, Shadow to `9.6.1` and paperweight-userdev to `2.0.0-beta.24`; the 26.x NMS modules now target Java 25
 - Added `Enchantments#getEnchantment(String)` to retrieve Bukkit enchantments directly; the legacy wrapper, `getEnchantments(String)` and `register()` are retained and deprecated for compatibility
