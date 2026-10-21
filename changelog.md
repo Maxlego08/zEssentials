@@ -29,6 +29,7 @@
 
 # Unreleased
 
+- Updated SnakeYAML to `2.7` for the Discord bot and replaced the removed Base64 utility in the PlayerVaultX converter
 - Updated Sarah to `1.26`, added `database-configuration.max-lifetime` and simplified SQLite column migrations
 - Added support for Minecraft/Paper **26.3**; **Paper 1.21.4 is now the minimum supported version**
 - Removed unused Spigot code and simplified Paper integration
