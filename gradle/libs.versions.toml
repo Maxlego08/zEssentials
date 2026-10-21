@@ -20,7 +20,7 @@ paperDevBundle262 = "26.2.build.+"
 paperDevBundle263 = "26.3.build.+"
 
 # Utilities / Libraries
-sarah = "1.23"
+sarah = "1.26"
 folialib = "0.5.1"
 fastboard = "2.2.2"
 faststats = "0.29.4"

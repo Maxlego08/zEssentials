@@ -29,6 +29,7 @@
 
 # Unreleased
 
+- Updated Sarah to `1.26`, added `database-configuration.max-lifetime` and simplified SQLite column migrations
 - Added support for Minecraft/Paper **26.3**; **Paper 1.21.4 is now the minimum supported version**
 - Removed unused Spigot code and simplified Paper integration
 - `/enchant` now uses the server registry, including customs datapack and customs enchants plugin enchantments

@@ -190,7 +190,12 @@ public class SqlStorage extends StorageHelper implements IStorage {
         String database = globalDatabaseConfiguration.getDatabase();
         boolean debug = globalDatabaseConfiguration.isDebug();
 
-        return new DatabaseConfiguration(tablePrefix, user, password, port, host, database, debug, storageType == StorageType.SQLITE ? DatabaseType.SQLITE : storageType == StorageType.MARIADB ? DatabaseType.MARIADB : DatabaseType.MYSQL);
+        DatabaseConfiguration databaseConfiguration = new DatabaseConfiguration(tablePrefix, user, password, port, host, database, debug, storageType == StorageType.SQLITE ? DatabaseType.SQLITE : storageType == StorageType.MARIADB ? DatabaseType.MARIADB : DatabaseType.MYSQL);
+        Long maxLifetimeMillis = globalDatabaseConfiguration.getMaxLifetimeMillis();
+        if (maxLifetimeMillis != null) {
+            databaseConfiguration = databaseConfiguration.withMaxLifetime(maxLifetimeMillis);
+        }
+        return databaseConfiguration;
     }
 
     @Override

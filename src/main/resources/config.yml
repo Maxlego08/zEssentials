@@ -48,6 +48,10 @@ database-configuration:
   database: zessentials
   # Enable of not the SQL debug mode
   debug: false
+  # Maximum lifetime of a pooled MySQL or MariaDB connection, in seconds.
+  # A connection older than this is retired and replaced. 0 keeps connections until the pool closes.
+  # Hikari requires at least 30 seconds. 1800 is 30 minutes, the same default used when this option is omitted.
+  max-lifetime: 1800
 
 # Sends requests available in batch to the database (history of messages, commands, etc.)
 batch-auto-save: 10000
