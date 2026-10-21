@@ -37,10 +37,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.jetbrains.annotations.NotNull;
+import redis.clients.jedis.DefaultJedisClientConfig;
+import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
-import redis.clients.jedis.Protocol;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -71,13 +72,11 @@ public class RedisServer implements EssentialsServer, Listener {
 
         RedisConfiguration redisConfiguration = this.plugin.getConfiguration().getRedisConfiguration();
 
-        String password = redisConfiguration.password();
-        if (password == null) {
-            this.jedisPool = new JedisPool(redisConfiguration.host(), redisConfiguration.port());
-        } else {
-            JedisPoolConfig poolConfigBuilder = new JedisPoolConfig();
-            this.jedisPool = new JedisPool(poolConfigBuilder, redisConfiguration.host(), redisConfiguration.port(), Protocol.DEFAULT_TIMEOUT, password);
-        }
+        var clientConfig = DefaultJedisClientConfig.builder()
+                .serverDefaultProtocol()
+                .password(redisConfiguration.password())
+                .build();
+        this.jedisPool = new JedisPool(new JedisPoolConfig(), new HostAndPort(redisConfiguration.host(), redisConfiguration.port()), clientConfig);
 
         this.plugin.getLogger().info("Redis connected to " + redisConfiguration.host() + ":" + redisConfiguration.port());
 
@@ -90,7 +89,7 @@ public class RedisServer implements EssentialsServer, Listener {
         Bukkit.getPluginManager().registerEvents(this, this.plugin);
 
         // Fetch players name every minute
-        plugin.getScheduler().runTimerAsync(() -> this.playerCache.setPlayers(jedisPool.getResource().smembers(this.playersKey)), 1, 1, TimeUnit.MINUTES);
+        plugin.getScheduler().runTimerAsync(() -> execute(jedis -> this.playerCache.setPlayers(jedis.smembers(this.playersKey)), false), 1, 1, TimeUnit.MINUTES);
     }
 
     private void registerListener() {
@@ -106,8 +105,15 @@ public class RedisServer implements EssentialsServer, Listener {
     @Override
     public void onDisable() {
         if (this.jedisPool != null) {
-            execute(jedis -> jedis.srem(this.playersKey, Bukkit.getOnlinePlayers().stream().map(Player::getName).toList().toArray(new String[0])), false);
-            this.jedisPool.close();
+            try {
+                String[] players = Bukkit.getOnlinePlayers().stream().map(Player::getName).toArray(String[]::new);
+                if (players.length != 0) {
+                    execute(jedis -> jedis.srem(this.playersKey, players), false);
+                }
+            } finally {
+                this.redisSubscriberRunnable.close();
+                this.jedisPool.close();
+            }
         }
     }
 
@@ -193,7 +199,11 @@ public class RedisServer implements EssentialsServer, Listener {
 
     @Override
     public boolean isOnline(String userName) {
-        return this.onlineCache.get(userName, () -> jedisPool.getResource().sismember(playersKey, userName));
+        return this.onlineCache.get(userName, () -> {
+            try (Jedis jedis = this.jedisPool.getResource()) {
+                return jedis.sismember(this.playersKey, userName);
+            }
+        });
     }
 
     @Override
@@ -232,7 +242,7 @@ public class RedisServer implements EssentialsServer, Listener {
         this.plugin.getScheduler().runAsync(wrappedTask -> {
             String jsonMessage = this.plugin.getGson().toJson(new RedisMessage<>(this.instanceId, message, message.getClass().getName()));
             this.plugin.debug("Send: " + jsonMessage);
-            jedisPool.getResource().publish(RedisSubscriberRunnable.messagesChannel, jsonMessage);
+            execute(jedis -> jedis.publish(RedisSubscriberRunnable.messagesChannel, jsonMessage), false);
         });
     }
 
@@ -278,7 +288,9 @@ public class RedisServer implements EssentialsServer, Listener {
         Runnable runnable = () -> {
             try {
                 if (!jedisPool.isClosed()) {
-                    consumer.accept(jedisPool.getResource());
+                    try (Jedis jedis = this.jedisPool.getResource()) {
+                        consumer.accept(jedis);
+                    }
                 }
             } catch (Exception exception) {
                 exception.printStackTrace();

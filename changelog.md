@@ -29,6 +29,7 @@
 
 # Unreleased
 
+- Updated Jedis to `8.0.2` (official Redis support: `7.2+`), preserved RESP2 behavior and fixed Redis pool resource leaks and subscription shutdown
 - Updated the Discord bot to JDA `6.7.0` and adapted buttons, link messages and permission checks for interaction channel snapshots
 - Updated SnakeYAML to `2.7` for the Discord bot and replaced the removed Base64 utility in the PlayerVaultX converter
 - Updated Sarah to `1.26`, added `database-configuration.max-lifetime` and simplified SQLite column migrations

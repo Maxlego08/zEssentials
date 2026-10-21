@@ -15,6 +15,8 @@ public class RedisSubscriberRunnable implements Runnable {
     private final EssentialsPlugin plugin;
     private final RedisServer server;
     private final Map<Class<?>, RedisListener<?>> listeners = new HashMap<>();
+    private volatile boolean running = true;
+    private volatile JedisPubSub jedisPubSub;
 
     public RedisSubscriberRunnable(EssentialsPlugin plugin, RedisServer server) {
         this.plugin = plugin;
@@ -33,9 +35,20 @@ public class RedisSubscriberRunnable implements Runnable {
     @Override
     public void run() {
 
+        if (!this.running) {
+            return;
+        }
+
         try (Jedis jedis = this.server.getJedisPool().getResource()) {
             Gson gson = this.plugin.getGson();
-            JedisPubSub jedisPubSub = new JedisPubSub() {
+            this.jedisPubSub = new JedisPubSub() {
+                @Override
+                public void onSubscribe(String channel, int subscribedChannels) {
+                    if (!running) {
+                        unsubscribe();
+                    }
+                }
+
                 @Override
                 public void onMessage(String channel, String message) {
 
@@ -73,9 +86,23 @@ public class RedisSubscriberRunnable implements Runnable {
                 }
             };
 
-            jedis.subscribe(jedisPubSub, messagesChannel);
+            jedis.subscribe(this.jedisPubSub, messagesChannel);
         } catch (Exception exception) {
-            this.plugin.getLogger().severe("Failed to subscribe: " + exception.getMessage());
+            if (this.running) {
+                this.plugin.getLogger().severe("Failed to subscribe: " + exception.getMessage());
+            }
+        }
+    }
+
+    public void close() {
+        this.running = false;
+        JedisPubSub subscriber = this.jedisPubSub;
+        if (subscriber != null && subscriber.isSubscribed()) {
+            try {
+                subscriber.unsubscribe();
+            } catch (Exception exception) {
+                this.plugin.getLogger().warning("Failed to unsubscribe: " + exception.getMessage());
+            }
         }
     }
 }
