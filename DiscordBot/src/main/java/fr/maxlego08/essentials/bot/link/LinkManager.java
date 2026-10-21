@@ -4,14 +4,14 @@ import fr.maxlego08.essentials.api.discord.DiscordAction;
 import fr.maxlego08.essentials.api.dto.DiscordCodeDTO;
 import fr.maxlego08.essentials.bot.DiscordBot;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.components.actionrow.ActionRow;
+import net.dv8tion.jda.api.components.buttons.Button;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.interactions.components.buttons.Button;
-import net.dv8tion.jda.internal.interactions.component.ButtonImpl;
+import net.dv8tion.jda.api.interactions.InteractionHook;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
@@ -26,14 +26,17 @@ public class LinkManager extends ListenerAdapter {
         this.instance = instance;
     }
 
-    public void sendLinkMessage(MessageChannelUnion textChannel) {
+    public void sendLinkMessage(InteractionHook hook) {
 
         EmbedBuilder builder = instance.getConfiguration().getLink().embed().toEmbed();
 
         var config = instance.getConfiguration().getLink().button();
-        Button action = new ButtonImpl(BUTTON_LINK_NAME, config.name(), config.style(), config.disabled(), config.emoji() == null ? null : Emoji.fromUnicode(config.emoji()));
+        Button action = Button.of(config.style(), BUTTON_LINK_NAME, config.name()).withDisabled(config.disabled());
+        if (config.emoji() != null) {
+            action = action.withEmoji(Emoji.fromUnicode(config.emoji()));
+        }
 
-        textChannel.sendMessageEmbeds(builder.build()).addActionRow(action).queue();
+        hook.sendMessageEmbeds(builder.build()).addComponents(ActionRow.of(action)).setEphemeral(false).queue();
     }
 
     @Override

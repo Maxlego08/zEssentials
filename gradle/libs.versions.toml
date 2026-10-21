@@ -25,7 +25,7 @@ folialib = "0.5.1"
 fastboard = "2.2.2"
 faststats = "0.29.4"
 snakeyaml = "2.7"
-jda = "5.2.0"
+jda = "6.7.0"
 mysql-connector = "8.0.33"
 
 # Integration Hooks
