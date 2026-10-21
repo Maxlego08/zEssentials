@@ -20,24 +20,24 @@ public class AxVaultsConvert extends ZUtils implements Convert {
 
 
         if (!Bukkit.getPluginManager().isPluginEnabled("AxVaults")) {
-            message(sender, "&cYou must have AxVaults on your server to do the conversion.");
+            message(sender, "<c:#FF5555>You must have AxVaults on your server to do the conversion.");
             return;
         }
 
-        message(sender, "&fStart convert &7AxVaults");
+        message(sender, "<c:#FFFFFF>Start convert <c:#AAAAAA>AxVaults");
 
         if (this.plugin.getStorageManager().getStorage() instanceof SqlStorage) {
 
             this.plugin.getScheduler().runAsync(wrappedTask -> startConvertDatabase(sender));
         } else {
 
-            message(sender, "&cYou must have the storage in a database to be able to convert. Never use the storage in JSON !");
+            message(sender, "<c:#FF5555>You must have the storage in a database to be able to convert. Never use the storage in JSON !");
         }
     }
 
     private void startConvertDatabase(CommandSender sender) {
 
         this.plugin.createInstance("AxVaultsHook");
-        message(sender, "&aYou have just converted your AxVaults data to zEssentials !");
+        message(sender, "<c:#55FF55>You have just converted your AxVaults data to zEssentials !");
     }
 }

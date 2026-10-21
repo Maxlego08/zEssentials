@@ -178,11 +178,11 @@ public class AFKModule extends ZModule implements AfkManager {
 
     @Override
     public String getPlaceholderAfk() {
-        return this.placeholderAfk == null ? "&aV" : this.placeholderAfk;
+        return this.placeholderAfk == null ? "<c:#55FF55>V" : this.placeholderAfk;
     }
 
     @Override
     public String getPlaceholderNotAfk() {
-        return this.placeholderNotAfk == null ? "&cX" : this.placeholderNotAfk;
+        return this.placeholderNotAfk == null ? "<c:#FF5555>X" : this.placeholderNotAfk;
     }
 }

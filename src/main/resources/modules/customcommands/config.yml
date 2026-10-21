@@ -35,7 +35,7 @@ enable: true
 # messages:    the lines to display, used by TCHAT, CENTER and ACTION.
 # actions:     zMenu actions run after the messages, for example a sound or another command.
 #
-# MiniMessage, legacy colors and PlaceholderAPI placeholders are supported everywhere.
+# MiniMessage and PlaceholderAPI placeholders are supported everywhere.
 # <click:open_url:'...'> and <hover:show_text:'...'> allow to create clickable links.
 
 commands:
@@ -48,7 +48,7 @@ commands:
     messages:
       - ""
       - "<primary>Join our Discord server:"
-      - "<click:open_url:'https://discord.gg/your-invite'><hover:show_text:'&fClick to open the invitation'><secondary>https://discord.gg/your-invite</secondary></hover></click>"
+      - "<click:open_url:'https://discord.gg/your-invite'><hover:show_text:'<c:#FFFFFF>Click to open the invitation'><secondary>https://discord.gg/your-invite</secondary></hover></click>"
       - ""
     actions:
       - type: sound
@@ -61,32 +61,32 @@ commands:
     messages:
       - ""
       - "<primary>Our live map:"
-      - "<click:open_url:'https://map.example.com'><hover:show_text:'&fClick to open the map'><secondary>https://map.example.com</secondary></hover></click>"
+      - "<click:open_url:'https://map.example.com'><hover:show_text:'<c:#FFFFFF>Click to open the map'><secondary>https://map.example.com</secondary></hover></click>"
       - ""
 
   - command: "updates"
     permission: ""
     type: CENTER
     messages:
-      - "&8&m-----------------------------------------"
+      - "<c:#555555><strikethrough>-----------------------------------------"
       - "<primary>Latest updates"
       - ""
-      - "&7- &fNew shop at the spawn"
-      - "&7- &fThe end is now open"
-      - "&8&m-----------------------------------------"
+      - "<c:#AAAAAA>- <c:#FFFFFF>New shop at the spawn"
+      - "<c:#AAAAAA>- <c:#FFFFFF>The end is now open"
+      - "<c:#555555><strikethrough>-----------------------------------------"
 
   - command: "playerinfo"
     permission: "essentials.playerinfo"
     type: TCHAT
     messages:
-      - "<primary>Balance<secondary>: &f%zessentials_user_formatted_balance_money%"
-      - "<primary>Playtime<secondary>: &f%zessentials_user_playtime_formatted%"
+      - "<primary>Balance<secondary>: <c:#FFFFFF>%zessentials_user_formatted_balance_money%"
+      - "<primary>Playtime<secondary>: <c:#FFFFFF>%zessentials_user_playtime_formatted%"
 
 # Example with a title
 #  - command: "welcome"
 #    type: TITLE
 #    title: "<primary>Welcome"
-#    subtitle: "&fon our server, %player%"
+#    subtitle: "<c:#FFFFFF>on our server, %player%"
 #    start: 100
 #    time: 2800
 #    end: 100

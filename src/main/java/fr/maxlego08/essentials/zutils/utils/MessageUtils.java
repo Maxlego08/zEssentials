@@ -10,17 +10,15 @@ import fr.maxlego08.essentials.api.messages.messages.ClassicMessage;
 import fr.maxlego08.essentials.api.messages.messages.TitleMessage;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.component.ComponentMessage;
-import fr.maxlego08.menu.common.utils.nms.NMSUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public abstract class MessageUtils extends PlaceholderUtils {
 
@@ -156,23 +154,12 @@ public abstract class MessageUtils extends PlaceholderUtils {
 
         int CENTER_PX = 154;
 
-        message = ChatColor.translateAlternateColorCodes('&', message);
+        String plainMessage = PlainTextComponentSerializer.plainText().serialize(MiniMessage.miniMessage().deserialize(message));
 
         int messagePxSize = 0;
-        boolean previousCode = false;
-        boolean isBold = false;
-
-        for (char c : message.toCharArray()) {
-            if (c == '§') {
-                previousCode = true;
-            } else if (previousCode) {
-                previousCode = false;
-                isBold = c == 'l' || c == 'L';
-            } else {
-                DefaultFontInfo dFI = DefaultFontInfo.getDefaultFontInfo(c);
-                messagePxSize += isBold ? dFI.getBoldLength() : dFI.getLength();
-                messagePxSize++;
-            }
+        for (char character : plainMessage.toCharArray()) {
+            DefaultFontInfo fontInfo = DefaultFontInfo.getDefaultFontInfo(character);
+            messagePxSize += fontInfo.getLength() + 1;
         }
 
         int halvedMessageSize = messagePxSize / 2;
@@ -187,18 +174,5 @@ public abstract class MessageUtils extends PlaceholderUtils {
         return sb + message;
     }
 
-    protected String color(String message) {
-        if (message == null) return null;
-        if (NMSUtils.isHexColor()) {
-            Pattern pattern = Pattern.compile("#[a-fA-F0-9]{6}");
-            Matcher matcher = pattern.matcher(message);
-            while (matcher.find()) {
-                String color = message.substring(matcher.start(), matcher.end());
-                message = message.replace(color, String.valueOf(net.md_5.bungee.api.ChatColor.of(color)));
-                matcher = pattern.matcher(message);
-            }
-        }
-        return net.md_5.bungee.api.ChatColor.translateAlternateColorCodes('&', message);
-    }
 
 }

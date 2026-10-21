@@ -29,6 +29,7 @@
 
 # Unreleased
 
+- Migrated bundled messages and configuration examples to MiniMessage custom hex colors; legacy `&` and `§` color codes are no longer parsed
 - Fixed click event conversion with Adventure `5.x` while preserving compatibility with Paper `1.21.4`
 - Updated PlaceholderAPI to `2.12.3` and aligned Adventure dependencies for recent NMS modules while preserving the Paper `1.21.4` baseline
 - Updated the Discord bot to MySQL Connector/J `26.10.0`, added explicit MariaDB driver selection and startup warnings for MySQL versions older than `8.4`
@@ -83,7 +84,7 @@
 - Added a new **custom commands** module (`modules/customcommands/config.yml`) to create your own commands without any other plugin, for `/discord`, `/map`, `/vote`, `/store`, `/updates`...
     - Each command can define `aliases`, a `permission`, a `description`, a `cooldown` in seconds (bypassed with `essentials.bypass.cooldown`) and a list of `messages`
     - `type` selects how the content is displayed: `TCHAT`, `CENTER`, `ACTION`, `TITLE`, `BOSSBAR` or `NONE`
-    - MiniMessage, legacy colors and PlaceholderAPI placeholders are supported, so `<click:open_url:'...'>` can be used to display clickable links
+    - MiniMessage and PlaceholderAPI placeholders are supported, so `<click:open_url:'...'>` can be used to display clickable links
     - zMenu `actions` can be run after the messages (sound, command, inventory, ...)
     - Commands are registered at runtime and `/zessentials reload` updates them without duplicating anything; a custom command that would override an existing zEssentials command is refused with a message in the console
 - Added display options for `/seen` in `modules/sanction/config.yml` — `seen-show-uuid`, `seen-show-ip`, `seen-show-last-location`, `seen-show-created-at` and `seen-show-playtime`. The IP address can now be hidden globally, even from operators: until now it was only protected by the `essentials.seen.show.ip` permission, which an operator always has

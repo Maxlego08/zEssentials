@@ -90,11 +90,11 @@ public class PlayerPlaceholders extends ZUtils implements PlaceholderRegister {
         placeholder.register("player_colored_ping", player -> {
             int ping = player.getPing();
             String color;
-            if (ping < 50) color = "&a";
-            else if (ping < 100) color = "&2";
-            else if (ping < 200) color = "&e";
-            else if (ping < 300) color = "&c";
-            else color = "&4";
+            if (ping < 50) color = "<c:#55FF55>";
+            else if (ping < 100) color = "<c:#00AA00>";
+            else if (ping < 200) color = "<c:#FFFF55>";
+            else if (ping < 300) color = "<c:#FF5555>";
+            else color = "<c:#AA0000>";
             return color + ping;
         }, "Returns the player's ping with color based on quality");
 

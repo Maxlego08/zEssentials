@@ -15,7 +15,7 @@ size: 54 # Inventory size
 open-permission: null
 
 # Menu title with professional styling
-title: "&6&l⛏ &e&lTOOLS CATEGORY &6&l⛏"
+title: "<c:#FFAA00><bold>⛏ <c:#FFFF55><bold>TOOLS CATEGORY <c:#FFAA00><bold>⛏"
 
 # Fill empty slots
 fillItem:
@@ -38,32 +38,32 @@ items:
   tools-overview:
     slot: 10
     material: CRAFTING_TABLE
-    name: "&e&l⚒ TOOLS OVERVIEW"
+    name: "<c:#FFFF55><bold>⚒ TOOLS OVERVIEW"
     lore:
-      - "&8━━━━━━━━━━━━━━━━━━━"
-      - "&7Select a subcategory below"
-      - "&7to browse specific tool kits"
-      - "&8━━━━━━━━━━━━━━━━━━━"
+      - "<c:#555555>━━━━━━━━━━━━━━━━━━━"
+      - "<c:#AAAAAA>Select a subcategory below"
+      - "<c:#AAAAAA>to browse specific tool kits"
+      - "<c:#555555>━━━━━━━━━━━━━━━━━━━"
   
   info-panel:
     slot: 13
     material: COMPASS
-    name: "&b&lℹ INFORMATION"
+    name: "<c:#55FFFF><bold>ℹ INFORMATION"
     lore:
-      - "&8━━━━━━━━━━━━━━━━━━━"
-      - "&7Total Categories: &f2"
-      - "&7Total Tool Kits: &f%kit_count%"
-      - "&8━━━━━━━━━━━━━━━━━━━"
+      - "<c:#555555>━━━━━━━━━━━━━━━━━━━"
+      - "<c:#AAAAAA>Total Categories: <c:#FFFFFF>2"
+      - "<c:#AAAAAA>Total Tool Kits: <c:#FFFFFF>%kit_count%"
+      - "<c:#555555>━━━━━━━━━━━━━━━━━━━"
   
   categories-list:
     slot: 16
     material: ANVIL
-    name: "&d&l⚙ CATEGORIES"
+    name: "<c:#FF55FF><bold>⚙ CATEGORIES"
     lore:
-      - "&8━━━━━━━━━━━━━━━━━━━"
-      - "&a▪ &7Beginner Tools"
-      - "&b▪ &7Advanced Tools"
-      - "&8━━━━━━━━━━━━━━━━━━━"
+      - "<c:#555555>━━━━━━━━━━━━━━━━━━━"
+      - "<c:#55FF55>▪ <c:#AAAAAA>Beginner Tools"
+      - "<c:#55FFFF>▪ <c:#AAAAAA>Advanced Tools"
+      - "<c:#555555>━━━━━━━━━━━━━━━━━━━"
   
   # Subcategory: Beginner
   beginner-tools:
@@ -72,23 +72,23 @@ items:
     category: "Tools"
     subcategory: "Beginner"
     material: WOODEN_PICKAXE
-    name: "&a&l☘ BEGINNER TOOLS"
+    name: "<c:#55FF55><bold>☘ BEGINNER TOOLS"
     lore:
-      - "&8━━━━━━━━━━━━━━━━━━━"
+      - "<c:#555555>━━━━━━━━━━━━━━━━━━━"
       - " "
-      - "  &8▶ &7Level: &a&lBeginner"
-      - "  &8▶ &7Kits Available: &f%kit_count%"
+      - "  <c:#555555>▶ <c:#AAAAAA>Level: <c:#55FF55><bold>Beginner"
+      - "  <c:#555555>▶ <c:#AAAAAA>Kits Available: <c:#FFFFFF>%kit_count%"
       - " "
-      - "  &7Perfect for new players!"
-      - "  &7Includes basic tools and"
-      - "  &7materials to get started."
+      - "  <c:#AAAAAA>Perfect for new players!"
+      - "  <c:#AAAAAA>Includes basic tools and"
+      - "  <c:#AAAAAA>materials to get started."
       - " "
-      - "  &8• &7Wooden tools"
-      - "  &8• &7Stone tools"
-      - "  &8• &7Basic materials"
+      - "  <c:#555555>• <c:#AAAAAA>Wooden tools"
+      - "  <c:#555555>• <c:#AAAAAA>Stone tools"
+      - "  <c:#555555>• <c:#AAAAAA>Basic materials"
       - " "
-      - "&8━━━━━━━━━━━━━━━━━━━"
-      - "&a&l➤ CLICK TO BROWSE"
+      - "<c:#555555>━━━━━━━━━━━━━━━━━━━"
+      - "<c:#55FF55><bold>➤ CLICK TO BROWSE"
     actions:
       - type: open inventory
         inventory: 'kits_subcategory_default_beginner'
@@ -104,23 +104,23 @@ items:
     category: "Tools"
     subcategory: "Advanced"
     material: NETHERITE_PICKAXE
-    name: "&b&l⚡ ADVANCED TOOLS"
+    name: "<c:#55FFFF><bold>⚡ ADVANCED TOOLS"
     lore:
-      - "&8━━━━━━━━━━━━━━━━━━━"
+      - "<c:#555555>━━━━━━━━━━━━━━━━━━━"
       - " "
-      - "  &8▶ &7Level: &b&lAdvanced"
-      - "  &8▶ &7Kits Available: &f%kit_count%"
+      - "  <c:#555555>▶ <c:#AAAAAA>Level: <c:#55FFFF><bold>Advanced"
+      - "  <c:#555555>▶ <c:#AAAAAA>Kits Available: <c:#FFFFFF>%kit_count%"
       - " "
-      - "  &7For experienced players!"
-      - "  &7High-tier tools with"
-      - "  &7powerful enchantments."
+      - "  <c:#AAAAAA>For experienced players!"
+      - "  <c:#AAAAAA>High-tier tools with"
+      - "  <c:#AAAAAA>powerful enchantments."
       - " "
-      - "  &8• &7Diamond tools"
-      - "  &8• &7Netherite tools"
-      - "  &8• &7Enchanted gear"
+      - "  <c:#555555>• <c:#AAAAAA>Diamond tools"
+      - "  <c:#555555>• <c:#AAAAAA>Netherite tools"
+      - "  <c:#555555>• <c:#AAAAAA>Enchanted gear"
       - " "
-      - "&8━━━━━━━━━━━━━━━━━━━"
-      - "&b&l➤ CLICK TO BROWSE"
+      - "<c:#555555>━━━━━━━━━━━━━━━━━━━"
+      - "<c:#55FFFF><bold>➤ CLICK TO BROWSE"
     actions:
       - type: open inventory
         inventory: 'kits_subcategory_default_advanced'
@@ -139,20 +139,20 @@ items:
   quick-tip:
     slot: 31
     material: EXPERIENCE_BOTTLE
-    name: "&a&l✨ QUICK TIP"
+    name: "<c:#55FF55><bold>✨ QUICK TIP"
     lore:
-      - "&8━━━━━━━━━━━━━━━━━━━"
-      - "&7Choose the category that"
-      - "&7matches your experience level!"
-      - "&8━━━━━━━━━━━━━━━━━━━"
+      - "<c:#555555>━━━━━━━━━━━━━━━━━━━"
+      - "<c:#AAAAAA>Choose the category that"
+      - "<c:#AAAAAA>matches your experience level!"
+      - "<c:#555555>━━━━━━━━━━━━━━━━━━━"
   
   # Bottom navigation
   back-button:
     slots: [46, 47, 48]
     material: DARK_OAK_DOOR
-    name: "&c&l⬅ BACK"
+    name: "<c:#FF5555><bold>⬅ BACK"
     lore:
-      - "&7Return to categories"
+      - "<c:#AAAAAA>Return to categories"
     actions:
       - type: open inventory
         inventory: 'kits_categories'
@@ -160,10 +160,10 @@ items:
   all-tools:
     slots: [49, 50, 51]
     material: CHEST
-    name: "&6&l📦 ALL TOOLS"
+    name: "<c:#FFAA00><bold>📦 ALL TOOLS"
     lore:
-      - "&7View all tool kits"
-      - "&7without category filter"
+      - "<c:#AAAAAA>View all tool kits"
+      - "<c:#AAAAAA>without category filter"
     type: zessentials_kit_category
     category: "Tools"
   
@@ -171,4 +171,4 @@ items:
   bottom-deco:
     slots: [45, 52, 53]
     material: IRON_BLOCK
-    name: "&7&l✦"
+    name: "<c:#AAAAAA><bold>✦"

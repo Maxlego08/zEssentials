@@ -1,4 +1,4 @@
-name: '#3f3f3fᴄᴏɴꜰɪʀᴍ ʀᴇǫᴜᴇѕᴛ'
+name: "<c:#3F3F3F>ᴄᴏɴꜰɪʀᴍ ʀᴇǫᴜᴇѕᴛ"
 size: 27
 items:
   cancel:
@@ -6,15 +6,15 @@ items:
     closeInventory: true
     item:
       material: RED_STAINED_GLASS_PANE
-      name: '#ff0000ᴄᴀɴᴄᴇʟ'
+      name: "<c:#FF0000>ᴄᴀɴᴄᴇʟ"
       lore:
-        - '&7Click to cancel the teleport request'
+        - "<c:#AAAAAA>Click to cancel the teleport request"
 
   head:
     slot: 13
     item:
       playerHead: '%zessentials_user_target_player_name%'
-      name: '#99E0FF%zessentials_user_target_player_name%'
+      name: "<c:#99E0FF>%zessentials_user_target_player_name%"
 
   confirm:
     type: ZESSENTIALS_TELEPORTATION_CONFIRM
@@ -22,6 +22,6 @@ items:
     closeInventory: true
     item:
       material: GREEN_STAINED_GLASS_PANE
-      name: '#00ff00ᴄᴏɴғɪʀᴍ'
+      name: "<c:#00FF00>ᴄᴏɴғɪʀᴍ"
       lore:
-        - '&7Click to send &n%zessentials_user_target_player_name%&r &7a tpa request'
+        - "<c:#AAAAAA>Click to send <underlined>%zessentials_user_target_player_name%<reset> <c:#AAAAAA>a tpa request"

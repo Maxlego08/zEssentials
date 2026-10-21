@@ -1,10 +1,10 @@
-name: '#3f3f3fᴘᴜʙʟɪᴄ ʜᴏᴍᴇs'
+name: "<c:#3F3F3F>ᴘᴜʙʟɪᴄ ʜᴏᴍᴇs"
 size: 54
 items:
   decorations:
     item:
       material: GRAY_STAINED_GLASS_PANE
-      name: '&e'
+      name: "<c:#FFFF55>"
     slots:
       - 0-8
   public-homes:
@@ -13,20 +13,20 @@ items:
       - 9-53
     item:
       material: '%material%'
-      name: '&f%name%'
+      name: "<c:#FFFFFF>%name%"
       lore:
-        - '#ffd353ℹ Informations#3f3f3f:'
-        - '#3f3f3f• &7Owner#3f3f3f: #4cd5ff%player%'
-        - '#3f3f3f• &7Category#3f3f3f: #4cd5ff%category%'
+        - "<c:#FFD353>ℹ Informations<c:#3F3F3F>:"
+        - "<c:#3F3F3F>• <c:#AAAAAA>Owner<c:#3F3F3F>: <c:#4CD5FF>%player%"
+        - "<c:#3F3F3F>• <c:#AAAAAA>Category<c:#3F3F3F>: <c:#4CD5FF>%category%"
         - ''
-        - '&f➥ &nLeft Click&r&7 to teleport'
+        - "<c:#FFFFFF>➥ <underlined>Left Click<reset><c:#AAAAAA> to teleport"
   informations:
     slot: 4
     item:
       material: NETHER_STAR
-      name: '&fᴘᴜʙʟɪᴄ ʜᴏᴍᴇs'
+      name: "<c:#FFFFFF>ᴘᴜʙʟɪᴄ ʜᴏᴍᴇs"
       lore:
-        - '#ffd353ℹ Informations#3f3f3f:'
-        - '#3f3f3f• &7Browse and teleport to public homes.'
+        - "<c:#FFD353>ℹ Informations<c:#3F3F3F>:"
+        - "<c:#3F3F3F>• <c:#AAAAAA>Browse and teleport to public homes."
         - ''
-        - '#3f3f3f• &7Command#3f3f3f: #4cd5ff/publichomes &7[player]'
+        - "<c:#3F3F3F>• <c:#AAAAAA>Command<c:#3F3F3F>: <c:#4CD5FF>/publichomes <c:#AAAAAA>[player]"

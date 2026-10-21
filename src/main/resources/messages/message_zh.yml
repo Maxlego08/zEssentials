@@ -19,260 +19,254 @@
 
 prefix: '<primary>zEssentials <secondary>• '
 you: 你
-trash: '&8垃圾桶'
+trash: "<c:#555555>垃圾桶"
 console: 控制台
 expired: 已过期
-player-not-found: '&f%player% <error>未找到。'
-module-disable: <error>&f%name% <error>模块已禁用。您不能使用此命令。
-code-not-found: <red>找不到代码。
+player-not-found: "<c:#FFFFFF>%player% <error>未找到。"
+module-disable: "<error><c:#FFFFFF>%name% <error>模块已禁用。您不能使用此命令。"
+code-not-found: "<c:#FF5555>找不到代码。"
 rules:
-- '#ffd353ℹ 服务器规则#3f3f3f:'
-- '#3f3f3f• &7尊重所有玩家和工作人员。'
-- '#3f3f3f• &7禁止破坏或偷窃。'
-- '#3f3f3f• &7禁止作弊或黑客行为。'
-- '#3f3f3f• &7保持聊天清洁和尊重。'
-- '#3f3f3f• &7禁止刷屏或广告。'
+- "<c:#FFD353>ℹ 服务器规则<c:#3F3F3F>:"
+- "<c:#3F3F3F>• <c:#AAAAAA>尊重所有玩家和工作人员。"
+- "<c:#3F3F3F>• <c:#AAAAAA>禁止破坏或偷窃。"
+- "<c:#3F3F3F>• <c:#AAAAAA>禁止作弊或黑客行为。"
+- "<c:#3F3F3F>• <c:#AAAAAA>保持聊天清洁和尊重。"
+- "<c:#3F3F3F>• <c:#AAAAAA>禁止刷屏或广告。"
 
 # 命令
-command-syntax-error: '<error>您必须这样执行命令#656665: &f%syntax%'
+command-syntax-error: "<error>您必须这样执行命令<c:#656665>: <c:#FFFFFF>%syntax%"
 command-no-permission: <error>您没有权限运行此命令。
 command-no-console: <error>只有玩家可以执行此命令。
 command-no-arg: <error>无法找到带有参数的命令。
 command-restricted: "<error>你不能在这里使用此命令。"
-command-syntaxe-help: '&f%syntax% #656665» &7%description%'
+command-syntaxe-help: "<c:#FFFFFF>%syntax% <c:#656665>» <c:#AAAAAA>%description%"
 command-reload: <success>您刚刚重新加载了配置文件。
-command-reload-module: <success>您刚刚重新加载了&f%module%<success>模块的配置文件。
-command-reload-error: '&f%module% <error>未找到！'
-command-essentials: '&ezEssentials&8, &e版本 &f%version%'
+command-reload-module: "<success>您刚刚重新加载了<c:#FFFFFF>%module%<success>模块的配置文件。"
+command-reload-error: "<c:#FFFFFF>%module% <error>未找到！"
+command-essentials: "<c:#FFFF55>zEssentials<c:#555555>, <c:#FFFF55>版本 <c:#FFFFFF>%version%"
 
 
 # 游戏模式命令
-command-gamemode: '&f设置游戏模式&e %gamemode%&f 给 &b%player%&f。'
+command-gamemode: "<c:#FFFFFF>设置游戏模式<c:#FFFF55> %gamemode%<c:#FFFFFF> 给 <c:#55FFFF>%player%<c:#FFFFFF>。"
 command-gamemode-invalid: <error>您需要指定一个有效的玩家。
 
 
 # 天气命令
 command-time-error: "<error>你需要指定一个世界"
-command-time-already-changing: "<error>&f%world%<error> 的时间已经在改变中。"
-command-day: '&f您刚刚带来了 &edaylight&f 到世界 <success>%world%&f。'
-command-night: '&f您刚刚带来了 &enightfall&f 到世界 <success>%world%&f。'
-command-sun: '&f您刚刚带来了 &esun&f 到世界 <success>%world%&f。'
+command-time-already-changing: "<error><c:#FFFFFF>%world%<error> 的时间已经在改变中。"
+command-day: "<c:#FFFFFF>您刚刚带来了 <c:#FFFF55>daylight<c:#FFFFFF> 到世界 <success>%world%<c:#FFFFFF>。"
+command-night: "<c:#FFFFFF>您刚刚带来了 <c:#FFFF55>nightfall<c:#FFFFFF> 到世界 <success>%world%<c:#FFFFFF>。"
+command-sun: "<c:#FFFFFF>您刚刚带来了 <c:#FFFF55>sun<c:#FFFFFF> 到世界 <success>%world%<c:#FFFFFF>。"
 
 
 # 管理员命令
-command-top: '&7您已经被传送到 &etop&7。'
+command-top: "<c:#AAAAAA>您已经被传送到 <c:#FFFF55>top<c:#AAAAAA>。"
 command-top-error: <error>无法找到安全传送您的位置。
 command-speed-invalid: <error>您需要指定一个有效的玩家。
-command-speed-fly: '&7您刚刚设置了 &n飞行速度&r&7 为 &f%speed%&7 给 &f%player%&7。 &8(&f2 &7默认&8)'
-command-speed-walk: '&7您刚刚设置了 &n行走速度&r&7 为 &f%speed%&7 给 &f%player%&7。 &8(&f2 &7默认&8)'
-command-speed-error: <error>您必须输入介于 &60<error> 和 &610<error> 之间的数字。 &8(&f2 &7默认&8)
-command-god-enable: '&7上帝模式 <success>启用 &7给 &f%player%<success>。'
-command-god-disable: '&7上帝模式 <error>禁用 &7给 &f%player%<success>。'
-command-vanish-enable: '&7隐身模式 <success>启用 &7给 &f%player%<success>。'
-command-vanish-disable: '&7隐身模式 <error>禁用 &7给 &f%player%<success>。'
-command-night-vision-enable: '&7夜视 <success>启用 &7给 &f%player%<success>。'
-command-night-vision-disable: '&7夜视 <error>禁用 &7给 &f%player%<success>。'
-command-ext-sender: "&7你已为玩家 &f%player%&7 扑灭了火焰。"
+command-speed-fly: "<c:#AAAAAA>您刚刚设置了 <underlined>飞行速度<reset><c:#AAAAAA> 为 <c:#FFFFFF>%speed%<c:#AAAAAA> 给 <c:#FFFFFF>%player%<c:#AAAAAA>。 <c:#555555>(<c:#FFFFFF>2 <c:#AAAAAA>默认<c:#555555>)"
+command-speed-walk: "<c:#AAAAAA>您刚刚设置了 <underlined>行走速度<reset><c:#AAAAAA> 为 <c:#FFFFFF>%speed%<c:#AAAAAA> 给 <c:#FFFFFF>%player%<c:#AAAAAA>。 <c:#555555>(<c:#FFFFFF>2 <c:#AAAAAA>默认<c:#555555>)"
+command-speed-error: "<error>您必须输入介于 <c:#FFAA00>0<error> 和 <c:#FFAA00>10<error> 之间的数字。 <c:#555555>(<c:#FFFFFF>2 <c:#AAAAAA>默认<c:#555555>)"
+command-god-enable: "<c:#AAAAAA>上帝模式 <success>启用 <c:#AAAAAA>给 <c:#FFFFFF>%player%<success>。"
+command-god-disable: "<c:#AAAAAA>上帝模式 <error>禁用 <c:#AAAAAA>给 <c:#FFFFFF>%player%<success>。"
+command-vanish-enable: "<c:#AAAAAA>隐身模式 <success>启用 <c:#AAAAAA>给 <c:#FFFFFF>%player%<success>。"
+command-vanish-disable: "<c:#AAAAAA>隐身模式 <error>禁用 <c:#AAAAAA>给 <c:#FFFFFF>%player%<success>。"
+command-night-vision-enable: "<c:#AAAAAA>夜视 <success>启用 <c:#AAAAAA>给 <c:#FFFFFF>%player%<success>。"
+command-night-vision-disable: "<c:#AAAAAA>夜视 <error>禁用 <c:#AAAAAA>给 <c:#FFFFFF>%player%<success>。"
+command-ext-sender: "<c:#AAAAAA>你已为玩家 <c:#FFFFFF>%player%<c:#AAAAAA> 扑灭了火焰。"
 command-ext-receiver: "<success>你已不再着火。"
 command-ext-error: "<error>你无法为已死亡的玩家灭火！"
-command-heal-all: "&7你已治疗服务器中的所有玩家。"
-command-heal-sender: '&7您刚刚治愈了玩家 &f%player%&7。'
+command-heal-all: "<c:#AAAAAA>你已治疗服务器中的所有玩家。"
+command-heal-sender: "<c:#AAAAAA>您刚刚治愈了玩家 <c:#FFFFFF>%player%<c:#AAAAAA>。"
 command-heal-receiver: <success>您已被治愈。
 command-heal-error: <error>您不能治愈一个已经死亡的人！
-command-lighting-all: "&7你刚刚用闪电击中了所有玩家。"
-command-lighting: "&7你刚在目标位置召唤了闪电。"
-command-lighting-sender: "&7你刚在玩家 &f%player%&7 的位置召唤了闪电。"
-command-lighting-receiver: "&c你被闪电击中了！"
+command-lighting-all: "<c:#AAAAAA>你刚刚用闪电击中了所有玩家。"
+command-lighting: "<c:#AAAAAA>你刚在目标位置召唤了闪电。"
+command-lighting-sender: "<c:#AAAAAA>你刚在玩家 <c:#FFFFFF>%player%<c:#AAAAAA> 的位置召唤了闪电。"
+command-lighting-receiver: "<c:#FF5555>你被闪电击中了！"
 command-lighting-error: "<error>你不能用闪电击中已死亡的玩家！"
 command-more-error: <error>您不能对手中的物品执行此操作。
-command-more-success: '&7您刚刚把手中的物品数量设为了 &f64&7。'
-command-feed-all: "&7你已为服务器中的所有玩家补充了饱食度。"
-command-feed-sender: '&7您刚刚喂饱了玩家 &f%player%&7。'
+command-more-success: "<c:#AAAAAA>您刚刚把手中的物品数量设为了 <c:#FFFFFF>64<c:#AAAAAA>。"
+command-feed-all: "<c:#AAAAAA>你已为服务器中的所有玩家补充了饱食度。"
+command-feed-sender: "<c:#AAAAAA>您刚刚喂饱了玩家 <c:#FFFFFF>%player%<c:#AAAAAA>。"
 command-feed-receiver: <success>您已被喂饱。
 command-feed-error: <error>您不能喂饱一个已经死亡的人！
-command-afk-enable: '&7你现在被标记为 <error>挂机&7。'
+command-afk-enable: "<c:#AAAAAA>你现在被标记为 <error>挂机<c:#AAAAAA>。"
 command-afk-disable: <success>你不再被标记为挂机。
-command-message-target-afk: '&f%player% &7当前 <error>处于挂机状态&7。'
-command-compact-type: <error>无法压缩材料 &f%material%<error>。
-command-compact-error: <error>您的背包中没有 &f%item%<error>。
-command-compact-success: '&7您刚刚将 #0EEA93x%amount% #99E0FF%item% &7转换成了 #0EEA93x%toAmount%
-  #99E0FF%toItem%&7。'
-command-compact-success-all: '&7您刚刚转换了所有物品。'
-command-hat-success: '&7您刚刚戴上了 #0ef0ce%item% &7在头上。'
+command-message-target-afk: "<c:#FFFFFF>%player% <c:#AAAAAA>当前 <error>处于挂机状态<c:#AAAAAA>。"
+command-compact-type: "<error>无法压缩材料 <c:#FFFFFF>%material%<error>。"
+command-compact-error: "<error>您的背包中没有 <c:#FFFFFF>%item%<error>。"
+command-compact-success: "<c:#AAAAAA>您刚刚将 <c:#0EEA93>x%amount% <c:#99E0FF>%item% <c:#AAAAAA>转换成了 <c:#0EEA93>x%toAmount% <c:#99E0FF>%toItem%<c:#AAAAAA>。"
+command-compact-success-all: "<c:#AAAAAA>您刚刚转换了所有物品。"
+command-hat-success: "<c:#AAAAAA>您刚刚戴上了 <c:#0EF0CE>%item% <c:#AAAAAA>在头上。"
 command-hat-error: <error>您不能戴上空气。
-command-player-weather-reset: '&7您刚刚更改天气为服务器的天气。'
-command-player-weather-downfall: '&7您刚刚为自己开启了下雨。'
-command-player-time-reset: '&7您刚刚更改时间为服务器的时间。'
-command-player-time-change: '&7您正在改变自己的时间。'
-command-lag-world-line: '&a%world%&7: &a%peaceful% 和平实体&7, &c%monsters% 怪物&7, &e%items% 掉落物'
-command-lag-world-header: '&a世界 &2%world%&a 的实体：'
-command-lag-world-entry: '&7- &a%type%&7: &f%amount%'
-command-lag-clear-success: '&7在 &a%world%&7 中移除 &a%amount% &7个实体。'
-command-lag-clear-countdown: '&c实体将在 &e%time% &c秒后被移除!'
-command-fly-enable: '&7飞行模式 <success>启用 &7给 &f%player%<success>。'
-command-fly-disable: '&7飞行模式 <error>禁用 &7给 &f%player%<success>。'
+command-player-weather-reset: "<c:#AAAAAA>您刚刚更改天气为服务器的天气。"
+command-player-weather-downfall: "<c:#AAAAAA>您刚刚为自己开启了下雨。"
+command-player-time-reset: "<c:#AAAAAA>您刚刚更改时间为服务器的时间。"
+command-player-time-change: "<c:#AAAAAA>您正在改变自己的时间。"
+command-lag-world-line: "<c:#55FF55>%world%<c:#AAAAAA>: <c:#55FF55>%peaceful% 和平实体<c:#AAAAAA>, <c:#FF5555>%monsters% 怪物<c:#AAAAAA>, <c:#FFFF55>%items% 掉落物"
+command-lag-world-header: "<c:#55FF55>世界 <c:#00AA00>%world%<c:#55FF55> 的实体："
+command-lag-world-entry: "<c:#AAAAAA>- <c:#55FF55>%type%<c:#AAAAAA>: <c:#FFFFFF>%amount%"
+command-lag-clear-success: "<c:#AAAAAA>在 <c:#55FF55>%world%<c:#AAAAAA> 中移除 <c:#55FF55>%amount% <c:#AAAAAA>个实体。"
+command-lag-clear-countdown: "<c:#FF5555>实体将在 <c:#FFFF55>%time% <c:#FF5555>秒后被移除!"
+command-fly-enable: "<c:#AAAAAA>飞行模式 <success>启用 <c:#AAAAAA>给 <c:#FFFFFF>%player%<success>。"
+command-fly-disable: "<c:#AAAAAA>飞行模式 <error>禁用 <c:#AAAAAA>给 <c:#FFFFFF>%player%<success>。"
 command-fly-error-world: <error>您不能在这个世界飞行。
-command-fly-enable-seconds: '&7飞行模式 <success>启用 &7给 &f%player%<success>。 &8(&7剩余时间
-  %time%&8)'
+command-fly-enable-seconds: "<c:#AAAAAA>飞行模式 <success>启用 <c:#AAAAAA>给 <c:#FFFFFF>%player%<success>。 <c:#555555>(<c:#AAAAAA>剩余时间 %time%<c:#555555>)"
 command-fly-error: <error>您不再有飞行时间可用。
 command-fly-end: <error>您已经用尽了所有的飞行时间，您不能再飞行。
 command-fly-error-other: <error>%player% 没有更多的飞行时间可用。
-command-fly-add: <success>您刚刚添加了 %time% <success>的飞行时间给 &f%player%<success>。
-command-fly-get: '<success>%player%&8: &f%player%<success>。'
+command-fly-add: "<success>您刚刚添加了 %time% <success>的飞行时间给 <c:#FFFFFF>%player%<success>。"
+command-fly-get: "<success>%player%<c:#555555>: <c:#FFFFFF>%player%<success>。"
 command-fly-info-empty: <error>您没有可用的飞行时间。
-command-fly-info: <success>您有 &f%time%<success>。
-command-fly-remove: <success>您刚刚移除了 %time% <success>的飞行时间从 &f%player%<success>。
-command-fly-set: <success>您刚刚设置了 %time% <success>的飞行时间给 &f%player%<success>。
-command-furnace-type: <error>无法熔炼材料 &f%material%<error>。
-command-furnace-error: <error>您的背包中没有 &f%item%<error>。
-command-furnace-success: '&7您刚刚将 #0EEA93x%amount% #34cfe0%item% &7转换成了 #0EEA93x%toAmount%
-  #34cfe0%toItem%&7。'
-command-skull: <success>您刚刚得到了玩家的头颅 &f%name%<success>。
+command-fly-info: "<success>您有 <c:#FFFFFF>%time%<success>。"
+command-fly-remove: "<success>您刚刚移除了 %time% <success>的飞行时间从 <c:#FFFFFF>%player%<success>。"
+command-fly-set: "<success>您刚刚设置了 %time% <success>的飞行时间给 <c:#FFFFFF>%player%<success>。"
+command-furnace-type: "<error>无法熔炼材料 <c:#FFFFFF>%material%<error>。"
+command-furnace-error: "<error>您的背包中没有 <c:#FFFFFF>%item%<error>。"
+command-furnace-success: "<c:#AAAAAA>您刚刚将 <c:#0EEA93>x%amount% <c:#34CFE0>%item% <c:#AAAAAA>转换成了 <c:#0EEA93>x%toAmount% <c:#34CFE0>%toItem%<c:#AAAAAA>。"
+command-skull: "<success>您刚刚得到了玩家的头颅 <c:#FFFFFF>%name%<success>。"
 command-repair-error: <error>您手上的物品无法修复。
 command-repair-success: <success>您刚刚修复了手上的物品。
 command-repair-all-error: <error>您没有可修复的物品。
 command-repair-all-success: <success>您刚刚修复了背包中的所有物品。
 command-near-empty: <error>附近没有其他玩家。
-command-near-player: '&f附近的玩家&7:%players%'
-command-near-info: "<newline>&6%direction% &7%player% &8(&e%distance%m&8)"
+command-near-player: "<c:#FFFFFF>附近的玩家<c:#AAAAAA>:%players%"
+command-near-info: "<newline><c:#FFAA00>%direction% <c:#AAAAAA>%player% <c:#555555>(<c:#FFFF55>%distance%m<c:#555555>)"
 command-play-time:
-- '&7您玩了&8: <primary>%playtime%'
-- '&7当前会话&8: <primary>%playtime_session%'
-command-bottom: '&7您已经被传送到 &ebottom&7。'
+- "<c:#AAAAAA>您玩了<c:#555555>: <primary>%playtime%"
+- "<c:#AAAAAA>当前会话<c:#555555>: <primary>%playtime_session%"
+command-bottom: "<c:#AAAAAA>您已经被传送到 <c:#FFFF55>bottom<c:#AAAAAA>。"
 command-bottom-error: <error>无法找到安全传送您的位置。
-command-remove: '&7移除了 <success>%amount% &7实体。'
+command-remove: "<c:#AAAAAA>移除了 <success>%amount% <c:#AAAAAA>实体。"
 command-seen-offline:
   type: WITHOUT_PREFIX
-  message: '#99E0FF玩家 &f%player% #99E0FF自 &7%date%#99E0FF以来处于 <error>离线状态#99E0FF。'
+  message: "<c:#99E0FF>玩家 <c:#FFFFFF>%player% <c:#99E0FF>自 <c:#AAAAAA>%date%<c:#99E0FF>以来处于 <error>离线状态<c:#99E0FF>。"
 command-seen-online:
   type: WITHOUT_PREFIX
-  message: '#99E0FF玩家 &f%player% #99E0FF自 %date%#99E0FF以来处于 <success>在线状态#99E0FF。'
+  message: "<c:#99E0FF>玩家 <c:#FFFFFF>%player% <c:#99E0FF>自 %date%<c:#99E0FF>以来处于 <success>在线状态<c:#99E0FF>。"
 command-seen-playtime:
   type: WITHOUT_PREFIX
-  message: '#99E0FF游戏时间&8: &f%playtime%'
+  message: "<c:#99E0FF>游戏时间<c:#555555>: <c:#FFFFFF>%playtime%"
 command-seen-uuid:
   type: WITHOUT_PREFIX
-  message: '#99E0FFUUID&8: &f%uuid%'
+  message: "<c:#99E0FF>UUID<c:#555555>: <c:#FFFFFF>%uuid%"
 command-seen-ip:
   type: WITHOUT_PREFIX
-  message: '#99E0FFIP地址&8:&f%ips%'
-command-seen-address: ' <click:run_command:''/seenip %ip%''><hover:show_text:''&f显示拥有相同地址的玩家''>%ip%</hover></click>'
-command-seen-ip-empty: <error>无法找到具有 IP &f%ip%<error> 的玩家。
-command-seen-ip-line: '#99E0FF拥有 IP &f%ip%&8 的玩家&8:%players%'
-command-seen-ip-info: ' <white><click:run_command:''/seen %name%''><hover:show_text:''&f显示玩家信息''>%name%</hover></click><dark_gray>'
+  message: "<c:#99E0FF>IP地址<c:#555555>:<c:#FFFFFF>%ips%"
+command-seen-address: " <click:run_command:'/seenip %ip%'><hover:show_text:'<c:#FFFFFF>显示拥有相同地址的玩家'>%ip%</hover></click>"
+command-seen-ip-empty: "<error>无法找到具有 IP <c:#FFFFFF>%ip%<error> 的玩家。"
+command-seen-ip-line: "<c:#99E0FF>拥有 IP <c:#FFFFFF>%ip%<c:#555555> 的玩家<c:#555555>:%players%"
+command-seen-ip-info: " <c:#FFFFFF><click:run_command:'/seen %name%'><hover:show_text:'<c:#FFFFFF>显示玩家信息'>%name%</hover></click><c:#555555>"
 command-seen-last-location:
   type: WITHOUT_PREFIX
-  message: '#99E0FF最后位置&8: &f%world%, %x%, %y%, %z%'
+  message: "<c:#99E0FF>最后位置<c:#555555>: <c:#FFFFFF>%world%, %x%, %y%, %z%"
 command-seen-first-join:
   type: WITHOUT_PREFIX
-  message: '#99E0FF首次加入&8: &f%created_at%'
+  message: "<c:#99E0FF>首次加入<c:#555555>: <c:#FFFFFF>%created_at%"
 
 # 经济
-command-economy-not-found: <error> 找不到名为 &f%name%<error> 的经济系统。
-command-economy-reset-all-confirm: <error>你即将重置 &f%economy%<error> 的所有余额。请在 &f%seconds% 秒内再次执行该命令以确认。
-command-economy-reset-all-success: '#99E0FF你已重置 &f%economy%#99E0FF 的所有余额。'
-command-economy-give-all-sender: '#99E0FF您刚刚给了 &f%economyFormat% #99E0FF给在线玩家。'
-command-economy-give-sender: '#99E0FF您刚刚给了 &f%economyFormat% #99E0FF给玩家 &7%player%#99E0FF。'
-command-economy-give-receiver: '#99E0FF您刚刚收到了 &f%economyFormat%。'
-command-economy-set-sender: '#99E0FF您刚刚设置了 &f%economyFormat% #99E0FF给玩家 &7%player%#99E0FF。'
-command-economy-set-receiver: '#99E0FF您的余额被修改为 &f%economyFormat%。'
-command-economy-take-sender: '#99E0FF您刚刚从玩家 &7%player%#99E0FF那里取走了 &f%economyFormat%。'
-command-economy-take-receiver: '#99E0FF您刚刚失去了 &f%economyFormat%。'
-command-economy-show-empty: '&f%player% <error>没有钱。'
-command-economy-show-info: '&7- #99E0FF%economy% &f%amount%。'
+command-economy-not-found: "<error> 找不到名为 <c:#FFFFFF>%name%<error> 的经济系统。"
+command-economy-reset-all-confirm: "<error>你即将重置 <c:#FFFFFF>%economy%<error> 的所有余额。请在 <c:#FFFFFF>%seconds% 秒内再次执行该命令以确认。"
+command-economy-reset-all-success: "<c:#99E0FF>你已重置 <c:#FFFFFF>%economy%<c:#99E0FF> 的所有余额。"
+command-economy-give-all-sender: "<c:#99E0FF>您刚刚给了 <c:#FFFFFF>%economyFormat% <c:#99E0FF>给在线玩家。"
+command-economy-give-sender: "<c:#99E0FF>您刚刚给了 <c:#FFFFFF>%economyFormat% <c:#99E0FF>给玩家 <c:#AAAAAA>%player%<c:#99E0FF>。"
+command-economy-give-receiver: "<c:#99E0FF>您刚刚收到了 <c:#FFFFFF>%economyFormat%。"
+command-economy-set-sender: "<c:#99E0FF>您刚刚设置了 <c:#FFFFFF>%economyFormat% <c:#99E0FF>给玩家 <c:#AAAAAA>%player%<c:#99E0FF>。"
+command-economy-set-receiver: "<c:#99E0FF>您的余额被修改为 <c:#FFFFFF>%economyFormat%。"
+command-economy-take-sender: "<c:#99E0FF>您刚刚从玩家 <c:#AAAAAA>%player%<c:#99E0FF>那里取走了 <c:#FFFFFF>%economyFormat%。"
+command-economy-take-receiver: "<c:#99E0FF>您刚刚失去了 <c:#FFFFFF>%economyFormat%。"
+command-economy-show-empty: "<c:#FFFFFF>%player% <error>没有钱。"
+command-economy-show-info: "<c:#AAAAAA>- <c:#99E0FF>%economy% <c:#FFFFFF>%amount%。"
 command-money:
-- '#99E0FF您有&8:'
-- ' &7- #99E0FF%economy-name-money% &f%economy-money%。'
-- ' &7- #99E0FF%economy-name-coins% &f%economy-coins%。'
+- "<c:#99E0FF>您有<c:#555555>:"
+- " <c:#AAAAAA>- <c:#99E0FF>%economy-name-money% <c:#FFFFFF>%economy-money%。"
+- " <c:#AAAAAA>- <c:#99E0FF>%economy-name-coins% <c:#FFFFFF>%economy-coins%。"
 command-money-other:
-- '#99E0FF%player% 有&8:'
-- ' &7- #99E0FF%economy-name-money% &f%economy-money%。'
-- ' &7- #99E0FF%economy-name-coins% &f%economy-coins%。'
+- "<c:#99E0FF>%player% 有<c:#555555>:"
+- " <c:#AAAAAA>- <c:#99E0FF>%economy-name-money% <c:#FFFFFF>%economy-money%。"
+- " <c:#AAAAAA>- <c:#99E0FF>%economy-name-coins% <c:#FFFFFF>%economy-coins%。"
 command-pay-negative: <error>支付金额必须为正数。
-command-pay-min: <error>您可以支付的最小金额是 &f%amount%<error>。
-command-pay-max: <error>您可以支付的最大金额是 &f%amount%<error>。
-command-pay-sender: '#99E0FF您刚刚发送了 #F8F327%amount%#99E0FF 给玩家 &f%player%#99E0FF。'
-command-pay-receiver: '&f%player% #99E0FF刚刚给您发送了 #F8F327%amount%#99E0FF。'
+command-pay-min: "<error>您可以支付的最小金额是 <c:#FFFFFF>%amount%<error>。"
+command-pay-max: "<error>您可以支付的最大金额是 <c:#FFFFFF>%amount%<error>。"
+command-pay-sender: "<c:#99E0FF>您刚刚发送了 <c:#F8F327>%amount%<c:#99E0FF> 给玩家 <c:#FFFFFF>%player%<c:#99E0FF>。"
+command-pay-receiver: "<c:#FFFFFF>%player% <c:#99E0FF>刚刚给您发送了 <c:#F8F327>%amount%<c:#99E0FF>。"
 command-pay-disable: <error>您不能发送 %name%。
 command-pay-self: <error>您不能给自己发送金钱。
 command-pay-not-enough: <error>您的钱不够。
 
 
 # 传送命令
-command-tpa-error: '<error>您已经向 #99E0FF%player%<error> 发送了一个请求。'
+command-tpa-error: "<error>您已经向 <c:#99E0FF>%player%<error> 发送了一个请求。"
 command-tpa-error-same: <error>您不能传送到自己。
-command-tpa-here-error: <error>您已经向#99E0FF%player%<error>发送了请求。
+command-tpa-here-error: "<error>您已经向<c:#99E0FF>%player%<error>发送了请求。"
 command-tpa-here-error-same: <error>您不能传送到自己。
 command-tpa-error-offline: <error>无法找到玩家，可能已离线。
 command-tpa-error-to-late-empty: <error>您没有传送请求。
 command-tpa-error-to-late-expire: <error>传送请求已过期。
 command-tpa-sender:
-- '#00FF00✔ #99E0FF已向 &f%displayName% #99E0FF发送了一个传送请求。'
-- '  <hover:show_text:''<error>✘ 取消传送''><click:run_command:/tpacancel %player%>#99E0FF键入
-  #00FF00/tpacancel %player%#99E0FF 来取消您的请求。</click></hover>'
+- "<c:#00FF00>✔ <c:#99E0FF>已向 <c:#FFFFFF>%displayName% <c:#99E0FF>发送了一个传送请求。"
+- "  <hover:show_text:'<error>✘ 取消传送'><click:run_command:/tpacancel %player%><c:#99E0FF>键入 <c:#00FF00>/tpacancel %player%<c:#99E0FF> 来取消您的请求。</click></hover>"
 command-tpa-receiver:
 - ''
-- '#F8F327⚠ &f%displayName% #99E0FF请求传送到您这里！'
+- "<c:#F8F327>⚠ <c:#FFFFFF>%displayName% <c:#99E0FF>请求传送到您这里！"
 command-tpa-here-sender:
-- '#00FF00✔ #99E0FF已向&f%displayName% #99E0FF发送传送请求。'
-- '  <hover:show_text:''<error>✘ 取消传送''><click:run_command:/tpacancel %player%>#99E0FF输入
-  #00FF00/tpacancel %player%#99E0FF 来取消您的请求。</click></hover>'
+- "<c:#00FF00>✔ <c:#99E0FF>已向<c:#FFFFFF>%displayName% <c:#99E0FF>发送传送请求。"
+- "  <hover:show_text:'<error>✘ 取消传送'><click:run_command:/tpacancel %player%><c:#99E0FF>输入 <c:#00FF00>/tpacancel %player%<c:#99E0FF> 来取消您的请求。</click></hover>"
 command-tpa-here-receiver:
 - ''
-- '#F8F327⚠ &f%displayName% #99E0FF请求将您传送到他那里！'
-- '  <hover:show_text:''#00FF00✔ 接受传送''><click:run_command:/tpaccept>#99E0FF输入 #00FF00/tpaccept #99E0FF以 #00FF00<u>接受</u>#99E0FF。</click></hover>'
-- '  <hover:show_text:''<error>✘ 拒绝传送''><click:run_command:/tpdeny>#99E0FF输入 <error>/tpdeny#99E0FF以 <error><u>拒绝</u>#99E0FF。</click></hover>'
+- "<c:#F8F327>⚠ <c:#FFFFFF>%displayName% <c:#99E0FF>请求将您传送到他那里！"
+- "  <hover:show_text:'<c:#00FF00>✔ 接受传送'><click:run_command:/tpaccept><c:#99E0FF>输入 <c:#00FF00>/tpaccept <c:#99E0FF>以 <c:#00FF00><u>接受</u><c:#99E0FF>。</click></hover>"
+- "  <hover:show_text:'<error>✘ 拒绝传送'><click:run_command:/tpdeny><c:#99E0FF>输入 <error>/tpdeny<c:#99E0FF>以 <error><u>拒绝</u><c:#99E0FF>。</click></hover>"
 - ''
-- '&7&o您有60秒的时间来接受传送请求。'
-command-tpa-accept-receiver: "#99E0FF您刚刚#00FF00接受了#99E0FF来自#99E0FF%player%<success>的传送请求。"
-command-tpa-accept-sender: '#99E0FF%player%<success> 刚刚接受了您的传送请求。'
-command-tpa-here-accept-receiver: "#99E0FF您刚刚#00FF00接受了#99E0FF来自 #99E0FF%player%<success>的传送请求。"
-command-tpa-here-accept-sender: "##99E0FF%player%<success>刚刚接受了您的传送请求。"
-command-teleport-ignore-player: '<error>您不能向 #99E0FF%player%<error> 发送传送请求，他们正在忽略您。'
+- "<c:#AAAAAA><italic>您有60秒的时间来接受传送请求。"
+command-tpa-accept-receiver: "<c:#99E0FF>您刚刚<c:#00FF00>接受了<c:#99E0FF>来自<c:#99E0FF>%player%<success>的传送请求。"
+command-tpa-accept-sender: "<c:#99E0FF>%player%<success> 刚刚接受了您的传送请求。"
+command-tpa-here-accept-receiver: "<c:#99E0FF>您刚刚<c:#00FF00>接受了<c:#99E0FF>来自 <c:#99E0FF>%player%<success>的传送请求。"
+command-tpa-here-accept-sender: "#<c:#99E0FF>%player%<success>刚刚接受了您的传送请求。"
+command-teleport-ignore-player: "<error>您不能向 <c:#99E0FF>%player%<error> 发送传送请求，他们正在忽略您。"
 command-teleport-world: <error>您需要在同一世界才能传送。
 command-tpa-error-to-late: <error>您没有传送请求。
 command-tpa-error-to-late-2: <error>请求已过期。
-command-tp-deny-sender: '#00FF00✔ 拒绝了 &f%player% #00FF00的传送请求。'
-command-tp-deny-receiver: <error>✘ &f%player% <error>拒绝了您的传送请求。
-command-tp-cancel-error: <error>您没有向 &f%player%<error> 发送传送请求。
-command-tp-cancel-sender: '<error>取消了 #99E0FF您对 %player% 的传送请求。'
-command-tp-cancel-receiver: '&f%player% <error>取消了他们的传送请求到您。'
-command-world-teleport-self: <success>您刚刚被传送到了世界 &f%world%<success>。
-command-world-teleport-other: <success>您刚刚将玩家 &f%player% <success>传送到了世界 &f%world%<success>。
-command-random-tp-other: <success>你刚刚随机传送了玩家 &f%player% <success>到世界 &f%world%<success>。
-command-tp: '&f您刚刚传送到玩家 #34cfe0%player%&f。'
-command-tp-location: '&f您刚刚传送到 #34cfe0%x%&f, #34cfe0%y%&f, #34cfe0%z%&f。'
-command-tp-location-other: '&f您刚刚将 #34cfe0%player% &f传送到了 #34cfe0%x%&f, #34cfe0%y%&f,
-  #34cfe0%z%&f。'
-command-tp-all: '&f您刚刚将所有玩家传送到了您的位置。'
-command-tp-self: '&f您刚刚将 #34cfe0%player%&f 传送到了您的位置。'
-command-back: '&7返回上一个位置。'
+command-tp-deny-sender: "<c:#00FF00>✔ 拒绝了 <c:#FFFFFF>%player% <c:#00FF00>的传送请求。"
+command-tp-deny-receiver: "<error>✘ <c:#FFFFFF>%player% <error>拒绝了您的传送请求。"
+command-tp-cancel-error: "<error>您没有向 <c:#FFFFFF>%player%<error> 发送传送请求。"
+command-tp-cancel-sender: "<error>取消了 <c:#99E0FF>您对 %player% 的传送请求。"
+command-tp-cancel-receiver: "<c:#FFFFFF>%player% <error>取消了他们的传送请求到您。"
+command-world-teleport-self: "<success>您刚刚被传送到了世界 <c:#FFFFFF>%world%<success>。"
+command-world-teleport-other: "<success>您刚刚将玩家 <c:#FFFFFF>%player% <success>传送到了世界 <c:#FFFFFF>%world%<success>。"
+command-random-tp-other: "<success>你刚刚随机传送了玩家 <c:#FFFFFF>%player% <success>到世界 <c:#FFFFFF>%world%<success>。"
+command-tp: "<c:#FFFFFF>您刚刚传送到玩家 <c:#34CFE0>%player%<c:#FFFFFF>。"
+command-tp-location: "<c:#FFFFFF>您刚刚传送到 <c:#34CFE0>%x%<c:#FFFFFF>, <c:#34CFE0>%y%<c:#FFFFFF>, <c:#34CFE0>%z%<c:#FFFFFF>。"
+command-tp-location-other: "<c:#FFFFFF>您刚刚将 <c:#34CFE0>%player% <c:#FFFFFF>传送到了 <c:#34CFE0>%x%<c:#FFFFFF>, <c:#34CFE0>%y%<c:#FFFFFF>, <c:#34CFE0>%z%<c:#FFFFFF>。"
+command-tp-all: "<c:#FFFFFF>您刚刚将所有玩家传送到了您的位置。"
+command-tp-self: "<c:#FFFFFF>您刚刚将 <c:#34CFE0>%player%<c:#FFFFFF> 传送到了您的位置。"
+command-back: "<c:#AAAAAA>返回上一个位置。"
 command-back-error: <error>您没有上一个位置。无法返回。
 command-random-tp-error: <error>多次尝试后仍未找到安全位置，请重试。
 
 
 # 首次加入
-join-message: '#99E0FF%player% &7加入了游戏'
-quit-message: '#99E0FF%player% &7离开了游戏'
-first-join-message: '&7欢迎 #99E0FF%player% &7来到<您的服务器名称>！ &8(&f%totalUserFormat% &7注册玩家&8)'
+join-message: "<c:#99E0FF>%player% <c:#AAAAAA>加入了游戏"
+quit-message: "<c:#99E0FF>%player% <c:#AAAAAA>离开了游戏"
+first-join-message: "<c:#AAAAAA>欢迎 <c:#99E0FF>%player% <c:#AAAAAA>来到<您的服务器名称>！ <c:#555555>(<c:#FFFFFF>%totalUserFormat% <c:#AAAAAA>注册玩家<c:#555555>)"
 first-join-motd:
 - ''
-- '#00FF00✔ #99E0FF欢迎 %player%#99E0FF ！'
+- "<c:#00FF00>✔ <c:#99E0FF>欢迎 %player%<c:#99E0FF> ！"
 - ''
-- '#858ef8Discord&8: #99E0FF<hover:show_text:''&f加入服务器 #858ef8Discord &f！''><click:open_url:''https://discord.groupez.dev/''>https://discord.groupez.dev/</click></hover>'
-- '&7网站&8: #99E0FF<hover:show_text:''&f打开网站 &f！''><click:open_url:''https://minecraft-inventory-builder.com/''>https://minecraft-inventory-builder.com/</click></hover>'
+- "#858ef8Discord<c:#555555>: <c:#99E0FF><hover:show_text:'<c:#FFFFFF>加入服务器 #858ef8Discord <c:#FFFFFF>！'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>"
+- "<c:#AAAAAA>网站<c:#555555>: <c:#99E0FF><hover:show_text:'<c:#FFFFFF>打开网站 <c:#FFFFFF>！'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>"
 - ''
 
 join-motd:
 - ''
-- '#99E0FF欢迎回来 %player%#99E0FF！'
+- "<c:#99E0FF>欢迎回来 %player%<c:#99E0FF>！"
 - ''
-- '#858ef8Discord&8: #99E0FF<hover:show_text:''&f加入服务器 #858ef8Discord &f！''><click:open_url:''https://discord.groupez.dev/''>https://discord.groupez.dev/</click></hover>'
-- '&7网站&8: #99E0FF<hover:show_text:''&f打开网站 &f！''><click:open_url:''https://minecraft-inventory-builder.com/''>https://minecraft-inventory-builder.com/</click></hover>'
+- "#858ef8Discord<c:#555555>: <c:#99E0FF><hover:show_text:'<c:#FFFFFF>加入服务器 #858ef8Discord <c:#FFFFFF>！'><click:open_url:'https://discord.groupez.dev/'>https://discord.groupez.dev/</click></hover>"
+- "<c:#AAAAAA>网站<c:#555555>: <c:#99E0FF><hover:show_text:'<c:#FFFFFF>打开网站 <c:#FFFFFF>！'><click:open_url:'https://minecraft-inventory-builder.com/'>https://minecraft-inventory-builder.com/</click></hover>"
 - ''
 
 # 出生点
-command-set-spawn: '&f您刚刚设置了出生点位置。'
+command-set-spawn: "<c:#FFFFFF>您刚刚设置了出生点位置。"
 command-spawn-not-define: <error>出生点不存在。请联系管理员。
 command-spawn-location-invalid: <error>出生点无效，请联系管理员
 
@@ -495,8 +489,8 @@ format-hour: 小时
 format-hours: 小时
 format-day: 天
 format-days: 天
-cooldown: <error>✘ 您必须等待 &f%cooldown% <error>才能执行此操作。
-cooldown-commands: <error>✘ 您必须等待 &f%cooldown% <error>才能执行这些命令。
+cooldown: "<error>✘ 您必须等待 <c:#FFFFFF>%cooldown% <error>才能执行此操作。"
+cooldown-commands: "<error>✘ 您必须等待 <c:#FFFFFF>%cooldown% <error>才能执行这些命令。"
 
 
 # 传送
@@ -506,91 +500,86 @@ teleport-error-location: <error>无法安全地传送您。
 
 teleport-message:
   type: ACTION
-  message: '&7将在#0EEA93%seconds%&7秒后传送，请勿移动。'
+  message: "<c:#AAAAAA>将在<c:#0EEA93>%seconds%<c:#AAAAAA>秒后传送，请勿移动。"
 teleport-success:
   type: ACTION
-  message: '#99E0FF你已成功传送！'
+  message: "<c:#99E0FF>你已成功传送！"
 
 teleport-message-spawn:
-- message: '&7将在#0EEA93%seconds%&7秒后传送，请勿移动。'
+- message: "<c:#AAAAAA>将在<c:#0EEA93>%seconds%<c:#AAAAAA>秒后传送，请勿移动。"
 - type: ACTION
-  message: '&7将在#0EEA93%seconds%&7秒后传送，请勿移动。'
-teleport-message-spawn-console: <success>你刚将玩家<white>%player% <success>传送到出生点。
+  message: "<c:#AAAAAA>将在<c:#0EEA93>%seconds%<c:#AAAAAA>秒后传送，请勿移动。"
+teleport-message-spawn-console: "<success>你刚将玩家<c:#FFFFFF>%player% <success>传送到出生点。"
 
 teleport-success-spawn:
-- message: '&7你刚刚传送到#0EEA93出生点&7！'
+- message: "<c:#AAAAAA>你刚刚传送到<c:#0EEA93>出生点<c:#AAAAAA>！"
 - type: ACTION
-  message: '&7你刚刚传送到#0EEA93出生点&7！'
+  message: "<c:#AAAAAA>你刚刚传送到<c:#0EEA93>出生点<c:#AAAAAA>！"
 teleport-message-warp:
-- message: '&7将在#0EEA93%seconds%&7秒后传送，请勿移动。'
+- message: "<c:#AAAAAA>将在<c:#0EEA93>%seconds%<c:#AAAAAA>秒后传送，请勿移动。"
 - type: ACTION
-  message: '&7将在#0EEA93%seconds%&7秒后传送，请勿移动。'
+  message: "<c:#AAAAAA>将在<c:#0EEA93>%seconds%<c:#AAAAAA>秒后传送，请勿移动。"
 teleport-success-warp:
-- message: '&7你刚刚传送到传送点#0EEA93%name%&7！'
+- message: "<c:#AAAAAA>你刚刚传送到传送点<c:#0EEA93>%name%<c:#AAAAAA>！"
 - type: ACTION
-  message: '&7你刚刚传送到传送点#0EEA93%name%&7！'
+  message: "<c:#AAAAAA>你刚刚传送到传送点<c:#0EEA93>%name%<c:#AAAAAA>！"
 teleport-message-random:
   type: ACTION
-  message: '&7将在#0EEA93%seconds%&7秒后传送，请勿移动。'
+  message: "<c:#AAAAAA>将在<c:#0EEA93>%seconds%<c:#AAAAAA>秒后传送，请勿移动。"
 teleport-success-random:
   type: ACTION
-  message: '#99E0FF你已成功传送！'
+  message: "<c:#99E0FF>你已成功传送！"
 teleport-message-home:
-- message: '&7将在#0EEA93%seconds%&7秒后传送，请勿移动。'
+- message: "<c:#AAAAAA>将在<c:#0EEA93>%seconds%<c:#AAAAAA>秒后传送，请勿移动。"
 - type: ACTION
-  message: '&7将在#0EEA93%seconds%&7秒后传送，请勿移动。'
+  message: "<c:#AAAAAA>将在<c:#0EEA93>%seconds%<c:#AAAAAA>秒后传送，请勿移动。"
 teleport-success-home:
-- message: '&7你刚刚传送到家#0EEA93%name%&7！'
+- message: "<c:#AAAAAA>你刚刚传送到家<c:#0EEA93>%name%<c:#AAAAAA>！"
 - type: ACTION
-  message: '&7你刚刚传送到家#0EEA93%name%&7！'
+  message: "<c:#AAAAAA>你刚刚传送到家<c:#0EEA93>%name%<c:#AAAAAA>！"
 
 
 # 传送点
-command-warp-already-exist: <error>传送点 &f%name% <error>已经存在。&7使用 &n<hover:show_text:'&f使用此命令'><click:suggest_command:'/setwarp
-  %name% true'>/setwarp %name% true</click></hover>&r 命令来修改传送点
-command-warp-doesnt-exist: <error>传送点 &f%name% <error>不存在。
-command-warp-no-permission: <error>你没有权限使用传送点 &f%name%<error>。
+command-warp-already-exist: "<error>传送点 <c:#FFFFFF>%name% <error>已经存在。<c:#AAAAAA>使用 <underlined><hover:show_text:'<c:#FFFFFF>使用此命令'><click:suggest_command:'/setwarp %name% true'>/setwarp %name% true</click></hover><reset> 命令来修改传送点"
+command-warp-doesnt-exist: "<error>传送点 <c:#FFFFFF>%name% <error>不存在。"
+command-warp-no-permission: "<error>你没有权限使用传送点 <c:#FFFFFF>%name%<error>。"
 command-warp-create:
-- '#00ff00你刚刚创建了传送点 &f%name% #00ff00到你的位置。'
-- '&7传送点权限是: <hover:show_text:''&f复制命令以向玩家添加权限''><click:SUGGEST_COMMAND:''/lp user
-  <username> permission set essentials.warp.%name%''>&f&nessentials.warp.%name%</click></hover>'
+- "<c:#00FF00>你刚刚创建了传送点 <c:#FFFFFF>%name% <c:#00FF00>到你的位置。"
+- "<c:#AAAAAA>传送点权限是: <hover:show_text:'<c:#FFFFFF>复制命令以向玩家添加权限'><click:SUGGEST_COMMAND:'/lp user <username> permission set essentials.warp.%name%'><c:#FFFFFF><underlined>essentials.warp.%name%</click></hover>"
 command-warp-use:
-- '<error>用法&8: &f/warp <目的地>'
-- '&7传送点&8:&f%destinations%'
-command-warp-destination: ' <hover:show_text:''&f点击传送至传送点 &n%name%''><click:run_command:''/warp
-  %name%''>&f%name%</click></hover>&7'
-command-warp-list: '&7传送点&8:&f%destinations%'
-command-warp-list-info: ' <hover:show_text:''&f点击传送至传送点 &n%name%''><click:run_command:''/warp
-  %name%''>&f%name%</click></hover>&7'
-command-warp-delete: '#00ff00你刚刚删除了传送点 &f%name%#00ff00。'
-command-warp-invalid: <error>传送点 &f%name% <error>位置无效。
+- "<error>用法<c:#555555>: <c:#FFFFFF>/warp <目的地>"
+- "<c:#AAAAAA>传送点<c:#555555>:<c:#FFFFFF>%destinations%"
+command-warp-destination: " <hover:show_text:'<c:#FFFFFF>点击传送至传送点 <underlined>%name%'><click:run_command:'/warp %name%'><c:#FFFFFF>%name%</click></hover><c:#AAAAAA>"
+command-warp-list: "<c:#AAAAAA>传送点<c:#555555>:<c:#FFFFFF>%destinations%"
+command-warp-list-info: " <hover:show_text:'<c:#FFFFFF>点击传送至传送点 <underlined>%name%'><click:run_command:'/warp %name%'><c:#FFFFFF>%name%</click></hover><c:#AAAAAA>"
+command-warp-delete: "<c:#00FF00>你刚刚删除了传送点 <c:#FFFFFF>%name%<c:#00FF00>。"
+command-warp-invalid: "<error>传送点 <c:#FFFFFF>%name% <error>位置无效。"
 
 
 # 家
-command-set-home-invalide-name: '&f%name% <error>不是一个有效的名称，请选择另一个。'
-command-set-home-too-long: '&f%name% <error>太长，请选择另一个。'
-command-set-home-too-short: '&f%name% <error>名字太短，请选择另一个。'
-command-set-home-max: <error>你不能拥有超过 &f%max%<error> 个家。
+command-set-home-invalide-name: "<c:#FFFFFF>%name% <error>不是一个有效的名称，请选择另一个。"
+command-set-home-too-long: "<c:#FFFFFF>%name% <error>太长，请选择另一个。"
+command-set-home-too-short: "<c:#FFFFFF>%name% <error>名字太短，请选择另一个。"
+command-set-home-max: "<error>你不能拥有超过 <c:#FFFFFF>%max%<error> 个家。"
 command-set-home-world: <error>你不能在这里创建家。
 command-set-home-create:
 - ''
-- '#99E0FF你刚刚创建了家 &f%name%#99E0FF。 &8(&7%current%&8/&7%max%&8)'
-- '&f使用 &n<hover:show_text:''&f点击传送至家''><click:suggest_command:''/home %name%''>/home
-  %name%</click></hover>&r 命令传送至此'
+- "<c:#99E0FF>你刚刚创建了家 <c:#FFFFFF>%name%<c:#99E0FF>。 <c:#555555>(<c:#AAAAAA>%current%<c:#555555>/<c:#AAAAAA>%max%<c:#555555>)"
+- "<c:#FFFFFF>使用 <underlined><hover:show_text:'<c:#FFFFFF>点击传送至家'><click:suggest_command:'/home %name%'>/home %name%</click></hover><reset> 命令传送至此"
 - ''
 command-set-home-create-confirm:
 - ''
-- '#99E0FF家 &f%name%#99E0FF 已经存在。你想覆盖它吗？'
-- <hover:show_text:'&f点击覆盖家 %name%'><click:run_command:'/sethomeconfirm %name%'><success>確認</click></hover>
+- "<c:#99E0FF>家 <c:#FFFFFF>%name%<c:#99E0FF> 已经存在。你想覆盖它吗？"
+- "<hover:show_text:'<c:#FFFFFF>点击覆盖家 %name%'><click:run_command:'/sethomeconfirm %name%'><success>確認</click></hover>"
 - ''
-command-home-doesnt-exist: <error>家 &f%name%<error> 不存在。
+command-home-doesnt-exist: "<error>家 <c:#FFFFFF>%name%<error> 不存在。"
 
 # 可用占位符：
 # %count% - 家的数量
 # %max% - 玩家的最大家数
 command-home-information-multi-line-header:
 - ''
-- '#8cc0cc你的家 <success>♦ &7(%count%) &8- &7(最大: %max%)'
+- "<c:#8CC0CC>你的家 <success>♦ <c:#AAAAAA>(%count%) <c:#555555>- <c:#AAAAAA>(最大: %max%)"
 
 # 可用占位符：
 # %count% - 家的数量
@@ -603,8 +592,7 @@ command-home-information-multi-line-header:
 # %z% - 家的位置 z
 command-home-information-multi-line-content:
   type: WITHOUT_PREFIX
-  message: ' #8cc0cc♢ &f%name% &7在 %world% (%environment%) <success><hover:show_text:''&7点击传送至家
-    &f&n%name%''><click:run_command:''/home %name%''>[点击]</click></hover>'
+  message: " <c:#8CC0CC>♢ <c:#FFFFFF>%name% <c:#AAAAAA>在 %world% (%environment%) <success><hover:show_text:'<c:#AAAAAA>点击传送至家 <c:#FFFFFF><underlined>%name%'><click:run_command:'/home %name%'>[点击]</click></hover>"
 
 # 可用占位符：
 # %count% - 家的数量
@@ -624,114 +612,101 @@ command-home-information-multi-line-footer:
 # %z% - 家的位置 z
 command-home-information-in-line:
   type: WITHOUT_PREFIX
-  message: '#8cc0cc你的家 <success>♦ &7(%count%/%max%) &8:&f%homes%'
-command-home-information-in-line-info: ' <hover:show_text:''&7点击传送至家 &f&n%name%''><click:run_command:''/home
-  %name%''>&f%name%</click></hover>&7'
+  message: "<c:#8CC0CC>你的家 <success>♦ <c:#AAAAAA>(%count%/%max%) <c:#555555>:<c:#FFFFFF>%homes%"
+command-home-information-in-line-info: " <hover:show_text:'<c:#AAAAAA>点击传送至家 <c:#FFFFFF><underlined>%name%'><click:run_command:'/home %name%'><c:#FFFFFF>%name%</click></hover><c:#AAAAAA>"
 command-home-icon-error: <error>你必须手持物品才能更改家的图标。
-command-home-icon-success: '#00ff00你刚刚更改了家的图标 &f%name%#00ff00。'
-command-home-icon-reset: '#00ff00你刚刚重置了家的图标 &f%name%#00ff00。'
-command-home-delete: '#99E0FF你刚刚删除了家 &f%name%#99E0FF。'
+command-home-icon-success: "<c:#00FF00>你刚刚更改了家的图标 <c:#FFFFFF>%name%<c:#00FF00>。"
+command-home-icon-reset: "<c:#00FF00>你刚刚重置了家的图标 <c:#FFFFFF>%name%<c:#00FF00>。"
+command-home-delete: "<c:#99E0FF>你刚刚删除了家 <c:#FFFFFF>%name%<c:#99E0FF>。"
 command-home-delete-confirm:
 - ''
-- '#99E0FF你真的想删除家 &f%name%#99E0FF。'
-- <success><hover:show_text:'&f点击确认删除家 %name%'><click:run_command:'/delhomeconfirm
-  %name%'>確認</click></hover>
+- "<c:#99E0FF>你真的想删除家 <c:#FFFFFF>%name%<c:#99E0FF>。"
+- "<success><hover:show_text:'<c:#FFFFFF>点击确认删除家 %name%'><click:run_command:'/delhomeconfirm %name%'>確認</click></hover>"
 - ''
-command-home-admin-delete: '#00ff00你刚刚删除了 &b%player% 的家 &f%name%#00ff00。'
-command-home-admin-set: '#00ff00你刚刚为 &b%player% 创建了家 &f%name%#00ff00。'
-command-home-admin-list: '#8cc0cc%player% 的家&8:&f%homes%'
-command-home-admin-list-info: ' <hover:show_text:''&7点击传送至家 &f&n%name%''><click:run_command:''/home
-  %player%:%name%''>&f%name%</click></hover>&7'
+command-home-admin-delete: "<c:#00FF00>你刚刚删除了 <c:#55FFFF>%player% 的家 <c:#FFFFFF>%name%<c:#00FF00>。"
+command-home-admin-set: "<c:#00FF00>你刚刚为 <c:#55FFFF>%player% 创建了家 <c:#FFFFFF>%name%<c:#00FF00>。"
+command-home-admin-list: "<c:#8CC0CC>%player% 的家<c:#555555>:<c:#FFFFFF>%homes%"
+command-home-admin-list-info: " <hover:show_text:'<c:#AAAAAA>点击传送至家 <c:#FFFFFF><underlined>%name%'><click:run_command:'/home %player%:%name%'><c:#FFFFFF>%name%</click></hover><c:#AAAAAA>"
 
 
 # 处罚
 command-kick-notify:
   type: WITHOUT_PREFIX
-  message: '<hover:show_text:''<gray>由: <white>%sender%<newline><gray>持续时间: <white>%duration%<newline><gray>原因:
-    <white>%reason%<newline><gray>日期: <white>%created_at%''><click:run_command:''/sc
-    %target%''>&8(#f59e07处罚&8) #8aebeb%player% #e33414刚刚踢出了玩家 #e0d12d%target%#e33414。</click></hover>'
+  message: "<hover:show_text:'<c:#AAAAAA>由: <c:#FFFFFF>%sender%<newline><c:#AAAAAA>持续时间: <c:#FFFFFF>%duration%<newline><c:#AAAAAA>原因: <c:#FFFFFF>%reason%<newline><c:#AAAAAA>日期: <c:#FFFFFF>%created_at%'><click:run_command:'/sc %target%'><c:#555555>(<c:#F59E07>处罚<c:#555555>) <c:#8AEBEB>%player% <c:#E33414>刚刚踢出了玩家 <c:#E0D12D>%target%<c:#E33414>。</click></hover>"
 command-ban-notify:
   type: WITHOUT_PREFIX
-  message: '<hover:show_text:''<gray>由: <white>%sender%<newline><gray>持续时间: <white>%duration%<newline><gray>原因:
-    <white>%reason%<newline><gray>日期: <white>%created_at%<newline><gray>过期: <white>%expired_at%''><click:run_command:''/sc
-    %target%''>&8(#f59e07处罚&8) #8aebeb%player% #e33414刚刚封禁了玩家 #e0d12d%target%#e33414。</click></hover>'
+  message: "<hover:show_text:'<c:#AAAAAA>由: <c:#FFFFFF>%sender%<newline><c:#AAAAAA>持续时间: <c:#FFFFFF>%duration%<newline><c:#AAAAAA>原因: <c:#FFFFFF>%reason%<newline><c:#AAAAAA>日期: <c:#FFFFFF>%created_at%<newline><c:#AAAAAA>过期: <c:#FFFFFF>%expired_at%'><click:run_command:'/sc %target%'><c:#555555>(<c:#F59E07>处罚<c:#555555>) <c:#8AEBEB>%player% <c:#E33414>刚刚封禁了玩家 <c:#E0D12D>%target%<c:#E33414>。</click></hover>"
 command-mute-notify:
   type: WITHOUT_PREFIX
-  message: '<hover:show_text:''<gray>由: <white>%sender%<newline><gray>持续时间: <white>%duration%<newline><gray>原因:
-    <white>%reason%<newline><gray>日期: <white>%created_at%<newline><gray>过期: <white>%expired_at%''><click:run_command:''/sc
-    %target%''>&8(#f59e07处罚&8) #8aebeb%player% #e33414刚刚禁言了玩家 #e0d12d%target%#e33414。</click></hover>'
+  message: "<hover:show_text:'<c:#AAAAAA>由: <c:#FFFFFF>%sender%<newline><c:#AAAAAA>持续时间: <c:#FFFFFF>%duration%<newline><c:#AAAAAA>原因: <c:#FFFFFF>%reason%<newline><c:#AAAAAA>日期: <c:#FFFFFF>%created_at%<newline><c:#AAAAAA>过期: <c:#FFFFFF>%expired_at%'><click:run_command:'/sc %target%'><c:#555555>(<c:#F59E07>处罚<c:#555555>) <c:#8AEBEB>%player% <c:#E33414>刚刚禁言了玩家 <c:#E0D12D>%target%<c:#E33414>。</click></hover>"
 command-unmute-notify:
   type: WITHOUT_PREFIX
-  message: '<hover:show_text:''<gray>由: <white>%sender%<newline><gray>持续时间: <white>%duration%<newline><gray>原因:
-    <white>%reason%<newline><gray>日期: <white>%created_at%''><click:run_command:''/sc
-    %target%''>&8(#f59e07处罚&8) #8aebeb%player% #e33414刚刚解除了对玩家 #e0d12d%target%#e33414的禁言。</click></hover>'
+  message: "<hover:show_text:'<c:#AAAAAA>由: <c:#FFFFFF>%sender%<newline><c:#AAAAAA>持续时间: <c:#FFFFFF>%duration%<newline><c:#AAAAAA>原因: <c:#FFFFFF>%reason%<newline><c:#AAAAAA>日期: <c:#FFFFFF>%created_at%'><click:run_command:'/sc %target%'><c:#555555>(<c:#F59E07>处罚<c:#555555>) <c:#8AEBEB>%player% <c:#E33414>刚刚解除了对玩家 <c:#E0D12D>%target%<c:#E33414>的禁言。</click></hover>"
 command-unban-notify:
   type: WITHOUT_PREFIX
-  message: '<hover:show_text:''<gray>由: <white>%sender%<newline><gray>持续时间: <white>%duration%<newline><gray>原因:
-    <white>%reason%<newline><gray>日期: <white>%created_at%''><click:run_command:''/sc
-    %target%''>&8(#f59e07处罚&8) #8aebeb%player% #e33414刚刚解除了对玩家 #e0d12d%target%#e33414的封禁。</click></hover>'
+  message: "<hover:show_text:'<c:#AAAAAA>由: <c:#FFFFFF>%sender%<newline><c:#AAAAAA>持续时间: <c:#FFFFFF>%duration%<newline><c:#AAAAAA>原因: <c:#FFFFFF>%reason%<newline><c:#AAAAAA>日期: <c:#FFFFFF>%created_at%'><click:run_command:'/sc %target%'><c:#555555>(<c:#F59E07>处罚<c:#555555>) <c:#8AEBEB>%player% <c:#E33414>刚刚解除了对玩家 <c:#E0D12D>%target%<c:#E33414>的封禁。</click></hover>"
 command-ban-error-duration: <error>封禁的时间必须至少为1秒。
 command-mute-error-duration: <error>禁言的时间必须至少为1秒。
-command-un-mute-error: '&f%player% <error>并未被禁言。'
-command-un-ban-error: '&f%player% <error>并未被封禁。'
+command-un-mute-error: "<c:#FFFFFF>%player% <error>并未被禁言。"
+command-un-ban-error: "<c:#FFFFFF>%player% <error>并未被封禁。"
 command-sanction-error: <error>你无法处罚该玩家。他受保护。
 message-kick:
 - ''
 - <error>你因为以下原因被踢出服务器：
 - '%reason%'
 - ''
-- '&fMinecraft-Inventory-Builder.com'
+- "<c:#FFFFFF>Minecraft-Inventory-Builder.com"
 - ''
 message-mute:
 - ''
-- '&f你刚刚失去了<u>发言权</u>。'
-- '&f持续时间&8: <gradient:#7ae856:#a1d909>%duration%</gradient>'
-- '&f原因&8: #82d1ff%reason%'
+- "<c:#FFFFFF>你刚刚失去了<u>发言权</u>。"
+- "<c:#FFFFFF>持续时间<c:#555555>: <gradient:#7ae856:#a1d909>%duration%</gradient>"
+- "<c:#FFFFFF>原因<c:#555555>: <c:#82D1FF>%reason%"
 - ''
 message-unmute:
 - ''
-- '&f你刚刚恢复了<u>发言权</u>，恭喜！'
-- '&f原因&8: #82d1ff%reason%'
+- "<c:#FFFFFF>你刚刚恢复了<u>发言权</u>，恭喜！"
+- "<c:#FFFFFF>原因<c:#555555>: <c:#82D1FF>%reason%"
 - ''
 message-mute-talk:
 - ''
-- '&f你没有发言的权利。'
+- "<c:#FFFFFF>你没有发言的权利。"
 - ''
-- '&f持续时间&8: <gradient:#7ae856:#a1d909>%duration%</gradient>'
-- '&f原因&8: #82d1ff%reason%'
+- "<c:#FFFFFF>持续时间<c:#555555>: <gradient:#7ae856:#a1d909>%duration%</gradient>"
+- "<c:#FFFFFF>原因<c:#555555>: <c:#82D1FF>%reason%"
 - ''
 message-ban:
 - ''
 - <error>你因为以下原因被封禁：
-- '&f%reason%'
-- '&f持续时间&8: &7%duration%'
+- "<c:#FFFFFF>%reason%"
+- "<c:#FFFFFF>持续时间<c:#555555>: <c:#AAAAAA>%duration%"
 - ''
-- '&fMinecraft-Inventory-Builder.com'
+- "<c:#FFFFFF>Minecraft-Inventory-Builder.com"
 - ''
 message-ban-join:
 - ''
 - <error>你在服务器上被封禁：
-- '&f%reason%'
-- '&f剩余时间&8: &7%remaining%'
+- "<c:#FFFFFF>%reason%"
+- "<c:#FFFFFF>剩余时间<c:#555555>: <c:#AAAAAA>%remaining%"
 - ''
-- '&fMinecraft-Inventory-Builder.com'
+- "<c:#FFFFFF>Minecraft-Inventory-Builder.com"
 - ''
 
 message-freeze:
 - ''
-- '&f你刚刚被冻结。'
+- "<c:#FFFFFF>你刚刚被冻结。"
 - ''
 message-un-freeze:
 - ''
-- '&f你刚刚被解冻。'
+- "<c:#FFFFFF>你刚刚被解冻。"
 - ''
-command-freeze-success: '&7你刚刚冻结了玩家 &f%player%&7。'
-command-un-freeze_success: '&7你刚刚解冻了玩家 &f%player%&7。'
+command-freeze-success: "<c:#AAAAAA>你刚刚冻结了玩家 <c:#FFFFFF>%player%<c:#AAAAAA>。"
+command-un-freeze_success: "<c:#AAAAAA>你刚刚解冻了玩家 <c:#FFFFFF>%player%<c:#AAAAAA>。"
 
 # 聊天
 chat-error: <error>无法让你发言，你的数据未加载。
 chat-alphanumeric-regex: <error>你使用了一个禁止的字符。
-chat-cooldown: <error>请稍后再发送下一条消息。 &8(&7%cooldown%&8)
+chat-cooldown: "<error>请稍后再发送下一条消息。 <c:#555555>(<c:#AAAAAA>%cooldown%<c:#555555>)"
 chat-same: <error>你不能重复相同的内容。
 chat-link: <error>你不能在聊天中发送链接。
 chat-item-forbidden-characters: <error>无法显示该物品，因为其名称包含禁止的字符。
@@ -739,11 +714,11 @@ chat-disable: <error>聊天目前不可用。
 chat-caps: <error>你不需要大喊大叫来交谈！
 chat-flood: <error>你不能这样说话。
 
-chat-default-format: <白色>%displayName% <#656665>• <灰色>%message%
-chat-messages-empty: '&f%player% <error>没有写任何消息。'
+chat-default-format: "<白色>%displayName% <c:#656665>• <灰色>%message%"
+chat-messages-empty: "<c:#FFFFFF>%player% <error>没有写任何消息。"
 chat-messages-line:
   type: WITHOUT_PREFIX
-  message: '&f%date% &7%message%'
+  message: "<c:#FFFFFF>%date% <c:#AAAAAA>%message%"
 chat-messages-footer:
   type: WITHOUT_PREFIX
   message: <click:run_command:'/chathistory %player% %previousPage%'><hover:show_text:'上一页'><白色>⬅</hover></click>
@@ -760,55 +735,45 @@ command-chat-broadcast:
 
 # 消息
 command-message-self: <error>你不能和自己说话。
-command-message-disable: '&f%player% <error>已关闭私信。'
+command-message-disable: "<c:#FFFFFF>%player% <error>已关闭私信。"
 command-message-mute: <error>你不允许发言。
-command-message-me: '<hover:show_text:''&f点击回复''><click:suggest_command:''/r ''>&8(#f533f5我
-  &7-> #34cfe0%target%&8) #e6e1e6<message></click></hover>'
-command-message-other: '<hover:show_text:''&f点击回复''><click:suggest_command:''/r ''>&8(#34cfe0%target%
-  &7-> #f533f5我&8) #e6e1e6<message></click></hover>'
+command-message-me: "<hover:show_text:'<c:#FFFFFF>点击回复'><click:suggest_command:'/r '><c:#555555>(<c:#F533F5>我 <c:#AAAAAA>-> <c:#34CFE0>%target%<c:#555555>) <c:#E6E1E6><message></click></hover>"
+command-message-other: "<hover:show_text:'<c:#FFFFFF>点击回复'><click:suggest_command:'/r '><c:#555555>(<c:#34CFE0>%target% <c:#AAAAAA>-> <c:#F533F5>我<c:#555555>) <c:#E6E1E6><message></click></hover>"
 command-message-social-spy:
   type: WITHOUT_PREFIX
-  message: '&8(&7社交间谍&8) &8(<hover:show_text:''&f打开对 %sender% 的处罚''><click:run_command:''/sc
-    %sender%''>#34cfe0%sender%</click></hover> &7-> <hover:show_text:''&f打开对 %receiver%
-    的处罚''><click:run_command:''/sc %receiver%''>#f533f5%receiver%</click></hover>&8)
-    #e6e1e6%message%'
+  message: "<c:#555555>(<c:#AAAAAA>社交间谍<c:#555555>) <c:#555555>(<hover:show_text:'<c:#FFFFFF>打开对 %sender% 的处罚'><click:run_command:'/sc %sender%'><c:#34CFE0>%sender%</click></hover> <c:#AAAAAA>-> <hover:show_text:'<c:#FFFFFF>打开对 %receiver% 的处罚'><click:run_command:'/sc %receiver%'><c:#F533F5>%receiver%</click></hover><c:#555555>) <c:#E6E1E6>%message%"
 command-message-error: <error>你没有人可以回复。
-command-message-toggle-enable: '&7私信 <success>启用 &7对于 &f%player%<success>。'
-command-message-toggle-disable: '&7私信 <error>禁用 &7对于 &f%player%<success>。'
-command-social-spy-enable: '&7社交间谍 <success>启用 &7对于 &f%player%<success>。'
-command-social-spy-disable: '&7社交间谍 <error>禁用 &7对于 &f%player%<success>。'
-command-warp-empty: <error>没有定义传送点，使用命令 &f/setwarp <名称>
-command-pay-toggle-enable: '&7支付 <success>启用 &7对于 &f%player%<success>。'
-command-pay-toggle-disable: '&7支付 <error>禁用 &7对于 &f%player%<error>。'
-command-power-tools-toggle-enable: <success>所有强力工具都已启用 &7对于 &f%player%<success>。
-command-power-tools-toggle-disable: <error>所有强力工具都已禁用 &7对于 &f%player%<error>。
+command-message-toggle-enable: "<c:#AAAAAA>私信 <success>启用 <c:#AAAAAA>对于 <c:#FFFFFF>%player%<success>。"
+command-message-toggle-disable: "<c:#AAAAAA>私信 <error>禁用 <c:#AAAAAA>对于 <c:#FFFFFF>%player%<success>。"
+command-social-spy-enable: "<c:#AAAAAA>社交间谍 <success>启用 <c:#AAAAAA>对于 <c:#FFFFFF>%player%<success>。"
+command-social-spy-disable: "<c:#AAAAAA>社交间谍 <error>禁用 <c:#AAAAAA>对于 <c:#FFFFFF>%player%<success>。"
+command-warp-empty: "<error>没有定义传送点，使用命令 <c:#FFFFFF>/setwarp <名称>"
+command-pay-toggle-enable: "<c:#AAAAAA>支付 <success>启用 <c:#AAAAAA>对于 <c:#FFFFFF>%player%<success>。"
+command-pay-toggle-disable: "<c:#AAAAAA>支付 <error>禁用 <c:#AAAAAA>对于 <c:#FFFFFF>%player%<error>。"
+command-power-tools-toggle-enable: "<success>所有强力工具都已启用 <c:#AAAAAA>对于 <c:#FFFFFF>%player%<success>。"
+command-power-tools-toggle-disable: "<error>所有强力工具都已禁用 <c:#AAAAAA>对于 <c:#FFFFFF>%player%<error>。"
 
 
 # 礼包
-command-kit-no-permission: <error>你没有权限使用礼包 &f%kit%<error>。
-command-kit-not-found: <error>找不到礼包 &f%kit%<error>。
-command-kit-already-exists: <error>礼包 &f%kit% <error>已经存在。
-command-kit-information-in-line-empty: '#8cc0cc你的礼包 <success>♦ &7(%count%/%max%)&8:
-  <error>没有可用的礼包'
-command-kit-information-in-line: '#8cc0cc你的礼包&8:&f%kits%'
-command-kit-information-in-line-info-available: ' <hover:show_text:''&7点击获取礼包 &f&n%name%''><click:run_command:''/kit
-  %name%''><#1fde65>%name%</click></hover>&7'
-command-kit-information-in-line-info-unavailable: ' <hover:show_text:''&7你需要等待 <u>%time%</u>
-  才能获取礼包 &f&n%name%''><st><#de1f1f>%name%</st></hover>&7'
+command-kit-no-permission: "<error>你没有权限使用礼包 <c:#FFFFFF>%kit%<error>。"
+command-kit-not-found: "<error>找不到礼包 <c:#FFFFFF>%kit%<error>。"
+command-kit-already-exists: "<error>礼包 <c:#FFFFFF>%kit% <error>已经存在。"
+command-kit-information-in-line-empty: "<c:#8CC0CC>你的礼包 <success>♦ <c:#AAAAAA>(%count%/%max%)<c:#555555>: <error>没有可用的礼包"
+command-kit-information-in-line: "<c:#8CC0CC>你的礼包<c:#555555>:<c:#FFFFFF>%kits%"
+command-kit-information-in-line-info-available: " <hover:show_text:'<c:#AAAAAA>点击获取礼包 <c:#FFFFFF><underlined>%name%'><click:run_command:'/kit %name%'><c:#1FDE65>%name%</click></hover><c:#AAAAAA>"
+command-kit-information-in-line-info-unavailable: " <hover:show_text:'<c:#AAAAAA>你需要等待 <u>%time%</u> 才能获取礼包 <c:#FFFFFF><underlined>%name%'><st><c:#DE1F1F>%name%</st></hover><c:#AAAAAA>"
 command-kit-information-multi-line-header: ''
-command-kit-information-multi-line-content-available: <#8cc0cc>♢ <hover:show_text:'&7点击获取礼包
-  &f&n%name%'><click:run_command:'/kit %name%'><#1fde65>%name% </click></hover>
-command-kit-information-multi-line-content-unavailable: <#8cc0cc>♢ <hover:show_text:'&7你需要等待
-  <u>%time%</u> 才能获取礼包 &f&n%name%'><st><#de1f1f>%name%</st></hover> &8(&7%time%&8)
+command-kit-information-multi-line-content-available: "<c:#8CC0CC>♢ <hover:show_text:'<c:#AAAAAA>点击获取礼包 <c:#FFFFFF><underlined>%name%'><click:run_command:'/kit %name%'><c:#1FDE65>%name% </click></hover>"
+command-kit-information-multi-line-content-unavailable: "<c:#8CC0CC>♢ <hover:show_text:'<c:#AAAAAA>你需要等待 <u>%time%</u> 才能获取礼包 <c:#FFFFFF><underlined>%name%'><st><c:#DE1F1F>%name%</st></hover> <c:#555555>(<c:#AAAAAA>%time%<c:#555555>)"
 command-kit-information-multi-line-footer: ''
-command-kit-editor-save: <success>你刚刚修改了礼包 &f%kit%<success>。
-command-kit-create: <success>你刚刚创建了礼包 &f%kit%<success>。
-command-kit-delete: <success>你刚刚删除了礼包 &f%kit%<success>。
+command-kit-editor-save: "<success>你刚刚修改了礼包 <c:#FFFFFF>%kit%<success>。"
+command-kit-create: "<success>你刚刚创建了礼包 <c:#FFFFFF>%kit%<success>。"
+command-kit-delete: "<success>你刚刚删除了礼包 <c:#FFFFFF>%kit%<success>。"
 
 
 # 冷却
-command-cooldown-header: '&f玩家冷却 %player% &8(&7%amount%&8)'
-command-cooldown-empty: '&f%player% <error>没有冷却。'
+command-cooldown-header: "<c:#FFFFFF>玩家冷却 %player% <c:#555555>(<c:#AAAAAA>%amount%<c:#555555>)"
+command-cooldown-empty: "<c:#FFFFFF>%player% <error>没有冷却。"
 # 可用占位符：
 # %key% - 冷却的关键
 # %value% - 冷却到期时间戳
@@ -817,166 +782,152 @@ command-cooldown-empty: '&f%player% <error>没有冷却。'
 # %player% - 玩家昵称
 command-cooldown-line:
   type: WITHOUT_PREFIX
-  message: '&f%key% <secondary>- &7%createdAt% <secondary>- <success>%timeLeft% <secondary>-
-    <hover:show_text:''&f点击移除冷却''><click:run_command:''/cooldown delete %player% %key%''>&8[<error>刪除&8]</click></hover>'
-command-cooldown-not-found: '&f%cooldown% <error>未找到。'
-command-cooldown-delete: <success>你刚刚移除了冷却 &f%cooldown% <success>从 &n%player%&r<success>。
+  message: "<c:#FFFFFF>%key% <secondary>- <c:#AAAAAA>%createdAt% <secondary>- <success>%timeLeft% <secondary>- <hover:show_text:'<c:#FFFFFF>点击移除冷却'><click:run_command:'/cooldown delete %player% %key%'><c:#555555>[<error>刪除<c:#555555>]</click></hover>"
+command-cooldown-not-found: "<c:#FFFFFF>%cooldown% <error>未找到。"
+command-cooldown-delete: "<success>你刚刚移除了冷却 <c:#FFFFFF>%cooldown% <success>从 <underlined>%player%<reset><success>。"
 # 可用占位符：
 # %key% - 冷却的关键
 # %player% - 玩家昵称
 # %duration% - 冷却持续时间
-command-cooldown-create: <success>你刚刚为 &n%player%&r<success> 创建了冷却 &f%key% <success>。
+command-cooldown-create: "<success>你刚刚为 <underlined>%player%<reset><success> 创建了冷却 <c:#FFFFFF>%key% <success>。"
 
 
 command-item-empty: <error>你手中没有物品。
 command-item-clear: <success>你清除了这个物品的名称
-command-item-set: <success>你将持有的物品重命名为 &f%name%<success>。
-command-item-lore-add: <success>你刚刚添加了行 &f%text%<success>。
-command-item-lore-set: <success>你刚刚将第 %line% 行设置为 &f%text%<success>。
+command-item-set: "<success>你将持有的物品重命名为 <c:#FFFFFF>%name%<success>。"
+command-item-lore-add: "<success>你刚刚添加了行 <c:#FFFFFF>%text%<success>。"
+command-item-lore-set: "<success>你刚刚将第 %line% 行设置为 <c:#FFFFFF>%text%<success>。"
 command-item-lore-clear: <success>你刚刚清除了物品描述。
-command-item-lore-set-error: <error>找不到行 &f%line%<error>。
-command-give-error: <error>找不到物品 &f%item%<error>。
-command-give: <success>你刚刚给了 &n&fx%amount% %item%&r <success>给玩家 &f%player%<success>。
-command-give-all: <success>你刚刚给了 &n&fx%amount% %item%&r <success>给所有在线玩家。
-command-give-vault: <success>你刚刚给了 &n&fx%amount% %item%&r <success>给 &f%player%<success>的保险箱。
+command-item-lore-set-error: "<error>找不到行 <c:#FFFFFF>%line%<error>。"
+command-give-error: "<error>找不到物品 <c:#FFFFFF>%item%<error>。"
+command-give: "<success>你刚刚给了 <underlined><c:#FFFFFF>x%amount% %item%<reset> <success>给玩家 <c:#FFFFFF>%player%<success>。"
+command-give-all: "<success>你刚刚给了 <underlined><c:#FFFFFF>x%amount% %item%<reset> <success>给所有在线玩家。"
+command-give-vault: "<success>你刚刚给了 <underlined><c:#FFFFFF>x%amount% %item%<reset> <success>给 <c:#FFFFFF>%player%<success>的保险箱。"
 command-power-tool-error-item: <error>你手中没有物品。
 command-power-tool-error-reset: <error>此物品没有记录的命令。
-command-power-tool-info: <success>你刚刚将命令 &f/%command%<success> 放到了物品 &f%item<success>
-  上。
-command-power-tool-reset: <success>你刚刚删除了物品 &f%item<success> 上的命令。
+command-power-tool-info: "<success>你刚刚将命令 <c:#FFFFFF>/%command%<success> 放到了物品 <c:#FFFFFF>%item<success> 上。"
+command-power-tool-reset: "<success>你刚刚删除了物品 <c:#FFFFFF>%item<success> 上的命令。"
 mailbox-remove-full: <error>你必须在库存中有空间才能取回物品。
 mailbox-remove-expire: <error>你不能再取回此物品，它已过期。
 mailbox-add:
   type: ACTION
-  message: <success>一个物品刚刚被添加到你的邮箱 &8(&f/mail&8)
-mailbox-give-error: <error>找不到物品 &f%item%<error>。
-mailbox-give: <success>你刚刚给了 &n&fx%amount% %item%&r <success>给玩家 &f%player%<success>的邮箱。
-mailbox-give-all: <success>你刚刚给了 &n&fx%amount% %item%&r <success>给在线玩家的邮箱。
-mailbox-give-hand: <success>你已将手中的物品发送到 &f%player%<success> 的邮箱 (&fx%amount% %item%<success>)。
-mailbox-give-all-hand: <success>你已将手中的物品 (&fx%amount% %item%<success>) 发送到所有在线玩家的邮箱。
-hologram-create-error: <error>全息图 &f%name% <error>已经存在。
+  message: "<success>一个物品刚刚被添加到你的邮箱 <c:#555555>(<c:#FFFFFF>/mail<c:#555555>)"
+mailbox-give-error: "<error>找不到物品 <c:#FFFFFF>%item%<error>。"
+mailbox-give: "<success>你刚刚给了 <underlined><c:#FFFFFF>x%amount% %item%<reset> <success>给玩家 <c:#FFFFFF>%player%<success>的邮箱。"
+mailbox-give-all: "<success>你刚刚给了 <underlined><c:#FFFFFF>x%amount% %item%<reset> <success>给在线玩家的邮箱。"
+mailbox-give-hand: "<success>你已将手中的物品发送到 <c:#FFFFFF>%player%<success> 的邮箱 (<c:#FFFFFF>x%amount% %item%<success>)。"
+mailbox-give-all-hand: "<success>你已将手中的物品 (<c:#FFFFFF>x%amount% %item%<success>) 发送到所有在线玩家的邮箱。"
+hologram-create-error: "<error>全息图 <c:#FFFFFF>%name% <error>已经存在。"
 hologram-create:
   type: WITHOUT_PREFIX
   messages:
-  - <success>你刚刚创建了全息图 &f%name%<success>。
-  - '&7使用 &n<click:suggest_command:''/hologram %command% %name%''>/hologram %command%
-    %name%</click>&r&7 命令编辑全息图'
-hologram-delete: <success>全息图 &f%name% <success>已被删除。
-hologram-doesnt-exist: <error>全息图 &f%name% <error>不存在。
-hologram-is-not-a-text: <error>全息图 &f%name% <error>不是文本全息图。
-hologram-is-not-a-block: <error>全息图 &f%name% <error>不是方块全息图。
-hologram-is-not-a-item: <error>全息图 &f%name% <error>不是物品全息图。
-hologram-add-line: <success>你刚刚为全息图 &f%name% 添加了一行<success>。
-hologram-set-line: <success>你刚刚设置了全息图 &f%name% 的第 &f%line% 行<success>。
-hologram-insert-before-line: <success>你刚刚在全息图 &f%name% 的第 &f%line% 行之前添加了一行<success>。
-hologram-insert-after-line: <success>你刚刚在全息图 &f%name% 的第 &f%line% 行之后添加了一行<success>。
-hologram-line-doesnt-exist: <error>全息图 &f%name% 的第 &f%line% 行不存在<error>。
-hologram-remove-line: <success>你刚刚移除了全息图 &f%name% 的第 &f%line% 行<success>。
-hologram-scale: <success>你刚刚将全息图 &f%name% 的缩放设置为 &7%x%&8, &7%y%&8, &7%z%<success>。
-hologram-translation: <success>你刚刚将全息图 &f%name% 的平移设置为 &7%x%&8, &7%y%&8, &7%z%<success>。
-hologram-move-here: <success>你刚刚将全息图 &f%name% 移动到你的位置<success>。
-hologram-move-to: <success>你刚刚将全息图 &f%name% 移动到 &7%x%&8, &7%y%&8, &7%z%<success>。
-hologram-billboard: <success>你刚刚将全息图 &f%name% 的广告牌设置为 &f%billboard%<success>。
-hologram-text-alignment: <success>你刚刚将全息图 &f%name% 的文本对齐方式设置为 &f%textAlignment%<success>。
-hologram-yaw: <success>你刚刚将全息图 &f%name% 的偏航角设置为 &f%yaw%<success>。
-hologram-pitch: <success>你刚刚将全息图 &f%name% 的俯仰角设置为 &f%pitch%<success>。
-hologram-text-background: <success>你刚刚将全息图 &f%name% 的背景颜色设置为 &f%color%<success>。
+  - "<success>你刚刚创建了全息图 <c:#FFFFFF>%name%<success>。"
+  - "<c:#AAAAAA>使用 <underlined><click:suggest_command:'/hologram %command% %name%'>/hologram %command% %name%</click><reset><c:#AAAAAA> 命令编辑全息图"
+hologram-delete: "<success>全息图 <c:#FFFFFF>%name% <success>已被删除。"
+hologram-doesnt-exist: "<error>全息图 <c:#FFFFFF>%name% <error>不存在。"
+hologram-is-not-a-text: "<error>全息图 <c:#FFFFFF>%name% <error>不是文本全息图。"
+hologram-is-not-a-block: "<error>全息图 <c:#FFFFFF>%name% <error>不是方块全息图。"
+hologram-is-not-a-item: "<error>全息图 <c:#FFFFFF>%name% <error>不是物品全息图。"
+hologram-add-line: "<success>你刚刚为全息图 <c:#FFFFFF>%name% 添加了一行<success>。"
+hologram-set-line: "<success>你刚刚设置了全息图 <c:#FFFFFF>%name% 的第 <c:#FFFFFF>%line% 行<success>。"
+hologram-insert-before-line: "<success>你刚刚在全息图 <c:#FFFFFF>%name% 的第 <c:#FFFFFF>%line% 行之前添加了一行<success>。"
+hologram-insert-after-line: "<success>你刚刚在全息图 <c:#FFFFFF>%name% 的第 <c:#FFFFFF>%line% 行之后添加了一行<success>。"
+hologram-line-doesnt-exist: "<error>全息图 <c:#FFFFFF>%name% 的第 <c:#FFFFFF>%line% 行不存在<error>。"
+hologram-remove-line: "<success>你刚刚移除了全息图 <c:#FFFFFF>%name% 的第 <c:#FFFFFF>%line% 行<success>。"
+hologram-scale: "<success>你刚刚将全息图 <c:#FFFFFF>%name% 的缩放设置为 <c:#AAAAAA>%x%<c:#555555>, <c:#AAAAAA>%y%<c:#555555>, <c:#AAAAAA>%z%<success>。"
+hologram-translation: "<success>你刚刚将全息图 <c:#FFFFFF>%name% 的平移设置为 <c:#AAAAAA>%x%<c:#555555>, <c:#AAAAAA>%y%<c:#555555>, <c:#AAAAAA>%z%<success>。"
+hologram-move-here: "<success>你刚刚将全息图 <c:#FFFFFF>%name% 移动到你的位置<success>。"
+hologram-move-to: "<success>你刚刚将全息图 <c:#FFFFFF>%name% 移动到 <c:#AAAAAA>%x%<c:#555555>, <c:#AAAAAA>%y%<c:#555555>, <c:#AAAAAA>%z%<success>。"
+hologram-billboard: "<success>你刚刚将全息图 <c:#FFFFFF>%name% 的广告牌设置为 <c:#FFFFFF>%billboard%<success>。"
+hologram-text-alignment: "<success>你刚刚将全息图 <c:#FFFFFF>%name% 的文本对齐方式设置为 <c:#FFFFFF>%textAlignment%<success>。"
+hologram-yaw: "<success>你刚刚将全息图 <c:#FFFFFF>%name% 的偏航角设置为 <c:#FFFFFF>%yaw%<success>。"
+hologram-pitch: "<success>你刚刚将全息图 <c:#FFFFFF>%name% 的俯仰角设置为 <c:#FFFFFF>%pitch%<success>。"
+hologram-text-background: "<success>你刚刚将全息图 <c:#FFFFFF>%name% 的背景颜色设置为 <c:#FFFFFF>%color%<success>。"
 hologram-text-background-error: <error>无法解析背景颜色。
-hologram-text-shadow: <success>你将文本阴影设置为 &f%textshadow% <success>对于全息图 &f%name%<success>。
-hologram-see-through: <success>你将透视设置为 &f%seethrough% <success>对于全息图 &f%name%<success>。
-hologram-shadow-strength: <success>你将阴影强度设置为 &f%shadow% <success>对于全息图 &f%name%<success>。
-hologram-shadow-radius: <success>你将阴影半径设置为 &f%shadow% <success>对于全息图 &f%name%<success>。
-hologram-view-distance: <success>你将视距设置为 &f%distance% <success>对于全息图 &f%name%<success>。
-hologram-list-empty: <error>没有全息图，要创建一个请使用命令 &f/holo create <名称>
+hologram-text-shadow: "<success>你将文本阴影设置为 <c:#FFFFFF>%textshadow% <success>对于全息图 <c:#FFFFFF>%name%<success>。"
+hologram-see-through: "<success>你将透视设置为 <c:#FFFFFF>%seethrough% <success>对于全息图 <c:#FFFFFF>%name%<success>。"
+hologram-shadow-strength: "<success>你将阴影强度设置为 <c:#FFFFFF>%shadow% <success>对于全息图 <c:#FFFFFF>%name%<success>。"
+hologram-shadow-radius: "<success>你将阴影半径设置为 <c:#FFFFFF>%shadow% <success>对于全息图 <c:#FFFFFF>%name%<success>。"
+hologram-view-distance: "<success>你将视距设置为 <c:#FFFFFF>%distance% <success>对于全息图 <c:#FFFFFF>%name%<success>。"
+hologram-list-empty: "<error>没有全息图，要创建一个请使用命令 <c:#FFFFFF>/holo create <名称>"
 hologram-list:
   type: WITHOUT_PREFIX
-  message: '&f%name% &8- &7%world%: %x%, %y%, %z% &8- <hover:show_text:''&7点击传送至该全息图''><click:run_command:''/holo
-    tp %name%''><green>传送到</click> </hover><hover:show_text:''<red>点击删除此全息图''><click:suggest_command:''/holo
-    delete %name%''><red>删除</click></hover>'
+  message: "<c:#FFFFFF>%name% <c:#555555>- <c:#AAAAAA>%world%: %x%, %y%, %z% <c:#555555>- <hover:show_text:'<c:#AAAAAA>点击传送至该全息图'><click:run_command:'/holo tp %name%'><c:#55FF55>传送到</click> </hover><hover:show_text:'<c:#FF5555>点击删除此全息图'><click:suggest_command:'/holo delete %name%'><c:#FF5555>删除</click></hover>"
 hologram-item-error: <error>不能为此全息图使用空气。
-hologram-item: <success>你刚刚修改了全息图 &f%name%<success> 的物品。
-hologram-block: <success>你刚刚将全息图 &f%name%<success> 的方块修改为 &f%material%<success>。
+hologram-item: "<success>你刚刚修改了全息图 <c:#FFFFFF>%name%<success> 的物品。"
+hologram-block: "<success>你刚刚将全息图 <c:#FFFFFF>%name%<success> 的方块修改为 <c:#FFFFFF>%material%<success>。"
 scoreboard-disable: <error>你刚刚禁用了记分板。
 scoreboard-enable: <success>你刚刚启用了记分板。
-command-baltop-error: <error>找不到经济系统 &f%name%<error>。
+command-baltop-error: "<error>找不到经济系统 <c:#FFFFFF>%name%<error>。"
 command-baltop-header:
   type: WITHOUT_PREFIX
-  message: '#00f986最多金钱 &8(&f%page%&8/&7%maxPage%&8) <click:run_command:''/baltop
-    %previousPage%''>&f◀</click> &8- <click:run_command:''/baltop %nextPage%''>&f▶</click>'
+  message: "<c:#00F986>最多金钱 <c:#555555>(<c:#FFFFFF>%page%<c:#555555>/<c:#AAAAAA>%maxPage%<c:#555555>) <click:run_command:'/baltop %previousPage%'><c:#FFFFFF>◀</click> <c:#555555>- <click:run_command:'/baltop %nextPage%'><c:#FFFFFF>▶</click>"
 command-baltop:
   type: WITHOUT_PREFIX
-  message: '#00f986#%position% &f%name%&8: %amount%'
-command-voteparty-set: <success>你刚刚将投票派对设置为 &f%amount% <success>票。
-command-voteparty-add: <success>你刚刚向投票派对添加了 &f%amount% <success>票。
-command-voteparty-remove: <success>你刚刚从投票派对中移除了 &f%amount% <success>票。
-command-voteparty-informations: '<green>投票派对: <white>%amount%<dark_gray>/<yellow>%objective%'
-command-vote-add: <success>你刚刚为 &f%player%<success> 添加了一票。
-command-vote-add-error: <error>站点 &f%site% <error>不存在！
+  message: "<c:#00F986>#%position% <c:#FFFFFF>%name%<c:#555555>: %amount%"
+command-voteparty-set: "<success>你刚刚将投票派对设置为 <c:#FFFFFF>%amount% <success>票。"
+command-voteparty-add: "<success>你刚刚向投票派对添加了 <c:#FFFFFF>%amount% <success>票。"
+command-voteparty-remove: "<success>你刚刚从投票派对中移除了 <c:#FFFFFF>%amount% <success>票。"
+command-voteparty-informations: "<c:#55FF55>投票派对: <c:#FFFFFF>%amount%<c:#555555>/<c:#FFFF55>%objective%"
+command-vote-add: "<success>你刚刚为 <c:#FFFFFF>%player%<success> 添加了一票。"
+command-vote-add-error: "<error>站点 <c:#FFFFFF>%site% <error>不存在！"
 command-vote:
   type: ACTION
   message: <success>你刚刚投票并收到了投票钥匙。
 vote-offline:
 - ''
-- <success>你在离线时投票了 <gold>%amount% 次 <success>，使用命令 <yellow><click:run_command:'/mailbox'>/mailbox</click>
-  <success>来获取奖励！
+- "<success>你在离线时投票了 <c:#FFAA00>%amount% 次 <success>，使用命令 <c:#FFFF55><click:run_command:'/mailbox'>/mailbox</click> <success>来获取奖励！"
 - ''
 vault-lore:
 - ''
-- '&f信息'
-- ' #f8b175• &7数量&8: &e%quantity%'
+- "<c:#FFFFFF>信息"
+- " <c:#F8B175>• <c:#AAAAAA>数量<c:#555555>: <c:#FFFF55>%quantity%"
 - ''
-- '&f<b>➥</b> #fc99f8左键点击 &7以取出 1 个'
-- '&f<b>➥</b> #fc99f8右键点击 &7以取出 64 个'
-- '&f<b>➥</b> #fc99f8潜行+右键点击 &7以全部取出'
-command-vault-not-found: <error>找不到金库 &f%vaultId%<error>。
+- "<c:#FFFFFF><b>➥</b> <c:#FC99F8>左键点击 <c:#AAAAAA>以取出 1 个"
+- "<c:#FFFFFF><b>➥</b> <c:#FC99F8>右键点击 <c:#AAAAAA>以取出 64 个"
+- "<c:#FFFFFF><b>➥</b> <c:#FC99F8>潜行+右键点击 <c:#AAAAAA>以全部取出"
+command-vault-not-found: "<error>找不到金库 <c:#FFFFFF>%vaultId%<error>。"
 command-vault-no-permission: <error>你没有权限查看金库。
-command-vault-set-slot: <success>你刚刚将 &f%player% <success>的槽位数设置为 &7%slots%<success>
-  个槽位。
-command-vault-add-slot: <success>你刚刚为 &f%player% <success>增加了 &7%amount% <success>个槽位。
+command-vault-set-slot: "<success>你刚刚将 <c:#FFFFFF>%player% <success>的槽位数设置为 <c:#AAAAAA>%slots%<success> 个槽位。"
+command-vault-add-slot: "<success>你刚刚为 <c:#FFFFFF>%player% <success>增加了 <c:#AAAAAA>%amount% <success>个槽位。"
 command-vault-change-icon-error: <error>你手中持有物品。
 command-vault-change-icon-success: <success>你刚刚更改了金库图标。
 command-vault-reset-icon: <success>你刚刚重置了金库图标。
 command-vault-rename-start: <success>请在聊天中输入新的金库名称。
-command-vault-rename-success: <success>你刚刚将金库名称设置为 &f%name%<success>。
+command-vault-rename-success: "<success>你刚刚将金库名称设置为 <c:#FFFFFF>%name%<success>。"
 command-vault-rename-error: <error>你不能使用这个名字作为金库名称。
 command-vault-rename-reset: <success>你刚刚重置了金库名称。
 command-enchant-invalid: <error>你需要指定一个有效的玩家。
-command-enchant-error-enchant: <error>无法找到附魔 &f%enchant%<error>。
+command-enchant-error-enchant: "<error>无法找到附魔 <c:#FFFFFF>%enchant%<error>。"
 command-enchant-error-item-self: <error>你必须手持一个物品。
 command-enchant-error-item-player: <error>%player% 手中没有物品。
-command-enchant-remove-self: <success>附魔 &f%enchant% <success>已经从你手中的物品上移除。
-command-enchant-remove-player: <success>附魔 &f%enchant% <success>已经从 &f%player%’s<success>
-  手中的物品上移除。
-command-enchant-success-self: <success>附魔 &f%enchant% <success>已经被应用到你手中的物品上。
-command-enchant-success-player: <success>附魔 &f%enchant% <success>已经被应用到 &f%player%’s<success>
-  手中的物品上。
+command-enchant-remove-self: "<success>附魔 <c:#FFFFFF>%enchant% <success>已经从你手中的物品上移除。"
+command-enchant-remove-player: "<success>附魔 <c:#FFFFFF>%enchant% <success>已经从 <c:#FFFFFF>%player%’s<success> 手中的物品上移除。"
+command-enchant-success-self: "<success>附魔 <c:#FFFFFF>%enchant% <success>已经被应用到你手中的物品上。"
+command-enchant-success-player: "<success>附魔 <c:#FFFFFF>%enchant% <success>已经被应用到 <c:#FFFFFF>%player%’s<success> 手中的物品上。"
 command-sudo-error: <error>你不能强制玩家执行命令。
-command-sudo-command: <success>你刚刚强迫玩家 <white>%player% <success>执行命令 <white>/%command%<success>。
-command-sudo-message: <success>你刚刚强迫玩家 <white>%player% <success>发送消息 <white>%message%<success>。
+command-sudo-command: "<success>你刚刚强迫玩家 <c:#FFFFFF>%player% <success>执行命令 <c:#FFFFFF>/%command%<success>。"
+command-sudo-message: "<success>你刚刚强迫玩家 <c:#FFFFFF>%player% <success>发送消息 <c:#FFFFFF>%message%<success>。"
 
 # WorldEdit
-command-worldedit-give-error: <error>无法找到物品 &f%name%<error>
-command-worldedit-give-sender: <success>你刚刚给了 &f%item% <success>给玩家 &f%player%<success>。
-command-worldedit-give-receiver: <success>你刚刚收到了 &f%item%<success>。
-command-worldedit-material-not-found: <error>无法找到材料 &f%material%<error>。
+command-worldedit-give-error: "<error>无法找到物品 <c:#FFFFFF>%name%<error>"
+command-worldedit-give-sender: "<success>你刚刚给了 <c:#FFFFFF>%item% <success>给玩家 <c:#FFFFFF>%player%<success>。"
+command-worldedit-give-receiver: "<success>你刚刚收到了 <c:#FFFFFF>%item%<success>。"
+command-worldedit-material-not-found: "<error>无法找到材料 <c:#FFFFFF>%material%<error>。"
 command-worldedit-confirm-price:
 - ''
-- '<success>价格<dark_gray>: <white>%price%'
-- <success>方块<dark_gray>:<white>%materials%
-- '<success>持续时间<dark_gray>: <white>%duration% <dark_gray>(<gray>%blocks% 方块以 %speed%
-  方块/秒)'
+- "<success>价格<c:#555555>: <c:#FFFFFF>%price%"
+- "<success>方块<c:#555555>:<c:#FFFFFF>%materials%"
+- "<success>持续时间<c:#555555>: <c:#FFFFFF>%duration% <c:#555555>(<c:#AAAAAA>%blocks% 方块以 %speed% 方块/秒)"
 - ''
-- <#45ff55><hover:show_text:'&f点击确认操作'><click:run_command:'/pw confirm'>点击这里确认</click></hover><gray>
+- "<c:#45FF55><hover:show_text:'<c:#FFFFFF>点击确认操作'><click:run_command:'/pw confirm'>点击这里确认</click></hover><c:#AAAAAA>"
 command-worldedit-confirm-price-cut:
 - ''
-- '<success>价格<dark_gray>: <white>%price%'
-- '<success>持续时间<dark_gray>: <white>%duration% <dark_gray>(<gray>%blocks% 方块以 %speed%
-  方块/秒)'
+- "<success>价格<c:#555555>: <c:#FFFFFF>%price%"
+- "<success>持续时间<c:#555555>: <c:#FFFFFF>%duration% <c:#555555>(<c:#AAAAAA>%blocks% 方块以 %speed% 方块/秒)"
 - ''
-- <#45ff55><hover:show_text:'&f点击确认操作'><click:run_command:'/pw confirm'>点击这里确认</click></hover><gray>
-command-worldedit-confirm-material: ' <white><hover:show_text:''<white>数量<dark_gray>:
-  <aqua>%amount%<newline><white>总价<dark_gray>: <aqua>%price%<newline><white>单价<dark_gray>:
-  <aqua>%price-per-block%''><lang:%translation-key%></hover><gray>'
+- "<c:#45FF55><hover:show_text:'<c:#FFFFFF>点击确认操作'><click:run_command:'/pw confirm'>点击这里确认</click></hover><c:#AAAAAA>"
+command-worldedit-confirm-material: " <c:#FFFFFF><hover:show_text:'<c:#FFFFFF>数量<c:#555555>: <c:#55FFFF>%amount%<newline><c:#FFFFFF>总价<c:#555555>: <c:#55FFFF>%price%<newline><c:#FFFFFF>单价<c:#555555>: <c:#55FFFF>%price-per-block%'><lang:%translation-key%></hover><c:#AAAAAA>"
 command-worldedit-confirm-error: <error>你现在不能这么做。
 command-worldedit-stop-empty: <error>你没有活跃的会话。
 command-worldedit-stop-error: <error>你现在不能停止编辑。
@@ -992,33 +943,31 @@ worldedit-not-enough-money: <error>你没有足够的钱来进行这次会话。
 worldedit-not-enough-items: <error>你的库存中没有足够的物品，你不能这么做。
 worldedit-selection-pos1: <success>你刚刚定义了第一个位置。
 worldedit-selection-pos2: <success>你刚刚定义了第二个位置。
-worldedit-selection-volume: <error>你一次不能改变超过 &f%blocks% <error>个方块。
-worldedit-selection-distance: <error>你选择的两点之间的距离太大。 <dark_gray>(<gray>最大 <white>%distance%
-  <gray>个方块<dark_gray>)
-worldedit-start-calculate-price: '&7正在计算价格，请稍候...'
-worldedit-start-check-inventory: '&7正在检查你的库存是否足够，请稍候...'
-worldedit-start-running: '&7当前会话启动中，请稍候...'
+worldedit-selection-volume: "<error>你一次不能改变超过 <c:#FFFFFF>%blocks% <error>个方块。"
+worldedit-selection-distance: "<error>你选择的两点之间的距离太大。 <c:#555555>(<c:#AAAAAA>最大 <c:#FFFFFF>%distance% <c:#AAAAAA>个方块<c:#555555>)"
+worldedit-start-calculate-price: "<c:#AAAAAA>正在计算价格，请稍候..."
+worldedit-start-check-inventory: "<c:#AAAAAA>正在检查你的库存是否足够，请稍候..."
+worldedit-start-running: "<c:#AAAAAA>当前会话启动中，请稍候..."
 worldedit-finish: <success>会话完成！
 worldedit-refund:
 - <success>你已经得到了退款
 - ''
-- '<success>价格<dark_gray>: <white>%price%'
-- <success>方块<dark_gray>:<red>%materials%
-worldedit-refund-material: ' <white><hover:show_text:''<white>数量<dark_gray>: <aqua>%amount%<newline><white>总价<dark_gray>:
-  <aqua>%price%<newline><white>单价<dark_gray>: <aqua>%price-per-block%''><lang:%translation-key%></hover><gray>'
+- "<success>价格<c:#555555>: <c:#FFFFFF>%price%"
+- "<success>方块<c:#555555>:<c:#FF5555>%materials%"
+worldedit-refund-material: " <c:#FFFFFF><hover:show_text:'<c:#FFFFFF>数量<c:#555555>: <c:#55FFFF>%amount%<newline><c:#FFFFFF>总价<c:#555555>: <c:#55FFFF>%price%<newline><c:#FFFFFF>单价<c:#555555>: <c:#55FFFF>%price-per-block%'><lang:%translation-key%></hover><c:#AAAAAA>"
 worldedit-refund-empty: ' 没有可以退款的方块'
-worldedit-bossbar: '#45ff45剩余时间<dark_gray>: <white>%time%'
+worldedit-bossbar: "<c:#45FF45>剩余时间<c:#555555>: <c:#FFFFFF>%time%"
 worldedit-speed-error: <error>你没有权限设置每秒方块数。
-experience-granted: <success>你刚刚给了 <white>%amount% %type% <success>给 <white>%player%<success>。
-experience-setted: <success>你刚刚设置了 <white>%amount% %type% <success>给 <white>%player%<success>。
-experience-queried: <success><white>%player% <success>拥有 <white>%amount% <success>%type%。
+experience-granted: "<success>你刚刚给了 <c:#FFFFFF>%amount% %type% <success>给 <c:#FFFFFF>%player%<success>。"
+experience-setted: "<success>你刚刚设置了 <c:#FFFFFF>%amount% %type% <success>给 <c:#FFFFFF>%player%<success>。"
+experience-queried: "<success><c:#FFFFFF>%player% <success>拥有 <c:#FFFFFF>%amount% <success>%type%。"
 command-clearinventory-success: <success>您已经清空了自己的物品栏。
-command-clearinventory-success-other: <success>您已经清空了&f%player%<success>的物品栏。
+command-clearinventory-success-other: "<success>您已经清空了<c:#FFFFFF>%player%<success>的物品栏。"
 
 # Discord
 command-link-account-already-linked: <error>您的账号已经绑定。
 command-link-account-invalid-code: <error>无效的验证码。
-command-link-account-success: <success>您刚刚绑定了您的账号<white>%discord%<success>。
+command-link-account-success: "<success>您刚刚绑定了您的账号<c:#FFFFFF>%discord%<success>。"
 command-link-account-disabled: <error>您当前无法绑定账号。
 command-link-account-not-linked: <error>您的账号未绑定。
 command-link-account-reset: <success>您刚刚重置了您的账号绑定。
@@ -1026,26 +975,26 @@ random-word-clear: <success>随机词汇已被清除。
 
 
 # 补充翻译
-command-fly-remaining: "<success>你还有 &f%time% <success>的飞行时间。"
+command-fly-remaining: "<success>你还有 <c:#FFFFFF>%time% <success>的飞行时间。"
 command-home-admin-list-empty: "<error>该玩家没有设置家。"
 command-home-error-teleport: "<error>无法找到传送位置，请删除你的家。"
-command-kit-delete-error: "<error>无法删除套装 &f%kit%<error>。"
-command-kit-give: "<success>你刚刚将套装 &f%kit%<success>给予 <u>%player%<u><success>。"
+command-kit-delete-error: "<error>无法删除套装 <c:#FFFFFF>%kit%<error>。"
+command-kit-give: "<success>你刚刚将套装 <c:#FFFFFF>%kit%<success>给予 <u>%player%<u><success>。"
 command-pay-disabled: "<error>你不能向该玩家汇款。"
-command-phantoms-disable: "&7幻翼生成 <error>已为 &f%player%<error>关闭。"
-command-phantoms-enable: "&7幻翼生成 <success>已为 &f%player%<success>开启。"
+command-phantoms-disable: "<c:#AAAAAA>幻翼生成 <error>已为 <c:#FFFFFF>%player%<error>关闭。"
+command-phantoms-enable: "<c:#AAAAAA>幻翼生成 <success>已为 <c:#FFFFFF>%player%<success>开启。"
 command-pub:
-  message: "&8[&fPUB&8] <white>%player%<dark_gray>: <red>%message%"
+  message: "<c:#555555>[<c:#FFFFFF>PUB<c:#555555>] <c:#FFFFFF>%player%<c:#555555>: <c:#FF5555>%message%"
   type: WITHOUT_PREFIX
 command-pub-pattern-error: "<error>你的消息包含禁止的字符。"
-command-random-tp-configuration-not-found: "<error>找不到世界 &f%world%<error> 的随机传送配置。"
+command-random-tp-configuration-not-found: "<error>找不到世界 <c:#FFFFFF>%world%<error> 的随机传送配置。"
 command-spawn-first-not-define: "<error>首次出生点不存在，请联系管理员。"
 command-tp-location-error: "<error>坐标超出世界范围。"
-command-vault-delete-slot-empty: "<error>在保管箱 &f%vault%<error> 的槽位 &f%slot%<error> 中找不到玩家 &f%player%<error>。"
-command-vault-get-slot-empty: "<error>在保管箱 &f%vault%<error> 的槽位 &f%slot%<error> 中找不到玩家 &f%player%<error> 的物品。"
-command-vault-get-slot-success: "<success>&f%player% <success>的保险库槽位：保险库 &7%vault%<success>，槽位 &7%slot%<success>，数量 &7%amount%<success>，物品 &f%item%<success>。"
-command-vault-delete-slot-success: "<success>你已为 &f%player% <success>从保险库 &7%vault% <success>中删除了槽位 &7%slot%<success>。"
-command-vault-info: "<success>玩家 &f%player%<success> 的保管箱信息: 最大 &7%max%<success>，权限槽位 &7%permissionSlots%<success>，插件槽位 &7%pluginSlots%<success>，已用 &7%used%<success>，可用 &7%available%<success>。"
+command-vault-delete-slot-empty: "<error>在保管箱 <c:#FFFFFF>%vault%<error> 的槽位 <c:#FFFFFF>%slot%<error> 中找不到玩家 <c:#FFFFFF>%player%<error>。"
+command-vault-get-slot-empty: "<error>在保管箱 <c:#FFFFFF>%vault%<error> 的槽位 <c:#FFFFFF>%slot%<error> 中找不到玩家 <c:#FFFFFF>%player%<error> 的物品。"
+command-vault-get-slot-success: "<success><c:#FFFFFF>%player% <success>的保险库槽位：保险库 <c:#AAAAAA>%vault%<success>，槽位 <c:#AAAAAA>%slot%<success>，数量 <c:#AAAAAA>%amount%<success>，物品 <c:#FFFFFF>%item%<success>。"
+command-vault-delete-slot-success: "<success>你已为 <c:#FFFFFF>%player% <success>从保险库 <c:#AAAAAA>%vault% <success>中删除了槽位 <c:#AAAAAA>%slot%<success>。"
+command-vault-info: "<success>玩家 <c:#FFFFFF>%player%<success> 的保管箱信息: 最大 <c:#AAAAAA>%max%<success>，权限槽位 <c:#AAAAAA>%permissionSlots%<success>，插件槽位 <c:#AAAAAA>%pluginSlots%<success>，已用 <c:#AAAAAA>%used%<success>，可用 <c:#AAAAAA>%available%<success>。"
 command-worldedit-cancel: "<success>你刚刚取消了当前的选择。"
 description-cooldown-show: 显示玩家的冷却时间
 description-experience-take: 扣除玩家的经验
@@ -1064,58 +1013,58 @@ description-vault-get-slot: 获取保管箱槽位内容
 description-vault-info: 显示玩家保管箱的信息
 description-vault-show: 显示玩家的保管箱
 description-worldedit-cancel: 取消当前选择
-experience-taken: "<success>你刚刚从 <white>%player%<success> 处扣除了 <white>%amount% %type%<success>。"
-mailbox-clear: "<success>你刚刚清空了 &f%player%<success> 的信箱。"
+experience-taken: "<success>你刚刚从 <c:#FFFFFF>%player%<success> 处扣除了 <c:#FFFFFF>%amount% %type%<success>。"
+mailbox-clear: "<success>你刚刚清空了 <c:#FFFFFF>%player%<success> 的信箱。"
 
-mailbox-message-send: "<success>你的邮件已发送给 &f%player%<success>。"
-mailbox-message-receive: "<primary>&f%player% <primary>给你发送了一封邮件 &8(&f/mail read&8)"
-mailbox-message-send-all: "<success>你的邮件已发送给 &f%amount% <success>名玩家。"
-mailbox-message-notify: "<primary>你有 &f%amount% <primary>封未读邮件，请使用 <click:run_command:'/mail read'><hover:show_text:'&f点击阅读你的邮件'>&f/mail read</hover></click><primary>。"
+mailbox-message-send: "<success>你的邮件已发送给 <c:#FFFFFF>%player%<success>。"
+mailbox-message-receive: "<primary><c:#FFFFFF>%player% <primary>给你发送了一封邮件 <c:#555555>(<c:#FFFFFF>/mail read<c:#555555>)"
+mailbox-message-send-all: "<success>你的邮件已发送给 <c:#FFFFFF>%amount% <success>名玩家。"
+mailbox-message-notify: "<primary>你有 <c:#FFFFFF>%amount% <primary>封未读邮件，请使用 <click:run_command:'/mail read'><hover:show_text:'<c:#FFFFFF>点击阅读你的邮件'><c:#FFFFFF>/mail read</hover></click><primary>。"
 mailbox-message-empty: "<error>你没有任何邮件。"
 mailbox-message-header:
   type: WITHOUT_PREFIX
   messages:
     - ""
-    - "<primary>你的邮件 <secondary>(&f%amount%<secondary>)"
+    - "<primary>你的邮件 <secondary>(<c:#FFFFFF>%amount%<secondary>)"
     - ""
 mailbox-message-line:
   type: WITHOUT_PREFIX
-  message: "<secondary>&8[&f%date%&8] <primary>%player%<secondary>: &f%message%"
+  message: "<secondary><c:#555555>[<c:#FFFFFF>%date%<c:#555555>] <primary>%player%<secondary>: <c:#FFFFFF>%message%"
 mailbox-message-footer:
   type: WITHOUT_PREFIX
   messages:
     - ""
-    - "<secondary>使用 <click:run_command:'/mail clearmessages'><hover:show_text:'&f点击删除你的邮件'>&f/mail clearmessages</hover></click><secondary> 来删除它们。"
+    - "<secondary>使用 <click:run_command:'/mail clearmessages'><hover:show_text:'<c:#FFFFFF>点击删除你的邮件'><c:#FFFFFF>/mail clearmessages</hover></click><secondary> 来删除它们。"
     - ""
-mailbox-message-clear: "<success>你刚刚删除了 &f%player%<success> 的邮件。"
+mailbox-message-clear: "<success>你刚刚删除了 <c:#FFFFFF>%player%<success> 的邮件。"
 mailbox-message-self: "<error>你不能给自己发送邮件。"
 mailbox-message-mute: "<error>你被禁言时无法发送邮件。"
-mailbox-message-ignore: "<error>&f%player% <error>不想收到你的邮件。"
-mailbox-message-full: "<error>&f%player% <error>的邮箱已满。"
-mailbox-message-too-long: "<error>你的邮件不能超过 &f%max% <error>个字符。"
-step-already-exist: "<error>步骤 &f%step% <error>已经开始。"
-step-doesnt-exist: "<error>步骤 &f%step% <error>不存在。"
-step-doesnt-started: "<error>步骤 &f%step% <error>尚未开始。"
-teleport-random-start: "&7正在寻找目的地……请不要移动。"
+mailbox-message-ignore: "<error><c:#FFFFFF>%player% <error>不想收到你的邮件。"
+mailbox-message-full: "<error><c:#FFFFFF>%player% <error>的邮箱已满。"
+mailbox-message-too-long: "<error>你的邮件不能超过 <c:#FFFFFF>%max% <error>个字符。"
+step-already-exist: "<error>步骤 <c:#FFFFFF>%step% <error>已经开始。"
+step-doesnt-exist: "<error>步骤 <c:#FFFFFF>%step% <error>不存在。"
+step-doesnt-started: "<error>步骤 <c:#FFFFFF>%step% <error>尚未开始。"
+teleport-random-start: "<c:#AAAAAA>正在寻找目的地……请不要移动。"
 worldedit-permission-error: "<error>你不能在这里使用 WorldEdit。"
 
 # 忽略、提示音与传送到其他玩家
-command-tp-other: "&7您刚刚将 #34cfe0%player% &7传送到了 #34cfe0%target%&7。"
+command-tp-other: "<c:#AAAAAA>您刚刚将 <c:#34CFE0>%player% <c:#AAAAAA>传送到了 <c:#34CFE0>%target%<c:#AAAAAA>。"
 description-ping-sound: "切换聊天提及提示音"
-command-ping-sound-enable: "&7聊天提及提示音 <success>启用 &7给 &f%player%<success>。"
-command-ping-sound-disable: "&7聊天提及提示音 <error>禁用 &7给 &f%player%<error>。"
+command-ping-sound-enable: "<c:#AAAAAA>聊天提及提示音 <success>启用 <c:#AAAAAA>给 <c:#FFFFFF>%player%<success>。"
+command-ping-sound-disable: "<c:#AAAAAA>聊天提及提示音 <error>禁用 <c:#AAAAAA>给 <c:#FFFFFF>%player%<error>。"
 description-ignore: "忽略一名玩家，屏蔽他们的私信和传送请求"
 description-unignore: "停止忽略一名玩家"
 description-ignore-list: "显示您正在忽略的玩家列表"
-command-ignore-add: "<success>您现在正在忽略 &f%player%<success>。您将不再收到他们的私信或传送请求。"
-command-ignore-remove: "<success>您不再忽略 &f%player%<success>。"
-command-ignore-already: "<error>您已经在忽略 &f%player%<error>。"
-command-ignore-not: "<error>您没有在忽略 &f%player%<error>。"
+command-ignore-add: "<success>您现在正在忽略 <c:#FFFFFF>%player%<success>。您将不再收到他们的私信或传送请求。"
+command-ignore-remove: "<success>您不再忽略 <c:#FFFFFF>%player%<success>。"
+command-ignore-already: "<error>您已经在忽略 <c:#FFFFFF>%player%<error>。"
+command-ignore-not: "<error>您没有在忽略 <c:#FFFFFF>%player%<error>。"
 command-ignore-self: "<error>您不能忽略自己。"
 command-ignore-list-empty: "<error>您没有在忽略任何人。"
-command-ignore-list-header: "<success>您正在忽略 &f%count% <success>名玩家："
-command-ignore-list-line: "&7- &f%player%"
-command-message-ignore-player: "<error>您不能向 #34cfe0%player%<error> 发送私信，他们正在忽略您。"
+command-ignore-list-header: "<success>您正在忽略 <c:#FFFFFF>%count% <success>名玩家："
+command-ignore-list-line: "<c:#AAAAAA>- <c:#FFFFFF>%player%"
+command-message-ignore-player: "<error>您不能向 <c:#34CFE0>%player%<error> 发送私信，他们正在忽略您。"
 description-del-home-other: "删除另一名玩家的一个家"
 
 # 家系统（公开、分享、类别、收藏、预览、导入）
@@ -1128,29 +1077,29 @@ description-home-category: "设置一个家的类别"
 description-home-favorite: "将一个家切换为收藏"
 description-home-import: "从另一个插件导入家"
 command-home-feature-disabled: "<error>此家功能在本服务器上已禁用。"
-command-home-public-enable: "<success>您的家 &f%name%<success> 现在是公开的。"
-command-home-public-disable: "<success>您的家 &f%name%<success> 不再是公开的。"
-command-home-public-limit: "<error>您已达到公开家的最大数量 (&f%max%<error>)。"
-command-home-not-accessible: "<error>玩家 &f%player%<error> 的家 &f%name%<error> 您无法访问。"
-command-public-homes-header: "<success>公开的家 (&f%count%<success>)："
-command-public-homes-line: "&7- &f%player%&7:&f%name% <click:run_command:'/home %player%:%name%'><hover:show_text:'&7传送到此家'><#34cfe0>[传送]</click></hover>"
+command-home-public-enable: "<success>您的家 <c:#FFFFFF>%name%<success> 现在是公开的。"
+command-home-public-disable: "<success>您的家 <c:#FFFFFF>%name%<success> 不再是公开的。"
+command-home-public-limit: "<error>您已达到公开家的最大数量 (<c:#FFFFFF>%max%<error>)。"
+command-home-not-accessible: "<error>玩家 <c:#FFFFFF>%player%<error> 的家 <c:#FFFFFF>%name%<error> 您无法访问。"
+command-public-homes-header: "<success>公开的家 (<c:#FFFFFF>%count%<success>)："
+command-public-homes-line: "<c:#AAAAAA>- <c:#FFFFFF>%player%<c:#AAAAAA>:<c:#FFFFFF>%name% <click:run_command:'/home %player%:%name%'><hover:show_text:'<c:#AAAAAA>传送到此家'><c:#34CFE0>[传送]</click></hover>"
 command-public-homes-empty: "<error>没有公开的家。"
-command-home-share-add: "<success>您已将您的家 &f%name%<success> 分享给 &f%player%<success>。"
-command-home-share-remove: "<success>您已停止将您的家 &f%name%<success> 分享给 &f%player%<success>。"
-command-home-share-already: "<error>您的家 &f%name%<error> 已经分享给 &f%player%<error> 了。"
-command-home-share-not: "<error>您的家 &f%name%<error> 没有分享给 &f%player%<error>。"
+command-home-share-add: "<success>您已将您的家 <c:#FFFFFF>%name%<success> 分享给 <c:#FFFFFF>%player%<success>。"
+command-home-share-remove: "<success>您已停止将您的家 <c:#FFFFFF>%name%<success> 分享给 <c:#FFFFFF>%player%<success>。"
+command-home-share-already: "<error>您的家 <c:#FFFFFF>%name%<error> 已经分享给 <c:#FFFFFF>%player%<error> 了。"
+command-home-share-not: "<error>您的家 <c:#FFFFFF>%name%<error> 没有分享给 <c:#FFFFFF>%player%<error>。"
 command-home-share-self: "<error>您不能将家分享给自己。"
-command-home-share-limit: "<error>您已达到此家的最大分享数量 (&f%max%<error>)。"
-command-home-share-list-header: "<success>家 &f%name%<success> 已分享给 &f%count% <success>名玩家："
-command-home-share-list-line: "&7- &f%player%"
-command-home-share-list-empty: "<error>家 &f%name%<error> 没有分享给任何人。"
-command-home-category-set: "<success>您的家 &f%name%<success> 的类别现在是 &f%category%<success>。"
-command-home-category-reset: "<success>您的家 &f%name%<success> 的类别已被移除。"
+command-home-share-limit: "<error>您已达到此家的最大分享数量 (<c:#FFFFFF>%max%<error>)。"
+command-home-share-list-header: "<success>家 <c:#FFFFFF>%name%<success> 已分享给 <c:#FFFFFF>%count% <success>名玩家："
+command-home-share-list-line: "<c:#AAAAAA>- <c:#FFFFFF>%player%"
+command-home-share-list-empty: "<error>家 <c:#FFFFFF>%name%<error> 没有分享给任何人。"
+command-home-category-set: "<success>您的家 <c:#FFFFFF>%name%<success> 的类别现在是 <c:#FFFFFF>%category%<success>。"
+command-home-category-reset: "<success>您的家 <c:#FFFFFF>%name%<success> 的类别已被移除。"
 command-home-category-invalid: "<error>无效的类别名称。"
-command-home-favorite-add: "<success>您的家 &f%name%<success> 现在已被收藏。"
-command-home-favorite-remove: "<success>您的家 &f%name%<success> 已不再被收藏。"
-command-home-preview: "&7家 &f%name% &8- &7%world% &8(&7%x%&8, &7%y%&8, &7%z%&8) <click:run_command:'/home %name% confirm'><#34cfe0>[传送]</click>"
-command-home-import-start: "<success>正在从 &f%source%<success> 导入家……"
-command-home-import-done: "<success>导入完成：&f%imported% <success>个已导入，&f%skipped% <success>个已跳过，&f%errors% <success>个错误。"
-command-home-import-unknown: "<error>未知的导入来源 &f%source%<error>。可用：essentialsx。"
+command-home-favorite-add: "<success>您的家 <c:#FFFFFF>%name%<success> 现在已被收藏。"
+command-home-favorite-remove: "<success>您的家 <c:#FFFFFF>%name%<success> 已不再被收藏。"
+command-home-preview: "<c:#AAAAAA>家 <c:#FFFFFF>%name% <c:#555555>- <c:#AAAAAA>%world% <c:#555555>(<c:#AAAAAA>%x%<c:#555555>, <c:#AAAAAA>%y%<c:#555555>, <c:#AAAAAA>%z%<c:#555555>) <click:run_command:'/home %name% confirm'><c:#34CFE0>[传送]</click>"
+command-home-import-start: "<success>正在从 <c:#FFFFFF>%source%<success> 导入家……"
+command-home-import-done: "<success>导入完成：<c:#FFFFFF>%imported% <success>个已导入，<c:#FFFFFF>%skipped% <success>个已跳过，<c:#FFFFFF>%errors% <success>个错误。"
+command-home-import-unknown: "<error>未知的导入来源 <c:#FFFFFF>%source%<error>。可用：essentialsx。"
 command-home-import-error: "<error>导入过程中发生错误，请检查控制台。"

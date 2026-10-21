@@ -1,5 +1,5 @@
 name: starter_food
-display-name: "&e&lStarter Food"
+display-name: "<c:#FFFF55><bold>Starter Food"
 category: "Food"
 cooldown: 1800
 items:

@@ -1,5 +1,5 @@
 name: pvp
-display-name: "&4&lPvP Master"
+display-name: "<c:#AA0000><bold>PvP Master"
 category: "Combat"
 cooldown: 172800
 permission: 'essentials.kits.pvp'

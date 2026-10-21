@@ -61,11 +61,11 @@ public class PlayerListPlaceholders extends ZUtils implements PlaceholderRegiste
             case "colored_ping" -> {
                 int ping = target.getPing();
                 String color;
-                if (ping < 50) color = "&a";
-                else if (ping < 100) color = "&2";
-                else if (ping < 200) color = "&e";
-                else if (ping < 300) color = "&c";
-                else color = "&4";
+                if (ping < 50) color = "<c:#55FF55>";
+                else if (ping < 100) color = "<c:#00AA00>";
+                else if (ping < 200) color = "<c:#FFFF55>";
+                else if (ping < 300) color = "<c:#FF5555>";
+                else color = "<c:#AA0000>";
                 yield color + ping;
             }
             case "level" -> String.valueOf(target.getLevel());

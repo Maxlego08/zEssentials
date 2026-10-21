@@ -26,24 +26,24 @@ public class PlayerVaultXConvert extends ZUtils implements Convert {
 
 
         if (!Bukkit.getPluginManager().isPluginEnabled("PlayerVaults")) {
-            message(sender, "&cYou must have PlayerVaultX on your server to do the conversion.");
+            message(sender, "<c:#FF5555>You must have PlayerVaultX on your server to do the conversion.");
             return;
         }
 
         File file = new File(Bukkit.getWorldContainer(), "plugins/PlayerVaults/newvaults");
         if (!file.exists()) {
-            message(sender, "&cUnable to find &bplugins/PlayerVaults/newvaults&c.");
+            message(sender, "<c:#FF5555>Unable to find <c:#55FFFF>plugins/PlayerVaults/newvaults<c:#FF5555>.");
             return;
         }
 
-        message(sender, "&fStart convert &7PlayerVaultX");
+        message(sender, "<c:#FFFFFF>Start convert <c:#AAAAAA>PlayerVaultX");
 
         if (this.plugin.getStorageManager().getStorage() instanceof SqlStorage) {
 
             this.plugin.getScheduler().runAsync(wrappedTask -> startConvertDatabase(sender, file));
         } else {
 
-            message(sender, "&cYou must have the storage in a database to be able to convert. Never use the storage in JSON !");
+            message(sender, "<c:#FF5555>You must have the storage in a database to be able to convert. Never use the storage in JSON !");
         }
     }
 
@@ -55,7 +55,7 @@ public class PlayerVaultXConvert extends ZUtils implements Convert {
 
         var files = folder.listFiles();
         if (files == null) {
-            message(sender, "§cUnable to find files from vaults.");
+            message(sender, "<c:#FF5555>Unable to find files from vaults.");
             return;
         }
 
@@ -85,8 +85,8 @@ public class PlayerVaultXConvert extends ZUtils implements Convert {
             }
         }
 
-        message(sender, "&aYou have just converted your PlayerVaultX data to zEssentials !");
-        message(sender, "&f" + players + " §aplayers and &f" + vaults + " §avaults.");
+        message(sender, "<c:#55FF55>You have just converted your PlayerVaultX data to zEssentials !");
+        message(sender, "<c:#FFFFFF>" + players + " <c:#55FF55>players and <c:#FFFFFF>" + vaults + " <c:#55FF55>vaults.");
 
     }
 

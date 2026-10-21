@@ -1,4 +1,4 @@
-name: '#3f3f3fSanctions History %zessentials_user_target_player_name%'
+name: "<c:#3F3F3F>Sanctions History %zessentials_user_target_player_name%"
 size: 54
 items:
   back:
@@ -7,7 +7,7 @@ items:
     slot: 49
     item:
       material: BARRIER
-      name: "&cGo Back"
+      name: "<c:#FF5555>Go Back"
 
   next:
     type: NEXT
@@ -15,7 +15,7 @@ items:
     slot: 50
     item:
       material: ARROW
-      name: "&fNext"
+      name: "<c:#FFFFFF>Next"
 
   previous:
     type: PREVIOUS
@@ -23,7 +23,7 @@ items:
     slot: 48
     item:
       material: ARROW
-      name: "&fPrevious"
+      name: "<c:#FFFFFF>Previous"
 
   sanctions:
     type: ZESSENTIALS_SANCTIONS
@@ -32,14 +32,14 @@ items:
       - 0-44
     item:
       material: '%material%'
-      name: '&fType&8: &b%type%'
+      name: "<c:#FFFFFF>Type<c:#555555>: <c:#55FFFF>%type%"
       lore:
         - ''
-        - '#ffd353ℹ Informations#3f3f3f:'
-        - '#3f3f3f• &7Reason#3f3f3f: #4cd5ff%reason%'
-        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff%duration%'
-        - '#3f3f3f• &7Remaining#3f3f3f: #4cd5ff%remaining%'
-        - '#3f3f3f• &7Created At#3f3f3f: #4cd5ff%created_at%'
-        - '#3f3f3f• &7Expired At#3f3f3f: #4cd5ff%expired_at%'
-        - '#3f3f3f• &7By#3f3f3f: #4cd5ff%sender%'
+        - "<c:#FFD353>ℹ Informations<c:#3F3F3F>:"
+        - "<c:#3F3F3F>• <c:#AAAAAA>Reason<c:#3F3F3F>: <c:#4CD5FF>%reason%"
+        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: <c:#4CD5FF>%duration%"
+        - "<c:#3F3F3F>• <c:#AAAAAA>Remaining<c:#3F3F3F>: <c:#4CD5FF>%remaining%"
+        - "<c:#3F3F3F>• <c:#AAAAAA>Created At<c:#3F3F3F>: <c:#4CD5FF>%created_at%"
+        - "<c:#3F3F3F>• <c:#AAAAAA>Expired At<c:#3F3F3F>: <c:#4CD5FF>%expired_at%"
+        - "<c:#3F3F3F>• <c:#AAAAAA>By<c:#3F3F3F>: <c:#4CD5FF>%sender%"
         - ''

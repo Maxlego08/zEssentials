@@ -18,16 +18,16 @@ check-interval: 20 # in ticks
 # Allows kicking the player with the spigot method, this avoids using a kick command and that your sanction plugin log the kick
 soft-kick: true
 
-soft-kick-message: "<red>You have been kicked for being AFK"
+soft-kick-message: "<c:#FF5555>You have been kicked for being AFK"
 
 # Placeholders used by %user_afk_status%
-placeholder-afk: "&aV"
-placeholder-not-afk: "&cX"
+placeholder-afk: "<c:#55FF55>V"
+placeholder-not-afk: "<c:#FF5555>X"
 
 kick-actions:
   - type: message
     messages:
-      - "&cYou have been kicked for being AFK"
+      - "<c:#FF5555>You have been kicked for being AFK"
   # - type: console command
   #  commands:
   #    - "kick %player% AFK"
@@ -38,19 +38,19 @@ permissions:
     start-afk-time: 20
     max-afk-time: 60 # in seconds
     kick: true
-    message-on-start-afk: "&cYou are now AFK, we have only &f40&c seconds left before being expelled from the server."
-    message-on-end-afk: "&aYou are no longer AFK. You have been afk for &f%duration%&a."
+    message-on-start-afk: "<c:#FF5555>You are now AFK, we have only <c:#FFFFFF>40<c:#FF5555> seconds left before being expelled from the server."
+    message-on-end-afk: "<c:#55FF55>You are no longer AFK. You have been afk for <c:#FFFFFF>%duration%<c:#55FF55>."
   - priority: 1
     permission: "zessentials.afk.vip"
     start-afk-time: 30
     max-afk-time: 120 # in seconds
-    message-on-start-afk: "&cYou are now AFK, we have only &f90&c seconds left before being expelled from the server."
-    message-on-end-afk: "&aYou are no longer AFK. You have been afk for &f%duration%&a."
+    message-on-start-afk: "<c:#FF5555>You are now AFK, we have only <c:#FFFFFF>90<c:#FF5555> seconds left before being expelled from the server."
+    message-on-end-afk: "<c:#55FF55>You are no longer AFK. You have been afk for <c:#FFFFFF>%duration%<c:#55FF55>."
     kick: true
   - priority: 2
     permission: "zessentials.afk.admin"
     start-afk-time: 60
     max-afk-time: 300 # in seconds
-    # message-on-start-afk: "&cYou are now AFK, we have only &f240&c seconds left before being expelled from the server."
-    # message-on-end-afk: "&aYou are no longer AFK. You have been afk for &f%duration%&a."
+    # message-on-start-afk: "<c:#FF5555>You are now AFK, we have only <c:#FFFFFF>240<c:#FF5555> seconds left before being expelled from the server."
+    # message-on-end-afk: "<c:#55FF55>You are no longer AFK. You have been afk for <c:#FFFFFF>%duration%<c:#55FF55>."
     kick: true

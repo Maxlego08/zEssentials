@@ -9,7 +9,6 @@ import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 import fr.maxlego08.essentials.zutils.utils.paper.PaperComponent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -62,7 +61,7 @@ public class CommandItemLoreSet extends VCommand {
                         }
 
                         var component = lore.get(index);
-                        return List.of(component == null ? "" : colorReverse(LegacyComponentSerializer.legacyAmpersand().serialize(component)));
+                        return List.of(component == null ? "" : PaperComponent.serializeMiniMessage(component));
                     } catch (Exception ignored) {
                     }
                 }
@@ -114,7 +113,7 @@ public class CommandItemLoreSet extends VCommand {
 
         for (int i = 0; i != components.size(); i++) {
             if (rawLoreLines[i] == null) {
-                rawLoreLines[i] = colorReverse(LegacyComponentSerializer.legacyAmpersand().serialize(components.get(i)));
+                rawLoreLines[i] = PaperComponent.serializeMiniMessage(components.get(i));
             }
         }
 

@@ -10,9 +10,9 @@ button:
         action: LOWER
   item:
     material: RED_DYE
-    name: '#ff0000ɴᴏ ᴘᴇʀᴍɪssɪᴏɴ'
+    name: "<c:#FF0000>ɴᴏ ᴘᴇʀᴍɪssɪᴏɴ"
     lore:
-      - '#fcfcfcYou need a higher rank for this home'
+      - "<c:#FCFCFC>You need a higher rank for this home"
   else:
 
     view_requirement:
@@ -28,7 +28,7 @@ button:
 
     item:
       material: GRAY_DYE
-      name: '#cfcfcfɴᴏ ʜᴏᴍᴇ sᴇᴛ'
+      name: "<c:#CFCFCF>ɴᴏ ʜᴏᴍᴇ sᴇᴛ"
       lore:
         - '#fcfcfcClick to create a home'
 
@@ -40,6 +40,6 @@ button:
 
       item:
         material: BLUE_DYE
-        name: '#00a4fcʜᴏᴍᴇ %home%'
+        name: "<c:#00A4FC>ʜᴏᴍᴇ %home%"
         lore:
           - '#fcfcfcClick to delete this home'

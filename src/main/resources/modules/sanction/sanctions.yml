@@ -1,4 +1,4 @@
-name: '#3f3f3fSanctions of %zessentials_user_target_player_name%'
+name: "<c:#3F3F3F>Sanctions of %zessentials_user_target_player_name%"
 size: 54
 items:
   back:
@@ -6,61 +6,61 @@ items:
     slot: 49
     item:
       material: BARRIER
-      name: "&cGo Back"
+      name: "<c:#FF5555>Go Back"
 
   btn-0:
     slot: 0
     item:
       material: FISHING_ROD
-      name: '&fProvocations'
+      name: "<c:#FFFFFF>Provocations"
 
   btn-1:
     slot: 1
     item:
       material: WOODEN_SWORD
-      name: '&fSpam/Flood'
+      name: "<c:#FFFFFF>Spam/Flood"
 
   btn-2:
     slot: 2
     item:
       material: STONE_SWORD
-      name: '&fHarassment'
+      name: "<c:#FFFFFF>Harassment"
 
   btn-3:
     slot: 3
     item:
       material: GOLDEN_SWORD
-      name: '&f'
+      name: "<c:#FFFFFF>"
 
   btn-4:
     slot: 4
     item:
       material: IRON_SWORD
-      name: '&f'
+      name: "<c:#FFFFFF>"
 
   btn-5:
     slot: 5
     item:
       material: DIAMOND_SWORD
-      name: '&f'
+      name: "<c:#FFFFFF>"
 
   btn-6:
     slot: 6
     item:
       material: NETHERITE_SWORD
-      name: '&f'
+      name: "<c:#FFFFFF>"
 
   btn-7:
     slot: 7
     item:
       material: TRIDENT
-      name: '&f'
+      name: "<c:#FFFFFF>"
 
   btn-8:
     slot: 8
     item:
       material: SHIELD
-      name: '&f'
+      name: "<c:#FFFFFF>"
 
   btn-9:
     slot: 9
@@ -70,11 +70,11 @@ items:
     reason: "Provocation"
     item:
       material: GREEN_STAINED_GLASS_PANE
-      name: '&fProvocations'
+      name: "<c:#FFFFFF>Provocations"
       lore:
-        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff1 hour'
+        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: #4cd5ff1 hour"
         - ''
-        - '&f➥ &nClick&r&7 to mute the player'
+        - "<c:#FFFFFF>➥ <underlined>Click<reset><c:#AAAAAA> to mute the player"
   btn-18:
     slot: 18
     type: ZESSENTIALS_SANCTION
@@ -83,11 +83,11 @@ items:
     reason: "Provocation"
     item:
       material: YELLOW_STAINED_GLASS_PANE
-      name: '&fProvocations'
+      name: "<c:#FFFFFF>Provocations"
       lore:
-        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff2 hours'
+        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: #4cd5ff2 hours"
         - ''
-        - '&f➥ &nClick&r&7 to mute the player'
+        - "<c:#FFFFFF>➥ <underlined>Click<reset><c:#AAAAAA> to mute the player"
   btn-27:
     slot: 27
     type: ZESSENTIALS_SANCTION
@@ -96,11 +96,11 @@ items:
     reason: "Provocation"
     item:
       material: ORANGE_STAINED_GLASS_PANE
-      name: '&fProvocations'
+      name: "<c:#FFFFFF>Provocations"
       lore:
-        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff4 hours'
+        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: #4cd5ff4 hours"
         - ''
-        - '&f➥ &nClick&r&7 to mute the player'
+        - "<c:#FFFFFF>➥ <underlined>Click<reset><c:#AAAAAA> to mute the player"
   btn-36:
     slot: 36
     type: ZESSENTIALS_SANCTION
@@ -109,11 +109,11 @@ items:
     reason: "Provocation"
     item:
       material: RED_STAINED_GLASS_PANE
-      name: '&fProvocations'
+      name: "<c:#FFFFFF>Provocations"
       lore:
-        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff24 hours'
+        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: #4cd5ff24 hours"
         - ''
-        - '&f➥ &nClick&r&7 to mute the player'
+        - "<c:#FFFFFF>➥ <underlined>Click<reset><c:#AAAAAA> to mute the player"
 
   btn-10:
     slot: 10
@@ -123,11 +123,11 @@ items:
     reason: "Spam/Flood"
     item:
       material: GREEN_STAINED_GLASS_PANE
-      name: '&fMute 1h'
+      name: "<c:#FFFFFF>Mute 1h"
       lore:
-        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff1 hour'
+        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: #4cd5ff1 hour"
         - ''
-        - '&f➥ &nClick&r&7 to mute the player'
+        - "<c:#FFFFFF>➥ <underlined>Click<reset><c:#AAAAAA> to mute the player"
 
   btn-19:
     slot: 19
@@ -137,11 +137,11 @@ items:
     reason: "Spam/Flood"
     item:
       material: YELLOW_STAINED_GLASS_PANE
-      name: '&fMute 2h'
+      name: "<c:#FFFFFF>Mute 2h"
       lore:
-        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff2 hours'
+        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: #4cd5ff2 hours"
         - ''
-        - '&f➥ &nClick&r&7 to mute the player'
+        - "<c:#FFFFFF>➥ <underlined>Click<reset><c:#AAAAAA> to mute the player"
 
   btn-28:
     slot: 28
@@ -151,11 +151,11 @@ items:
     reason: "Spam/Flood"
     item:
       material: ORANGE_STAINED_GLASS_PANE
-      name: '&fMute 4h'
+      name: "<c:#FFFFFF>Mute 4h"
       lore:
-        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff4 hours'
+        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: #4cd5ff4 hours"
         - ''
-        - '&f➥ &nClick&r&7 to mute the player'
+        - "<c:#FFFFFF>➥ <underlined>Click<reset><c:#AAAAAA> to mute the player"
 
   btn-37:
     slot: 37
@@ -165,11 +165,11 @@ items:
     reason: "Spam/Flood"
     item:
       material: RED_STAINED_GLASS_PANE
-      name: '&fMute 24h'
+      name: "<c:#FFFFFF>Mute 24h"
       lore:
-        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff24 hours'
+        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: #4cd5ff24 hours"
         - ''
-        - '&f➥ &nClick&r&7 to mute the player'
+        - "<c:#FFFFFF>➥ <underlined>Click<reset><c:#AAAAAA> to mute the player"
 
   btn-11:
     slot: 11
@@ -179,11 +179,11 @@ items:
     reason: "Harassment"
     item:
       material: GREEN_STAINED_GLASS_PANE
-      name: '&fMute 24h'
+      name: "<c:#FFFFFF>Mute 24h"
       lore:
-        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff24 hours'
+        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: #4cd5ff24 hours"
         - ''
-        - '&f➥ &nClick&r&7 to mute the player'
+        - "<c:#FFFFFF>➥ <underlined>Click<reset><c:#AAAAAA> to mute the player"
 
   btn-20:
     slot: 20
@@ -193,11 +193,11 @@ items:
     reason: "Harassment"
     item:
       material: YELLOW_STAINED_GLASS_PANE
-      name: '&fBan 7d'
+      name: "<c:#FFFFFF>Ban 7d"
       lore:
-        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff7 days'
+        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: #4cd5ff7 days"
         - ''
-        - '&f➥ &nClick&r&7 to ban the player'
+        - "<c:#FFFFFF>➥ <underlined>Click<reset><c:#AAAAAA> to ban the player"
 
   btn-29:
     slot: 29
@@ -207,11 +207,11 @@ items:
     reason: "Harassment"
     item:
       material: ORANGE_STAINED_GLASS_PANE
-      name: '&fBan 15d'
+      name: "<c:#FFFFFF>Ban 15d"
       lore:
-        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff15 days'
+        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: #4cd5ff15 days"
         - ''
-        - '&f➥ &nClick&r&7 to ban the player'
+        - "<c:#FFFFFF>➥ <underlined>Click<reset><c:#AAAAAA> to ban the player"
 
   btn-38:
     slot: 38
@@ -221,11 +221,11 @@ items:
     reason: "Harassment"
     item:
       material: RED_STAINED_GLASS_PANE
-      name: '&fBan 30d'
+      name: "<c:#FFFFFF>Ban 30d"
       lore:
-        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff30 days'
+        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: #4cd5ff30 days"
         - ''
-        - '&f➥ &nClick&r&7 to ban the player'
+        - "<c:#FFFFFF>➥ <underlined>Click<reset><c:#AAAAAA> to ban the player"
 
   btn-12:
     slot: 12
@@ -235,11 +235,11 @@ items:
     reason: "Advertising"
     item:
       material: GREEN_STAINED_GLASS_PANE
-      name: '&fMute 1h'
+      name: "<c:#FFFFFF>Mute 1h"
       lore:
-        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff1 hour'
+        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: #4cd5ff1 hour"
         - ''
-        - '&f➥ &nClick&r&7 to mute the player'
+        - "<c:#FFFFFF>➥ <underlined>Click<reset><c:#AAAAAA> to mute the player"
 
   btn-21:
     slot: 21
@@ -249,11 +249,11 @@ items:
     reason: "Advertising"
     item:
       material: YELLOW_STAINED_GLASS_PANE
-      name: '&fMute 2h'
+      name: "<c:#FFFFFF>Mute 2h"
       lore:
-        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff2 hour'
+        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: #4cd5ff2 hour"
         - ''
-        - '&f➥ &nClick&r&7 to mute the player'
+        - "<c:#FFFFFF>➥ <underlined>Click<reset><c:#AAAAAA> to mute the player"
 
   btn-30:
     slot: 30
@@ -263,11 +263,11 @@ items:
     reason: "Advertising"
     item:
       material: ORANGE_STAINED_GLASS_PANE
-      name: '&fMute 4h'
+      name: "<c:#FFFFFF>Mute 4h"
       lore:
-        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff4 hour'
+        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: #4cd5ff4 hour"
         - ''
-        - '&f➥ &nClick&r&7 to mute the player'
+        - "<c:#FFFFFF>➥ <underlined>Click<reset><c:#AAAAAA> to mute the player"
 
   btn-39:
     slot: 39
@@ -277,8 +277,8 @@ items:
     reason: "Advertising"
     item:
       material: RED_STAINED_GLASS_PANE
-      name: '&fMute 24h'
+      name: "<c:#FFFFFF>Mute 24h"
       lore:
-        - '#3f3f3f• &7Duration#3f3f3f: #4cd5ff24 hour'
+        - "<c:#3F3F3F>• <c:#AAAAAA>Duration<c:#3F3F3F>: #4cd5ff24 hour"
         - ''
-        - '&f➥ &nClick&r&7 to mute the player'
+        - "<c:#FFFFFF>➥ <underlined>Click<reset><c:#AAAAAA> to mute the player"

@@ -1,10 +1,10 @@
-name: '#3f3f3fʜᴏᴍᴇs'
+name: "<c:#3F3F3F>ʜᴏᴍᴇs"
 size: 54
 items:
   decorations:
     item:
       material: GRAY_STAINED_GLASS_PANE
-      name: '&e'
+      name: "<c:#FFFF55>"
     slots:
       - 9-17
   homes:
@@ -13,33 +13,33 @@ items:
       - 18-53
     item:
       material: '%material%'
-      name: '&f%name%'
+      name: "<c:#FFFFFF>%name%"
       lore:
-        - '#ffd353ℹ Informations#3f3f3f:'
-        - '#3f3f3f• &7World#3f3f3f: #4cd5ff%world%'
-        - '#3f3f3f• &7Environment#3f3f3f: #4cd5ff%environment%'
+        - "<c:#FFD353>ℹ Informations<c:#3F3F3F>:"
+        - "<c:#3F3F3F>• <c:#AAAAAA>World<c:#3F3F3F>: <c:#4CD5FF>%world%"
+        - "<c:#3F3F3F>• <c:#AAAAAA>Environment<c:#3F3F3F>: <c:#4CD5FF>%environment%"
         - ''
-        - '&f➥ &nLeft Click&r&7 to teleport'
-        - '&f➨ &nDrop key&r&7 to edit material'
-        - '&f➦ &nRight Click&r&7 to delete'
+        - "<c:#FFFFFF>➥ <underlined>Left Click<reset><c:#AAAAAA> to teleport"
+        - "<c:#FFFFFF>➨ <underlined>Drop key<reset><c:#AAAAAA> to edit material"
+        - "<c:#FFFFFF>➦ <underlined>Right Click<reset><c:#AAAAAA> to delete"
     else:
       slots:
         - 31
       item:
         material: RED_STAINED_GLASS_PANE
-        name: "#ff0000✗ ʏᴏᴜ ᴅᴏɴ'ᴛ ʜᴀᴠᴇ ʜᴏᴍᴇs"
+        name: "<c:#FF0000>✗ ʏᴏᴜ ᴅᴏɴ'ᴛ ʜᴀᴠᴇ ʜᴏᴍᴇs"
         lore:
-          - '&7To create a home use the command:'
+          - "<c:#AAAAAA>To create a home use the command:"
           - ''
-          - '#3f3f3f• #4cd5ff/sethome &7<home name>'
+          - "<c:#3F3F3F>• <c:#4CD5FF>/sethome <c:#AAAAAA><home name>"
   informations:
     slot: 4
     item:
       playerHead: "%player%"
-      name: '&fʜᴏᴍᴇs'
+      name: "<c:#FFFFFF>ʜᴏᴍᴇs"
       lore:
-        - '#ffd353ℹ Informations#3f3f3f:'
-        - '#3f3f3f• &7Homes#3f3f3f: #4cd5ff%zessentials_home_count%'
-        - '#3f3f3f• &7Max homes#3f3f3f: #4cd5ff%zessentials_home_max%'
+        - "<c:#FFD353>ℹ Informations<c:#3F3F3F>:"
+        - "<c:#3F3F3F>• <c:#AAAAAA>Homes<c:#3F3F3F>: <c:#4CD5FF>%zessentials_home_count%"
+        - "<c:#3F3F3F>• <c:#AAAAAA>Max homes<c:#3F3F3F>: <c:#4CD5FF>%zessentials_home_max%"
         - ''
-        - '#3f3f3f• &7Command#3f3f3f: #4cd5ff/sethome &7<home name>'
+        - "<c:#3F3F3F>• <c:#AAAAAA>Command<c:#3F3F3F>: <c:#4CD5FF>/sethome <c:#AAAAAA><home name>"

@@ -168,7 +168,7 @@ public class UserPlaceholders extends ZUtils implements PlaceholderRegister {
             User user = iStorage.getUser(player.getUniqueId());
             boolean isAfk = user != null && user.isAfk();
             if (afkManager == null) {
-                return isAfk ? "&aV" : "&cX";
+                return isAfk ? "<c:#55FF55>V" : "<c:#FF5555>X";
             }
             return isAfk ? afkManager.getPlaceholderAfk() : afkManager.getPlaceholderNotAfk();
         }, "Returns the configured placeholder for the player's AFK status");

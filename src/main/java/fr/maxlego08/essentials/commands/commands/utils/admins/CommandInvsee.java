@@ -33,7 +33,7 @@ public class CommandInvsee extends VCommand {
 
         } else {
 
-            message(sender, "&cOffline invsee is disabled for the moment.");
+            message(sender, "<c:#FF5555>Offline invsee is disabled for the moment.");
             /*if (!hasPermission(sender, Permission.ESSENTIALS_INVSEE_OFFLINE)) return CommandResultType.SYNTAX_ERROR;
 
             String version = NmsVersionUtils.getNmsPackage();

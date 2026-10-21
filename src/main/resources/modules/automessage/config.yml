@@ -32,8 +32,8 @@ random-order: false
 messages:
   - lines:
       - ""
-      - "#ffd353ℹ ᴀɴɴᴏᴜɴᴄᴇᴍᴇɴᴛ"
-      - "&7Welcome to our server! Type &f/rules &7for server rules."
+      - "<c:#FFD353>ℹ ᴀɴɴᴏᴜɴᴄᴇᴍᴇɴᴛ"
+      - "<c:#AAAAAA>Welcome to our server! Type <c:#FFFFFF>/rules <c:#AAAAAA>for server rules."
       - ""
     # actions:
     #   - type: sound
@@ -42,9 +42,9 @@ messages:
     #     volume: 1.0
   - lines:
       - ""
-      - "#ffd353ℹ ᴀɴɴᴏᴜɴᴄᴇᴍᴇɴᴛ"
-      - "&7Join our Discord: &f/discord"
+      - "<c:#FFD353>ℹ ᴀɴɴᴏᴜɴᴄᴇᴍᴇɴᴛ"
+      - "<c:#AAAAAA>Join our Discord: <c:#FFFFFF>/discord"
       - ""
     # actions:
     #   - type: actionbar
-    #     message: "&eClick here to join our Discord!"
+    #     message: "<c:#FFFF55>Click here to join our Discord!"

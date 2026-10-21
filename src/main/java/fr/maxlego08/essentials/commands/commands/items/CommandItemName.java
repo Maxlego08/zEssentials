@@ -9,7 +9,6 @@ import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 import fr.maxlego08.essentials.zutils.utils.paper.PaperComponent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -41,7 +40,7 @@ public class CommandItemName extends VCommand {
                             return List.of(itemMeta.getPersistentDataContainer().getOrDefault(this.itemNameRaw, PersistentDataType.STRING, ""));
                         }
                         var component = itemMeta.displayName();
-                        return List.of(component == null ? "" : colorReverse(LegacyComponentSerializer.legacyAmpersand().serialize(component)));
+                        return List.of(component == null ? "" : PaperComponent.serializeMiniMessage(component));
                     }
                 }
             }

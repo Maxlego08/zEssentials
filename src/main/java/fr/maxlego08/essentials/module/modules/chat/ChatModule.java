@@ -107,7 +107,7 @@ public class ChatModule extends ZModule {
         this.alphanumericPattern = Pattern.compile(or(this.alphanumericRegex, "^[a-zA-Z0-9_.?!^¨%ù*&é\"#'{(\\[-|èêë`\\\\çà)\\]=}ûî+<>:²€$/\\-,-â@;ô ]+$"));
         this.linkPattern = Pattern.compile(or(this.linkRegex, "[-a-zA-Z0-9@:%._+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)"));
         this.floodRegex = Pattern.compile(or(this.antiFloodRegex, "(.)\\1{3,}"));
-        this.pubPattern = Pattern.compile(or(this.pubRegex, ".*(§[0-9a-fk-or]|#[0-9a-fA-F]{6}|%[^%]+%|<[^>]+>).*"));
+        this.pubPattern = Pattern.compile(or(this.pubRegex, ".*(#[0-9a-fA-F]{6}|%[^%]+%|<[^>]+>).*"));
         this.chatCooldownArray = this.chatCooldowns.stream().flatMapToLong(cooldown -> LongStream.of(cooldown.cooldown(), cooldown.messages())).toArray();
         this.simpleDateFormat = new SimpleDateFormat(or(this.dateFormat, "yyyy-MM-dd HH:mm:ss"));
 

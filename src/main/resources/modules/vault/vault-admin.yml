@@ -1,4 +1,4 @@
-name: "&f%player% - %vault-name%"
+name: "<c:#FFFFFF>%player% - %vault-name%"
 size: 54
 items:
   disableSlots:
@@ -8,7 +8,7 @@ items:
       - 0-44
     item:
       material: STRUCTURE_VOID
-      name: "<red>ʏᴏᴜ ᴅᴏɴ’ᴛ ʜᴀᴠᴇ ᴛʜɪs sʟᴏᴛ"
+      name: "<c:#FF5555>ʏᴏᴜ ᴅᴏɴ’ᴛ ʜᴀᴠᴇ ᴛʜɪs sʟᴏᴛ"
   slots:
     isPermanent: true
     type: ZESSENTIALS_VAULT_SLOTS_ITEMS
@@ -25,7 +25,7 @@ items:
       name: "%vault-name%"
       amount: "%vault-id%"
       lore:
-        - "&8Click to open the vault %vault-id%"
+        - "<c:#555555>Click to open the vault %vault-id%"
     else:
       type: ZESSENTIALS_VAULT_NO_PERMISSION_ADMIN
       vault: 1
@@ -34,9 +34,9 @@ items:
         name: "%vault-name%"
         lore:
           - ""
-          - "<red>✘ You do not have access to se vault"
+          - "<c:#FF5555>✘ You do not have access to se vault"
           - ""
-          - "&7Get slots on the shop!"
+          - "<c:#AAAAAA>Get slots on the shop!"
   vault2:
     type: ZESSENTIALS_VAULT_OPEN_ADMIN
     vault: 2
@@ -46,7 +46,7 @@ items:
       name: "%vault-name%"
       amount: 5
       lore:
-        - "&8Click to open the vault %vault-id%"
+        - "<c:#555555>Click to open the vault %vault-id%"
     else:
       type: ZESSENTIALS_VAULT_NO_PERMISSION_ADMIN
       vault: 2
@@ -55,9 +55,9 @@ items:
         name: "%vault-name%"
         lore:
           - ""
-          - "<red>✘ You do not have access to se vault"
+          - "<c:#FF5555>✘ You do not have access to se vault"
           - ""
-          - "&7Get slots on the shop!"
+          - "<c:#AAAAAA>Get slots on the shop!"
   vault3:
     type: ZESSENTIALS_VAULT_OPEN_ADMIN
     vault: 3
@@ -67,7 +67,7 @@ items:
       name: "%vault-name%"
       amount: "%vault-id%"
       lore:
-        - "&8Click to open the vault %vault-id%"
+        - "<c:#555555>Click to open the vault %vault-id%"
     else:
       type: ZESSENTIALS_VAULT_NO_PERMISSION_ADMIN
       vault: 3
@@ -76,9 +76,9 @@ items:
         name: "%vault-name%"
         lore:
           - ""
-          - "<red>✘ You do not have access to se vault"
+          - "<c:#FF5555>✘ You do not have access to se vault"
           - ""
-          - "&7Get slots on the shop!"
+          - "<c:#AAAAAA>Get slots on the shop!"
   vault4:
     type: ZESSENTIALS_VAULT_OPEN_ADMIN
     vault: 4
@@ -88,7 +88,7 @@ items:
       name: "%vault-name%"
       amount: "%vault-id%"
       lore:
-        - "&8Click to open the vault %vault-id%"
+        - "<c:#555555>Click to open the vault %vault-id%"
     else:
       type: ZESSENTIALS_VAULT_NO_PERMISSION_ADMIN
       vault: 4
@@ -97,9 +97,9 @@ items:
         name: "%vault-name%"
         lore:
           - ""
-          - "<red>✘ You do not have access to se vault"
+          - "<c:#FF5555>✘ You do not have access to se vault"
           - ""
-          - "&7Get slots on the shop!"
+          - "<c:#AAAAAA>Get slots on the shop!"
   vault5:
     type: ZESSENTIALS_VAULT_OPEN_ADMIN
     vault: 5
@@ -109,7 +109,7 @@ items:
       name: "%vault-name%"
       amount: "%vault-id%"
       lore:
-        - "&8Click to open the vault %vault-id%"
+        - "<c:#555555>Click to open the vault %vault-id%"
     else:
       type: ZESSENTIALS_VAULT_NO_PERMISSION_ADMIN
       vault: 5
@@ -118,9 +118,9 @@ items:
         name: "%vault-name%"
         lore:
           - ""
-          - "<red>✘ You do not have access to se vault"
+          - "<c:#FF5555>✘ You do not have access to se vault"
           - ""
-          - "&7Get slots on the shop!"
+          - "<c:#AAAAAA>Get slots on the shop!"
   vault6:
     type: ZESSENTIALS_VAULT_OPEN_ADMIN
     vault: 6
@@ -130,7 +130,7 @@ items:
       name: "%vault-name%"
       amount: "%vault-id%"
       lore:
-        - "&8Click to open the vault %vault-id%"
+        - "<c:#555555>Click to open the vault %vault-id%"
     else:
       type: ZESSENTIALS_VAULT_NO_PERMISSION_ADMIN
       vault: 6
@@ -139,9 +139,9 @@ items:
         name: "%vault-name%"
         lore:
           - ""
-          - "<red>✘ You do not have access to se vault"
+          - "<c:#FF5555>✘ You do not have access to se vault"
           - ""
-          - "&7Get slots on the shop!"
+          - "<c:#AAAAAA>Get slots on the shop!"
   vault7:
     type: ZESSENTIALS_VAULT_OPEN_ADMIN
     vault: 7
@@ -151,7 +151,7 @@ items:
       name: "%vault-name%"
       amount: "%vault-id%"
       lore:
-        - "&8Click to open the vault %vault-id%"
+        - "<c:#555555>Click to open the vault %vault-id%"
     else:
       type: ZESSENTIALS_VAULT_NO_PERMISSION_ADMIN
       vault: 7
@@ -160,6 +160,6 @@ items:
         name: "%vault-name%"
         lore:
           - ""
-          - "<red>✘ You do not have access to se vault"
+          - "<c:#FF5555>✘ You do not have access to se vault"
           - ""
-          - "&7Get slots on the shop!"
+          - "<c:#AAAAAA>Get slots on the shop!"

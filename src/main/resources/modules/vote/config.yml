@@ -70,8 +70,8 @@ sites:
 enable-offline-vote-message: true
 
 # Value for the placeholder: %zessentials_vote_site_cooldown_<site>%
-placeholder-available: "<green>Available ✔"
-placeholder-cooldown: "<red>%cooldown% ✘"
+placeholder-available: "<c:#55FF55>Available ✔"
+placeholder-cooldown: "<c:#FF5555>%cooldown% ✘"
 
 # Date to reset the votes of the players, the default setting reset the votes on the first day of the month at 0h0
 reset-configuration:
