@@ -1,14 +1,14 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Report duplication bugs and exploits
+  - name: Report duplication bugs and exploits privately
     url: https://discord.groupez.dev/
-    about: DO NOT REPORT DUPLICATION BUGS ON GITHUB!
-  - name: Discord server
+    about: Contact the team on Discord. Do not publish duplication bugs or exploits in a public issue.
+  - name: Discord support
     url: https://discord.groupez.dev/
-    about: My personal Discord server
-  - name: zEssentials Documentation
+    about: Ask for setup help and discuss zEssentials with the community.
+  - name: zEssentials documentation
     url: https://zessentials.groupez.dev/
-    about: Official wiki of zEssentials
-  - name: zEssentials Spigot page
+    about: Read the documentation for commands, modules, permissions and configuration.
+  - name: zEssentials SpigotMC page
     url: https://www.spigotmc.org/resources/118014/
-    about: Official SpigotMC.org page of zEssentials
+    about: Download zEssentials and read the release information. Paper is required to run the plugin.

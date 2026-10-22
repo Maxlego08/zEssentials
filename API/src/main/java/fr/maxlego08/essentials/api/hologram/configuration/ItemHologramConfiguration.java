@@ -4,9 +4,6 @@ import org.bukkit.Material;
 import org.bukkit.entity.ItemDisplay;
 import org.bukkit.inventory.ItemStack;
 
-import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
-
 /**
  * This class represents the configuration settings for an item hologram.
  * It extends the {@link HologramConfiguration} class to include additional properties

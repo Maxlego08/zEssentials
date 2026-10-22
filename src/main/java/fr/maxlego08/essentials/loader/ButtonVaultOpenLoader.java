@@ -6,7 +6,6 @@ import fr.maxlego08.menu.api.button.Button;
 import fr.maxlego08.menu.api.button.DefaultButtonValue;
 import fr.maxlego08.menu.api.loader.ButtonLoader;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.plugin.Plugin;
 
 public class ButtonVaultOpenLoader extends ButtonLoader {
 

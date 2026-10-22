@@ -11,10 +11,7 @@ import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.menu.api.InventoryManager;
 import fr.maxlego08.menu.api.MenuItemStack;
 import fr.maxlego08.menu.api.requirement.Action;
-import fr.maxlego08.menu.api.utils.Loader;
 import fr.maxlego08.menu.api.utils.TypedMapAccessor;
-import fr.maxlego08.menu.loader.MenuItemStackLoader;
-import fr.maxlego08.menu.common.utils.itemstack.MenuItemStackFromItemStack;
 import org.apache.logging.log4j.util.Strings;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
@@ -302,7 +299,10 @@ public class KitModule extends ZModule {
             List<MenuItemStack> menuItemStacks = new ArrayList<>();
             for (ItemStack itemStack : event.getInventory().getContents()) {
                 if (itemStack != null) {
-                    menuItemStacks.add(MenuItemStackFromItemStack.fromItemStack(this.plugin.getInventoryManager(), itemStack));
+                    MenuItemStack menuItemStack = this.plugin.getInventoryManager().toMenuItemStack(itemStack).menuItemStack();
+                    // The Base64 fallback defaults to one item; preserve the edited stack size.
+                    menuItemStack.setAmount(String.valueOf(itemStack.getAmount()));
+                    menuItemStacks.add(menuItemStack);
                 }
             }
             kit.setItems(menuItemStacks);
@@ -373,20 +373,16 @@ public class KitModule extends ZModule {
         var file = kit.getFile();
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
 
-        // Clear items
-        ConfigurationSection configurationSection = configuration.getConfigurationSection("items.");
-        if (configurationSection != null) {
-            configurationSection.getKeys(true).forEach(key -> configurationSection.set(key, null));
-        }
+        // Clear items before writing the current kit contents.
+        configuration.set("items", null);
 
         configuration.set("name", kit.getName());
         configuration.set("display-name", kit.getDisplayName());
         configuration.set("permission", kit.getPermission());
         configuration.set("cooldown", kit.getCooldown());
 
-        Loader<MenuItemStack> loader = new MenuItemStackLoader(this.plugin.getInventoryManager());
         AtomicInteger atomicInteger = new AtomicInteger(1);
-        kit.getMenuItemStacks().forEach(menuItemStack -> loader.save(menuItemStack, configuration, "items.item-" + atomicInteger.getAndIncrement() + ".", file));
+        kit.getMenuItemStacks().forEach(menuItemStack -> menuItemStack.serialize(configuration.createSection("items.item-" + atomicInteger.getAndIncrement())));
 
         try {
             configuration.save(file);

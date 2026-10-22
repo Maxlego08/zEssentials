@@ -117,22 +117,22 @@ price-reductions:
   - format: "#.#" # Blank format to display text directly
     maxAmount: 1000
     # Add colors to text display, works with MiniMessage
-    display: "#2bd66f%amount%"
+    display: "<c:#2BD66F>%amount%"
   - format: "%.1fK"
     maxAmount: 1000000
-    display: "#a3d14d%amount%"
+    display: "<c:#A3D14D>%amount%"
   - format: "%.1fM"
     maxAmount: 1000000000
-    display: "#ebbc23%amount%"
+    display: "<c:#EBBC23>%amount%"
   - format: "%.1fB"
     maxAmount: 1000000000000
-    display: "#eb4b23%amount%"
+    display: "<c:#EB4B23>%amount%"
   - format: "%.2fT"
     maxAmount: 1000000000000000
-    display: "#ff9999%amount%"
+    display: "<c:#FF9999>%amount%"
   - format: "%.2fQ"
     maxAmount: 100000000000000000
-    display: "#ff3535%amount%"
+    display: "<c:#FF3535>%amount%"
 
 # Baltop
 
@@ -180,5 +180,5 @@ command-set-reason: "Set by %sender%"
 # Placeholders for /paytoggle status
 # %zessentials_user_is_pay_disabled% returns true/false
 # %zessentials_user_pay_status% returns the configured value below
-paytoggle-placeholder-enabled: "&aEnabled"
-paytoggle-placeholder-disabled: "&cDisabled"
+paytoggle-placeholder-enabled: "<c:#55FF55>Enabled"
+paytoggle-placeholder-disabled: "<c:#FF5555>Disabled"

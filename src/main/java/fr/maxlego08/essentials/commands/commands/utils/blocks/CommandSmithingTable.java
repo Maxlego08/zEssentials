@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
+import org.bukkit.inventory.MenuType;
 
 public class CommandSmithingTable extends VCommand {
     public CommandSmithingTable(EssentialsPlugin plugin) {
@@ -17,7 +18,7 @@ public class CommandSmithingTable extends VCommand {
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
-        this.player.openSmithingTable(this.player.getLocation(), true);
+        this.player.openInventory(MenuType.SMITHING.builder().location(this.player.getLocation()).checkReachable(false).build(this.player));
 
         return CommandResultType.SUCCESS;
     }

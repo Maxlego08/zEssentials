@@ -6,6 +6,7 @@ import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.menu.api.MenuItemStack;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
@@ -16,6 +17,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -31,6 +33,7 @@ public class ItemModule extends ZModule {
     public void loadConfiguration() {
         super.loadConfiguration();
 
+        this.items.clear();
         YamlConfiguration configuration = getConfiguration();
         ConfigurationSection configurationSection = configuration.getConfigurationSection("custom-items");
         if (configurationSection == null) return;
@@ -51,14 +54,7 @@ public class ItemModule extends ZModule {
 
     public boolean isItem(String itemName) {
 
-        if (this.items.containsKey(itemName)) return true;
-
-        try {
-            Material.valueOf(itemName.toUpperCase());
-            return true;
-        } catch (Exception exception) {
-            return false;
-        }
+        return this.items.containsKey(itemName) || this.getMaterial(itemName) != null;
     }
 
     public @Nullable ItemStack getItemStack(String itemName, OfflinePlayer playerPlayer) {
@@ -67,14 +63,18 @@ public class ItemModule extends ZModule {
             return this.items.get(itemName).build(playerPlayer.isOnline() ? playerPlayer.getPlayer() : null, false);
         }
 
-        try {
+        Material material = this.getMaterial(itemName);
+        return material == null ? null : new ItemStack(material);
+    }
 
-            Material material = Material.valueOf(itemName.toUpperCase());
-            return new ItemStack(material);
+    private @Nullable Material getMaterial(String itemName) {
+        if (itemName == null) return null;
 
-        } catch (Exception exception) {
-            return null;
-        }
+        NamespacedKey key = NamespacedKey.fromString(itemName.toLowerCase(Locale.ROOT));
+        if (key == null || !key.getNamespace().equals(NamespacedKey.MINECRAFT)) return null;
+
+        Material material = Material.getMaterial(key.getKey().toUpperCase(Locale.ROOT));
+        return material != null && !material.isLegacy() && material.isItem() && !material.isAir() ? material : null;
     }
 
     public void give(CommandSender sender, Player player, String itemName, int amount) {
@@ -85,10 +85,11 @@ public class ItemModule extends ZModule {
             return;
         }
 
+        String displayName = getItemName(itemStack);
         itemStack.setAmount(Math.max(1, amount));
         this.plugin.give(player, itemStack);
 
-        message(sender, Message.COMMAND_GIVE, "%item%", itemName, "%player%", player.getName(), "%amount%", amount);
+        message(sender, Message.COMMAND_GIVE, "%item%", displayName, "%player%", player.getName(), "%amount%", amount);
     }
 
     public void giveFullInventory(CommandSender sender, Player player, String itemName) {
@@ -109,7 +110,7 @@ public class ItemModule extends ZModule {
             }
         }
 
-        message(sender, Message.COMMAND_GIVE, "%item%", itemName, "%player%", player.getName(), "%amount%", amount);
+        message(sender, Message.COMMAND_GIVE, "%item%", getItemName(itemStack), "%player%", player.getName(), "%amount%", amount);
     }
 
     public void giveAll(CommandSender sender, String itemName, int amount) {
@@ -120,14 +121,16 @@ public class ItemModule extends ZModule {
         }
 
         // ToDo, rework for all server give all
-        Bukkit.getOnlinePlayers().forEach(player -> {
+        String displayName = null;
+        for (Player player : Bukkit.getOnlinePlayers()) {
             ItemStack itemStack = this.getItemStack(itemName, player);
-            if (itemStack == null) return;
+            if (itemStack == null) continue;
+            if (displayName == null) displayName = getItemName(itemStack);
 
             itemStack.setAmount(Math.max(1, amount));
             this.plugin.give(player, itemStack);
-        });
+        }
 
-        message(sender, Message.COMMAND_GIVE_ALL, "%item%", itemName, "%amount%", amount);
+        message(sender, Message.COMMAND_GIVE_ALL, "%item%", displayName == null ? itemName : displayName, "%amount%", amount);
     }
 }

@@ -33,10 +33,10 @@ public class CoinsEngineConvert extends ZUtils implements Convert {
     @Override
     public void convert(CommandSender sender) {
 
-        message(sender, "&fStart convert &7CoinsEngine");
+        message(sender, "<c:#FFFFFF>Start convert <c:#AAAAAA>CoinsEngine");
         File folder = new File(Bukkit.getWorldContainer(), "plugins/CoinsEngine");
         if (!folder.exists()) {
-            message(sender, "&cUnable to find &bplugins/CoinsEngine&c.");
+            message(sender, "<c:#FF5555>Unable to find <c:#55FFFF>plugins/CoinsEngine<c:#FF5555>.");
             return;
         }
 
@@ -46,13 +46,13 @@ public class CoinsEngineConvert extends ZUtils implements Convert {
                 try {
                     startConvertDatabase(sender, sqlStorage, folder);
                 } catch (SQLException exception) {
-                    message(sender, "&cImpossible to convert CoinsEngine: " + exception.getMessage());
+                    message(sender, "<c:#FF5555>Impossible to convert CoinsEngine: " + exception.getMessage());
                     exception.printStackTrace();
                 }
             });
         } else {
 
-            message(sender, "&cYou must have the storage in a database to be able to convert. Never use the storage in JSON !");
+            message(sender, "<c:#FF5555>You must have the storage in a database to be able to convert. Never use the storage in JSON !");
         }
     }
 
@@ -61,7 +61,7 @@ public class CoinsEngineConvert extends ZUtils implements Convert {
         databaseConnection.setFileName("data.db");
 
         if (!databaseConnection.isValid()) {
-            message(sender, "&cUnable to connect to database.");
+            message(sender, "<c:#FF5555>Unable to connect to database.");
         }
 
         List<String> columns = getColumns(folder);
@@ -69,7 +69,7 @@ public class CoinsEngineConvert extends ZUtils implements Convert {
 
         for (String column : columns) {
             if (economyManager.getEconomy(column).isEmpty()) {
-                message(sender, "&cUnable to find the economy §f" + column + "§c. You must create the savings in the §fmodules/economy/config.yml §cfile before converting the data.");
+                message(sender, "<c:#FF5555>Unable to find the economy <c:#FFFFFF>" + column + "<c:#FF5555>. You must create the savings in the <c:#FFFFFF>modules/economy/config.yml <c:#FF5555>file before converting the data.");
                 return;
             }
         }
@@ -81,7 +81,7 @@ public class CoinsEngineConvert extends ZUtils implements Convert {
         Schema schema = SchemaBuilder.select("coinsengine_users");
         var result = schema.executeSelect(databaseConnection, logger);
 
-        message(sender, "&aFound &f" + result.size() + " &ausers.");
+        message(sender, "<c:#55FF55>Found <c:#FFFFFF>" + result.size() + " <c:#55FF55>users.");
 
         result.forEach(map -> {
 
@@ -94,7 +94,7 @@ public class CoinsEngineConvert extends ZUtils implements Convert {
             });
         });
 
-        message(sender, "&aYou have just converted your CoinsEngine data to zEssentials !");
+        message(sender, "<c:#55FF55>You have just converted your CoinsEngine data to zEssentials !");
     }
 
     private List<String> getColumns(File folder) {

@@ -7,7 +7,6 @@ import com.google.gson.JsonPrimitive;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.ServicePriority;
@@ -21,10 +20,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.net.URL;
+import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -175,7 +173,7 @@ public class Metrics {
         if (logSentData) {
             plugin.getLogger().info("Sending data to bStats: " + data);
         }
-        HttpsURLConnection connection = (HttpsURLConnection) new URL(URL).openConnection();
+        HttpsURLConnection connection = (HttpsURLConnection) URI.create(URL).toURL().openConnection();
 
         // Compress the data to save bandwidth
         byte[] compressedData = compress(data.toString());
@@ -281,7 +279,7 @@ public class Metrics {
         JsonObject data = new JsonObject();
 
         // String pluginName = plugin.getDescription().getName();
-        String pluginVersion = plugin.getDescription().getVersion();
+        String pluginVersion = plugin.getPluginMeta().getVersion();
 
         data.addProperty("pluginName", "zEssential"); // Append the name of the plugin
         data.addProperty("id", pluginId); // Append the id of the plugin
@@ -307,17 +305,7 @@ public class Metrics {
      */
     private JsonObject getServerData() {
         // Minecraft specific data
-        int playerAmount;
-        try {
-            // Around MC 1.8 the return type was changed to a collection from an array,
-            // This fixes java.lang.NoSuchMethodError: org.bukkit.Bukkit.getOnlinePlayers()Ljava/util/Collection;
-            Method onlinePlayersMethod = Class.forName("org.bukkit.Server").getMethod("getOnlinePlayers");
-            playerAmount = onlinePlayersMethod.getReturnType().equals(Collection.class)
-                    ? ((Collection<?>) onlinePlayersMethod.invoke(Bukkit.getServer())).size()
-                    : ((Player[]) onlinePlayersMethod.invoke(Bukkit.getServer())).length;
-        } catch (Exception e) {
-            playerAmount = Bukkit.getOnlinePlayers().size(); // Just use the new method if the Reflection failed
-        }
+        int playerAmount = Bukkit.getOnlinePlayers().size();
         int onlineMode = Bukkit.getOnlineMode() ? 1 : 0;
         String bukkitVersion = Bukkit.getVersion();
         String bukkitName = Bukkit.getName();
@@ -371,7 +359,7 @@ public class Metrics {
                                     Method jsonStringGetter = jsonObjectJsonSimple.getDeclaredMethod("toJSONString");
                                     jsonStringGetter.setAccessible(true);
                                     String jsonString = (String) jsonStringGetter.invoke(plugin);
-                                    JsonObject object = new JsonParser().parse(jsonString).getAsJsonObject();
+                                    JsonObject object = JsonParser.parseString(jsonString).getAsJsonObject();
                                     pluginData.add(object);
                                 }
                             } catch (ClassNotFoundException e) {

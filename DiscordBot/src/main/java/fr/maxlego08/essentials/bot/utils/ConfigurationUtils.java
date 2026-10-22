@@ -3,13 +3,14 @@ package fr.maxlego08.essentials.bot.utils;
 import fr.maxlego08.essentials.api.configuration.NonLoadable;
 import fr.maxlego08.essentials.api.modules.Loadable;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.RecordComponent;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -64,7 +65,11 @@ public abstract class ConfigurationUtils {
                 } else {
 
                     Map<?, ?> map = (Map<?, ?>) configuration.get(configKey);
-                    field.set(this, createInstanceFromMap(((Class<?>) field.getGenericType()).getConstructors()[0], map));
+                    Class<?> type = field.getType();
+                    Constructor<?> constructor = type.isRecord()
+                            ? type.getDeclaredConstructor(Arrays.stream(type.getRecordComponents()).map(RecordComponent::getType).toArray(Class<?>[]::new))
+                            : type.getConstructors()[0];
+                    field.set(this, createInstanceFromMap(constructor, map));
                 }
 
             } catch (Exception exception) {

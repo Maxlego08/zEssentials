@@ -1,0 +1,91 @@
+[versions]
+# Build / Plugins
+shadow = "9.6.1"
+groupez = "1.0.0"
+paperweight = "2.0.0-beta.24"
+
+# Platforms (Paper / NMS)
+paper-api = "1.21.4-R0.1-SNAPSHOT"
+adventure-api = "4.26.1"
+adventure-api-latest = "5.2.0"
+adventure-text-serializer-ansi = "4.26.1"
+paperDevBundle1214 = "1.21.4-R0.1-SNAPSHOT"
+paperDevBundle1215 = "1.21.5-R0.1-SNAPSHOT"
+paperDevBundle1216 = "1.21.6-R0.1-SNAPSHOT"
+paperDevBundle1217 = "1.21.7-R0.1-SNAPSHOT"
+paperDevBundle1218 = "1.21.8-R0.1-SNAPSHOT"
+paperDevBundle1219 = "1.21.9-R0.1-SNAPSHOT"
+paperDevBundle12110 = "1.21.10-R0.1-SNAPSHOT"
+paperDevBundle12111 = "1.21.11-R0.1-SNAPSHOT"
+paperDevBundle262 = "26.2.build.+"
+paperDevBundle263 = "26.3.build.+"
+
+# Utilities / Libraries
+sarah = "1.26"
+folialib = "0.5.1"
+fastboard = "2.2.2"
+faststats = "0.29.4"
+snakeyaml = "2.7"
+jda = "6.7.0"
+mysql-connector = "26.10.0"
+mariadb-connector = "3.5.6"
+
+# Integration Hooks
+zmenu-api = "1.1.2.0"
+placeholderapi = "2.12.3"
+blocktracker = "1.0.6"
+mythicmobs = "5.7.2"
+nchat = "5.6"
+protocollib = "5.4.0"
+jedis = "8.0.2"
+superiorskyblock = "2024.4"
+vault = "1.7"
+worldguard = "7.0.13"
+worldedit = "7.3.12"
+
+[libraries]
+# Platforms (Paper / NMS)
+paper-api = { group = "io.papermc.paper", name = "paper-api", version.ref = "paper-api" }
+adventure-api = { group = "net.kyori", name = "adventure-api", version.ref = "adventure-api" }
+adventure-api-latest = { group = "net.kyori", name = "adventure-api", version.ref = "adventure-api-latest" }
+paperDevBundle1214 = { group = "io.papermc.paper", name = "dev-bundle", version.ref = "paperDevBundle1214" }
+paperDevBundle1215 = { group = "io.papermc.paper", name = "dev-bundle", version.ref = "paperDevBundle1215" }
+paperDevBundle1216 = { group = "io.papermc.paper", name = "dev-bundle", version.ref = "paperDevBundle1216" }
+paperDevBundle1217 = { group = "io.papermc.paper", name = "dev-bundle", version.ref = "paperDevBundle1217" }
+paperDevBundle1218 = { group = "io.papermc.paper", name = "dev-bundle", version.ref = "paperDevBundle1218" }
+paperDevBundle1219 = { group = "io.papermc.paper", name = "dev-bundle", version.ref = "paperDevBundle1219" }
+paperDevBundle12110 = { group = "io.papermc.paper", name = "dev-bundle", version.ref = "paperDevBundle12110" }
+paperDevBundle12111 = { group = "io.papermc.paper", name = "dev-bundle", version.ref = "paperDevBundle12111" }
+paperDevBundle262 = { group = "io.papermc.paper", name = "dev-bundle", version.ref = "paperDevBundle262" }
+paperDevBundle263 = { group = "io.papermc.paper", name = "dev-bundle", version.ref = "paperDevBundle263" }
+
+# Utilities / Libraries
+sarah = { group = "fr.maxlego08.sarah", name = "sarah", version.ref = "sarah" }
+folialib = { group = "com.tcoded", name = "FoliaLib", version.ref = "folialib" }
+fastboard = { group = "fr.mrmicky", name = "fastboard", version.ref = "fastboard" }
+fastStatsBukkit = { group = "dev.faststats.metrics", name = "bukkit", version.ref = "faststats" }
+snakeyaml = { group = "org.yaml", name = "snakeyaml", version.ref = "snakeyaml" }
+jda = { group = "net.dv8tion", name = "JDA", version.ref = "jda" }
+mysql-connector = { group = "com.mysql", name = "mysql-connector-j", version.ref = "mysql-connector" }
+mariadb-connector = { group = "org.mariadb.jdbc", name = "mariadb-java-client", version.ref = "mariadb-connector" }
+
+# Integration Hooks
+zmenu-api = { group = "fr.maxlego08.menu", name = "zmenu-api", version.ref = "zmenu-api" }
+placeholderapi = { group = "me.clip", name = "placeholderapi", version.ref = "placeholderapi" }
+blocktracker = { group = "dev.krakenied", name = "blocktracker", version.ref = "blocktracker" }
+mythicmobs = { group = "io.lumine", name = "Mythic-Dist", version.ref = "mythicmobs" }
+nchat = { group = "com.nickuc.chat", name = "api", version.ref = "nchat" }
+protocollib = { group = "net.dmulloy2", name = "ProtocolLib", version.ref = "protocollib" }
+jedis = { group = "redis.clients", name = "jedis", version.ref = "jedis" }
+superiorskyblock = { group = "com.bgsoftware", name = "SuperiorSkyblockAPI", version.ref = "superiorskyblock" }
+vault = { group = "com.github.MilkBowl", name = "VaultAPI", version.ref = "vault" }
+worldguard = { group = "com.sk89q.worldguard", name = "worldguard-bukkit", version.ref = "worldguard" }
+worldedit = { group = "com.sk89q.worldedit", name = "worldedit-core", version.ref = "worldedit" }
+
+[plugins]
+# Build Tools
+shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
+groupez-repository = { id = "re.alwyn974.groupez.repository", version.ref = "groupez" }
+groupez-publish = { id = "re.alwyn974.groupez.publish", version.ref = "groupez" }
+# Platforms
+paperweight = { id = "io.papermc.paperweight.userdev", version.ref = "paperweight" }

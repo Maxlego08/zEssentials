@@ -29,7 +29,7 @@ public class CommandCompact extends VCommand {
         Optional<TransformMaterial> optional = this.configuration.getCompactMaterials().stream().filter(e -> e.from().equals(material)).findFirst();
         if (optional.isEmpty()) {
 
-            message(sender, Message.COMMAND_COMPACT_TYPE, "%material%", name(material.name()));
+            message(sender, Message.COMMAND_COMPACT_TYPE, "%material%", getMaterialName(material));
             return CommandResultType.DEFAULT;
         }
 
@@ -40,15 +40,15 @@ public class CommandCompact extends VCommand {
         int amountOf = count(inventory, material);
 
         if (amountOf < 9) {
-            message(getPlayer(), Message.COMMAND_COMPACT_ERROR, "%item%", name(material.name()));
+            message(getPlayer(), Message.COMMAND_COMPACT_ERROR, "%item%", getMaterialName(material));
             return CommandResultType.DEFAULT;
         }
 
         int realAmount = amountOf / 9;
         removeItems(inventory, new ItemStack(material), realAmount * 9);
         this.plugin.give(this.player, new ItemStack(newMaterial, realAmount));
-        message(this.player, Message.COMMAND_COMPACT_SUCCESS, "%amount%", realAmount * 9, "%item%", name(material.name()),
-                "%toAmount%", realAmount, "%toItem%", name(newMaterial.name()));
+        message(this.player, Message.COMMAND_COMPACT_SUCCESS, "%amount%", realAmount * 9, "%item%", getMaterialName(material),
+                "%toAmount%", realAmount, "%toItem%", getMaterialName(newMaterial));
 
         return CommandResultType.SUCCESS;
     }

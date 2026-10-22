@@ -9,10 +9,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.io.IOException;
-import java.net.URL;
+import java.net.URI;
 import java.net.URLConnection;
 import java.util.Scanner;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
 /**
@@ -24,7 +23,7 @@ public class VersionChecker extends ZUtils implements Listener {
     private final String URL_RESOURCE = "https://groupez.dev/resources/%s";
     private final EssentialsPlugin plugin;
     private final int pluginID;
-    private boolean useLastVersion = false;
+    private volatile boolean useLastVersion = true;
 
     public VersionChecker(EssentialsPlugin plugin, int pluginID) {
         super();
@@ -37,14 +36,11 @@ public class VersionChecker extends ZUtils implements Listener {
 
         Bukkit.getPluginManager().registerEvents(this, this.plugin);
 
-        String pluginVersion = this.plugin.getDescription().getVersion();
-        AtomicBoolean atomicBoolean = new AtomicBoolean();
+        String pluginVersion = this.plugin.getPluginMeta().getVersion();
         this.getVersion(version -> {
 
-            long ver = Long.parseLong(version.replace(".", ""));
-            long plVersion = Long.parseLong(pluginVersion.replace(".", ""));
-            atomicBoolean.set(this.useLastVersion = plVersion >= ver);
-            if (atomicBoolean.get()) {
+            this.useLastVersion = compareVersions(pluginVersion, version) >= 0;
+            if (this.useLastVersion) {
                 this.plugin.getLogger().info("No update available.");
             } else {
                 this.plugin.getLogger().severe("");
@@ -56,14 +52,27 @@ public class VersionChecker extends ZUtils implements Listener {
 
     }
 
+    static int compareVersions(String first, String second) {
+        String[] firstParts = first.split("[+-]", 2)[0].split("\\.", -1);
+        String[] secondParts = second.split("[+-]", 2)[0].split("\\.", -1);
+        int result = 0;
+        for (int i = 0; i < Math.max(firstParts.length, secondParts.length); i++) {
+            int firstPart = i < firstParts.length ? Integer.parseInt(firstParts[i]) : 0;
+            int secondPart = i < secondParts.length ? Integer.parseInt(secondParts[i]) : 0;
+            if (firstPart < 0 || secondPart < 0) throw new IllegalArgumentException("Negative version component");
+            if (result == 0) result = Integer.compare(firstPart, secondPart);
+        }
+        return result;
+    }
+
     @EventHandler
     public void onConnect(PlayerJoinEvent event) {
         final Player player = event.getPlayer();
         if (!useLastVersion && event.getPlayer().hasPermission("zplugin.notifs")) {
             plugin.getScheduler().runLater(() -> {
                 String prefix = Message.PREFIX.getMessageAsString();
-                message(player, prefix + "§cYou do not use the latest version of the plugin! Thank you for taking the latest version to avoid any risk of problem!");
-                message(player, prefix + "§fDownload plugin here: §a" + String.format(URL_RESOURCE, pluginID));
+                message(player, prefix + "<c:#FF5555>You do not use the latest version of the plugin! Thank you for taking the latest version to avoid any risk of problem!");
+                message(player, prefix + "<c:#FFFFFF>Download plugin here: <c:#55FF55>" + String.format(URL_RESOURCE, pluginID));
             }, 20 * 2);
         }
     }
@@ -77,13 +86,14 @@ public class VersionChecker extends ZUtils implements Listener {
         this.plugin.getScheduler().runAsync(wrappedTask -> {
             final String apiURL = String.format(URL_API, this.pluginID);
             try {
-                URL url = new URL(apiURL);
-                URLConnection hc = url.openConnection();
+                URLConnection hc = URI.create(apiURL).toURL().openConnection();
+                hc.setConnectTimeout(5000);
+                hc.setReadTimeout(5000);
                 hc.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2");
-                Scanner scanner = new Scanner(hc.getInputStream());
-                if (scanner.hasNext()) consumer.accept(scanner.next());
-                scanner.close();
-            } catch (IOException exception) {
+                try (Scanner scanner = new Scanner(hc.getInputStream())) {
+                    if (scanner.hasNext()) consumer.accept(scanner.next());
+                }
+            } catch (IOException | IllegalArgumentException exception) {
                 this.plugin.getLogger().info("Cannot look for updates: " + exception.getMessage());
             }
         });

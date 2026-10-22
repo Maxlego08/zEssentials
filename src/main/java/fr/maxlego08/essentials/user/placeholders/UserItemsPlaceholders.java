@@ -4,6 +4,7 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.placeholders.PlaceholderRegister;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
+import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -66,7 +67,9 @@ public class UserItemsPlaceholders extends ZUtils implements PlaceholderRegister
             if (itemStack.hasItemMeta() && itemStack.getItemMeta().hasEnchants()) {
                 List<String> enchantments = new ArrayList<>();
                 for (Map.Entry<Enchantment, Integer> entry : itemStack.getItemMeta().getEnchants().entrySet()) {
-                    enchantments.add(entry.getKey().getKey().getKey() + ":" + entry.getValue());
+                    NamespacedKey key = entry.getKey().getKey();
+                    String name = key.getNamespace().equals(NamespacedKey.MINECRAFT) ? key.getKey() : key.toString();
+                    enchantments.add(name + ":" + entry.getValue());
                 }
                 return String.join(", ", enchantments);
             }
@@ -76,10 +79,9 @@ public class UserItemsPlaceholders extends ZUtils implements PlaceholderRegister
         placeholder.register("iteminhand_hasenchantment_", (player, enchantmentName) -> {
             ItemStack itemStack = player.getInventory().getItemInMainHand();
             if (itemStack.hasItemMeta() && itemStack.getItemMeta().hasEnchants()) {
-                var optional = plugin.getEnchantments().getEnchantments(enchantmentName);
+                var optional = plugin.getEnchantments().getEnchantment(enchantmentName);
                 if (optional.isPresent()) {
-                    var essentialsEnchantment = optional.get();
-                    return itemStack.containsEnchantment(essentialsEnchantment.enchantment()) ? "true" : "false";
+                    return itemStack.containsEnchantment(optional.get()) ? "true" : "false";
                 }
             }
             return "false";
@@ -88,10 +90,9 @@ public class UserItemsPlaceholders extends ZUtils implements PlaceholderRegister
         placeholder.register("iteminhand_enchantmentlevel_", (player, enchantmentName) -> {
             ItemStack itemStack = player.getInventory().getItemInMainHand();
             if (itemStack.hasItemMeta() && itemStack.getItemMeta().hasEnchants()) {
-                var optional = plugin.getEnchantments().getEnchantments(enchantmentName);
+                var optional = plugin.getEnchantments().getEnchantment(enchantmentName);
                 if (optional.isPresent()) {
-                    var essentialsEnchantment = optional.get();
-                    return String.valueOf(itemStack.getEnchantmentLevel(essentialsEnchantment.enchantment()));
+                    return String.valueOf(itemStack.getEnchantmentLevel(optional.get()));
                 }
             }
             return "0";

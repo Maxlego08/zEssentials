@@ -15,7 +15,7 @@ size: 54 # Inventory size
 open-permission: null
 
 # Menu title with gradient effect
-title: "&8&l« &e&lKit Categories &8&l»"
+title: "<c:#555555><bold>« <c:#FFFF55><bold>Kit Categories <c:#555555><bold>»"
 
 # Fill all empty slots with black glass
 fillItem:
@@ -45,12 +45,12 @@ items:
   title-star:
     slot: 4
     material: NETHER_STAR
-    name: "&e&l✦ &6&lKIT SYSTEM &e&l✦"
+    name: "<c:#FFFF55><bold>✦ <c:#FFAA00><bold>KIT SYSTEM <c:#FFFF55><bold>✦"
     lore:
-      - "&8━━━━━━━━━━━━━━━━━━━"
-      - "&7Welcome to the kit selection menu!"
-      - "&7Choose a category to browse available kits."
-      - "&8━━━━━━━━━━━━━━━━━━━"
+      - "<c:#555555>━━━━━━━━━━━━━━━━━━━"
+      - "<c:#AAAAAA>Welcome to the kit selection menu!"
+      - "<c:#AAAAAA>Choose a category to browse available kits."
+      - "<c:#555555>━━━━━━━━━━━━━━━━━━━"
   
   top-deco-5:
     slot: 5
@@ -109,19 +109,19 @@ items:
     type: zessentials_kit_category_selector
     category: "Tools"
     material: IRON_PICKAXE
-    name: "&e&l⛏ TOOLS"
+    name: "<c:#FFFF55><bold>⛏ TOOLS"
     lore:
-      - "&8━━━━━━━━━━━━━━━━━━━"
+      - "<c:#555555>━━━━━━━━━━━━━━━━━━━"
       - " "
-      - "  &7Category: &e&lTools"
-      - "  &7Available Kits: &f%kit_count%"
+      - "  <c:#AAAAAA>Category: <c:#FFFF55><bold>Tools"
+      - "  <c:#AAAAAA>Available Kits: <c:#FFFFFF>%kit_count%"
       - " "
-      - "  &8▪ &7Basic mining tools"
-      - "  &8▪ &7Advanced equipment"
-      - "  &8▪ &7Building materials"
+      - "  <c:#555555>▪ <c:#AAAAAA>Basic mining tools"
+      - "  <c:#555555>▪ <c:#AAAAAA>Advanced equipment"
+      - "  <c:#555555>▪ <c:#AAAAAA>Building materials"
       - " "
-      - "&8━━━━━━━━━━━━━━━━━━━"
-      - "&a▶ &7Click to browse tools"
+      - "<c:#555555>━━━━━━━━━━━━━━━━━━━"
+      - "<c:#55FF55>▶ <c:#AAAAAA>Click to browse tools"
     actions:
       - type: open inventory
         inventory: 'kits_category_default'
@@ -137,19 +137,19 @@ items:
     type: zessentials_kit_category_selector
     category: "Combat"
     material: DIAMOND_SWORD
-    name: "&c&l⚔ COMBAT"
+    name: "<c:#FF5555><bold>⚔ COMBAT"
     lore:
-      - "&8━━━━━━━━━━━━━━━━━━━"
+      - "<c:#555555>━━━━━━━━━━━━━━━━━━━"
       - " "
-      - "  &7Category: &c&lCombat"
-      - "  &7Available Kits: &f%kit_count%"
+      - "  <c:#AAAAAA>Category: <c:#FF5555><bold>Combat"
+      - "  <c:#AAAAAA>Available Kits: <c:#FFFFFF>%kit_count%"
       - " "
-      - "  &8▪ &7Weapons & armor"
-      - "  &8▪ &7PvP equipment"
-      - "  &8▪ &7Combat potions"
+      - "  <c:#555555>▪ <c:#AAAAAA>Weapons & armor"
+      - "  <c:#555555>▪ <c:#AAAAAA>PvP equipment"
+      - "  <c:#555555>▪ <c:#AAAAAA>Combat potions"
       - " "
-      - "&8━━━━━━━━━━━━━━━━━━━"
-      - "&a▶ &7Click to browse combat kits"
+      - "<c:#555555>━━━━━━━━━━━━━━━━━━━"
+      - "<c:#55FF55>▶ <c:#AAAAAA>Click to browse combat kits"
     actions:
       - type: open inventory
         inventory: 'kits_category_combat'
@@ -165,19 +165,19 @@ items:
     type: zessentials_kit_category_selector
     category: "Food"
     material: GOLDEN_APPLE
-    name: "&6&l🍖 FOOD"
+    name: "<c:#FFAA00><bold>🍖 FOOD"
     lore:
-      - "&8━━━━━━━━━━━━━━━━━━━"
+      - "<c:#555555>━━━━━━━━━━━━━━━━━━━"
       - " "
-      - "  &7Category: &6&lFood"
-      - "  &7Available Kits: &f%kit_count%"
+      - "  <c:#AAAAAA>Category: <c:#FFAA00><bold>Food"
+      - "  <c:#AAAAAA>Available Kits: <c:#FFFFFF>%kit_count%"
       - " "
-      - "  &8▪ &7Food supplies"
-      - "  &8▪ &7Golden foods"
-      - "  &8▪ &7Consumables"
+      - "  <c:#555555>▪ <c:#AAAAAA>Food supplies"
+      - "  <c:#555555>▪ <c:#AAAAAA>Golden foods"
+      - "  <c:#555555>▪ <c:#AAAAAA>Consumables"
       - " "
-      - "&8━━━━━━━━━━━━━━━━━━━"
-      - "&a▶ &7Click to browse food kits"
+      - "<c:#555555>━━━━━━━━━━━━━━━━━━━"
+      - "<c:#55FF55>▶ <c:#AAAAAA>Click to browse food kits"
     actions:
       - type: open inventory
         inventory: 'kits_category_food'
@@ -191,39 +191,39 @@ items:
   info-book:
     slot: 11
     material: BOOK
-    name: "&e&lInformation"
+    name: "<c:#FFFF55><bold>Information"
     lore:
-      - "&8━━━━━━━━━━━━━━━━━━━"
-      - "&e&l► &7Left Click: &fOpen category"
-      - "&e&l► &7Categories: &f3 available"
-      - "&e&l► &7Permission: &fBased on kit"
-      - "&8━━━━━━━━━━━━━━━━━━━"
+      - "<c:#555555>━━━━━━━━━━━━━━━━━━━"
+      - "<c:#FFFF55><bold>► <c:#AAAAAA>Left Click: <c:#FFFFFF>Open category"
+      - "<c:#FFFF55><bold>► <c:#AAAAAA>Categories: <c:#FFFFFF>3 available"
+      - "<c:#FFFF55><bold>► <c:#AAAAAA>Permission: <c:#FFFFFF>Based on kit"
+      - "<c:#555555>━━━━━━━━━━━━━━━━━━━"
   
   cooldown-info:
     slot: 15
     material: CLOCK
-    name: "&b&lKit Cooldowns"
+    name: "<c:#55FFFF><bold>Kit Cooldowns"
     lore:
-      - "&8━━━━━━━━━━━━━━━━━━━"
-      - "&7Each kit has its own cooldown"
-      - "&7Check kit info for details"
-      - "&8━━━━━━━━━━━━━━━━━━━"
+      - "<c:#555555>━━━━━━━━━━━━━━━━━━━"
+      - "<c:#AAAAAA>Each kit has its own cooldown"
+      - "<c:#AAAAAA>Check kit info for details"
+      - "<c:#555555>━━━━━━━━━━━━━━━━━━━"
   
   # Bottom navigation
   close-button:
     slot: 45
     material: BARRIER
-    name: "&c&l✖ CLOSE"
+    name: "<c:#FF5555><bold>✖ CLOSE"
     lore:
-      - "&7Close this menu"
+      - "<c:#AAAAAA>Close this menu"
     closeInventory: true
   
   back-button:
     slot: 46
     material: DARK_OAK_DOOR
-    name: "&c&l← BACK"
+    name: "<c:#FF5555><bold>← BACK"
     lore:
-      - "&7Return to kits menu"
+      - "<c:#AAAAAA>Return to kits menu"
     actions:
       - type: open inventory
         inventory: 'kits'
@@ -240,9 +240,9 @@ items:
   refresh-button:
     slot: 49
     material: EMERALD
-    name: "&a&l↻ REFRESH"
+    name: "<c:#55FF55><bold>↻ REFRESH"
     lore:
-      - "&7Refresh kit categories"
+      - "<c:#AAAAAA>Refresh kit categories"
     refreshOnClick: true
   
   bottom-deco-3:
@@ -261,10 +261,10 @@ items:
   all-kits-button:
     slot: 53
     material: CHEST
-    name: "&6&l📦 ALL KITS"
+    name: "<c:#FFAA00><bold>📦 ALL KITS"
     lore:
-      - "&7View all kits without"
-      - "&7category filtering"
+      - "<c:#AAAAAA>View all kits without"
+      - "<c:#AAAAAA>category filtering"
     actions:
       - type: open inventory
         inventory: 'kits'

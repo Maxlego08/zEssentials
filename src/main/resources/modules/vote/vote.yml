@@ -1,45 +1,45 @@
-name: "#3f3f3fᴠᴏᴛᴇ"
+name: "<c:#3F3F3F>ᴠᴏᴛᴇ"
 size: 54
 items:
   voteparty:
     slot: 13
     item:
       material: BELL
-      name: "#fc07f3&lᴄᴏᴍᴍᴜɴɪᴛʏ ᴀᴅᴠᴀɴᴄᴇᴍᴇɴᴛ"
+      name: "<c:#FC07F3><bold>ᴄᴏᴍᴍᴜɴɪᴛʏ ᴀᴅᴠᴀɴᴄᴇᴍᴇɴᴛ"
       lore:
-        - "&8VoteParty"
+        - "<c:#555555>VoteParty"
         - ""
-        - "&7By voting you will make progress"
-        - "&7VoteParty. To unlock a reward"
-        - "&7it is necessary to vote &f%zessentials_voteparty_objective% times"
+        - "<c:#AAAAAA>By voting you will make progress"
+        - "<c:#AAAAAA>VoteParty. To unlock a reward"
+        - "<c:#AAAAAA>it is necessary to vote <c:#FFFFFF>%zessentials_voteparty_objective% times"
         - ""
         - ""
-        - "&f&lᴘʀᴏɢʀᴇss"
-        - "&8[#fc99f8%zessentials_voteparty_amount% %zessentials_progressbar_{zessentials_voteparty_amount}_{zessentials_voteparty_objective}_20_|_#fc99f8_&7% #fc99f8%zessentials_voteparty_objective%&8]"
+        - "<c:#FFFFFF><bold>ᴘʀᴏɢʀᴇss"
+        - "<c:#555555>[<c:#FC99F8>%zessentials_voteparty_amount% %zessentials_progressbar_{zessentials_voteparty_amount}_{zessentials_voteparty_objective}_20_|_<c:#FC99F8>_<c:#AAAAAA>% <c:#FC99F8>%zessentials_voteparty_objective%<c:#555555>]"
         - ""
-        - "&f&lʀᴇᴡᴀʀᴅs"
-        - " #f8b175• #e5c2625.000$ &8(Double if VIP #fcd955✭&8)"
+        - "<c:#FFFFFF><bold>ʀᴇᴡᴀʀᴅs"
+        - " <c:#F8B175>• <c:#E5C262>5.000$ <c:#555555>(Double if VIP <c:#FCD955>✭<c:#555555>)"
   information:
     update: true
     slot: 31
     item:
       material: BOOK
-      name: "#e4cc00ᴠᴏᴛᴇ ɴᴏᴡ"
+      name: "<c:#E4CC00>ᴠᴏᴛᴇ ɴᴏᴡ"
       lore:
         - ""
-        - " #f8b175• &7Site 1 %zessentials_vote_site_cooldown_ServeurMinecraftVote%"
-        - " #f8b175• &7Site 2 %zessentials_vote_site_cooldown_ServeurPrive%"
-        - " #f8b175• &7Site 3 %zessentials_vote_site_cooldown_ServeursMinecraft%"
-        - " #f8b175• &7Site 4 %zessentials_vote_site_cooldown_TopServeurs%"
+        - " <c:#F8B175>• <c:#AAAAAA>Site 1 %zessentials_vote_site_cooldown_ServeurMinecraftVote%"
+        - " <c:#F8B175>• <c:#AAAAAA>Site 2 %zessentials_vote_site_cooldown_ServeurPrive%"
+        - " <c:#F8B175>• <c:#AAAAAA>Site 3 %zessentials_vote_site_cooldown_ServeursMinecraft%"
+        - " <c:#F8B175>• <c:#AAAAAA>Site 4 %zessentials_vote_site_cooldown_TopServeurs%"
         - ""
-        - "&fClick to vote !"
+        - "<c:#FFFFFF>Click to vote !"
     actions:
       - type: book
         author: "zEssentials"
-        title: "#e4cc00ᴠᴏᴛᴇ ɴᴏᴡ"
+        title: "<c:#E4CC00>ᴠᴏᴛᴇ ɴᴏᴡ"
         lines: # Book pages
           1: # First page
-            - '     #e4cc00ᴠᴏᴛᴇ ɴᴏᴡ'
+            - "     <c:#E4CC00>ᴠᴏᴛᴇ ɴᴏᴡ"
             - ''
             - ''
-            - '<hover:show_text:"#34eba8Open Serveur Minecraft Vote !"><click:open_url:"https://serveur-minecraft-vote.fr/">#f0af24Open URL<reset>'
+            - "<hover:show_text:\"<c:#34EBA8>Open Serveur Minecraft Vote !\"><click:open_url:\"https://serveur-minecraft-vote.fr/\"><c:#F0AF24>Open URL<reset>"

@@ -16,8 +16,7 @@ public class CommandSetLinkMessage extends VCommand {
     @Override
     protected CommandResultType perform(DiscordBot instance) {
 
-        event.reply("The link message has just been sent").setEphemeral(true).queue();
-        instance.getLinkManager().sendLinkMessage(this.textChannel);
+        event.reply("The link message has just been sent").setEphemeral(true).queue(instance.getLinkManager()::sendLinkMessage);
 
         return CommandResultType.SUCCESS;
     }

@@ -52,15 +52,7 @@ public class CommandVaultGetSlot extends VCommand {
 
                 VaultItemDTO vaultItemDTO = optional.get();
                 ItemStack itemStack = ItemStackUtils.deserializeItemStack(vaultItemDTO.item());
-                String itemName;
-
-                if (itemStack == null) {
-                    itemName = "unknown";
-                } else if (itemStack.hasItemMeta() && itemStack.getItemMeta() != null && itemStack.getItemMeta().hasDisplayName()) {
-                    itemName = itemStack.getItemMeta().getDisplayName();
-                } else {
-                    itemName = itemStack.getType().name();
-                }
+                String itemName = itemStack == null ? "unknown" : getItemName(itemStack);
 
                 message(this.sender, Message.COMMAND_VAULT_GET_SLOT_SUCCESS, "%player%", playerName, "%vault%", vaultId, "%slot%", slot, "%amount%", String.valueOf(vaultItemDTO.quantity()), "%item%", itemName);
 

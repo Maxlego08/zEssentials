@@ -55,7 +55,7 @@ public abstract class ScoreboardAnimation {
         int baseColor = Integer.parseInt(baseColorHex.substring(1), 16);
         int highlightColor = Integer.parseInt(highlightColorHex.substring(1), 16);
 
-        float ratio = (float) Math.abs(currentIndex - highlightIndex) / textLength;
+        float ratio = Math.min(1.0f, (float) Math.abs(currentIndex - highlightIndex) / Math.max(1, textLength));
 
         int rBase = (baseColor >> 16) & 0xFF;
         int gBase = (baseColor >> 8) & 0xFF;

@@ -4,9 +4,11 @@
 bot-token: "DISCORD-TOKEN"
 
 # The guild ID of your Discord Server
-guild-id: 511516467615760405
+guild-id: "511516467615760405"
 
 database-configuration:
+  # Database engine: MYSQL or MARIADB. (MySQL 8.4 or newer is required)
+  type: MYSQL
   # The prefix that will be applied to all tables, if you have several plugins with the same database you must have one.
   # It is advisable not to change this value
   tablePrefix: "zessentials_"
@@ -29,7 +31,7 @@ link:
 
   # Allows logs of actions performed by a user
   log:
-    channel: 1324025378142163025
+    channel: "1324025378142163025"
     create: "**%name%** (%id%) has just created the code `%code%`."
     ask: "**%name%** (%id%) has just requested the code `%code%`."
 
@@ -48,7 +50,11 @@ link:
     title:
       title: "Link my account"
       # url: "https://zessentials.net" # The URL of the title
-    description: "To link your account, follow these steps:\n1. Click the button above.\n2. Run the command in-game to complete the linking of your account."
+    description: "To link your account, follow these steps:
+
+      1. Click the button above.
+
+      2. Run the command in-game to complete the linking of your account."
     color:
       r: 10
       g: 150
@@ -57,11 +63,11 @@ link:
     footer:
       text: "zEssentials - 2025"
       # iconUrl: "https://groupez.dev/storage/images/users/0/0/0/1.png" # Optional
-    # thumbnail:
+      # thumbnail:
       # url: "https://groupez.dev/storage/images/users/0/0/0/1.png"
-    # image:
+      # image:
       # url: "https://example.com/image.png"
-    # author:
+      # author:
       # name: "Author Name"
       # url: "https://authorwebsite.net" # Optional
       # iconUrl: "https://groupez.dev/storage/images/users/0/0/0/1.png"

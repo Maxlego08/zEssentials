@@ -33,6 +33,6 @@ public class CommandHologramTextShadow extends VCommandHologram {
 
         manager.saveHologram(hologram);
 
-        message(sender, Message.HOLOGRAM_SEE_THROUGH, "%name%", hologram.getName(), "%textshadow%", shadow);
+        message(sender, Message.HOLOGRAM_TEXT_SHADOW, "%name%", hologram.getName(), "%textshadow%", shadow);
     }
 }

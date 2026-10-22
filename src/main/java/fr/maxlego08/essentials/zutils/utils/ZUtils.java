@@ -3,6 +3,8 @@ package fr.maxlego08.essentials.zutils.utils;
 import com.google.common.base.Strings;
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.Permission;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -137,6 +139,14 @@ public abstract class ZUtils extends MessageUtils {
 
     protected boolean hasPermission(Permissible permissible, Permission permission) {
         return permissible.hasPermission(permission.asPermission());
+    }
+
+    protected String getItemName(ItemStack itemStack) {
+        return MiniMessage.miniMessage().serialize(itemStack.effectiveName());
+    }
+
+    protected String getMaterialName(Material material) {
+        return MiniMessage.miniMessage().serialize(Component.translatable(material.translationKey()));
     }
 
     protected String name(String string) {
@@ -442,20 +452,6 @@ public abstract class ZUtils extends MessageUtils {
 
         // generate the progress bar
         return Strings.repeat(completedColor + symbol, progressBars) + Strings.repeat(notCompletedColor + symbol, totalBars - progressBars);
-    }
-
-    protected String colorReverse(String message) {
-        Pattern pattern = Pattern.compile(net.md_5.bungee.api.ChatColor.COLOR_CHAR + "x[a-fA-F0-9-" + net.md_5.bungee.api.ChatColor.COLOR_CHAR + "]{12}");
-        Matcher matcher = pattern.matcher(message);
-        while (matcher.find()) {
-            String color = message.substring(matcher.start(), matcher.end());
-            String colorReplace = color.replace("§x", "#");
-            colorReplace = colorReplace.replace("§", "");
-            message = message.replace(color, colorReplace);
-            matcher = pattern.matcher(message);
-        }
-
-        return message.replace("§", "&");
     }
 
     protected int countRepairItems(Inventory inventory) {

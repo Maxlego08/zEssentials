@@ -15,7 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
+import io.papermc.paper.event.player.AsyncChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.permissions.Permissible;
@@ -137,7 +137,7 @@ public class AFKModule extends ZModule implements AfkManager {
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
-    public void onTalk(AsyncPlayerChatEvent event) {
+    public void onTalk(AsyncChatEvent event) {
         var user = getUser(event.getPlayer());
         if (user == null) return;
 
@@ -178,11 +178,11 @@ public class AFKModule extends ZModule implements AfkManager {
 
     @Override
     public String getPlaceholderAfk() {
-        return this.placeholderAfk == null ? "&aV" : this.placeholderAfk;
+        return this.placeholderAfk == null ? "<c:#55FF55>V" : this.placeholderAfk;
     }
 
     @Override
     public String getPlaceholderNotAfk() {
-        return this.placeholderNotAfk == null ? "&cX" : this.placeholderNotAfk;
+        return this.placeholderNotAfk == null ? "<c:#FF5555>X" : this.placeholderNotAfk;
     }
 }

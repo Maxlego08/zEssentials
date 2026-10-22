@@ -81,7 +81,7 @@ public class CommandManager {
         var member = event.getMember();
         if (member == null) return CommandResultType.DEFAULT;
 
-        if (command.getPermission() == null || member.hasPermission(command.getPermission())) {
+        if (command.getPermission() == null || member.hasPermission(event.getGuildChannel(), command.getPermission())) {
             return command.prePerform(instance, strings, event);
         }
 

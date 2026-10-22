@@ -16,7 +16,7 @@ enable: true
 # The maximum number of vaults that a player can have
 max-vaults: 7
 
-default-vault-name: "<#353535>Vault<dark_gray>-<white>%vault-id%"
+default-vault-name: "<c:#353535>Vault<c:#555555>-<c:#FFFFFF>%vault-id%"
 
 # Item that will be displayed when a vault is opened
 icon-open: "MINECART"

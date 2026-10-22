@@ -1,7 +1,7 @@
 plugins {
     `java-library`
     id("application")
-    id("com.gradleup.shadow") version "9.0.0-beta11"
+    alias(libs.plugins.shadow)
 }
 
 application {
@@ -9,24 +9,25 @@ application {
 }
 
 group = "zEssentialsDiscord"
-version = "1.0.0"
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-
-    implementation("org.yaml:snakeyaml:2.3")
-    implementation("net.dv8tion:JDA:5.2.0")
-    implementation("mysql:mysql-connector-java:8.0.33")
+    implementation(libs.snakeyaml)
+    implementation(libs.jda)
+    implementation(libs.mysql.connector)
+    implementation(libs.mariadb.connector)
     implementation(project(":API"))
 }
 
 tasks {
     shadowJar {
+
+        relocate("com.tcoded.folialib", "fr.maxlego08.essentials.libs.folialib")
+        relocate("fr.maxlego08.sarah", "fr.maxlego08.essentials.libs.sarah")
+        relocate("fr.mrmicky.fastboard", "fr.maxlego08.essentials.libs.fastboard")
 
         rootProject.extra.properties["sha"]?.let { sha ->
             archiveClassifier.set("${rootProject.extra.properties["classifier"]}-${sha}")

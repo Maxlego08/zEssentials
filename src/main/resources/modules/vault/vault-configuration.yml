@@ -1,4 +1,4 @@
-name: '&8ᴄᴏɴғɪɢᴜʀᴀᴛɪᴏɴ'
+name: "<c:#555555>ᴄᴏɴғɪɢᴜʀᴀᴛɪᴏɴ"
 size: 36
 items:
   rename:
@@ -6,22 +6,22 @@ items:
     slot: 11
     item:
       material: PAPER
-      name: '&eʀᴇɴᴀᴍᴇ'
+      name: "<c:#FFFF55>ʀᴇɴᴀᴍᴇ"
       lore:
-        - '#fc99f8Left Click &7to change the name'
-        - '#fc99f8Right Click &7to remove the name'
+        - "<c:#FC99F8>Left Click <c:#AAAAAA>to change the name"
+        - "<c:#FC99F8>Right Click <c:#AAAAAA>to remove the name"
   icon:
     type: ZESSENTIALS_VAULT_CHANGE_ICON
     slot: 15
     item:
       material: '%vault-icon%'
-      name: '&eᴄʜᴀɴɢᴇ ɪᴄᴏɴ'
+      name: "<c:#FFFF55>ᴄʜᴀɴɢᴇ ɪᴄᴏɴ"
       lore:
-        - '#fc99f8Left Click &7to change the icon'
-        - '#fc99f8Right Click &7to remove the icon'
+        - "<c:#FC99F8>Left Click <c:#AAAAAA>to change the icon"
+        - "<c:#FC99F8>Right Click <c:#AAAAAA>to remove the icon"
   back:
     type: BACK
     slot: 31
     item:
       material: BARRIER
-      name: '&cʙᴀᴄᴋ'
+      name: "<c:#FF5555>ʙᴀᴄᴋ"

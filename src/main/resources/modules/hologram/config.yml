@@ -35,9 +35,9 @@ damage-indicator:
   # How long will the hologram stay in ticks
   duration: 40
   # Damage placeholder: %damage%
-  appearance: '<#ed2626>%damage%'
+  appearance: "<c:#ED2626>%damage%"
   # Appearance of the damage, if the damage is critical
-  criticalAppearance: '<#ed2626><bold>ᴄʀɪᴛ<#bf0b0b> %damage%'
+  criticalAppearance: "<c:#ED2626><bold>ᴄʀɪᴛ<c:#BF0B0B> %damage%"
   # Height offset
   height: 1.0
   # Set an offset to X

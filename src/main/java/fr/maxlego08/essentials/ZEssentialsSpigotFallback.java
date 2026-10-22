@@ -1,6 +1,5 @@
 package fr.maxlego08.essentials;
 
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -35,9 +34,9 @@ public final class ZEssentialsSpigotFallback extends JavaPlugin implements Liste
 
         this.getServer().getScheduler().runTaskLater(this, () -> {
             if (!player.isOnline()) return;
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c&lzEssentials is not running"));
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7This server runs &cSpigot&7, zEssentials requires &aPaper&7."));
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7Download Paper: &f" + DOWNLOAD_URL));
+            player.sendMessage("zEssentials is not running");
+            player.sendMessage("This server runs Spigot, zEssentials requires Paper.");
+            player.sendMessage("Download Paper: " + DOWNLOAD_URL);
         }, JOIN_MESSAGE_DELAY);
     }
 }

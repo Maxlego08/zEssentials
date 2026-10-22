@@ -5,11 +5,14 @@ import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
-import fr.maxlego08.menu.ZMenuItemStack;
+import fr.maxlego08.menu.api.MenuItemStack;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
+
+import java.io.File;
+import java.util.Map;
 
 public class CommandSkull extends VCommand {
     public CommandSkull(EssentialsPlugin plugin) {
@@ -30,8 +33,8 @@ public class CommandSkull extends VCommand {
 
             if (offlinePlayer == null) {
 
-                ZMenuItemStack menuItemStack = new ZMenuItemStack(plugin.getInventoryManager(), "", "");
-                menuItemStack.setUrl(value);
+                MenuItemStack menuItemStack = plugin.getInventoryManager().loadItemStack(
+                        new File(plugin.getDataFolder(), "config.yml"), Map.of("material", "PLAYER_HEAD", "url", value));
                 itemStack = menuItemStack.build(player, false);
 
             } else {

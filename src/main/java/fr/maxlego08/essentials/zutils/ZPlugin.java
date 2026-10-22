@@ -54,8 +54,12 @@ public class ZPlugin extends JavaPlugin {
     public boolean resourceExist(String resourcePath) {
         if (resourcePath != null && !resourcePath.equals("")) {
             resourcePath = resourcePath.replace('\\', '/');
-            InputStream in = this.getResource(resourcePath);
-            return in != null;
+            try (InputStream in = this.getResource(resourcePath)) {
+                return in != null;
+            } catch (IOException exception) {
+                getLogger().log(Level.SEVERE, "Could not check resource " + resourcePath, exception);
+                return false;
+            }
         }
         return false;
     }
@@ -74,20 +78,13 @@ public class ZPlugin extends JavaPlugin {
                     outDir.mkdirs();
                 }
 
-                try {
+                try (in) {
                     if (outFile.exists() && !replace) {
                         getLogger().log(Level.WARNING, "Could not save " + outFile.getName() + " to " + outFile + " because " + outFile.getName() + " already exists.");
                     } else {
-                        OutputStream out = Files.newOutputStream(outFile.toPath());
-                        byte[] buf = new byte[1024];
-
-                        int len;
-                        while ((len = in.read(buf)) > 0) {
-                            out.write(buf, 0, len);
+                        try (OutputStream out = Files.newOutputStream(outFile.toPath())) {
+                            in.transferTo(out);
                         }
-
-                        out.close();
-                        in.close();
                     }
                 } catch (IOException exception) {
                     getLogger().log(Level.SEVERE, "Could not save " + outFile.getName() + " to " + outFile, exception);
@@ -113,13 +110,13 @@ public class ZPlugin extends JavaPlugin {
         return provider;
     }
 
+    /**
+     * @return always {@code true}; zEssentials requires Paper
+     * @deprecated Paper is the only supported platform.
+     */
+    @Deprecated
     public boolean isPaperVersion() {
-        try {
-            Class.forName("net.kyori.adventure.text.Component");
-            return true;
-        } catch (ClassNotFoundException e) {
-            return false;
-        }
+        return true;
     }
 
 }

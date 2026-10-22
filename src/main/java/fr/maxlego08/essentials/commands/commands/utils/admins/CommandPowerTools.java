@@ -39,13 +39,13 @@ public class CommandPowerTools extends VCommand {
             }
 
             this.user.deletePowerTools(material);
-            message(sender, Message.COMMAND_POWER_TOOL_RESET, "%item%", material);
+            message(sender, Message.COMMAND_POWER_TOOL_RESET, "%item%", getItemName(itemStack));
 
             return CommandResultType.DEFAULT;
         }
 
         this.user.setPowerTools(material, command);
-        message(sender, Message.COMMAND_POWER_TOOL_INFO, "%item%", material, "%command%", command);
+        message(sender, Message.COMMAND_POWER_TOOL_INFO, "%item%", getItemName(itemStack), "%command%", command);
 
         return CommandResultType.SUCCESS;
     }

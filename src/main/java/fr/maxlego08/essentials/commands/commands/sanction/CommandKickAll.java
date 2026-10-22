@@ -8,6 +8,9 @@ import fr.maxlego08.essentials.module.modules.SanctionModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 import org.bukkit.Bukkit;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class CommandKickAll extends VCommand {
     public CommandKickAll(EssentialsPlugin plugin) {
         super(plugin);
@@ -21,14 +24,16 @@ public class CommandKickAll extends VCommand {
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
-        String reason = args.length > 0 ? getArgs(0) : plugin.getModuleManager().getModule(SanctionModule.class).getKickDefaultReason();
+        SanctionModule sanctionModule = plugin.getModuleManager().getModule(SanctionModule.class);
+        String reason = args.length > 0 ? getArgs(0) : sanctionModule.getKickDefaultReason();
 
         Bukkit.getOnlinePlayers().forEach(player -> {
             if (!hasPermission(player, Permission.ESSENTIALS_KICK_BYPASS_ALL)) {
                 plugin.getEssentialsServer().kickPlayer(player.getUniqueId(), Message.MESSAGE_KICK, "%reason%", reason);
             }
         });
-        broadcast(Permission.ESSENTIALS_KICK_NOTIFY, Message.COMMAND_KICK_NOTIFY, "%player%", sender.getName(), "%target%", "all", "%reason%", reason);
+        broadcast(Permission.ESSENTIALS_KICK_NOTIFY, Message.COMMAND_KICK_NOTIFY, "%player%", sender.getName(), "%target%", "all", "%reason%", reason,
+                "%sender%", sanctionModule.getSanctionBy(sender), "%duration%", "0", "%created_at%", new SimpleDateFormat(sanctionModule.getDateFormat()).format(new Date()));
 
         return CommandResultType.SUCCESS;
     }

@@ -8,7 +8,6 @@ import fr.maxlego08.essentials.zutils.utils.ComponentMessageHelper;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.menu.api.button.PaginateButton;
 import fr.maxlego08.menu.api.utils.Placeholders;
-import fr.maxlego08.menu.api.button.Button;
 import fr.maxlego08.menu.api.engine.InventoryEngine;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

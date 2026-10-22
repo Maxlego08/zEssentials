@@ -38,6 +38,8 @@ import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
@@ -68,6 +70,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
                 plugin.getLogger().info("The database connection is valid ! (SQLITE)");
             } else {
                 plugin.getLogger().info("The database connection is valid ! (" + connection.getDatabaseConfiguration().getHost() + ")");
+                checkDatabaseVersion();
             }
         }
 
@@ -178,6 +181,23 @@ public class SqlStorage extends StorageHelper implements IStorage {
         this.cache.clearAll();
     }
 
+    private void checkDatabaseVersion() {
+        try (Connection connection = this.connection.getConnection()) {
+            DatabaseMetaData metadata = connection.getMetaData();
+            String version = metadata.getDatabaseProductVersion();
+            if (!"MySQL".equalsIgnoreCase(metadata.getDatabaseProductName()) || version.toLowerCase(Locale.ROOT).contains("mariadb")) {
+                return;
+            }
+            int major = metadata.getDatabaseMajorVersion();
+            int minor = metadata.getDatabaseMinorVersion();
+            if (major < 8 || (major == 8 && minor < 4)) {
+                this.plugin.getLogger().warning("Detected MySQL " + version + ". MySQL 8.4 or newer is recommended. Please upgrade your database server.");
+            }
+        } catch (Exception exception) {
+            this.plugin.getLogger().warning("Unable to check the database server version: " + exception.getMessage());
+        }
+    }
+
     private @NotNull DatabaseConfiguration getDatabaseConfiguration(EssentialsPlugin plugin, StorageType storageType) {
 
         GlobalDatabaseConfiguration globalDatabaseConfiguration = new GlobalDatabaseConfiguration(plugin.getConfig());
@@ -190,7 +210,12 @@ public class SqlStorage extends StorageHelper implements IStorage {
         String database = globalDatabaseConfiguration.getDatabase();
         boolean debug = globalDatabaseConfiguration.isDebug();
 
-        return new DatabaseConfiguration(tablePrefix, user, password, port, host, database, debug, storageType == StorageType.SQLITE ? DatabaseType.SQLITE : storageType == StorageType.MARIADB ? DatabaseType.MARIADB : DatabaseType.MYSQL);
+        DatabaseConfiguration databaseConfiguration = new DatabaseConfiguration(tablePrefix, user, password, port, host, database, debug, storageType == StorageType.SQLITE ? DatabaseType.SQLITE : storageType == StorageType.MARIADB ? DatabaseType.MARIADB : DatabaseType.MYSQL);
+        Long maxLifetimeMillis = globalDatabaseConfiguration.getMaxLifetimeMillis();
+        if (maxLifetimeMillis != null) {
+            databaseConfiguration = databaseConfiguration.withMaxLifetime(maxLifetimeMillis);
+        }
+        return databaseConfiguration;
     }
 
     @Override
@@ -290,7 +315,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
         String uuidString = uuid.toString().replace("-", "");
         String url = "https://sessionserver.mojang.com/session/minecraft/profile/" + uuidString;
         try {
-            java.net.HttpURLConnection connection = (java.net.HttpURLConnection) new java.net.URL(url).openConnection();
+            java.net.HttpURLConnection connection = (java.net.HttpURLConnection) java.net.URI.create(url).toURL().openConnection();
             connection.setRequestMethod("GET");
             connection.setConnectTimeout(5000);
             connection.setReadTimeout(5000);

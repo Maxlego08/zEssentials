@@ -1,7 +1,6 @@
 package fr.maxlego08.essentials.user.placeholders;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
-import fr.maxlego08.essentials.api.economy.Economy;
 import fr.maxlego08.essentials.api.economy.PriceFormat;
 import fr.maxlego08.essentials.api.placeholders.Placeholder;
 import fr.maxlego08.essentials.api.placeholders.PlaceholderRegister;
@@ -107,9 +106,9 @@ public class ServerPlaceholders extends ZUtils implements PlaceholderRegister {
             double[] tps = Bukkit.getTPS();
             double value = tps.length > 0 ? Math.min(tps[0], 20.0) : 20.0;
             String color;
-            if (value >= 18) color = "&a";
-            else if (value >= 15) color = "&e";
-            else color = "&c";
+            if (value >= 18) color = "<c:#55FF55>";
+            else if (value >= 15) color = "<c:#FFFF55>";
+            else color = "<c:#FF5555>";
             return color + tpsFormat.format(value);
         }, "Returns the server TPS with color indicator");
 

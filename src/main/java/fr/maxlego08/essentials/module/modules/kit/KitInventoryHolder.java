@@ -2,6 +2,7 @@ package fr.maxlego08.essentials.module.modules.kit;
 
 import fr.maxlego08.essentials.api.kit.Kit;
 import fr.maxlego08.menu.api.MenuItemStack;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -17,7 +18,7 @@ public class KitInventoryHolder implements InventoryHolder {
     public KitInventoryHolder(Player player, Kit kit) {
         this.player = player;
         this.kit = kit;
-        this.inventory = Bukkit.createInventory(this, 54, "Kit Editor: " + kit.getName());
+        this.inventory = Bukkit.createInventory(this, 54, MiniMessage.miniMessage().deserialize("Kit Editor: " + kit.getName()));
 
         for (int index = 0; index != Math.min(54, kit.getMenuItemStacks().size()); index++) {
             MenuItemStack menuItemStack = kit.getMenuItemStacks().get(index);

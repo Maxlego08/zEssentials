@@ -137,13 +137,13 @@ public abstract class ZModule extends YamlLoader implements Module {
         return this.plugin.getStorageManager().getStorage().getUser(uuid);
     }
 
+    /**
+     * @return always {@code true}; zEssentials requires Paper
+     * @deprecated Paper is the only supported platform.
+     */
+    @Deprecated
     protected boolean isPaperVersion() {
-        try {
-            Class.forName("net.kyori.adventure.text.Component");
-            return true;
-        } catch (ClassNotFoundException e) {
-            return false;
-        }
+        return true;
     }
 
     public boolean isCopyAndUpdate() {

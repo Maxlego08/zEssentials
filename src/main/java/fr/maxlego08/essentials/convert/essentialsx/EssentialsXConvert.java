@@ -11,9 +11,7 @@ import fr.maxlego08.essentials.storage.storages.SqlStorage;
 import fr.maxlego08.essentials.user.ZHome;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -36,10 +34,10 @@ public class EssentialsXConvert extends ZUtils implements Convert {
     @Override
     public void convert(CommandSender sender) {
 
-        message(sender, "&fStart convert &7EssentialX");
+        message(sender, "<c:#FFFFFF>Start convert <c:#AAAAAA>EssentialX");
         File folder = new File("plugins/Essentials/userdata");
         if (!folder.exists()) {
-            message(sender, "&cUnable to find the folder &bplugins/Essentials/userdata&c.");
+            message(sender, "<c:#FF5555>Unable to find the folder <c:#55FFFF>plugins/Essentials/userdata<c:#FF5555>.");
             return;
         }
 
@@ -48,7 +46,7 @@ public class EssentialsXConvert extends ZUtils implements Convert {
             this.plugin.getScheduler().runAsync(wrappedTask -> startConvertDatabase(sender, sqlStorage, folder));
         } else {
 
-            message(sender, "&cYou must have the storage in a database to be able to convert. Never use the storage in JSON !");
+            message(sender, "<c:#FF5555>You must have the storage in a database to be able to convert. Never use the storage in JSON !");
         }
     }
 
@@ -56,17 +54,17 @@ public class EssentialsXConvert extends ZUtils implements Convert {
 
         var files = folder.listFiles();
         if (files == null || files.length == 0) {
-            message(sender, "&cNo files found in the userdata folder!");
+            message(sender, "<c:#FF5555>No files found in the userdata folder!");
             return;
         }
 
-        message(sender, "&aFound &f" + files.length + " &ausers.");
+        message(sender, "<c:#55FF55>Found <c:#FFFFFF>" + files.length + " <c:#55FF55>users.");
 
         for (File file : files) {
             loadUser(sqlStorage, file, sender);
         }
 
-        message(sender, "&aYou have just converted your EssentialsX data to zEssentials !");
+        message(sender, "<c:#55FF55>You have just converted your EssentialsX data to zEssentials !");
     }
 
     private void loadUser(SqlStorage sqlStorage, File file, CommandSender sender) {
@@ -106,7 +104,7 @@ public class EssentialsXConvert extends ZUtils implements Convert {
                 homes.forEach(home -> userHomeRepository.upsert(uniqueId, home));
 
                 if (sender instanceof Player player) {
-                    this.plugin.getComponentMessage().sendActionBar(player, "&fConvert user &7" + uniqueId);
+                    this.plugin.getComponentMessage().sendActionBar(player, "<c:#FFFFFF>Convert user <c:#AAAAAA>" + uniqueId);
                 }
 
             });
@@ -116,7 +114,7 @@ public class EssentialsXConvert extends ZUtils implements Convert {
             this.plugin.getLogger().severe("Impossible to load the file " + file.getName());
         }
 
-        message(sender, "&aYou have just converted your EssentialsX data to zEssentials !");
+        message(sender, "<c:#55FF55>You have just converted your EssentialsX data to zEssentials !");
     }
 
     private List<Home> parseHomes(YamlConfiguration configuration) {

@@ -4,23 +4,20 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.DefaultFontInfo;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.messages.MessageHelper;
 import fr.maxlego08.essentials.api.messages.MessageType;
 import fr.maxlego08.essentials.api.messages.messages.BossBarMessage;
 import fr.maxlego08.essentials.api.messages.messages.ClassicMessage;
 import fr.maxlego08.essentials.api.messages.messages.TitleMessage;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.component.ComponentMessage;
-import fr.maxlego08.menu.common.utils.nms.NMSUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public abstract class MessageUtils extends PlaceholderUtils {
 
@@ -156,24 +153,7 @@ public abstract class MessageUtils extends PlaceholderUtils {
 
         int CENTER_PX = 154;
 
-        message = ChatColor.translateAlternateColorCodes('&', message);
-
-        int messagePxSize = 0;
-        boolean previousCode = false;
-        boolean isBold = false;
-
-        for (char c : message.toCharArray()) {
-            if (c == '§') {
-                previousCode = true;
-            } else if (previousCode) {
-                previousCode = false;
-                isBold = c == 'l' || c == 'L';
-            } else {
-                DefaultFontInfo dFI = DefaultFontInfo.getDefaultFontInfo(c);
-                messagePxSize += isBold ? dFI.getBoldLength() : dFI.getLength();
-                messagePxSize++;
-            }
-        }
+        int messagePxSize = MessageHelper.getStringLength(message);
 
         int halvedMessageSize = messagePxSize / 2;
         int toCompensate = CENTER_PX - halvedMessageSize;
@@ -187,18 +167,5 @@ public abstract class MessageUtils extends PlaceholderUtils {
         return sb + message;
     }
 
-    protected String color(String message) {
-        if (message == null) return null;
-        if (NMSUtils.isHexColor()) {
-            Pattern pattern = Pattern.compile("#[a-fA-F0-9]{6}");
-            Matcher matcher = pattern.matcher(message);
-            while (matcher.find()) {
-                String color = message.substring(matcher.start(), matcher.end());
-                message = message.replace(color, String.valueOf(net.md_5.bungee.api.ChatColor.of(color)));
-                matcher = pattern.matcher(message);
-            }
-        }
-        return net.md_5.bungee.api.ChatColor.translateAlternateColorCodes('&', message);
-    }
 
 }

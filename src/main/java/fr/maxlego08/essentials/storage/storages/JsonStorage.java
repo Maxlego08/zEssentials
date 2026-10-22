@@ -8,7 +8,6 @@ import fr.maxlego08.essentials.api.dto.DiscordAccountDTO;
 import fr.maxlego08.essentials.api.dto.DiscordCodeDTO;
 import fr.maxlego08.essentials.api.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.dto.EconomyTransactionDTO;
-import fr.maxlego08.essentials.api.dto.HomeDTO;
 import fr.maxlego08.essentials.api.dto.MailBoxDTO;
 import fr.maxlego08.essentials.api.dto.MailMessageDTO;
 import fr.maxlego08.essentials.api.dto.PlayerSlotDTO;

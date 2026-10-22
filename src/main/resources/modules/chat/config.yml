@@ -109,23 +109,23 @@ chat-cooldown-max: 50
 chat-formats:
   - priority: 1
     permission: "essentials.chat.format.vip"
-    format: "<hover:show_text:'&cReport this message'><click:run_command:'/report %player% chat'><#ff0000>⚠</click></hover> %moderator_action%<#ffffff><hover:show_text:'#ffd353ℹ Informations#3f3f3f:<newline>#3f3f3f• &7Money#3f3f3f: #4cd5ff%zessentials_user_formatted_balance_money%<newline>#3f3f3f• &7Coins#3f3f3f: #4cd5ff%zessentials_user_formatted_balance_coins%<newline><newline>&f➥ &7Click for more information'>%player%</hover> <#333333>» <#ffff6b><click:suggest_command:'/msg %player% '><hover:show_text:'&fSend a private message'><message></hover></click>"
+    format: "<hover:show_text:'<c:#FF5555>Report this message'><click:run_command:'/report %player% chat'><c:#FF0000>⚠</click></hover> %moderator_action%<c:#FFFFFF><hover:show_text:'<c:#FFD353>ℹ Informations<c:#3F3F3F>:<newline><c:#3F3F3F>• <c:#AAAAAA>Money<c:#3F3F3F>: <c:#4CD5FF>%zessentials_user_formatted_balance_money%<newline><c:#3F3F3F>• <c:#AAAAAA>Coins<c:#3F3F3F>: <c:#4CD5FF>%zessentials_user_formatted_balance_coins%<newline><newline><c:#FFFFFF>➥ <c:#AAAAAA>Click for more information'>%player%</hover> <c:#333333>» <c:#FFFF6B><click:suggest_command:'/msg %player% '><hover:show_text:'<c:#FFFFFF>Send a private message'><message></hover></click>"
   - priority: 2
     permission: "essentials.chat.format.admin"
-    format: "<#ffffff><hover:show_text:'#ffd353ℹ Informations#3f3f3f:<newline>#3f3f3f• &7Money#3f3f3f: #4cd5ff%zessentials_user_formatted_balance_money%<newline>#3f3f3f• &7Coins#3f3f3f: #4cd5ff%zessentials_user_formatted_balance_coins%<newline><newline>&f➥ &7Click for more information'>%player%</hover> <#333333>» <#ff4444><click:suggest_command:'/msg %player% '><hover:show_text:'&fSend a private message'><message></hover></click>"
+    format: "<c:#FFFFFF><hover:show_text:'<c:#FFD353>ℹ Informations<c:#3F3F3F>:<newline><c:#3F3F3F>• <c:#AAAAAA>Money<c:#3F3F3F>: <c:#4CD5FF>%zessentials_user_formatted_balance_money%<newline><c:#3F3F3F>• <c:#AAAAAA>Coins<c:#3F3F3F>: <c:#4CD5FF>%zessentials_user_formatted_balance_coins%<newline><newline><c:#FFFFFF>➥ <c:#AAAAAA>Click for more information'>%player%</hover> <c:#333333>» <c:#FF4444><click:suggest_command:'/msg %player% '><hover:show_text:'<c:#FFFFFF>Send a private message'><message></hover></click>"
 
 # Default chat format
-default-chat-format: "<hover:show_text:'&cReport this message'><click:run_command:'/report %player% chat'><#ff0000>⚠</click></hover> %moderator_action%<#ffffff><hover:show_text:'#ffd353ℹ Informations#3f3f3f:<newline>#3f3f3f• &7Money#3f3f3f: #4cd5ff%zessentials_user_formatted_balance_money%<newline>#3f3f3f• &7Coins#3f3f3f: #4cd5ff%zessentials_user_formatted_balance_coins%<newline><newline>&f➥ &7Click for more information'>%player%</hover> <#333333>» <gray><click:suggest_command:'/msg %player% '><hover:show_text:'&fSend a private message'><message></hover></click>"
+default-chat-format: "<hover:show_text:'<c:#FF5555>Report this message'><click:run_command:'/report %player% chat'><c:#FF0000>⚠</click></hover> %moderator_action%<c:#FFFFFF><hover:show_text:'<c:#FFD353>ℹ Informations<c:#3F3F3F>:<newline><c:#3F3F3F>• <c:#AAAAAA>Money<c:#3F3F3F>: <c:#4CD5FF>%zessentials_user_formatted_balance_money%<newline><c:#3F3F3F>• <c:#AAAAAA>Coins<c:#3F3F3F>: <c:#4CD5FF>%zessentials_user_formatted_balance_coins%<newline><newline><c:#FFFFFF>➥ <c:#AAAAAA>Click for more information'>%player%</hover> <c:#333333>» <c:#AAAAAA><click:suggest_command:'/msg %player% '><hover:show_text:'<c:#FFFFFF>Send a private message'><message></hover></click>"
 
 # Allows players who have the essentials.chat.moderator permission to have a different view from other players.
 # By default, moderators will have a button to punish the player
 #
 # Available placeholder (you can use PlaceholderAPI here):
 # %player% - Player's name
-moderator-action: "<hover:show_text:'<#ff8888>Punish the player'><click:run_command:'/sc %player%'><#ff8888>✗</click></hover> "
+moderator-action: "<hover:show_text:'<c:#FF8888>Punish the player'><click:run_command:'/sc %player%'><c:#FF8888>✗</click></hover> "
 
 # Turns a link into a clickable link by players
-link-transform: "<hover:show_text:'&fOpen the link'><click:open_url:'%url%'>%url%</click></hover>"
+link-transform: "<hover:show_text:'<c:#FFFFFF>Open the link'><click:open_url:'%url%'>%url%</click></hover>"
 
 # Date format for /chathistory
 date-format: "yyyy-MM-dd HH:mm:ss"
@@ -148,10 +148,10 @@ player-ping-sound-volume: 0.8
 player-ping-sound-pitch: 1
 
 # Color of ping displayed to the player
-player-ping-color: "<red>%name%</red><red>"
+player-ping-color: "<c:#FF5555>%name%</c><c:#FF5555>"
 
 # Color of ping displayed for other players
-player-ping-color-other: "<white>%name%</white>"
+player-ping-color-other: "<c:#FFFFFF>%name%</c>"
 
 # Placeholders
 
@@ -162,7 +162,7 @@ chat-placeholders:
     permission: "zessentials.chat.placeholder.ping" # You must define a permission
   - name: "block" # Placeholder name, the name must consist only of lowercase letters, numbers 0 to 9 and characters _ and -
     regex: "(?i)\\[blocks\\]" # [blocks] placeholder
-    result: "&a%statistic_mine_block% &fblocks" # PlaceholderAPI extension Statistic: https://api.extendedclip.com/expansions/statistic/
+    result: "<c:#55FF55>%statistic_mine_block% <c:#FFFFFF>blocks" # PlaceholderAPI extension Statistic: https://api.extendedclip.com/expansions/statistic/
     permission: "zessentials.chat.placeholder.block" # You must define a permission
   - name: "money" # Placeholder name, the name must consist only of lowercase letters, numbers 0 to 9 and characters _ and -
     regex: "(?i)\\[money\\]" # [money] placeholder
@@ -174,18 +174,18 @@ chat-placeholders:
     permission: "zessentials.chat.placeholder.coins" # You must define a permission
   - name: "playtime" # Placeholder name, the name must consist only of lowercase letters, numbers 0 to 9 and characters _ and -
     regex: "(?i)\\[playtime\\]" # [playtime] placeholder
-    result: "&fI've played &7%zessentials_user_playtime_formatted%"
+    result: "<c:#FFFFFF>I've played <c:#AAAAAA>%zessentials_user_playtime_formatted%"
     permission: "zessentials.chat.placeholder.playtime" # You must define a permission
   - name: "pos" # Placeholder name, the name must consist only of lowercase letters, numbers 0 to 9 and characters _ and -
     regex: "(?i)\\[pos\\]" # [pos] placeholder
-    result: "&bWorld: &f%player_world% &eX: &f%player_x% &eY: &f%player_y% &eZ: &f%player_z%"
+    result: "<c:#55FFFF>World: <c:#FFFFFF>%player_world% <c:#FFFF55>X: <c:#FFFFFF>%player_x% <c:#FFFF55>Y: <c:#FFFFFF>%player_y% <c:#FFFF55>Z: <c:#FFFFFF>%player_z%"
     permission: "zessentials.chat.placeholder.pos" # You must define a permission
 
 # Displays the item in your hand
 item-placeholder:
   enable: true
   regex: "(?i)\\[item\\]|\\[i\\]" # [item] or [i] placeholder
-  result: "&bx<amount> &f<item>"
+  result: "<c:#55FFFF>x<amount> <c:#FFFFFF><item>"
   permission: "zessentials.chat.placeholder.item" # You must define a permission
   # Regex used to ensure item names do not contain forbidden characters when displayed in chat
   item-name-regex: "^[a-zA-Z0-9_.?!^¨%ù*&é\"#'{(\\[-|èêë`\\\\çà)\\]=}ûî+<>:²€$/\\-\\,-â@;ô ]+$"
@@ -196,7 +196,7 @@ item-placeholder:
 # Example: "Please use ./zah. to open the auction house"
 command-placeholder: # ./<command>. placeholder
   enable: true
-  result: "<hover:show_text:'<yellow>Try this command'><click:suggest_command:'/%fixed_command%'><yellow>/%command%</yellow></click></hover>"
+  result: "<hover:show_text:'<c:#FFFF55>Try this command'><click:suggest_command:'/%fixed_command%'><c:#FFFF55>/%command%</c></click></hover>"
   permission: "zessentials.chat.placeholder.command" # You must define a permission
 
   # Replace check all messages sent to players and replace the command if it exists
@@ -208,13 +208,13 @@ command-placeholder: # ./<command>. placeholder
 custom-rules:
   - regex: "(can|may|would you like if) i (have|be|become|get|has) (op|admin|mod|builder)"
     permission: "essentials.chat.bypass.custom.rules"
-    message: "&cCurrently, we are not looking for new staff."
+    message: "<c:#FF5555>Currently, we are not looking for new staff."
   - regex: "(do|are) you (need|wish|looking for) (any|some|one|good) (op|ops|operators|admins|mods|builders|new people|ateam)"
     permission: "essentials.chat.bypass.custom.rules"
-    message: "&cCurrently, we are not looking for new staff."
+    message: "<c:#FF5555>Currently, we are not looking for new staff."
   - regex: "((admin|op|team|server|owner) (is|are)) + *(dick|cock|duck|noob)"
     permission: "essentials.chat.bypass.custom.rules"
-    message: "&cYet so much hate, we are only love"
+    message: "<c:#FF5555>Yet so much hate, we are only love"
   - regex: "this server (is (bad|crappy|shitty)|suck)"
     permission: "essentials.chat.bypass.custom.rules"
-    message: "&cNo, the server is great, you’re the bad one!"
+    message: "<c:#FF5555>No, the server is great, you’re the bad one!"

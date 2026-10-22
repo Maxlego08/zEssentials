@@ -32,13 +32,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class PaperComponent extends PlaceholderUtils implements AdventureComponent {
@@ -68,43 +64,15 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
             new TagPermission(Permission.ESSENTIALS_SIGN_DECORATION, StandardTags.decorations()) //
     );
 
-    private final MiniMessage MINI_MESSAGE = MiniMessage.builder().tags(TagResolver.builder().resolver(StandardTags.defaults()).build()).build();
-    private final Map<String, String> COLORS_MAPPINGS = new HashMap<>();
+    private static final MiniMessage MINI_MESSAGE = MiniMessage.builder().tags(TagResolver.builder().resolver(StandardTags.defaults()).build()).build();
     private final SimpleCache<String, Component> cache = new SimpleCache<>();
 
-    public PaperComponent() {
-        this.COLORS_MAPPINGS.put("0", "black");
-        this.COLORS_MAPPINGS.put("1", "dark_blue");
-        this.COLORS_MAPPINGS.put("2", "dark_green");
-        this.COLORS_MAPPINGS.put("3", "dark_aqua");
-        this.COLORS_MAPPINGS.put("4", "dark_red");
-        this.COLORS_MAPPINGS.put("5", "dark_purple");
-        this.COLORS_MAPPINGS.put("6", "gold");
-        this.COLORS_MAPPINGS.put("7", "gray");
-        this.COLORS_MAPPINGS.put("8", "dark_gray");
-        this.COLORS_MAPPINGS.put("9", "blue");
-        this.COLORS_MAPPINGS.put("a", "green");
-        this.COLORS_MAPPINGS.put("b", "aqua");
-        this.COLORS_MAPPINGS.put("c", "red");
-        this.COLORS_MAPPINGS.put("d", "light_purple");
-        this.COLORS_MAPPINGS.put("e", "yellow");
-        this.COLORS_MAPPINGS.put("f", "white");
-        this.COLORS_MAPPINGS.put("k", "obfuscated");
-        this.COLORS_MAPPINGS.put("l", "bold");
-        this.COLORS_MAPPINGS.put("m", "strikethrough");
-        this.COLORS_MAPPINGS.put("n", "underlined");
-        this.COLORS_MAPPINGS.put("o", "italic");
-        this.COLORS_MAPPINGS.put("r", "reset");
-    }
-
-    private TextDecoration.State getState(String text) {
-        return text.contains("&o") || text.contains("<i>") || text.contains("<em>") || text.contains("<italic>") ? TextDecoration.State.TRUE : TextDecoration.State.FALSE;
+    public static String serializeMiniMessage(Component component) {
+        return MINI_MESSAGE.serialize(component);
     }
 
     private void updateDisplayName(ItemMeta itemMeta, String text) {
-        Component component = this.cache.get(text, () -> {
-            return this.MINI_MESSAGE.deserialize(colorMiniMessage(text)).decoration(TextDecoration.ITALIC, getState(text)); // We will force the italics in false, otherwise it will activate for no reason
-        });
+        Component component = getComponent(text).decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE);
         itemMeta.displayName(component);
     }
 
@@ -119,52 +87,25 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
     public void update(ItemMeta itemMeta, List<String> lore, Player offlinePlayer) {
         List<Component> components = lore.stream().map(text -> {
             String result = papi(text, offlinePlayer);
-            return this.cache.get(result, () -> {
-                return this.MINI_MESSAGE.deserialize(colorMiniMessage(result)).decoration(TextDecoration.ITALIC, getState(result)); // We will force the italics in false, otherwise it will activate for no reason
-            });
+            return getComponent(result).decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE);
         }).collect(Collectors.toList());
         itemMeta.lore(components);
     }
 
     @Override
     public Inventory createInventory(String inventoryName, int size, InventoryHolder inventoryHolder) {
-        Component component = this.cache.get(inventoryName, () -> this.MINI_MESSAGE.deserialize(colorMiniMessage(inventoryName)));
+        Component component = this.cache.get(inventoryName, () -> this.MINI_MESSAGE.deserialize(inventoryName));
         return Bukkit.createInventory(inventoryHolder, size, component);
-    }
-
-    private String colorMiniMessage(String message) {
-        StringBuilder stringBuilder = new StringBuilder();
-
-        Pattern pattern = Pattern.compile("(?<!<)(?<!:)#([a-fA-F0-9]{6})");
-        Matcher matcher = pattern.matcher(message);
-
-        while (matcher.find()) {
-            matcher.appendReplacement(stringBuilder, "<$0>");
-        }
-        matcher.appendTail(stringBuilder);
-
-        String newMessage = stringBuilder.toString();
-
-        for (Map.Entry<String, String> entry : this.COLORS_MAPPINGS.entrySet()) {
-            String key = entry.getKey();
-            String value = entry.getValue();
-            newMessage = newMessage.replace("&" + key, "<" + value + ">");
-            newMessage = newMessage.replace("§" + key, "<" + value + ">");
-            newMessage = newMessage.replace("&" + key.toUpperCase(), "<" + value + ">");
-            newMessage = newMessage.replace("§" + key.toUpperCase(), "<" + value + ">");
-        }
-
-        return newMessage;
     }
 
     @Override
     public Component getComponent(String message) {
-        return this.cache.get(message, () -> this.MINI_MESSAGE.deserialize(colorMiniMessage(message)));
+        return this.cache.get(message, () -> this.MINI_MESSAGE.deserialize(message));
     }
 
     @Override
     public Component getComponent(String message, TagResolver tagResolver) {
-        return this.MINI_MESSAGE.deserialize(colorMiniMessage(message), tagResolver);
+        return this.MINI_MESSAGE.deserialize(message, tagResolver);
     }
 
     @Override
@@ -190,21 +131,21 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
 
     public Component translateText(Player player, String message, TagResolver... tagResolvers) {
         var tagResolver = getTagResolver(player, tagResolvers);
-        return MiniMessage.builder().tags(tagResolver).build().deserialize(colorMiniMessage(message));
+        return MiniMessage.builder().tags(tagResolver).build().deserialize(message);
     }
 
     @Override
     public void sendActionBar(Player sender, String message) {
-        Component component = this.cache.get(message, () -> this.MINI_MESSAGE.deserialize(colorMiniMessage(message)));
+        Component component = this.cache.get(message, () -> this.MINI_MESSAGE.deserialize(message));
         sender.sendActionBar(component);
     }
 
     @Override
     public void sendMessage(CommandSender sender, String message) {
         if (sender instanceof Player player) {
-            sender.sendMessage(this.MINI_MESSAGE.deserialize(papi(colorMiniMessage(message), player)));
+            sender.sendMessage(this.MINI_MESSAGE.deserialize(papi(message, player)));
         } else {
-            Component component = this.cache.get(message, () -> this.MINI_MESSAGE.deserialize(colorMiniMessage(message)));
+            Component component = this.cache.get(message, () -> this.MINI_MESSAGE.deserialize(message));
             sender.sendMessage(component);
         }
     }
@@ -264,7 +205,7 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
 
     @Override
     public String getItemStackName(ItemStack itemStack) {
-        if (itemStack.hasItemMeta()) return "";
+        if (!itemStack.hasItemMeta()) return "";
         var meta = itemStack.getItemMeta();
         if (!meta.hasDisplayName()) return "";
         return PlainTextComponentSerializer.plainText().serialize(Objects.requireNonNull(meta.displayName()));
@@ -282,7 +223,7 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
             if (line == null) continue;
 
             var plainText = plainTextSerializer.serialize(line);
-            event.line(i, miniMessage.deserialize(colorMiniMessage(plainText)));
+            event.line(i, miniMessage.deserialize(plainText));
         }
     }
 }

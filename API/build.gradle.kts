@@ -1,5 +1,5 @@
 plugins {
-    id("re.alwyn974.groupez.publish") version "1.0.0"
+    alias(libs.plugins.groupez.publish)
 }
 
 rootProject.extra.properties["sha"]?.let { sha ->
@@ -7,12 +7,12 @@ rootProject.extra.properties["sha"]?.let { sha ->
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21.5-R0.1-SNAPSHOT")
-    compileOnly(files("../libs/zMenu-1.1.1.6.jar"))
+    compileOnly(libs.paper.api)
+    compileOnly(files("../libs/zMenu-1.1.2.0.jar"))
 
-    implementation("fr.maxlego08.sarah:sarah:1.23")
-    implementation("com.tcoded:FoliaLib:0.5.1")
-    implementation("fr.mrmicky:fastboard:2.2.2")
+    implementation(libs.sarah)
+    implementation(libs.folialib)
+    implementation(libs.fastboard)
 }
 
 tasks {

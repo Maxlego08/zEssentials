@@ -65,7 +65,6 @@ import fr.maxlego08.essentials.module.modules.*;
 import fr.maxlego08.essentials.module.modules.afk.AFKModule;
 import fr.maxlego08.essentials.module.modules.chat.interactive.InteractiveChatHelper;
 import fr.maxlego08.essentials.module.modules.chat.interactive.InteractiveChatPaperListener;
-import fr.maxlego08.essentials.module.modules.chat.interactive.InteractiveChatSpigotListener;
 import fr.maxlego08.essentials.module.modules.discord.DiscordModule;
 import fr.maxlego08.essentials.module.modules.economy.EconomyModule;
 import fr.maxlego08.essentials.module.modules.hologram.HologramModule;
@@ -76,7 +75,6 @@ import fr.maxlego08.essentials.module.modules.worldedit.WorldeditModule;
 import fr.maxlego08.essentials.placeholders.DistantPlaceholder;
 import fr.maxlego08.essentials.placeholders.LocalPlaceholder;
 import fr.maxlego08.essentials.server.PaperServer;
-import fr.maxlego08.essentials.server.SpigotServer;
 import fr.maxlego08.essentials.storage.ConfigStorage;
 import fr.maxlego08.essentials.storage.ZStorageManager;
 import fr.maxlego08.essentials.storage.adapter.UserTypeAdapter;
@@ -91,12 +89,10 @@ import fr.maxlego08.essentials.zutils.utils.documentation.PermissionInfo;
 import fr.maxlego08.essentials.zutils.utils.documentation.PermissionMarkdownGenerator;
 import fr.maxlego08.essentials.zutils.utils.documentation.PlaceholderMarkdownGenerator;
 import fr.maxlego08.essentials.zutils.utils.paper.PaperUtils;
-import fr.maxlego08.essentials.zutils.utils.spigot.SpigotUtils;
 import fr.maxlego08.menu.api.ButtonManager;
 import fr.maxlego08.menu.api.InventoryManager;
 import fr.maxlego08.menu.api.loader.NoneLoader;
 import fr.maxlego08.menu.api.pattern.PatternManager;
-import fr.maxlego08.menu.api.utils.version.MinecraftVersion;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -148,15 +144,13 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.serverStartUptime = System.currentTimeMillis();
         this.saveDefaultConfig();
         this.saveOrUpdateConfiguration("config.yml", true);
-        this.enchantments.register();
 
         FoliaLib foliaLib = new FoliaLib(this);
         this.platformScheduler = foliaLib.getScheduler();
 
-        var isPaper = isPaperVersion();
-        this.essentialsUtils = isPaper ? new PaperUtils(this) : new SpigotUtils(this);
-        this.essentialsServer = isPaper ? new PaperServer(this) : new SpigotServer(this);
-        this.interactiveChatHelper = isPaper ? new InteractiveChatPaperListener() : new InteractiveChatSpigotListener();
+        this.essentialsUtils = new PaperUtils(this);
+        this.essentialsServer = new PaperServer(this);
+        this.interactiveChatHelper = new InteractiveChatPaperListener();
         this.registerListener(this.interactiveChatHelper);
 
         this.placeholder = new LocalPlaceholder(this);
@@ -212,9 +206,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.registerListener(new PlayerListener(this));
         this.registerPlaceholder(UserPlaceholders.class);
         this.registerPlaceholder(UserItemsPlaceholders.class);
-        if (MinecraftVersion.getCurrentVersion().isAtLeast(MinecraftVersion.parse("1.21"))) {
-            this.registerPlaceholder(UserItems1_21Placeholders.class);
-        }
+        this.registerPlaceholder(UserItems1_21Placeholders.class);
         this.registerPlaceholder(UserHomePlaceholders.class);
         this.registerPlaceholder(UserPlayTimePlaceholders.class);
         this.registerPlaceholder(UserKitPlaceholders.class);
@@ -232,12 +224,6 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         new Metrics(this, 21703);
         new VersionChecker(this, 325);
         context.ready();
-
-        // Load ProtocolLib
-        /*if (this.moduleManager.getModuleConfiguration("chat").getBoolean("command-placeholder.enable-replace-all-message") && getServer().getPluginManager().isPluginEnabled("ProtocolLib") && this.isPaperVersion()) {
-            PacketListener packetListener = new PacketListener();
-            packetListener.registerPackets(this);
-        }*/
 
         this.loadHooks();
 

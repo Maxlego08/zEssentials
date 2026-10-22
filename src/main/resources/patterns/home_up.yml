@@ -10,9 +10,9 @@ button:
         action: LOWER
   item:
     material: RED_BED
-    name: '#ff0000ɴᴏ ᴘᴇʀᴍɪssɪᴏɴ'
+    name: "<c:#FF0000>ɴᴏ ᴘᴇʀᴍɪssɪᴏɴ"
     lore:
-      - '#fcfcfcYou need a higher rank for this home'
+      - "<c:#FCFCFC>You need a higher rank for this home"
 
   else:
     view_requirement:
@@ -28,9 +28,9 @@ button:
 
     item:
       material: LIGHT_GRAY_BED
-      name: '#cfcfcfɴᴏ ʜᴏᴍᴇ sᴇᴛ'
+      name: "<c:#CFCFCF>ɴᴏ ʜᴏᴍᴇ sᴇᴛ"
       lore:
-        - '#fcfcfc- Click to create a home'
+        - "<c:#FCFCFC>- Click to create a home"
 
     else:
       closeInventory: true
@@ -38,6 +38,6 @@ button:
         - 'home home_%remove_one_home%'
       item:
         material: LIGHT_BLUE_BED
-        name: '#00a4fcʜᴏᴍᴇ %home%'
+        name: "<c:#00A4FC>ʜᴏᴍᴇ %home%"
         lore:
-          - '#fcfcfcClick to teleport to your home'
+          - '<c:#FCFCFC>Click to teleport to your home'

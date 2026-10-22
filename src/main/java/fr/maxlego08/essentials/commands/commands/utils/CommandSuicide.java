@@ -7,7 +7,6 @@ import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.module.modules.RuleModule;
 import fr.maxlego08.essentials.zutils.utils.AttributeUtils;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
-import org.bukkit.attribute.Attribute;
 
 public class CommandSuicide extends VCommand {
     public CommandSuicide(EssentialsPlugin plugin) {

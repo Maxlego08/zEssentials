@@ -20,7 +20,7 @@ public class ColorWaveAnimation extends ScoreboardAnimation {
 
     @Override
     public void start() {
-        playerBoard.updateLine(playerBoard.getLineModifier(this.line), this.configuration.fromColor() + this.text);
+        playerBoard.updateLine(playerBoard.getLineModifier(this.line), "<c:" + this.configuration.fromColor() + ">" + this.text);
         EXECUTOR_SERVICE.schedule(this::animation, this.configuration.delayBetween(), TimeUnit.MILLISECONDS);
     }
 
@@ -40,7 +40,7 @@ public class ColorWaveAnimation extends ScoreboardAnimation {
             playerBoard.updateLine(playerBoard.getLineModifier(this.line), getAnimatedText(this.text, this.configuration.toColor(), this.configuration.fromColor(), step));
 
             if (step > this.text.length() + this.configuration.length()) {
-                playerBoard.updateLine(playerBoard.getLineModifier(this.line), this.configuration.fromColor() + this.text);
+                playerBoard.updateLine(playerBoard.getLineModifier(this.line), "<c:" + this.configuration.fromColor() + ">" + this.text);
                 EXECUTOR_SERVICE.schedule(this::animation, this.configuration.delayBetween(), TimeUnit.MILLISECONDS);
                 future.cancel(false);
             }
@@ -54,11 +54,7 @@ public class ColorWaveAnimation extends ScoreboardAnimation {
 
             String colorHex = blendColors(baseColorHex, highlightColorHex, i, highlightIndex, this.configuration.length());
 
-            if (colorHex.length() > 7) {
-                colorHex = this.configuration.fromColor();
-            }
-
-            animatedText.append(colorHex).append(text.charAt(i));
+            animatedText.append("<c:").append(colorHex).append(">").append(text.charAt(i));
         }
         return animatedText.toString();
     }

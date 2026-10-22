@@ -24,21 +24,21 @@ public class CommandEssentialsDeleteWorld extends VCommand {
 
         String worldName = this.argAsString(0);
         if (sender instanceof Player) {
-            message(sender, "&cOnly the console can run this command!");
+            message(sender, "<c:#FF5555>Only the console can run this command!");
             return CommandResultType.DEFAULT;
         }
 
         if (Bukkit.getOnlinePlayers().size() != 0) {
-            message(sender, "&cThere must be no players connected to execute this command!");
+            message(sender, "<c:#FF5555>There must be no players connected to execute this command!");
             return CommandResultType.DEFAULT;
         }
 
-        message(sender, "&aStart of deletion of &f" + worldName + "&c world related data.");
+        message(sender, "<c:#55FF55>Start of deletion of <c:#FFFFFF>" + worldName + "<c:#FF5555> world related data.");
 
         var storage = plugin.getStorageManager().getStorage();
         storage.deleteWorldData(worldName);
 
-        message(sender, "&f" + worldName + "&a world data has been deleted!");
+        message(sender, "<c:#FFFFFF>" + worldName + "<c:#55FF55> world data has been deleted!");
 
         return CommandResultType.SUCCESS;
     }

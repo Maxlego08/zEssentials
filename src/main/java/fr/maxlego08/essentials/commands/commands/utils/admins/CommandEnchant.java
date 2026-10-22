@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
@@ -38,13 +39,13 @@ public class CommandEnchant extends VCommand {
             return CommandResultType.DEFAULT;
         }
 
-        var optional = plugin.getEnchantments().getEnchantments(enchantAsString);
+        var optional = plugin.getEnchantments().getEnchantment(enchantAsString);
         if (optional.isEmpty()) {
             message(sender, Message.COMMAND_ENCHANT_ERROR_ENCHANT, "%enchant%", enchantAsString);
             return CommandResultType.DEFAULT;
         }
 
-        Enchantment enchantment = optional.get().enchantment();
+        Enchantment enchantment = optional.get();
         ItemStack itemStack = player.getInventory().getItemInMainHand();
         if (itemStack.getType().isAir()) {
             message(sender, player, Message.COMMAND_ENCHANT_ERROR_ITEM_SELF, Message.COMMAND_ENCHANT_ERROR_ITEM_PLAYER);
@@ -52,12 +53,7 @@ public class CommandEnchant extends VCommand {
         }
 
         enchant(itemStack, enchantment, level);
-        String translatedEnchantments;
-        try {
-            translatedEnchantments = "<lang:" + enchantment.translationKey() + ">";
-        } catch (Exception e) {
-            translatedEnchantments = "<lang:enchantment.minecraft." + enchantment.getKey().getKey() + ">";
-        }
+        String translatedEnchantments = MiniMessage.miniMessage().serialize(enchantment.description());
 
         if (level == 0) {
             message(sender, player, Message.COMMAND_ENCHANT_REMOVE_SELF, Message.COMMAND_ENCHANT_REMOVE_PLAYER, "%enchant%", translatedEnchantments);

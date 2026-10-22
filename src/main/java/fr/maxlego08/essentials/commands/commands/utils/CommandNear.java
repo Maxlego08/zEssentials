@@ -11,7 +11,6 @@ import org.bukkit.util.Vector;
 
 import java.text.DecimalFormat;
 import java.util.Collection;
-import java.util.List;
 
 public class CommandNear extends VCommand {
 

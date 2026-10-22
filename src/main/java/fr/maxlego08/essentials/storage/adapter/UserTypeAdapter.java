@@ -17,7 +17,6 @@ import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.SafeLocation;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.utils.LocationUtils;
-import org.bukkit.Location;
 import org.bukkit.Material;
 
 import java.io.IOException;

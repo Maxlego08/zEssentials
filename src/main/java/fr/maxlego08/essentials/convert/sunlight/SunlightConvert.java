@@ -28,10 +28,10 @@ public class SunlightConvert extends ZUtils implements Convert {
     @Override
     public void convert(CommandSender sender) {
 
-        message(sender, "&fStart convert &7Sunlight");
+        message(sender, "<c:#FFFFFF>Start convert <c:#AAAAAA>Sunlight");
         File file = new File(this.plugin.getDataFolder(), "data.db");
         if (!file.exists()) {
-            message(sender, "&cUnable to find &bdata.db &cfile in &fplugins/zEssentials&c.");
+            message(sender, "<c:#FF5555>Unable to find <c:#55FFFF>data.db <c:#FF5555>file in <c:#FFFFFF>plugins/zEssentials<c:#FF5555>.");
             return;
         }
 
@@ -40,7 +40,7 @@ public class SunlightConvert extends ZUtils implements Convert {
             this.plugin.getScheduler().runAsync(wrappedTask -> startConvertDatabase(sender, sqlStorage));
         } else {
 
-            message(sender, "&cYou must have the storage in a database to be able to convert. Never use the storage in JSON !");
+            message(sender, "<c:#FF5555>You must have the storage in a database to be able to convert. Never use the storage in JSON !");
         }
     }
 
@@ -49,7 +49,7 @@ public class SunlightConvert extends ZUtils implements Convert {
         databaseConnection.setFileName("data.db");
 
         if (!databaseConnection.isValid()) {
-            message(sender, "&cUnable to connect to database.");
+            message(sender, "<c:#FF5555>Unable to connect to database.");
         }
 
         RequestHelper requestHelper = new RequestHelper(databaseConnection, message -> plugin.getLogger().info(message));
@@ -58,7 +58,7 @@ public class SunlightConvert extends ZUtils implements Convert {
         List<SunlightHome> sunlightHomes = requestHelper.select("sunlight_homes", SunlightHome.class, table -> {
         });
 
-        message(sender, "&aFound &f" + sunlightUsers.size() + " &ausers and &f" + sunlightHomes.size() + " &ahomes.");
+        message(sender, "<c:#55FF55>Found <c:#FFFFFF>" + sunlightUsers.size() + " <c:#55FF55>users and <c:#FFFFFF>" + sunlightHomes.size() + " <c:#55FF55>homes.");
 
         var userRepository = sqlStorage.with(UserRepository.class);
         var userHomeRepository = sqlStorage.with(UserHomeRepository.class);
@@ -72,7 +72,7 @@ public class SunlightConvert extends ZUtils implements Convert {
 
         sunlightHomes.forEach(sunlightHome -> storeHomes(userHomeRepository, sunlightHome));
 
-        message(sender, "&aYou have just converted your Sunlight data to zEssentials !");
+        message(sender, "<c:#55FF55>You have just converted your Sunlight data to zEssentials !");
     }
 
     private void storeHomes(UserHomeRepository userHomeRepository, SunlightHome sunlightHome) {

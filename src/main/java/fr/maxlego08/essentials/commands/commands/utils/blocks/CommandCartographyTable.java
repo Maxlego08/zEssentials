@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
+import org.bukkit.inventory.MenuType;
 
 public class CommandCartographyTable extends VCommand {
     public CommandCartographyTable(EssentialsPlugin plugin) {
@@ -17,7 +18,7 @@ public class CommandCartographyTable extends VCommand {
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
 
-        this.player.openCartographyTable(this.player.getLocation(), true);
+        this.player.openInventory(MenuType.CARTOGRAPHY_TABLE.builder().location(this.player.getLocation()).checkReachable(false).build(this.player));
 
         return CommandResultType.SUCCESS;
     }

@@ -45,15 +45,15 @@ task-conditions:
 scoreboards:
   default:
     default: true
-    title: "#53edd6zEssentials"
+    title: "<c:#53EDD6>zEssentials"
     lines:
       - line: 1
         text: ""
       - line: 2
-        text: "&7Balance: &a%zessentials_user_formatted_balance_money%"
+        text: "<c:#AAAAAA>Balance: <c:#55FF55>%zessentials_user_formatted_balance_money%"
         event: "fr.maxlego08.essentials.api.event.events.user.UserEconomyPostUpdateEvent"
       - line: 3
-        text: "&7Coins: &a%zessentials_user_formatted_balance_coins%"
+        text: "<c:#AAAAAA>Coins: <c:#55FF55>%zessentials_user_formatted_balance_coins%"
         event: "fr.maxlego08.essentials.api.event.events.user.UserEconomyPostUpdateEvent"
       - line: 4
         text: ""
@@ -66,18 +66,18 @@ scoreboards:
         delayBetween: 5000 # in milliseconds
         animationSpeed: 30 # in milliseconds
   admin:
-    title: "#53edd6zEssentials"
+    title: "<c:#53EDD6>zEssentials"
     lines:
       - line: 1
         text: ""
       - line: 2
-        text: "&7Balance: &a%zessentials_user_formatted_balance_money%"
+        text: "<c:#AAAAAA>Balance: <c:#55FF55>%zessentials_user_formatted_balance_money%"
         event: "fr.maxlego08.essentials.api.event.events.user.UserEconomyPostUpdateEvent"
       - line: 3
-        text: "&7Coins: &a%zessentials_user_formatted_balance_coins%"
+        text: "<c:#AAAAAA>Coins: <c:#55FF55>%zessentials_user_formatted_balance_coins%"
         event: "fr.maxlego08.essentials.api.event.events.user.UserEconomyPostUpdateEvent"
       - line: 4
-        text: "&7Rank: &cAdmin"
+        text: "<c:#AAAAAA>Rank: <c:#FF5555>Admin"
       - line: 5
         text: ""
       - line: 6

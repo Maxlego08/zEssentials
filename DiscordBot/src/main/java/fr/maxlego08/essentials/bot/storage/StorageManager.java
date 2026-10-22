@@ -9,9 +9,11 @@ import fr.maxlego08.sarah.DatabaseConfiguration;
 import fr.maxlego08.sarah.DatabaseConnection;
 import fr.maxlego08.sarah.HikariDatabaseConnection;
 import fr.maxlego08.sarah.RequestHelper;
-import fr.maxlego08.sarah.logger.JULogger;
 import fr.maxlego08.sarah.logger.Logger;
 
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.Executor;
@@ -34,7 +36,25 @@ public class StorageManager {
             return;
         }
 
+        checkDatabaseVersion(databaseConnection);
         this.requestHelper = new RequestHelper(databaseConnection, logger);
+    }
+
+    private void checkDatabaseVersion(DatabaseConnection databaseConnection) {
+        try (Connection connection = databaseConnection.getConnection()) {
+            DatabaseMetaData metadata = connection.getMetaData();
+            String version = metadata.getDatabaseProductVersion();
+            if (!"MySQL".equalsIgnoreCase(metadata.getDatabaseProductName()) || version.toLowerCase(Locale.ROOT).contains("mariadb")) {
+                return;
+            }
+            int major = metadata.getDatabaseMajorVersion();
+            int minor = metadata.getDatabaseMinorVersion();
+            if (major < 8 || (major == 8 && minor < 4)) {
+                System.err.println("WARNING: Detected MySQL " + version + ". MySQL Connector/J 26.10.0 supports MySQL 8.4 or newer. Please upgrade your database server.");
+            }
+        } catch (Exception exception) {
+            System.err.println("WARNING: Unable to check the database server version: " + exception.getMessage());
+        }
     }
 
     public RequestHelper getRequestHelper() {

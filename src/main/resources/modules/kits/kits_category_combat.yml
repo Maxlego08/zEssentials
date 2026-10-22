@@ -15,7 +15,7 @@ size: 54 # Inventory size
 open-permission: null
 
 # Menu title with professional styling
-title: "&4&l⚔ &c&lCOMBAT KITS &4&l⚔"
+title: "<c:#AA0000><bold>⚔ <c:#FF5555><bold>COMBAT KITS <c:#AA0000><bold>⚔"
 
 # Fill empty slots
 fillItem:
@@ -45,12 +45,12 @@ items:
   title-sword:
     slot: 4
     material: DIAMOND_SWORD
-    name: "&c&l⚔ COMBAT KITS ⚔"
+    name: "<c:#FF5555><bold>⚔ COMBAT KITS ⚔"
     lore:
-      - "&8━━━━━━━━━━━━━━━━━━━"
-      - "&7Browse all combat kits"
-      - "&7Total kits: &f%kit_count%"
-      - "&8━━━━━━━━━━━━━━━━━━━"
+      - "<c:#555555>━━━━━━━━━━━━━━━━━━━"
+      - "<c:#AAAAAA>Browse all combat kits"
+      - "<c:#AAAAAA>Total kits: <c:#FFFFFF>%kit_count%"
+      - "<c:#555555>━━━━━━━━━━━━━━━━━━━"
   
   top-border-5:
     slot: 5
@@ -87,38 +87,38 @@ items:
     type: zessentials_kit_category
     category: "Combat"
     material: DIAMOND_SWORD
-    name: "&c&l⚔ %kit_display_name%"
+    name: "<c:#FF5555><bold>⚔ %kit_display_name%"
     lore:
-      - "&8━━━━━━━━━━━━━━━━━━━"
+      - "<c:#555555>━━━━━━━━━━━━━━━━━━━"
       - " "
-      - "  &7Kit Name: &f%kit_name%"
-      - "  &7Cooldown: &b%cooldown%"
+      - "  <c:#AAAAAA>Kit Name: <c:#FFFFFF>%kit_name%"
+      - "  <c:#AAAAAA>Cooldown: <c:#55FFFF>%cooldown%"
       - " "
-      - "  &c⚔ &7Combat equipment kit"
+      - "  <c:#FF5555>⚔ <c:#AAAAAA>Combat equipment kit"
       - " "
-      - "  &7Status: %available|&a✔ Available|&c✖ On cooldown%"
-      - "  &7Time left: &e%time_remaining%"
+      - "  <c:#AAAAAA>Status: %available|<c:#55FF55>✔ Available|<c:#FF5555>✖ On cooldown%"
+      - "  <c:#AAAAAA>Time left: <c:#FFFF55>%time_remaining%"
       - " "
-      - "&8━━━━━━━━━━━━━━━━━━━"
-      - "&a▶ &7Left-click to &fget kit"
-      - "&e▶ &7Right-click to &fpreview"
+      - "<c:#555555>━━━━━━━━━━━━━━━━━━━"
+      - "<c:#55FF55>▶ <c:#AAAAAA>Left-click to <c:#FFFFFF>get kit"
+      - "<c:#FFFF55>▶ <c:#AAAAAA>Right-click to <c:#FFFFFF>preview"
   
   # Bottom navigation
   previous-page:
     slot: 45
     material: SPECTRAL_ARROW
-    name: "&e&l« PREVIOUS PAGE"
+    name: "<c:#FFFF55><bold>« PREVIOUS PAGE"
     lore:
-      - "&7Go to previous page"
+      - "<c:#AAAAAA>Go to previous page"
     actions:
       - type: previous page
   
   back-button:
     slots: [46, 47, 48]
     material: DARK_OAK_DOOR
-    name: "&c&l⬅ BACK"
+    name: "<c:#FF5555><bold>⬅ BACK"
     lore:
-      - "&7Return to categories"
+      - "<c:#AAAAAA>Return to categories"
     actions:
       - type: open inventory
         inventory: 'kits_categories'
@@ -126,21 +126,21 @@ items:
   refresh-button:
     slots: [49, 50, 51]
     material: EMERALD
-    name: "&a&l↻ REFRESH"
+    name: "<c:#55FF55><bold>↻ REFRESH"
     lore:
-      - "&7Refresh available kits"
+      - "<c:#AAAAAA>Refresh available kits"
     refreshOnClick: true
   
   next-page:
     slot: 53
     material: SPECTRAL_ARROW
-    name: "&e&lNEXT PAGE »"
+    name: "<c:#FFFF55><bold>NEXT PAGE »"
     lore:
-      - "&7Go to next page"
+      - "<c:#AAAAAA>Go to next page"
     actions:
       - type: next page
   
   page-info:
     slot: 52
     material: PAPER
-    name: "&7Page &e%page% &7of &e%maxPage%"
+    name: "<c:#AAAAAA>Page <c:#FFFF55>%page% <c:#AAAAAA>of <c:#FFFF55>%maxPage%"

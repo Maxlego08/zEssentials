@@ -12,14 +12,12 @@ import fr.maxlego08.essentials.api.packet.PacketRegister;
 import fr.maxlego08.essentials.api.utils.component.AdventureComponent;
 // import fr.maxlego08.essentials.zutils.utils.component.AbstractComponent;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public class PacketChatListener extends PacketAdapter implements PacketRegister {
 
@@ -52,7 +50,7 @@ public class PacketChatListener extends PacketAdapter implements PacketRegister 
 
         Matcher matcher = PacketChatListener.this.pattern.matcher(serializedMessage);
         if (matcher.find()) {
-            var newComponent = fixClickEvent(parseComponent(serializedMessage));
+            var newComponent = parseComponent(serializedMessage);
             packet.getChatComponents().write(0, WrappedChatComponent.fromJson(GsonComponentSerializer.gson().serialize(newComponent)));
         }
     }
@@ -90,24 +88,4 @@ public class PacketChatListener extends PacketAdapter implements PacketRegister 
         return adventureComponent.getComponent(formattedMessage.toString(), builder.build());
     }
 
-    /**
-     * Fixes the click event of a component by removing a specific prefix from the event value.
-     *
-     * <p>This method processes the given component and its children recursively to ensure that
-     * if a click event's value starts with "&f", this prefix is removed.</p>
-     *
-     * @param component The component to be processed.
-     * @return A new component with the corrected click event values.
-     */
-    private Component fixClickEvent(final Component component) {
-        final ClickEvent event = component.clickEvent();
-        Component copied = component;
-
-        if (event != null && event.value().startsWith("&f")) {
-            copied = component.clickEvent(ClickEvent.clickEvent(event.action(), event.value().substring(2)));
-        }
-
-        copied = copied.children(copied.children().stream().map(this::fixClickEvent).collect(Collectors.toList()));
-        return copied;
-    }
 }

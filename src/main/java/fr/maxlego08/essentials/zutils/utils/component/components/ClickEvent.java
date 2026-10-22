@@ -27,7 +27,25 @@ public class ClickEvent {
      */
     public ClickEvent(net.kyori.adventure.text.event.ClickEvent event) {
         this.action = event.action().toString();
-        this.value = event.value();
+        this.value = getValue(event);
+    }
+
+    private static String getValue(net.kyori.adventure.text.event.ClickEvent event) {
+        try {
+            try {
+                // Adventure 4.x exposes the value directly; Paper 1.21.4 still uses this API.
+                return (String) net.kyori.adventure.text.event.ClickEvent.class.getMethod("value").invoke(event);
+            } catch (NoSuchMethodException ignored) {
+                // Adventure 5 uses typed payloads. Resolve their public interfaces so that the
+                // common code does not link to classes absent from older Paper versions.
+                Object payload = net.kyori.adventure.text.event.ClickEvent.class.getMethod("payload").invoke(event);
+                boolean changePage = event.action().toString().equals("change_page");
+                Class<?> payloadType = Class.forName(net.kyori.adventure.text.event.ClickEvent.class.getName() + "$Payload$" + (changePage ? "Int" : "Text"));
+                return String.valueOf(payloadType.getMethod(changePage ? "integer" : "value").invoke(payload));
+            }
+        } catch (ReflectiveOperationException exception) {
+            throw new IllegalStateException("Unable to read the click event value", exception);
+        }
     }
 
     /**
@@ -54,7 +72,7 @@ public class ClickEvent {
      * @return The ClickEvent as a MiniMessage formatted string.
      */
     public String toMiniMessage() {
-        return String.format("<click:%s:\"%s\">", this.action, this.value);
+        return String.format("<click:%s:\"%s\">", this.action, this.value.replace("\\", "\\\\").replace("\"", "\\\""));
     }
 
 }

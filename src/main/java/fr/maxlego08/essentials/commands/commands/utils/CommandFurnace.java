@@ -25,14 +25,14 @@ public class CommandFurnace extends VCommand {
 
         ItemStack itemStack = this.player.getInventory().getItemInMainHand();
         if (itemStack.getType().isAir()) {
-            message(sender, Message.COMMAND_FURNACE_TYPE, "%material%", "AIR");
+            message(sender, Message.COMMAND_FURNACE_TYPE, "%material%", getMaterialName(Material.AIR));
             return CommandResultType.DEFAULT;
         }
         Material material = itemStack.getType();
         Optional<TransformMaterial> optional = this.configuration.getSmeltableMaterials().stream().filter(e -> e.from().equals(material)).findFirst();
         if (optional.isEmpty()) {
 
-            message(sender, Message.COMMAND_FURNACE_TYPE, "%material%", name(material.name()));
+            message(sender, Message.COMMAND_FURNACE_TYPE, "%material%", getMaterialName(material));
             return CommandResultType.DEFAULT;
         }
 
@@ -43,13 +43,13 @@ public class CommandFurnace extends VCommand {
         int realAmount = count(inventory, material);
 
         if (realAmount <= 0) {
-            message(getPlayer(), Message.COMMAND_FURNACE_ERROR, "%item%", name(material.name()));
+            message(getPlayer(), Message.COMMAND_FURNACE_ERROR, "%item%", getMaterialName(material));
             return CommandResultType.DEFAULT;
         }
 
         removeItems(inventory, new ItemStack(material), realAmount);
         this.plugin.give(this.player, new ItemStack(newMaterial, realAmount));
-        message(this.player, Message.COMMAND_FURNACE_SUCCESS, "%amount%", realAmount, "%item%", name(material.name()), "%toAmount%", realAmount, "%toItem%", name(newMaterial.name()));
+        message(this.player, Message.COMMAND_FURNACE_SUCCESS, "%amount%", realAmount, "%item%", getMaterialName(material), "%toAmount%", realAmount, "%toItem%", getMaterialName(newMaterial));
 
         return CommandResultType.SUCCESS;
     }

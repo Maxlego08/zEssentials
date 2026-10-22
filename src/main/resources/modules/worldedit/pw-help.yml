@@ -1,181 +1,181 @@
-name: "&8Help Player Warp"
+name: "<c:#555555>Help Player Warp"
 size: 54
 items:
   pw-set:
     slot: 11
     item:
       material: PAPER
-      name: "#8cc0ccCommand"
+      name: "<c:#8CC0CC>Command"
       lore:
-        - "&7● &f/pw set <material>"
+        - "<c:#AAAAAA>● <c:#FFFFFF>/pw set <material>"
         - ""
-        - "#8cc0ccDescription"
-        - "&7● &fAllows you to place blocks in your selection"
+        - "<c:#8CC0CC>Description"
+        - "<c:#AAAAAA>● <c:#FFFFFF>Allows you to place blocks in your selection"
         - ""
-        - "#edacfExample"
-        - "&7● &f/pw set stone"
+        - "<c:#EDACFE>xample"
+        - "<c:#AAAAAA>● <c:#FFFFFF>/pw set stone"
   pw-fill:
     slot: 12
     item:
       material: PAPER
-      name: "#8cc0ccCommand"
+      name: "<c:#8CC0CC>Command"
       lore:
-        - "&7● &f/pw fill <material>"
+        - "<c:#AAAAAA>● <c:#FFFFFF>/pw fill <material>"
         - ""
-        - "#8cc0ccDescription"
-        - "&7● &fAllows you to fill your selection with blocks"
-        - "&7● &7This command will only take into account"
-        - "&7● &7the air blocks"
+        - "<c:#8CC0CC>Description"
+        - "<c:#AAAAAA>● <c:#FFFFFF>Allows you to fill your selection with blocks"
+        - "<c:#AAAAAA>● <c:#AAAAAA>This command will only take into account"
+        - "<c:#AAAAAA>● <c:#AAAAAA>the air blocks"
         - ""
-        - "#edacfExample"
-        - "&7● &f/pw fill stone"
+        - "<c:#EDACFE>xample"
+        - "<c:#AAAAAA>● <c:#FFFFFF>/pw fill stone"
   pw-walls:
     slot: 13
     item:
       material: PAPER
-      name: "#8cc0ccCommand"
+      name: "<c:#8CC0CC>Command"
       lore:
-        - "&7● &f/pw walls <material>"
+        - "<c:#AAAAAA>● <c:#FFFFFF>/pw walls <material>"
         - ""
-        - "#8cc0ccDescription"
-        - "&7● &fAllows you to create walls around your selection"
+        - "<c:#8CC0CC>Description"
+        - "<c:#AAAAAA>● <c:#FFFFFF>Allows you to create walls around your selection"
         - ""
-        - "#edacfExample"
-        - "&7● &f/pw walls stone"
+        - "<c:#EDACFE>xample"
+        - "<c:#AAAAAA>● <c:#FFFFFF>/pw walls stone"
   pw-cyl:
     slot: 14
     item:
       material: PAPER
-      name: "#8cc0ccCommand"
+      name: "<c:#8CC0CC>Command"
       lore:
-        - "&7● &f/pw cyl <material> <radius> <height> [<filled or not>]"
+        - "<c:#AAAAAA>● <c:#FFFFFF>/pw cyl <material> <radius> <height> [<filled or not>]"
         - ""
-        - "#8cc0ccDescription"
-        - "&7● &fAllows you to create a cylinder from the first position"
-        - "&7● &fselected (pos1 or left click)"
-        - "&7● &7To define if the cylinder is filled or not,"
-        - "&7● &7you must enter true or false"
+        - "<c:#8CC0CC>Description"
+        - "<c:#AAAAAA>● <c:#FFFFFF>Allows you to create a cylinder from the first position"
+        - "<c:#AAAAAA>● <c:#FFFFFF>selected (pos1 or left click)"
+        - "<c:#AAAAAA>● <c:#AAAAAA>To define if the cylinder is filled or not,"
+        - "<c:#AAAAAA>● <c:#AAAAAA>you must enter true or false"
         - ""
-        - "#edacfExample"
-        - "&7● &f/pw cyl stone 5 5 true"
+        - "<c:#EDACFE>xample"
+        - "<c:#AAAAAA>● <c:#FFFFFF>/pw cyl stone 5 5 true"
   pw-cut:
     slot: 15
     item:
       material: PAPER
-      name: "#8cc0ccCommand"
+      name: "<c:#8CC0CC>Command"
       lore:
-        - "&7● &f/pw cut"
+        - "<c:#AAAAAA>● <c:#FFFFFF>/pw cut"
         - ""
-        - "#8cc0ccDescription"
-        - "&7● &fAllows you to remove the blocks in your selection"
+        - "<c:#8CC0CC>Description"
+        - "<c:#AAAAAA>● <c:#FFFFFF>Allows you to remove the blocks in your selection"
         - ""
-        - "#edacfExample"
-        - "&7● &f/pw cut"
+        - "<c:#EDACFE>xample"
+        - "<c:#AAAAAA>● <c:#FFFFFF>/pw cut"
   pw-confirm:
     slot: 20
     item:
       material: PAPER
-      name: "#8cc0ccCommand"
+      name: "<c:#8CC0CC>Command"
       lore:
-        - "&7● &f/pw confirm"
+        - "<c:#AAAAAA>● <c:#FFFFFF>/pw confirm"
         - ""
-        - "#8cc0ccDescription"
-        - "&7● &fAllows you to confirm the action"
-        - "&7● &7You must execute this command"
-        - "&7● &7after defining your action &8(/pw set, /pw fill etc)"
+        - "<c:#8CC0CC>Description"
+        - "<c:#AAAAAA>● <c:#FFFFFF>Allows you to confirm the action"
+        - "<c:#AAAAAA>● <c:#AAAAAA>You must execute this command"
+        - "<c:#AAAAAA>● <c:#AAAAAA>after defining your action <c:#555555>(/pw set, /pw fill etc)"
         - ""
-        - "#edacfExample"
-        - "&7● &f/pw confirm"
+        - "<c:#EDACFE>xample"
+        - "<c:#AAAAAA>● <c:#FFFFFF>/pw confirm"
   pw-pos1:
     slot: 21
     item:
       material: PAPER
-      name: "#8cc0ccCommand"
+      name: "<c:#8CC0CC>Command"
       lore:
-        - "&7● &f/pw pos1"
+        - "<c:#AAAAAA>● <c:#FFFFFF>/pw pos1"
         - ""
-        - "#8cc0ccDescription"
-        - "&7● &fAllows you to define the first position"
-        - "&7● &f of your selection"
+        - "<c:#8CC0CC>Description"
+        - "<c:#AAAAAA>● <c:#FFFFFF>Allows you to define the first position"
+        - "<c:#AAAAAA>● <c:#FFFFFF> of your selection"
         - ""
-        - "#edacfExample"
-        - "&7● &f/pw pos1"
+        - "<c:#EDACFE>xample"
+        - "<c:#AAAAAA>● <c:#FFFFFF>/pw pos1"
   pw-pos2:
     slot: 22
     item:
       material: PAPER
-      name: "#8cc0ccCommand"
+      name: "<c:#8CC0CC>Command"
       lore:
-        - "&7● &f/pw pos2"
+        - "<c:#AAAAAA>● <c:#FFFFFF>/pw pos2"
         - ""
-        - "#8cc0ccDescription"
-        - "&7● &fAllows you to define the second position"
-        - "&7● &f of your selection"
+        - "<c:#8CC0CC>Description"
+        - "<c:#AAAAAA>● <c:#FFFFFF>Allows you to define the second position"
+        - "<c:#AAAAAA>● <c:#FFFFFF> of your selection"
         - ""
-        - "#edacfExample"
-        - "&7● &f/pw pos2"
+        - "<c:#EDACFE>xample"
+        - "<c:#AAAAAA>● <c:#FFFFFF>/pw pos2"
   pw-cancel:
     slot: 23
     item:
       material: PAPER
-      name: "#8cc0ccCommand"
+      name: "<c:#8CC0CC>Command"
       lore:
-        - "&7● &f/pw cancel"
+        - "<c:#AAAAAA>● <c:#FFFFFF>/pw cancel"
         - ""
-        - "#8cc0ccDescription"
-        - "&7● &fAllows you to cancel the current selection"
+        - "<c:#8CC0CC>Description"
+        - "<c:#AAAAAA>● <c:#FFFFFF>Allows you to cancel the current selection"
         - ""
-        - "#edacfExample"
-        - "&7● &f/pw cancel"
+        - "<c:#EDACFE>xample"
+        - "<c:#AAAAAA>● <c:#FFFFFF>/pw cancel"
   pw-stop:
     slot: 24
     item:
       material: PAPER
-      name: "#8cc0ccCommand"
+      name: "<c:#8CC0CC>Command"
       lore:
-        - "&7● &f/pw stop"
+        - "<c:#AAAAAA>● <c:#FFFFFF>/pw stop"
         - ""
-        - "#8cc0ccDescription"
-        - "&7● &fAllows you to stop the current editing"
-        - "&7● &7Only the blocks not placed will be refunded"
+        - "<c:#8CC0CC>Description"
+        - "<c:#AAAAAA>● <c:#FFFFFF>Allows you to stop the current editing"
+        - "<c:#AAAAAA>● <c:#AAAAAA>Only the blocks not placed will be refunded"
         - ""
-        - "#edacfExample"
-        - "&7● &f/pw stop"
+        - "<c:#EDACFE>xample"
+        - "<c:#AAAAAA>● <c:#FFFFFF>/pw stop"
 
   info1:
     slot: 42
     item:
       material: PAPER
-      name: "#8cc0ccAdd multiple materials"
+      name: "<c:#8CC0CC>Add multiple materials"
       lore:
-        - "&7● &fYou can define multiple materials"
-        - "&7● &fIn the same command, you must add a <u>comma</u>"
-        - "&7● &fbetween each material"
+        - "<c:#AAAAAA>● <c:#FFFFFF>You can define multiple materials"
+        - "<c:#AAAAAA>● <c:#FFFFFF>In the same command, you must add a <u>comma</u>"
+        - "<c:#AAAAAA>● <c:#FFFFFF>between each material"
         - ""
-        - "#edacfExample"
-        - "&7● &f/pw set #ff94d7stone#77ff77,#ff94d7dirt#77ff77,#ff94d7grass_block"
+        - "<c:#EDACFE>xample"
+        - "<c:#AAAAAA>● <c:#FFFFFF>/pw set <c:#FF94D7>stone<c:#77FF77>,<c:#FF94D7>dirt<c:#77FF77>,<c:#FF94D7>grass_block"
   info2:
     slot: 43
     item:
       material: PAPER
-      name: "#8cc0ccModify the percentage"
+      name: "<c:#8CC0CC>Modify the percentage"
       lore:
-        - "&7● &fYou can define the percentage to apply"
-        - "&7● &fTo a material, you must add a <u>:</u> and the <u>number</u>"
-        - "&7● &fbetween 1 and 100"
+        - "<c:#AAAAAA>● <c:#FFFFFF>You can define the percentage to apply"
+        - "<c:#AAAAAA>● <c:#FFFFFF>To a material, you must add a <u>:</u> and the <u>number</u>"
+        - "<c:#AAAAAA>● <c:#FFFFFF>between 1 and 100"
         - ""
-        - "#edacfExample"
-        - "&7● &f/pw set #ff94d7stone,dirt#77ff77:5#ff94d7,grass_block#77ff77:10"
+        - "<c:#EDACFE>xample"
+        - "<c:#AAAAAA>● <c:#FFFFFF>/pw set <c:#FF94D7>stone,dirt<c:#77FF77>:5<c:#FF94D7>,grass_block<c:#77FF77>:10"
   info3:
     slot: 40
     item:
       material: PAPER
-      name: "#8cc0ccGet a baguette"
+      name: "<c:#8CC0CC>Get a baguette"
       lore:
         - ""
-        - "&7● &fYou can get a #ff94d7baguette"
-        - "&7● &fIn voting &8(/vote)&f, in the store &8(/store&8)"
-        - "&7● &fOr in the island store &8(/isq&8)"
+        - "<c:#AAAAAA>● <c:#FFFFFF>You can get a <c:#FF94D7>baguette"
+        - "<c:#AAAAAA>● <c:#FFFFFF>In voting <c:#555555>(/vote)<c:#FFFFFF>, in the store <c:#555555>(/store<c:#555555>)"
+        - "<c:#AAAAAA>● <c:#FFFFFF>Or in the island store <c:#555555>(/isq<c:#555555>)"
         - ""
 
   option-inventory:
@@ -191,14 +191,14 @@ items:
         delay: 2
     item:
       material: PAPER
-      name: "#8cc0ccOption&8: #ff94d7Inventory"
+      name: "<c:#8CC0CC>Option<c:#555555>: <c:#FF94D7>Inventory"
       lore:
         - ""
-        - "&7● #8cc0ccState&8: #77ff77Active"
+        - "<c:#AAAAAA>● <c:#8CC0CC>State<c:#555555>: <c:#77FF77>Active"
         - ""
-        - "#8cc0ccDescription"
-        - "&7● &fUses the blocks in your inventory"
-        - "&7● &fin addition to those in your /sac"
+        - "<c:#8CC0CC>Description"
+        - "<c:#AAAAAA>● <c:#FFFFFF>Uses the blocks in your inventory"
+        - "<c:#AAAAAA>● <c:#FFFFFF>in addition to those in your /sac"
     else:
       actions:
         - type: player_command
@@ -208,14 +208,14 @@ items:
           delay: 2
       item:
         material: PAPER
-        name: "#8cc0ccOption&8: #ff94d7Inventory"
+        name: "<c:#8CC0CC>Option<c:#555555>: <c:#FF94D7>Inventory"
         lore:
           - ""
-          - "&7● #8cc0ccState&8: #ff3535Inactive"
+          - "<c:#AAAAAA>● <c:#8CC0CC>State<c:#555555>: <c:#FF3535>Inactive"
           - ""
-          - "#8cc0ccDescription"
-          - "&7● &fUses the blocks in your inventory"
-          - "&7● &fin addition to those in your /sac"
+          - "<c:#8CC0CC>Description"
+          - "<c:#AAAAAA>● <c:#FFFFFF>Uses the blocks in your inventory"
+          - "<c:#AAAAAA>● <c:#FFFFFF>in addition to those in your /sac"
 
   option-bossbar:
     slot: 38
@@ -230,14 +230,14 @@ items:
         delay: 2
     item:
       material: PAPER
-      name: "#8cc0ccOption&8: #ff94d7Progress bar"
+      name: "<c:#8CC0CC>Option<c:#555555>: <c:#FF94D7>Progress bar"
       lore:
         - ""
-        - "&7● #8cc0ccState&8: #77ff77Active"
+        - "<c:#AAAAAA>● <c:#8CC0CC>State<c:#555555>: <c:#77FF77>Active"
         - ""
-        - "#8cc0ccDescription"
-        - "&7● &fAllows you to display a progress bar"
-        - "&7● &fat the top of your screen"
+        - "<c:#8CC0CC>Description"
+        - "<c:#AAAAAA>● <c:#FFFFFF>Allows you to display a progress bar"
+        - "<c:#AAAAAA>● <c:#FFFFFF>at the top of your screen"
     else:
       actions:
         - type: player_command
@@ -247,11 +247,11 @@ items:
           delay: 2
       item:
         material: PAPER
-        name: "#8cc0ccOption&8: #ff94d7Progress bar"
+        name: "<c:#8CC0CC>Option<c:#555555>: <c:#FF94D7>Progress bar"
         lore:
           - ""
-          - "&7● #8cc0ccState&8: #ff3535Inactive"
+          - "<c:#AAAAAA>● <c:#8CC0CC>State<c:#555555>: <c:#FF3535>Inactive"
           - ""
-          - "#8cc0ccDescription"
-          - "&7● &fAllows you to display a progress bar"
-          - "&7● &fat the top of your screen"
+          - "<c:#8CC0CC>Description"
+          - "<c:#AAAAAA>● <c:#FFFFFF>Allows you to display a progress bar"
+          - "<c:#AAAAAA>● <c:#FFFFFF>at the top of your screen"

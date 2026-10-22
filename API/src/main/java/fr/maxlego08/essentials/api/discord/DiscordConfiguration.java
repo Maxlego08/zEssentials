@@ -1,7 +1,6 @@
 package fr.maxlego08.essentials.api.discord;
 
 import fr.maxlego08.essentials.api.functionnals.ReturnConsumer;
-import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;

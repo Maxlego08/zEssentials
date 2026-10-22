@@ -6,6 +6,6 @@ repositories {
 
 dependencies {
     compileOnly(project(":API"))
-    compileOnly("com.nickuc.chat:api:5.6")
-    compileOnly("io.papermc.paper:paper-api:1.21.5-R0.1-SNAPSHOT")
+    compileOnly(libs.nchat)
+    compileOnly(libs.paper.api)
 }

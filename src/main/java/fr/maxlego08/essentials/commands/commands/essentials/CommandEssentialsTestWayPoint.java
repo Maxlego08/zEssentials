@@ -45,13 +45,13 @@ public class CommandEssentialsTestWayPoint extends VCommand {
 
         if (method.equals("create")) {
             helper.addWayPoint(player, uuid, location, WayPointIcon.of(texture,new Color(color)));
-            message(sender, "&fWayPoint created!");
+            message(sender, "<c:#FFFFFF>WayPoint created!");
         } else if (method.equals("update")) {
             helper.updateWayPointPosition(player, uuid, location, WayPointIcon.of(texture, new Color(color)));
-            message(sender, "&fWayPoint updated!");
+            message(sender, "<c:#FFFFFF>WayPoint updated!");
         } else if (method.equals("remove")) {
             helper.removeWayPoint(player, uuid);
-            message(sender, "&fWayPoint deleted!");
+            message(sender, "<c:#FFFFFF>WayPoint deleted!");
         } else {
             return CommandResultType.SYNTAX_ERROR;
         }

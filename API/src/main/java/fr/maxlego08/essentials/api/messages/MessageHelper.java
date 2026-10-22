@@ -1,5 +1,11 @@
 package fr.maxlego08.essentials.api.messages;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextDecoration;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
+
+import java.util.List;
 import java.util.Random;
 
 public class MessageHelper {
@@ -7,35 +13,40 @@ public class MessageHelper {
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
     public static int getStringLength(String message) {
-        int messagePxSize = 0;
-        boolean previousCode = false;
-        boolean isBold = false;
+        return getStringLength(MiniMessage.miniMessage().deserialize(message), false);
+    }
 
-        for (char c : message.toCharArray()) {
-            if (c == '§') {
-                previousCode = true;
-            } else if (previousCode) {
-                previousCode = false;
-                isBold = c == 'l' || c == 'L';
-            } else {
-                DefaultFontInfo dFI = DefaultFontInfo.getDefaultFontInfo(c);
-                messagePxSize += isBold ? dFI.getBoldLength() : dFI.getLength();
-                messagePxSize++;
-            }
+    private static int getStringLength(Component component, boolean inheritedBold) {
+        TextDecoration.State boldState = component.decoration(TextDecoration.BOLD);
+        boolean bold = boldState == TextDecoration.State.TRUE || (boldState == TextDecoration.State.NOT_SET && inheritedBold);
+        String text = PlainTextComponentSerializer.plainText().serialize(component.children(List.of()));
+        int messagePxSize = 0;
+        for (char character : text.toCharArray()) {
+            DefaultFontInfo fontInfo = DefaultFontInfo.getDefaultFontInfo(character);
+            messagePxSize += (bold ? fontInfo.getBoldLength() : fontInfo.getLength()) + 1;
+        }
+        for (Component child : component.children()) {
+            messagePxSize += getStringLength(child, bold);
         }
         return messagePxSize;
     }
 
+    public static String getPlainText(String input) {
+        return PlainTextComponentSerializer.plainText().serialize(MiniMessage.miniMessage().deserialize(input));
+    }
+
+    /**
+     * @deprecated Use {@link #getPlainText(String)}. MiniMessage formatting is stripped from the input.
+     */
+    @Deprecated(forRemoval = false)
     public static String removeColorCodes(String input) {
-        input = input.replaceAll("#[0-9a-fA-F]{6}", "");
-        input = input.replaceAll("§[0-9a-fA-Fk-oK-OrR]", "");
-        return input.replaceAll("&[0-9a-fA-Fk-oK-OrR]", "");
+        return getPlainText(input);
     }
 
     public static String getFormattedString(String start, String end, int size) {
 
-        int startSize = getStringLength(removeColorCodes(start));
-        int endSize = getStringLength(removeColorCodes(end));
+        int startSize = getStringLength(start);
+        int endSize = getStringLength(end);
         int needSize = size - startSize - endSize;
         if (needSize <= 0) return start + end;
 

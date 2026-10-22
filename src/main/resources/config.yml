@@ -48,6 +48,10 @@ database-configuration:
   database: zessentials
   # Enable of not the SQL debug mode
   debug: false
+  # Maximum lifetime of a pooled MySQL or MariaDB connection, in seconds.
+  # A connection older than this is retired and replaced. 0 keeps connections until the pool closes.
+  # Hikari requires at least 30 seconds. 1800 is 30 minutes, the same default used when this option is omitted.
+  max-lifetime: 1800
 
 # Sends requests available in batch to the database (history of messages, commands, etc.)
 batch-auto-save: 10000
@@ -124,7 +128,7 @@ compact-materials:
   - from: NETHERITE_INGOT
     to: NETHERITE_BLOCK
 
-# Transforms keys by color, used in messages
+# Replaces these message tags with MiniMessage custom colors. Set each color as a hex value.
 message-colors:
   - key: "<primary>"
     color: "#24d65d"
@@ -211,23 +215,23 @@ replace-placeholders:
   # For this example, the placeholder to use will be: %zessentials_replace_player_ping%
   # In this example, the player’s ping color will change depending on his ping
   - placeholder: 'player_ping' # Placeholder to be replaced, do not add %
-    default: '&c%result%' # Default if no condition found
+    default: "<c:#FF5555>%result%" # Default if no condition found
     replaces: # List of conditions to replace placeholder
       - type: STRING # The type of the condition, here STRING allows to check if the result of the placeholder is equal to the given value
         equalsTo: 0 # The value to be verified
-        value: '&aWHOA YOU DONT HAVE PING WTF YOU ARE IN A DATACENTER ?' # The value that will be used, you can add %result% to return the value of the placeholder
+        value: "<c:#55FF55>WHOA YOU DONT HAVE PING WTF YOU ARE IN A DATACENTER ?" # The value that will be used, you can add %result% to return the value of the placeholder
       - type: NUMBER # The type of the condition, here NUMBER allows to check if a number is lower or equal to a given number
         max: 50 # The maximum possible number
-        value: '&a%result%' # The value that will be used, you can add %result% to return the value of the placeholder
+        value: "<c:#55FF55>%result%" # The value that will be used, you can add %result% to return the value of the placeholder
       - type: NUMBER # The type of the condition, here NUMBER allows to check if a number is lower or equal to a given number
         max: 99 # The maximum possible number
-        value: '&2%result%' # The value that will be used, you can add %result% to return the value of the placeholder
+        value: "<c:#00AA00>%result%" # The value that will be used, you can add %result% to return the value of the placeholder
       - type: NUMBER # The type of the condition, here NUMBER allows to check if a number is lower or equal to a given number
         max: 199 # The maximum possible number
-        value: '&e%result%' # The value that will be used, you can add %result% to return the value of the placeholder
+        value: "<c:#FFFF55>%result%" # The value that will be used, you can add %result% to return the value of the placeholder
       - type: NUMBER # The type of the condition, here NUMBER allows to check if a number is lower or equal to a given number
         max: 299 # The maximum possible number
-        value: '&c%result%' # The value that will be used, you can add %result% to return the value of the placeholder
+        value: "<c:#FF5555>%result%" # The value that will be used, you can add %result% to return the value of the placeholder
 
 
 # Allows activating or not the task to check it of players with a temporary fly

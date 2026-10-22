@@ -229,7 +229,7 @@ public class MessageLoader implements ConfigurationFile {
     }
 
     private String replaceMessagesColors(String message) {
-        return this.plugin.getConfiguration().getMessageColors().stream().reduce(message, (msg, color) -> msg.replace(color.key(), color.color()), (msg1, msg2) -> msg1);
+        return this.plugin.getConfiguration().getMessageColors().stream().reduce(message, (msg, color) -> msg.replace(color.key(), "<c:" + color.color() + ">"), (msg1, msg2) -> msg1);
     }
 
     private List<String> getMessage(Map<?, ?> map) {

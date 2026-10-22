@@ -336,7 +336,7 @@ public class MailBoxModule extends ZModule {
             message(sender, Message.MAILBOX_GIVE_ERROR, "%item%", itemName);
             return;
         }
-        var itemStack = itemModule.getItemStack(itemName, Bukkit.getPlayer(uuid));
+        var itemStack = itemModule.getItemStack(itemName, Bukkit.getOfflinePlayer(uuid));
 
         if (itemStack == null) {
             message(sender, Message.MAILBOX_GIVE_ERROR, "%item%", itemName);
@@ -366,7 +366,7 @@ public class MailBoxModule extends ZModule {
             addItem(uuid, itemStack);
         }
 
-        message(sender, Message.MAILBOX_GIVE, "%item%", itemName, "%player%", username, "%amount%", realAmount);
+        message(sender, Message.MAILBOX_GIVE, "%item%", getItemName(itemStack), "%player%", username, "%amount%", realAmount);
     }
 
     public void giveAllItem(CommandSender sender, String itemName, int amount) {
@@ -377,9 +377,11 @@ public class MailBoxModule extends ZModule {
             return;
         }
 
+        String displayName = null;
         for (Player player : Bukkit.getOnlinePlayers()) {
             var itemStack = itemModule.getItemStack(itemName, player);
             if (itemStack == null) break;
+            if (displayName == null) displayName = getItemName(itemStack);
 
             if (amount > itemStack.getMaxStackSize()) {
 
@@ -402,7 +404,7 @@ public class MailBoxModule extends ZModule {
             }
         }
 
-        message(sender, Message.MAILBOX_GIVE_ALL, "%item%", itemName, "%amount%", amount);
+        message(sender, Message.MAILBOX_GIVE_ALL, "%item%", displayName == null ? itemName : displayName, "%amount%", amount);
     }
 
     public void giveItemFromHand(CommandSender sender, UUID uuid, String username, ItemStack itemStack) {
@@ -438,16 +440,6 @@ public class MailBoxModule extends ZModule {
         message(sender, Message.MAILBOX_GIVE_ALL_HAND,
                 "%item%", itemName,
                 "%amount%", amount);
-    }
-
-    private String getItemName(ItemStack itemStack) {
-        if (itemStack.hasItemMeta()) {
-            var itemMeta = itemStack.getItemMeta();
-            if (itemMeta != null && itemMeta.hasDisplayName()) {
-                return itemMeta.getDisplayName();
-            }
-        }
-        return name(itemStack.getType().name());
     }
 
     public void clear(CommandSender sender, UUID uuid, String username) {

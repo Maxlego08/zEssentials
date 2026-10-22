@@ -32,10 +32,10 @@ public class CMIConvert extends ZUtils implements Convert {
     @Override
     public void convert(CommandSender sender) {
 
-        message(sender, "&fStart convert &7CMI");
+        message(sender, "<c:#FFFFFF>Start convert <c:#AAAAAA>CMI");
         File file = new File(this.plugin.getDataFolder(), "cmi.sqlite.db");
         if (!file.exists()) {
-            message(sender, "&cUnable to find &bcmi.sqlite.db &cfile in &fplugins/zEssentials&c.");
+            message(sender, "<c:#FF5555>Unable to find <c:#55FFFF>cmi.sqlite.db <c:#FF5555>file in <c:#FFFFFF>plugins/zEssentials<c:#FF5555>.");
             return;
         }
 
@@ -44,7 +44,7 @@ public class CMIConvert extends ZUtils implements Convert {
             this.plugin.getScheduler().runAsync(wrappedTask -> startConvertDatabase(sender, sqlStorage));
         } else {
 
-            message(sender, "&cYou must have the storage in a database to be able to convert. Never use the storage in JSON !");
+            message(sender, "<c:#FF5555>You must have the storage in a database to be able to convert. Never use the storage in JSON !");
         }
     }
 
@@ -54,14 +54,14 @@ public class CMIConvert extends ZUtils implements Convert {
         databaseConnection.setFileName("cmi.sqlite.db");
 
         if (!databaseConnection.isValid()) {
-            message(sender, "&cUnable to connect to database.");
+            message(sender, "<c:#FF5555>Unable to connect to database.");
         }
 
         RequestHelper requestHelper = new RequestHelper(databaseConnection, logger);
         List<CMIUser> cmiUsers = requestHelper.select("users", CMIUser.class, table -> {
         });
 
-        message(sender, "&aFound &f" + cmiUsers.size() + " &ausers.");
+        message(sender, "<c:#55FF55>Found <c:#FFFFFF>" + cmiUsers.size() + " <c:#55FF55>users.");
 
         var userRepository = sqlStorage.with(UserRepository.class);
         var userEconomyRepository = sqlStorage.with(UserEconomyRepository.class);
@@ -84,7 +84,7 @@ public class CMIConvert extends ZUtils implements Convert {
             }
         });
 
-        message(sender, "&aYou have just converted your CMI data to zEssentials !");
+        message(sender, "<c:#55FF55>You have just converted your CMI data to zEssentials !");
     }
 
     private void storeHomes(UserHomeRepository userHomeRepository, CMIUser cmiUser) {

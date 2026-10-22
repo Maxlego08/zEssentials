@@ -28,10 +28,10 @@ public class HuskHomesConvert extends ZUtils implements Convert {
 
     public void convert(CommandSender sender) {
 
-        message(sender, "&fStart convert &7HuskHomes");
+        message(sender, "<c:#FFFFFF>Start convert <c:#AAAAAA>HuskHomes");
         /*File file = new File(this.plugin.getDataFolder(), "HuskHomesData.db");
         if (!file.exists()) {
-            message(sender, "&cUnable to find &bHuskHomesData.db &cfile in &fplugins/zEssentials&c.");
+            message(sender, "<c:#FF5555>Unable to find <c:#55FFFF>HuskHomesData.db <c:#FF5555>file in <c:#FFFFFF>plugins/zEssentials<c:#FF5555>.");
             return;
         }*/
 
@@ -40,7 +40,7 @@ public class HuskHomesConvert extends ZUtils implements Convert {
             this.plugin.getScheduler().runAsync(wrappedTask -> startConvertDatabase(sender, sqlStorage));
         } else {
 
-            message(sender, "&cYou must have the storage in a database to be able to convert. Never use the storage in JSON !");
+            message(sender, "<c:#FF5555>You must have the storage in a database to be able to convert. Never use the storage in JSON !");
         }
     }
 
@@ -54,7 +54,7 @@ public class HuskHomesConvert extends ZUtils implements Convert {
             databaseConnection = sqliteConnection;
 
             if (!databaseConnection.isValid()) {
-                message(sender, "&cUnable to connect to database.");
+                message(sender, "<c:#FF5555>Unable to connect to database.");
                 return;
             }
         }
@@ -68,7 +68,7 @@ public class HuskHomesConvert extends ZUtils implements Convert {
         var userHomeRepository = sqlStorage.with(UserHomeRepository.class);
         var userRepository = sqlStorage.with(UserRepository.class);
 
-        message(sender, "&aFound &f" + homes.size() + " &ahomes and §f" + users.size() + " §ausers.");
+        message(sender, "<c:#55FF55>Found <c:#FFFFFF>" + homes.size() + " <c:#55FF55>homes and <c:#FFFFFF>" + users.size() + " <c:#55FF55>users.");
 
         users.forEach(user -> userRepository.upsert(user.uuid(), user.username()));
 
@@ -94,6 +94,6 @@ public class HuskHomesConvert extends ZUtils implements Convert {
             userHomeRepository.upsert(home.owner_uuid(), new ZHome(location, savedPosition.name(), null));
         });
 
-        message(sender, "&aYou have just converted your HuskHomes data to zEssentials !");
+        message(sender, "<c:#55FF55>You have just converted your HuskHomes data to zEssentials !");
     }
 }

@@ -7,7 +7,6 @@ import fr.maxlego08.essentials.api.hologram.HologramManager;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.api.utils.SafeLocation;
 import fr.maxlego08.essentials.commands.commands.hologram.VCommandHologram;
-import org.bukkit.Location;
 
 import java.util.Arrays;
 

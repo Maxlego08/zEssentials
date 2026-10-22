@@ -30,40 +30,40 @@ death-message-type: CUSTOM
 # - And all vanilla damage causes: FALL, DROWNING, FIRE, LAVA, VOID, etc.
 custom-messages:
   GENERIC:
-    - "#99E0FF%player% &7died."
+    - "<c:#99E0FF>%player% <c:#AAAAAA>died."
   PLAYER:
-    - "#99E0FF%player% &7was slain by #34cfe0%killer%&7."
-    - "#34cfe0%killer% &7killed #99E0FF%player%&7."
+    - "<c:#99E0FF>%player% <c:#AAAAAA>was slain by <c:#34CFE0>%killer%<c:#AAAAAA>."
+    - "<c:#34CFE0>%killer% <c:#AAAAAA>killed <c:#99E0FF>%player%<c:#AAAAAA>."
   MOB:
-    - "#99E0FF%player% &7was killed by &c%mob%&7."
+    - "<c:#99E0FF>%player% <c:#AAAAAA>was killed by <c:#FF5555>%mob%<c:#AAAAAA>."
   MYTHIC_MOB:
-    - "#99E0FF%player% &7was slain by <gradient:#ff6600:#ff0000>%mob%</gradient>&7!"
+    - "<c:#99E0FF>%player% <c:#AAAAAA>was slain by <gradient:#ff6600:#ff0000>%mob%</gradient><c:#AAAAAA>!"
   FALL:
-    - "#99E0FF%player% &7fell from a high place."
-    - "#99E0FF%player% &7hit the ground too hard."
+    - "<c:#99E0FF>%player% <c:#AAAAAA>fell from a high place."
+    - "<c:#99E0FF>%player% <c:#AAAAAA>hit the ground too hard."
   DROWNING:
-    - "#99E0FF%player% &7drowned."
+    - "<c:#99E0FF>%player% <c:#AAAAAA>drowned."
   FIRE:
-    - "#99E0FF%player% &7burned to death."
+    - "<c:#99E0FF>%player% <c:#AAAAAA>burned to death."
   LAVA:
-    - "#99E0FF%player% &7tried to swim in lava."
+    - "<c:#99E0FF>%player% <c:#AAAAAA>tried to swim in lava."
   VOID:
-    - "#99E0FF%player% &7fell out of the world."
+    - "<c:#99E0FF>%player% <c:#AAAAAA>fell out of the world."
   LIGHTNING:
-    - "#99E0FF%player% &7was struck by lightning."
+    - "<c:#99E0FF>%player% <c:#AAAAAA>was struck by lightning."
   STARVATION:
-    - "#99E0FF%player% &7starved to death."
+    - "<c:#99E0FF>%player% <c:#AAAAAA>starved to death."
   SUFFOCATION:
-    - "#99E0FF%player% &7suffocated in a wall."
+    - "<c:#99E0FF>%player% <c:#AAAAAA>suffocated in a wall."
   EXPLOSION:
-    - "#99E0FF%player% &7blew up."
+    - "<c:#99E0FF>%player% <c:#AAAAAA>blew up."
   POISON:
-    - "#99E0FF%player% &7died of poisoning."
+    - "<c:#99E0FF>%player% <c:#AAAAAA>died of poisoning."
   WITHER:
-    - "#99E0FF%player% &7withered away."
+    - "<c:#99E0FF>%player% <c:#AAAAAA>withered away."
   CRAMMING:
-    - "#99E0FF%player% &7was squished too much."
+    - "<c:#99E0FF>%player% <c:#AAAAAA>was squished too much."
   FLY_INTO_WALL:
-    - "#99E0FF%player% &7experienced kinetic energy."
+    - "<c:#99E0FF>%player% <c:#AAAAAA>experienced kinetic energy."
   FREEZE:
-    - "#99E0FF%player% &7froze to death."
+    - "<c:#99E0FF>%player% <c:#AAAAAA>froze to death."

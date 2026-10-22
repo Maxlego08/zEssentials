@@ -1,4 +1,4 @@
-name: '#3f3f3fᴄᴏɴғɪʀᴍ ᴅᴇʟᴇᴛᴇ'
+name: "<c:#3F3F3F>ᴄᴏɴғɪʀᴍ ᴅᴇʟᴇᴛᴇ"
 size: 27
 items:
 
@@ -6,7 +6,7 @@ items:
     slot: 13
     item:
       material: BLUE_DYE
-      name: '#00a4fcʜᴏᴍᴇ %zessentials_home_delete%'
+      name: "<c:#00A4FC>ʜᴏᴍᴇ %zessentials_home_delete%"
 
   cancel:
     type: inventory
@@ -15,9 +15,9 @@ items:
     slot: 11
     item:
       material: RED_STAINED_GLASS_PANE
-      name: '#ff0000ᴄᴀɴᴄᴇʟ'
+      name: "<c:#FF0000>ᴄᴀɴᴄᴇʟ"
       lore:
-        - '#fcfcfcClick to cancel'
+        - '<c:#FCFCFC>Click to cancel'
 
   confirm:
     slot: 15
@@ -26,6 +26,6 @@ items:
     closeInventory: true
     item:
       material: GREEN_STAINED_GLASS_PANE
-      name: '#00fc00ᴄᴏɴғɪʀᴍ'
+      name: "<c:#00FC00>ᴄᴏɴғɪʀᴍ"
       lore:
-        - '#fcfcfcClick to delete'
+        - '<c:#FCFCFC>Click to delete'

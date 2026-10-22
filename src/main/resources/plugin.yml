@@ -6,7 +6,7 @@ description: Provides an essential, core set of commands. Requires Paper; inacti
 website: https://groupez.dev/resources/zessentials.325/
 authors: [ Maxlego08 ]
 contributors: [ Louis_Dew, Traqueur, JavaToastDev, Melon-Oof, alwyn974, Mapacheee, NeiiZun, groundbreakingmc, Noltox ]
-api-version: '1.20'
+api-version: '1.21.4'
 
 permissions:
   zessentials.paper.warning:
