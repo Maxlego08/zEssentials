@@ -4,6 +4,7 @@ import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.cache.SimpleCache;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.messages.MessageHelper;
 import fr.maxlego08.essentials.api.messages.messages.BossBarMessage;
 import fr.maxlego08.essentials.api.messages.messages.TitleMessage;
 import fr.maxlego08.essentials.api.utils.TagPermission;
@@ -94,18 +95,18 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
 
     @Override
     public Inventory createInventory(String inventoryName, int size, InventoryHolder inventoryHolder) {
-        Component component = this.cache.get(inventoryName, () -> this.MINI_MESSAGE.deserialize(inventoryName));
+        Component component = this.cache.get(inventoryName, () -> this.MINI_MESSAGE.deserialize(MessageHelper.colorMiniMessage(inventoryName)));
         return Bukkit.createInventory(inventoryHolder, size, component);
     }
 
     @Override
     public Component getComponent(String message) {
-        return this.cache.get(message, () -> this.MINI_MESSAGE.deserialize(message));
+        return this.cache.get(message, () -> this.MINI_MESSAGE.deserialize(MessageHelper.colorMiniMessage(message)));
     }
 
     @Override
     public Component getComponent(String message, TagResolver tagResolver) {
-        return this.MINI_MESSAGE.deserialize(message, tagResolver);
+        return this.MINI_MESSAGE.deserialize(MessageHelper.colorMiniMessage(message), tagResolver);
     }
 
     @Override
@@ -131,21 +132,21 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
 
     public Component translateText(Player player, String message, TagResolver... tagResolvers) {
         var tagResolver = getTagResolver(player, tagResolvers);
-        return MiniMessage.builder().tags(tagResolver).build().deserialize(message);
+        return MiniMessage.builder().tags(tagResolver).build().deserialize(MessageHelper.colorMiniMessage(message));
     }
 
     @Override
     public void sendActionBar(Player sender, String message) {
-        Component component = this.cache.get(message, () -> this.MINI_MESSAGE.deserialize(message));
+        Component component = this.cache.get(message, () -> this.MINI_MESSAGE.deserialize(MessageHelper.colorMiniMessage(message)));
         sender.sendActionBar(component);
     }
 
     @Override
     public void sendMessage(CommandSender sender, String message) {
         if (sender instanceof Player player) {
-            sender.sendMessage(this.MINI_MESSAGE.deserialize(papi(message, player)));
+            sender.sendMessage(this.MINI_MESSAGE.deserialize(MessageHelper.colorMiniMessage(papi(message, player))));
         } else {
-            Component component = this.cache.get(message, () -> this.MINI_MESSAGE.deserialize(message));
+            Component component = this.cache.get(message, () -> this.MINI_MESSAGE.deserialize(MessageHelper.colorMiniMessage(message)));
             sender.sendMessage(component);
         }
     }
@@ -223,7 +224,7 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
             if (line == null) continue;
 
             var plainText = plainTextSerializer.serialize(line);
-            event.line(i, miniMessage.deserialize(plainText));
+            event.line(i, miniMessage.deserialize(MessageHelper.colorMiniMessage(plainText)));
         }
     }
 }

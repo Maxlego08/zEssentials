@@ -8,6 +8,7 @@ import fr.maxlego08.essentials.zutils.utils.BaseServer;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.tag.Tag;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerLoginEvent;
 
@@ -33,6 +34,8 @@ public class PaperUtils extends BaseServer {
     public void sendPrivateMessage(User user, PrivateMessage privateMessage, Message message, String content) {
         PaperComponent paperComponent = (PaperComponent) this.componentMessage;
         var messageAsString = papi(getMessage(message.getMessageAsString(), "%target%", privateMessage.username()), user.getPlayer());
-        user.getPlayer().sendMessage(paperComponent.getComponent(messageAsString, TagResolver.resolver("message", Tag.inserting(Component.text(content)))));
+        Player sender = message == Message.COMMAND_MESSAGE_OTHER ? Bukkit.getPlayer(privateMessage.uuid()) : user.getPlayer();
+        Component component = sender == null ? Component.text(content) : paperComponent.translateText(sender, content);
+        user.getPlayer().sendMessage(paperComponent.getComponent(messageAsString, TagResolver.resolver("message", Tag.inserting(component))));
     }
 }
