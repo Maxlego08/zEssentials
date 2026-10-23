@@ -21,6 +21,7 @@ jobs:
     uses: GroupeZ-dev/actions/.github/workflows/build.yml@main
     with:
       project-name: "zEssentials"
+      artifact-glob: "target/*.jar"
       publish: true
       project-to-publish: "API:publish"
       discord-avatar-url: "https://groupez.dev/storage/images/325.png"
