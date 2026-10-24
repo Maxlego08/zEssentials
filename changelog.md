@@ -1,31 +1,34 @@
 # Idées :
 
-- Ajouter un broadcast de message centré avec le support des `\n` pour ajouter plusieurs lignes
-- Ajouter une option pour désactiver la tabulation des joueurs hors ligne
-- Ajouter un placeholder pour transformer les caractères en lettre spécial
-- Ajouter une commande type `/oplist` pour afficher la liste des opérateurs du serveur (**ISSUE:** https://github.com/Maxlego08/zEssentials/issues/4)
-- Améliorer la commande `/nightvision` pour qu'elle soit persistente lors d'un kill et de déconnexion/reconnexion du joueur (**ISSUE:** https://github.com/Maxlego08/zEssentials/issues/4)
-- Ajouter la possibilité d'utiliser la commande `/invsee` sur les joueurs hors ligne
-- Ajouter la commande `/nick` pour changer le pseudo d'un joueur (**ISSUE:** https://github.com/Maxlego08/zEssentials/issues/161)
-  - Rajouter une permission pour limiter l'utilisation des couleurs
-  - Rajouter une permission pour que le pseudo à l'output du /nick (raw) soit le même (sans prendre en compte les couleurs) que le pseudo initial
-- Grosse refonte des hologrammes :
-  - Rajouter les hologrammes à double face (**ISSUE:** https://github.com/Maxlego08/zEssentials/issues/27)
-  - Rajouter les hologrammes "cliquables" avec une hitbox pour créer des interactions
-  - Rajouter les hologrammes avec de la pagination (**ISSUE:** https://github.com/Maxlego08/zEssentials/issues/40)
-  - Ajouter une API complète pour que les développeurs puissent se hook à zEssentials pour créer leurs hologrammes
-- Rajouter la commande `/signedit` pour éditer une pancarte juste en la regardant
-- Utiliser les dialogs là où c'est possible dans les versions récentes (entrer du texte...)
-- Faire en sorte que si le NMS d'une version n'est pas encore ajouté, ça fallback vers la version précédente disponible
-- Ajouter un module de TAB (**ISSUE:** https://github.com/Maxlego08/zEssentials/issues/147)
-- Ajouter un module pour pour désactiver l'apparition des phantoms pour un joueur (**ISSUE:** https://github.com/Maxlego08/zEssentials/issues/147)
-- Ajouter deux nouvelles permissions distinctes pour désactiver la perte d'inventaire et la perte d'expérience à la mort du joueur
-- Ajouter un module de fly temporaire avec une commande pour give/take du temps
-- Dans le module du chat, rajouter deux nouveaux placeholders pour montrer le contenu de son inventaire et le contenu de son coffre de l'ender (**ISSUE:** https://github.com/Maxlego08/zEssentials/issues/127)
-- Dans les informations au démarrage, indiquer la liste des modules qui sont activés/désactivés
-- Ajouter la commande `/zessentials modules` pour connaître la liste des modules qui sont activés/désactivés
-- Ajouter pleinement le support de "VaultUnlocked: https://github.com/TheNewEconomy/VaultUnlocked"
-- Lorsqu'un module est désactivé, faire en sorte qu'il soit complètement désactiver sur le serveur (commandes, status, checks...)
+- Ajouter un broadcast centré, avec la prise en charge de `\n` pour afficher plusieurs lignes.
+- Ajouter une option pour exclure les joueurs hors ligne de la tabulation.
+- Ajouter un placeholder pour convertir le texte en lettres stylisées (smallcaps).
+- Ajouter une commande `/oplist` pour consulter la liste des opérateurs du serveur ([issue #4](https://github.com/Maxlego08/zEssentials/issues/4)).
+- Conserver l'effet de vision nocturne après la mort et la reconnexion du joueur ([issue #4](https://github.com/Maxlego08/zEssentials/issues/4)).
+- Permettre à la commande `/invsee` et `/endersee` d'afficher l'inventaire des joueurs hors ligne.
+- Ajouter une commande `/nick` pour modifier le pseudo d'un joueur ([issue #161](https://github.com/Maxlego08/zEssentials/issues/161)).
+  - Ajouter une permission pour limiter l'utilisation des couleurs dans les pseudos.
+  - Ajouter une permission pour afficher le pseudo d'origine sans tenir compte des couleurs.
+- Revoir le système d'hologrammes :
+  - Ajouter l'affichage double face ([issue #27](https://github.com/Maxlego08/zEssentials/issues/27)).
+  - Ajouter des zones cliquables permettant de déclencher des interactions.
+  - Ajouter la pagination ([issue #40](https://github.com/Maxlego08/zEssentials/issues/40)).
+  - Fournir une API permettant aux développeurs de créer leurs propres hologrammes.
+- Ajouter une commande `/signedit` pour modifier la pancarte visée.
+- Utiliser les dialogs de zMenu lorsque c'est possible, notamment pour les champs de saisie et les curseurs.
+- Prévoir un fallback vers le NMS de la version précédente lorsqu'aucun module n'existe pour la version du serveur.
+- Ajouter un module de TAB configurable ([issue #147](https://github.com/Maxlego08/zEssentials/issues/147)).
+- Ajouter une option permettant à chaque joueur de désactiver l'apparition des phantoms ([issue #147](https://github.com/Maxlego08/zEssentials/issues/147)).
+- Ajouter des permissions distinctes pour conserver l'inventaire et l'expérience à la mort.
+- Vérifier le fonctionnement du module de fly temporaire.
+- Ajouter au chat des placeholders affichant l'inventaire et le coffre de l'Ender du joueur ([issue #127](https://github.com/Maxlego08/zEssentials/issues/127)).
+- Ajouter `/zessentials modules` pour afficher les modules activés et désactivés.
+- Afficher l'état des modules au démarrage du plugin.
+- Désactiver complètement les modules désactivés, y compris leurs commandes et leurs vérifications.
+- Compléter la prise en charge de [VaultUnlocked](https://github.com/TheNewEconomy/VaultUnlocked) en utilisant ses méthodes optimisées.
+- Vérifier le fonctionnement de zEssentials sur Folia.
+- Ajouter une commande pour créer des bossbars personnalisées et configurer leur couleur, leur style, leur texte et leur durée.
+- Ajouter un système de récompenses fondé sur le temps de jeu, avec des gains périodiques ou uniques.
 
 # Unreleased
 
@@ -35,7 +38,7 @@
 - Unified item lookup and suggestions for give, mailbox and vault commands; feedback uses translated item names and preserves custom names
 - Fixed custom item delivery to offline mail recipients and stale custom items after reloads
 - Use the published zMenu **1.1.2.0** API for skulls and kit conversion/saving; the local JAR remains required for item persistence and sound helpers
-- Migrated messages and configuration examples to native MiniMessage hex colors, including scoreboard animations; existing files must replace legacy `&`, `§` and bare hex color codes
+- Migrated bundled messages and configuration examples to MiniMessage; legacy `&`, `§` and hex color codes remain supported in existing configurations and player messages
 - Fixed MiniMessage text serialization, italic formatting and bold text alignment, and preserved click events with Adventure `5.x`
 - Fixed feedback placeholders, duplicate Death Message registration, version comparisons and incomplete downloads; existing `command-enchant-error-enchant` messages must use `%enchant%`
 - Updated Gradle to `9.8.2`, Shadow to `9.6.1` and paperweight to `2.0.0-beta.24`; centralized dependency versions and retained Java 21 for common code and Java 25 for 26.x NMS
