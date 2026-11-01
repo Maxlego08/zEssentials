@@ -98,10 +98,18 @@ public class TeleportationModule extends ZModule {
         return soundOption == null ? new CustomSoundOption(soundName, pitch, volume) : soundOption;
     }
 
+    /**
+     * @return the configured teleportation countdown sound, including custom resource-pack sounds,
+     * or null when this sound is disabled or unconfigured
+     */
     public SoundOption getCountdownSound() {
         return countdownSound;
     }
 
+    /**
+     * @return the configured teleportation completion sound, including custom resource-pack sounds,
+     * or null when this sound is disabled or unconfigured
+     */
     public SoundOption getCompleteSound() {
         return completeSound;
     }

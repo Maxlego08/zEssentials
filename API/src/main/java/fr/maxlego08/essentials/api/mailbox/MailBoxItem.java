@@ -32,9 +32,15 @@ public class MailBoxItem {
     }
 
     /**
-     * Constructs a new MailBoxItem from a MailBoxDTO.
+     * Restores a mailbox item from its stored data using zMenu's item serializer.
+     * <p>
+     * Requires zMenu 1.1.2.1 or later to be enabled and its {@link InventoryManager}
+     * service to be registered. The stored item format remains compatible with
+     * mailbox entries saved before the API migration.
      *
      * @param mailBoxDTO the data transfer object containing mailbox item data
+     * @throws NullPointerException if the DTO is null or the inventory manager service is unavailable
+     * @see InventoryManager#deserializeItemStack(String)
      */
     public MailBoxItem(MailBoxDTO mailBoxDTO) {
         this.id = mailBoxDTO.id();
@@ -74,7 +80,7 @@ public class MailBoxItem {
     /**
      * Gets the item stack stored in the mailbox.
      *
-     * @return the item stack
+     * @return the stored item, or null if no item was stored or deserialization failed
      */
     public ItemStack getItemStack() {
         return itemStack;
