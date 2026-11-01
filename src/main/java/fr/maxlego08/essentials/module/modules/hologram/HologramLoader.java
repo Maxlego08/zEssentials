@@ -13,7 +13,6 @@ import fr.maxlego08.essentials.api.utils.SafeLocation;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import fr.maxlego08.menu.api.exceptions.InventoryException;
 import fr.maxlego08.menu.api.utils.Loader;
-import fr.maxlego08.menu.common.utils.nms.ItemStackUtils;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Material;
@@ -90,7 +89,7 @@ public class HologramLoader extends ZUtils implements Loader<Hologram> {
     }
 
     private void loadItemConfiguration(YamlConfiguration configuration, ItemHologramConfiguration itemHologramConfiguration) {
-        itemHologramConfiguration.setItemStack(ItemStackUtils.deserializeItemStack(configuration.getString("itemstack", "null")));
+        itemHologramConfiguration.setItemStack(this.plugin.getInventoryManager().deserializeItemStack(configuration.getString("itemstack", "null")));
     }
 
     private void loadBlockConfiguration(YamlConfiguration configuration, BlockHologramConfiguration blockHologramConfiguration) {
@@ -164,7 +163,7 @@ public class HologramLoader extends ZUtils implements Loader<Hologram> {
             configuration.set("block-material", blockHologramConfiguration.getMaterial().name());
         } else if (hologramConfiguration instanceof ItemHologramConfiguration itemHologramConfiguration) {
 
-            configuration.set("itemstack", ItemStackUtils.serializeItemStack(itemHologramConfiguration.getItemStack()));
+            configuration.set("itemstack", this.plugin.getInventoryManager().serializeItemStack(itemHologramConfiguration.getItemStack()));
         }
     }
 

@@ -28,7 +28,6 @@ import fr.maxlego08.essentials.storage.database.repositeries.*;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.utils.StorageHelper;
 import fr.maxlego08.essentials.zutils.utils.TypeSafeCache;
-import fr.maxlego08.menu.common.utils.nms.ItemStackUtils;
 import fr.maxlego08.sarah.*;
 import fr.maxlego08.sarah.database.DatabaseType;
 import fr.maxlego08.sarah.logger.JULogger;
@@ -821,7 +820,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     @Override
     public void updateVault(UUID uniqueId, Vault vault) {
-        async(uniqueId, () -> with(VaultRepository.class).update(uniqueId, vault.getVaultId(), vault.getName(), vault.getIconItemStack() == null ? null : ItemStackUtils.serializeItemStack(vault.getIconItemStack())));
+        async(uniqueId, () -> with(VaultRepository.class).update(uniqueId, vault.getVaultId(), vault.getName(), vault.getIconItemStack() == null ? null : this.plugin.getInventoryManager().serializeItemStack(vault.getIconItemStack())));
     }
 
     @Override

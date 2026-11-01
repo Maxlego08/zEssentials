@@ -8,9 +8,8 @@ import fr.maxlego08.essentials.api.teleportation.TeleportPermission;
 import fr.maxlego08.essentials.api.teleportation.WorldOverride;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.ZModule;
+import fr.maxlego08.essentials.zutils.utils.CustomSoundOption;
 import fr.maxlego08.menu.api.sound.SoundOption;
-import fr.maxlego08.menu.hooks.xseries.XSound;
-import fr.maxlego08.menu.sound.ZSoundOption;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -24,7 +23,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Queue;
 import java.util.Random;
 import java.util.UUID;
@@ -96,15 +94,22 @@ public class TeleportationModule extends ZModule {
 
         float volume = (float) section.getDouble("volume", 1.0);
         float pitch = (float) section.getDouble("pitch", 1.0);
-        Optional<XSound> xSound = XSound.of(soundName);
-
-        return new ZSoundOption(xSound.orElse(null), "MASTER", soundName, pitch, volume, xSound.isEmpty());
+        SoundOption soundOption = this.plugin.getInventoryManager().createSoundOption(soundName, "MASTER", pitch, volume);
+        return soundOption == null ? new CustomSoundOption(soundName, pitch, volume) : soundOption;
     }
 
+    /**
+     * @return the configured teleportation countdown sound, including custom resource-pack sounds,
+     * or null when this sound is disabled or unconfigured
+     */
     public SoundOption getCountdownSound() {
         return countdownSound;
     }
 
+    /**
+     * @return the configured teleportation completion sound, including custom resource-pack sounds,
+     * or null when this sound is disabled or unconfigured
+     */
     public SoundOption getCompleteSound() {
         return completeSound;
     }
