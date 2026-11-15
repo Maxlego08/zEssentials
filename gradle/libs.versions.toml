@@ -6,8 +6,6 @@ paperweight = "2.0.0-beta.24"
 
 # Platforms (Paper / NMS)
 paper-api = "1.21.4-R0.1-SNAPSHOT"
-adventure-api = "4.26.1"
-adventure-api-latest = "5.2.0"
 adventure-text-serializer-ansi = "4.26.1"
 paperDevBundle1214 = "1.21.4-R0.1-SNAPSHOT"
 paperDevBundle1215 = "1.21.5-R0.1-SNAPSHOT"
@@ -46,8 +44,6 @@ worldedit = "7.3.12"
 [libraries]
 # Platforms (Paper / NMS)
 paper-api = { group = "io.papermc.paper", name = "paper-api", version.ref = "paper-api" }
-adventure-api = { group = "net.kyori", name = "adventure-api", version.ref = "adventure-api" }
-adventure-api-latest = { group = "net.kyori", name = "adventure-api", version.ref = "adventure-api-latest" }
 paperDevBundle1214 = { group = "io.papermc.paper", name = "dev-bundle", version.ref = "paperDevBundle1214" }
 paperDevBundle1215 = { group = "io.papermc.paper", name = "dev-bundle", version.ref = "paperDevBundle1215" }
 paperDevBundle1216 = { group = "io.papermc.paper", name = "dev-bundle", version.ref = "paperDevBundle1216" }
