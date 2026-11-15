@@ -7,10 +7,9 @@ on:
     types: [ opened, synchronize, reopened ]
   workflow_dispatch:
 
-
-permissions:
-  contents: read
-  packages: write
+# permissions:
+#   contents: read
+#   packages: write
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -25,7 +24,7 @@ jobs:
       java-version: '25'
       publish: true
       project-to-publish: "API:publish"
-      discord-avatar-url: "https://groupez.dev/storage/images/325.png"
+      discord-avatar-url: "https://groupez.dev/storage/images/resources/icons/325.webp"
       artifact-glob: "target/*.jar"
       changelog-exclude-pattern: '^[a-f0-9]+\s+(build|chore)\(deps\)'
     secrets:
