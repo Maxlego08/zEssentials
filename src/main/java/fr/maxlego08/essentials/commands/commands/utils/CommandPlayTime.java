@@ -19,7 +19,7 @@ public class CommandPlayTime extends VCommand {
     protected CommandResultType perform(EssentialsPlugin plugin) {
         message(sender, Message.COMMAND_PLAY_TIME,
                 "%playtime%", TimerBuilder.getStringTime(this.user.getPlayTime() * 1000),
-                "%playtime_session%", TimerBuilder.getStringTime(System.currentTimeMillis() - this.user.getCurrentSessionPlayTime())
+                "%playtime_session%", TimerBuilder.getStringTime(this.user.getSessionPlayTime())
         );
         return CommandResultType.SUCCESS;
     }

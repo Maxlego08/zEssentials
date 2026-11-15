@@ -760,23 +760,33 @@ public interface User {
     /**
      * Retrieves the total playtime of the user.
      *
-     * @return the total playtime in milliseconds
+     * @return the total playtime in seconds, including the active session
      */
     long getPlayTime();
 
     /**
-     * Sets the total playtime of the user.
+     * Sets the stored playtime accumulated before the current session.
      *
-     * @param playtime the playtime to set in milliseconds
+     * @param playtime the stored playtime in seconds
      */
     void setPlayTime(long playtime);
 
     /**
-     * Retrieves the playtime of the current session.
+     * Retrieves the start timestamp of the current session.
      *
-     * @return the playtime of the current session in milliseconds
+     * @return the session start timestamp in milliseconds since the Unix epoch
      */
     long getCurrentSessionPlayTime();
+
+    /**
+     * Retrieves the duration of the current session, excluding AFK periods when configured.
+     *
+     * @return the session playtime in milliseconds, or zero if no session has started
+     */
+    default long getSessionPlayTime() {
+        long start = getCurrentSessionPlayTime();
+        return start == 0 ? 0 : Math.max(0, System.currentTimeMillis() - start);
+    }
 
     /**
      * Starts tracking the playtime of the current session.

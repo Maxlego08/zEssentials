@@ -13,6 +13,9 @@
 
 enable: true
 
+# Stop counting playtime while the player is AFK.
+stop-play-time: false
+
 check-interval: 20 # in ticks
 
 # Allows kicking the player with the spigot method, this avoids using a kick command and that your sanction plugin log the kick

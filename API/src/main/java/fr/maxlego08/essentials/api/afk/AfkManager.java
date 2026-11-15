@@ -8,6 +8,15 @@ import java.util.Optional;
 public interface AfkManager {
 
     /**
+     * Returns whether AFK periods should be excluded from playtime.
+     *
+     * @return true when the AFK module and playtime pausing are enabled
+     */
+    default boolean isStopPlayTime() {
+        return false;
+    }
+
+    /**
      * Checks the AFK status of the specified user and updates it if necessary.
      *
      * @param user The user whose AFK status is to be checked.

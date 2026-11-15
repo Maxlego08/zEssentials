@@ -9,6 +9,7 @@ import fr.maxlego08.essentials.api.user.Option;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.DynamicCooldown;
 import fr.maxlego08.essentials.storage.ConfigStorage;
+import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
 import org.bukkit.Material;
@@ -241,7 +242,8 @@ public class PlayerListener extends ZUtils implements Listener {
     public void onQuit(PlayerQuitEvent event) {
         User user = this.plugin.getUser(event.getPlayer().getUniqueId());
         if (user == null) return;
-        long sessionPlayTime = (System.currentTimeMillis() - user.getCurrentSessionPlayTime()) / 1000;
+        if (user instanceof ZUser zUser) zUser.stopCurrentSessionPlayTime();
+        long sessionPlayTime = user.getSessionPlayTime() / 1000;
         long playtime = user.getPlayTime();
         this.plugin.getStorageManager().getStorage().insertPlayTime(user.getUniqueId(), sessionPlayTime, playtime, user.getAddress());
     }
