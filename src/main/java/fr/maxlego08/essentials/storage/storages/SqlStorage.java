@@ -41,9 +41,13 @@ import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 public class SqlStorage extends StorageHelper implements IStorage {
@@ -53,6 +57,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
     private final Repositories repositories;
     private final Map<String, PendingEconomyUpdate> economyUpdateQueue = new HashMap<>();
     private final Set<UUID> existingUUIDs = new HashSet<>();
+    private final Map<UUID, FutureTask<Void>> playTimeSaves = new ConcurrentHashMap<>();
 
     public SqlStorage(EssentialsPlugin plugin, StorageType storageType) {
         super(plugin);
@@ -227,26 +232,42 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     @Override
     public void onDisable() {
-
-        this.connection.disconnect();
+        try {
+            for (User user : this.users.values()) {
+                if (user.getCurrentSessionPlayTime() == 0) continue;
+                if (user instanceof ZUser zUser) zUser.stopCurrentSessionPlayTime();
+                queuePlayTime(user.getUniqueId(), user.getSessionPlayTime() / 1000, user.getPlayTime(), user.getAddress());
+            }
+            // Run queued snapshots here too, since the platform may cancel pending async tasks.
+            for (UUID uniqueId : List.copyOf(this.playTimeSaves.keySet())) {
+                try {
+                    finishPlayTimeSave(uniqueId);
+                } catch (IllegalStateException exception) {
+                    this.plugin.getLogger().log(Level.SEVERE, "Unable to flush playtime for " + uniqueId, exception);
+                }
+            }
+        } finally {
+            this.connection.disconnect();
+        }
     }
 
     @Override
     public User createOrLoad(UUID uniqueId, String playerName) {
 
+        finishPlayTimeSave(uniqueId);
+        var optional = with(UserRepository.class).loadUser(uniqueId, playerName);
         User user = new ZUser(this.plugin, uniqueId);
         user.setName(playerName);
+        optional.ifPresent(user::setWithDTO);
         this.users.put(uniqueId, user);
 
         this.plugin.getScheduler().runAsync(wrappedTask -> {
 
-            var optional = with(UserRepository.class).selectUser(uniqueId).stream().findFirst();
+            if (this.users.get(uniqueId) != user) return;
             // First join!
             if (optional.isEmpty()) {
                 this.firstJoin(user);
             }
-
-            with(UserRepository.class).upsert(uniqueId, playerName); // Create the player or update his name
 
             // Remove stale name-to-UUID cache entries for this UUID under a different name
             this.localUUIDS.entrySet().removeIf(entry -> entry.getValue().equals(uniqueId) && !entry.getKey().equals(playerName));
@@ -283,7 +304,6 @@ public class SqlStorage extends StorageHelper implements IStorage {
                 // ToDo, gérer les requêtes des joueurs en fonction de si le module est activé ou non, pour éviter de faire des requêtes dans le vide
 
                 user.setSanction(userDTO.ban_sanction_id(), userDTO.mute_sanction_id());
-                user.setWithDTO(userDTO);
                 user.setOptions(with(UserOptionRepository.class).select(uniqueId));
                 user.setCooldowns(with(UserCooldownsRepository.class).select(uniqueId));
                 user.setEconomies(with(UserEconomyRepository.class).select(uniqueId));
@@ -638,12 +658,40 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     @Override
     public void insertPlayTime(UUID uniqueId, long sessionPlayTime, long playtime, String address) {
-        async(uniqueId, () -> {
+        queuePlayTime(uniqueId, sessionPlayTime, playtime, address);
+        async(() -> finishPlayTimeSave(uniqueId));
+    }
+
+    private void queuePlayTime(UUID uniqueId, long sessionPlayTime, long playtime, String address) {
+        this.playTimeSaves.compute(uniqueId, (uuid, previous) -> new FutureTask<>(() -> {
+            // FutureTask.run() executes each snapshot at most once, including during shutdown.
+            if (previous != null) {
+                previous.run();
+                previous.get();
+            }
+            ensureUserExists(uniqueId);
             if (sessionPlayTime > 0) {
                 with(UserPlayTimeRepository.class).insert(uniqueId, sessionPlayTime, address);
             }
             with(UserRepository.class).updatePlayTime(uniqueId, playtime);
-        });
+            return null;
+        }));
+    }
+
+    private void finishPlayTimeSave(UUID uniqueId) {
+        var task = this.playTimeSaves.get(uniqueId);
+        if (task == null) return;
+
+        task.run();
+        try {
+            task.get();
+            this.playTimeSaves.remove(uniqueId, task);
+        } catch (InterruptedException exception) {
+            Thread.currentThread().interrupt();
+            throw new IllegalStateException("Interrupted while saving playtime for " + uniqueId, exception);
+        } catch (ExecutionException exception) {
+            throw new IllegalStateException("Unable to save playtime for " + uniqueId, exception.getCause());
+        }
     }
 
     @Override
