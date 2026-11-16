@@ -4,6 +4,7 @@ import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.ConfigurationFile;
 import fr.maxlego08.essentials.api.messages.EssentialsMessage;
 import fr.maxlego08.essentials.api.messages.Message;
+import fr.maxlego08.essentials.api.messages.MessageHelper;
 import fr.maxlego08.essentials.api.messages.MessageType;
 import fr.maxlego08.essentials.api.messages.messages.BossBarMessage;
 import fr.maxlego08.essentials.api.messages.messages.ClassicMessage;
@@ -229,7 +230,7 @@ public class MessageLoader implements ConfigurationFile {
     }
 
     private String replaceMessagesColors(String message) {
-        return this.plugin.getConfiguration().getMessageColors().stream().reduce(message, (msg, color) -> msg.replace(color.key(), "<c:" + color.color() + ">"), (msg1, msg2) -> msg1);
+        return this.plugin.getConfiguration().getMessageColors().stream().reduce(message, (msg, color) -> msg.replace(color.key(), MessageHelper.colorMiniMessage(color.color())), (msg1, msg2) -> msg1);
     }
 
     private List<String> getMessage(Map<?, ?> map) {
