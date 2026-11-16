@@ -8,6 +8,7 @@ import fr.maxlego08.essentials.api.sanction.Sanction;
 import fr.maxlego08.essentials.api.storage.IStorage;
 import fr.maxlego08.essentials.api.storage.StorageManager;
 import fr.maxlego08.essentials.api.storage.StorageType;
+import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.modules.SpawnModule;
 import fr.maxlego08.essentials.storage.storages.JsonStorage;
 import fr.maxlego08.essentials.storage.storages.SqlStorage;
@@ -22,6 +23,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.time.Duration;
 import java.util.UUID;
+import java.util.logging.Level;
 
 public class ZStorageManager extends ZUtils implements StorageManager {
 
@@ -42,7 +44,10 @@ public class ZStorageManager extends ZUtils implements StorageManager {
     public void onEnable() {
         this.iStorage.onEnable();
 
-        Bukkit.getOnlinePlayers().forEach(player -> this.iStorage.createOrLoad(player.getUniqueId(), player.getName()));
+        Bukkit.getOnlinePlayers().forEach(player -> {
+            var user = this.iStorage.createOrLoad(player.getUniqueId(), player.getName());
+            user.startCurrentSessionPlayTime();
+        });
     }
 
     @Override
@@ -86,7 +91,14 @@ public class ZStorageManager extends ZUtils implements StorageManager {
             return;
         }
 
-        var user = this.iStorage.createOrLoad(playerUuid, playerName);
+        User user;
+        try {
+            user = this.iStorage.createOrLoad(playerUuid, playerName);
+        } catch (IllegalStateException exception) {
+            this.plugin.getLogger().log(Level.SEVERE, "Unable to load player data for " + playerUuid, exception);
+            event.disallow(PlayerLoginEvent.Result.KICK_OTHER, Component.text("Unable to load your player data, please try again."));
+            return;
+        }
         user.setAddress(event.getAddress().getHostAddress());
 
         if (user.isFirstJoin()){

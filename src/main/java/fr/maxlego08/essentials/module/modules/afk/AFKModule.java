@@ -8,6 +8,7 @@ import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.configuration.NonLoadable;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.module.ZModule;
+import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.menu.api.requirement.Action;
 import fr.maxlego08.menu.api.utils.Placeholders;
@@ -35,6 +36,7 @@ public class AFKModule extends ZModule implements AfkManager {
     private int checkInterval;
     private List<AfkPermission> permissions;
     private boolean softKick;
+    private volatile boolean stopPlayTime;
     private String softKickMessage;
     private String placeholderAfk;
     private String placeholderNotAfk;
@@ -45,6 +47,10 @@ public class AFKModule extends ZModule implements AfkManager {
 
     @Override
     public void loadConfiguration() {
+        // Settle intervals using the previous settings before applying a reload.
+        for (Player player : this.plugin.getServer().getOnlinePlayers()) {
+            if (getUser(player) instanceof ZUser user) user.updateSessionPlayTime();
+        }
         super.loadConfiguration();
 
         var configuration = getConfiguration();
@@ -184,5 +190,10 @@ public class AFKModule extends ZModule implements AfkManager {
     @Override
     public String getPlaceholderNotAfk() {
         return this.placeholderNotAfk == null ? "<c:#FF5555>X" : this.placeholderNotAfk;
+    }
+
+    @Override
+    public boolean isStopPlayTime() {
+        return this.isEnable && this.stopPlayTime;
     }
 }

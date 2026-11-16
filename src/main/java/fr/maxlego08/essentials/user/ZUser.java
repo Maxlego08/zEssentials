@@ -72,6 +72,11 @@ public class ZUser extends ZUtils implements User {
     private PrivateMessage privateMessage;
     private long playTime;
     private long currentSessionPlayTime;
+    // Session durations stay in milliseconds; only totals and SQL values are rounded to seconds.
+    private long sessionPlayTime;
+    private long lastPlayTimeUpdate;
+    private long manualAfkStart;
+    private boolean sessionEnded;
     private String address;
     private Kit previewKit;
     private Map<Material, String> powerTools = new HashMap<>();
@@ -878,23 +883,78 @@ public class ZUser extends ZUtils implements User {
     }
 
     @Override
-    public long getPlayTime() {
-        return this.playTime + ((System.currentTimeMillis() - this.currentSessionPlayTime) / 1000);
+    public synchronized long getPlayTime() {
+        return this.playTime + getSessionPlayTime() / 1000;
     }
 
     @Override
-    public void setPlayTime(long playtime) {
+    public synchronized void setPlayTime(long playtime) {
         this.playTime = playtime;
     }
 
     @Override
-    public long getCurrentSessionPlayTime() {
+    public synchronized long getCurrentSessionPlayTime() {
         return this.currentSessionPlayTime;
     }
 
     @Override
-    public void startCurrentSessionPlayTime() {
-        this.currentSessionPlayTime = System.currentTimeMillis();
+    public synchronized void startCurrentSessionPlayTime() {
+        long now = currentTimeMillis();
+        this.currentSessionPlayTime = now;
+        this.lastPlayTimeUpdate = now;
+        this.lastActiveTime = now;
+        this.sessionPlayTime = 0;
+        this.sessionEnded = false;
+        this.manualAfkStart = this.manualAfk ? now : 0;
+    }
+
+    @Override
+    public synchronized long getSessionPlayTime() {
+        return getSessionPlayTime(currentTimeMillis());
+    }
+
+    private long getSessionPlayTime(long now) {
+        if (this.currentSessionPlayTime == 0 || this.sessionEnded) return this.sessionPlayTime;
+
+        long end = Math.max(now, this.lastPlayTimeUpdate);
+        var manager = this.plugin.getAfkManager();
+        if (manager != null && manager.isStopPlayTime()) {
+            if (this.manualAfk) end = Math.min(end, this.manualAfkStart);
+
+            var player = getPlayer();
+            if (player != null) {
+                var permission = manager.getPermission(player);
+                if (permission.isPresent()) {
+                    long afkStart = this.lastActiveTime + Math.max(0L, permission.get().startAfkTime()) * 1000;
+                    end = Math.min(end, afkStart);
+                }
+            }
+        }
+        return this.sessionPlayTime + Math.max(0, end - this.lastPlayTimeUpdate);
+    }
+
+    /**
+     * Settles the current interval before changing the AFK configuration.
+     */
+    public synchronized void updateSessionPlayTime() {
+        updateSessionPlayTime(currentTimeMillis());
+    }
+
+    private void updateSessionPlayTime(long now) {
+        this.sessionPlayTime = getSessionPlayTime(now);
+        this.lastPlayTimeUpdate = Math.max(now, this.lastPlayTimeUpdate);
+    }
+
+    /**
+     * Freezes the session before asynchronous persistence or removal from the online cache.
+     */
+    public synchronized void stopCurrentSessionPlayTime() {
+        updateSessionPlayTime(currentTimeMillis());
+        this.sessionEnded = true;
+    }
+
+    protected long currentTimeMillis() {
+        return System.currentTimeMillis();
     }
 
     @Override
@@ -1036,7 +1096,7 @@ public class ZUser extends ZUtils implements User {
     public void setWithDTO(UserDTO userDTO) {
         this.vote = userDTO.vote();
         this.offlineVote = userDTO.vote_offline();
-        this.playTime = userDTO.play_time();
+        this.setPlayTime(userDTO.play_time());
         this.lastLocation = stringAsLocation(userDTO.last_location());
         this.freeze = userDTO.frozen() != null && userDTO.frozen();
         this.flySeconds = userDTO.fly_seconds();
@@ -1207,17 +1267,19 @@ public class ZUser extends ZUtils implements User {
     }
 
     @Override
-    public long getLastActiveTime() {
+    public synchronized long getLastActiveTime() {
         return this.lastActiveTime;
     }
 
     @Override
-    public void setLastActiveTime() {
-        this.lastActiveTime = System.currentTimeMillis();
+    public synchronized void setLastActiveTime() {
+        long now = Math.max(currentTimeMillis(), this.lastPlayTimeUpdate);
+        updateSessionPlayTime(now);
+        this.lastActiveTime = now;
     }
 
     @Override
-    public boolean isAfk() {
+    public synchronized boolean isAfk() {
         if (this.manualAfk) {
             return true;
         }
@@ -1225,18 +1287,21 @@ public class ZUser extends ZUtils implements User {
         if (player == null) {
             return false;
         }
-        var difference = (System.currentTimeMillis() - this.lastActiveTime) / 1000;
+        var difference = (currentTimeMillis() - this.lastActiveTime) / 1000;
         var optional = plugin.getAfkManager().getPermission(player);
         return optional.filter(afkPermission -> difference >= afkPermission.startAfkTime()).isPresent();
     }
 
     @Override
-    public void setAfk(boolean afk) {
+    public synchronized void setAfk(boolean afk) {
+        long now = Math.max(currentTimeMillis(), this.lastPlayTimeUpdate);
+        updateSessionPlayTime(now);
+        if (afk && !this.manualAfk) this.manualAfkStart = now;
         this.manualAfk = afk;
     }
 
     @Override
-    public boolean isManualAfk() {
+    public synchronized boolean isManualAfk() {
         return this.manualAfk;
     }
 

@@ -81,6 +81,7 @@ public class JsonStorage extends StorageHelper implements IStorage {
         Bukkit.getOnlinePlayers().forEach(player -> {
             UUID uniqueId = player.getUniqueId();
             User user = getUser(uniqueId);
+            if (user instanceof ZUser zUser) zUser.stopCurrentSessionPlayTime();
             Persist persist = this.plugin.getPersist();
             persist.save(user, getUserFile(uniqueId));
         });

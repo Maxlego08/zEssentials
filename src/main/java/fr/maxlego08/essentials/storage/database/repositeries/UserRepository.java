@@ -10,12 +10,15 @@ import fr.maxlego08.essentials.convert.cmi.CMIUser;
 import fr.maxlego08.essentials.convert.sunlight.SunlightUser;
 import fr.maxlego08.essentials.storage.database.Repository;
 import fr.maxlego08.sarah.DatabaseConnection;
+import fr.maxlego08.sarah.SchemaBuilder;
 import fr.maxlego08.sarah.conditions.JoinCondition;
 import fr.maxlego08.sarah.database.DatabaseType;
+import fr.maxlego08.sarah.logger.JULogger;
 
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public class UserRepository extends Repository {
@@ -149,6 +152,30 @@ public class UserRepository extends Repository {
      */
     public List<UserDTO> selectUser(UUID uniqueId) {
         return select(UserDTO.class, table -> table.where("unique_id", uniqueId));
+    }
+
+    /**
+     * Loads the stored baseline before exposing a login session. A failed read must not
+     * be treated as a first join, since saving that session would replace existing data.
+     *
+     * @param uniqueId the user's UUID
+     * @param playerName the current player name
+     * @return the existing user, or empty for a successfully verified first join
+     */
+    public Optional<UserDTO> loadUser(UUID uniqueId, String playerName) {
+        try {
+            var logger = JULogger.from(this.plugin.getLogger());
+            var schema = SchemaBuilder.select(getTableName());
+            schema.where("unique_id", uniqueId);
+            var user = schema.executeSelect(UserDTO.class, this.connection, logger).stream().findFirst();
+            SchemaBuilder.upsert(getTableName(), table -> {
+                table.uuid("unique_id", uniqueId).primary();
+                table.string("name", playerName);
+            }).execute(this.connection, logger);
+            return user;
+        } catch (Exception exception) {
+            throw new IllegalStateException("Unable to load user " + uniqueId, exception);
+        }
     }
 
     /**

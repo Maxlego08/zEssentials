@@ -45,6 +45,7 @@ public class UserTypeAdapter extends TypeAdapter<User> {
         out.beginObject();
         out.name("uniqueId").value(value.getUniqueId().toString());
         out.name("name").value(value.getName());
+        out.name("play-time").value(value.getPlayTime());
         if (value.getLastLocation() != null) {
             out.name("lastLocation").value(locationUtils.locationAsString(value.getLastLocation()));
         }
@@ -143,6 +144,7 @@ public class UserTypeAdapter extends TypeAdapter<User> {
         List<IgnoreDTO> ignoredPlayers = new ArrayList<>();
         List<MailMessageDTO> mailMessages = new ArrayList<>();
         long playerTime = 0;
+        long playTime = 0;
         String playerWeather = null;
         SafeLocation lastLocation = null;
 
@@ -151,6 +153,7 @@ public class UserTypeAdapter extends TypeAdapter<User> {
             switch (in.nextName()) {
                 case "uniqueId" -> uniqueId = UUID.fromString(in.nextString());
                 case "name" -> name = in.nextString();
+                case "play-time" -> playTime = in.nextLong();
                 case "lastLocation" -> lastLocation = locationUtils.stringAsLocation(in.nextString());
                 case "options" -> {
                     in.beginObject();
@@ -270,6 +273,7 @@ public class UserTypeAdapter extends TypeAdapter<User> {
 
         // Now, set the other properties
         user.setName(name);
+        user.setPlayTime(playTime);
         user.setOptions(options.entrySet().stream().map(entry -> new OptionDTO(entry.getKey(), entry.getValue())).collect(Collectors.toList()));
         user.setCooldowns(cooldowns.entrySet().stream().map(entry -> new CooldownDTO(entry.getKey(), entry.getValue(), new Date())).collect(Collectors.toList()));
         user.setLastLocation(lastLocation);
