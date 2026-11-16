@@ -37,8 +37,8 @@
 - `/enchant` now uses server registry identifiers, including datapack and plugin enchantments; legacy API methods remain available and deprecated
 - Unified item lookup and suggestions for give, mailbox and vault commands; feedback uses translated item names and preserves custom names
 - Fixed custom item delivery to offline mail recipients and stale custom items after reloads
-- Use the published zMenu **1.1.2.0** API for skulls and kit conversion/saving; the local JAR remains required for item persistence and sound helpers
-- Migrated bundled messages and configuration examples to MiniMessage; legacy `&`, `§` and hex color codes remain supported in existing configurations and player messages
+- Require zMenu **1.1.2.1** and use its published API for items and sounds; removed the local zMenu JAR while preserving stored items and custom resource-pack sounds
+- Migrated messages and configuration examples to native MiniMessage hex colors, including scoreboard animations; existing files must replace legacy s and player messages
 - Fixed MiniMessage text serialization, italic formatting and bold text alignment, and preserved click events with Adventure `5.x`
 - Fixed feedback placeholders, duplicate Death Message registration, version comparisons and incomplete downloads; existing `command-enchant-error-enchant` messages must use `%enchant%`
 - Updated Gradle to `9.8.2`, Shadow to `9.6.1` and paperweight to `2.0.0-beta.24`; centralized dependency versions and retained Java 21 for common code and Java 25 for 26.x NMS

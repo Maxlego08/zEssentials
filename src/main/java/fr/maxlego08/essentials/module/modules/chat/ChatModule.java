@@ -19,12 +19,11 @@ import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.DynamicCooldown;
 import fr.maxlego08.essentials.module.ZModule;
 import fr.maxlego08.essentials.storage.ConfigStorage;
+import fr.maxlego08.essentials.zutils.utils.CustomSoundOption;
 import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.essentials.zutils.utils.paper.PaperComponent;
 import fr.maxlego08.menu.api.engine.Pagination;
 import fr.maxlego08.menu.api.sound.SoundOption;
-import fr.maxlego08.menu.hooks.xseries.XSound;
-import fr.maxlego08.menu.sound.ZSoundOption;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.minimessage.tag.Tag;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
@@ -114,11 +113,11 @@ public class ChatModule extends ZModule {
         this.chatDisplays.clear();
         if (this.enablePing) {
             SoundOption pingSoundOption = null;
-            // Resolve the sound cross-version via XSound. Since Paper 1.21.3+ org.bukkit.Sound is an interface
-            // (no longer an enum), the reflection config loader can no longer map it, so we resolve it manually.
             if (this.enablePlayerPingSound && this.playerPingSound != null && !this.playerPingSound.isEmpty()) {
-                Optional<XSound> xSound = XSound.of(this.playerPingSound);
-                pingSoundOption = new ZSoundOption(xSound.orElse(null), "MASTER", this.playerPingSound, this.playerPingSoundPitch, this.playerPingSoundVolume, xSound.isEmpty());
+                pingSoundOption = this.plugin.getInventoryManager().createSoundOption(this.playerPingSound, "MASTER", this.playerPingSoundPitch, this.playerPingSoundVolume);
+                if (pingSoundOption == null) {
+                    pingSoundOption = new CustomSoundOption(this.playerPingSound, this.playerPingSoundPitch, this.playerPingSoundVolume);
+                }
             }
             this.pingDisplay = new PlayerPingDisplay(this.plugin, this.playerPingColor, this.playerPingColorOther, pingSoundOption);
         }

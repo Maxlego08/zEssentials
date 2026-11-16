@@ -101,9 +101,16 @@ public interface EssentialsPlugin extends Plugin {
     ModuleManager getModuleManager();
 
     /**
-     * Gets the inventory manager for managing inventories.
+     * Gets the inventory manager provided by the required zMenu plugin.
+     * <p>
+     * In addition to inventories, zMenu 1.1.2.1 and later expose item serialization and
+     * sound creation through this service. Its item serializer preserves the format
+     * used by existing zEssentials mailbox, vault and item hologram data.
      *
-     * @return The inventory manager.
+     * @return The registered zMenu inventory manager.
+     * @see InventoryManager#serializeItemStack(org.bukkit.inventory.ItemStack)
+     * @see InventoryManager#deserializeItemStack(String)
+     * @see InventoryManager#createSoundOption(String, String, float, float)
      */
     InventoryManager getInventoryManager();
 

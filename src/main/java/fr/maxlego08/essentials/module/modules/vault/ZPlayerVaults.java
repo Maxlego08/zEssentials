@@ -5,7 +5,8 @@ import fr.maxlego08.essentials.api.vault.PlayerVaults;
 import fr.maxlego08.essentials.api.vault.Vault;
 import fr.maxlego08.essentials.api.vault.VaultManager;
 import fr.maxlego08.essentials.zutils.utils.ZUtils;
-import fr.maxlego08.menu.common.utils.nms.ItemStackUtils;
+import fr.maxlego08.menu.api.InventoryManager;
+import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
@@ -39,7 +40,8 @@ public class ZPlayerVaults extends ZUtils implements PlayerVaults {
 
     @Override
     public void createVault(VaultDTO vaultDTO) {
-        this.vaults.put(vaultDTO.vault_id(), new ZVault(vaultDTO.unique_id(), vaultDTO.vault_id(), vaultDTO.name(), ItemStackUtils.deserializeItemStack(vaultDTO.icon())));
+        InventoryManager inventoryManager = Bukkit.getServicesManager().load(InventoryManager.class);
+        this.vaults.put(vaultDTO.vault_id(), new ZVault(vaultDTO.unique_id(), vaultDTO.vault_id(), vaultDTO.name(), inventoryManager.deserializeItemStack(vaultDTO.icon())));
     }
 
     @Override

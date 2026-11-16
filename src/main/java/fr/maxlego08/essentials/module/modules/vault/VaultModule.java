@@ -14,7 +14,6 @@ import fr.maxlego08.essentials.api.vault.VaultManager;
 import fr.maxlego08.essentials.api.vault.VaultResult;
 import fr.maxlego08.essentials.api.vault.VaultSlotType;
 import fr.maxlego08.essentials.module.ZModule;
-import fr.maxlego08.menu.common.utils.nms.ItemStackUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -229,7 +228,7 @@ public class VaultModule extends ZModule implements VaultManager {
         VaultItem newVaultItem = new ZVaultItem(slot, currentItem, quantity);
         vault.getVaultItems().put(slot, newVaultItem);
         int finalSlot = slot;
-        getStorage().createVaultItem(uniqueId, vault.getVaultId(), finalSlot, newVaultItem.getQuantity(), ItemStackUtils.serializeItemStack(currentItem));
+        getStorage().createVaultItem(uniqueId, vault.getVaultId(), finalSlot, newVaultItem.getQuantity(), this.plugin.getInventoryManager().serializeItemStack(currentItem));
         return new VaultResult(vault, slot);
     }
 
@@ -446,7 +445,7 @@ public class VaultModule extends ZModule implements VaultManager {
             }
             VaultItem newVaultItem = new ZVaultItem(nextSlot, itemStack, amount);
             vault.getVaultItems().put(nextSlot, newVaultItem);
-            storage.createVaultItem(uniqueId, vault.getVaultId(), nextSlot, newVaultItem.getQuantity(), ItemStackUtils.serializeItemStack(itemStack));
+            storage.createVaultItem(uniqueId, vault.getVaultId(), nextSlot, newVaultItem.getQuantity(), this.plugin.getInventoryManager().serializeItemStack(itemStack));
         }
         return true;
     }
