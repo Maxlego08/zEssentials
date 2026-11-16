@@ -42,7 +42,8 @@
 - Fixed MiniMessage text serialization, italic formatting and bold text alignment, and preserved click events with Adventure `5.x`
 - Fixed feedback placeholders, duplicate Death Message registration, version comparisons and incomplete downloads; existing `command-enchant-error-enchant` messages must use `%enchant%`
 - Updated Gradle to `9.8.2`, Shadow to `9.6.1` and paperweight to `2.0.0-beta.24`; centralized dependency versions and retained Java 21 for common code and Java 25 for 26.x NMS
-- Updated PlaceholderAPI to `2.12.3` and aligned Adventure dependencies with recent NMS versions
+- Updated PlaceholderAPI to `2.12.3`
+- Removed explicit Adventure API dependencies from NMS modules; each module now uses the version provided by its Paper dev bundle
 - Updated Sarah to `1.26`, added connection `max-lifetime` configuration and simplified SQLite migrations
 - Updated Jedis to `8.0.2` (Redis `7.2+`), fixed pooled connection leaks and cleaned up subscription shutdown
 - Updated the Discord bot to SnakeYAML `2.7`, JDA `6.7.0` and MySQL Connector/J `26.10.0`; added MariaDB selection and MySQL version warnings

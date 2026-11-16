@@ -6,7 +6,6 @@ group "NMS:V1_21_10"
 
 dependencies {
     compileOnly(project(":API"))
-    compileOnly(libs.adventure.api)
     paperweight.devBundle(libs.paperDevBundle12110)
 }
 
